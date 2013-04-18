@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:text="Over what timeframe would you like to check?"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/filter_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Last 24 hours" />
+
+    <Button
+        android:id="@+id/filter_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/filter_day"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:text="Last 7 Days" />
+
+    <Button
+        android:id="@+id/filter_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/filter_week"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:text="Last Month" />
+
+    <Button
+        android:id="@+id/filter_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/filter_month"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp"
+        android:text="No Filter" />
+
+</RelativeLayout>
