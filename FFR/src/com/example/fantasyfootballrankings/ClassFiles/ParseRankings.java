@@ -103,6 +103,7 @@ public class ParseRankings
 				HighLevel.setStatus(holder);
 		        HighLevel.getParsedPlayers(holder);
 				HighLevel.setADP(holder);
+				//HighLevel.setContractStatus(holder);
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

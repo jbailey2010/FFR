@@ -120,7 +120,7 @@ public class HighLevel
 	   					player.info.adp = adpArray[i][1];
 	   					player.info.bye = adpArray[i][6];
 	   				} 
-	   			}
+	   			} 
     		}
     	}
 	}
@@ -137,6 +137,39 @@ public class HighLevel
 		for(PlayerObject e: holder.players)
 		{
 			holder.parsedPlayers.add(e.info.name);
+		}
+	}
+	
+	/**
+	 * Sets a contract status for players on the fftoolbox list
+	 * @param holder
+	 * @throws IOException
+	 */
+	public static void setContractStatus(Storage holder) throws IOException
+	{
+		String qbStr = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=QB", "td:not([.c])");
+		qbStr += HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=RB", "td:not([.c])");
+		qbStr += HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=WR", "td:not([.c])");
+		qbStr += HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=TE", "td:not([.c])");
+		String[] players = qbStr.split("\n");
+		for(String name:players)
+		{
+			if(name.contains(" "))
+			{
+				if(!name.split(" ")[0].contains("North") &&
+						!name.split(" ")[0].contains("South") &&
+						!name.split(" ")[0].contains("East") &&
+						!name.split(" ")[0].contains("West"))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.name.equals(name))
+						{
+							player.info.contractStatus = "In a contract year";
+						}
+					}
+				}
+			}
 		}
 	}
 }
