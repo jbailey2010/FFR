@@ -66,16 +66,6 @@ public class Rankings extends Activity {
 		super.onCreate(savedInstanceState);
 		retCont = this;
 		setContentView(R.layout.activity_rankings);
-		try {
-			ParseRankings.runRankings(holder, cont);
-			
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (XPatherException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 	}
 	/**	//Makes a dialog for fetching the rankings, if confirmed, it will call
 	//A fn that will fetch the rankings and write to file. If it exists on file,
@@ -117,7 +107,34 @@ preferences.edit().remove("text").commit();*/
 		dialog = new Dialog(cont);
 		switch (item.getItemId()) 
 		{
-			//pops up to handle the value/salary dialog
+			case R.id.refresh:
+				dialog.setContentView(R.layout.refresh); 
+				Button refreshDismiss = (Button)dialog.findViewById(R.id.refresh_cancel);
+				refreshDismiss.setOnClickListener(new OnClickListener() 
+				{
+					public void onClick(View v) {
+						dialog.dismiss();
+			    	}	
+				});
+				Button refreshSubmit = (Button)dialog.findViewById(R.id.refresh_confirm);
+				refreshSubmit.setOnClickListener(new OnClickListener() 
+				{
+					public void onClick(View v) {
+						dialog.dismiss();
+						try {
+							ParseRankings.runRankings(holder, cont);
+							
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (XPatherException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+			    	}	
+				});
+		    	dialog.show();		       
+		    	return true;
 			case R.id.value_sal:
 				dialog.setContentView(R.layout.value_salary); 
 				/**
