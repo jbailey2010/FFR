@@ -67,6 +67,25 @@ public class HandleBasicQueries
 		}
 		return result;
 	}
+	
+	/**
+	 * Handles the queries to a table called multiple times
+	 * by some function
+	 * @param url the url to be parsed
+	 * @param params the class of the table to be parsed
+	 * @return the text from the table
+	 * @throws IOException
+	 */
+	public static String handleTablesMulti(Document doc,String url, String params) throws IOException
+	{
+		String result = "";
+		Elements els = doc.getElementsByClass(params);
+		for (Element el : els) 
+		{
+			result += el.text() + "\n";
+		}
+		return result;
+	}
 	/*below is an example of how to programmatically add a textview
 	 * NOTE: NEED TO SET ID IN WHATEVER XML IS BEING USED
 	 * SECOND NOTE: TO MAKE MULTIPLE PRINTS, USE LINEARLAYOUT

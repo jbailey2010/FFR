@@ -224,8 +224,9 @@ public class Storage
 		{
 			final String full = url + concat[i];
 			try {
-				fetchPlayersHelp(holder, cont, full, "row2");
-				fetchPlayersHelp(holder, cont, full, "row1");
+				Document doc = Jsoup.connect(full).get();
+				fetchPlayersHelp(doc, holder, cont, full, "row2");
+				fetchPlayersHelp(doc, holder, cont, full, "row1");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -248,9 +249,9 @@ public class Storage
 	 * @param params the id to parse from
 	 * @throws IOException
 	 */
-	public static void fetchPlayersHelp(Storage holder, Context cont, String full, String params) throws IOException
+	public static void fetchPlayersHelp(Document doc, Storage holder, Context cont, String full, String params) throws IOException
 	{
-		String playerText = HandleBasicQueries.handleTables(full, params);
+		String playerText = HandleBasicQueries.handleTablesMulti(doc, full, params);
 		String[] perRow = playerText.split("\n");
 		for(int j = 0; j < perRow.length; j++)
 		{

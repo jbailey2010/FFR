@@ -90,7 +90,12 @@ public class ParseRankings
 			}
 			//Rankings go below
 			
-			//ParseCBS.cbsRankings(holder);
+			try {
+				ParseCBS.cbsRankings(holder);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			//ParseWF.wfRankings(holder);
 			//ParseGE.geRankings(holder);
 			////ParseESPNadv.parseESPNAggregate(holder);

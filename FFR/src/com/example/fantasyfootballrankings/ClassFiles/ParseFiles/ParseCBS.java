@@ -2,6 +2,9 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
@@ -28,8 +31,9 @@ public class ParseCBS
 		String url = "http://fantasynews.cbssports.com/fantasyfootball/rankings/yearly";
 		
 		try {
-			cbsHelper(holder, url, "row1");
-			cbsHelper(holder, url, "row2");
+			Document doc = Jsoup.connect(url).get();
+			cbsHelper(doc, holder, url, "row1");
+			cbsHelper(doc, holder, url, "row2");
 		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -45,9 +49,9 @@ public class ParseCBS
 	 * @param params the parameters to be fetched
 	 * @throws IOException
 	 */
-	public static void cbsHelper(Storage holder, String url, String params) throws IOException
+	public static void cbsHelper(Document doc, Storage holder, String url, String params) throws IOException
 	{
-		String text = HandleBasicQueries.handleTables(url, params);
+		String text = HandleBasicQueries.handleTablesMulti(doc, url, params);
 		String[] textArr = text.split("\n");
 		String[][] words = new String[textArr.length][];
 		for(int i = 0; i < words.length; i++)
