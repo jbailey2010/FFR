@@ -20,6 +20,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 
@@ -44,6 +45,7 @@ import android.widget.EditText;
  */
 public class Storage 
 {
+	public Draft draft;
 	public PriorityQueue<PlayerObject> players;
 	public List<String> playerNames;
 	public List<Post> posts;
@@ -92,6 +94,7 @@ public class Storage
 		playerNames = new ArrayList<String>();
 		posts = new ArrayList<Post>();
 		parsedPlayers = new ArrayList<String>();
+		draft = new Draft();
 	}
 
 	/**

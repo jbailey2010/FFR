@@ -16,6 +16,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 
 import android.os.Bundle;
@@ -67,33 +68,12 @@ public class Rankings extends Activity {
 		retCont = this;
 		setContentView(R.layout.activity_rankings);
 	}
-	/**	//Makes a dialog for fetching the rankings, if confirmed, it will call
-	//A fn that will fetch the rankings and write to file. If it exists on file,
-	//delete it and re-write it. Thus, saving is unnecessary
-	//USE THE BELOW CODE IF RANKINGS AREN'T WRITTEN TO FILE. If they are, fetch. If not,
-	//this, then above comments.
-	case R.id.get_rankings:
-		dialog.setContentView(R.layout.refresh);      	    	
-		Button resetButton = (Button)dialog.findViewById(R.id.refresh_cancel);
-		resetButton.setOnClickListener(new OnClickListener() 
-		{
-			public void onClick(View v) {
-				dialog.dismiss();
-	    	}	
-		});
-    	dialog.show();
-	        return true;
-	        
-	        //BELOW DELETES SHARED PREFS, SO DO THAT IF THEY EXIST!
-	         
-	      SharedPreferences preferences = getSharedPreferences("Mypref", 0);
-preferences.edit().remove("text").commit();*/
+	
 	/**
 	 * Sets up the menu
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.rankings, menu);
 		return true;
 	}
