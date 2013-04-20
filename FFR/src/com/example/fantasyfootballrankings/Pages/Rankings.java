@@ -117,16 +117,7 @@ public class Rankings extends Activity {
 		    	dialog.show();		       
 		    	return true;
 			case R.id.value_sal:
-				dialog.setContentView(R.layout.value_salary); 
-				handleSalVal(dialog);
-				Button svDismiss = (Button)dialog.findViewById(R.id.salValDismiss);
-				svDismiss.setOnClickListener(new OnClickListener() 
-				{
-					public void onClick(View v) {
-						dialog.dismiss();
-			    	}	
-				});
-		    	dialog.show();		       
+				moreInfo(dialog);		       
 		    	return true;
 			case R.id.search_player:
 				try {
@@ -236,12 +227,12 @@ public class Rankings extends Activity {
     }
     
     /**
-     * Handles the salary/value progress when
-     * the dialog is opened
+     * Sets the dialog to handle the salary/value information
      * @param dialog
      */
-    public static void handleSalVal(Dialog dialog)
+    public static void moreInfo(final Dialog dialog)
     {
+		dialog.setContentView(R.layout.value_salary); 
 		String salRem = Integer.toString(holder.draft.remainingSalary);
 		String value = Integer.toString((int)holder.draft.value);
 		TextView remSalary = (TextView)dialog.findViewById(R.id.remSalary);
@@ -249,7 +240,131 @@ public class Rankings extends Activity {
 		ProgressBar salBar = (ProgressBar)dialog.findViewById(R.id.progressBar1);
 		remSalary.setText("Salary Left: $" + salRem);
 		draftVal.setText("Value Thus Far: $" + value);
-		salBar.setProgress(Integer.parseInt(salRem));
+		salBar.setProgress(Integer.parseInt(salRem));		
+		Button svDismiss = (Button)dialog.findViewById(R.id.salValDismiss);
+		svDismiss.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				dialog.dismiss();
+	    	}	
+		});
+		Button svInfo = (Button)dialog.findViewById(R.id.more_info);
+		svInfo.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				dialog.dismiss();
+				handleInfo(dialog);
+	    	}	
+		});
+    	dialog.show();
+    }
+    
+    /**
+     * Sets the dialog to hold the selected players
+     * then shows it.
+     * @param dialog
+     */
+    public static void handleInfo(final Dialog dialog)
+    {
+		dialog.setContentView(R.layout.draft_team_status);
+    	String qbs = "";
+    	for(PlayerObject qb:holder.draft.qb)
+    	{
+    		qbs += qb.info.name + ", ";
+    	}
+    	if(qbs.equals(""))
+    	{
+    		qbs = "None selected.";
+    	}
+    	else
+    	{
+    		qbs = qbs.substring(0, qbs.length()-2);
+    	}
+    	String rbs = "";
+    	for(PlayerObject qb:holder.draft.rb)
+    	{
+    		rbs += qb.info.name + ", ";
+    	}
+    	if(rbs.equals(""))
+    	{
+    		rbs = "None selected.";
+    	}
+    	else
+    	{
+    		rbs = rbs.substring(0, rbs.length()-2);
+    	}
+    	String wrs = "";
+    	for(PlayerObject qb:holder.draft.wr)
+    	{
+    		wrs += qb.info.name + ", ";
+    	}
+    	if(wrs.equals(""))
+    	{
+    		wrs = "None selected.";
+    	}
+    	else
+    	{
+    		wrs = wrs.substring(0, wrs.length()-2);
+    	}
+    	String tes = "";
+    	for(PlayerObject qb:holder.draft.te)
+    	{
+    		tes += qb.info.name + ", ";
+    	}
+    	if(tes.equals(""))
+    	{
+    		tes = "None selected.";
+    	}
+    	else
+    	{
+    		tes = tes.substring(0, tes.length()-2);
+    	}
+    	String ds = "";
+    	for(PlayerObject qb:holder.draft.def)
+    	{
+    		ds += qb.info.name + ", ";
+    	}
+    	if(ds.equals(""))
+    	{
+    		ds = "None selected.";
+    	}
+    	else
+    	{
+    		ds = ds.substring(0, ds.length()-2);
+    	}
+    	String ks = "";
+    	for(PlayerObject qb:holder.draft.k)
+    	{
+    		ks += qb.info.name + ", ";
+    	}
+    	if(ks.equals(""))
+    	{
+    		ks = "None selected.";
+    	}
+    	else
+    	{
+    		ks = ks.substring(0, ks.length()-2);
+    	} 
+    	TextView qb = (TextView)dialog.findViewById(R.id.qb_header);
+    	TextView rb = (TextView)dialog.findViewById(R.id.rb_header);
+    	TextView wr = (TextView)dialog.findViewById(R.id.wr_header);
+    	TextView te = (TextView)dialog.findViewById(R.id.te_header);
+    	TextView d = (TextView)dialog.findViewById(R.id.d_header);
+    	TextView k = (TextView)dialog.findViewById(R.id.k_header);
+    	qb.setText("Quarterbacks: " + qbs);
+    	rb.setText("Running Backs: " + rbs);
+    	wr.setText("Wide Receivers: " + wrs);
+    	te.setText("Tight Ends: " + tes);
+    	d.setText("D/ST: " + ds);
+    	k.setText("Kickers: " + ks);
+    	dialog.show();
+    	Button back = (Button)dialog.findViewById(R.id.back);
+		back.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(View v) {
+				moreInfo(dialog);
+			}
+		});
     }
     
     /**

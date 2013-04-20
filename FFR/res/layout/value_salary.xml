@@ -3,15 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <Button
-        android:id="@+id/salValDismiss"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/remSalary"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="121dp"
-        android:text="Dismiss" />
-
     <TextView
         android:id="@+id/remSalary"
         android:layout_width="wrap_content"
@@ -42,5 +33,23 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp" />
+
+    <Button
+        android:id="@+id/salValDismiss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/draftValue"
+        android:layout_marginTop="39dp"
+        android:layout_toRightOf="@+id/remSalary"
+        android:text="Dismiss" />
+
+    <Button
+        android:id="@+id/more_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/salValDismiss"
+        android:layout_alignBottom="@+id/salValDismiss"
+        android:layout_toLeftOf="@+id/draftValue"
+        android:text="More Info" />
 
 </RelativeLayout>
