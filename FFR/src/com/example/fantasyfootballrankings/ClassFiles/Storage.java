@@ -54,8 +54,6 @@ public class Storage
 	/**
 	 * This sets up the priority queue and it's subsequent comparator.
 	 * No parameters are necessary, and the playerNames array doesn't need initialization.
-	 * 
-	 * NOTE: THE ONLY WAY TO WORK WITH THE PQUEUE IS VIA POLL!
 	 */
 	public Storage()
 	{

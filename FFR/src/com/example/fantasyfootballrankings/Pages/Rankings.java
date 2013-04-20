@@ -39,6 +39,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -117,13 +118,7 @@ public class Rankings extends Activity {
 		    	return true;
 			case R.id.value_sal:
 				dialog.setContentView(R.layout.value_salary); 
-				/**
-				 * TO BE DONE HERE (in separate fn): SOMEHOW GET THE VALUE NUMBER AND SALARY SPENT AND ADJUST
-				 * THE PROGRESS BAR BASED ON SALARY LEFT AND SETTEXT ON THOSE TEXTVIEWS TO 
-				 * THE APPROPRIATE VALUES, varname.setProgress = fn to help with that. It has a val of 200 to start.
-				 * remSalary = textView, draftValue = textView, SalaryBar = progressBar
-				 * remSalary = Salary left: ____, draftValue = Value Thus Far: ____
-				 */
+				handleSalVal(dialog);
 				Button svDismiss = (Button)dialog.findViewById(R.id.salValDismiss);
 				svDismiss.setOnClickListener(new OnClickListener() 
 				{
@@ -134,12 +129,12 @@ public class Rankings extends Activity {
 		    	dialog.show();		       
 		    	return true;
 			case R.id.search_player:
-			try {
-				searchCalled(dialog, this);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				try {
+					searchCalled(dialog, this);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				return true;
 			//New page opens up entirely for going home
 			case R.id.go_home:
@@ -238,6 +233,23 @@ public class Rankings extends Activity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+    
+    /**
+     * Handles the salary/value progress when
+     * the dialog is opened
+     * @param dialog
+     */
+    public static void handleSalVal(Dialog dialog)
+    {
+		String salRem = Integer.toString(holder.draft.remainingSalary);
+		String value = Integer.toString((int)holder.draft.value);
+		TextView remSalary = (TextView)dialog.findViewById(R.id.remSalary);
+		TextView draftVal = (TextView)dialog.findViewById(R.id.draftValue);
+		ProgressBar salBar = (ProgressBar)dialog.findViewById(R.id.progressBar1);
+		remSalary.setText("Salary Left: $" + salRem);
+		draftVal.setText("Value Thus Far: $" + value);
+		salBar.setProgress(Integer.parseInt(salRem));
     }
     
     /**
