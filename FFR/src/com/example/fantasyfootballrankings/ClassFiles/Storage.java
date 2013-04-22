@@ -298,8 +298,7 @@ public class Storage
 	public static void storePlayers(Storage holder, Context cont)
 	{
     	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		//editor.remove("Player Values");
-    	//editor.commit();
+		//Setting up player rankings input
     	String players = "";
     	for (PlayerObject player : holder.players)
     	{
@@ -312,6 +311,7 @@ public class Storage
     	}
     	players = players.substring(0, players.length() - 1);
     	editor.putString("Player Values", players);
+    	//Setting up parsedPlayers input
     	String names = "";
     	for(String name: holder.parsedPlayers)
     	{
@@ -319,7 +319,42 @@ public class Storage
     	}
     	names = names.substring(0, names.length() - 1);
     	editor.putString("Player Names", names);
+    	//Setting up draft input
+    	String draft = "";
+    	//QB
+    	draft += handleDraftInput(holder.draft.qb, draft);
+    	draft += "@";
+    	//RB
+    	draft += handleDraftInput(holder.draft.rb, draft);
+    	draft += "@";
+    	//WR
+    	draft += handleDraftInput(holder.draft.wr, draft);
+    	draft += "@";
+    	//TE
+    	draft += handleDraftInput(holder.draft.te, draft);
+    	draft += "@";
+    	//D
+    	draft += handleDraftInput(holder.draft.def, draft);
+    	draft += "@";
+    	//K
+    	draft += handleDraftInput(holder.draft.k, draft);
+    	//Values
+    	draft += "@" + holder.draft.remainingSalary + "@" + holder.draft.value;
+    	editor.putString("Draft Information", draft);
     	editor.commit();
+	}
+	
+	/**
+	 * A tiny helper function that helps add to the returned string
+	 */
+	public static String handleDraftInput(List<PlayerObject> qb, String draft)
+	{
+    	for(PlayerObject name : qb)
+    	{
+    		draft += name.info.name + "~";
+    	}
+    	draft = draft.substring(0, draft.length() - 1);
+    	return draft;
 	}
 	
 	/**
@@ -339,6 +374,7 @@ public class Storage
     	String checkExists = prefs.getString("Player Values", "Not Set");
     	if(checkExists != "Not Set")
     	{
+    		//Get the aggregate rankings
     		String[] perPlayer = checkExists.split("/");
     		String[][] allData = new String[perPlayer.length][];
     		for(int i = 0; i < perPlayer.length; i++)
@@ -359,17 +395,55 @@ public class Storage
     			newPlayer.values.worth = Double.parseDouble(allData[i][0]);
     			holder.players.add(newPlayer);
     		}
+    		//Get the parsed player names
     		String parsedNames = prefs.getString("Player Names", "Doesn't matter");
     		String[] namesSplit = parsedNames.split(",");
     		for(String names: namesSplit)
     		{
     			holder.parsedPlayers.add(names);
     		}
+    		//Get the draft information
+    		String draftSet = prefs.getString("Draft Information", "Doesn't matter");
+    		String[] perSet = draftSet.split("@");
+    		String[][] individual = new String[perSet.length][];
+    		for(int j = 0; j < perSet.length; j++)
+    		{
+    			individual[j] = perSet[j].split("~");
+    		}
+    		//Qb fetching
+    		handleDraftReading(individual[0], holder);
+    		//Rb fetching
+    		handleDraftReading(individual[1], holder);
+    		//Wr fetching
+    		handleDraftReading(individual[2], holder);
+    		//Te fetching
+    		handleDraftReading(individual[3], holder);
+    		//Def fetching
+    		handleDraftReading(individual[4], holder);
+    		//K fetching
+    		handleDraftReading(individual[5], holder);
+    		//Values
+    		holder.draft.remainingSalary = Integer.parseInt(individual[6][0]);
+    		holder.draft.value = Double.parseDouble(individual[7][0]);
     	} 
     	else
     	{
     		ParseRankings.runRankings(holder, cont);
     	}
+	}
+	
+	public static void handleDraftReading(String[] individual, Storage holder)
+	{
+		for(String qb : individual)
+		{
+			for(PlayerObject player : holder.players)
+			{
+				if(player.info.name.equals(qb))
+				{
+					holder.draft.qb.add(player);
+				}
+			}
+		}
 	}
 	
 	/**
