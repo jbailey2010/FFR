@@ -65,6 +65,7 @@ public class Home extends Activity {
         team.setOnClickListener(teamHandler);
         trending = (Button)findViewById(R.id.trending);
         trending.setOnClickListener(trendHandler);
+        
 	} 
 	
 	/**

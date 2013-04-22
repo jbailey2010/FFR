@@ -50,6 +50,23 @@ public class HandleBasicQueries
 	}
 	
 	/**
+	 * This is the query function for a list
+	 * called twice+ with the same page
+	 * @param url the url to be parsed
+	 * @return the text that was parsed
+	 * @throws IOException
+	 */
+	public static String handleListsMulti(Document doc, String url, String params) throws IOException
+	{
+		String result = "";
+        Elements links = doc.select(params);
+        for (Element element : links) 
+        {
+        	result += element.text() + "\n";
+        }
+        return result;
+	}
+	/**
 	 * Handles the queries to a table
 	 * @param url the url to be parsed
 	 * @param params the class of the table to be parsed

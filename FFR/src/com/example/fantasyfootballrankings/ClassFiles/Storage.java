@@ -461,7 +461,7 @@ public class Storage
     	for(int i = 0; i < holder.posts.size(); i++)
     	{
     		Post post = holder.posts.get(i);
-    		posts += post.text + "~~~" + post.date + "@";
+    		posts += post.text + "~~~" + post.date + "@@@";
     	}
     	DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
     	Date today = Calendar.getInstance().getTime();        
@@ -480,7 +480,7 @@ public class Storage
 	{
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	String checkExists = prefs.getString("Posts", "Not Set");
-    	String[] perPost = checkExists.split("@");
+    	String[] perPost = checkExists.split("@@@");
     	String[][] split = new String[perPost.length][];
     	for(int i = 0; i < perPost.length; i++)
     	{

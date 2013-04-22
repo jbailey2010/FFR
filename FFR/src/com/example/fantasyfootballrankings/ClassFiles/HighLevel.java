@@ -147,11 +147,11 @@ public class HighLevel
 	 */
 	public static void setContractStatus(Storage holder) throws IOException
 	{
-		String qbStr = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=QB", "td:not([.c])");
-		qbStr += HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=RB", "td:not([.c])");
-		qbStr += HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=WR", "td:not([.c])");
-		qbStr += HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=TE", "td:not([.c])");
-		String[] players = qbStr.split("\n");
+		String cyStr = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=QB", "td:not([.c])");
+		cyStr += HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=RB", "td:not([.c])");
+		cyStr += HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=WR", "td:not([.c])");
+		cyStr += HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=TE", "td:not([.c])");
+		String[] players = cyStr.split("\n");
 		for(String name:players)
 		{
 			if(name.contains(" "))

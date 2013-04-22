@@ -12,6 +12,9 @@ import java.util.ListIterator;
 import java.util.Locale;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.StrictMode;
@@ -44,10 +47,21 @@ public class ParseTrending {
 		}
 	   	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
     	StrictMode.setThreadPolicy(policy);
+    	//2013 'Must Haves'
 		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=338991&st=");
+		//Value picks
 		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=332995&st=");
+		//2013 sleepers
  		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=327212&st=");
+ 		//Rookie rankings
 		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
+		//RB rankings
+		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=344555&st=");
+		//QB rankings
+		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=329554&st=");
+		//WR rankings
+		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=339910&st=");
+		//TE/D/K don't exist
 	}
 
 	/**
@@ -320,8 +334,9 @@ public class ParseTrending {
 		for(int i = 0; i < length; i++)
 		{
 			String newUrl = url + Integer.toString(i*20);
-			parsedText += HandleBasicQueries.handleLists(newUrl, "div.post.entry-content");
-			parsedDates += HandleBasicQueries.handleLists(url, "abbr.published");
+			Document doc = Jsoup.connect(newUrl).get();
+			parsedText += HandleBasicQueries.handleListsMulti(doc, newUrl, "div.post.entry-content");
+			parsedDates += HandleBasicQueries.handleListsMulti(doc, newUrl, "abbr.published");
 		}
 		String[] perPost = parsedText.split("\n");
 		String[] datesPost = parsedDates.split("\n");
