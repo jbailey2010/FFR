@@ -312,6 +312,13 @@ public class Storage
     	}
     	players = players.substring(0, players.length() - 1);
     	editor.putString("Player Values", players);
+    	String names = "";
+    	for(String name: holder.parsedPlayers)
+    	{
+    		names += name + ",";
+    	}
+    	names = names.substring(0, names.length() - 1);
+    	editor.putString("Player Names", names);
     	editor.commit();
 	}
 	
@@ -351,6 +358,12 @@ public class Storage
     			newPlayer.values.count = Double.parseDouble(allData[i][1]);
     			newPlayer.values.worth = Double.parseDouble(allData[i][0]);
     			holder.players.add(newPlayer);
+    		}
+    		String parsedNames = prefs.getString("Player Names", "Doesn't matter");
+    		String[] namesSplit = parsedNames.split(",");
+    		for(String names: namesSplit)
+    		{
+    			holder.parsedPlayers.add(names);
     		}
     	} 
     	else
