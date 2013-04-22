@@ -40,6 +40,7 @@ public class Trending extends Activity {
 	Button week;
 	Button month;
 	Button all;
+	final Storage holder = new Storage();
 	/**
 	 * Sets up the dialog to show up immediately
 	 */
@@ -65,7 +66,6 @@ public class Trending extends Activity {
     	//Get the posts, if they're not set, fetch them. If it's been 4+ days since
     	//they were fetched, fetch them. Otherwise, get from storage.
     	String checkExists = prefs.getString("Posts", "Not Set");
-		final Storage holder = new Storage();
     	if(checkExists.equals("Not Set") || ((int)((new java.util.Date()).getTime()
     			- date.getTime()) / (1000 * 60 * 60 * 24) > 3))
     	{
@@ -97,6 +97,9 @@ public class Trending extends Activity {
 		//All intents. Easy peasy.
 		switch (item.getItemId()) 
 		{
+			case R.id.refresh:
+				fetchTrending(holder);
+				return true;
 			case R.id.go_home:
 				Intent home_intent = new Intent(cont, Home.class);
 				cont.startActivity(home_intent);		
