@@ -17,6 +17,13 @@ public class ParseSOS
 	public static void getSOS(Storage holder) throws IOException
 	{
 		String data = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/strength_of_schedule.cfm", "tr.c");
-		System.out.println(data);
+		data = data.replaceAll("st", "").replaceAll("nd", "").replaceAll("rd", "").replaceAll("th", "");
+		String[] allArr = data.split("\n");
+		String[][] team = new String[allArr.length][];
+		for(int i = 0; i  < allArr.length; i++)
+		{
+			team[i] = allArr[i].split(" ");
+			//[i][0] has team name, rest individual
+		}
 	}
 }

@@ -23,6 +23,7 @@ import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseSOS;
 
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -65,7 +66,15 @@ public class Home extends Activity {
         team.setOnClickListener(teamHandler);
         trending = (Button)findViewById(R.id.trending);
         trending.setOnClickListener(trendHandler);
-        
+	   	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+    	StrictMode.setThreadPolicy(policy);
+    	Storage holder = new Storage();
+    	try {
+			ParseSOS.getSOS(holder);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	} 
 	
 	/**
