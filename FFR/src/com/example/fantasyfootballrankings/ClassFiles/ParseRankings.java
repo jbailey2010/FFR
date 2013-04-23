@@ -18,7 +18,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPN;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.parseFFTB;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 
 import android.R.integer;
@@ -90,12 +90,18 @@ public class ParseRankings
 			}
 			//Rankings go below
 			
-			//ParseCBS.cbsRankings(holder);
-			//ParseWF.wfRankings(holder);
-			//ParseGE.geRankings(holder);
-			////ParseESPNadv.parseESPNAggregate(holder);
-			////parseFFTB.parseFFTBRankingsWrapper(holder);
-			////ParseESPN.parseESPN300(holder);
+			try {
+				ParseWF.wfRankings(holder);
+				ParseGE.geRankings(holder);
+				ParseCBS.cbsRankings(holder);
+				//ParseESPNadv.parseESPNAggregate(holder);
+				//ParseFFTB.parseFFTBRankingsWrapper(holder);
+				//ParseESPN.parseESPN300(holder);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
+
 
 			
 			//High level stuff below
@@ -103,6 +109,7 @@ public class ParseRankings
 				HighLevel.setStatus(holder);
 		        HighLevel.getParsedPlayers(holder);
 				HighLevel.setADP(holder);
+				//HighLevel.getSOS(holder);
 				//HighLevel.setContractStatus(holder);
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
@@ -367,7 +374,7 @@ public class ParseRankings
 	 */
 	public static String fixTeams(String team)
 	{
-		String low = team.toLowerCase();
+		String low = team.toLowerCase().trim().replaceAll("[^a-zA-Z]+","");
 		if(low.equals("cin") || low.equals("cincinnati") || low.equals("bengals"))
 		{
 			return "Cincinnati Bengals";
@@ -388,7 +395,7 @@ public class ParseRankings
 		{
 			return "Miami Dolphins";
 		}
-		if(low.equals("nwe") || low.equals("new england") || low.equals("patriots"))
+		if(low.equals("nwe") || low.equals("ne") || low.equals("new england") || low.equals("patriots"))
 		{
 			return "New England Patriots";
 		}
@@ -404,7 +411,8 @@ public class ParseRankings
 		{
 			return "Indianapolis Colts";
 		}
-		if(low.equals("jac") || low.equals("jacksonville") || low.equals("jaguars"))
+		if(low.equals("jac") || low.equals(" jac") || low.equals("jac ") ||
+				low.equals("jax") || low.equals("jacksonville") || low.equals("jaguars"))
 		{
 			return "Jacksonville Jaguars";
 		}
@@ -444,7 +452,8 @@ public class ParseRankings
 		{
 			return "Detroit Lions";
 		}
-		if(low.equals("gb") || low.equals("green bay") || low.equals("packers"))
+		if(low.equals("gb") || low.equals(" gb") || low.equals("gb ") ||
+				low.equals("green bay") || low.equals("packers"))
 		{
 			return "Green Bay Packers";
 		}
@@ -484,7 +493,7 @@ public class ParseRankings
 		{
 			return "Seattle Seahawks";
 		}
-		if(low.equals("sf") || low.equals("san francisco") || low.equals("49ers"))
+		if(low.equals("sf") || low.equals("san francisco") || low.contains("49ers") || low.equals("ers"))
 		{
 			return "San Francisco 49ers";
 		}

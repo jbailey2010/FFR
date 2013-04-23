@@ -307,7 +307,7 @@ public class Storage
     		Double.toString(player.values.high) + "," + Double.toString(player.values.low) + ","
     		+ player.info.name + "," + player.info.team + "," + player.info.position + "," + 
     		player.info.status + "," + player.info.adp + "," + player.info.bye + "," 
-    		+ player.info.trend + player.info.contractStatus + "/";
+    		+ player.info.trend + player.info.contractStatus + player.info.sos + "/";
     	}
     	players = players.substring(0, players.length() - 1);
     	editor.putString("Player Values", players);
@@ -385,6 +385,7 @@ public class Storage
     			newPlayer.info.bye = allData[i][9];
     			newPlayer.info.trend = allData[i][10];
     			newPlayer.info.contractStatus = allData[i][11];
+    			newPlayer.info.sos = Integer.parseInt(allData[i][12]);
     			newPlayer.info.status = allData[i][7];
     			newPlayer.info.position = allData[i][6];
     			newPlayer.info.team = allData[i][5];

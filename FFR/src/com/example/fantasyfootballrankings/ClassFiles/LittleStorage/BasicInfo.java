@@ -17,6 +17,7 @@ public class BasicInfo
 	public String bye;
 	public String trend;
 	public String contractStatus;
+	public int sos;
 	/**
 	 * Simply establishes the values. Nothing special
 	 * @param playerName the name of the player
@@ -33,6 +34,7 @@ public class BasicInfo
 		bye = "Not set";
 		trend = "0.0";
 		contractStatus = "Under Contract";
+		sos = -1;
 	}
 
 	/**
@@ -47,7 +49,7 @@ public class BasicInfo
 	public static String standardPos(String position, BasicInfo player2)
 	{
 		String returnString = player2.position;
-		if(position.length() > player2.position.length())
+		if(position.length() >= player2.position.length())
 		{
 			returnString = position;
 		}

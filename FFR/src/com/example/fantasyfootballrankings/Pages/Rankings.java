@@ -377,7 +377,12 @@ public class Rankings extends Activity {
     	System.out.println("In rankings.java again");
 		for(PlayerObject e: holder.players)
 		{
-			System.out.println(e.info.name + ": " + e.values.worth);
+			System.out.println("Name: " + e.info.name);
+			System.out.println("Team: " + e.info.team);
+			System.out.println("Position: " + e.info.position);
+			System.out.println("Value: " + e.values.worth);
+			System.out.println("Strength of Schedule: " + e.info.sos);
+			System.out.println("------------------------------------");
 		}
 		//Below = how to get stuff from here. Important to know.
 		//Button test = (Button)((Activity) retCont).findViewById(R.id.trending2);

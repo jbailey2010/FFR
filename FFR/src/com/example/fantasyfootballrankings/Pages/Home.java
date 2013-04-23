@@ -3,6 +3,7 @@ package com.example.fantasyfootballrankings.Pages;
 
 
 import java.io.IOException;
+
 import java.net.MalformedURLException;
 import java.util.Iterator;
 
@@ -23,7 +24,6 @@ import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseSOS;
 
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -70,7 +70,7 @@ public class Home extends Activity {
     	StrictMode.setThreadPolicy(policy);
     	Storage holder = new Storage();
     	try {
-			ParseSOS.getSOS(holder);
+			HighLevel.getSOS(holder);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

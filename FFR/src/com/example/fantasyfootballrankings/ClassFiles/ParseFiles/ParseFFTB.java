@@ -14,7 +14,7 @@ import com.example.fantasyfootballrankings.ClassFiles.Storage;
  * @author Jeff
  *
  */
-public class parseFFTB 
+public class ParseFFTB 
 {
 	/**
 	 * Parses each of the top four pages of the fftoolbox rankings

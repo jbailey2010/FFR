@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.htmlcleaner.XPatherException;
 
@@ -169,6 +171,40 @@ public class HighLevel
 						}
 					}
 				}
+			}
+		}
+	}
+	
+	/**
+	 * A function that gets the strength of schedule for each team
+	 * and specific positions per.
+	 * @param holder
+	 * @throws IOException
+	 */
+	public static void getSOS(Storage holder) throws IOException
+	{
+		String data = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/strength_of_schedule.cfm", "tr.c");
+		data = data.replaceAll("st", "").replaceAll("nd", "").replaceAll("rd", "").replaceAll("th", "");
+		String[] allArr = data.split("\n");
+		String[][] team = new String[allArr.length][];
+        HashMap<String, Integer>sos = new HashMap<String, Integer>();
+		for(int i = 0; i  < allArr.length; i++)
+		{  
+			team[i] = allArr[i].split(" ");
+			String keyBase = ParseRankings.fixTeams(team[i][0]) + ",";
+			sos.put(keyBase + "QB", Integer.parseInt(team[i][1]));
+			sos.put(keyBase + "RB", Integer.parseInt(team[i][2]));
+			sos.put(keyBase + "WR", Integer.parseInt(team[i][3]));
+			sos.put(keyBase + "TE", Integer.parseInt(team[i][4]));
+			sos.put(keyBase + "K", Integer.parseInt(team[i][5]));
+			sos.put(keyBase + "D/ST", Integer.parseInt(team[i][6]));
+		}
+		Set<String> keys = sos.keySet();
+		for(PlayerObject player : holder.players)
+		{
+			if(keys.contains(player.info.team + "," + player.info.position))
+			{
+				player.info.sos = sos.get(player.info.team + "," + player.info.position);
 			}
 		}
 	}

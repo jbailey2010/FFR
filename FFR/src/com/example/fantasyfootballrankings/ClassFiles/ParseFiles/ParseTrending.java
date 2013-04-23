@@ -120,7 +120,7 @@ public class ParseTrending {
 			text = text.replaceAll("!", " ");
 			text = text.replaceAll("\"", "");
 			text = text.replaceAll("\\\\'", "");
-			text = text.replaceAll("/", "");
+			text = text.replaceAll("/", " ");
 			text = text.replaceAll("WRs", "");
 			text = text.replaceAll("RBs", "");
 			text = text.replaceAll("TEs", "");
@@ -202,7 +202,7 @@ public class ParseTrending {
 		                            inserted = true;
 		                        }
 		                    }
-							if(inserted == false)
+							if(inserted == false && !player.contains("D/ST"))
 							{
 								PostedPlayer newPlayer = new PostedPlayer(player, 1);
 								holder.postedPlayers.add(newPlayer);
@@ -223,6 +223,7 @@ public class ParseTrending {
 	public static String commonFixes(String inName)
 	{
 		String name = inName.toLowerCase();
+		//Name shorthand/fixes below
 		if(name.equals("megatron") || name.equals("calvin"))
 		{
 			return "Calvin Johnson";
@@ -247,6 +248,27 @@ public class ParseTrending {
 		{
 			return "Tom Brady";
 		}
+		else if(name.equals("Payton"))
+		{
+			return "payton";
+		}
+		else if(name.contains("kaep"))
+		{
+			return "Colin Kaepernick";
+		}
+		else if(name.equals("iii"))
+		{
+			return "iii";
+		}
+		else if(name.contains("rgiii") || name.contains("rg3"))
+		{
+			return "Robert Griffin III";
+		}
+		else if(name.equals("vick"))
+		{
+			return "Michael Vick";
+		}
+		//Grammatical fixes below
 		else if(name.equals("still"))
 		{
 			return "still";
@@ -263,17 +285,57 @@ public class ParseTrending {
 		{
 			return "i'll";
 		}
-		else if(name.equals("vick"))
+		else if(name.equals("i'd"))
 		{
-			return "Michael Vick";
+			return "i'd";
 		}
-		else if(name.contains("kaep"))
+		else if(name.contains("it's"))
 		{
-			return "Colin Kaepernick";
+			return "it's";
 		}
-		else if(name.contains("rgiii") || name.contains("rg3"))
+		else if(name.equals("both"))
 		{
-			return "Robert Griffin III";
+			return "both";
+		}
+		else if(name.equals("tds"))
+		{
+			return "tds";
+		}
+		else if(name.equals("t"))
+		{
+			return "t";
+		}
+		else if(name.equals("qb"))
+		{
+			return "qb";
+		}
+		else if(name.equals("well"))
+		{
+			return "well";
+		}
+		else if(name.equals("true"))
+		{
+			return "true";
+		}
+		else if(name.equals("i"))
+		{
+			return "i";
+		}
+		else if(name.equals("qb's"))
+		{
+			return "qb's";
+		}
+		else if(name.equals("houston"))
+		{
+			return "houston";
+		}
+		else if(name.equals("double-check"))
+		{
+			return "double-check";
+		}
+		else if(name.equals("super"))
+		{
+			return "super";
 		}
 		return inName;
 	}

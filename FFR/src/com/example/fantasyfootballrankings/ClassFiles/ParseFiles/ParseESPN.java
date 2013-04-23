@@ -21,6 +21,7 @@ public class ParseESPN
 	 */
 	public static void parseESPN300(Storage holder) throws IOException
 	{
+		System.out.println("in parse espn ");
 		String text = HandleBasicQueries.handleLists("http://sports.espn.go.com/fantasy/football/ffl/story?page=NFLDK2K13ranksTop300", "td");
 		String[] brokenUp=text.split("\n");
 		for(int i = 1; i < brokenUp.length; i+=5)
@@ -46,6 +47,8 @@ public class ParseESPN
 				valDS = "$1";
 			}
 			int val = Integer.parseInt(valDS.substring(1, valDS.length()));
+			String posRank = brokenUp[i+2];
+			pos = posRank.replaceAll("\\d*$", "");
 			ParseRankings.finalStretch(holder, name, val, team, pos);
 		}
 	}
