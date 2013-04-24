@@ -3,6 +3,7 @@ package com.example.fantasyfootballrankings.Pages;
 import java.io.IOException;
 
 import java.net.MalformedURLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,21 +54,29 @@ import android.widget.Toast;
 public class Rankings extends Activity {
 	final Context cont = this;
 	static Context newCont;
-	static Context retCont;
 	static Storage holder = new Storage();
 	static Button voice;
 	static AutoCompleteTextView textView;
 	private static final int REQUEST_CODE = 1234;
 	Dialog dialog;
 	static List<String> matchedPlayers;
+	static Button search;
+	static Button info;
+	static Button compare;
+	static Button calc;
+	
 	/**
 	 * Sets up the view
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		retCont = this;
 		setContentView(R.layout.activity_rankings);
+		search = (Button)findViewById(R.id.search);
+		info = (Button)findViewById(R.id.draft_info);
+		compare = (Button)findViewById(R.id.player_comparator);
+		calc = (Button)findViewById(R.id.trade_calc);
+		handleOnClickButtons();
 	}
 	
 	/**
@@ -115,17 +124,6 @@ public class Rankings extends Activity {
 				});
 		    	dialog.show();		       
 		    	return true;
-			case R.id.value_sal:
-				moreInfo(dialog);		       
-		    	return true;
-			case R.id.search_player:
-				try {
-					searchCalled(dialog, this);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return true;
 			//New page opens up entirely for going home
 			case R.id.go_home:
 				Intent home_intent = new Intent(cont, Home.class);
@@ -147,6 +145,37 @@ public class Rankings extends Activity {
 		}
 	}
     
+	public void handleOnClickButtons()
+	{
+		dialog = new Dialog(cont);
+		//Handle the moreinfo click
+		info.setOnClickListener(new View.OnClickListener() 
+	    {
+	          @Override
+	          public void onClick(View v) 
+	          {
+	        	  moreInfo(dialog);
+	          }
+	    });    
+		//Handle the search onclick
+		search.setOnClickListener(new View.OnClickListener() 
+	    {
+	          @Override
+	          public void onClick(View v) 
+	          {
+	        	  try {
+	        		  searchCalled(dialog, cont);
+	        	  } catch (IOException e) {
+						// TODO Auto-generated catch block
+	        		  e.printStackTrace();
+	        	  }
+	          }
+	    });  
+		//Comparator not yet implemented
+		
+		//Calculator not yet implemented
+	}
+	
 	/**
 	 * Abstracted out of the menu handler as this could get ugly
 	 * once the stuff is added to the dropdown
@@ -371,7 +400,7 @@ public class Rankings extends Activity {
      * the rankings are all fetched
      * @param holder
      */
-    public static void rankingsFetched()
+    public static void rankingsFetched(Activity cont)
     {
     	System.out.println("In rankings.java again");
 		for(PlayerObject e: holder.players)

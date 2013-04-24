@@ -5,16 +5,6 @@
         android:showAsAction="never"
         android:title="Reset/Refresh Rankings"/>
     <item
-        android:id="@+id/value_sal"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="View Draft Info"/>
-  	<item
-  	    android:id="@+id/search_player"
-  	    android:orderInCategory="100"
-  	    android:showAsAction="never"
-  	    android:title="Search Players"/>
-    <item
         android:id="@+id/go_home"
         android:orderInCategory="100"
         android:showAsAction="never"
@@ -24,7 +14,7 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="View Team"/>
-    <item
+    <item 
         android:id="@+id/view_trending"
         android:orderInCategory="100"
         android:showAsAction="never"

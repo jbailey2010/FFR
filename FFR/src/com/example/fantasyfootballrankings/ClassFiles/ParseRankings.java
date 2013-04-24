@@ -50,7 +50,7 @@ public class ParseRankings
 	{  
 		context = cont;
 		ParseRankings stupid = new ParseRankings();
-	    ParseRanks task = stupid.new ParseRanks();
+	    ParseRanks task = stupid.new ParseRanks((Activity)cont);
 	    task.execute(holder, cont);
 	    
 	}
@@ -63,10 +63,16 @@ public class ParseRankings
 	private class ParseRanks extends AsyncTask<Object, Void, Void> 
 	{
 		ProgressDialog pdia;
+		Activity act;
+	    public ParseRanks(Activity activity) 
+	    {
+	        pdia = new ProgressDialog(activity);
+	        act = activity;
+	    }
+	    
 		@Override
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
-		        pdia = new ProgressDialog(context);
 		        pdia.setMessage("Please wait, fetching the rankings...");
 		        pdia.show();    
 		}
@@ -75,7 +81,7 @@ public class ParseRankings
 		protected void onPostExecute(Void result){
 		   super.onPostExecute(result);
 		   pdia.dismiss();
-		   Rankings.rankingsFetched();
+		   ((Rankings)act).rankingsFetched(act);
 		}
 		
 	    @Override
