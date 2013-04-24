@@ -2,10 +2,13 @@ package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
 
+
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import org.htmlcleaner.XPatherException;
 
@@ -17,7 +20,9 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 
 import android.os.Bundle;
@@ -40,6 +45,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -64,6 +70,8 @@ public class Rankings extends Activity {
 	static Button info;
 	static Button compare;
 	static Button calc;
+	static ListView listview;
+
 	
 	/**
 	 * Sets up the view
@@ -76,6 +84,7 @@ public class Rankings extends Activity {
 		info = (Button)findViewById(R.id.draft_info);
 		compare = (Button)findViewById(R.id.player_comparator);
 		calc = (Button)findViewById(R.id.trade_calc);
+    	listview = (ListView)findViewById(R.id.listview_rankings);
 		handleOnClickButtons();
 	}
 	
@@ -209,6 +218,14 @@ public class Rankings extends Activity {
 				dialog.dismiss();
 			}
 		});
+		Button searchSubmit = (Button)dialog.findViewById(R.id.search_submit);
+		searchSubmit.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(View v) {
+				dialog.dismiss();
+				outputResults(dialog, textView.getText().toString());
+			}
+		});
 		dialog.show();		
 	}
 
@@ -255,6 +272,59 @@ public class Rankings extends Activity {
     }
     
     /**
+     * outputs the results to the search dialog
+     * @param dialog
+     * @param namePlayer
+     */
+    public static void outputResults(final Dialog dialog, String namePlayer)
+    {
+    	dialog.setContentView(R.layout.search_output);
+    	List<String>output = new ArrayList<String>();
+    	TextView name = (TextView)dialog.findViewById(R.id.name);
+    	if(namePlayer.equals(""))
+    	{
+    		return;
+    	}
+    	name.setText(namePlayer);
+    	PlayerObject searchedPlayer = new PlayerObject("","","",0);
+    	for(PlayerObject player : holder.players)
+    	{
+    		if(player.info.name.equals(namePlayer))
+    		{
+    			searchedPlayer = player;
+    			break;
+    		}
+    	}
+    	output.add("Worth: " + searchedPlayer.values.worth);
+    	output.add("Position: " + searchedPlayer.info.position);
+    	output.add("Team: " + searchedPlayer.info.team);
+    	output.add("Status: " + searchedPlayer.info.status);
+    	output.add("Positional SOS: " + searchedPlayer.info.sos);
+    	output.add("Bye: " + searchedPlayer.info.bye);
+    	output.add("ADP: " + searchedPlayer.info.adp);
+    	output.add("Weekly Value Trend: " + searchedPlayer.info.trend);
+    	output.add("Contract Status: " + searchedPlayer.info.contractStatus);
+    	output.add("Showed up in " + searchedPlayer.values.count + " rankings.");
+    	output.add("Highest value: " + searchedPlayer.values.high);
+    	output.add("Lowest value: " + searchedPlayer.values.low);
+    	dialog.show();
+    	ListView results = (ListView)dialog.findViewById(R.id.listview_search);
+    	ManageInput.handleArray(output, results, (Rankings)newCont);
+    	Button back = (Button)dialog.findViewById(R.id.search_back);
+		back.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(View v) {
+				try {
+					searchCalled(dialog, newCont);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+    }
+    
+    /**
      * Sets the dialog to handle the salary/value information
      * @param dialog
      */
@@ -295,84 +365,12 @@ public class Rankings extends Activity {
     public static void handleInfo(final Dialog dialog)
     {
 		dialog.setContentView(R.layout.draft_team_status);
-    	String qbs = "";
-    	for(PlayerObject qb:holder.draft.qb)
-    	{
-    		qbs += qb.info.name + ", ";
-    	}
-    	if(qbs.equals(""))
-    	{
-    		qbs = "None selected.";
-    	}
-    	else
-    	{
-    		qbs = qbs.substring(0, qbs.length()-2);
-    	}
-    	String rbs = "";
-    	for(PlayerObject qb:holder.draft.rb)
-    	{
-    		rbs += qb.info.name + ", ";
-    	}
-    	if(rbs.equals(""))
-    	{
-    		rbs = "None selected.";
-    	}
-    	else
-    	{
-    		rbs = rbs.substring(0, rbs.length()-2);
-    	}
-    	String wrs = "";
-    	for(PlayerObject qb:holder.draft.wr)
-    	{
-    		wrs += qb.info.name + ", ";
-    	}
-    	if(wrs.equals(""))
-    	{
-    		wrs = "None selected.";
-    	}
-    	else
-    	{
-    		wrs = wrs.substring(0, wrs.length()-2);
-    	}
-    	String tes = "";
-    	for(PlayerObject qb:holder.draft.te)
-    	{
-    		tes += qb.info.name + ", ";
-    	}
-    	if(tes.equals(""))
-    	{
-    		tes = "None selected.";
-    	}
-    	else
-    	{
-    		tes = tes.substring(0, tes.length()-2);
-    	}
-    	String ds = "";
-    	for(PlayerObject qb:holder.draft.def)
-    	{
-    		ds += qb.info.name + ", ";
-    	}
-    	if(ds.equals(""))
-    	{
-    		ds = "None selected.";
-    	}
-    	else
-    	{
-    		ds = ds.substring(0, ds.length()-2);
-    	}
-    	String ks = "";
-    	for(PlayerObject qb:holder.draft.k)
-    	{
-    		ks += qb.info.name + ", ";
-    	}
-    	if(ks.equals(""))
-    	{
-    		ks = "None selected.";
-    	}
-    	else
-    	{
-    		ks = ks.substring(0, ks.length()-2);
-    	} 
+    	String qbs = handleDraftParsing(holder.draft.qb);
+    	String rbs = handleDraftParsing(holder.draft.rb);
+    	String wrs = handleDraftParsing(holder.draft.wr);
+    	String tes = handleDraftParsing(holder.draft.te);
+    	String ds = handleDraftParsing(holder.draft.def);
+    	String ks = handleDraftParsing(holder.draft.k);
     	TextView qb = (TextView)dialog.findViewById(R.id.qb_header);
     	TextView rb = (TextView)dialog.findViewById(R.id.rb_header);
     	TextView wr = (TextView)dialog.findViewById(R.id.wr_header);
@@ -396,23 +394,67 @@ public class Rankings extends Activity {
     }
     
     /**
+     * Handles parsing of the draft data
+     */
+    private static String handleDraftParsing(List<PlayerObject> nameList) {
+    	String names = "";
+    	for(PlayerObject po: nameList)
+    	{
+    		names += po.info.name + ", ";
+    	}
+    	if(names.equals(""))
+    	{
+    		names = "None selected.";
+    	}
+    	else
+    	{
+    		names = names.substring(0, names.length()-2);
+    	}
+    	return names;
+	}
+
+	/**
      * The function that handles what happens when
      * the rankings are all fetched
      * @param holder
      */
     public static void rankingsFetched(Activity cont)
     {
-    	System.out.println("In rankings.java again");
-		for(PlayerObject e: holder.players)
+	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
+	    listview.setAdapter(null);
+	    List<String> rankings = new ArrayList<String>();
+	    PriorityQueue<PlayerObject>inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 		{
-			System.out.println("Name: " + e.info.name);
-			System.out.println("Team: " + e.info.team);
-			System.out.println("Position: " + e.info.position);
-			System.out.println("Value: " + e.values.worth);
-			System.out.println("Strength of Schedule: " + e.info.sos);
-			System.out.println("------------------------------------");
-		}
-		//Below = how to get stuff from here. Important to know.
-		//Button test = (Button)((Activity) retCont).findViewById(R.id.trending2);
-    }
+			@Override
+			public int compare(PlayerObject a, PlayerObject b) 
+			{
+				if (a.values.worth > b.values.worth)
+			    {
+			        return -1;
+			    }
+			    if (a.values.worth < b.values.worth)
+			    {
+			    	return 1;
+			    }
+			    return 0;
+			}
+		});
+	    System.out.println(holder.players.size());
+	    while(!holder.players.isEmpty())
+	    {
+	    	inter.add(holder.players.poll());
+	    }
+	    System.out.println(holder.players.size());
+	    for(PlayerObject elem : inter)
+	    {
+	    	holder.players.add(elem);
+	    }
+	    System.out.println(holder.players.size() + " " + inter.size());
+	    while(!inter.isEmpty())
+	    {
+	    	PlayerObject elem = inter.poll();
+	    	rankings.add(elem.values.worth + ":  " + elem.info.name);
+	    }
+	    ManageInput.handleArray(rankings, listview, cont);
+	}
 }

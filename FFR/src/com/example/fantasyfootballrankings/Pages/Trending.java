@@ -15,6 +15,7 @@ import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.R.id;
 import com.example.fantasyfootballrankings.R.layout;
 import com.example.fantasyfootballrankings.R.menu;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
@@ -66,7 +67,7 @@ public class Trending extends Activity {
     	{
     		String[] posts = storedPosts.split("##");
     		List<String>postsList = Arrays.asList(posts);
-    		handleArray(postsList);
+    		ManageInput.handleArray(postsList, listview, this);
     	}
     	String storedDate = prefs.getString("Date of Posts", "Doesn't Matter");
     	Date date = new Date();
@@ -268,17 +269,6 @@ public class Trending extends Activity {
 	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times");
 	    }
 	    holder.writePostsList(trendingPlayers, cont);
-	    handleArray(trendingPlayers);
-	}
-	
-	/**
-	 * Handles setting the adapter
-	 * @param trendingPlayers
-	 */
-	public void handleArray(List<String> trendingPlayers)
-	{
-	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-	            android.R.layout.simple_list_item_1, trendingPlayers);
-	    listview.setAdapter(adapter);
+	    ManageInput.handleArray(trendingPlayers, listview, cont);
 	}
 }

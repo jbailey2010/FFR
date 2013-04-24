@@ -5,11 +5,13 @@ import java.util.List;
 
 import com.example.fantasyfootballrankings.R;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ListView;
 /**
  * A little class that should help with making user input
  * into searches...etc a little cooler, doing nicer things.
@@ -53,5 +55,16 @@ public class ManageInput
 			}
 		}
 		return results;
+	}
+	
+	/**
+	 * Handles the addition of an adapter to the listview
+	 * on rankings and trending
+	 */
+	public static void handleArray(List<String> list, ListView listView, Activity cont)
+	{
+	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(cont,
+	            android.R.layout.simple_list_item_1, list);
+	    listView.setAdapter(adapter);
 	}
 }
