@@ -62,11 +62,11 @@ public class Storage
 			@Override
 			public int compare(PlayerObject a, PlayerObject b) 
 			{
-				if (a.values.worth < b.values.worth)
+				if (a.values.worth > b.values.worth)
 			    {
 			        return -1;
 			    }
-			    if (a.values.worth > b.values.worth)
+			    if (a.values.worth < b.values.worth)
 			    {
 			    	return 1;
 			    }
@@ -78,11 +78,11 @@ public class Storage
 			@Override
 			public int compare(PostedPlayer a, PostedPlayer b)
 			{
-				if(a.count < b.count)
+				if(a.count > b.count)
 				{
 					return -1;
 				}
-				if(a.count > b.count)
+				if(a.count < b.count)
 				{
 					return 1;
 				}
@@ -483,11 +483,31 @@ public class Storage
     	String checkExists = prefs.getString("Posts", "Not Set");
     	String[] perPost = checkExists.split("@@@");
     	String[][] split = new String[perPost.length][];
+    	System.out.println(perPost.length);
     	for(int i = 0; i < perPost.length; i++)
     	{
     		split[i] = perPost[i].split("~~~");
     		Post newPost = new Post(split[i][0], split[i][1]);
     		holder.posts.add(newPost);
     	}
+	}
+
+	/**
+	 * Writes the list of trending players to file
+	 * @param trendingPlayers
+	 * @param cont
+	 */
+	public void writePostsList(List<String> trendingPlayers, Activity cont) 
+	{
+    	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+    	String posts = "";
+    	for(int i = 0; i < trendingPlayers.size(); i++)
+    	{
+    		String post = trendingPlayers.get(i);
+    		posts += post + "##";
+    	}
+    	editor.putString("Posted Players", posts);
+    	editor.commit();
 	}
 }

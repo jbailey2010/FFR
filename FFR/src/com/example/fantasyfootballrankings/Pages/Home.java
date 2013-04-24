@@ -53,7 +53,7 @@ public class Home extends Activity {
 	Button team;
 	Button trending;
 	
-	/**
+	/** 
 	 * Makes the buttons and sets the listeners for them
 	 */
 	@Override  
@@ -66,16 +66,7 @@ public class Home extends Activity {
         team.setOnClickListener(teamHandler);
         trending = (Button)findViewById(R.id.trending);
         trending.setOnClickListener(trendHandler);
-	   	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-    	StrictMode.setThreadPolicy(policy);
-    	Storage holder = new Storage();
-    	try {
-			HighLevel.getSOS(holder);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	} 
+	}  
 	
 	/**
 	 * Sends the rank button to the ranking page

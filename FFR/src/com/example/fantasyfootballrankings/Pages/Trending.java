@@ -3,14 +3,20 @@ package com.example.fantasyfootballrankings.Pages;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.PriorityQueue;
 
 import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.R.id;
 import com.example.fantasyfootballrankings.R.layout;
 import com.example.fantasyfootballrankings.R.menu;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
@@ -25,7 +31,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 /**
  * Sets up the trending page
@@ -41,6 +49,7 @@ public class Trending extends Activity {
 	Button month;
 	Button all;
 	final Storage holder = new Storage();
+	ListView listview;
 	/**
 	 * Sets up the dialog to show up immediately
 	 */
@@ -51,6 +60,14 @@ public class Trending extends Activity {
 		
 		//Fetch the date of the posts, and convert it to a date
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+    	String storedPosts = prefs.getString("Posted Players", "Not Posted");
+    	listview = (ListView)findViewById(R.id.listview_trending);
+    	if(storedPosts != "Not Posted")
+    	{
+    		String[] posts = storedPosts.split("##");
+    		List<String>postsList = Arrays.asList(posts);
+    		handleArray(postsList);
+    	}
     	String storedDate = prefs.getString("Date of Posts", "Doesn't Matter");
     	Date date = new Date();
     	if(storedDate != "Doesn't Matter")
@@ -60,14 +77,14 @@ public class Trending extends Activity {
     		} catch (ParseException e) {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
-    		}
+    		} 
     	}
     	
     	//Get the posts, if they're not set, fetch them. If it's been 4+ days since
     	//they were fetched, fetch them. Otherwise, get from storage.
     	String checkExists = prefs.getString("Posts", "Not Set");
     	if(checkExists.equals("Not Set") || ((int)((new java.util.Date()).getTime()
-    			- date.getTime()) / (1000 * 60 * 60 * 24) > 3))
+    			- date.getTime()) / (1000 * 60 * 60 * 24) > 4))
     	{
     		fetchTrending(holder);
     	}
@@ -126,29 +143,12 @@ public class Trending extends Activity {
 	 */
 	public void fetchTrending(final Storage holder)
 	{
-		dialog = new Dialog(cont);
-		dialog.setContentView(R.layout.trending_loading);
-		dialog.show();
-		dialog.setCancelable(false); 
-		Thread thread=new Thread(new Runnable(){
-			public void run(){
-				try {
-					ParseTrending.trendingPlayers(holder, cont);
-					Storage.writePosts(holder, cont);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
-				runOnUiThread(new Runnable(){
-					@Override
-					public void run() {
-						if(dialog.isShowing())
-							dialog.dismiss();
-					}
-				});
-			}
-		});
-		thread.start();		
+		try {
+			ParseTrending.trendingPlayers(holder, cont);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 	
 	/**
@@ -164,34 +164,15 @@ public class Trending extends Activity {
             @Override
             public void onClick(View v) 
             {
-        		dialog = new Dialog(cont);
-        		dialog.setContentView(R.layout.trending_filter);
-        		dialog.show();
-        		dialog.setCancelable(false); 
-        		Thread thread=new Thread(new Runnable(){
-        			public void run(){
-                    	try {
-        					try {
-        						ParseTrending.setUpLists(holder, 1, cont);
-        				    	handleParsed(holder);
-        					} catch (IOException e) {
-        						// TODO Auto-generated catch block
-        						e.printStackTrace();
-        					}
-        				} catch (ParseException e) {
-        					// TODO Auto-generated catch block
-        					e.printStackTrace();
-        				}
-        				runOnUiThread(new Runnable(){
-        					@Override
-        					public void run() {
-        						if(dialog.isShowing())
-        							dialog.dismiss();
-        					}
-        				});
-        			}
-        		});
-        		thread.start();	
+				try {
+					ParseTrending.setUpLists(holder, 1, cont);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });       
         week = (Button)findViewById(R.id.filter_week);
@@ -200,34 +181,15 @@ public class Trending extends Activity {
             @Override
             public void onClick(View v) 
             {
-        		dialog = new Dialog(cont);
-        		dialog.setContentView(R.layout.trending_filter);
-        		dialog.show();
-        		dialog.setCancelable(false); 
-        		Thread thread=new Thread(new Runnable(){
-        			public void run(){
-                    	try {
-        					try {
-        						ParseTrending.setUpLists(holder, 7, cont);
-        				    	handleParsed(holder);
-        					} catch (IOException e) {
-        						// TODO Auto-generated catch block
-        						e.printStackTrace();
-        					}
-        				} catch (ParseException e) {
-        					// TODO Auto-generated catch block
-        					e.printStackTrace();
-        				}
-        				runOnUiThread(new Runnable(){
-        					@Override
-        					public void run() {
-        						if(dialog.isShowing())
-        							dialog.dismiss();
-        					}
-        				});
-        			}
-        		});
-        		thread.start();	
+            	try {
+					ParseTrending.setUpLists(holder, 7, cont);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });     
         month = (Button)findViewById(R.id.filter_month);
@@ -236,34 +198,15 @@ public class Trending extends Activity {
             @Override
             public void onClick(View v) 
             {
-        		dialog = new Dialog(cont);
-        		dialog.setContentView(R.layout.trending_filter);
-        		dialog.show();
-        		dialog.setCancelable(false); 
-        		Thread thread=new Thread(new Runnable(){
-        			public void run(){
-                    	try {
-        					try {
-        						ParseTrending.setUpLists(holder, 30, cont);
-        				    	handleParsed(holder);
-        					} catch (IOException e) {
-        						// TODO Auto-generated catch block
-        						e.printStackTrace();
-        					}
-        				} catch (ParseException e) {
-        					// TODO Auto-generated catch block
-        					e.printStackTrace();
-        				}
-        				runOnUiThread(new Runnable(){
-        					@Override
-        					public void run() {
-        						if(dialog.isShowing())
-        							dialog.dismiss();
-        					}
-        				});
-        			}
-        		});
-        		thread.start();	
+				try {
+					ParseTrending.setUpLists(holder, 30, cont);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             } 
         }); 
         all = (Button)findViewById(R.id.filter_all);
@@ -272,48 +215,70 @@ public class Trending extends Activity {
             @Override
             public void onClick(View v) 
             {
-        		dialog = new Dialog(cont);
-        		dialog.setContentView(R.layout.trending_filter);
-        		dialog.show();
-        		dialog.setCancelable(false); 
-        		Thread thread=new Thread(new Runnable(){
-        			public void run(){
-                    	try {
-        					try {
-        						ParseTrending.setUpLists(holder, 365, cont);
-        				    	handleParsed(holder);
-        					} catch (IOException e) {
-        						// TODO Auto-generated catch block
-        						e.printStackTrace();
-        					}
-        				} catch (ParseException e) {
-        					// TODO Auto-generated catch block
-        					e.printStackTrace();
-        				}
-        				runOnUiThread(new Runnable(){
-        					@Override
-        					public void run() {
-        						if(dialog.isShowing())
-        							dialog.dismiss();
-        					}
-        				});
-        			}
-        		});
-        		thread.start();	
+				try {
+					ParseTrending.setUpLists(holder, 365, cont);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         }); 
 	}
 	
 	/**
-	 * Still needs to be done...
+	 * Does sexy things
 	 * @param holder
 	 */
-	private void handleParsed(Storage holder)
+	public void handleParsed(Storage holder, Activity cont)
 	{
-		System.out.println("DONEZO " + holder.postedPlayers.size());
+		System.out.println("DONE " + holder.postedPlayers.size());
 		for(PostedPlayer e:holder.postedPlayers)
 		{
 			System.out.println(e.name + ": " + e.count);
 		}
+	    listview = (ListView) cont.findViewById(R.id.listview_trending);
+	    listview.setAdapter(null);
+	    List<String> trendingPlayers = new ArrayList<String>();
+	    PriorityQueue<PostedPlayer>inter = new PriorityQueue<PostedPlayer>(300, new Comparator<PostedPlayer>() 
+		{
+			@Override
+			public int compare(PostedPlayer a, PostedPlayer b) 
+			{
+				if (a.count > b.count)
+			    {
+			        return -1;
+			    }
+			    if (a.count < b.count)
+			    {
+			    	return 1;
+			    }
+			    return 0;
+			}
+		});
+	    while(!holder.postedPlayers.isEmpty())
+	    {
+	    	inter.add(holder.postedPlayers.poll());
+	    }
+	    while(!inter.isEmpty())
+	    {
+	    	PostedPlayer elem = inter.poll();
+	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times");
+	    }
+	    holder.writePostsList(trendingPlayers, cont);
+	    handleArray(trendingPlayers);
+	}
+	
+	/**
+	 * Handles setting the adapter
+	 * @param trendingPlayers
+	 */
+	public void handleArray(List<String> trendingPlayers)
+	{
+	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+	            android.R.layout.simple_list_item_1, trendingPlayers);
+	    listview.setAdapter(adapter);
 	}
 }

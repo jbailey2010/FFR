@@ -77,6 +77,7 @@ public class ParseRankings
 		   pdia.dismiss();
 		   Rankings.rankingsFetched();
 		}
+		
 	    @Override
 	    protected Void doInBackground(Object... data) 
 	    {

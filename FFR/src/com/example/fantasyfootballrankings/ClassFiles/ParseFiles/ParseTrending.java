@@ -1,7 +1,9 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
+
 import java.lang.reflect.Array;
+import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,26 +14,35 @@ import java.util.ListIterator;
 import java.util.Locale;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.htmlcleaner.XPatherException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.StrictMode;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
+import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
+import com.example.fantasyfootballrankings.Pages.Rankings;
+import com.example.fantasyfootballrankings.Pages.Trending;
 /**
  * A library to allow for parsing of trending players
  * @author Jeff
  *
  */
-public class ParseTrending {
+public class ParseTrending 
+{
 	public static List<Post> posts = new ArrayList<Post>();
-
+	public static Context context;
+	public static Context inter;
+	public static Storage holder;
 
 	/**
 	 * Calls the controller to handle each url.
@@ -41,29 +52,68 @@ public class ParseTrending {
 	 */
 	public static void trendingPlayers(final Storage holder, final Context cont) throws IOException
 	{
-		if(holder.playerNames.isEmpty() == true)
-		{
-			Storage.fetchNames(holder, cont);
-		}
-	   	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-    	StrictMode.setThreadPolicy(policy);
-    	//2013 'Must Haves'
-		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=338991&st=");
-		//Value picks
-		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=332995&st=");
-		//2013 sleepers
- 		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=327212&st=");
- 		//Rookie rankings
-		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
-		//RB rankings
-		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=344555&st=");
-		//QB rankings
-		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=329554&st=");
-		//WR rankings
-		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=339910&st=");
-		//TE/D/K don't exist
+		context = cont;
+		ParseTrending stupid = new ParseTrending();
+	    FetchTrends task = stupid.new FetchTrends();
+	    task.execute(holder, cont);
 	}
 
+	private class FetchTrends extends AsyncTask<Object, Void, Void> 
+	{
+		ProgressDialog pdia;
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		        pdia = new ProgressDialog(context);
+		        pdia.setMessage("Please wait, parsing the forums...");
+		        pdia.show();    
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		   Storage.writePosts(holder, context);
+		}
+    	
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage hold = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	    	holder = hold;
+	    	if(holder.playerNames.isEmpty() == true)
+			{
+				try {
+					Storage.fetchNames(holder, cont);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			try {
+		    	//2013 'Must Haves'
+				getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=338991&st=");
+				//Value picks
+				getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=332995&st=");
+				//2013 sleepers
+		 		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=327212&st=");
+		 		//Rookie rankings
+				getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
+				//RB rankings
+				getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=344555&st=");
+				//QB rankings
+				getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=329554&st=");
+				//WR rankings
+				getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=339910&st=");
+				//TE/D/K don't exist
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+	    }
+	  }
 	/**
 	 * Sets up a list only containing the posts within the correct bounds of dates
 	 * @param holder the storage to get posts from
@@ -72,8 +122,9 @@ public class ParseTrending {
 	 * @throws ParseException in case my firm date format goes kablooey
 	 * @throws IOException 
 	 */
-	public static void setUpLists(Storage holder, int length, Context cont) throws ParseException, IOException
+	public static void setUpLists(Storage holderIn, int length, Context cont) throws ParseException, IOException
 	{
+		holder = holderIn;
 		if(length == 365)
 		{
 			for(Post e:holder.posts)
@@ -92,9 +143,53 @@ public class ParseTrending {
 				}
 			}
 		}
-		filterComments(holder, cont);
+		ParseTrending stupid = new ParseTrending();
+	    ParseTrends task = stupid.new ParseTrends((Activity)cont);
+	    task.execute(holder, cont);
 	}
 	
+	private class ParseTrends extends AsyncTask<Object, Void, Void> 
+	{
+		ProgressDialog pdia;
+		Activity act;
+	    public ParseTrends(Activity activity) 
+	    {
+	        pdia = new ProgressDialog(activity);
+	        act = activity;
+	    }
+		@Override
+		protected void onPreExecute(){ 
+			super.onPreExecute();
+		    pdia.setMessage("Please wait, checking the posts...");
+		    pdia.show();    
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		   ((Trending) act).handleParsed(holder, act);		
+		}
+    	
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	    	inter = cont;
+			try {
+				filterComments(holder, cont);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			return null;
+	    }
+	  }
 	/**
 	 * Makes sure it's within a proper bounds, then right, then if
 	 * it exists within proper bounds

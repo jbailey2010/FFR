@@ -104,7 +104,6 @@ public class Rankings extends Activity {
 						dialog.dismiss();
 						try {
 							ParseRankings.runRankings(holder, cont);
-							
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

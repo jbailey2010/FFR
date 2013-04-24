@@ -180,7 +180,7 @@ public class HighLevel
 	 * and specific positions per.
 	 * @param holder
 	 * @throws IOException
-	 */
+	 */ 
 	public static void getSOS(Storage holder) throws IOException
 	{
 		String data = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/strength_of_schedule.cfm", "tr.c");
