@@ -39,7 +39,7 @@ import android.widget.EditText;
  */
 
 /**
- * THOUGHTS: A hash for use of trending players, storing a count,PlayerObject tuple?
+ *Stores various info as it's needed
  * @author Jeff
  *
  */

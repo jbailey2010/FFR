@@ -4,6 +4,7 @@ import java.io.IOException;
 
 
 import java.net.MalformedURLException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -154,6 +155,9 @@ public class Rankings extends Activity {
 		}
 	}
     
+	/**
+	 * Sets onclick of the button bar
+	 */
 	public void handleOnClickButtons()
 	{
 		dialog = new Dialog(cont);
@@ -439,21 +443,20 @@ public class Rankings extends Activity {
 			    return 0;
 			}
 		});
-	    System.out.println(holder.players.size());
 	    while(!holder.players.isEmpty())
 	    {
 	    	inter.add(holder.players.poll());
 	    }
-	    System.out.println(holder.players.size());
+	    //Add back to holder for use later. Lots of possible reasons
 	    for(PlayerObject elem : inter)
 	    {
 	    	holder.players.add(elem);
 	    }
-	    System.out.println(holder.players.size() + " " + inter.size());
 	    while(!inter.isEmpty())
 	    {
 	    	PlayerObject elem = inter.poll();
-	    	rankings.add(elem.values.worth + ":  " + elem.info.name);
+	        DecimalFormat df = new DecimalFormat("#.##");
+	    	rankings.add(df.format(elem.values.worth) + ":  " + elem.info.name);
 	    }
 	    ManageInput.handleArray(rankings, listview, cont);
 	}

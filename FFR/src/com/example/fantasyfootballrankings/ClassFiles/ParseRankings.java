@@ -38,7 +38,7 @@ import android.os.StrictMode;
 public class ParseRankings 
 {
 	static Context context;
-	/**
+	/** 
 	 * This is where the magic happens. This sets the names/fetches them if they're
 	 * stored (not based on user input as it won't change), then fetches the players, 
 	 * and runs high-level stuff on it. Does NOT save, as that is up to user choice.
@@ -54,6 +54,7 @@ public class ParseRankings
 	    task.execute(holder, cont);
 	    
 	}
+	
 	/**
 	 * This handles the running of the rankings in the background
 	 * such that the user can't do anything until they're fetched
