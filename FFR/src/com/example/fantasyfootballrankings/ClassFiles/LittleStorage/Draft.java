@@ -1,5 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles.LittleStorage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
  * @author Jeff
  *
  */
-public class Draft 
+public class Draft
 {
 	public List<PlayerObject> qb = new ArrayList<PlayerObject>();
 	public List<PlayerObject> rb = new ArrayList<PlayerObject>();

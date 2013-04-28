@@ -49,7 +49,7 @@ public class Trending extends Activity {
 	Button week;
 	Button month;
 	Button all;
-	final Storage holder = new Storage();
+	Storage holder = new Storage();
 	ListView listview;
 	/**
 	 * Sets up the dialog to show up immediately

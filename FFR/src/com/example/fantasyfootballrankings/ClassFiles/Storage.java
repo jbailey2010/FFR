@@ -1,7 +1,10 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
+import java.io.Serializable;
+
 import java.lang.reflect.Array;
+import java.net.MalformedURLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,6 +16,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 import java.util.Comparator;
+import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
 import org.jsoup.Jsoup;
@@ -23,12 +27,18 @@ import org.jsoup.select.Elements;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
+import com.example.fantasyfootballrankings.Pages.Rankings;
 
 
 import android.R.integer;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -46,7 +56,7 @@ import android.widget.EditText;
 public class Storage 
 {
 	public Draft draft;
-	public PriorityQueue<PlayerObject> players;
+	public List<PlayerObject> players;
 	public List<String> playerNames;
 	public List<Post> posts;
 	public List<String> parsedPlayers;
@@ -57,22 +67,7 @@ public class Storage
 	 */
 	public Storage()
 	{
-		players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b) 
-			{
-				if (a.values.worth > b.values.worth)
-			    {
-			        return -1;
-			    }
-			    if (a.values.worth < b.values.worth)
-			    {
-			    	return 1;
-			    }
-			    return 0;
-			}
-		});
+		players = new ArrayList<PlayerObject>(350);
 		postedPlayers = new PriorityQueue<PostedPlayer>(100, new Comparator<PostedPlayer>()
 		{
 			@Override
@@ -204,6 +199,7 @@ public class Storage
 	 */
 	public static void fetchPlayerNames(final Storage holder, final Context cont) throws IOException
 	{
+		holder.playerNames.clear();
 		String[] defenses = {"Bengals D/ST", "Steelers D/ST", "Browns D/ST", "Ravens D/ST", 
        		"Patriots D/ST", "Dolphins D/ST", "Bills D/ST", "Jets D/ST", "Texans D/ST",
        		"Colts D/ST", "Jaguars D/ST", "Titans D/ST", "Broncos D/ST", "Raiders D/ST",
@@ -302,14 +298,14 @@ public class Storage
     	String players = "";
     	for (PlayerObject player : holder.players)
     	{
-    		players = 
-    		Double.toString(player.values.worth) + "," + Double.toString(player.values.count) + "," +
-    		Double.toString(player.values.high) + "," + Double.toString(player.values.low) + ","
-    		+ player.info.name + "," + player.info.team + "," + player.info.position + "," + 
-    		player.info.status + "," + player.info.adp + "," + player.info.bye + "," 
-    		+ player.info.trend + player.info.contractStatus + player.info.sos + "/";
+    		players += 
+    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
+    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
+    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
+    		player.info.status + "&&" + player.info.adp + "&&" + player.info.bye + "&&" 
+    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "~~~~";
     	}
-    	players = players.substring(0, players.length() - 1);
+    	players = players.substring(0, players.length() - 4);
     	editor.putString("Player Values", players);
     	//Setting up parsedPlayers input
     	String names = "";
@@ -322,22 +318,22 @@ public class Storage
     	//Setting up draft input
     	String draft = "";
     	//QB
-    	draft += handleDraftInput(holder.draft.qb, draft);
+    	draft += handleDraftInput(holder.draft.qb, "");
     	draft += "@";
     	//RB
-    	draft += handleDraftInput(holder.draft.rb, draft);
+    	draft += handleDraftInput(holder.draft.rb, "");
     	draft += "@";
     	//WR
-    	draft += handleDraftInput(holder.draft.wr, draft);
+    	draft += handleDraftInput(holder.draft.wr, "");
     	draft += "@";
     	//TE
-    	draft += handleDraftInput(holder.draft.te, draft);
+    	draft += handleDraftInput(holder.draft.te, "");
     	draft += "@";
     	//D
-    	draft += handleDraftInput(holder.draft.def, draft);
+    	draft += handleDraftInput(holder.draft.def, "");
     	draft += "@";
     	//K
-    	draft += handleDraftInput(holder.draft.k, draft);
+    	draft += handleDraftInput(holder.draft.k, "");
     	//Values
     	draft += "@" + holder.draft.remainingSalary + "@" + holder.draft.value;
     	editor.putString("Draft Information", draft);
@@ -353,12 +349,18 @@ public class Storage
     	{
     		draft += name.info.name + "~";
     	}
-    	draft = draft.substring(0, draft.length() - 1);
+    	if(draft.length() > 2)
+    	{
+    		draft = draft.substring(0, draft.length() - 1);
+    	}
+    	else
+    	{
+    		draft = "None Selected";
+    	}
     	return draft;
 	}
 	
 	/**
-	 * THIS IS THE FUNCTION TO CALL TO GET RANKINGS.
 	 * It checks if players are written to file. If so, it fetches them and
 	 * re-adds them to the priority queue, but if it isn't, it calls the runRankings
 	 * function, which is the function that calls all the rankings functions and the high 
@@ -367,43 +369,78 @@ public class Storage
 	 * @param cont the context used to read/write to/from file
 	 * @throws IOException
 	 * @throws XPatherException
+	 * @throws ExecutionException 
+	 * @throws InterruptedException 
 	 */
-	public static void fetchPlayers(Storage holder, Context cont) throws IOException, XPatherException
+	public static void fetchPlayers(Storage holder, Context cont) throws IOException, XPatherException, InterruptedException, ExecutionException
 	{
-    	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-    	String checkExists = prefs.getString("Player Values", "Not Set");
-    	if(checkExists != "Not Set")
-    	{
-    		//Get the aggregate rankings
-    		String[] perPlayer = checkExists.split("/");
-    		String[][] allData = new String[perPlayer.length][];
-    		for(int i = 0; i < perPlayer.length; i++)
-    		{ 
-    			allData[i] = perPlayer[i].split(",");
-    			PlayerObject newPlayer = new PlayerObject(allData[i][4], allData[i][5], allData[i][6], 0);
-    			newPlayer.info.adp = allData[i][8];
-    			newPlayer.info.bye = allData[i][9];
-    			newPlayer.info.trend = allData[i][10];
-    			newPlayer.info.contractStatus = allData[i][11];
-    			newPlayer.info.sos = Integer.parseInt(allData[i][12]);
-    			newPlayer.info.status = allData[i][7];
-    			newPlayer.info.position = allData[i][6];
-    			newPlayer.info.team = allData[i][5];
-    			newPlayer.info.name = allData[i][4];
-    			newPlayer.values.low = Double.parseDouble(allData[i][3]);
-    			newPlayer.values.high = Double.parseDouble(allData[i][2]);
-    			newPlayer.values.count = Double.parseDouble(allData[i][1]);
-    			newPlayer.values.worth = Double.parseDouble(allData[i][0]);
-    			holder.players.add(newPlayer);
-    		}
-    		//Get the parsed player names
+		Storage stupid = new Storage();
+
+	    ReadRanks rankings = stupid.new ReadRanks((Activity)cont);
+		rankings.execute(holder, cont).get();
+	}
+	/**
+	 * This handles the running of the rankings in the background
+	 * such that the user can't do anything until they're fetched
+	 * @author Jeff
+	 *
+	 */
+	private class ReadRanks extends AsyncTask<Object, Void, Void> 
+	{
+		ProgressDialog pdia;
+		Activity act;
+	    public ReadRanks(Activity activity) 
+	    {
+	        pdia = new ProgressDialog(activity);
+	        act = activity;
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		        pdia.setMessage("Please wait, reading the rankings...");
+		        pdia.show();    
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   pdia.dismiss();
+		   Rankings.rankingsFetched(act);
+		}
+		
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	   		//Get the aggregate rankings
+	   		holder.players.clear();
+	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     		String parsedNames = prefs.getString("Player Names", "Doesn't matter");
     		String[] namesSplit = parsedNames.split(",");
+    		holder.parsedPlayers.clear();
     		for(String names: namesSplit)
     		{
     			holder.parsedPlayers.add(names);
     		}
-    		//Get the draft information
+	    	String checkExists = prefs.getString("Player Values", "Not Set");
+	   		String[] perPlayer = checkExists.split("~~~~");
+	   		String[][] allData = new String[perPlayer.length][];
+	   		for(int i = 0; i < perPlayer.length; i++)
+	   		{ 
+	   			allData[i] = perPlayer[i].split("&&");
+	   			PlayerObject newPlayer = new PlayerObject(allData[i][4], allData[i][5], allData[i][6], 0);
+	   			newPlayer.info.sos = Integer.parseInt(allData[i][12]);
+	   			newPlayer.info.contractStatus = allData[i][11];
+	   			newPlayer.info.trend = allData[i][10];
+	   			newPlayer.info.bye = allData[i][9];
+	   			newPlayer.info.adp = allData[i][8];
+	   			newPlayer.info.status = allData[i][7];
+	   			newPlayer.values.low = Double.parseDouble(allData[i][3]);
+	   			newPlayer.values.high = Double.parseDouble(allData[i][2]);
+	   			newPlayer.values.count = Double.parseDouble(allData[i][1]);
+	   			newPlayer.values.worth = Double.parseDouble(allData[i][0]);
+	   			holder.players.add(newPlayer);
+	   		}
     		String draftSet = prefs.getString("Draft Information", "Doesn't matter");
     		String[] perSet = draftSet.split("@");
     		String[][] individual = new String[perSet.length][];
@@ -412,36 +449,41 @@ public class Storage
     			individual[j] = perSet[j].split("~");
     		}
     		//Qb fetching
-    		handleDraftReading(individual[0], holder);
+    		handleDraftReading(individual[0], holder.draft.qb, holder);
     		//Rb fetching
-    		handleDraftReading(individual[1], holder);
+    		handleDraftReading(individual[1], holder.draft.rb, holder);
     		//Wr fetching
-    		handleDraftReading(individual[2], holder);
+    		handleDraftReading(individual[2], holder.draft.wr, holder);
     		//Te fetching
-    		handleDraftReading(individual[3], holder);
+    		handleDraftReading(individual[3], holder.draft.te, holder);
     		//Def fetching
-    		handleDraftReading(individual[4], holder);
+    		handleDraftReading(individual[4], holder.draft.def, holder);
     		//K fetching
-    		handleDraftReading(individual[5], holder);
+    		handleDraftReading(individual[5], holder.draft.k, holder);
     		//Values
     		holder.draft.remainingSalary = Integer.parseInt(individual[6][0]);
     		holder.draft.value = Double.parseDouble(individual[7][0]);
-    	} 
-    	else
-    	{
-    		ParseRankings.runRankings(holder, cont);
-    	}
-	}
+			return null;
+	    }
+	  }
 	
-	public static void handleDraftReading(String[] individual, Storage holder)
+
+	/**
+	 * Gets the names into the respective draft
+	 * @param individual
+	 * @param target
+	 * @param holder
+	 */
+	public static void handleDraftReading(String[] individual, List<PlayerObject> target, Storage holder)
 	{
+		target.clear();
 		for(String qb : individual)
 		{
 			for(PlayerObject player : holder.players)
 			{
 				if(player.info.name.equals(qb))
 				{
-					holder.draft.qb.add(player);
+					target.add(player);
 				}
 			}
 		}
@@ -483,7 +525,6 @@ public class Storage
     	String checkExists = prefs.getString("Posts", "Not Set");
     	String[] perPost = checkExists.split("@@@");
     	String[][] split = new String[perPost.length][];
-    	System.out.println(perPost.length);
     	for(int i = 0; i < perPost.length; i++)
     	{
     		split[i] = perPost[i].split("~~~");

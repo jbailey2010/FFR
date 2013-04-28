@@ -3,6 +3,7 @@ package com.example.fantasyfootballrankings.Pages;
 
 
 import java.io.IOException;
+import java.io.Serializable;
 
 
 
@@ -32,6 +33,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.SyncStateContract.Constants;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -52,7 +54,7 @@ import android.widget.Toast;
  * @author Jeff
  *
  */
-public class Home extends Activity {
+public class Home extends Activity implements Serializable{
 	//Some global variables, context and a few buttons
 	final Context cont = this;
 	Dialog dialog;

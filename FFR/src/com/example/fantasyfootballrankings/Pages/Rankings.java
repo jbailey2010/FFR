@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
 
@@ -36,6 +37,7 @@ import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.speech.RecognizerIntent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -54,7 +56,6 @@ import android.widget.Toast;
 /**
  * Handles the rankings part of the java file
  * 
- * THOUGHTS: filter? With similar code, a search function of some kind? If so, through the menu?
  * @author Jeff
  *
  */
@@ -87,6 +88,26 @@ public class Rankings extends Activity {
 		calc = (Button)findViewById(R.id.trade_calc);
     	listview = (ListView)findViewById(R.id.listview_rankings);
 		handleOnClickButtons();
+    	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+    	String checkExists = prefs.getString("Player Values", "Not Set");
+    	if(checkExists != "Not Set")
+    	{
+			try {
+				Storage.fetchPlayers(holder,cont);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (XPatherException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
 	}
 	
 	/**
@@ -201,6 +222,11 @@ public class Rankings extends Activity {
 		newCont = oCont;
 		Storage.fetchNames(holder, newCont);
 		dialog.setContentView(R.layout.search_players);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setAttributes(lp);
 		voice = (Button) dialog.findViewById(R.id.speakButton);
         textView = (AutoCompleteTextView)(dialog).findViewById(R.id.player_input);
         voice.setOnClickListener(new OnClickListener() {
@@ -283,6 +309,11 @@ public class Rankings extends Activity {
     public static void outputResults(final Dialog dialog, String namePlayer)
     {
     	dialog.setContentView(R.layout.search_output);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.FILL_PARENT;
+        lp.height = WindowManager.LayoutParams.FILL_PARENT;
+        dialog.getWindow().setAttributes(lp);
     	List<String>output = new ArrayList<String>();
     	TextView name = (TextView)dialog.findViewById(R.id.name);
     	if(namePlayer.equals(""))
@@ -299,7 +330,8 @@ public class Rankings extends Activity {
     			break;
     		}
     	}
-    	output.add("Worth: " + searchedPlayer.values.worth);
+    	DecimalFormat df = new DecimalFormat("#.##");
+    	output.add("Worth: " + df.format(searchedPlayer.values.worth));
     	output.add("Position: " + searchedPlayer.info.position);
     	output.add("Team: " + searchedPlayer.info.team);
     	output.add("Status: " + searchedPlayer.info.status);
@@ -425,8 +457,11 @@ public class Rankings extends Activity {
     public static void rankingsFetched(Activity cont)
     {
 	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
+	    System.out.println("before nulling adapter");
 	    listview.setAdapter(null);
+	    System.out.println("after");
 	    List<String> rankings = new ArrayList<String>();
+	    System.out.println("declaring pq");
 	    PriorityQueue<PlayerObject>inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 		{
 			@Override
@@ -443,15 +478,15 @@ public class Rankings extends Activity {
 			    return 0;
 			}
 		});
-	    while(!holder.players.isEmpty())
+	    System.out.println("done declaring");
+	    System.out.println("before adding to it");
+	    for(int i = 0; i < holder.players.size(); i++)
 	    {
-	    	inter.add(holder.players.poll());
+	    	inter.add(holder.players.get(i));
 	    }
-	    //Add back to holder for use later. Lots of possible reasons
-	    for(PlayerObject elem : inter)
-	    {
-	    	holder.players.add(elem);
-	    }
+	    System.out.println("after");
+	    Storage.storePlayers(holder, (Context)cont);
+	    System.out.println("written to file");
 	    while(!inter.isEmpty())
 	    {
 	    	PlayerObject elem = inter.poll();

@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import com.example.fantasyfootballrankings.R;
+import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.R.id;
 import com.example.fantasyfootballrankings.R.layout;
 import com.example.fantasyfootballrankings.R.menu;
@@ -23,6 +24,7 @@ import android.widget.TextView;
  */
 public class Team extends Activity {
 	final Context cont = this;
+	Storage holder;
 	/**
 	 * Sets up the view
 	 */

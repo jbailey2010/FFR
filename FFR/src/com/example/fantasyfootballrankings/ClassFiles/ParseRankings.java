@@ -48,6 +48,7 @@ public class ParseRankings
 	 */
 	public static void runRankings(final Storage holder, final Context cont) throws IOException, XPatherException
 	{  
+		holder.players.clear();
 		context = cont;
 		ParseRankings stupid = new ParseRankings();
 	    ParseRanks task = stupid.new ParseRanks((Activity)cont);
