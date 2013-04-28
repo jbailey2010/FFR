@@ -136,6 +136,7 @@ public class HighLevel
 	 */
 	public static void getParsedPlayers(Storage holder)
 	{
+		holder.parsedPlayers.clear();
 		for(PlayerObject e: holder.players)
 		{
 			holder.parsedPlayers.add(e.info.name);
