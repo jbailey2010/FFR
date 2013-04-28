@@ -73,6 +73,7 @@ public class Rankings extends Activity {
 	static Button compare;
 	static Button calc;
 	static ListView listview;
+	static boolean refreshed = false;
 
 	
 	/**
@@ -141,6 +142,7 @@ public class Rankings extends Activity {
 				refreshSubmit.setOnClickListener(new OnClickListener() 
 				{
 					public void onClick(View v) {
+						refreshed = true;
 						dialog.dismiss();
 						try {
 							ParseRankings.runRankings(holder, cont);
@@ -457,11 +459,8 @@ public class Rankings extends Activity {
     public static void rankingsFetched(Activity cont)
     {
 	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
-	    System.out.println("before nulling adapter");
 	    listview.setAdapter(null);
-	    System.out.println("after");
 	    List<String> rankings = new ArrayList<String>();
-	    System.out.println("declaring pq");
 	    PriorityQueue<PlayerObject>inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 		{
 			@Override
@@ -478,15 +477,14 @@ public class Rankings extends Activity {
 			    return 0;
 			}
 		});
-	    System.out.println("done declaring");
-	    System.out.println("before adding to it");
 	    for(int i = 0; i < holder.players.size(); i++)
 	    {
 	    	inter.add(holder.players.get(i));
 	    }
-	    System.out.println("after");
-	    Storage.storePlayers(holder, (Context)cont);
-	    System.out.println("written to file");
+	    if(refreshed)
+	    {
+	    	Storage.storePlayers(holder, (Context)cont);
+	    }
 	    while(!inter.isEmpty())
 	    {
 	    	PlayerObject elem = inter.poll();
