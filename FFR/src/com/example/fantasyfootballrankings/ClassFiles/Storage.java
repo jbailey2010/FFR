@@ -456,13 +456,6 @@ public class Storage
 	   		//Get the aggregate rankings
 	   		holder.players.clear();
 	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-    		String parsedNames = prefs.getString("Player Names", "Doesn't matter");
-    		String[] namesSplit = parsedNames.split(",");
-    		holder.parsedPlayers.clear();
-    		for(String names: namesSplit)
-    		{
-    			holder.parsedPlayers.add(names);
-    		}
 	    	String checkExists = prefs.getString("Player Values", "Not Set");
 	   		String[] perPlayer = checkExists.split("~~~~");
 	   		String[][] allData = new String[perPlayer.length][];
@@ -486,6 +479,7 @@ public class Storage
 	    }
 	  }
 
+	
 	/**
 	 * This handles the reading of the draft data
 	 * in the background
