@@ -377,9 +377,49 @@ public class Storage
 	{
 		Storage stupid = new Storage();
 
+		ReadNames names = stupid.new ReadNames();
+		names.execute(holder, cont);
+		
+	    ReadDraft draft = stupid.new ReadDraft();
+		draft.execute(holder, cont);
+		
 	    ReadRanks rankings = stupid.new ReadRanks((Activity)cont);
-		rankings.execute(holder, cont).get();
+		rankings.execute(holder, cont);
+		
 	}
+	
+	/**
+	 * This handles the running of the name readings
+	 * in the background of the main thread
+	 * @author Jeff
+	 *
+	 */
+	private class ReadNames extends AsyncTask<Object, Void, Void> 
+	{
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute(); 
+		}
+
+		
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	   		//Get the aggregate rankings
+	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+    		String parsedNames = prefs.getString("Player Names", "Doesn't matter");
+    		String[] namesSplit = parsedNames.split(",");
+    		holder.parsedPlayers.clear();
+    		for(String names: namesSplit)
+    		{
+    			holder.parsedPlayers.add(names);
+    		}
+			return null;
+	    }
+	  }
+	
 	/**
 	 * This handles the running of the rankings in the background
 	 * such that the user can't do anything until they're fetched
@@ -442,6 +482,30 @@ public class Storage
 	   			newPlayer.values.worth = Double.parseDouble(allData[i][0]);
 	   			holder.players.add(newPlayer);
 	   		}
+			return null;
+	    }
+	  }
+
+	/**
+	 * This handles the reading of the draft data
+	 * in the background
+	 * @author Jeff
+	 *
+	 */
+	private class ReadDraft extends AsyncTask<Object, Void, Void> 
+	{
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		}
+		
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	   		//Get the aggregate rankings
+	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     		String draftSet = prefs.getString("Draft Information", "Doesn't matter");
     		String[] perSet = draftSet.split("@");
     		String[][] individual = new String[perSet.length][];
@@ -467,7 +531,6 @@ public class Storage
 			return null;
 	    }
 	  }
-	
 
 	/**
 	 * Gets the names into the respective draft
