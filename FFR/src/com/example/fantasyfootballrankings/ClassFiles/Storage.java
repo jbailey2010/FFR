@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
+
 import java.io.Serializable;
 
 import java.lang.reflect.Array;
@@ -30,6 +31,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
+import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 
 
@@ -277,6 +279,82 @@ public class Storage
     	editor.commit();
 	}
 	
+	public static void storeAsync(Storage holder, Context cont)
+	{
+		final Storage stupid = new Storage();
+	    
+	    WriteDraft draftTask = stupid.new WriteDraft();
+	    draftTask.execute(holder, cont);
+	}
+	
+	
+	/**
+	 * This handles the running of the rankings in the background
+	 * such that the user can't do anything until they're fetched
+	 * @author Jeff
+	 *
+	 */
+	private class WriteDraft extends AsyncTask<Object, Void, Void> 
+	{
+	    public WriteDraft() 
+	    {
+
+	    }
+
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		}
+		
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage)data[0];
+	    	Context cont = (Context)data[1];
+	    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+	    	//Rankings work
+	    	StringBuilder players = new StringBuilder(10000);
+	    	for (PlayerObject player : holder.players)
+	    	{
+	    		players.append( 
+	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
+	    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
+	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
+	    		player.info.status + "&&" + player.info.adp + "&&" + player.info.bye + "&&" 
+	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "~~~~");
+	    	}
+	    	String playerString = players.toString();
+	    	editor.putString("Player Values", playerString).commit();
+	    	//Player names work
+	    	StringBuilder names = new StringBuilder(2000);
+	    	for(String name: holder.parsedPlayers)
+	    	{
+	    		names.append(name + ",");
+	    	}
+	    	String namesString = names.toString();
+	    	editor.putString("Player Names", namesString).commit();
+	    	//Setting up draft input
+	    	String draft = "";
+	    	//QB
+	    	draft += handleDraftInput(holder.draft.qb, "") + "@";
+	    	//RB
+	    	draft += handleDraftInput(holder.draft.rb, "") + "@";
+	    	//WR
+	    	draft += handleDraftInput(holder.draft.wr, "") + "@";
+	    	//TE
+	    	draft += handleDraftInput(holder.draft.te, "") + "@";
+	    	//D
+	    	draft += handleDraftInput(holder.draft.def, "") + "@";
+	    	//K
+	    	draft += handleDraftInput(holder.draft.k, "") + "@";
+	    	//Values
+	    	draft += holder.draft.remainingSalary + "@" + holder.draft.value;
+	    	editor.putString("Draft Information", draft);
+	    	editor.commit();
+			return null;
+	    }
+	  }
 	/**
 	 * Where the players themselves are written to file.
 	 * Note, this is not remotely automated, so any new objects need to 

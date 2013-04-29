@@ -488,7 +488,8 @@ public class Rankings extends Activity {
 	    }
 	    if(refreshed)
 	    {
-	    	Storage.storePlayers(holder, (Context)cont);
+	    	Storage.storeAsync(holder, (Context)cont);
+	    	refreshed = false;
 	    }
 	    while(!inter.isEmpty())
 	    {
