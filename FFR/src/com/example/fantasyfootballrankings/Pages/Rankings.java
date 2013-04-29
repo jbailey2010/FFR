@@ -143,6 +143,7 @@ public class Rankings extends Activity {
 				{
 					public void onClick(View v) {
 						refreshed = true;
+						listview.setAdapter(null);
 						dialog.dismiss();
 						try {
 							ParseRankings.runRankings(holder, cont);
@@ -333,6 +334,10 @@ public class Rankings extends Activity {
     		}
     	}
     	DecimalFormat df = new DecimalFormat("#.##");
+    	if(searchedPlayer.values.low == 100)
+    	{
+    		searchedPlayer.values.low = 0;
+    	}
     	output.add("Worth: " + df.format(searchedPlayer.values.worth));
     	output.add("Position: " + searchedPlayer.info.position);
     	output.add("Team: " + searchedPlayer.info.team);

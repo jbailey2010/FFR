@@ -178,6 +178,7 @@ public class Storage
     	String checkExists = prefs.getString("Player Names", "Not Set");
     	if(checkExists != "Not Set")
     	{
+    		holder.playerNames.clear();
     		String[] j = checkExists.split(",");
     		for(int i = 0; i < j.length; i++)
     		{
