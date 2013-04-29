@@ -384,7 +384,13 @@ public class Storage
 		draft.execute(holder, cont);
 		
 	    ReadRanks rankings = stupid.new ReadRanks((Activity)cont);
-		rankings.execute(holder, cont);
+		String[][] data=rankings.execute(holder, cont).get();
+		
+	    ReadInfo info = stupid.new ReadInfo((Activity)cont);
+		info.execute(holder, data);
+		
+	    ReadValue values = stupid.new ReadValue((Activity)cont);
+		values.execute(holder, data);
 		
 	}
 	
@@ -426,11 +432,102 @@ public class Storage
 	 * @author Jeff
 	 *
 	 */
-	private class ReadRanks extends AsyncTask<Object, Void, Void> 
+	private class ReadRanks extends AsyncTask<Object, Void, String[][]> 
+	{
+		ProgressDialog pdia;
+	    public ReadRanks(Activity activity) 
+	    {
+	        pdia = new ProgressDialog(activity);
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		        pdia.setMessage("Please wait, reading the rankings...");
+		        pdia.show();    
+		}
+
+		@Override
+		protected void onPostExecute(String[][] result){
+		   pdia.dismiss();
+		}
+		
+	    protected String[][] doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	   		//Get the aggregate rankings
+	   		holder.players.clear();
+	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+	    	String checkExists = prefs.getString("Player Values", "Not Set");
+	   		String[] perPlayer = checkExists.split("~~~~");
+	   		String[][] allData = new String[perPlayer.length][];
+	   		for(int i = 0; i < perPlayer.length; i++)
+	   		{ 
+	   			allData[i] = perPlayer[i].split("&&");
+	   			PlayerObject newPlayer = new PlayerObject(allData[i][4], allData[i][5], allData[i][6], 0);
+	   			holder.players.add(newPlayer);
+	   		}
+			return allData;
+	    }
+	  }
+
+	/**
+	 * This handles the running of the rankings in the background
+	 * such that the user can't do anything until they're fetched
+	 * @author Jeff
+	 *
+	 */
+	private class ReadInfo extends AsyncTask<Object, Void, Void> 
+	{
+		ProgressDialog pdia;
+	    public ReadInfo(Activity activity) 
+	    {
+	        pdia = new ProgressDialog(activity);
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		        pdia.setMessage("Please wait, reading the info...");
+		        pdia.show();    
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   pdia.dismiss();
+		   //Rankings.rankingsFetched(act);
+		}
+		
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	String[][]allData = (String[][])data[1];
+	   		//Get the aggregate rankings
+	   		for(int i = 0; i < holder.players.size(); i++)
+	   		{ 
+	   			PlayerObject player =holder.players.get(i);
+	   			player.info.sos = Integer.parseInt(allData[i][12]);
+	   			player.info.contractStatus = allData[i][11];
+	   			player.info.trend = allData[i][10];
+	   			player.info.bye = allData[i][9];
+	   			player.info.adp = allData[i][8];
+	   			player.info.status = allData[i][7];
+	   		}
+			return null;
+	    }
+	  }
+	/**
+	 * This handles the running of the rankings in the background
+	 * such that the user can't do anything until they're fetched
+	 * @author Jeff
+	 *
+	 */
+	private class ReadValue extends AsyncTask<Object, Void, Void> 
 	{
 		ProgressDialog pdia;
 		Activity act;
-	    public ReadRanks(Activity activity) 
+	    public ReadValue(Activity activity) 
 	    {
 	        pdia = new ProgressDialog(activity);
 	        act = activity;
@@ -452,33 +549,18 @@ public class Storage
 	    protected Void doInBackground(Object... data) 
 	    {
 	    	Storage holder = (Storage) data[0];
-	    	Context cont = (Context) data[1];
-	   		//Get the aggregate rankings
-	   		holder.players.clear();
-	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-	    	String checkExists = prefs.getString("Player Values", "Not Set");
-	   		String[] perPlayer = checkExists.split("~~~~");
-	   		String[][] allData = new String[perPlayer.length][];
-	   		for(int i = 0; i < perPlayer.length; i++)
+	    	String[][]allData = (String[][])data[1];
+	   		for(int i = 0; i < holder.players.size(); i++)
 	   		{ 
-	   			allData[i] = perPlayer[i].split("&&");
-	   			PlayerObject newPlayer = new PlayerObject(allData[i][4], allData[i][5], allData[i][6], 0);
-	   			newPlayer.info.sos = Integer.parseInt(allData[i][12]);
-	   			newPlayer.info.contractStatus = allData[i][11];
-	   			newPlayer.info.trend = allData[i][10];
-	   			newPlayer.info.bye = allData[i][9];
-	   			newPlayer.info.adp = allData[i][8];
-	   			newPlayer.info.status = allData[i][7];
-	   			newPlayer.values.low = Double.parseDouble(allData[i][3]);
-	   			newPlayer.values.high = Double.parseDouble(allData[i][2]);
-	   			newPlayer.values.count = Double.parseDouble(allData[i][1]);
-	   			newPlayer.values.worth = Double.parseDouble(allData[i][0]);
-	   			holder.players.add(newPlayer);
+	   			PlayerObject player = holder.players.get(i);
+	   			player.values.low = Double.parseDouble(allData[i][3]);
+	   			player.values.high = Double.parseDouble(allData[i][2]);
+	   			player.values.count = Double.parseDouble(allData[i][1]);
+	   			player.values.worth = Double.parseDouble(allData[i][0]);
 	   		}
 			return null;
 	    }
 	  }
-
 	
 	/**
 	 * This handles the reading of the draft data
