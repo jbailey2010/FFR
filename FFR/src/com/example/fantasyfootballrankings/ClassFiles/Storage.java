@@ -176,19 +176,12 @@ public class Storage
 	{
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	String checkExists = prefs.getString("Player Names", "Not Set");
-    	if(checkExists != "Not Set")
-    	{
-    		holder.playerNames.clear();
-    		String[] j = checkExists.split(",");
-    		for(int i = 0; i < j.length; i++)
-    		{
-    			holder.playerNames.add(j[i]);
-    		}
-    	}
-    	else
-    	{
-    		fetchPlayerNames(holder, cont);
-    	}
+   		holder.playerNames.clear();
+   		String[] j = checkExists.split(",");
+   		for(int i = 0; i < j.length; i++)
+   		{
+   			holder.playerNames.add(j[i]);
+   		}
 	}
 	
 	/**
@@ -198,9 +191,10 @@ public class Storage
 	 * @param cont the context used to write to file in the called function
 	 * @throws IOException 
 	 */
-	public static void fetchPlayerNames(final Storage holder, final Context cont) throws IOException
+	public static void fetchPlayerNames(final Context cont) throws IOException
 	{
-		holder.playerNames.clear();
+		//holder.playerNames.clear();
+		List<String> names = new ArrayList<String>();
 		String[] defenses = {"Bengals D/ST", "Steelers D/ST", "Browns D/ST", "Ravens D/ST", 
        		"Patriots D/ST", "Dolphins D/ST", "Bills D/ST", "Jets D/ST", "Texans D/ST",
        		"Colts D/ST", "Jaguars D/ST", "Titans D/ST", "Broncos D/ST", "Raiders D/ST",
@@ -210,11 +204,9 @@ public class Storage
        		"49ers D/ST", "Rams D/ST", "Cardinals D/ST"	};
        	for(int i = 0; i < defenses.length; i++)
        	{
-			holder.playerNames.add(defenses[i]);
+			names.add(defenses[i]);
        	}
 		//The baseline URL and the endings to be attached for the sake of getting all data easily
-    	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-    	StrictMode.setThreadPolicy(policy);
 		String url = "http://www.cbssports.com/nfl/playersearch?POSITION=";
 		String[] concat = {"QB&print_rows=9999", "RB&print_rows=9999", "FB&print_rows=9999",
 				"WR&print_rows=9999", "TE&print_rows=9999", "K&print_rows=9999"};
@@ -223,20 +215,20 @@ public class Storage
 			final String full = url + concat[i];
 			try {
 				Document doc = Jsoup.connect(full).get();
-				fetchPlayersHelp(doc, holder, cont, full, "row2");
-				fetchPlayersHelp(doc, holder, cont, full, "row1");
+				fetchPlayersHelp(doc, names, cont, full, "row2");
+				fetchPlayersHelp(doc, names, cont, full, "row1");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 		//Left out...why the hell aren't they in the list?
-		holder.playerNames.add("Robert Griffin III");
-		holder.playerNames.add("Brandon Jacobs");
-		holder.playerNames.add("Kellen Winslow");
-		holder.playerNames.add("Tim Hightower");
-		holder.playerNames.add("Terrell Owens");
+		names.add("Robert Griffin III");
+		names.add("Brandon Jacobs");
+		names.add("Kellen Winslow");
+		names.add("Tim Hightower");
+		names.add("Terrell Owens");
 		
-		storePlayerNames(holder, cont);
+		storePlayerNames(names, cont);
 	}
 	
 	/**
@@ -247,7 +239,7 @@ public class Storage
 	 * @param params the id to parse from
 	 * @throws IOException
 	 */
-	public static void fetchPlayersHelp(Document doc, Storage holder, Context cont, String full, String params) throws IOException
+	public static void fetchPlayersHelp(Document doc, List<String> names, Context cont, String full, String params) throws IOException
 	{
 		String playerText = HandleBasicQueries.handleTablesMulti(doc, full, params);
 		String[] perRow = playerText.split("\n");
@@ -259,7 +251,7 @@ public class Storage
 			{
 				String lastName = all[j][0].substring(0, all[j][0].length() - 1);
 				String name = all[j][1] + " " + lastName;
-				holder.playerNames.add(name);
+				names.add(name);
 			}
 		}
 	}
@@ -270,15 +262,15 @@ public class Storage
 	 * @param holder holds the array to be stored
 	 * @param cont used to be allowed to write to file in android
 	 */
-	public static void storePlayerNames(Storage holder, Context cont)
+	public static void storePlayerNames(List<String> names, Context cont)
 	{
     	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 		//editor.remove("Player Names");
     	//editor.commit();
     	String history = "";
-    	for(int i = 0; i < holder.playerNames.size(); i++)
+    	for(int i = 0; i < names.size(); i++)
     	{
-    		history += holder.playerNames.get(i) + ",";
+    		history += names.get(i) + ",";
     	}
     	history = history.substring(0, history.length()-1);
     	editor.putString("Player Names", history);

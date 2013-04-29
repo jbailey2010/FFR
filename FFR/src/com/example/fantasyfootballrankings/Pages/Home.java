@@ -61,7 +61,6 @@ public class Home extends Activity implements Serializable{
 	Button rankings;
 	Button team;
 	Button trending;
-	Storage holder = new Storage();
 	
 	/** 
 	 * Makes the buttons and sets the listeners for them
@@ -113,7 +112,7 @@ public class Home extends Activity implements Serializable{
 					public void onClick(View v) {
 						dialog.dismiss();
 						ParseNames task = stupid.new ParseNames((Activity)cont);
-					    task.execute(holder, cont);	
+					    task.execute(cont);	
 			    	}	
 				});	       
 		    	return true;			
@@ -154,10 +153,9 @@ public class Home extends Activity implements Serializable{
 	    @Override
 	    protected Void doInBackground(Object... data) 
 	    {
-	    	Storage holder = (Storage) data[0];
-	    	Context cont = (Context) data[1];
+	    	Context cont = (Context) data[0];
 	    	try {
-				Storage.fetchPlayerNames(holder, cont);
+				Storage.fetchPlayerNames(cont);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
