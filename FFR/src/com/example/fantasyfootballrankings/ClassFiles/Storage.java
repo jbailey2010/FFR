@@ -377,7 +377,7 @@ public class Storage
 	{
 		Storage stupid = new Storage();
 
-		ReadNames names = stupid.new ReadNames();
+		ReadNames names = stupid.new ReadNames((Activity)cont);
 		names.execute(holder, cont);
 		
 	    ReadDraft draft = stupid.new ReadDraft();
@@ -402,12 +402,24 @@ public class Storage
 	 */
 	private class ReadNames extends AsyncTask<Object, Void, Void> 
 	{
+	    ProgressDialog pdia;
+	    
+	    public ReadNames(Activity activity)
+	    {
+	    	pdia = new ProgressDialog(activity);
+	    }
 	    
 		@Override
 		protected void onPreExecute(){ 
-		   super.onPreExecute(); 
+	        super.onPreExecute(); 
+	        pdia.setMessage("Please wait, reading the names...");
+	        pdia.show();
 		}
-
+    
+		@Override
+		protected void onPostExecute(Void result){
+		   pdia.dismiss();
+		}
 		
 	    protected Void doInBackground(Object... data) 
 	    {
@@ -443,7 +455,7 @@ public class Storage
 		@Override
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
-		        pdia.setMessage("Please wait, reading the rankings...");
+		        pdia.setMessage("Please wait, reading the ranks...");
 		        pdia.show();    
 		}
 
@@ -536,7 +548,7 @@ public class Storage
 		@Override
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
-		        pdia.setMessage("Please wait, reading the rankings...");
+		        pdia.setMessage("Please wait, reading the values...");
 		        pdia.show();    
 		}
 
