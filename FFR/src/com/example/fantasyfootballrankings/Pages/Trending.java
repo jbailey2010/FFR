@@ -83,7 +83,7 @@ public class Trending extends Activity {
     	
     	//Get the posts, if they're not set, fetch them. If it's been 4+ days since
     	//they were fetched, fetch them. Otherwise, get from storage.
-    /*	String checkExists = prefs.getString("Posts", "Not Set");
+    	String checkExists = prefs.getString("Posts", "Not Set");
     	if(checkExists.equals("Not Set") || ((int)((new java.util.Date()).getTime()
     			- date.getTime()) / (1000 * 60 * 60 * 24) > 4))
     	{
@@ -92,8 +92,7 @@ public class Trending extends Activity {
     	else
     	{
     		Storage.fetchPostsLocal(holder, cont);
-    	}*/
-		fetchTrending(holder);
+    	}
 
     	getFilterForPosts(holder);
 	}
