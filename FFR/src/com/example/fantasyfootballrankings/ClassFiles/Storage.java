@@ -720,21 +720,18 @@ public class Storage
 	 */
 	public static void writePosts(Storage holder, Context cont) 
 	{
-    	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
-    	//prefs.edit().remove("Date of Posts").commit();
-    	//prefs.edit().remove("Posts").commit();
+    	StringBuilder posts = new StringBuilder(3000);
     	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-    	String posts = "";
     	for(int i = 0; i < holder.posts.size(); i++)
     	{
     		Post post = holder.posts.get(i);
-    		posts += post.text + "~~~" + post.date + "@@@";
+    		posts.append(post.text + "~~~" + post.date + "@@@");
     	}
     	DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
     	Date today = Calendar.getInstance().getTime();        
     	String reportDate = df.format(today);
     	editor.putString("Date of Posts", reportDate);
-    	editor.putString("Posts", posts);
+    	editor.putString("Posts", posts.toString());
     	editor.commit();
 	}
 
