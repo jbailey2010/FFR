@@ -92,37 +92,21 @@ public class ParseRankings
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
 	    	try { 
+	    		//Make sure there are player names to fetch relative to
 				Storage.fetchNames(holder, cont);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//Rankings go below
-			
-			try {
+				//Rankings parsing
 				ParseWF.wfRankings(holder);
 				ParseGE.geRankings(holder);
 				ParseCBS.cbsRankings(holder);
 				//ParseESPNadv.parseESPNAggregate(holder);
 				//ParseFFTB.parseFFTBRankingsWrapper(holder);
 				//ParseESPN.parseESPN300(holder);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} 
-
-
-			
-			//High level stuff below
-			try {
+				//High level calls
 				HighLevel.setStatus(holder);
 		        HighLevel.getParsedPlayers(holder);
 				HighLevel.setADP(holder);
 				//HighLevel.getSOS(holder);
 				//HighLevel.setContractStatus(holder);
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -131,9 +115,6 @@ public class ParseRankings
 				e.printStackTrace();
 			}
 			return null;
-			
-			//Save it to file -- UNCOMMENT THIS LATER
-			//Storage.storePlayers(holder, cont);
 	    }
 	  }
 

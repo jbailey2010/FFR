@@ -92,7 +92,8 @@ public class Trending extends Activity {
     	else
     	{
     		Storage.fetchPostsLocal(holder, cont);
-    	} 
+    	}
+
     	getFilterForPosts(holder);
 	}
 
@@ -242,7 +243,7 @@ public class Trending extends Activity {
 		}
 	    listview = (ListView) cont.findViewById(R.id.listview_trending);
 	    listview.setAdapter(null);
-	    List<String> trendingPlayers = new ArrayList<String>();
+	    List<String> trendingPlayers = new ArrayList<String>(350);
 	    PriorityQueue<PostedPlayer>inter = new PriorityQueue<PostedPlayer>(300, new Comparator<PostedPlayer>() 
 		{
 			@Override

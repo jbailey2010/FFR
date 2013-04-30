@@ -39,7 +39,7 @@ import com.example.fantasyfootballrankings.Pages.Trending;
  */
 public class ParseTrending 
 {
-	public static List<Post> posts = new ArrayList<Post>();
+	public static List<Post> posts = new ArrayList<Post>(500);
 	public static Context context;
 	public static Context inter;
 	public static Storage holder;

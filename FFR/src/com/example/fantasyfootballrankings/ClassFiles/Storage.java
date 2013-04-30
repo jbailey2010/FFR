@@ -86,9 +86,9 @@ public class Storage
 				return 0;
 			}
 		});
-		playerNames = new ArrayList<String>();
-		posts = new ArrayList<Post>();
-		parsedPlayers = new ArrayList<String>();
+		playerNames = new ArrayList<String>(400);
+		posts = new ArrayList<Post>(500);
+		parsedPlayers = new ArrayList<String>(350);
 		draft = new Draft();
 	}
 
@@ -130,7 +130,7 @@ public class Storage
 			//Finally, if one is one character and the other a full name
 			if(poss[0] == exis[0].substring(0,1) && poss[0].length() == 1 && poss[1] == exis[1]
 					&& !exis[1].contains("d/st"))
-			{
+			{ 
 				return holder.playerNames.get(i);
 			}
 			//One last case, in case of a shorter version of a name (ced/cedric)...etc,
@@ -279,6 +279,11 @@ public class Storage
     	editor.commit();
 	}
 	
+	/**
+	 * Handles writing rankings to file asynchronously
+	 * @param holder
+	 * @param cont
+	 */
 	public static void storeAsync(Storage holder, Context cont)
 	{
 		final Storage stupid = new Storage();

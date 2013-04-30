@@ -221,7 +221,7 @@ public class Rankings extends Activity {
 	 */
 	public static void searchCalled(final Dialog dialog, final Context oCont) throws IOException
 	{
-		matchedPlayers = new ArrayList<String>();
+		matchedPlayers = new ArrayList<String>(15);
 		newCont = oCont;
 		Storage.fetchNames(holder, newCont);
 		dialog.setContentView(R.layout.search_players);
@@ -317,7 +317,7 @@ public class Rankings extends Activity {
         lp.width = WindowManager.LayoutParams.FILL_PARENT;
         lp.height = WindowManager.LayoutParams.FILL_PARENT;
         dialog.getWindow().setAttributes(lp);
-    	List<String>output = new ArrayList<String>();
+    	List<String>output = new ArrayList<String>(12);
     	TextView name = (TextView)dialog.findViewById(R.id.name);
     	if(namePlayer.equals(""))
     	{
@@ -465,7 +465,7 @@ public class Rankings extends Activity {
     {
 	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
 	    listview.setAdapter(null);
-	    List<String> rankings = new ArrayList<String>();
+	    List<String> rankings = new ArrayList<String>(400);
 	    PriorityQueue<PlayerObject>inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 		{
 			@Override

@@ -29,7 +29,7 @@ public class ParseESPNadv
 		String values = HandleBasicQueries.handleLists("http://games.espn.go.com/ffl/livedraftresults",
 				"div div div div table tbody tr td");
 		String[] brokenValues = values.split("\n");
-		ArrayList<String>intermediate = new ArrayList<String>();
+		ArrayList<String>intermediate = new ArrayList<String>(500);
 		for(int i = 13; i < brokenValues.length; i++)
 		{
 			//Get rid of all but the name and aav
