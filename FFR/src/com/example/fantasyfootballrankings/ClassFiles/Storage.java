@@ -267,15 +267,12 @@ public class Storage
 	public static void storePlayerNames(List<String> names, Context cont)
 	{
     	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		//editor.remove("Player Names");
-    	//editor.commit();
-    	String history = "";
+    	StringBuilder history = new StringBuilder(1000);
     	for(int i = 0; i < names.size(); i++)
     	{
-    		history += names.get(i) + ",";
+    		history.append(names.get(i) + ",");
     	}
-    	history = history.substring(0, history.length()-1);
-    	editor.putString("Player Names", history);
+    	editor.putString("Player Names", history.toString());
     	editor.commit();
 	}
 	
