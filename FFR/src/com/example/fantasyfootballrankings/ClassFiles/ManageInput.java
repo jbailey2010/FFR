@@ -4,14 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.fantasyfootballrankings.R;
+import com.example.fantasyfootballrankings.Pages.Home;
+import com.example.fantasyfootballrankings.Pages.Rankings;
+import com.example.fantasyfootballrankings.Pages.Trending;
 
+import FileIO.ReadFromFile;
+import FileIO.WriteToFile;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.view.DragEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnDragListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 /**
  * A little class that should help with making user input
  * into searches...etc a little cooler, doing nicer things.
@@ -66,5 +78,84 @@ public class ManageInput
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(cont,
 	            android.R.layout.simple_list_item_1, list);
 	    listView.setAdapter(adapter);
+	}
+	
+	/**
+	 * Handles the filter quantity dialog
+	 * @param cont
+	 */
+	public static void filterQuantity(final Context cont, final String flag)
+	{
+		final Dialog dialog = new Dialog(cont);
+		dialog.setContentView(R.layout.filter_quantity);
+		dialog.show();
+		int filterSize = ReadFromFile.readFilterQuantitySize(cont, flag);
+		final SeekBar selector = (SeekBar)dialog.findViewById(R.id.seekBar_quantity);
+		final TextView display = (TextView)dialog.findViewById(R.id.quantity_display);
+		if(filterSize == 0)
+		{
+			display.setText("None of the players");
+		}
+		else if(filterSize == 100)
+		{
+			display.setText("All of the players");
+		}
+		else
+		{
+			display.setText(String.valueOf(filterSize) + "% of the players");
+		}
+		selector.setProgress(filterSize);
+		selector.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
+    	    	int prog = selector.getProgress();
+    	    	String size = "";
+    	    	if(prog == 0)
+    	    	{
+    	    		size = "None of the players";
+    	    	}
+    	    	else if(prog == 100)
+    	    	{
+    	    		size = "All of the playerse";
+    	    	}
+    	    	else
+    	    	{
+    	    		size = Integer.toString(prog) + "% of the players";
+    	    	}
+    	    	display.setText(size);	
+				
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+    	});
+		Button cancel = (Button)dialog.findViewById(R.id.filter_size_cancel);
+		cancel.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				dialog.dismiss();
+	    	}	
+		});
+		Button submit = (Button)dialog.findViewById(R.id.filter_size_submit);
+		submit.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				WriteToFile.writeFilterSize(cont, selector.getProgress(), flag);
+				dialog.dismiss();
+				if(flag.equals("Rankings"))
+				{
+					Rankings.intermediateHandleRankings((Activity)cont);
+				}
+	    	}	
+		});
 	}
 }

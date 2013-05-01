@@ -63,40 +63,9 @@ public class Trending extends Activity {
 		
 		//Fetch the date of the posts, and convert it to a date
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-    	String storedPosts = prefs.getString("Posted Players", "Not Posted");
     	listview = (ListView)findViewById(R.id.listview_trending);
-    	if(storedPosts != "Not Posted")
-    	{
-    		String[] posts = storedPosts.split("##");
-    		List<String>postsList = Arrays.asList(posts);
-    		ManageInput.handleArray(postsList, listview, this);
-    	}
-    	String storedDate = prefs.getString("Date of Posts", "Doesn't Matter");
-    	Date date = new Date();
-    	if(storedDate != "Doesn't Matter")
-    	{
-    		try {
-    			date = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH).parse(storedDate);
-    		} catch (ParseException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		} 
-    	}
-    	
-    	//Get the posts, if they're not set, fetch them. If it's been 4+ days since
-    	//they were fetched, fetch them. Otherwise, get from storage.
-    	String checkExists = prefs.getString("Posts", "Not Set");
-    	if(checkExists.equals("Not Set") || ((int)((new java.util.Date()).getTime()
-    			- date.getTime()) / (1000 * 60 * 60 * 24) > 4))
-    	{
-    		fetchTrending(holder);
-    	}
-    	else
-    	{
-    		ReadFromFile.fetchPostsLocal(holder, cont);
-    	}
-
-    	getFilterForPosts(holder);
+		initialLoad(prefs);
+		handleDates(prefs);
 	}
 
 	/**
@@ -122,6 +91,9 @@ public class Trending extends Activity {
 				holder.posts.clear();
 				fetchTrending(holder);
 				return true;
+			case R.id.filter_quantity_menu:
+				filterQuantity();
+				return true;
 			case R.id.go_home:
 				Intent home_intent = new Intent(cont, Home.class);
 				cont.startActivity(home_intent);		
@@ -140,6 +112,53 @@ public class Trending extends Activity {
 	}
 	
 	/**
+	 * Handles the initial load of trending players on creation
+	 * @param prefs
+	 */
+	public void initialLoad(SharedPreferences prefs)
+	{
+		String storedPosts = prefs.getString("Posted Players", "Not Posted");
+    	if(storedPosts != "Not Posted")
+    	{
+    		String[] posts = storedPosts.split("##");
+    		List<String>postsList = Arrays.asList(posts);
+    		ManageInput.handleArray(postsList, listview, this);
+    	}
+	}
+	
+	/**
+	 * Handles possible refreshing of trending player data
+	 * @param prefs
+	 */
+	public void handleDates(SharedPreferences prefs)
+	{
+		String storedDate = prefs.getString("Date of Posts", "Doesn't Matter");
+    	Date date = new Date();
+    	if(storedDate != "Doesn't Matter")
+    	{
+    		try {
+    			date = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH).parse(storedDate);
+    		} catch (ParseException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} 
+    	}
+    	//Get the posts, if they're not set, fetch them. If it's been 4+ days since
+    	//they were fetched, fetch them. Otherwise, get from storage.
+    	String checkExists = prefs.getString("Posts", "Not Set");
+    	if(checkExists.equals("Not Set") || ((int)((new java.util.Date()).getTime()
+    			- date.getTime()) / (1000 * 60 * 60 * 24) > 4))
+    	{
+    		fetchTrending(holder);
+    	}
+    	else
+    	{
+    		ReadFromFile.fetchPostsLocal(holder, cont);
+    	}
+    	getFilterForPosts(holder);
+	}
+	
+	/**
 	 * Just because this has to be called twice, abstracted.
 	 * Makes the loading dialog, and in a side thread calls the back
 	 * function so both could happen. Yay, hackiness.
@@ -153,6 +172,15 @@ public class Trending extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
+	}
+	
+	/**
+	 * Calls the function that handles filtering 
+	 * quantity size
+	 */
+	public void filterQuantity()
+	{
+		ManageInput.filterQuantity(cont, "Trending");	
 	}
 	
 	/**
@@ -198,20 +226,14 @@ public class Trending extends Activity {
 	}
 	
 	/**
-	 * Does sexy things
+	 * Handles the middle ground before setting the listView
 	 * @param holder
+	 * @param cont
 	 */
-	public void handleParsed(Storage holder, Activity cont)
+	public void intermediateHandleTrending(Storage holder, Activity cont)
 	{
-		System.out.println("DONE " + holder.postedPlayers.size());
-		for(PostedPlayer e:holder.postedPlayers)
-		{
-			System.out.println(e.name + ": " + e.count);
-		}
-	    listview = (ListView) cont.findViewById(R.id.listview_trending);
-	    listview.setAdapter(null);
-	    List<String> trendingPlayers = new ArrayList<String>(350);
-	    PriorityQueue<PostedPlayer>inter = new PriorityQueue<PostedPlayer>(300, new Comparator<PostedPlayer>() 
+		int maxSize = ReadFromFile.readFilterQuantitySize((Context)cont, "Trending");
+		PriorityQueue<PostedPlayer>finalList = new PriorityQueue<PostedPlayer>(300, new Comparator<PostedPlayer>() 
 		{
 			@Override
 			public int compare(PostedPlayer a, PostedPlayer b) 
@@ -227,13 +249,34 @@ public class Trending extends Activity {
 			    return 0;
 			}
 		});
-	    while(!holder.postedPlayers.isEmpty())
+		int total = holder.postedPlayers.size();
+		double fraction = (double)maxSize * 0.01;
+		double newSize = total * fraction;
+		for(int i = 0; i < newSize; i++)
+		{
+			finalList.add(holder.postedPlayers.poll());
+		}
+		holder.postedPlayers.clear();
+		handleParsed(finalList, holder, cont);
+	}
+	
+	/**
+	 * Does sexy things
+	 * @param holder
+	 */
+	public void handleParsed(PriorityQueue<PostedPlayer> playersTrending, Storage holder, Activity cont)
+	{
+		System.out.println("DONE " + playersTrending.size());
+		for(PostedPlayer e:playersTrending)
+		{
+			System.out.println(e.name + ": " + e.count);
+		}
+	    listview = (ListView) cont.findViewById(R.id.listview_trending);
+	    listview.setAdapter(null);
+	    List<String> trendingPlayers = new ArrayList<String>(350);
+	    while(!playersTrending.isEmpty())
 	    {
-	    	inter.add(holder.postedPlayers.poll());
-	    }
-	    while(!inter.isEmpty())
-	    {
-	    	PostedPlayer elem = inter.poll();
+	    	PostedPlayer elem = playersTrending.poll();
 	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times");
 	    }
 	    WriteToFile.writePostsList(trendingPlayers, cont);

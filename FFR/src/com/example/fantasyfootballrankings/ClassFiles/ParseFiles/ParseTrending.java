@@ -170,7 +170,8 @@ public class ParseTrending
 		protected void onPostExecute(Void result){
 		   super.onPostExecute(result);
 		   pdia.dismiss();
-		   ((Trending) act).handleParsed(holder, act);		
+		   posts.clear();
+		   ((Trending)act).intermediateHandleTrending(holder, act);
 		}
     	
 	    @Override

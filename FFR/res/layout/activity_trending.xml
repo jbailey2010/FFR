@@ -5,35 +5,50 @@
     android:orientation="vertical" >
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
+        android:layout_height="wrap_content"  >
         <Button
             android:id="@+id/filter_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
         	android:text="Last 24 hours"
-        	android:layout_weight="25"/>
-
+        	android:layout_weight="25"
+        	style="?android:attr/buttonBarButtonStyle"/>
+        
+		<View android:layout_height="fill_parent"
+		    android:layout_width="1dp"
+		    android:background="#90909090"/>
+		
         <Button
             android:id="@+id/filter_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Last 7 days" 
-            android:layout_weight="25"/>
+            android:layout_weight="25"
+            style="?android:attr/buttonBarButtonStyle"/>
+        
+		<View android:layout_height="fill_parent"
+		    android:layout_width="1dp"
+		    android:background="#90909090"/>
 
         <Button
             android:id="@+id/filter_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Last month"
-            android:layout_weight="25" />
+            android:layout_weight="25"
+            style="?android:attr/buttonBarButtonStyle" />
+        
+       <View android:layout_height="fill_parent"
+		    android:layout_width="1dp"
+		    android:background="#90909090"/>
 
         <Button
             android:id="@+id/filter_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No Filter" 
-            android:layout_weight="25"/>
+            android:layout_weight="25"
+            style="?android:attr/buttonBarButtonStyle"/>
 
 
     </LinearLayout>

@@ -257,7 +257,7 @@ public class ReadFromFile {
 		}
 		@Override
 		protected void onPostExecute(Void result){
-		   Rankings.rankingsFetched(act);
+		   Rankings.intermediateHandleRankings(act);
 		}
 	    protected Void doInBackground(Object... data) 
 	    {
@@ -309,4 +309,19 @@ public class ReadFromFile {
 			holder.posts.add(newPost);
 		}
 	}
+	
+	/**
+	 * Reads the filter quantity size from file
+	 * @param cont the context from which it reads
+	 * @return the size
+	 */
+	public static int readFilterQuantitySize(Context cont, String flag) 
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		if(flag.equals("Rankings"))
+		{
+			return prefs.getInt("Filter Quantity Size Rankings", 0);
+		}
+		return prefs.getInt("Filter Quantity Size", 0);
 	}
+}

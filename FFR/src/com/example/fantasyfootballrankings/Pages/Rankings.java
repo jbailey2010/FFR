@@ -91,6 +91,94 @@ public class Rankings extends Activity {
 		calc = (Button)findViewById(R.id.trade_calc);
     	listview = (ListView)findViewById(R.id.listview_rankings);
 		handleOnClickButtons();
+		handleRefresh();
+	}
+	
+	/**
+	 * Sets up the menu
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.rankings, menu);
+		return true;
+	}
+	
+	/**
+	 * Runs the on selection part of the menu
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+		dialog = new Dialog(cont);
+		switch (item.getItemId()) 
+		{
+			case R.id.refresh:
+				refreshRanks(dialog);
+		    	return true;
+			case R.id.filter_quantity_menu:
+				filterQuantity();
+				return true;
+			//New page opens up entirely for going home
+			case R.id.go_home:
+				Intent home_intent = new Intent(cont, Home.class);
+				cont.startActivity(home_intent);		
+		        return true;
+		    //New page opens up entirely for viewing the team page
+			case R.id.view_team:
+		        Intent intent = new Intent(cont, Team.class);
+		        cont.startActivity(intent);		
+ 		        return true;
+ 		    //New page opens up entirely for viewing trending players
+			case R.id.view_trending:
+		        Intent team_intent = new Intent(cont, Trending.class);
+		        cont.startActivity(team_intent);		
+				return true;
+			
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+    
+	/**
+	 * Handles the refreshing of the rankings/user input to do so
+	 * @param dialog
+	 */
+	public void refreshRanks(final Dialog dialog)
+	{
+		dialog.setContentView(R.layout.refresh); 
+		Button refreshDismiss = (Button)dialog.findViewById(R.id.refresh_cancel);
+		refreshDismiss.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				dialog.dismiss();
+	    	}	
+		});
+		Button refreshSubmit = (Button)dialog.findViewById(R.id.refresh_confirm);
+		refreshSubmit.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				refreshed = true;
+				listview.setAdapter(null);
+				dialog.dismiss();
+				try {
+					ParseRankings.runRankings(holder, cont);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (XPatherException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	    	}	
+		});
+    	dialog.show();	
+	}
+	
+	/**
+	 * Handles the possible loading of the players
+	 */
+	public void handleRefresh()
+	{
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	String checkExists = prefs.getString("Player Values", "Not Set");
     	if(checkExists != "Not Set")
@@ -113,74 +201,6 @@ public class Rankings extends Activity {
     	}
 	}
 	
-	/**
-	 * Sets up the menu
-	 */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.rankings, menu);
-		return true;
-	}
-	
-	/**
-	 * Runs the on selection part of the menu
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{
-		dialog = new Dialog(cont);
-		switch (item.getItemId()) 
-		{
-			case R.id.refresh:
-				dialog.setContentView(R.layout.refresh); 
-				Button refreshDismiss = (Button)dialog.findViewById(R.id.refresh_cancel);
-				refreshDismiss.setOnClickListener(new OnClickListener() 
-				{
-					public void onClick(View v) {
-						dialog.dismiss();
-			    	}	
-				});
-				Button refreshSubmit = (Button)dialog.findViewById(R.id.refresh_confirm);
-				refreshSubmit.setOnClickListener(new OnClickListener() 
-				{
-					public void onClick(View v) {
-						refreshed = true;
-						listview.setAdapter(null);
-						dialog.dismiss();
-						try {
-							ParseRankings.runRankings(holder, cont);
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (XPatherException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-			    	}	
-				});
-		    	dialog.show();		       
-		    	return true;
-			//New page opens up entirely for going home
-			case R.id.go_home:
-				Intent home_intent = new Intent(cont, Home.class);
-				cont.startActivity(home_intent);		
-		        return true;
-		    //New page opens up entirely for viewing the team page
-			case R.id.view_team:
-		        Intent intent = new Intent(cont, Team.class);
-		        cont.startActivity(intent);		
- 		        return true;
- 		    //New page opens up entirely for viewing trending players
-			case R.id.view_trending:
-		        Intent team_intent = new Intent(cont, Trending.class);
-		        cont.startActivity(team_intent);		
-				return true;
-			
-			default:
-				return super.onOptionsItemSelected(item);
-		}
-	}
-    
 	/**
 	 * Sets onclick of the button bar
 	 */
@@ -213,6 +233,15 @@ public class Rankings extends Activity {
 		//Comparator not yet implemented
 		
 		//Calculator not yet implemented
+	}
+	
+	/**
+	 * Calls the function that handles filtering 
+	 * quantity size
+	 */
+	public void filterQuantity()
+	{
+		ManageInput.filterQuantity(cont,"Rankings");		
 	}
 	
 	/**
@@ -459,16 +488,14 @@ public class Rankings extends Activity {
 	}
 
 	/**
-     * The function that handles what happens when
-     * the rankings are all fetched
-     * @param holder
-     */
-    public static void rankingsFetched(Activity cont)
-    {
-	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
-	    listview.setAdapter(null);
-	    List<String> rankings = new ArrayList<String>(400);
-	    PriorityQueue<PlayerObject>inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+	 * Handles the middle ground before setting the listView
+	 * @param holder
+	 * @param cont
+	 */
+	public static void intermediateHandleRankings(Activity cont)
+	{
+		int maxSize = ReadFromFile.readFilterQuantitySize((Context)cont, "Rankings");
+		PriorityQueue<PlayerObject>inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 		{
 			@Override
 			public int compare(PlayerObject a, PlayerObject b) 
@@ -484,18 +511,54 @@ public class Rankings extends Activity {
 			    return 0;
 			}
 		});
-	    for(int i = 0; i < holder.players.size(); i++)
-	    {
-	    	inter.add(holder.players.get(i));
-	    }
+		PriorityQueue<PlayerObject>totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b) 
+			{
+				if (a.values.worth > b.values.worth)
+			    {
+			        return -1;
+			    }
+			    if (a.values.worth < b.values.worth)
+			    {
+			    	return 1;
+			    }
+			    return 0;
+			}
+		});
+		int total = holder.players.size();
+		double fraction = (double)maxSize * 0.01;
+		double newSize = total * fraction;
+		for(int i = 0; i < holder.players.size(); i++)
+		{
+			inter.add(holder.players.get(i));
+		}
+		for(int i = 0; i < newSize; i++)
+		{
+			totalList.add(inter.poll());
+		}
+		rankingsFetched(totalList, cont);
+	}
+	
+	/**
+     * The function that handles what happens when
+     * the rankings are all fetched
+     * @param holder
+     */
+    public static void rankingsFetched(PriorityQueue<PlayerObject> playerList, Activity cont)
+    {
+	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
+	    listview.setAdapter(null);
+	    List<String> rankings = new ArrayList<String>(400);
 	    if(refreshed)
 	    {
 	    	WriteToFile.storeAsync(holder, (Context)cont);
 	    	refreshed = false;
 	    }
-	    while(!inter.isEmpty())
+	    while(!playerList.isEmpty())
 	    {
-	    	PlayerObject elem = inter.poll();
+	    	PlayerObject elem = playerList.poll();
 	        DecimalFormat df = new DecimalFormat("#.##");
 	    	rankings.add(df.format(elem.values.worth) + ":  " + elem.info.name);
 	    }

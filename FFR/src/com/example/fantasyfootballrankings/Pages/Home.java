@@ -47,13 +47,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
+ 
 /**
  * The home class, sets up the three main buttons to go to 
  * trending players, team view, and/or rankings themselves
  * @author Jeff
  *
- */
+ */ 
 public class Home extends Activity implements Serializable{
 	//Some global variables, context and a few buttons
 	final Context cont = this;
@@ -76,6 +76,7 @@ public class Home extends Activity implements Serializable{
         trending = (Button)findViewById(R.id.trending);
         trending.setOnClickListener(trendHandler);
 	}  
+	
 	/**
 	 * Sets up the menu
 	 */
@@ -96,29 +97,38 @@ public class Home extends Activity implements Serializable{
 		{
 			//Refresh the names list
 			case R.id.refresh_names:
-				dialog.setContentView(R.layout.refresh_list);
-				dialog.show();
-				Button cancel = (Button)dialog.findViewById(R.id.cancel_list_refresh);
-				Button submit = (Button)dialog.findViewById(R.id.confirm_list_refresh);
-				final Home stupid = new Home();
-				cancel.setOnClickListener(new OnClickListener() 
-				{
-					public void onClick(View v) {
-						dialog.dismiss();
-			    	}	
-				});
-				submit.setOnClickListener(new OnClickListener() 
-				{
-					public void onClick(View v) {
-						dialog.dismiss();
-						ParseNames task = stupid.new ParseNames((Activity)cont);
-					    task.execute(cont);	
-			    	}	
-				});	       
+				nameRefresh(dialog);
 		    	return true;			
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	/**
+	 * Handles the name refreshing given the prompt
+	 * @param dialog
+	 */
+	public void nameRefresh(final Dialog dialog)
+	{
+		dialog.setContentView(R.layout.refresh_list);
+		dialog.show();
+		Button cancel = (Button)dialog.findViewById(R.id.cancel_list_refresh);
+		Button submit = (Button)dialog.findViewById(R.id.confirm_list_refresh);
+		final Home stupid = new Home();
+		cancel.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				dialog.dismiss();
+	    	}	
+		});
+		submit.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				dialog.dismiss();
+				ParseNames task = stupid.new ParseNames((Activity)cont);
+			    task.execute(cont);	
+	    	}	
+		});	
 	}
 	
 	/**

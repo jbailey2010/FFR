@@ -84,7 +84,7 @@ public class ParseRankings
 		protected void onPostExecute(Void result){
 		   super.onPostExecute(result);
 		   pdia.dismiss();
-		   ((Rankings)act).rankingsFetched(act);
+		   ((Rankings)act).intermediateHandleRankings(act);
 		}
 		
 	    @Override

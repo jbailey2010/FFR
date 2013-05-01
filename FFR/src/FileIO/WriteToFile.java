@@ -186,5 +186,22 @@ public class WriteToFile {
     	editor.commit();
 	}
 
-	
+	/**
+	 * Just writes the filter size to file for later usage
+	 * @param cont
+	 * @param size
+	 */
+	public static void writeFilterSize(Context cont, int size, String flag)
+	{
+    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+    	if(flag.equals("Rankings"))
+    	{
+        	editor.putInt("Filter Quantity Size Rankings", size);
+    	}
+    	else
+    	{
+    		editor.putInt("Filter Quantity Size", size);
+    	}
+    	editor.commit();
+	}
 }
