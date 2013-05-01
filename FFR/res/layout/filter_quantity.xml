@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/what_filtered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp"
+        android:text="Use the slider to set how many players to display"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <SeekBar
+        android:id="@+id/seekBar_quantity"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/what_filtered"
+        android:layout_centerHorizontal="true"
+        android:progress="100"
+        android:layout_marginTop="79dp" />
+
+    <Button
+        android:id="@+id/filter_size_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/seekBar_quantity"
+        android:layout_below="@+id/quantity_display"
+        android:layout_marginTop="65dp"
+        android:text="Cancel" />
+
+    <Button
+        android:id="@+id/filter_size_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/filter_size_cancel"
+        android:layout_alignBottom="@+id/filter_size_cancel"
+        android:layout_alignRight="@+id/seekBar_quantity"
+        android:text="Submit" />
+
+    <TextView
+        android:id="@+id/quantity_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seekBar_quantity"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp"
+        android:text="All of the players"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>
