@@ -15,7 +15,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
-
+/**
+ * A library of all of the functions that will write to 
+ * file 
+ * @author Jeff
+ *
+ */
 public class WriteToFile {
 
 	/**

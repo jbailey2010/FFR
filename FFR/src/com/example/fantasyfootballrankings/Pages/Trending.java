@@ -163,64 +163,29 @@ public class Trending extends Activity {
 	private void getFilterForPosts(final Storage holder) 
 	{
         day = (Button)findViewById(R.id.filter_day);
-        day.setOnClickListener(new View.OnClickListener() 
-        {
-            @Override
-            public void onClick(View v) 
-            {
-				try {
-					ParseTrending.setUpLists(holder, 1, cont);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            }
-        });       
+        setOnClicks(day, 1);     
         week = (Button)findViewById(R.id.filter_week);
-        week.setOnClickListener(new View.OnClickListener() 
-        {   
-            @Override
-            public void onClick(View v) 
-            {
-            	try {
-					ParseTrending.setUpLists(holder, 7, cont);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            }
-        });     
+        setOnClicks(week, 7);   
         month = (Button)findViewById(R.id.filter_month);
-        month.setOnClickListener(new View.OnClickListener() 
-        {
-            @Override
-            public void onClick(View v) 
-            {
-				try {
-					ParseTrending.setUpLists(holder, 30, cont);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            } 
-        }); 
+        setOnClicks(month, 30);
         all = (Button)findViewById(R.id.filter_all);
-        all.setOnClickListener(new View.OnClickListener() 
-        {
+        setOnClicks(all, 365);
+	}
+	
+	/**
+	 * Handles setting of onclick listeners
+	 * @param button
+	 * @param filterSize
+	 */
+	public void setOnClicks(Button button, final int filterSize)
+	{
+		button.setOnClickListener(new View.OnClickListener()
+		{	
             @Override
             public void onClick(View v) 
             {
 				try {
-					ParseTrending.setUpLists(holder, 365, cont);
+					ParseTrending.setUpLists(holder, filterSize, cont);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -229,7 +194,7 @@ public class Trending extends Activity {
 					e.printStackTrace();
 				}
             }
-        }); 
+		});
 	}
 	
 	/**

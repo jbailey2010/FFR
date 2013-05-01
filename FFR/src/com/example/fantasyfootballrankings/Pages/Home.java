@@ -24,10 +24,10 @@ import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
-import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 
 import android.os.AsyncTask;
@@ -155,7 +155,7 @@ public class Home extends Activity implements Serializable{
 	    {
 	    	Context cont = (Context) data[0];
 	    	try {
-				Storage.fetchPlayerNames(cont);
+				ParsePlayerNames.fetchPlayerNames(cont);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -16,7 +16,12 @@ import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.Pages.Rankings;
-
+/**
+ * A library of all the functions that will read
+ * from file
+ * @author Jeff
+ *
+ */
 public class ReadFromFile {
 
 	/** 
