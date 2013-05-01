@@ -21,6 +21,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 
+import FileIO.ReadFromFile;
 import android.R.integer;
 import android.app.Activity;
 import android.app.Dialog;
@@ -93,7 +94,7 @@ public class ParseRankings
 	    	Context cont = (Context) data[1];
 	    	try { 
 	    		//Make sure there are player names to fetch relative to
-				Storage.fetchNames(holder, cont);
+				ReadFromFile.fetchNames(holder, cont);
 				//Rankings parsing
 				ParseWF.wfRankings(holder);
 				ParseGE.geRankings(holder);

@@ -27,6 +27,8 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 
+import FileIO.ReadFromFile;
+import FileIO.WriteToFile;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -94,7 +96,7 @@ public class Rankings extends Activity {
     	if(checkExists != "Not Set")
     	{
 			try {
-				Storage.fetchPlayers(holder,cont);
+				ReadFromFile.fetchPlayers(holder,cont);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -223,7 +225,7 @@ public class Rankings extends Activity {
 	{
 		matchedPlayers = new ArrayList<String>(15);
 		newCont = oCont;
-		Storage.fetchNames(holder, newCont);
+		ReadFromFile.fetchNames(holder, newCont);
 		dialog.setContentView(R.layout.search_players);
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
@@ -488,7 +490,7 @@ public class Rankings extends Activity {
 	    }
 	    if(refreshed)
 	    {
-	    	Storage.storeAsync(holder, (Context)cont);
+	    	WriteToFile.storeAsync(holder, (Context)cont);
 	    	refreshed = false;
 	    }
 	    while(!inter.isEmpty())

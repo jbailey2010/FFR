@@ -22,6 +22,8 @@ import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 
+import FileIO.ReadFromFile;
+import FileIO.WriteToFile;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Dialog;
@@ -91,7 +93,7 @@ public class Trending extends Activity {
     	}
     	else
     	{
-    		Storage.fetchPostsLocal(holder, cont);
+    		ReadFromFile.fetchPostsLocal(holder, cont);
     	}
 
     	getFilterForPosts(holder);
@@ -269,7 +271,7 @@ public class Trending extends Activity {
 	    	PostedPlayer elem = inter.poll();
 	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times");
 	    }
-	    holder.writePostsList(trendingPlayers, cont);
+	    WriteToFile.writePostsList(trendingPlayers, cont);
 	    ManageInput.handleArray(trendingPlayers, listview, cont);
 	}
 }

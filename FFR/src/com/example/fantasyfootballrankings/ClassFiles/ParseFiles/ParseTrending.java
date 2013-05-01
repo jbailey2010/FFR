@@ -18,6 +18,8 @@ import org.htmlcleaner.XPatherException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import FileIO.ReadFromFile;
+import FileIO.WriteToFile;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -73,7 +75,7 @@ public class ParseTrending
 		protected void onPostExecute(Void result){
 		   super.onPostExecute(result);
 		   pdia.dismiss();
-		   Storage.writePosts(holder, context);
+		   WriteToFile.writePosts(holder, context);
 		}
     	
 	    @Override
@@ -85,7 +87,7 @@ public class ParseTrending
 	    	if(holder.playerNames.isEmpty() == true)
 			{
 				try {
-					Storage.fetchNames(holder, cont);
+					ReadFromFile.fetchNames(holder, cont);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -204,7 +206,7 @@ public class ParseTrending
 		holder.postedPlayers.clear();
 		if(holder.playerNames.size() == 0)
 		{
-			Storage.fetchNames(holder, cont);
+			ReadFromFile.fetchNames(holder, cont);
 		}
 		for(int i = 0; i < posts.size(); i++)
 		{
