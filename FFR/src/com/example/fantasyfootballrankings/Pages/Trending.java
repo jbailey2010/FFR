@@ -53,6 +53,7 @@ public class Trending extends Activity {
 	Button all;
 	Storage holder = new Storage();
 	ListView listview;
+	boolean refreshed = false;
 	/**
 	 * Sets up the dialog to show up immediately
 	 */
@@ -213,6 +214,7 @@ public class Trending extends Activity {
             public void onClick(View v) 
             {
 				try {
+					refreshed = true;
 					ParseTrending.setUpLists(holder, filterSize, cont);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
@@ -279,7 +281,11 @@ public class Trending extends Activity {
 	    	PostedPlayer elem = playersTrending.poll();
 	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times");
 	    }
-	    WriteToFile.writePostsList(trendingPlayers, cont);
+	    if(refreshed)
+	    {
+	    	WriteToFile.writePostsList(trendingPlayers, cont);
+	    	refreshed = false;
+	    }
 	    ManageInput.handleArray(trendingPlayers, listview, cont);
 	}
 }

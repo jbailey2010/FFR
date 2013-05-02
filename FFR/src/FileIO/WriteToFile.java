@@ -176,15 +176,46 @@ public class WriteToFile {
 	 */
 	public static void writePostsList(List<String> trendingPlayers, Activity cont) 
 	{
-    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-    	StringBuilder posts = new StringBuilder(5000);
-    	for(int i = 0; i < trendingPlayers.size(); i++)
-    	{
-    		posts.append(trendingPlayers.get(i) + "##");
-    	}
-    	editor.putString("Posted Players", posts.toString());
-    	editor.commit();
+		final WriteToFile stupid = new WriteToFile();
+	    WritePostsListAsync draftTask = stupid.new WritePostsListAsync();
+	    draftTask.execute(trendingPlayers, cont);
 	}
+	
+	/**
+	 * Writes the posts to file 
+	 * @author Jeff
+	 *
+	 */
+	private class WritePostsListAsync extends AsyncTask<Object, Void, Void> 
+	{
+	    public WritePostsListAsync() 
+	    {
+	
+	    }
+	
+	
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		}
+		
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	List<String> trendingPlayers = (List<String>)data[0];
+	    	Context cont = (Context)data[1];
+	    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+	    	StringBuilder posts = new StringBuilder(5000);
+	    	for(int i = 0; i < trendingPlayers.size(); i++)
+	    	{
+	    		posts.append(trendingPlayers.get(i) + "##");
+	    	}
+	    	editor.putString("Posted Players", posts.toString());
+	    	editor.commit();
+			return null;
+	    }
+	}
+
 
 	/**
 	 * Just writes the filter size to file for later usage
