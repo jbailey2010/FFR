@@ -100,7 +100,7 @@ public class ParseRankings
 				ParseGE.geRankings(holder);
 				ParseCBS.cbsRankings(holder);
 				//ParseESPNadv.parseESPNAggregate(holder);
-				//ParseFFTB.parseFFTBRankingsWrapper(holder);
+				ParseFFTB.parseFFTBRankingsWrapper(holder);
 				//ParseESPN.parseESPN300(holder);
 				//High level calls
 				HighLevel.setStatus(holder);
@@ -188,7 +188,7 @@ public class ParseRankings
 		{
 			playerName = "Jon Baldwin";
 		}
-		else if(playerName.equals("Chris Wells"))
+		else if(playerName.equals("Chris Wells") || playerName.contains("Beanie"))
 		{
 			playerName = "Beanie Wells";
 		}		

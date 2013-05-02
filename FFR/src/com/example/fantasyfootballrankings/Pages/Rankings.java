@@ -365,13 +365,15 @@ public class Rankings extends Activity {
     		}
     	}
     	DecimalFormat df = new DecimalFormat("#.##");
+    	String low = String.valueOf(searchedPlayer.values.low);
     	if(searchedPlayer.values.low == 100)
     	{
-    		searchedPlayer.values.low = 0;
+    		low = String.valueOf(searchedPlayer.values.high);
     	}
     	output.add("Worth: " + df.format(searchedPlayer.values.worth));
     	output.add("Position: " + searchedPlayer.info.position);
     	output.add("Team: " + searchedPlayer.info.team);
+    	output.add("Age: " + searchedPlayer.info.age);
     	output.add("Status: " + searchedPlayer.info.status);
     	output.add("Positional SOS: " + searchedPlayer.info.sos);
     	output.add("Bye: " + searchedPlayer.info.bye);
@@ -380,7 +382,7 @@ public class Rankings extends Activity {
     	output.add("Contract Status: " + searchedPlayer.info.contractStatus);
     	output.add("Showed up in " + searchedPlayer.values.count + " rankings.");
     	output.add("Highest value: " + searchedPlayer.values.high);
-    	output.add("Lowest value: " + searchedPlayer.values.low);
+    	output.add("Lowest value: " + low);
     	dialog.show();
     	ListView results = (ListView)dialog.findViewById(R.id.listview_search);
     	ManageInput.handleArray(output, results, (Rankings)newCont);

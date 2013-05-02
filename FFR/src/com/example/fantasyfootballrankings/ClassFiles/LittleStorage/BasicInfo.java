@@ -17,6 +17,7 @@ public class BasicInfo
 	public String bye;
 	public String trend;
 	public String contractStatus;
+	public String age;
 	public int sos;
 	/**
 	 * Simply establishes the values. Nothing special
@@ -34,6 +35,7 @@ public class BasicInfo
 		bye = "Not set";
 		trend = "0.0";
 		contractStatus = "Under Contract";
+		age = "0"; 
 		sos = -1;
 	}
 

@@ -90,7 +90,8 @@ public class WriteToFile {
 	    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
 	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
 	    		player.info.status + "&&" + player.info.adp + "&&" + player.info.bye + "&&" 
-	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "~~~~");
+	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
+	    		player.info.age + "~~~~");
 	    	}
 	    	String playerString = players.toString();
 	    	editor.putString("Player Values", playerString).commit();

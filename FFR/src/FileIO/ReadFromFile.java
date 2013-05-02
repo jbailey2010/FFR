@@ -222,6 +222,7 @@ public class ReadFromFile {
 	   		for(int i = 0; i < holder.players.size(); i++)
 	   		{ 
 	   			PlayerObject player = holder.players.get(i);
+	   			player.info.age = allData[i][13];
 	   			player.info.sos = Integer.parseInt(allData[i][12]);
 	   			player.info.contractStatus = allData[i][11];
 	   			player.info.trend = allData[i][10];
