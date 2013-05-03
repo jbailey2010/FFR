@@ -40,17 +40,17 @@ public class HighLevel
 				"Eddie Lacy", "Jonathan Franklin", "Giovani Bernard", "Lamar Miller", 
 				"Marshawn Lynch", "Peyton Manning", "Browns D/ST", "Reggie Bush",
 				"Danny Amendola", "Seahawks D/ST", "Trent Richardson", 
-				"Colin Kaepernick", "Chris Johnson"));
+				"Colin Kaepernick", "Chris Johnson", "A.J. Green"));
 		
 		List<String> hflc = new ArrayList<String>(Arrays.asList("DeSean Jackson", 
 				"Larry Fitzgerald", "Michael Vick", "Torrey Smith", "Maurice Jones-Drew", 
 				"Ryan Mathews", "Danario Alexander", "Jay Cutler", "Michael Floyd", 
 				"A.J. Jenkins", "Tandon Doss", "Sam Bradford", "Rashard Mendenhall", 
-				"Matt Forte", "Antonio Brown", "Jake Locker"));
+				"Matt Forte", "Antonio Brown", "Jake Locker", "Chris Ivory", "Le'Veon Bell"));
 		
 		List<String> avoid = new ArrayList<String>(Arrays.asList("Andy Dalton", "Eric Decker", 
 				"Wes Welker", "Demaryius Thomas", "Sidney Rice", "Shonn Greene", 
-				"Mike Wallace"));
+				"Mike Wallace", "Jacob Tamme"));
 		Iterator<PlayerObject> iter = holder.players.iterator();
 		while(iter.hasNext())
 		{
