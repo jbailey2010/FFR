@@ -53,6 +53,7 @@ public class Trending extends Activity {
 	Button all;
 	Storage holder = new Storage();
 	ListView listview;
+	long start;
 	boolean refreshed = false;
 	/**
 	 * Sets up the dialog to show up immediately
@@ -61,7 +62,6 @@ public class Trending extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trending);
-		
 		//Fetch the date of the posts, and convert it to a date
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	listview = (ListView)findViewById(R.id.listview_trending);

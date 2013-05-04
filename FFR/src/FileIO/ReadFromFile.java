@@ -65,7 +65,6 @@ public class ReadFromFile {
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
 	    	try {
-	    		System.out.println("fetching names");
 				fetchNames(holder, cont);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -378,17 +377,46 @@ public class ReadFromFile {
 	 */
 	public static void fetchPostsLocal(Storage holder, Context cont) 
 	{
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		String checkExists = prefs.getString("Posts", "Not Set");
-		String[] perPost = checkExists.split("@@@");
-		String[][] split = new String[perPost.length][];
-		for(int i = 0; i < perPost.length; i++)
-		{
-			split[i] = perPost[i].split("~~~");
-			Post newPost = new Post(split[i][0], split[i][1]);
-			holder.posts.add(newPost);
-		}
+	    ReadPosts values = readFromFileAsyncObj.new ReadPosts();
+		values.execute(holder, cont);
 	}
+	
+	/**
+	 * In the back-end fetches the posts
+	 * @author Jeff
+	 *
+	 */
+	private class ReadPosts extends AsyncTask<Object, Void, Void> 
+	{
+	    public ReadPosts() 
+	    {
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		}
+		@Override
+		protected void onPostExecute(Void result){
+		}
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	   		//Get the aggregate rankings
+	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+			String checkExists = prefs.getString("Posts", "Not Set");
+			String[] perPost = checkExists.split("@@@");
+			String[][] split = new String[perPost.length][];
+			for(int i = 0; i < perPost.length; i++)
+			{
+				split[i] = perPost[i].split("~~~");
+				Post newPost = new Post(split[i][0], split[i][1]);
+				holder.posts.add(newPost);
+			}
+			return null;
+	    }
+	  }
 	
 	/**
 	 * Reads the filter quantity size from file
