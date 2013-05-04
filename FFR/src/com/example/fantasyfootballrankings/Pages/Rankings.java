@@ -544,6 +544,19 @@ public class Rankings extends Activity {
 	}
 	
 	/**
+	 * A function that takes only a list of rankings and sets it to the 
+	 * adapter, to be called only by the thing reading rankings from file
+	 * @param rankings
+	 * @param cont
+	 */
+	public static void listSetUp(List<String> rankings, Activity cont)
+	{
+	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
+	    listview.setAdapter(null);
+	    ManageInput.handleArray(rankings, listview, cont);
+	}
+	
+	/**
      * The function that handles what happens when
      * the rankings are all fetched
      * @param holder
@@ -553,17 +566,18 @@ public class Rankings extends Activity {
 	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
 	    listview.setAdapter(null);
 	    List<String> rankings = new ArrayList<String>(400);
-	    if(refreshed)
-	    {
-	    	WriteToFile.storeAsync(holder, (Context)cont);
-	    	refreshed = false;
-	    }
 	    while(!playerList.isEmpty())
 	    {
 	    	PlayerObject elem = playerList.poll();
 	        DecimalFormat df = new DecimalFormat("#.##");
 	    	rankings.add(df.format(elem.values.worth) + ":  " + elem.info.name);
 	    }
+	    if(refreshed)
+	    {
+	    	WriteToFile.storeRankingsAsync(holder, (Context)cont);
+	    	refreshed = false;
+	    }
+    	WriteToFile.storeListRankings(rankings, cont);
 	    ManageInput.handleArray(rankings, listview, cont);
 	}
 }

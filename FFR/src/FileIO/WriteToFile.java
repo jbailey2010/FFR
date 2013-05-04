@@ -22,6 +22,8 @@ import android.os.AsyncTask;
  *
  */
 public class WriteToFile {
+	final static WriteToFile asyncObject = new WriteToFile();
+
 
 	/**
 	 * This stores the player names to the SD card, it can 
@@ -46,11 +48,9 @@ public class WriteToFile {
 	 * @param holder
 	 * @param cont
 	 */
-	public static void storeAsync(Storage holder, Context cont)
+	public static void storeRankingsAsync(Storage holder, Context cont)
 	{
-		final WriteToFile stupid = new WriteToFile();
-	    
-	    WriteDraft draftTask = stupid.new WriteDraft();
+	    WriteDraft draftTask = asyncObject.new WriteDraft();
 	    draftTask.execute(holder, cont);
 	}
 
@@ -177,8 +177,7 @@ public class WriteToFile {
 	 */
 	public static void writePostsList(List<String> trendingPlayers, Activity cont) 
 	{
-		final WriteToFile stupid = new WriteToFile();
-	    WritePostsListAsync draftTask = stupid.new WritePostsListAsync();
+	    WritePostsListAsync draftTask = asyncObject.new WritePostsListAsync();
 	    draftTask.execute(trendingPlayers, cont);
 	}
 	
@@ -217,6 +216,51 @@ public class WriteToFile {
 	    }
 	}
 
+	/**
+	 * Calls the async loader to write the list of rankings tofile
+	 * @param rankings
+	 * @param cont
+	 */
+	public static void storeListRankings(List<String> rankings, Context cont)
+	{
+	    WriteRankListAsync draftTask = asyncObject.new WriteRankListAsync();
+	    draftTask.execute(rankings, cont);
+	}
+	
+	/**
+	 * Writes the rankings to file to save a bit of time later
+	 * @author Jeff
+	 *
+	 */
+	private class WriteRankListAsync extends AsyncTask<Object, Void, Void> 
+	{
+	    public WriteRankListAsync() 
+	    {
+	
+	    }
+	
+	
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		}
+		
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	List<String> rankingsList = (List<String>)data[0];
+	    	Context cont = (Context)data[1];
+	    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+	    	StringBuilder list = new StringBuilder(5000);
+	    	for(int i = 0; i < rankingsList.size(); i++)
+	    	{
+	    		list.append(rankingsList.get(i) + "##");
+	    	}
+	    	editor.putString("Rankings List", list.toString());
+	    	editor.commit();
+			return null;
+	    }
+	}
 
 	/**
 	 * Just writes the filter size to file for later usage

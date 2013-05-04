@@ -1,6 +1,7 @@
 package FileIO;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -12,6 +13,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
@@ -62,6 +64,12 @@ public class ReadFromFile {
 	{
 		ReadFromFile stupid = new ReadFromFile();
 	
+    	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+    	if(!prefs.getString("Rankings List", "Not Set").equals("Not Set"))
+    	{
+    		ReadList listRanks = stupid.new ReadList((Activity)cont);
+    		listRanks.execute(holder, cont, prefs);
+    	}
 	    ReadRanks rankings = stupid.new ReadRanks((Activity)cont);
 		String[][] data=rankings.execute(holder, cont).get();
 		
@@ -74,28 +82,37 @@ public class ReadFromFile {
 	    ReadDraft draft = stupid.new ReadDraft((Activity)cont);
 		draft.execute(holder, cont);		
 	}
-
-	/**
-	 * Gets the names into the respective draft
-	 * @param individual
-	 * @param target
-	 * @param holder
-	 */
-	public static void handleDraftReading(String[] individual, List<PlayerObject> target, Storage holder)
-	{
-		target.clear();
-		for(String qb : individual)
-		{
-			for(PlayerObject player : holder.players)
-			{
-				if(player.info.name.equals(qb))
-				{
-					target.add(player);
-				}
-			}
-		}
-	}
 	
+	private class ReadList extends AsyncTask<Object, Void, List<String>> 
+	{
+		Activity act;
+	    public ReadList(Activity activity) 
+	    {
+	    	act = activity;
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+  
+		}
+	
+		@Override
+		protected void onPostExecute(List<String> result){
+			Rankings.listSetUp(result, act);
+		}
+		
+	    protected List<String> doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	    	SharedPreferences prefs = (SharedPreferences)data[2];
+	    	String ranks = prefs.getString("Rankings List", "Not Set");
+    		String[] posts = ranks.split("##");
+    		List<String>postsList = Arrays.asList(posts);
+    		return postsList;
+	    }
+	  }
 	
 	/**
 	 * This handles the running of the rankings in the background
@@ -105,22 +122,18 @@ public class ReadFromFile {
 	 */
 	private class ReadRanks extends AsyncTask<Object, Void, String[][]> 
 	{
-		ProgressDialog pdia;
 	    public ReadRanks(Activity activity) 
 	    {
-	        pdia = new ProgressDialog(activity);
 	    }
 	    
 		@Override
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
-		        pdia.setMessage("Please wait, reading the ranks...");
-		        pdia.show();    
+  
 		}
 	
 		@Override
 		protected void onPostExecute(String[][] result){
-		   pdia.dismiss();
 		}
 		
 	    protected String[][] doInBackground(Object... data) 
@@ -154,23 +167,18 @@ public class ReadFromFile {
 	 */
 	private class ReadNames extends AsyncTask<Object, Void, Void> 
 	{
-	    ProgressDialog pdia;
 	    
 	    public ReadNames(Activity activity)
 	    {
-	    	pdia = new ProgressDialog(activity);
 	    }
 	    
 		@Override
 		protected void onPreExecute(){ 
 	        super.onPreExecute(); 
-	        pdia.setMessage("Please wait, reading the names...");
-	        pdia.show();
 		}
 	
 		@Override
 		protected void onPostExecute(Void result){
-		   pdia.dismiss();
 		}
 		
 	    protected Void doInBackground(Object... data) 
@@ -258,7 +266,10 @@ public class ReadFromFile {
 		}
 		@Override
 		protected void onPostExecute(Void result){
-		   Rankings.intermediateHandleRankings(act);
+			if(act.getSharedPreferences("FFR", 0).getString("Rankings List", "Not Set").equals("Not Set"))
+			{
+				Rankings.intermediateHandleRankings(act);
+			}
 		}
 	    protected Void doInBackground(Object... data) 
 	    {
@@ -291,6 +302,27 @@ public class ReadFromFile {
 			return null;
 	    }
 	  }
+	
+	/**
+	 * Gets the names into the respective draft
+	 * @param individual
+	 * @param target
+	 * @param holder
+	 */
+	public static void handleDraftReading(String[] individual, List<PlayerObject> target, Storage holder)
+	{
+		target.clear();
+		for(String qb : individual)
+		{
+			for(PlayerObject player : holder.players)
+			{
+				if(player.info.name.equals(qb))
+				{
+					target.add(player);
+				}
+			}
+		}
+	}
 
 	/**
 	 * Fetches the players from local to a local object
