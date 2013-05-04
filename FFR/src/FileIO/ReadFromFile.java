@@ -25,7 +25,55 @@ import com.example.fantasyfootballrankings.Pages.Rankings;
  *
  */
 public class ReadFromFile {
+	static ReadFromFile readFromFileAsyncObj = new ReadFromFile();
+	
+	/**
+	 * Fetches the names list from file in the back end
+	 * @param holder
+	 * @param cont
+	 */
+    public static void fetchNamesBackEnd(Storage holder, Context cont)
+    {
+	    ReadNamesList values = readFromFileAsyncObj.new ReadNamesList();
+		values.execute(holder, cont);
+    }
+	
+    /**
+     * Fetches the names list from file in the background
+     * @author Jeff
+     *
+     */
+	private class ReadNamesList extends AsyncTask<Object, Void, Void> 
+	{
+	    public ReadNamesList() 
+	    {
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+  
+		}
+	
+		@Override
+		protected void onPostExecute(Void result){
 
+		}
+		
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	    	try {
+	    		System.out.println("fetching names");
+				fetchNames(holder, cont);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+    		return null;
+	    }
+	  }
 	/** 
 	 * Designed to be the one call that's made to handle any fetching...etc of 
 	 * the player names. If they're already written, it fetches them and stores.
@@ -62,24 +110,23 @@ public class ReadFromFile {
 	 */
 	public static void fetchPlayers(Storage holder, Context cont) throws IOException, XPatherException, InterruptedException, ExecutionException
 	{
-		ReadFromFile stupid = new ReadFromFile();
 	
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	if(!prefs.getString("Rankings List", "Not Set").equals("Not Set"))
     	{
-    		ReadList listRanks = stupid.new ReadList((Activity)cont);
+    		ReadList listRanks = readFromFileAsyncObj.new ReadList((Activity)cont);
     		listRanks.execute(holder, cont, prefs);
     	}
-	    ReadRanks rankings = stupid.new ReadRanks((Activity)cont);
+	    ReadRanks rankings = readFromFileAsyncObj.new ReadRanks((Activity)cont);
 		String[][] data=rankings.execute(holder, cont).get();
 		
-	    ReadValue values = stupid.new ReadValue();
+	    ReadValue values = readFromFileAsyncObj.new ReadValue();
 		values.execute(holder, data);
 		
-		ReadNames names = stupid.new ReadNames((Activity)cont);
+		ReadNames names = readFromFileAsyncObj.new ReadNames((Activity)cont);
 		names.execute(holder, cont);
 		
-	    ReadDraft draft = stupid.new ReadDraft((Activity)cont);
+	    ReadDraft draft = readFromFileAsyncObj.new ReadDraft((Activity)cont);
 		draft.execute(holder, cont);		
 	}
 	
@@ -187,7 +234,7 @@ public class ReadFromFile {
 	    	Context cont = (Context) data[1];
 	   		//Get the aggregate rankings
 	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-			String parsedNames = prefs.getString("Player Names", "Doesn't matter");
+			String parsedNames = prefs.getString("Parsed Player Names", "Doesn't matter");
 			String[] namesSplit = parsedNames.split(",");
 			if(!holder.parsedPlayers.isEmpty())
 			{

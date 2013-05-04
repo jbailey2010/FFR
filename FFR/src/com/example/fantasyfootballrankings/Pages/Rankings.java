@@ -179,6 +179,7 @@ public class Rankings extends Activity {
 	 */
 	public void handleRefresh()
 	{
+		ReadFromFile.fetchNamesBackEnd(holder, cont);
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	String checkExists = prefs.getString("Player Values", "Not Set");
     	if(checkExists != "Not Set")

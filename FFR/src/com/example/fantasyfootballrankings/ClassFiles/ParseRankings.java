@@ -70,6 +70,7 @@ public class ParseRankings
 	    public ParseRanks(Activity activity) 
 	    {
 	        pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
 	        act = activity;
 	    }
 	    
@@ -94,7 +95,6 @@ public class ParseRankings
 	    	Context cont = (Context) data[1];
 	    	try { 
 	    		//Make sure there are player names to fetch relative to
-				ReadFromFile.fetchNames(holder, cont);
 				//Rankings parsing
 				ParseWF.wfRankings(holder);
 				ParseGE.geRankings(holder);

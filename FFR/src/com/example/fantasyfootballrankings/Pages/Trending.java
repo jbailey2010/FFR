@@ -118,6 +118,7 @@ public class Trending extends Activity {
 	 */
 	public void initialLoad(SharedPreferences prefs)
 	{
+		ReadFromFile.fetchNamesBackEnd(holder, cont);
 		String storedPosts = prefs.getString("Posted Players", "Not Posted");
     	if(storedPosts != "Not Posted")
     	{

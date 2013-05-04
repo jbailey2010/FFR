@@ -102,7 +102,7 @@ public class WriteToFile {
 	    		names.append(name + ",");
 	    	}
 	    	String namesString = names.toString();
-	    	editor.putString("Player Names", namesString).commit();
+	    	editor.putString("Parsed Player Names", namesString).commit();
 	    	//Setting up draft input
 	    	String draft = "";
 	    	//QB

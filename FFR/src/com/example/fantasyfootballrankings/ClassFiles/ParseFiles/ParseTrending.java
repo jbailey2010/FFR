@@ -84,15 +84,6 @@ public class ParseTrending
 	    	Storage hold = (Storage) data[0];
 	    	Context cont = (Context) data[1];
 	    	holder = hold;
-	    	if(holder.playerNames.isEmpty() == true)
-			{
-				try {
-					ReadFromFile.fetchNames(holder, cont);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
 			try {
 		    	//2013 'Must Haves'
 				getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=338991&st=");
@@ -157,6 +148,7 @@ public class ParseTrending
 	    public ParseTrends(Activity activity) 
 	    {
 	        pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
 	        act = activity;
 	    }
 		@Override
