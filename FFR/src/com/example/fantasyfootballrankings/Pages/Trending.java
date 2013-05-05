@@ -134,22 +134,9 @@ public class Trending extends Activity {
 	 */
 	public void handleDates(SharedPreferences prefs)
 	{
-		String storedDate = prefs.getString("Date of Posts", "Doesn't Matter");
-    	Date date = new Date();
-    	if(storedDate != "Doesn't Matter")
-    	{
-    		try {
-    			date = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH).parse(storedDate);
-    		} catch (ParseException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		} 
-    	}
-    	//Get the posts, if they're not set, fetch them. If it's been 4+ days since
-    	//they were fetched, fetch them. Otherwise, get from storage.
+    	//Get the posts, if they're not set, fetch them. Otherwise, get from storage.
     	String checkExists = prefs.getString("Posts", "Not Set");
-    	if(checkExists.equals("Not Set") || ((int)((new java.util.Date()).getTime()
-    			- date.getTime()) / (1000 * 60 * 60 * 24) > 4))
+    	if(checkExists.equals("Not Set"))
     	{
     		fetchTrending(holder);
     	}
