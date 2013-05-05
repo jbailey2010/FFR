@@ -52,7 +52,7 @@ public class ParseRankings
 		holder.players.clear();
 		context = cont;
 		ParseRankings stupid = new ParseRankings();
-	    ParseRanks task = stupid.new ParseRanks((Activity)cont);
+	    ParseRanks task = stupid.new ParseRanks((Activity)cont, holder);
 	    task.execute(holder, cont);
 	    
 	}
@@ -67,7 +67,199 @@ public class ParseRankings
 	{
 		ProgressDialog pdia;
 		Activity act;
-	    public ParseRanks(Activity activity) 
+		Storage hold;
+	    public ParseRanks(Activity activity, Storage holder) 
+	    {
+	        pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
+	        act = activity;
+	        hold = holder;
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		        pdia.setMessage("Please wait, fetching the rankings...");
+		        pdia.show();    
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		   highLevel(act, hold);
+		   //((Rankings)act).intermediateHandleRankings(act);
+		}
+		
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	    	try { 
+	    		//Make sure there are player names to fetch relative to
+				//Rankings parsing
+				ParseWF.wfRankings(holder);
+				ParseGE.geRankings(holder);
+				ParseCBS.cbsRankings(holder);
+				//ParseESPNadv.parseESPNAggregate(holder);
+				ParseFFTB.parseFFTBRankingsWrapper(holder);
+				//ParseESPN.parseESPN300(holder);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (XPatherException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+	    }
+	  }
+	
+	public static void highLevel(Activity cont, Storage holder)
+	{
+		long start = System.nanoTime();
+		
+		ParseRankings stupid = new ParseRankings();
+	    ADPHighLevel task = stupid.new ADPHighLevel(cont);
+	    task.execute(holder, cont);
+	    
+	    //SOSHighLevel sos = stupid.new SOSHighLevel(cont);
+	    //sos.execute(holder, cont);
+	    
+	    //ContractHighLevel contract = stupid.new ContractHighLevel(cont);
+	    //contract.execute(holder, cont);
+	    
+	    OfflineHighLevel offline = stupid.new OfflineHighLevel(cont);
+	    offline.execute(holder, cont, start);
+
+	}
+
+	private class ADPHighLevel extends AsyncTask<Object, Void, Void> 
+	{
+		Activity act;
+		ProgressDialog pdia;
+	    public ADPHighLevel(Activity activity) 
+	    {
+	        act = activity;
+	        pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();  
+	        pdia.setMessage("Please wait, fetching the rankings...");
+	        pdia.show(); 
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		}
+		
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	    	try { 
+				HighLevel.setADP(holder);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (XPatherException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+	    }
+	}
+	
+	private class SOSHighLevel extends AsyncTask<Object, Void, Void> 
+	{
+		Activity act;
+		ProgressDialog pdia;
+	    public SOSHighLevel(Activity activity) 
+	    {
+	        act = activity;
+	        pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();  
+	        pdia.setMessage("Please wait, fetching the rankings...");
+	        pdia.show(); 
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		}
+		
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	    	try { 
+				HighLevel.getSOS(holder);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			return null;
+	    }
+	}
+	
+	private class ContractHighLevel extends AsyncTask<Object, Void, Void> 
+	{
+		Activity act;
+		ProgressDialog pdia;
+	    public ContractHighLevel(Activity activity) 
+	    {
+	        act = activity;
+	        pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();  
+	        pdia.setMessage("Please wait, fetching the rankings...");
+	        pdia.show(); 
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		}
+		
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	    	try { 
+	    		HighLevel.setContractStatus(holder);
+	    	} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			return null;
+	    }
+	}
+	
+	private class OfflineHighLevel extends AsyncTask<Object, Void, Void> 
+	{
+		ProgressDialog pdia;
+		Activity act;
+	    public OfflineHighLevel(Activity activity) 
 	    {
 	        pdia = new ProgressDialog(activity);
 	        pdia.setCancelable(false);
@@ -93,32 +285,13 @@ public class ParseRankings
 	    {
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
-	    	try { 
-	    		//Make sure there are player names to fetch relative to
-				//Rankings parsing
-				ParseWF.wfRankings(holder);
-				ParseGE.geRankings(holder);
-				ParseCBS.cbsRankings(holder);
-				//ParseESPNadv.parseESPNAggregate(holder);
-				ParseFFTB.parseFFTBRankingsWrapper(holder);
-				//ParseESPN.parseESPN300(holder);
-				//High level calls
-				HighLevel.setStatus(holder);
-		        HighLevel.getParsedPlayers(holder);
-				HighLevel.setADP(holder);
-				//HighLevel.getSOS(holder);
-				//HighLevel.setContractStatus(holder);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (XPatherException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	    	long start = (Long)data[2];
+			HighLevel.setStatus(holder);
+		    HighLevel.getParsedPlayers(holder);
+		    System.out.println(System.nanoTime() - start);
 			return null;
 	    }
 	  }
-
 	/**
 	 * Super basic function. Gets a normalized name, makes a player with it. If
 	 * it exists in the pq or not, it calls handlePlayer to do what's appropriate.
