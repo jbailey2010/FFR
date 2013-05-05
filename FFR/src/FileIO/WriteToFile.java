@@ -10,19 +10,23 @@ import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 
+import AsyncTasks.StorageAsyncTask;
+import AsyncTasks.StorageAsyncTask.WriteDraft;
+import AsyncTasks.StorageAsyncTask.WritePostsListAsync;
+import AsyncTasks.StorageAsyncTask.WriteRankListAsync;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 /**
- * A library of all of the functions that will write to 
+ * A library of all of the functions that will write to  
  * file 
  * @author Jeff
  *
  */
 public class WriteToFile {
-	final static WriteToFile asyncObject = new WriteToFile();
+	final static StorageAsyncTask asyncObject = new StorageAsyncTask();
 
 
 	/**
@@ -53,79 +57,6 @@ public class WriteToFile {
 	    WriteDraft draftTask = asyncObject.new WriteDraft();
 	    draftTask.execute(holder, cont);
 	}
-
-
-	
-	/**
-	 * This handles the running of the rankings in the background
-	 * such that the user can't do anything until they're fetched
-	 * @author Jeff
-	 *
-	 */
-	private class WriteDraft extends AsyncTask<Object, Void, Void> 
-	{
-	    public WriteDraft() 
-	    {
-	
-	    }
-	
-	
-		@Override
-		protected void onPostExecute(Void result){
-		   super.onPostExecute(result);
-		}
-		
-	    @Override
-	    protected Void doInBackground(Object... data) 
-	    {
-	    	Storage holder = (Storage)data[0];
-	    	Context cont = (Context)data[1];
-	    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-	    	//Rankings work
-	    	StringBuilder players = new StringBuilder(10000);
-	    	for (PlayerObject player : holder.players)
-	    	{
-	    		players.append( 
-	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
-	    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
-	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
-	    		player.info.status + "&&" + player.info.adp + "&&" + player.info.bye + "&&" 
-	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
-	    		player.info.age + "~~~~");
-	    	}
-	    	String playerString = players.toString();
-	    	editor.putString("Player Values", playerString).commit();
-	    	//Player names work
-	    	StringBuilder names = new StringBuilder(2000);
-	    	for(String name: holder.parsedPlayers)
-	    	{
-	    		names.append(name + ",");
-	    	}
-	    	String namesString = names.toString();
-	    	editor.putString("Parsed Player Names", namesString).commit();
-	    	//Setting up draft input
-	    	String draft = "";
-	    	//QB
-	    	draft += handleDraftInput(holder.draft.qb, "") + "@";
-	    	//RB
-	    	draft += handleDraftInput(holder.draft.rb, "") + "@";
-	    	//WR
-	    	draft += handleDraftInput(holder.draft.wr, "") + "@";
-	    	//TE
-	    	draft += handleDraftInput(holder.draft.te, "") + "@";
-	    	//D
-	    	draft += handleDraftInput(holder.draft.def, "") + "@";
-	    	//K
-	    	draft += handleDraftInput(holder.draft.k, "") + "@";
-	    	//Values
-	    	draft += holder.draft.remainingSalary + "@" + holder.draft.value;
-	    	editor.putString("Draft Information", draft);
-	    	editor.commit();
-			return null;
-	    }
-	}
-
-
 
 	/**
 	 * A tiny helper function that helps add to the returned string
@@ -181,40 +112,7 @@ public class WriteToFile {
 	    draftTask.execute(trendingPlayers, cont);
 	}
 	
-	/**
-	 * Writes the posts to file 
-	 * @author Jeff
-	 *
-	 */
-	private class WritePostsListAsync extends AsyncTask<Object, Void, Void> 
-	{
-	    public WritePostsListAsync() 
-	    {
-	
-	    }
-	
-	
-		@Override
-		protected void onPostExecute(Void result){
-		   super.onPostExecute(result);
-		}
-		
-	    @Override
-	    protected Void doInBackground(Object... data) 
-	    {
-	    	List<String> trendingPlayers = (List<String>)data[0];
-	    	Context cont = (Context)data[1];
-	    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-	    	StringBuilder posts = new StringBuilder(5000);
-	    	for(int i = 0; i < trendingPlayers.size(); i++)
-	    	{
-	    		posts.append(trendingPlayers.get(i) + "##");
-	    	}
-	    	editor.putString("Posted Players", posts.toString());
-	    	editor.commit();
-			return null;
-	    }
-	}
+
 
 	/**
 	 * Calls the async loader to write the list of rankings tofile
@@ -227,40 +125,7 @@ public class WriteToFile {
 	    draftTask.execute(rankings, cont);
 	}
 	
-	/**
-	 * Writes the rankings to file to save a bit of time later
-	 * @author Jeff
-	 *
-	 */
-	private class WriteRankListAsync extends AsyncTask<Object, Void, Void> 
-	{
-	    public WriteRankListAsync() 
-	    {
 	
-	    }
-	
-	
-		@Override
-		protected void onPostExecute(Void result){
-		   super.onPostExecute(result);
-		}
-		
-	    @Override
-	    protected Void doInBackground(Object... data) 
-	    {
-	    	List<String> rankingsList = (List<String>)data[0];
-	    	Context cont = (Context)data[1];
-	    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-	    	StringBuilder list = new StringBuilder(5000);
-	    	for(int i = 0; i < rankingsList.size(); i++)
-	    	{
-	    		list.append(rankingsList.get(i) + "##");
-	    	}
-	    	editor.putString("Rankings List", list.toString());
-	    	editor.commit();
-			return null;
-	    }
-	}
 
 	/**
 	 * Just writes the filter size to file for later usage

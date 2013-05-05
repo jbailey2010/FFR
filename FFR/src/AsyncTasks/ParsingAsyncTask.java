@@ -1,5 +1,322 @@
 package AsyncTasks;
 
-public class ParsingAsyncTask {
+import java.io.IOException;
 
+import org.htmlcleaner.XPatherException;
+
+import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
+import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
+
+import FileIO.WriteToFile;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.AsyncTask;
+/**
+ * A library of all the asynctasks involving parsing
+ * @author Jeff
+ *
+ */
+public class ParsingAsyncTask 
+{
+	/**
+	 * This handles the running of the rankings in the background
+	 * such that the user can't do anything until they're fetched
+	 * @author Jeff
+	 *
+	 */
+	public class ParseRanks extends AsyncTask<Object, Void, Void> 
+	{
+		ProgressDialog pdia;
+		Activity act;
+		Storage hold;
+	    public ParseRanks(Activity activity, Storage holder) 
+	    {
+	        pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
+	        act = activity;
+	        hold = holder;
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		        pdia.setMessage("Please wait, fetching the rankings...");
+		        pdia.show();    
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		   ParseRankings.highLevel(act, hold);
+		   //((Rankings)act).intermediateHandleRankings(act);
+		}
+		
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	    	try { 
+				ParseWF.wfRankings(holder);
+				ParseGE.geRankings(holder);
+				ParseCBS.cbsRankings(holder);
+				//ParseESPNadv.parseESPNAggregate(holder);
+				ParseFFTB.parseFFTBRankingsWrapper(holder);
+				//ParseESPN.parseESPN300(holder);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (XPatherException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+	    }
+	  }
+
+	/**
+	 * Handles the parsing of the adp data
+	 * @author Jeff
+	 *
+	 */
+	public class ADPHighLevel extends AsyncTask<Object, Void, Void> 
+	{
+		Activity act;
+		ProgressDialog pdia;
+	    public ADPHighLevel(Activity activity) 
+	    {
+	        act = activity;
+	        pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();  
+	        pdia.setMessage("Please wait, fetching the rankings...");
+	        pdia.show(); 
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		}
+		
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	    	try { 
+				HighLevel.setADP(holder);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (XPatherException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+	    }
+	}
+	
+	/**
+	 * Handles the parsing of the strength of schedule
+	 * @author Jeff
+	 *
+	 */
+	public class SOSHighLevel extends AsyncTask<Object, Void, Void> 
+	{
+		Activity act;
+		ProgressDialog pdia;
+	    public SOSHighLevel(Activity activity) 
+	    {
+	        act = activity;
+	        pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();  
+	        pdia.setMessage("Please wait, fetching the rankings...");
+	        pdia.show(); 
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		}
+		
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	    	try { 
+				HighLevel.getSOS(holder);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			return null;
+	    }
+	}
+	
+
+	/**
+	 * Handles the setting of the contract status
+	 * @author Jeff
+	 *
+	 */
+	public class ContractHighLevel extends AsyncTask<Object, Void, Void> 
+	{
+		Activity act;
+		ProgressDialog pdia;
+	    public ContractHighLevel(Activity activity) 
+	    {
+	        act = activity;
+	        pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();  
+	        pdia.setMessage("Please wait, fetching the rankings...");
+	        pdia.show(); 
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		}
+		
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	    	try { 
+	    		HighLevel.setContractStatus(holder);
+	    	} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			return null;
+	    }
+	}
+	
+	public class FetchTrends extends AsyncTask<Object, Void, Void> 
+	{
+		Activity act;
+		ProgressDialog pdia;
+		Storage holder;
+	    public FetchTrends(Activity activity, Storage hold) 
+	    {
+	        act = activity;
+	        pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
+	        holder = hold;
+	    }
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		        pdia = new ProgressDialog(act);
+		        pdia.setMessage("Please wait, parsing the forums...");
+		        pdia.show();    
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		   WriteToFile.writePosts(holder, act);
+		}
+    	
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage hold = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	    	holder = hold;
+			try {
+		    	//2013 'Must Haves'
+				ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=338991&st=");
+				//Value picks
+				ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=332995&st=");
+				//2013 sleepers
+		 		ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=327212&st=");
+		 		//Rookie rankings
+				ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
+				//RB rankings
+				ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=344555&st=");
+				//QB rankings
+				ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=329554&st=");
+				//WR rankings
+				ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=339910&st=");
+				//TE/D/K don't exist
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+	    }
+	  }
+	
+	/**
+	 * This handles the running of the rankings in the background
+	 * such that the user can't do anything until they're fetched
+	 * @author Jeff
+	 *
+	 */
+	public class ParseNames extends AsyncTask<Object, Void, Void> 
+	{
+		ProgressDialog pdia;
+		Activity act;
+	    public ParseNames(Activity activity) 
+	    {
+	        pdia = new ProgressDialog(activity);
+	        act = activity;
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		        pdia.setMessage("Please wait, refreshing the list...");
+		        pdia.show();    
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		}
+		
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Context cont = (Context) data[0];
+	    	try {
+				ParsePlayerNames.fetchPlayerNames(cont);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+	    }
+	  }
 }
+

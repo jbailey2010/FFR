@@ -103,37 +103,4 @@ public class HandleBasicQueries
 		}
 		return result;
 	}
-	/*below is an example of how to programmatically add a textview
-	 * NOTE: NEED TO SET ID IN WHATEVER XML IS BEING USED
-	 * SECOND NOTE: TO MAKE MULTIPLE PRINTS, USE LINEARLAYOUT
-	View linearLayout =  findViewById(R.id.rankings);
-    try 
-    {
-    	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-    	StrictMode.setThreadPolicy(policy);
-		String text = HandleBasicQueries.handleParsing("http://fantasyfootballcalculator.com/adp_csv_ppr.php?teams=12", "pre");
-	    String[] list = text.split("\n");
-	    for(int i = 0; i < list.length; i++)
-	    {
-	    	TextView valueTV = new TextView(cont);
-	    	valueTV.setText(list[i]);
-	    	valueTV.setId(i);
-		    ((RelativeLayout)linearLayout).addView(valueTV);			
-	    }
-    } 
-    catch (MalformedURLException e1) 
-    {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	} 
-    catch (IOException e1) 
-    {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	} 
-    catch (XPatherException e1) 
-    {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}	   */
 }

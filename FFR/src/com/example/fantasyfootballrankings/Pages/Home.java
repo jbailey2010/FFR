@@ -30,6 +30,8 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 
+import AsyncTasks.ParsingAsyncTask;
+import AsyncTasks.ParsingAsyncTask.ParseNames;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -114,7 +116,7 @@ public class Home extends Activity implements Serializable{
 		dialog.show();
 		Button cancel = (Button)dialog.findViewById(R.id.cancel_list_refresh);
 		Button submit = (Button)dialog.findViewById(R.id.confirm_list_refresh);
-		final Home stupid = new Home();
+		final ParsingAsyncTask stupid = new ParsingAsyncTask();
 		cancel.setOnClickListener(new OnClickListener() 
 		{
 			public void onClick(View v) {
@@ -131,48 +133,7 @@ public class Home extends Activity implements Serializable{
 		});	
 	}
 	
-	/**
-	 * This handles the running of the rankings in the background
-	 * such that the user can't do anything until they're fetched
-	 * @author Jeff
-	 *
-	 */
-	private class ParseNames extends AsyncTask<Object, Void, Void> 
-	{
-		ProgressDialog pdia;
-		Activity act;
-	    public ParseNames(Activity activity) 
-	    {
-	        pdia = new ProgressDialog(activity);
-	        act = activity;
-	    }
-	    
-		@Override
-		protected void onPreExecute(){ 
-		   super.onPreExecute();
-		        pdia.setMessage("Please wait, refreshing the list...");
-		        pdia.show();    
-		}
 
-		@Override
-		protected void onPostExecute(Void result){
-		   super.onPostExecute(result);
-		   pdia.dismiss();
-		}
-		
-	    @Override
-	    protected Void doInBackground(Object... data) 
-	    {
-	    	Context cont = (Context) data[0];
-	    	try {
-				ParsePlayerNames.fetchPlayerNames(cont);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-	    }
-	  }
 	
 	/**
 	 * Sends the rank button to the ranking page

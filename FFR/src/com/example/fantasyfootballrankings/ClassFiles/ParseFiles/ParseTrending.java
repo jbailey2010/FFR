@@ -18,6 +18,8 @@ import org.htmlcleaner.XPatherException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import AsyncTasks.ParsingAsyncTask;
+import AsyncTasks.ParsingAsyncTask.FetchTrends;
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.app.Activity;
@@ -55,58 +57,12 @@ public class ParseTrending
 	public static void trendingPlayers(final Storage holder, final Context cont) throws IOException
 	{
 		context = cont;
-		ParseTrending stupid = new ParseTrending();
-	    FetchTrends task = stupid.new FetchTrends();
+		ParsingAsyncTask stupid = new ParsingAsyncTask();
+	    FetchTrends task = stupid.new FetchTrends((Activity)context, holder);
 	    task.execute(holder, cont);
 	}
 
-	private class FetchTrends extends AsyncTask<Object, Void, Void> 
-	{
-		ProgressDialog pdia;
-		@Override
-		protected void onPreExecute(){ 
-		   super.onPreExecute();
-		        pdia = new ProgressDialog(context);
-		        pdia.setMessage("Please wait, parsing the forums...");
-		        pdia.show();    
-		}
-
-		@Override
-		protected void onPostExecute(Void result){
-		   super.onPostExecute(result);
-		   pdia.dismiss();
-		   WriteToFile.writePosts(holder, context);
-		}
-    	
-	    @Override
-	    protected Void doInBackground(Object... data) 
-	    {
-	    	Storage hold = (Storage) data[0];
-	    	Context cont = (Context) data[1];
-	    	holder = hold;
-			try {
-		    	//2013 'Must Haves'
-				getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=338991&st=");
-				//Value picks
-				getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=332995&st=");
-				//2013 sleepers
-		 		getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=327212&st=");
-		 		//Rookie rankings
-				getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
-				//RB rankings
-				getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=344555&st=");
-				//QB rankings
-				getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=329554&st=");
-				//WR rankings
-				getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=339910&st=");
-				//TE/D/K don't exist
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-	    }
-	  }
+	
 	/**
 	 * Sets up a list only containing the posts within the correct bounds of dates
 	 * @param holder the storage to get posts from
