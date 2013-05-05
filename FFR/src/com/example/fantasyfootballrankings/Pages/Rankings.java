@@ -90,8 +90,8 @@ public class Rankings extends Activity {
 		compare = (Button)findViewById(R.id.player_comparator);
 		calc = (Button)findViewById(R.id.trade_calc);
     	listview = (ListView)findViewById(R.id.listview_rankings);
-		handleOnClickButtons();
 		handleRefresh();
+		handleOnClickButtons();
 	}
 	
 	/**
