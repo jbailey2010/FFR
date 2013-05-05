@@ -219,6 +219,11 @@ public class ParsingAsyncTask
 	    }
 	}
 	
+	/**
+	 * Parses the posts from the forums
+	 * @author Jeff
+	 *
+	 */
 	public class FetchTrends extends AsyncTask<Object, Void, Void> 
 	{
 		Activity act;
