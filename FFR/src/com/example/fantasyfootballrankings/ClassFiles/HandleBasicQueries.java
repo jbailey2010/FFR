@@ -38,15 +38,15 @@ public class HandleBasicQueries
 	 */
 	public static String handleLists(String url, String params) throws IOException
 	{
-		String result = "";
+		StringBuilder result = new StringBuilder(5000);
 		Document doc = Jsoup.connect(url).get();
         Elements links = doc.select(params);
 
         for (Element element : links) 
         {
-        	result += element.text() + "\n";
+        	result.append(element.text() + "\n");
         }
-        return result;
+        return result.toString();
 	}
 	
 	/**
@@ -58,13 +58,13 @@ public class HandleBasicQueries
 	 */
 	public static String handleListsMulti(Document doc, String url, String params) throws IOException
 	{
-		String result = "";
+		StringBuilder result = new StringBuilder(5000);
         Elements links = doc.select(params);
         for (Element element : links) 
         {
-        	result += element.text() + "\n";
+        	result.append(element.text() + "\n");
         }
-        return result;
+        return result.toString();
 	}
 	/**
 	 * Handles the queries to a table
@@ -75,14 +75,14 @@ public class HandleBasicQueries
 	 */
 	public static String handleTables(String url, String params) throws IOException
 	{
-		String result = "";
+		StringBuilder result = new StringBuilder(5000);
 		Document doc = Jsoup.connect(url).get();
 		Elements els = doc.getElementsByClass(params);
 		for (Element el : els) 
 		{
-			result += el.text() + "\n";
+			result.append(el.text() + "\n");
 		}
-		return result;
+		return result.toString();
 	}
 	
 	/**
@@ -95,12 +95,12 @@ public class HandleBasicQueries
 	 */
 	public static String handleTablesMulti(Document doc,String url, String params) throws IOException
 	{
-		String result = "";
+		StringBuilder result = new StringBuilder(5000);
 		Elements els = doc.getElementsByClass(params);
 		for (Element el : els) 
 		{
-			result += el.text() + "\n";
+			result.append(el.text() + "\n");
 		}
-		return result;
+		return result.toString();
 	}
 }
