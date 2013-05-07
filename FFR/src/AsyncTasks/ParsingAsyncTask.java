@@ -69,12 +69,18 @@ public class ParsingAsyncTask
 	    	try { 
 				ParseWF.wfRankings(holder);
 				ParseGE.geRankings(holder);
-				///ParseCBS.cbsRankings(holder);
+				ParseCBS.cbsRankings(holder);
 				//ParseESPNadv.parseESPNAggregate(holder);
-				///ParseFFTB.parseFFTBRankingsWrapper(holder);
+				ParseFFTB.parseFFTBRankingsWrapper(holder);
 				//ParseESPN.parseESPN300(holder);
-	    		////ParsePFF.parsePFFRankingsWrapper(holder);
+	    		//ParsePFF.parsePFFRankingsWrapper(holder);
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (XPatherException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 

@@ -3,6 +3,9 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import android.content.Context;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
@@ -18,7 +21,7 @@ public class ParsePFF
 {
 	/**
 	 * Handles parsing pro football focus' rankings
-	 * @param holder
+	 * @param holder DOESNT WORK HEADER IS NULL
 	 * @throws IOException
 	 */
 	public static void parsePFFRankingsWrapper(Storage holder) throws IOException
@@ -29,7 +32,7 @@ public class ParsePFF
 		parsePFFRankings("https://www.profootballfocus.com/data/ffranking/inc/server.php?proj=TE&cat=Season+2013", holder);
 		parsePFFRankings("https://www.profootballfocus.com/data/ffranking/inc/server.php?proj=DST&cat=Season+2013", holder);
 		parsePFFRankings("https://www.profootballfocus.com/data/ffranking/inc/server.php?proj=K&cat=Season+2013", holder);
-	}
+	} 
 	
 	/**
 	 * Handles the individual parsing of positions
@@ -39,11 +42,7 @@ public class ParsePFF
 	 */
 	public static void parsePFFRankings(String url, Storage Holder) throws IOException
 	{
-		String text = HandleBasicQueries.handleLists(url, "td");
-		String[] brokenUp = text.split("\n");
-		for(int i = 0; i < brokenUp.length; i++)
-		{
-			System.out.println(brokenUp[i]);
-		}
+		Document doc = Jsoup.connect(url).get();
+
 	}
 }
