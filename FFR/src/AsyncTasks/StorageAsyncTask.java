@@ -197,6 +197,12 @@ public class StorageAsyncTask
 	    }
 	  }
 	
+	/**
+	 * Reads the list in a back end way 
+	 * from storage
+	 * @author Jeff
+	 *
+	 */
 	public class ReadList extends AsyncTask<Object, Void, List<String>> 
 	{
 		Activity act;

@@ -150,6 +150,11 @@ public class Trending extends Activity {
     	getFilterForPosts(holder);
 	}
 	
+	/**
+	 * Handles the topical trending, once it's done it 
+	 * refreshes the rankings based on the input here
+	 * @param holder
+	 */
 	public void topicalTrending(final Storage holder)
 	{
 		dialog = new Dialog(cont);

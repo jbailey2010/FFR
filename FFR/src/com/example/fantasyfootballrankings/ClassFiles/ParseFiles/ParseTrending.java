@@ -97,6 +97,12 @@ public class ParseTrending
 	    task.execute(holder, cont);
 	}
 	
+	/**
+	 * A back end function to do the actual parsing
+	 * for trends
+	 * @author Jeff
+	 *
+	 */
 	private class ParseTrends extends AsyncTask<Object, Void, Void> 
 	{
 		ProgressDialog pdia;
