@@ -19,6 +19,7 @@ import FileIO.WriteToFile;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 /**
  * A library of all the asynctasks involving parsing
@@ -261,23 +262,45 @@ public class ParsingAsyncTask
 	    {
 	    	Storage hold = (Storage) data[0];
 	    	Context cont = (Context) data[1];
+	    	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+			boolean value =  prefs.getBoolean("Value Topic", true);
+			boolean mustHave = prefs.getBoolean("Good Topic", true);
+			boolean rookie = prefs.getBoolean("Rookie Topic", true);
+			boolean dontWant = prefs.getBoolean("Bad Topic", false);
+		
 	    	holder = hold;
 			try {
-		    	//2013 'Must Haves'
-				ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=338991&st=");
-				//Value picks
-				ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=332995&st=");
-				//2013 sleepers
-		 		ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=327212&st=");
-		 		//Rookie rankings
-				ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
-				//RB rankings
-				ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=344555&st=");
-				//QB rankings
-				ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=329554&st=");
-				//WR rankings
-				ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=339910&st=");
-				//TE/D/K don't exist
+				if(mustHave)
+				{
+			    	//2013 'Must Haves'
+					ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=338991&st=");
+					//RB rankings
+					ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=344555&st=");
+					//QB rankings
+					ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=329554&st=");
+					//WR rankings
+					ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=339910&st=");
+					//TE/D/K don't exist
+				}
+				if(value)
+				{
+					//Value picks
+					ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=332995&st=");
+					//2013 sleepers
+					ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=327212&st=");
+				}
+				if(rookie)
+		 		{
+			 		//Rookie rankings
+		 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
+		 		}
+		 		if(dontWant)
+		 		{
+		 			//Overvalued
+		 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=334675&st=");
+		 			//Don't draft
+		 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=345722&st=");		 			
+		 		}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

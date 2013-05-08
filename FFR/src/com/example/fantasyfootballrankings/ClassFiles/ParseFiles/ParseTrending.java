@@ -274,6 +274,10 @@ public class ParseTrending
 		{
 			return "Calvin Johnson";
 		}
+		else if(name.contains("matthews"))
+		{
+			return "Ryan Mathews";
+		}
 		else if(name.contains("djax"))
 		{
 			return "DeSean Jackson";

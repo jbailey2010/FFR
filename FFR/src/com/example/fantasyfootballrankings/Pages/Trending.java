@@ -36,6 +36,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 
 /**
@@ -78,14 +79,13 @@ public class Trending extends Activity {
 		getMenuInflater().inflate(R.menu.trending, menu);
 		return true;
 	}
-
+ 
 	/**
 	 * Runs the on selection part of the menu
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
-		//All intents. Easy peasy.
 		switch (item.getItemId()) 
 		{
 			case R.id.refresh:
@@ -94,6 +94,9 @@ public class Trending extends Activity {
 				return true;
 			case R.id.filter_quantity_menu:
 				filterQuantity();
+				return true;
+			case R.id.filter_topics_menu:
+				topicalTrending(holder);
 				return true;
 			case R.id.go_home:
 				Intent home_intent = new Intent(cont, Home.class);
@@ -147,6 +150,58 @@ public class Trending extends Activity {
     	getFilterForPosts(holder);
 	}
 	
+	public void topicalTrending(final Storage holder)
+	{
+		dialog = new Dialog(cont);
+		dialog.setContentView(R.layout.trending_topic_filter);
+		dialog.show();
+		final CheckBox value = (CheckBox)dialog.findViewById(R.id.value_box);
+		final CheckBox rookie = (CheckBox)dialog.findViewById(R.id.rookies);
+		final CheckBox want = (CheckBox)dialog.findViewById(R.id.must_haves);
+		final CheckBox dontWant = (CheckBox)dialog.findViewById(R.id.dont_want);
+    	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		boolean valueSet =  prefs.getBoolean("Value Topic", true);
+		boolean mustHaveSet = prefs.getBoolean("Good Topic", true);
+		boolean rookieSet = prefs.getBoolean("Rookie Topic", true);
+		boolean dontWantSet = prefs.getBoolean("Bad Topic", false);
+		value.setChecked(valueSet);
+		want.setChecked(mustHaveSet);
+		rookie.setChecked(rookieSet);
+		dontWant.setChecked(dontWantSet);
+    	final SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		Button submit = (Button)dialog.findViewById(R.id.trending_filter_submit);
+		submit.setOnClickListener(new View.OnClickListener()
+		{	
+            @Override
+            public void onClick(View v) 
+            {
+				Boolean valueChecked = value.isChecked();
+				Boolean rookieChecked = rookie.isChecked();
+				Boolean wantChecked = want.isChecked();
+				Boolean dontWantChecked = dontWant.isChecked();
+				editor.putBoolean("Value Topic", valueChecked);
+				editor.putBoolean("Rookie Topic", rookieChecked);
+				editor.putBoolean("Good Topic", wantChecked);
+				editor.putBoolean("Bad Topic", dontWantChecked);
+				editor.commit();
+				dialog.dismiss();
+				holder.posts.clear();
+				fetchTrending(holder);
+				listview.setAdapter(null);
+            }
+		});
+		Button cancel = (Button)dialog.findViewById(R.id.trending_filter_cancel);
+		cancel.setOnClickListener(new View.OnClickListener()
+		{	
+            @Override
+            public void onClick(View v) 
+            {
+				dialog.dismiss();
+            }
+		});
+		
+	} 
+	
 	/**
 	 * Just because this has to be called twice, abstracted.
 	 * Makes the loading dialog, and in a side thread calls the back
@@ -157,6 +212,7 @@ public class Trending extends Activity {
 	{
 		try {
 			ParseTrending.trendingPlayers(holder, cont);
+			listview.setAdapter(null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

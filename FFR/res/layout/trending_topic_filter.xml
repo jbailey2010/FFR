@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:text="Select the topics about which you'd like to know the trends"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <CheckBox
+        android:id="@+id/must_haves"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="51dp"
+        android:text="Must Have Players" />
+
+    <CheckBox
+        android:id="@+id/dont_want"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/must_haves"
+        android:layout_below="@+id/must_haves"
+        android:layout_marginTop="44dp"
+        android:text="Don&apos;t Want" />
+
+    <CheckBox
+        android:id="@+id/value_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/must_haves"
+        android:layout_alignBottom="@+id/must_haves"
+        android:layout_alignRight="@+id/textView1"
+        android:text="Value Picks" />
+
+    <Button
+        android:id="@+id/trending_filter_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/trending_filter_submit"
+        android:layout_below="@+id/trending_filter_submit"
+        android:layout_marginTop="33dp"
+        android:text="Cancel" />
+
+    <Button
+        android:id="@+id/trending_filter_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dont_want"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="89dp"
+        android:text="Submit" />
+
+    <CheckBox
+        android:id="@+id/rookies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/trending_filter_submit"
+        android:layout_alignLeft="@+id/value_box"
+        android:text="Rookies" />
+
+</RelativeLayout>

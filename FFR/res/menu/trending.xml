@@ -10,6 +10,11 @@
         android:showAsAction="never"
         android:title="Limit Quantity Shown"/>
     <item
+        android:id="@+id/filter_topics_menu"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Filter Topics Shown"/>        
+    <item
         android:id="@+id/go_home"
         android:orderInCategory="100"
         android:showAsAction="never"
