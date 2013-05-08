@@ -437,17 +437,17 @@ public class ParseTrending
 	 */
 	public static Post[] parseForum(int length, String url) throws IOException
 	{
-		String parsedText = "";
-		String parsedDates = "";
+		StringBuilder parsedText = new StringBuilder(10000);
+		StringBuilder parsedDates = new StringBuilder(10000);
 		for(int i = 0; i < length; i++)
 		{
 			String newUrl = url + Integer.toString(i*20);
 			Document doc = Jsoup.connect(newUrl).get();
-			parsedText += HandleBasicQueries.handleListsMulti(doc, newUrl, "div.post.entry-content");
-			parsedDates += HandleBasicQueries.handleListsMulti(doc, newUrl, "abbr.published");
+			parsedText.append(HandleBasicQueries.handleListsMulti(doc, newUrl, "div.post.entry-content"));
+			parsedDates.append(HandleBasicQueries.handleListsMulti(doc, newUrl, "abbr.published"));
 		}
-		String[] perPost = parsedText.split("\n");
-		String[] datesPost = parsedDates.split("\n");
+		String[] perPost = parsedText.toString().split("\n");
+		String[] datesPost = parsedDates.toString().split("\n");
 		Post[] posts = new Post[perPost.length];
 		for(int i =0; i < posts.length; i++)
 		{
