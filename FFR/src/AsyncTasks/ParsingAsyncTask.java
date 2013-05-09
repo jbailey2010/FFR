@@ -293,13 +293,17 @@ public class ParsingAsyncTask
 		 		{
 			 		//Rookie rankings
 		 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
+		 			//Draft thread
+		 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=345800&st=");
 		 		}
 		 		if(dontWant)
 		 		{
 		 			//Overvalued
 		 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=334675&st=");
 		 			//Don't draft
-		 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=345722&st=");		 			
+		 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=345722&st=");	
+		 			//Busts
+		 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=347469&st=");
 		 		}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
