@@ -254,7 +254,10 @@ public class ParsingAsyncTask
 		protected void onPostExecute(Void result){
 		   super.onPostExecute(result);
 		   pdia.dismiss();
-		   WriteToFile.writePosts(holder, act);
+		   if(holder.posts.size() > 1)
+		   {
+			   WriteToFile.writePosts(holder, act);
+		   }
 		}
     	
 	    @Override
