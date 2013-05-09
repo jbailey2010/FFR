@@ -30,7 +30,7 @@
         android:layout_alignLeft="@+id/must_haves"
         android:layout_below="@+id/must_haves"
         android:layout_marginTop="44dp"
-        android:text="Don&apos;t Want" />
+        android:text="Don&apos;t Want/Overvalued" />
 
     <CheckBox
         android:id="@+id/value_box"
