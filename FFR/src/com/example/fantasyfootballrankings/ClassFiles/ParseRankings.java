@@ -72,7 +72,7 @@ public class ParseRankings
 	    //ContractHighLevel contract = stupid.new ContractHighLevel(cont);
 	    //contract.execute(holder, cont);
 	    
-	    OfflineHighLevel offline = status.new OfflineHighLevel(cont);
+	    OfflineHighLevel offline = status.new OfflineHighLevel(cont, holder);
 	    offline.execute(holder, cont);
 
 	}

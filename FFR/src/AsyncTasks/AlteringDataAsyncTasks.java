@@ -8,18 +8,30 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-
+/**
+ * Offline async tasks that work on the data
+ * @author Jeff
+ *
+ */
 public class AlteringDataAsyncTasks 
 {
+	/**
+	 * Handles the high level operations that operate on all
+	 * player rankings
+	 * @author Jeff
+	 *
+	 */
 	public class OfflineHighLevel extends AsyncTask<Object, Void, Void> 
 	{
 		ProgressDialog pdia;
 		Activity act;
-	    public OfflineHighLevel(Activity activity) 
+		Storage hold;
+	    public OfflineHighLevel(Activity activity, Storage holder) 
 	    {
 	        pdia = new ProgressDialog(activity);
 	        pdia.setCancelable(false);
 	        act = activity;
+	        hold = holder;
 	    }
 	    
 		@Override
@@ -33,7 +45,10 @@ public class AlteringDataAsyncTasks
 		protected void onPostExecute(Void result){
 		   super.onPostExecute(result);
 		   pdia.dismiss();
-		   ((Rankings)act).intermediateHandleRankings(act);
+		   if(hold.players.size() > 1)
+		   {
+			   ((Rankings)act).intermediateHandleRankings(act);
+		   }
 		}
 		
 	    @Override
