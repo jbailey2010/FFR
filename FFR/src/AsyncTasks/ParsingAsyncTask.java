@@ -2,6 +2,7 @@ package AsyncTasks;
 
 import java.io.IOException;
 
+
 import org.htmlcleaner.XPatherException;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
@@ -10,7 +11,6 @@ import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePFF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
@@ -74,7 +74,6 @@ public class ParsingAsyncTask
 				//ParseESPNadv.parseESPNAggregate(holder);
 				ParseFFTB.parseFFTBRankingsWrapper(holder);
 				//ParseESPN.parseESPN300(holder);
-	    		//ParsePFF.parsePFFRankingsWrapper(holder);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
