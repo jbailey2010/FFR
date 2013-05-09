@@ -80,7 +80,7 @@ public class Home extends Activity implements Serializable{
         trending = (Button)findViewById(R.id.trending);
         trending.setOnClickListener(trendHandler);
         try {
-			ParsePermanentData.parseMenInBox();
+			ParsePermanentData.parseRunPassRatio();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

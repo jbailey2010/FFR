@@ -53,31 +53,35 @@ public class ParsePermanentData
 		return players;
 	}
 	
+	/**
+	 * Parses the run/pass ratios for all teams and
+	 * returns a hashmap that has all that data stored
+	 * @throws IOException
+	 */
 	public static Map<String, String> parseRunPassRatio() throws IOException
 	{
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
-		String url = "https://www.profootballfocus.com/blog/2013/05/08/facing-eight-in-the-box/";
+		String url = "https://www.profootballfocus.com/blog/2013/02/05/2012-passrun-rate-splits/";
 		String text = HandleBasicQueries.handleLists(url, "td");
 		String[] brokenData = text.split("\n");
-		Map<String, String> players = new HashMap<String, String>();
+		Map<String, String> teams = new HashMap<String, String>();
 		String name = "";
 		String value = "";
-		for(int i = 0; i < brokenData.length; i++)
+		for(int i = 14; i < brokenData.length; i++)
 		{
-			if((i-1)%6 == 0)
+			if((i-14)%9 == 0)
 			{
-				name = brokenData[i];
+				name = ParseRankings.fixTeams(brokenData[i]);
 			}
-			else if((i-5)%6 == 0)
+			if((i-15)%9 == 0)
 			{
 				value = brokenData[i];
-				players.put(name, value);
+				System.out.println(name + ": " + value);
 				name = "";
 				value = "";
 			}
 		}
-		return players;
-		return null;
+		return teams;
 	}
 }

@@ -332,11 +332,11 @@ public class ParseRankings
 		{
 			return "Pittsburgh Steelers";
 		}
-		if(low.equals("cle") || low.equals("cleveland") || low.equals("browns"))
+		if(low.equals("cle") || low.equals("clv") || low.equals("cleveland") || low.equals("browns"))
 		{
 			return "Cleveland Browns";
 		}
-		if(low.equals("bal") || low.equals("baltimore") || low.equals("ravens"))
+		if(low.equals("bal") || low.equals("blt") || low.equals("baltimore") || low.equals("ravens"))
 		{
 			return "Baltimore Ravens";
 		}
@@ -365,7 +365,7 @@ public class ParseRankings
 		{
 			return "Jacksonville Jaguars";
 		}
-		if(low.equals("hou") || low.equals("houston") || low.equals("texans"))
+		if(low.equals("hou") || low.equals("hst") || low.equals("houston") || low.equals("texans"))
 		{
 			return "Houston Texans";
 		}
@@ -446,11 +446,12 @@ public class ParseRankings
 		{
 			return "San Francisco 49ers";
 		}
-		if(low.equals("stl") || low.equals("st. louis") || low.equals("st louis") || low.equals("rams"))
+		if(low.equals("stl") || low.equals("st. louis") || low.equals("st louis") || 
+				low.equals("rams") || low.equals("sl"))
 		{
 			return "St. Louis Rams";
 		}
-		if(low.equals("ari") || low.equals("arizona") || low.equals("cardinals"))
+		if(low.equals("ari") || low.equals("arizona") || low.equals("cardinals") || low.equals("arz"))
 		{
 			return "Arizona Cardinals";
 		}
