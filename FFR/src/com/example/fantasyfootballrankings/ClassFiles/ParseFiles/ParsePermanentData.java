@@ -1,8 +1,10 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -54,6 +56,26 @@ public class ParsePermanentData
 				name = "";
 				value = "";
 			}
+		}
+		Set<String> keys = players.keySet();
+		String[] keyArr = keys.toArray(new String[32]);
+		for(int i = 0; i < keyArr.length; i++)
+		{
+			String val = players.get(keyArr[i]);
+			String percentage = val.split(": ")[1].replace("%", "");
+	    	DecimalFormat df = new DecimalFormat("#.##");
+			double difference = (Double.parseDouble(percentage) - Double.parseDouble("23.25"));
+			String diff = "";
+			if(difference < 0)
+			{
+				diff = df.format(difference);
+			}
+			else
+			{
+				diff = "+" + df.format(difference);
+			}
+			String finalOutput = val + ", " + diff + "% relative to the league average.";
+			players.put(keyArr[i], finalOutput);
 		}
 		return players;
 	}
