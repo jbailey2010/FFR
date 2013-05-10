@@ -40,7 +40,7 @@ public class WriteToFile {
 	public static void storePlayerNames(List<String> names, Context cont)
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		StringBuilder history = new StringBuilder(1000);
+		StringBuilder history = new StringBuilder(10000);
 		for(int i = 0; i < names.size(); i++)
 		{
 			history.append(names.get(i) + ",");
@@ -87,7 +87,7 @@ public class WriteToFile {
 	 */
 	public static void writePosts(Storage holder, Context cont) 
 	{
-		StringBuilder posts = new StringBuilder(3000);
+		StringBuilder posts = new StringBuilder(10000);
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 		for(int i = 0; i < holder.posts.size(); i++)
 		{
@@ -160,7 +160,7 @@ public class WriteToFile {
     	Set<String> keys = players.keySet();
     	for(String elem : keys)
     	{
-    		menInBox.append(elem + "$%$%" + players.get(elem) + "@@#");
+    		menInBox.append(elem + "~~" + players.get(elem) + "@@#");
     	}
     	editor.putString("Men In Box", menInBox.toString()).commit();
     }
@@ -177,7 +177,7 @@ public class WriteToFile {
     	Set<String> keys = players.keySet();
     	for(String elem : keys)
     	{
-    		runPassRatio.append(elem + "$%$%" + players.get(elem) + "@@#");
+    		runPassRatio.append(elem + "~~" + players.get(elem) + "@@#");
     	}
     	editor.putString("Run Pass Ratio", runPassRatio.toString()).commit();
 	}
@@ -194,7 +194,7 @@ public class WriteToFile {
     	Set<String> keys = players.keySet();
     	for(String elem : keys)
     	{
-    		oLineRanks.append(elem + "$%$%" + players.get(elem) + "@@#");
+    		oLineRanks.append(elem + "~~" + players.get(elem) + "@@#");
     	}
     	editor.putString("O Line Ranks", oLineRanks.toString()).commit();
 	}

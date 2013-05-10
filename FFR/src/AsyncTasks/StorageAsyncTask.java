@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
+import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
@@ -57,12 +58,13 @@ public class StorageAsyncTask
 	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
 	    		player.info.status + "&&" + player.info.adp + "&&" + player.info.bye + "&&" 
 	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
-	    		player.info.age + "~~~~");
+	    		player.info.age + "&&" + player.info.oLineStatus + "&&" + player.info.passRunRatio + "&&" + 
+	    		player.info.additionalStat + "~~~~");
 	    	}
 	    	String playerString = players.toString();
 	    	editor.putString("Player Values", playerString).commit();
 	    	//Player names work
-	    	StringBuilder names = new StringBuilder(2000);
+	    	StringBuilder names = new StringBuilder(10000);
 	    	for(String name: holder.parsedPlayers)
 	    	{
 	    		names.append(name + ",");
@@ -115,7 +117,7 @@ public class StorageAsyncTask
 	    	List<String> trendingPlayers = (List<String>)data[0];
 	    	Context cont = (Context)data[1];
 	    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-	    	StringBuilder posts = new StringBuilder(5000);
+	    	StringBuilder posts = new StringBuilder(10000);
 	    	for(int i = 0; i < trendingPlayers.size(); i++)
 	    	{
 	    		posts.append(trendingPlayers.get(i) + "##");
@@ -150,7 +152,7 @@ public class StorageAsyncTask
 	    	List<String> rankingsList = (List<String>)data[0];
 	    	Context cont = (Context)data[1];
 	    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-	    	StringBuilder list = new StringBuilder(5000);
+	    	StringBuilder list = new StringBuilder(10000);
 	    	for(int i = 0; i < rankingsList.size(); i++)
 	    	{
 	    		list.append(rankingsList.get(i) + "##");
@@ -350,6 +352,7 @@ public class StorageAsyncTask
 	    {
 	    	Storage holder = (Storage) data[0];
 	    	String[][]allData = (String[][])data[1];
+	    	Context cont = (Context)data[2];
 	   		for(int i = 0; i < holder.players.size(); i++)
 	   		{ 
 	   			PlayerObject player = holder.players.get(i);
@@ -365,6 +368,7 @@ public class StorageAsyncTask
 	   			player.values.count = Double.parseDouble(allData[i][1]);
 	   			player.values.worth = Double.parseDouble(allData[i][0]);
 	   		}
+   			HighLevel.setPermanentData(holder, cont);
 			return null;
 	    }
 	  }

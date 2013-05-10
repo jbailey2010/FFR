@@ -96,7 +96,7 @@ public class ReadFromFile {
 		String[][] data=rankings.execute(holder, cont).get();
 		
 	    ReadValue values = readFromFileAsyncObj.new ReadValue();
-		values.execute(holder, data);
+		values.execute(holder, data, cont);
 		
 		ReadNames names = readFromFileAsyncObj.new ReadNames((Activity)cont);
 		names.execute(holder, cont);
@@ -167,10 +167,10 @@ public class ReadFromFile {
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		String checkExists = prefs.getString("Men In Box", "Not Set");
 		Map<String,String> players = new HashMap<String, String>();
-		String[] perPlayer = checkExists.split("$%$%");
+		String[] perPlayer = checkExists.split("@@#");
 		for(int i = 0; i < perPlayer.length; i++)
 		{
-			String[] individualData = perPlayer[i].split("@@#");
+			String[] individualData = perPlayer[i].split("~~");
 			players.put(individualData[0], individualData[1]);
 		}
 		return players;
@@ -185,12 +185,12 @@ public class ReadFromFile {
 	public static Map<String, String> readPassRun(Context cont)
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		String checkExists = prefs.getString("Pass Run Ratio", "Not Set");
+		String checkExists = prefs.getString("Run Pass Ratio", "Not Set");
 		Map<String,String> teams = new HashMap<String, String>();
-		String[] perPlayer = checkExists.split("$%$%");
+		String[] perPlayer = checkExists.split("@@#");
 		for(int i = 0; i < perPlayer.length; i++)
 		{
-			String[] individualData = perPlayer[i].split("@@#");
+			String[] individualData = perPlayer[i].split("~~");
 			teams.put(individualData[0], individualData[1]);
 		}
 		return teams;
@@ -204,13 +204,16 @@ public class ReadFromFile {
 	public static Map<String, String> readOLineRanks(Context cont)
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		String checkExists = prefs.getString("O Line Rankings", "Not Set");
+		String checkExists = prefs.getString("O Line Ranks", "Not Set");
 		Map<String,String> teams = new HashMap<String, String>();
-		String[] perPlayer = checkExists.split("$%$%");
+		String[] perPlayer = checkExists.split("@@#");
 		for(int i = 0; i < perPlayer.length; i++)
 		{
-			String[] individualData = perPlayer[i].split("@@#");
-			teams.put(individualData[0], individualData[1]);
+			String[] individualData = perPlayer[i].split("~~");
+			if(individualData.length > 1)
+			{
+				teams.put(individualData[0], individualData[1]);
+			}
 		}
 		return teams;
 	}

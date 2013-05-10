@@ -257,11 +257,6 @@ public class Rankings extends Activity {
 		newCont = oCont;
 		ReadFromFile.fetchNames(holder, newCont);
 		dialog.setContentView(R.layout.search_players);
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(dialog.getWindow().getAttributes());
-        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        dialog.getWindow().setAttributes(lp);
 		voice = (Button) dialog.findViewById(R.id.speakButton);
         textView = (AutoCompleteTextView)(dialog).findViewById(R.id.player_input);
         voice.setOnClickListener(new OnClickListener() {
@@ -344,11 +339,6 @@ public class Rankings extends Activity {
     public static void outputResults(final Dialog dialog, String namePlayer)
     {
     	dialog.setContentView(R.layout.search_output);
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(dialog.getWindow().getAttributes());
-        lp.width = WindowManager.LayoutParams.FILL_PARENT;
-        lp.height = WindowManager.LayoutParams.FILL_PARENT;
-        dialog.getWindow().setAttributes(lp);
     	List<String>output = new ArrayList<String>(12);
     	TextView name = (TextView)dialog.findViewById(R.id.name);
     	if(namePlayer.equals(""))
@@ -384,6 +374,12 @@ public class Rankings extends Activity {
     	output.add("Showed up in " + searchedPlayer.values.count + " rankings.");
     	output.add("Highest value: " + searchedPlayer.values.high);
     	output.add("Lowest value: " + low);
+    	output.add(searchedPlayer.info.passRunRatio);
+    	output.add(searchedPlayer.info.oLineStatus);
+    	if(!searchedPlayer.info.additionalStat.equals(""))
+    	{
+    		output.add(searchedPlayer.info.additionalStat);
+    	}
     	dialog.show();
     	ListView results = (ListView)dialog.findViewById(R.id.listview_search);
     	ManageInput.handleArray(output, results, (Rankings)newCont);
@@ -397,6 +393,13 @@ public class Rankings extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+		});
+    	Button close = (Button)dialog.findViewById(R.id.search_close);
+		close.setOnClickListener(new OnClickListener()
+		{ 
+			public void onClick(View v) {
+				dialog.dismiss();
 			}
 		});
     }

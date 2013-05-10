@@ -7,7 +7,18 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
-
+        
+        <Button
+            android:id="@+id/search_back"
+            android:layout_width="146dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="Back" />
+        <View android:layout_height="fill_parent"
+		    android:layout_width="1dp"
+		    android:background="#90909090"/>
+        
         <TextView
             android:id="@+id/name"
             android:layout_width="fill_parent"
@@ -16,6 +27,18 @@
             android:gravity="center"
             android:text="Name Here"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <View android:layout_height="fill_parent"
+		    android:layout_width="1dp"
+		    android:background="#90909090"/>
+        <Button
+            android:id="@+id/search_close"
+            android:layout_width="146dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="X" />
+
     </LinearLayout>
 
     <ListView
@@ -28,15 +51,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="4.05" >
-
-        <Button
-            android:id="@+id/search_back"
-            android:layout_width="146dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="Back" />
+        android:layout_weight="4.05"
+        android:minHeight="50dp">
 
     </RelativeLayout>
 

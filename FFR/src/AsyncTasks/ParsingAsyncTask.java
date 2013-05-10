@@ -1,6 +1,7 @@
 package AsyncTasks;
 
 import java.io.IOException;
+import java.util.Map;
 
 
 import org.htmlcleaner.XPatherException;
@@ -11,10 +12,12 @@ import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePermanentData;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 
+import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -350,6 +353,55 @@ public class ParsingAsyncTask
 	    	Context cont = (Context) data[0];
 	    	try {
 				ParsePlayerNames.fetchPlayerNames(cont);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+	    }
+	  }
+	
+	/**
+	 * Handles the back-end parsing of the permanent data
+	 * @author Jeff
+	 *
+	 */
+	public class ParsePermanentDataSets extends AsyncTask<Object, Void, Void> 
+	{
+		ProgressDialog pdia;
+		Activity act;
+	    public ParsePermanentDataSets(Activity activity) 
+	    {
+	        pdia = new ProgressDialog(activity);
+	        act = activity;
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		        pdia.setMessage("Please wait, fetching the advanced data...");
+		        pdia.show();    
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		}
+		
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Context cont = (Context) data[0];
+	    	Storage holder = (Storage) data[1];
+	    	ReadFromFile.fetchNamesBackEnd(holder, cont);
+	    	try {
+				Map<String, String> menInBox = ParsePermanentData.parseMenInBox(holder, cont);
+				Map<String, String> prRatio = ParsePermanentData.parsePassRunRatio();
+				Map<String, String> oLineRanks = ParsePermanentData.parseOLineRanksWrapper();
+				WriteToFile.writeMenInBox(cont, menInBox);
+				WriteToFile.writePassRun(cont, prRatio);
+				WriteToFile.writeOLineRanks(cont, oLineRanks);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

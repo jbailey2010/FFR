@@ -7,6 +7,7 @@ import java.util.Map;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import FileIO.ReadFromFile;
 import android.content.Context;
 import android.os.StrictMode;
 
@@ -29,7 +30,7 @@ public class ParsePermanentData
 	 * @param cont
 	 * @throws IOException
 	 */
-	public static Map<String, String> parseMenInBox(Storage holder) throws IOException
+	public static Map<String, String> parseMenInBox(Storage holder, Context cont) throws IOException
 	{
 		String url = "https://www.profootballfocus.com/blog/2013/05/08/facing-eight-in-the-box/";
 		String text = HandleBasicQueries.handleLists(url, "td");
@@ -42,12 +43,13 @@ public class ParsePermanentData
 			if((i-1)%6 == 0)
 			{
 				name = brokenData[i];
+				ReadFromFile.fetchNames(holder, cont);
 				String validated = ParseRankings.fixNames(name);
 				name = Storage.nameExists(holder, validated);
 			}
 			else if((i-5)%6 == 0)
 			{
-				value = brokenData[i];
+				value = "Amount of time 8+ men were in the box: " + brokenData[i];
 				players.put(name, value);
 				name = "";
 				value = "";
@@ -77,7 +79,7 @@ public class ParsePermanentData
 			}
 			if((i-15)%9 == 0)
 			{
-				value = brokenData[i];
+				value = "Pass/Run Ratio: " + brokenData[i];
 				teams.put(name, value);
 				name = "";
 				value = "";
@@ -126,7 +128,7 @@ public class ParsePermanentData
 			String test = testWhole[0];
 			if(test.contains(".") && !test.contains("+") && !test.contains("-"))
 			{
-				value = "Overall: " + test.replace(".", "") + "\n";
+				value = "Overall Line Ranking: " + test.replace(".", "") + "\n" + "\n";
 				name = ParseRankings.fixTeams(testWhole[1] + " " + testWhole[2]);
 			}
 			if(brokenData[i].contains("PB"))
@@ -134,8 +136,8 @@ public class ParsePermanentData
 				String[] data = brokenData[i].split(",");
 				String[] pb = data[0].split(" – ");
 				String[] rb = data[1].split(" – ");
-				value += "Pass Blocking: " + pb[1].substring(0, pb[1].length() - 2) + "\n";
-				value += "Run Blocking: " + rb[1].substring(0, rb[1].length() - 2) + "\n";
+				value += "Pass Blocking Ranking: " + pb[1].substring(0, pb[1].length() - 2) + "\n" + "\n";
+				value += "Run Blocking Ranking: " + rb[1].substring(0, rb[1].length() - 2);
 				teams.put(name, value);
 				value = "";
 				name = "";

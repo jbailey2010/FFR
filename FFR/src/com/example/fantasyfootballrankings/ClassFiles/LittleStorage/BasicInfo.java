@@ -18,6 +18,9 @@ public class BasicInfo
 	public String trend;
 	public String contractStatus;
 	public String age;
+	public String oLineStatus;
+	public String passRunRatio;
+	public String additionalStat;
 	public int sos;
 	/**
 	 * Simply establishes the values. Nothing special
@@ -37,6 +40,9 @@ public class BasicInfo
 		contractStatus = "Under Contract";
 		age = "0"; 
 		sos = -1;
+		oLineStatus = "";
+		passRunRatio = "";
+		additionalStat = "";
 	}
 
 	/**

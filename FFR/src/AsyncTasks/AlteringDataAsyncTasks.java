@@ -58,6 +58,7 @@ public class AlteringDataAsyncTasks
 	    	Context cont = (Context) data[1];
 			HighLevel.setStatus(holder);
 		    HighLevel.getParsedPlayers(holder);
+		    HighLevel.setPermanentData(holder, cont);
 			return null;
 	    }
 	  }

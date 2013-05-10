@@ -34,6 +34,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
+import AsyncTasks.ParsingAsyncTask.ParsePermanentDataSets;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -118,12 +119,15 @@ public class Home extends Activity implements Serializable{
 	public void handleInitialRefresh()
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		String checkExists = prefs.getString("Player Names", "Not Set");
+		String checkExists = prefs.getString("O Line Ranks", "Not Set");
 		if(checkExists.equals("Not Set"))
 		{
 			final ParsingAsyncTask stupid = new ParsingAsyncTask();
 			ParseNames task = stupid.new ParseNames((Activity)cont);
 		    task.execute(cont);	
+		    
+		    ParsePermanentDataSets advancedData = stupid.new ParsePermanentDataSets((Activity) cont);
+		    advancedData.execute(cont, new Storage());
 		}
 	}
 	

@@ -7,10 +7,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.htmlcleaner.XPatherException;
 
+import FileIO.ReadFromFile;
+import android.content.Context;
 import android.os.StrictMode;
 
 /**
@@ -206,6 +209,29 @@ public class HighLevel
 			if(keys.contains(player.info.team + "," + player.info.position))
 			{
 				player.info.sos = sos.get(player.info.team + "," + player.info.position);
+			}
+		}
+	}
+	
+	/**
+	 * A high level function that sets the permanent data in the
+	 * player objects
+	 * @param holder
+	 * @param cont
+	 */
+	public static void setPermanentData(Storage holder, Context cont)
+	{
+		Map<String, String> ranks = ReadFromFile.readOLineRanks(cont);
+		Map<String, String> ratios = ReadFromFile.readPassRun(cont);
+		Map<String, String> menInBox = ReadFromFile.readMenInBox(cont);
+		Set<String> names = menInBox.keySet();
+		for(PlayerObject elem : holder.players)
+		{
+			elem.info.oLineStatus = ranks.get(elem.info.team);
+			elem.info.passRunRatio = ratios.get(elem.info.team);
+			if(elem.info.position.equals("RB") && names.contains(elem.info.name))
+			{
+				elem.info.additionalStat = menInBox.get(elem.info.name);
 			}
 		}
 	}
