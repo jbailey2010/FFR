@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import android.content.Context;
 import android.os.StrictMode;
 
@@ -58,10 +61,8 @@ public class ParsePermanentData
 	 * returns a hashmap that has all that data stored
 	 * @throws IOException
 	 */
-	public static Map<String, String> parseRunPassRatio() throws IOException
+	public static Map<String, String> parsePassRunRatio() throws IOException
 	{
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-		StrictMode.setThreadPolicy(policy);
 		String url = "https://www.profootballfocus.com/blog/2013/02/05/2012-passrun-rate-splits/";
 		String text = HandleBasicQueries.handleLists(url, "td");
 		String[] brokenData = text.split("\n");
@@ -77,11 +78,68 @@ public class ParsePermanentData
 			if((i-15)%9 == 0)
 			{
 				value = brokenData[i];
-				System.out.println(name + ": " + value);
+				teams.put(name, value);
 				name = "";
 				value = "";
 			}
 		}
 		return teams;
+	}
+	
+	/**
+	 * A wrapper for the four pages of offensive line data
+	 * @return
+	 * @throws IOException
+	 */
+	public static Map<String, String> parseOLineRanksWrapper() throws IOException
+	{
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
+		String url1 = "https://www.profootballfocus.com/blog/2013/01/28/ranking-the-2012-offensive-lines/1/";
+		String url2 = "https://www.profootballfocus.com/blog/2013/01/28/ranking-the-2012-offensive-lines/2/";
+		String url3 = "https://www.profootballfocus.com/blog/2013/01/28/ranking-the-2012-offensive-lines/3/";
+		String url4 = "https://www.profootballfocus.com/blog/2013/01/28/ranking-the-2012-offensive-lines/4/";
+		Map<String, String> teams = new HashMap<String, String>();
+		parseOLineRanks(url1, teams);
+		parseOLineRanks(url2, teams);
+		parseOLineRanks(url3, teams);
+		parseOLineRanks(url4, teams);
+		return teams;
+	}
+	
+	/**
+	 * Handles the per-page parsing of the offensive line data
+	 * @param url
+	 * @param teams
+	 * @throws IOException
+	 */
+	public static void parseOLineRanks(String url, Map<String, String> teams) throws IOException
+	{
+		Document doc = Jsoup.connect(url).get();
+		String textSub = HandleBasicQueries.handleListsMulti(doc, url, "p strong");
+		String[] brokenData = textSub.split("\n");
+		String name = "";
+		String value = "";
+		for(int i = 1; i < brokenData.length; i++)
+		{
+			String[] testWhole = brokenData[i].split(" ");
+			String test = testWhole[0];
+			if(test.contains(".") && !test.contains("+") && !test.contains("-"))
+			{
+				value = "Overall: " + test.replace(".", "") + "\n";
+				name = ParseRankings.fixTeams(testWhole[1] + " " + testWhole[2]);
+			}
+			if(brokenData[i].contains("PB"))
+			{
+				String[] data = brokenData[i].split(",");
+				String[] pb = data[0].split(" – ");
+				String[] rb = data[1].split(" – ");
+				value += "Pass Blocking: " + pb[1].substring(0, pb[1].length() - 2) + "\n";
+				value += "Run Blocking: " + rb[1].substring(0, rb[1].length() - 2) + "\n";
+				teams.put(name, value);
+				value = "";
+				name = "";
+			}
+		}
 	}
 }
