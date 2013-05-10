@@ -111,7 +111,8 @@ public class Home extends Activity implements Serializable{
 	}
 	
 	/**
-	 * Handles the initial fetching of players if they haven't been
+	 * Handles the initial fetching of player names
+	 * and permanent data if they haven't been
 	 * fetched (initial opening of the app)
 	 */
 	public void handleInitialRefresh()

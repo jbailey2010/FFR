@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
@@ -144,5 +146,56 @@ public class WriteToFile {
     		editor.putInt("Filter Quantity Size", size);
     	}
     	editor.commit();
+	}
+	
+	/**
+	 * Writes men in box ratios to file
+	 * @param cont
+	 * @param players
+	 */
+	public static void writeMenInBox(Context cont, Map<String, String> players)
+	{
+    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+    	StringBuilder menInBox = new StringBuilder(10000);
+    	Set<String> keys = players.keySet();
+    	for(String elem : keys)
+    	{
+    		menInBox.append(elem + "$%$%" + players.get(elem) + "@@#");
+    	}
+    	editor.putString("Men In Box", menInBox.toString()).commit();
+    }
+	
+	/**
+	 * Writes pass-run ratio to file
+	 * @param cont
+	 * @param players
+	 */
+	public static void writePassRun(Context cont, Map<String, String> players)
+	{
+    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+    	StringBuilder runPassRatio = new StringBuilder(10000);
+    	Set<String> keys = players.keySet();
+    	for(String elem : keys)
+    	{
+    		runPassRatio.append(elem + "$%$%" + players.get(elem) + "@@#");
+    	}
+    	editor.putString("Run Pass Ratio", runPassRatio.toString()).commit();
+	}
+	
+	/**
+	 * Writes offensive line ranks to file
+	 * @param cont
+	 * @param players
+	 */
+	public static void writeOLineRanks(Context cont, Map<String, String> players)
+	{
+    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+    	StringBuilder oLineRanks = new StringBuilder(10000);
+    	Set<String> keys = players.keySet();
+    	for(String elem : keys)
+    	{
+    		oLineRanks.append(elem + "$%$%" + players.get(elem) + "@@#");
+    	}
+    	editor.putString("O Line Ranks", oLineRanks.toString()).commit();
 	}
 }

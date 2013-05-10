@@ -2,7 +2,9 @@ package FileIO;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
@@ -153,5 +155,63 @@ public class ReadFromFile {
 			return prefs.getInt("Filter Quantity Size Rankings", 100);
 		}
 		return prefs.getInt("Filter Quantity Size", 100);
+	}
+	
+	/**
+	 * Reads a hashmap of men in box from file
+	 * @param cont
+	 * @return
+	 */
+	public static Map<String, String> readMenInBox(Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		String checkExists = prefs.getString("Men In Box", "Not Set");
+		Map<String,String> players = new HashMap<String, String>();
+		String[] perPlayer = checkExists.split("$%$%");
+		for(int i = 0; i < perPlayer.length; i++)
+		{
+			String[] individualData = perPlayer[i].split("@@#");
+			players.put(individualData[0], individualData[1]);
+		}
+		return players;
+	}
+	
+	/**
+	 * handles the reading of the pass run ratios per team
+	 * from file
+	 * @param cont
+	 * @return
+	 */
+	public static Map<String, String> readPassRun(Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		String checkExists = prefs.getString("Pass Run Ratio", "Not Set");
+		Map<String,String> teams = new HashMap<String, String>();
+		String[] perPlayer = checkExists.split("$%$%");
+		for(int i = 0; i < perPlayer.length; i++)
+		{
+			String[] individualData = perPlayer[i].split("@@#");
+			teams.put(individualData[0], individualData[1]);
+		}
+		return teams;
+	}
+	
+	/**
+	 * Handles reading of o line rankings from file
+	 * @param cont
+	 * @return
+	 */
+	public static Map<String, String> readOLineRanks(Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		String checkExists = prefs.getString("O Line Rankings", "Not Set");
+		Map<String,String> teams = new HashMap<String, String>();
+		String[] perPlayer = checkExists.split("$%$%");
+		for(int i = 0; i < perPlayer.length; i++)
+		{
+			String[] individualData = perPlayer[i].split("@@#");
+			teams.put(individualData[0], individualData[1]);
+		}
+		return teams;
 	}
 }
