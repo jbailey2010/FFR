@@ -69,7 +69,7 @@ public class HighLevel
 			//Go through the good array
 			if(good.contains(name))
 			{
-				player.info.status = "Looks like he could be good, definitely worth a shot. Could be a bounce-back candidate.";
+				player.info.status = "Looks like he could be good considering the cost, definitely worth a shot.";
 				player.values.worth += 1.25;
 			}
 			//Go through the high floor, low ceiling array
