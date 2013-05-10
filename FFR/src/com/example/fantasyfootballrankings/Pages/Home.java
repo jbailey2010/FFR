@@ -43,6 +43,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -79,12 +80,7 @@ public class Home extends Activity implements Serializable{
         team.setOnClickListener(teamHandler);
         trending = (Button)findViewById(R.id.trending);
         trending.setOnClickListener(trendHandler);
-        try {
-			ParsePermanentData.parseOLineRanksWrapper();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        handleInitialRefresh();
 	}  
 	
 	/**
@@ -111,6 +107,22 @@ public class Home extends Activity implements Serializable{
 		    	return true;			
 			default:
 				return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	/**
+	 * Handles the initial fetching of players if they haven't been
+	 * fetched (initial opening of the app)
+	 */
+	public void handleInitialRefresh()
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		String checkExists = prefs.getString("Player Names", "Not Set");
+		if(checkExists.equals("Not Set"))
+		{
+			final ParsingAsyncTask stupid = new ParsingAsyncTask();
+			ParseNames task = stupid.new ParseNames((Activity)cont);
+		    task.execute(cont);	
 		}
 	}
 	
