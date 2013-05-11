@@ -52,10 +52,11 @@ public class Trending extends Activity {
 	Button week;
 	Button month;
 	Button all;
-	Storage holder = new Storage();
+	static Storage holder = new Storage();
 	ListView listview;
 	long start;
-	boolean refreshed = false;
+	static boolean refreshed = false;
+	int lastFilter;
 	/**
 	 * Sets up the dialog to show up immediately
 	 */
@@ -263,8 +264,9 @@ public class Trending extends Activity {
             public void onClick(View v) 
             {
 				try {
-					refreshed = true;
-					ParseTrending.setUpLists(holder, filterSize, cont);
+					WriteToFile.writeLastFilter(cont, filterSize);
+					System.out.println("writing " + filterSize);
+					resetTrendingList(filterSize, cont);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -275,6 +277,13 @@ public class Trending extends Activity {
             }
 		});
 	}
+	
+	public static void resetTrendingList(int filterSize, Context cont) throws ParseException, IOException
+	{
+		refreshed = true;
+		ParseTrending.setUpLists(holder, filterSize, cont);
+	}
+	
 	
 	/**
 	 * Handles the middle ground before setting the listView

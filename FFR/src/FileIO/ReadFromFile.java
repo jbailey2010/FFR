@@ -217,4 +217,16 @@ public class ReadFromFile {
 		}
 		return teams;
 	}
+	
+	/**
+	 * Handles reading the last filter used from
+	 * file (for trending)
+	 * @param cont
+	 * @return
+	 */
+	public static int readLastFilter(Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		return prefs.getInt("Last Filter", 365);
+	}
 }

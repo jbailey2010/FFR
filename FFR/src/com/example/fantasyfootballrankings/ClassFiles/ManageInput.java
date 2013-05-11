@@ -1,5 +1,7 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,6 +94,97 @@ public class ManageInput
 		int filterSize = ReadFromFile.readFilterQuantitySize(cont, flag);
 		final SeekBar selector = (SeekBar)dialog.findViewById(R.id.seekBar_quantity);
 		final TextView display = (TextView)dialog.findViewById(R.id.quantity_display);
+		if(flag.equals("Rankings"))
+		{
+			rankingsSetContent(dialog, filterSize, selector, display, cont, flag, listSize);
+		}
+		else
+		{
+			trendingSetContent(dialog, filterSize, selector, display, cont, flag, listSize);
+		}
+
+	}
+
+	private static void trendingSetContent(final Dialog dialog, final int filterSize,
+			final SeekBar selector, final TextView display, final Context cont, final String flag,
+			final int listSize) {
+		if(filterSize == 0)
+		{
+			display.setText("None of the players");
+		}
+		else if(filterSize == 100)
+		{
+			display.setText("All of the players");
+		}
+		else
+		{
+			display.setText(filterSize + "% of the players");
+		}
+		selector.setProgress(filterSize);
+		selector.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
+    	    	int prog = selector.getProgress();
+    	    	String size = "";
+    	    	if(prog == 0)
+    	    	{
+    	    		size = "None of the players";
+    	    	}
+    	    	else if(prog == 100)
+    	    	{
+    	    		size = "All of the players";
+    	    	}
+    	    	else
+    	    	{
+    	    		size = prog + "% of the players";
+    	    	}
+    	    	display.setText(size);	
+				
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+    	});
+		Button cancel = (Button)dialog.findViewById(R.id.filter_size_cancel);
+		cancel.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				dialog.dismiss();
+	    	}	
+		});
+		Button submit = (Button)dialog.findViewById(R.id.filter_size_submit);
+		submit.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				WriteToFile.writeFilterSize(cont, selector.getProgress(), flag);
+				dialog.dismiss();
+				try {
+					Trending.resetTrendingList(ReadFromFile.readLastFilter(cont), cont);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    	}	
+		});
+		
+	}
+
+	private static void rankingsSetContent(final Dialog dialog, int filterSize,
+			final SeekBar selector, final TextView display, final Context cont, final String flag,
+			final int listSize) 
+	{
 		if(filterSize == 0)
 		{
 			display.setText("None of the players");
@@ -156,10 +249,7 @@ public class ManageInput
 			public void onClick(View v) {
 				WriteToFile.writeFilterSize(cont, selector.getProgress(), flag);
 				dialog.dismiss();
-				if(flag.equals("Rankings"))
-				{
-					Rankings.intermediateHandleRankings((Activity)cont);
-				}
+				Rankings.intermediateHandleRankings((Activity)cont);
 	    	}	
 		});
 	}

@@ -198,4 +198,15 @@ public class WriteToFile {
     	}
     	editor.putString("O Line Ranks", oLineRanks.toString()).commit();
 	}
+	
+	/**
+	 * Writes the last filter to file for trending
+	 * @param cont
+	 * @param lastFilter
+	 */
+	public static void writeLastFilter(Context cont, int lastFilter)
+	{
+    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+    	editor.putInt("Last Filter", lastFilter).commit();
+	}
 }
