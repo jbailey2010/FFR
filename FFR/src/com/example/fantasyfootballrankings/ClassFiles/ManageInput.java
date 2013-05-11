@@ -116,7 +116,7 @@ public class ManageInput
     	    	}
     	    	else if(prog == 100)
     	    	{
-    	    		size = "All of the playerse";
+    	    		size = "All of the players";
     	    	}
     	    	else
     	    	{

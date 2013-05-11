@@ -229,8 +229,10 @@ public class StorageAsyncTask
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
 	    	SharedPreferences prefs = (SharedPreferences)data[2];
+	    	int size = (Integer)data[3];
 	    	String ranks = prefs.getString("Rankings List", "Not Set");
     		String[] posts = ranks.split("##");
+    		size = posts.length;
     		List<String>postsList = Arrays.asList(posts);
     		return postsList;
 	    }

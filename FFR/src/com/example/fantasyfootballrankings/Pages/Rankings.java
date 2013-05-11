@@ -76,7 +76,7 @@ public class Rankings extends Activity {
 	static Button calc;
 	static ListView listview;
 	static boolean refreshed = false;
-
+	static int sizeOutput;
 	
 	/**
 	 * Sets up the view
@@ -185,7 +185,7 @@ public class Rankings extends Activity {
     	if(checkExists != "Not Set")
     	{
 			try {
-				ReadFromFile.fetchPlayers(holder,cont);
+				ReadFromFile.fetchPlayers(holder,cont, sizeOutput);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -242,7 +242,7 @@ public class Rankings extends Activity {
 	 */
 	public void filterQuantity()
 	{
-		ManageInput.filterQuantity(cont,"Rankings", holder.players.size());		
+		ManageInput.filterQuantity(cont,"Rankings", sizeOutput);		
 	}
 	
 	/**
@@ -544,6 +544,7 @@ public class Rankings extends Activity {
 		{
 			totalList.add(inter.poll());
 		}
+		sizeOutput = totalList.size();
 		rankingsFetched(totalList, cont);
 	}
 	
