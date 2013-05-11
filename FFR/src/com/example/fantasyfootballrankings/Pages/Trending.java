@@ -56,7 +56,6 @@ public class Trending extends Activity {
 	ListView listview;
 	long start;
 	boolean refreshed = false;
-	int sizeOutput;
 	/**
 	 * Sets up the dialog to show up immediately
 	 */
@@ -127,8 +126,6 @@ public class Trending extends Activity {
     	if(storedPosts != "Not Posted")
     	{
     		String[] posts = storedPosts.split("##");
-    		sizeOutput = posts.length;
-    		System.out.println(sizeOutput + " set in trending on initial load");
     		List<String>postsList = Arrays.asList(posts);
     		ManageInput.handleArray(postsList, listview, this);
     	}
@@ -233,7 +230,7 @@ public class Trending extends Activity {
 	 */
 	public void filterQuantity()
 	{
-		ManageInput.filterQuantity(cont, "Trending", sizeOutput);	
+		ManageInput.filterQuantity(cont, "Trending", holder.posts.size());	
 	}
 	
 	/**
@@ -311,7 +308,6 @@ public class Trending extends Activity {
 			finalList.add(holder.postedPlayers.poll());
 		}
 		holder.postedPlayers.clear();
-		sizeOutput = finalList.size();
 		handleParsed(finalList, holder, cont);
 	}
 	

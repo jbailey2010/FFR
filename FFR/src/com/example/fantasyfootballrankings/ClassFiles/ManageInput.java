@@ -102,7 +102,10 @@ public class ManageInput
 		}
 		else
 		{
-			display.setText(String.valueOf(filterSize) + "% of the players");
+			float percentage = (float)filterSize/100;
+    		int total = (int)(listSize * percentage);
+    		String newSize = total + " players";
+			display.setText(newSize);
 		}
 		selector.setProgress(filterSize);
 		selector.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
