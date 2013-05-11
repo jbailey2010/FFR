@@ -230,7 +230,7 @@ public class Trending extends Activity {
 	 */
 	public void filterQuantity()
 	{
-		ManageInput.filterQuantity(cont, "Trending");	
+		ManageInput.filterQuantity(cont, "Trending", holder.postedPlayers.size());	
 	}
 	
 	/**

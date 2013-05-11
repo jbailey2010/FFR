@@ -84,7 +84,7 @@ public class ManageInput
 	 * Handles the filter quantity dialog
 	 * @param cont
 	 */
-	public static void filterQuantity(final Context cont, final String flag)
+	public static void filterQuantity(final Context cont, final String flag, final int listSize)
 	{
 		final Dialog dialog = new Dialog(cont);
 		dialog.setContentView(R.layout.filter_quantity);
@@ -120,7 +120,9 @@ public class ManageInput
     	    	}
     	    	else
     	    	{
-    	    		size = Integer.toString(prog) + "% of the players";
+    	    		float percentage = (float)prog/100;
+    	    		int total = (int)(listSize * percentage);
+    	    		size = total + " players";
     	    	}
     	    	display.setText(size);	
 				

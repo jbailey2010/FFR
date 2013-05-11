@@ -242,7 +242,7 @@ public class Rankings extends Activity {
 	 */
 	public void filterQuantity()
 	{
-		ManageInput.filterQuantity(cont,"Rankings");		
+		ManageInput.filterQuantity(cont,"Rankings", holder.players.size());		
 	}
 	
 	/**
