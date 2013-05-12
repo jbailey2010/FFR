@@ -368,21 +368,31 @@ public class Rankings extends Activity {
     	output.add("Position: " + searchedPlayer.info.position);
     	output.add("Team: " + searchedPlayer.info.team);
     	output.add("Age: " + searchedPlayer.info.age);
-    	output.add(searchedPlayer.stats);
+    	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST")
+    			&& !searchedPlayer.stats.equals(" ") && searchedPlayer.stats.length() > 5)
+    	{
+    		output.add(searchedPlayer.stats);
+    	}
     	output.add("Status: " + searchedPlayer.info.status);
     	output.add("Positional SOS: " + searchedPlayer.info.sos);
     	output.add("Bye: " + searchedPlayer.info.bye);
     	output.add("ADP: " + searchedPlayer.info.adp);
     	output.add("Weekly Value Trend: " + searchedPlayer.info.trend);
-    	output.add("Contract Status: " + searchedPlayer.info.contractStatus);
+    	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
+    	{
+    		output.add("Contract Status: " + searchedPlayer.info.contractStatus);
+    	}
     	output.add("Showed up in " + searchedPlayer.values.count + " rankings.");
     	output.add("Highest value: " + searchedPlayer.values.high);
     	output.add("Lowest value: " + low);
-    	output.add(searchedPlayer.info.passRunRatio);
-    	output.add(searchedPlayer.info.oLineStatus);
-    	if(!searchedPlayer.info.additionalStat.equals(""))
+    	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
     	{
-    		output.add(searchedPlayer.info.additionalStat);
+    		output.add(searchedPlayer.info.passRunRatio);
+    		output.add(searchedPlayer.info.oLineStatus);
+	    	if(!searchedPlayer.info.additionalStat.equals(""))
+	    	{
+	    		output.add(searchedPlayer.info.additionalStat);
+	    	}
     	}
     	dialog.show();
     	ListView results = (ListView)dialog.findViewById(R.id.listview_search);

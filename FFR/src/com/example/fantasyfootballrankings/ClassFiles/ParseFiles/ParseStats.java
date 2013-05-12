@@ -36,7 +36,12 @@ public class ParseStats
 			{
 				continue;
 			}
-			if(qbPlayers.containsKey(player[0].replace(".", " ")))
+			name = player[0].replace(".", " ");
+			if(name.split(" ").length == 3)
+			{
+				name = name.split(" ")[0] + " " + name.split(" ")[2];
+			}
+			if(qbPlayers.containsKey(name))
 			{
 				String dvoa = player[6];
 				String yards = player[10];
@@ -47,12 +52,11 @@ public class ParseStats
 				normal += "Adjusted Rushing Yards: " + effectiveYards + "\n";
 				normal += "Rushing Touchdowns: " + tds + "\n";
 				normal += "Rushing Defense-Adjusted  Value Over Average: " + dvoa + "\n";
-				qbPlayers.put(player[0].replace(".", " "), normal);
+				qbPlayers.put(name, normal);
 				continue;
 			}
 			else
 			{
-				name = player[0].replace(".", " ");
 				data.append("Pass Attempts: " + player[11] + "\n");
 				data.append("Yards: " + player[12].replace(",", "") + "\n");
 				data.append("Adjusted Yards: " + player[13].replace(",", "") + "\n");
@@ -88,7 +92,12 @@ public class ParseStats
 			{
 				continue;
 			}
-			if(rbPlayers.containsKey(player[0].replace(".", " ")))
+			name = player[0].replace(".", " ");
+			if(name.split(" ").length == 3)
+			{
+				name = name.split(" ")[0] + " " + name.split(" ")[2];
+			}
+			if(rbPlayers.containsKey(name))
 			{
 				if(player.length > 12)
 				{
@@ -105,7 +114,7 @@ public class ParseStats
 					normal += "Adjusted Receiving Yards: " + effectiveYards + "\n";
 					normal += "Receiving Touchdowns: " + tds + "\n";
 					normal += "Receiving Defense-Adjusted Value Over Average: " + dvoa + "\n";
-					rbPlayers.put(player[0].replace(".", " "), normal);
+					rbPlayers.put(name, normal);
 					continue;
 				}
 				else
@@ -123,7 +132,7 @@ public class ParseStats
 					normal += "Adjusted Receiving Yards: " + effectiveYards + "\n";
 					normal += "Receiving Touchdowns: " + tds + "\n";
 					normal += "Receiving Defense-Adjusted Value Over Average: " + dvoa + "\n";
-					rbPlayers.put(player[0].replace(".", " "), normal);
+					rbPlayers.put(name, normal);
 					continue;
 				}
 			}
@@ -131,7 +140,6 @@ public class ParseStats
 			{
 				if(player.length > 15)
 				{
-					name = player[0].replace(".", " ");
 					data.append("Carries: " + player[9] + "\n");
 					data.append("Yards: " + player[10].replace(",", "") + "\n");
 					data.append("Adjusted Yards: " + player[11].replace(",", "") + "\n");
@@ -145,7 +153,6 @@ public class ParseStats
 				}
 				else
 				{
-					name = player[0].replace(".", " ");
 					data.append("Carries: " + player[6] + "\n");
 					data.append("Yards: " + player[7] + "\n");
 					data.append("Adjusted Yards: " + player[8].replace(",", "") + "\n");
@@ -185,7 +192,12 @@ public class ParseStats
 			{
 				continue;
 			}
-			if(wrPlayers.containsKey(player[0].replace(".", " ")))
+			name = player[0].replace(".", " ");
+			if(name.split(" ").length == 3)
+			{
+				name = name.split(" ")[0] + " " + name.split(" ")[2];
+			}
+			if(wrPlayers.containsKey(name))
 			{
 				String dvoa = player[6];
 				String rushes = player[10];
@@ -196,14 +208,13 @@ public class ParseStats
 				normal += "Rushing Yards: " + yards + "\n";
 				normal += "Rushing Touchdowns: " + tds + "\n";
 				normal += "Rushing Defense-Adjusted Value Over Average: " + dvoa + "\n";
-				wrPlayers.put(player[0].replace(".", " "), normal);
+				wrPlayers.put(name, normal);
 				continue;
 			}
 			else
 			{
 				if(player.length > 15)
 				{
-					name = player[0].replace(".", " ");
 					data.append("Targets: " + player[9] + "\n");
 					data.append("Yards: " + player[10] + "\n");
 					data.append("Adjusted Yards: " + player[11].replace(",", "") + "\n");
@@ -218,7 +229,6 @@ public class ParseStats
 				}
 				else
 				{
-					name = player[0].replace(".", " ");
 					data.append("Targets: " + player[6] + "\n");
 					data.append("Yards: " + player[7] + "\n");
 					data.append("Adjusted Yards: " + player[8].replace(",", "") + "\n");
@@ -260,7 +270,12 @@ public class ParseStats
 			{
 				continue;
 			}
-			if(tePlayers.containsKey(player[0].replace(".", " ")))
+			name = player[0].replace(".", " ");
+			if(name.split(" ").length == 3)
+			{
+				name = name.split(" ")[0] + " " + name.split(" ")[2];
+			}
+			if(tePlayers.containsKey(name))
 			{
 				String dvoa = player[6];
 				String rushes = player[10];
@@ -271,14 +286,13 @@ public class ParseStats
 				normal += "Rushes: " + rushes + "\n";
 				normal += "Rushing Yards: " + yards + "\n";
 				normal += "Rushing Touchdowns: " + tds + "\n";
-				tePlayers.put(player[0].replace(".", " "), normal);
+				tePlayers.put(name, normal);
 				continue;
 			}
 			else
 			{
 				if(player.length > 15)
 				{
-					name = player[0].replace(".", " ");
 					data.append("Defense-Adjusted Yards Over Average: " + player[2].replace(",", ""));
 					data.append(", ranked " + player[3] + "\n");
 					data.append("Defense-Adjusted Value Over Average: " + player[6]);
@@ -294,7 +308,6 @@ public class ParseStats
 				}
 				else
 				{
-					name = player[0].replace(".", " ");
 					data.append("Defense-Adjusted Yards Over Average: " + player[2].replace(",", "") + "\n");
 					data.append("Defense-Adjusted Value Over Average: " + player[4] + "\n");
 					data.append("Targets: " + player[6] + "\n");
