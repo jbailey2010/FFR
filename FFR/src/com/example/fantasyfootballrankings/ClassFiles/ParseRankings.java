@@ -21,6 +21,7 @@ import AsyncTasks.AlteringDataAsyncTasks.OfflineHighLevel;
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ADPHighLevel;
 import AsyncTasks.ParsingAsyncTask.ParseRanks;
+import AsyncTasks.ParsingAsyncTask.StatsHighLevel;
 import FileIO.ReadFromFile;
 import android.R.integer;
 import android.app.Activity;
@@ -62,6 +63,9 @@ public class ParseRankings
 		
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
 		AlteringDataAsyncTasks status = new AlteringDataAsyncTasks();
+		
+		StatsHighLevel stats = stupid.new StatsHighLevel(cont);
+		stats.execute(holder, cont);
 		
 	    ADPHighLevel task = stupid.new ADPHighLevel(cont);
 	    task.execute(holder, cont);

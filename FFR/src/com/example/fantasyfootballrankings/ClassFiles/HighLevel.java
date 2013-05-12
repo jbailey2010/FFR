@@ -12,6 +12,8 @@ import java.util.Set;
 
 import org.htmlcleaner.XPatherException;
 
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
+
 import FileIO.ReadFromFile;
 import android.content.Context;
 import android.os.StrictMode;
@@ -50,7 +52,7 @@ public class HighLevel
 				"Ryan Mathews", "Danario Alexander", "Jay Cutler", "Michael Floyd", 
 				"A.J. Jenkins", "Tandon Doss", "Sam Bradford", "Rashard Mendenhall", 
 				"Matt Forte", "Antonio Brown", "Jake Locker", "Chris Ivory", "Le'Veon Bell",
-				"DeAndre Hopkins", "Sidney Rice", "Mark Ingram"));
+				"DeAndre Hopkins", "Sidney Rice", "Mark Ingram", "Chad Spann", "Shane Vereen"));
 		
 		List<String> avoid = new ArrayList<String>(Arrays.asList("Andy Dalton", "Eric Decker", 
 				"Wes Welker", "Demaryius Thomas", "Sidney Rice", "Shonn Greene", 
@@ -233,6 +235,39 @@ public class HighLevel
 			if(elem.info.position.equals("RB") && names.contains(elem.info.name))
 			{
 				elem.info.additionalStat = menInBox.get(elem.info.name);
+			}
+		}
+	}
+	
+	public static void setStats(Storage holder, Context cont) throws IOException
+	{
+		Map<String, String> qbs = ParseStats.parseQBStats();
+		Map<String, String> rbs = ParseStats.parseRBStats();
+		Map<String, String> wrs = ParseStats.parseWRStats();
+		Map<String, String> tes = ParseStats.parseTEStats();
+		for(PlayerObject player : holder.players)
+		{
+			if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
+			{
+				String[] name = player.info.name.split(" ");
+				String testName = name[0].charAt(0) + " " + name[1];
+				System.out.println(testName);
+				if(player.info.position.equals("QB"))
+				{
+					player.stats = qbs.get(testName);
+				}
+				else if(player.info.position.equals("RB"))
+				{
+					player.stats = rbs.get(testName);
+				}
+				else if(player.info.position.equals("WR"))
+				{
+					player.stats = wrs.get(testName);
+				}
+				else if(player.info.position.equals("TE"))
+				{
+					player.stats = tes.get(testName);
+				}
 			}
 		}
 	}

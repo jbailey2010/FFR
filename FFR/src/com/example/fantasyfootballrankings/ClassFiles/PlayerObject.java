@@ -13,6 +13,7 @@ public class PlayerObject
 {
 	public BasicInfo info;
 	public Values values;
+	public String stats;
 	 
 	/**
 	 * Sets up the player object
@@ -27,6 +28,7 @@ public class PlayerObject
 		info = new BasicInfo(playerName, playerTeam, pos);
 		//Holds count, worth, high, and low values
 		values = new Values(value);
+		stats = " ";
 	}
 	
 

@@ -368,6 +368,7 @@ public class Rankings extends Activity {
     	output.add("Position: " + searchedPlayer.info.position);
     	output.add("Team: " + searchedPlayer.info.team);
     	output.add("Age: " + searchedPlayer.info.age);
+    	output.add(searchedPlayer.stats);
     	output.add("Status: " + searchedPlayer.info.status);
     	output.add("Positional SOS: " + searchedPlayer.info.sos);
     	output.add("Bye: " + searchedPlayer.info.bye);

@@ -139,6 +139,50 @@ public class ParsingAsyncTask
 	}
 	
 	/**
+	 * Handles the parsing of the stats
+	 * @author Jeff
+	 *
+	 */
+	public class StatsHighLevel extends AsyncTask<Object, Void, Void> 
+	{
+		Activity act;
+		ProgressDialog pdia;
+	    public StatsHighLevel(Activity activity) 
+	    {
+	        act = activity;
+	        pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();  
+	        pdia.setMessage("Please wait, fetching the rankings...");
+	        pdia.show(); 
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		}
+		
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	    	try { 
+				HighLevel.setStats(holder, cont);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+	    }
+	}
+	
+	/**
 	 * Handles the parsing of the strength of schedule
 	 * @author Jeff
 	 *
