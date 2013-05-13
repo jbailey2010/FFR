@@ -151,7 +151,19 @@ public class ParsePermanentData
 			if(test.contains(".") && !test.contains("+") && !test.contains("-"))
 			{
 				value = "Overall Line Ranking: " + test.replace(".", "") + "\n" + "\n";
-				name = ParseRankings.fixTeams(testWhole[1] + " " + testWhole[2]);
+				if(testWhole[3].contains("("))
+				{
+					name = ParseRankings.fixTeams(testWhole[1] + " " + testWhole[2]);
+				}
+				else
+				{
+					name = ParseRankings.fixTeams(testWhole[1] + " " + testWhole[2] + " " + testWhole[3]);
+				}
+				if(name.equals("St Louis Rams"))
+				{
+					name = "St. Louis Rams";
+				}
+				System.out.println(name);
 			}
 			if(brokenData[i].contains("PB"))
 			{

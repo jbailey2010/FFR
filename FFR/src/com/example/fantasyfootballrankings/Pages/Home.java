@@ -25,6 +25,7 @@ import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseBrokenTackles;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
@@ -83,10 +84,10 @@ public class Home extends Activity implements Serializable{
         trending = (Button)findViewById(R.id.trending);
         trending.setOnClickListener(trendHandler);
         handleInitialRefresh();
-        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+      /*  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try {
-			ParseStats.parseTEStats();
+			ParsePermanentData.parseOLineRanksWrapper();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -12,6 +12,7 @@ import java.util.Set;
 
 import org.htmlcleaner.XPatherException;
 
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseBrokenTackles;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
 
 import FileIO.ReadFromFile;
@@ -239,19 +240,26 @@ public class HighLevel
 		}
 	}
 	
+	/**
+	 * Sets the stats of a player
+	 * @param holder
+	 * @param cont
+	 * @throws IOException
+	 */
 	public static void setStats(Storage holder, Context cont) throws IOException
 	{
 		Map<String, String> qbs = ParseStats.parseQBStats();
 		Map<String, String> rbs = ParseStats.parseRBStats();
 		Map<String, String> wrs = ParseStats.parseWRStats();
 		Map<String, String> tes = ParseStats.parseTEStats();
+		Map<String, String> bt = ParseBrokenTackles.parseBrokenTackles();
+		Set<String> keys = bt.keySet();
 		for(PlayerObject player : holder.players)
 		{
 			if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
 			{
 				String[] name = player.info.name.split(" ");
 				String testName = name[0].charAt(0) + " " + name[1];
-				System.out.println(testName);
 				if(player.info.position.equals("QB"))
 				{
 					player.stats = qbs.get(testName);
@@ -267,6 +275,10 @@ public class HighLevel
 				else if(player.info.position.equals("TE"))
 				{
 					player.stats = tes.get(testName);
+				}
+				if(keys.contains(player.info.name))
+				{
+					player.stats += "Broken Tackles: " + bt.get(player.info.name) + "\n";
 				}
 			}
 		}

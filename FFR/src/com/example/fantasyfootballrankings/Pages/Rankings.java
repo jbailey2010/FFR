@@ -386,7 +386,7 @@ public class Rankings extends Activity {
     	output.add("Highest value: " + searchedPlayer.values.high);
     	output.add("Lowest value: " + low);
     	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
-    	{
+    	{ 
     		output.add(searchedPlayer.info.passRunRatio);
     		output.add(searchedPlayer.info.oLineStatus);
 	    	if(!searchedPlayer.info.additionalStat.equals(""))
@@ -589,7 +589,7 @@ public class Rankings extends Activity {
 	    	PlayerObject elem = playerList.poll();
 	        DecimalFormat df = new DecimalFormat("#.##");
 	    	rankings.add(df.format(elem.values.worth) + ":  " + elem.info.name);
-	    }
+	    } 
 	    if(refreshed)
 	    {
 	    	WriteToFile.storeRankingsAsync(holder, (Context)cont);
