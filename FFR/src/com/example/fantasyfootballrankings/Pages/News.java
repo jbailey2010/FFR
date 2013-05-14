@@ -1,5 +1,7 @@
 package com.example.fantasyfootballrankings.Pages;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 
+import FileIO.WriteToFile;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Dialog;
@@ -19,6 +22,8 @@ import android.content.SharedPreferences;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -51,6 +56,9 @@ public class News extends Activity {
 		dialog = new Dialog(cont);
 		switch (item.getItemId()) 
 		{
+			case R.id.refresh_news:
+				refreshNewsDialog();
+				return true;
 			//New page opens up entirely for going home
 			case R.id.go_home:
 				Intent home_intent = new Intent(cont, Home.class);
@@ -76,6 +84,9 @@ public class News extends Activity {
 		}
 	}
 	
+	/**
+	 * Handles conditional loading of the news
+	 */
 	public static void handleInitialLoading()
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
@@ -90,6 +101,41 @@ public class News extends Activity {
 		}
 	}
 
+	/**
+	 * Handles conditional refreshing of news
+	 */
+	public static void refreshNewsDialog()
+	{
+		final Dialog dialog = new Dialog(cont);
+		dialog.setContentView(R.layout.refresh_news);
+		Button submit = (Button)dialog.findViewById(R.id.news_refresh_submit);
+		submit.setOnClickListener(new View.OnClickListener()
+		{	
+            @Override
+            public void onClick(View v) 
+            {
+            	ParseNews.startNewsAsync(cont);
+            	dialog.dismiss();
+            }
+		});
+		Button cancel = (Button)dialog.findViewById(R.id.news_refresh_cancel);
+		cancel.setOnClickListener(new View.OnClickListener()
+		{	
+            @Override
+            public void onClick(View v) 
+            {
+            	dialog.dismiss();
+            }
+		});
+		
+		dialog.show();
+	}
+	
+	/**
+	 * Handles the showing of the listview of news
+	 * @param result
+	 * @param cont
+	 */
 	public static void handleNewsListView(List<NewsObjects> result, Activity cont) 
 	{
 		ListView listview = (ListView)cont.findViewById(R.id.listview_news);
@@ -97,7 +143,7 @@ public class News extends Activity {
 	    for(NewsObjects newsObj : result)
 	    {
 	    	StringBuilder newsBuilder = new StringBuilder(1000);
-	    	newsBuilder.append("<b>" + newsObj.news + "</b>\n\n" + newsObj.impact + "\n\n"
+	    	newsBuilder.append(newsObj.news + "\n\n" + newsObj.impact + "\n\n"
 	    			 + newsObj.source + "\n" + "Date: " + newsObj.date + "\n");
 	    	news.add(newsBuilder.toString());
 	    }
