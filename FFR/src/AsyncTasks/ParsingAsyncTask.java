@@ -12,6 +12,7 @@ import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMyFantasyLeague;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePermanentData;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
@@ -77,6 +78,7 @@ public class ParsingAsyncTask
 				//ParseESPNadv.parseESPNAggregate(holder);
 				ParseFFTB.parseFFTBRankingsWrapper(holder);
 				//ParseESPN.parseESPN300(holder);
+				ParseMyFantasyLeague.parseMFLAggregate(holder);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
