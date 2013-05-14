@@ -3,7 +3,7 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
-	android:weightSum="3">
+	android:weightSum="4">
 
     <Button
         android:id="@+id/rankings"
@@ -29,6 +29,17 @@
 		   android:layout_height="1dp"
 		   android:background="#90909090"/>
    	
+    <Button
+        android:id="@+id/news_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        style="?android:attr/buttonBarButtonStyle"
+        android:text="NFL News" />
+
+   	<View android:layout_width="fill_parent"
+		   android:layout_height="1dp"
+		   android:background="#90909090"/>  	
     <Button
         android:id="@+id/team"
         android:layout_width="fill_parent"

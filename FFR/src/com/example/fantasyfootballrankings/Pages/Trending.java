@@ -99,6 +99,10 @@ public class Trending extends Activity {
 			case R.id.filter_topics_menu:
 				topicalTrending(holder);
 				return true;
+			case R.id.news:
+		        Intent intent_news = new Intent(cont, News.class);
+		        cont.startActivity(intent_news);		
+ 		        return true;
 			case R.id.go_home:
 				Intent home_intent = new Intent(cont, Home.class);
 				cont.startActivity(home_intent);		

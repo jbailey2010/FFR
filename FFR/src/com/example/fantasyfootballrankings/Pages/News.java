@@ -1,8 +1,6 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import com.example.fantasyfootballrankings.R;
-import com.example.fantasyfootballrankings.ClassFiles.Storage;
-import com.example.fantasyfootballrankings.R.id;
 import com.example.fantasyfootballrankings.R.layout;
 import com.example.fantasyfootballrankings.R.menu;
 
@@ -13,66 +11,56 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
-/**
- * Sets up the team page to do all of it
- * @author Jeff
- *
- */
-public class Team extends Activity {
-	final Context cont = this;
-	Storage holder;
-	/**
-	 * Sets up the view
-	 */
+
+public class News extends Activity {
+	public Context cont;
+	public Dialog dialog;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_team);
+		setContentView(R.layout.activity_news);
+		cont = this;
 	}
 
-	/**
-	 * Sets up the menu
-	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.team, menu);
+		getMenuInflater().inflate(R.menu.news, menu);
 		return true;
 	}
-
+	
 	/**
 	 * Runs the on selection part of the menu
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
-		final Dialog dialog = new Dialog(cont);
-
+		dialog = new Dialog(cont);
 		switch (item.getItemId()) 
 		{
-			//The same three intents, home, rankings, trending
+			//New page opens up entirely for going home
 			case R.id.go_home:
 				Intent home_intent = new Intent(cont, Home.class);
 				cont.startActivity(home_intent);		
 		        return true;
 			case R.id.view_rankings:
-		        Intent intent = new Intent(cont, Rankings.class);
+		        Intent intent_ranking = new Intent(cont, Rankings.class);
+		        cont.startActivity(intent_ranking);		
+ 		        return true;
+		    //New page opens up entirely for viewing the team page
+			case R.id.view_team:
+		        Intent intent = new Intent(cont, Team.class);
 		        cont.startActivity(intent);		
  		        return true;
-			case R.id.news:
-		        Intent intent_news = new Intent(cont, News.class);
-		        cont.startActivity(intent_news);		
- 		        return true;
+ 		    //New page opens up entirely for viewing trending players
 			case R.id.view_trending:
 		        Intent team_intent = new Intent(cont, Trending.class);
 		        cont.startActivity(team_intent);		
 				return true;
+			
 			default:
 				return super.onOptionsItemSelected(item);
 		}
 	}
+
 }

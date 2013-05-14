@@ -122,6 +122,10 @@ public class Rankings extends Activity {
 				Intent home_intent = new Intent(cont, Home.class);
 				cont.startActivity(home_intent);		
 		        return true;
+			case R.id.news:
+		        Intent intent_news = new Intent(cont, News.class);
+		        cont.startActivity(intent_news);		
+ 		        return true;
 		    //New page opens up entirely for viewing the team page
 			case R.id.view_team:
 		        Intent intent = new Intent(cont, Team.class);

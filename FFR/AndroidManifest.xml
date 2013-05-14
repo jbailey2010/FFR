@@ -42,7 +42,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.example.fantasyfootballrankings.News"
+            android:name="com.example.fantasyfootballrankings.Pages.News"
             android:label="@string/title_activity_news" >
         </activity>
     </application>

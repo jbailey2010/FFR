@@ -71,6 +71,7 @@ public class Home extends Activity implements Serializable{
 	Button rankings;
 	Button team;
 	Button trending;
+	Button news;
 	
 	/** 
 	 * Makes the buttons and sets the listeners for them
@@ -85,15 +86,17 @@ public class Home extends Activity implements Serializable{
         team.setOnClickListener(teamHandler);
         trending = (Button)findViewById(R.id.trending);
         trending.setOnClickListener(trendHandler);
+        news = (Button)findViewById(R.id.news_button);
+        news.setOnClickListener(newsHandler);
         handleInitialRefresh();
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try {
 			ParseDraft.parseTeamDraftGPA();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}  
 	
 	/**
@@ -204,6 +207,18 @@ public class Home extends Activity implements Serializable{
 		public void onClick(View v) 
 		{
 	        Intent intent = new Intent(cont, Trending.class);
+	        cont.startActivity(intent);		
+		}	
+	};
+	
+	/**
+	 * Sends the news button to the news page
+	 */
+	View.OnClickListener newsHandler = new View.OnClickListener() 
+	{
+		public void onClick(View v) 
+		{
+	        Intent intent = new Intent(cont, News.class);
 	        cont.startActivity(intent);		
 		}	
 	};
