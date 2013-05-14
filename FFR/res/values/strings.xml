@@ -5,5 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_voice_recognition_demo">VoiceRecognitionDemo</string>
+    <string name="title_activity_news">News</string>
 
 </resources>

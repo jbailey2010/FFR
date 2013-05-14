@@ -18,8 +18,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.example.fantasyfootballrankings.Pages.Home"
-            android:label="@string/app_name" 
-            android:configChanges="keyboardHidden|orientation|screenSize">
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,18 +28,22 @@
         </activity>
         <activity
             android:name="com.example.fantasyfootballrankings.Pages.Rankings"
-            android:label="@string/app_name"
-            android:configChanges="keyboardHidden|orientation|screenSize" >
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.example.fantasyfootballrankings.Pages.Team"
-            android:label="@string/app_name"
-            android:configChanges="keyboardHidden|orientation|screenSize" >
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.example.fantasyfootballrankings.Pages.Trending"
-            android:label="@string/app_name"
-            android:configChanges="keyboardHidden|orientation|screenSize" >
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.fantasyfootballrankings.News"
+            android:label="@string/title_activity_news" >
         </activity>
     </application>
 
