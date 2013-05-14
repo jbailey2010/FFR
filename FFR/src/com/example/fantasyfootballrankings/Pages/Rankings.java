@@ -376,6 +376,10 @@ public class Rankings extends Activity {
     	output.add("Status: " + searchedPlayer.info.status);
     	output.add("Positional SOS: " + searchedPlayer.info.sos);
     	output.add("Bye: " + searchedPlayer.info.bye);
+    	if(!searchedPlayer.info.position.equals("K"))
+    	{
+    		output.add(searchedPlayer.draftClass);
+    	}
     	output.add("ADP: " + searchedPlayer.info.adp);
     	output.add("Weekly Value Trend: " + searchedPlayer.info.trend);
     	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))

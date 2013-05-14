@@ -13,6 +13,7 @@ import java.util.Set;
 import org.htmlcleaner.XPatherException;
 
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseBrokenTackles;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraft;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
 
 import FileIO.ReadFromFile;
@@ -248,6 +249,8 @@ public class HighLevel
 	 */
 	public static void setStats(Storage holder, Context cont) throws IOException
 	{
+		HashMap<String, String> drafts = ParseDraft.parseTeamDraft();
+		HashMap<String, String> gpas = ParseDraft.parseTeamDraftGPA();
 		Map<String, String> qbs = ParseStats.parseQBStats();
 		Map<String, String> rbs = ParseStats.parseRBStats();
 		Map<String, String> wrs = ParseStats.parseWRStats();
@@ -256,6 +259,7 @@ public class HighLevel
 		Set<String> keys = bt.keySet();
 		for(PlayerObject player : holder.players)
 		{
+			player.draftClass = gpas.get(player.info.team) + drafts.get(player.info.team); 
 			if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
 			{
 				String[] name = player.info.name.split(" ");

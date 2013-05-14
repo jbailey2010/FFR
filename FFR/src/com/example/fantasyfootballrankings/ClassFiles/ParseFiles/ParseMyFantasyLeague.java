@@ -42,7 +42,6 @@ public class ParseMyFantasyLeague
 				String firstName = secondHalf[0];
 				String lastName = lastNameBuilder.toString();
 				int value = Integer.parseInt(secondHalf[3].replace("$", ""));
-				System.out.println(firstName + " " + lastName + ": " + value);
 				ParseRankings.finalStretch(holder, firstName + " " + lastName, value, "", "");
 			}
 		}

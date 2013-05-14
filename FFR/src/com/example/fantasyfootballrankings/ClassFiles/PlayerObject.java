@@ -14,6 +14,7 @@ public class PlayerObject
 	public BasicInfo info;
 	public Values values;
 	public String stats;
+	public String draftClass;
 	 
 	/**
 	 * Sets up the player object
@@ -29,6 +30,7 @@ public class PlayerObject
 		//Holds count, worth, high, and low values
 		values = new Values(value);
 		stats = " ";
+		draftClass = "";
 	}
 	
 
