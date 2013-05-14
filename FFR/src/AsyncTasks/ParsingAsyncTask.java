@@ -343,7 +343,9 @@ public class ParsingAsyncTask
 					ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=329554&st=");
 					//WR rankings
 					ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=339910&st=");
-					//TE/D/K don't exist
+					//TE rankings
+					ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=347782&st=");
+					//D/K don't exist
 				}
 				if(value)
 				{
