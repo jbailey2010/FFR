@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
@@ -208,5 +209,22 @@ public class WriteToFile {
 	{
     	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
     	editor.putInt("Last Filter", lastFilter).commit();
+	}
+	
+	/**
+	 * Writes the rotoworld news set to file
+	 * @param cont
+	 * @param news
+	 */
+	public static void writeNewsRoto(Context cont, List<NewsObjects> news)
+	{
+    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+    	StringBuilder newsSet = new StringBuilder(10000);
+    	for(NewsObjects newsObj : news)
+    	{
+    		newsSet.append(newsObj.news + "~~" + newsObj.impact + "~~" + 
+    				newsObj.date + "~~" + newsObj.source + "@@@");
+    	}
+    	editor.putString("News RotoWorld", newsSet.toString()).commit();
 	}
 }

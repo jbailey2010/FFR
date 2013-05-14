@@ -31,6 +31,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraft;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMyFantasyLeague;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePermanentData;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
@@ -89,14 +90,14 @@ public class Home extends Activity implements Serializable{
         news = (Button)findViewById(R.id.news_button);
         news.setOnClickListener(newsHandler);
         handleInitialRefresh();
-        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try {
-			ParseDraft.parseTeamDraftGPA();
+			ParseNews.parseNewsRoto();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 	}  
 	
 	/**

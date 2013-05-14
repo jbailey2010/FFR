@@ -1,6 +1,7 @@
 package FileIO;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
+import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
@@ -228,5 +230,26 @@ public class ReadFromFile {
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		return prefs.getInt("Last Filter", 365);
+	}
+	
+	/**
+	 * Reads the rotoworld news from file
+	 * @param cont
+	 * @return
+	 */
+	public static List<NewsObjects> readNewsRoto(Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		String newsWhole = prefs.getString("News RotoWorld", "Not Set");
+		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
+		String[] perHeadline = newsWhole.split("@@@");
+		for(int i = 0; i < perHeadline.length; i++)
+		{
+			String[] newsData = perHeadline[i].split("~~");
+			NewsObjects newsObj = new NewsObjects(newsData[0], newsData[1], 
+					newsData[2], newsData[3]);
+			newsSet.add(newsObj);
+		}
+		return newsSet;
 	}
 }
