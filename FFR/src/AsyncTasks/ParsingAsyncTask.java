@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.htmlcleaner.XPatherException;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
@@ -75,6 +79,10 @@ public class ParsingAsyncTask
 	    {
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
+	    	HttpParams httpParameters = new BasicHttpParams();
+	    	HttpConnectionParams.setSoTimeout(httpParameters, 5000);
+	    	DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
+	    	httpClient.setParams(httpParameters);
 	    	try { 
 				ParseWF.wfRankings(holder);
 				ParseGE.geRankings(holder);
