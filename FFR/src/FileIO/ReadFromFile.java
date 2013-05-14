@@ -247,7 +247,12 @@ public class ReadFromFile {
 		{
 			String[] newsData = perHeadline[i].split("~~");
 			NewsObjects newsObj = new NewsObjects(newsData[0], newsData[1], 
-					newsData[2], newsData[3]);
+					newsData[2], "");
+			if(newsData.length == 4)
+			{
+				newsObj = new NewsObjects(newsData[0], newsData[1], 
+						newsData[2], newsData[3]);
+			}
 			newsSet.add(newsObj);
 		}
 		return newsSet;

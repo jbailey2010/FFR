@@ -1,22 +1,26 @@
 package AsyncTasks;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 
 import org.htmlcleaner.XPatherException;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
+import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMyFantasyLeague;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePermanentData;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
+import com.example.fantasyfootballrankings.Pages.News;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
@@ -448,6 +452,51 @@ public class ParsingAsyncTask
 				WriteToFile.writeMenInBox(cont, menInBox);
 				WriteToFile.writePassRun(cont, prRatio);
 				WriteToFile.writeOLineRanks(cont, oLineRanks);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+	    }
+	  }
+	
+	/**
+	 * Handles the back-end parsing of the permanent data
+	 * @author Jeff
+	 *
+	 */
+	public class ParseRotoWorldNews extends AsyncTask<Object, Void, List<NewsObjects>> 
+	{
+		ProgressDialog pdia;
+		Activity act;
+	    public ParseRotoWorldNews(Context cont) 
+	    {
+	        pdia = new ProgressDialog(cont);
+	        act = (Activity)cont;
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		        pdia.setMessage("Please wait, fetching the news...");
+		        pdia.show();    
+		}
+
+		@Override
+		protected void onPostExecute(List<NewsObjects> result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		   News.handleNewsListView(result, act);
+		}
+		
+	    @Override
+	    protected List<NewsObjects> doInBackground(Object... data) 
+	    {
+	    	Context cont = (Context) data[0];
+	    	try {
+				List<NewsObjects> news = ParseNews.parseNewsRoto();
+				WriteToFile.writeNewsRoto(cont, news);
+				return news;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

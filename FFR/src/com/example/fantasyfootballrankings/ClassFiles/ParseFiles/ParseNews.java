@@ -7,6 +7,15 @@ import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import AsyncTasks.AlteringDataAsyncTasks;
+import AsyncTasks.ParsingAsyncTask;
+import AsyncTasks.ParsingAsyncTask.ADPHighLevel;
+import AsyncTasks.ParsingAsyncTask.ParseRotoWorldNews;
+import AsyncTasks.ParsingAsyncTask.StatsHighLevel;
+import AsyncTasks.StorageAsyncTask;
+import AsyncTasks.StorageAsyncTask.ReadRotoNews;
+import android.content.Context;
+
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 /**
@@ -32,13 +41,37 @@ public class ParseNews
 		String source = HandleBasicQueries.handleListsMulti(doc,url,"div.source");
 		String[] reportSet = report.split("\n");
 		String[] impactSet = impact.split("\n");
-		String[] dateSet = impact.split("\n");
+		String[] dateSet = date.split("\n");
 		String[] sourceSet = source.split("\n");
 		for(int i = 0; i < reportSet.length; i++)
 		{
-			NewsObjects news = new NewsObjects(reportSet[i], impactSet[i], dateSet[i], sourceSet[i]);
+			NewsObjects news = new NewsObjects(reportSet[i], impactSet[i+1], dateSet[i], sourceSet[i]);
 			newsSet.add(news);
 		}
 		return newsSet;
+	}
+
+	/**
+	 * Handles conditionally reading news
+	 * from file
+	 * @param cont
+	 */
+	public static void startNewsReading(Context cont) 
+	{
+		StorageAsyncTask stupid = new StorageAsyncTask();
+		ReadRotoNews news = stupid.new ReadRotoNews(cont);
+		news.execute(cont);
+	}
+
+	/**
+	 * Handles conditionally fetching the news
+	 * @param cont
+	 */
+	public static void startNewsAsync(Context cont) 
+	{
+		ParsingAsyncTask stupid = new ParsingAsyncTask();
+		ParseRotoWorldNews news = stupid.new ParseRotoWorldNews(cont);
+		news.execute(cont);
+
 	}
 }

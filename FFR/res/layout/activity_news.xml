@@ -21,7 +21,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/listview_rankings"
+        android:id="@+id/listview_news"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:clickable="true" >

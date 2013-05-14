@@ -12,9 +12,11 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
+import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
+import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 /**
  * A library to hold all the asynctasks relevant to storing/reading to/from file
@@ -466,6 +468,37 @@ public class StorageAsyncTask
 				holder.posts.add(newPost);
 			}
 			return null;
+	    }
+	  }
+	
+	/**
+	 * In the back-end fetches the news
+	 * @author Jeff
+	 *
+	 */
+	public class ReadRotoNews extends AsyncTask<Object, Void, List<NewsObjects>> 
+	{
+		Activity act;
+	    public ReadRotoNews(Context cont) 
+	    {
+	    	act = (Activity)cont;
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		}
+		@Override
+		protected void onPostExecute(List<NewsObjects> result)
+		{
+			News.handleNewsListView(result, act);
+		}
+		
+	    protected List<NewsObjects> doInBackground(Object... data) 
+	    {
+	    	Context cont = (Context) data[0];
+	   		List<NewsObjects> news = ReadFromFile.readNewsRoto(cont);
+			return news;
 	    }
 	  }
 }
