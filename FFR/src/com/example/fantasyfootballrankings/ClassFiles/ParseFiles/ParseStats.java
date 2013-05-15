@@ -293,10 +293,6 @@ public class ParseStats
 			{
 				if(player.length > 15)
 				{
-					data.append("Defense-Adjusted Yards Over Average: " + player[2].replace(",", ""));
-					data.append(", ranked " + player[3] + "\n");
-					data.append("Defense-Adjusted Value Over Average: " + player[6]);
-					data.append(", ranked " + player[7] + "\n");
 					data.append("Targets: " + player[9] + "\n");
 					data.append("Yards: " + player[10] + "\n");
 					data.append("Adjusted Yards: " + player[11].replace(",", "") + "\n");
@@ -304,12 +300,13 @@ public class ParseStats
 					data.append("Catch Rate: " + player[13] + "\n");
 					data.append("Fumbles: " + player[14] + "\n");
 					data.append("Defensive Pass Interference Calls/Yards: " + player[15] + "\n");
+					data.append("Defense-Adjusted Yards Over Average (rank): " + player[2].replace(",", "") + 
+							" (" + player[3] + ")\n");
+					data.append("Defense-Adjusted Value Over Average (rank): " + player[6] + " (" + player[7] + ")\n");
 					tePlayers.put(name, data.toString());
 				}
 				else
 				{
-					data.append("Defense-Adjusted Yards Over Average: " + player[2].replace(",", "") + "\n");
-					data.append("Defense-Adjusted Value Over Average: " + player[4] + "\n");
 					data.append("Targets: " + player[6] + "\n");
 					data.append("Yards: " + player[7] + "\n");
 					data.append("Adjusted Yards: " + player[8].replace(",", "") + "\n");
@@ -317,6 +314,8 @@ public class ParseStats
 					data.append("Catch Rate: " + player[10] + "\n");
 					data.append("Fumbles: " + player[11] + "\n");
 					data.append("Defensive Pass Interference Calls/Yards: " + player[12] + "\n");
+					data.append("Defense-Adjusted Yards Over Average: " + player[2].replace(",", "") + "\n");
+					data.append("Defense-Adjusted Value Over Average: " + player[4] + "\n");
 					tePlayers.put(name, data.toString());
 				}
 			}
