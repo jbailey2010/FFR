@@ -96,10 +96,10 @@ public class News extends Activity {
 		{
 			ParseNews.startNewsAsync(cont, true, false, false);
 		}
-		/*else
+		else
 		{
 			ParseNews.startNewsReading(cont);
-		}*/
+		}
 	}
 
 	/**
