@@ -298,8 +298,11 @@ public class Rankings extends Activity {
 		searchSubmit.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(View v) {
-				dialog.dismiss();
-				outputResults(dialog, textView.getText().toString());
+				if(holder.parsedPlayers.contains(textView.getText().toString()))
+				{
+					dialog.dismiss();
+					outputResults(dialog, textView.getText().toString());
+				}
 			}
 		});
 		dialog.show();		
