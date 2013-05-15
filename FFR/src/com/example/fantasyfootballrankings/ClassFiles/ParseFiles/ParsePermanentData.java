@@ -139,7 +139,7 @@ public class ParsePermanentData
 	 */
 	public static void parseOLineRanks(String url, Map<String, String> teams) throws IOException
 	{
-		Document doc = Jsoup.connect(url).get();
+		Document doc = Jsoup.connect(url).timeout(0).get();
 		String textSub = HandleBasicQueries.handleListsMulti(doc, url, "p strong");
 		String[] brokenData = textSub.split("\n");
 		String name = "";

@@ -47,7 +47,7 @@ public class ParseStats
 				String yards = player[10];
 				String effectiveYards = player[11];
 				String tds = player[12];
-				String normal = qbPlayers.get(player[0].replace(".", " "));
+				String normal = qbPlayers.get(name);
 				normal += "Rushing Yards: " + yards + "\n";
 				normal += "Adjusted Rushing Yards: " + effectiveYards + "\n";
 				normal += "Rushing Touchdowns: " + tds + "\n";
@@ -107,7 +107,7 @@ public class ParseStats
 					String effectiveYards = player[11];
 					String tds = player[12];
 					String catchRate = player[13];
-					String normal = rbPlayers.get(player[0].replace(".", " "));
+					String normal = rbPlayers.get(name);
 					normal += "Targets: " + catches + "\n";
 					normal += "Catch Rate: " + catchRate + "\n";
 					normal += "Receiving Yards: " + yards + "\n";
@@ -125,7 +125,7 @@ public class ParseStats
 					String effectiveYards = player[8];
 					String tds = player[9];
 					String catchRate = player[10];
-					String normal = rbPlayers.get(player[0].replace(".", " "));
+					String normal = rbPlayers.get(name);
 					normal += "Targets: " + catches + "\n";
 					normal += "Catch Rate: " + catchRate + "\n";
 					normal += "Receiving Yards: " + yards + "\n";
@@ -207,7 +207,7 @@ public class ParseStats
 				String rushes = player[10];
 				String yards = player[11];
 				String tds = player[12];
-				String normal = wrPlayers.get(player[0].replace(".", " "));
+				String normal = wrPlayers.get(name);
 				normal += "Rushes: " + rushes + "\n";
 				normal += "Rushing Yards: " + yards + "\n";
 				normal += "Rushing Touchdowns: " + tds + "\n";
@@ -285,7 +285,7 @@ public class ParseStats
 				String rushes = player[10];
 				String yards = player[11];
 				String tds = player[12];
-				String normal = tePlayers.get(player[0].replace(".", " "));
+				String normal = tePlayers.get(name);
 				normal += "Rushing Defense-Adjusted Value Over Average: " + dvoa + "\n";
 				normal += "Rushes: " + rushes + "\n";
 				normal += "Rushing Yards: " + yards + "\n";

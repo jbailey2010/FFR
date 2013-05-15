@@ -33,7 +33,7 @@ public class ParseNews
 	public static List<NewsObjects> parseNewsRoto(String url) throws IOException
 	{
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
-		Document doc = Jsoup.connect(url).get();
+		Document doc = Jsoup.connect(url).timeout(0).get();
 		String report = HandleBasicQueries.handleListsMulti(doc, url, "div.report");
 		String impact = HandleBasicQueries.handleListsMulti(doc, url, "div.impact");
 		String date = HandleBasicQueries.handleListsMulti(doc, url, "div.date");
@@ -57,7 +57,7 @@ public class ParseNews
 	{
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
 		String url = "http://www.thehuddle.com/fantasy_football_news.php";
-		Document doc = Jsoup.connect(url).get();
+		Document doc = Jsoup.connect(url).timeout(0).get();
 		String report = HandleBasicQueries.handleTablesMulti(doc, url, "news-item");
 		String impact = HandleBasicQueries.handleTablesMulti(doc, url, "news-impact");
 		String date = HandleBasicQueries.handleTablesMulti(doc, url, "news-date");

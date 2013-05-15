@@ -31,7 +31,7 @@ public class ParseCBS
 		String url = "http://fantasynews.cbssports.com/fantasyfootball/rankings/yearly";
 		
 		try {
-			Document doc = Jsoup.connect(url).get();
+			Document doc = Jsoup.connect(url).timeout(0).get();
 			cbsHelper(doc, holder, url, "row1");
 			cbsHelper(doc, holder, url, "row2");
 		

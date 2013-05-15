@@ -50,7 +50,7 @@ public class ParsePlayerNames {
 		{
 			final String full = url + concat[i];
 			try {
-				Document doc = Jsoup.connect(full).get();
+				Document doc = Jsoup.connect(full).timeout(0).get();
 				ParsePlayerNames.fetchPlayersHelp(doc, names, cont, full, "row2");
 				ParsePlayerNames.fetchPlayersHelp(doc, names, cont, full, "row1");
 			} catch (IOException e) {

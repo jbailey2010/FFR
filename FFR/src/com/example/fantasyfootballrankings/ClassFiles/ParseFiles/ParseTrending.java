@@ -452,7 +452,7 @@ public class ParseTrending
 		for(int i = 0; i < length; i++)
 		{
 			String newUrl = url + Integer.toString(i*20);
-			Document doc = Jsoup.connect(newUrl).get();
+			Document doc = Jsoup.connect(newUrl).timeout(0).get();
 			parsedText.append(HandleBasicQueries.handleListsMulti(doc, newUrl, "div.post.entry-content"));
 			parsedDates.append(HandleBasicQueries.handleListsMulti(doc, newUrl, "abbr.published"));
 		}

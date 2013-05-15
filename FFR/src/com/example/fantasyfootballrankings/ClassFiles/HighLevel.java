@@ -254,10 +254,6 @@ public class HighLevel
 	 */
 	public static void setStats(Storage holder, Context cont) throws IOException
 	{
-    	HttpParams httpParameters = new BasicHttpParams();
-    	HttpConnectionParams.setSoTimeout(httpParameters, 5000);
-    	DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
-    	httpClient.setParams(httpParameters);
 		//Fetch the draft data
 		HashMap<String, String> drafts = ParseDraft.parseTeamDraft();
 		HashMap<String, String> gpas = ParseDraft.parseTeamDraftGPA();

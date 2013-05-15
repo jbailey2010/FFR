@@ -80,10 +80,6 @@ public class ParsingAsyncTask
 	    {
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
-	    	HttpParams httpParameters = new BasicHttpParams();
-	    	HttpConnectionParams.setSoTimeout(httpParameters, 5000);
-	    	DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
-	    	httpClient.setParams(httpParameters);
 	    	try { 
 				ParseWF.wfRankings(holder);
 				ParseGE.geRankings(holder);
