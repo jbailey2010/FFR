@@ -2,6 +2,7 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.HashMap;
 
 import org.htmlcleaner.XPatherException;
 
@@ -72,5 +73,28 @@ public class ParseFFTB
 				ParseRankings.handlePlayer(holder, newPlayer, match);
 			}
 		}
+	}
+	
+	/**
+	 * Parses the bye weeks into a hashmap
+	 * @return
+	 * @throws IOException
+	 */
+	public static HashMap<String, String> parseByeWeeks() throws IOException
+	{
+		HashMap<String, String> byes = new HashMap<String, String>();
+		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/byeweeks.cfm", "td");
+		String[] brokenUp = html.split("\n");
+		for(int i = 0; i < brokenUp.length; i+=2)
+		{
+			String week = brokenUp[i];
+			String[] teamSet = brokenUp[i+1].split(", ");
+			for(String team : teamSet)
+			{
+				String newTeam = ParseRankings.fixTeams(team);
+				byes.put(newTeam, week);
+			}
+		}
+		return byes;
 	}
 }

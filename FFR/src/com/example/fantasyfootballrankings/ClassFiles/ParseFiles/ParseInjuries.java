@@ -37,7 +37,6 @@ public class ParseInjuries
 							"Type of Injury: " + injuryType + "\n" + 
 							"Expected Return: " + returnDate + "\n";
 			injuries.put(name, output);
-			System.out.println(output);
 		}
 		return injuries;
 	}

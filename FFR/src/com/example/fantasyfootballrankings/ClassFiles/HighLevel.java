@@ -14,6 +14,7 @@ import org.htmlcleaner.XPatherException;
 
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseBrokenTackles;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraft;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseInjuries;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
 
@@ -129,7 +130,6 @@ public class HighLevel
 	   				if(namePlayer.equals(name))
 	   				{
 	   					player.info.adp = adpArray[i][1];
-	   					player.info.bye = adpArray[i][6];
 	   				} 
 	   			} 
     		}
@@ -253,6 +253,8 @@ public class HighLevel
 		//Fetch the draft data
 		HashMap<String, String> drafts = ParseDraft.parseTeamDraft();
 		HashMap<String, String> gpas = ParseDraft.parseTeamDraftGPA();
+		//Fetch bye week data
+		HashMap<String, String> byes = ParseFFTB.parseByeWeeks();
 		//Fetch the stats
 		Map<String, String> qbs = ParseStats.parseQBStats();
 		Map<String, String> rbs = ParseStats.parseRBStats();
@@ -268,6 +270,7 @@ public class HighLevel
 		{
 			//Set draft data
 			player.draftClass = gpas.get(player.info.team) + drafts.get(player.info.team); 
+			player.info.bye = byes.get(player.info.team);
 			//If not a kicker/defense, set stats/injury status
 			if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
 			{
