@@ -376,6 +376,7 @@ public class Rankings extends Activity {
     			&& !searchedPlayer.stats.equals(" ") && searchedPlayer.stats.length() > 5)
     	{
     		output.add(searchedPlayer.stats);
+    		output.add(searchedPlayer.injuryStatus);
     	}
     	output.add("Status: " + searchedPlayer.info.status);
     	output.add("Positional SOS: " + searchedPlayer.info.sos);

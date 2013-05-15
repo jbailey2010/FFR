@@ -14,6 +14,7 @@ import org.htmlcleaner.XPatherException;
 
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseBrokenTackles;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraft;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseInjuries;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
 
 import FileIO.ReadFromFile;
@@ -249,21 +250,33 @@ public class HighLevel
 	 */
 	public static void setStats(Storage holder, Context cont) throws IOException
 	{
+		//Fetch the draft data
 		HashMap<String, String> drafts = ParseDraft.parseTeamDraft();
 		HashMap<String, String> gpas = ParseDraft.parseTeamDraftGPA();
+		//Fetch the stats
 		Map<String, String> qbs = ParseStats.parseQBStats();
 		Map<String, String> rbs = ParseStats.parseRBStats();
 		Map<String, String> wrs = ParseStats.parseWRStats();
 		Map<String, String> tes = ParseStats.parseTEStats();
 		Map<String, String> bt = ParseBrokenTackles.parseBrokenTackles();
+		//Fetch Injury data
+		HashMap<String, String> injuries = ParseInjuries.parseRotoInjuries();
+		//Fetch the keys to see if data applies to a player
 		Set<String> keys = bt.keySet();
+		Set<String> injuryKeys = injuries.keySet();
 		for(PlayerObject player : holder.players)
 		{
+			//Set draft data
 			player.draftClass = gpas.get(player.info.team) + drafts.get(player.info.team); 
+			//If not a kicker/defense, set stats/injury status
 			if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
 			{
 				String[] name = player.info.name.split(" ");
 				String testName = name[0].charAt(0) + " " + name[1];
+				if(injuryKeys.contains(player.info.name))
+				{
+					player.injuryStatus = injuries.get(player.info.name);
+				}
 				if(player.info.position.equals("QB"))
 				{
 					player.stats = qbs.get(testName);

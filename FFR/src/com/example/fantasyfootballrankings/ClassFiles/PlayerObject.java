@@ -15,6 +15,7 @@ public class PlayerObject
 	public Values values;
 	public String stats;
 	public String draftClass;
+	public String injuryStatus;
 	 
 	/**
 	 * Sets up the player object
@@ -31,6 +32,7 @@ public class PlayerObject
 		values = new Values(value);
 		stats = " ";
 		draftClass = "";
+		injuryStatus = "Injury Status: Healthy";
 	}
 	
 
