@@ -144,7 +144,7 @@ public class News extends Activity {
 	    {
 	    	StringBuilder newsBuilder = new StringBuilder(1000);
 	    	newsBuilder.append(newsObj.news + "\n\n" + newsObj.impact + "\n\n"
-	    			 + newsObj.source + "\n" + "Date: " + newsObj.date + "\n");
+	    			 + "Date: " + newsObj.date + "\n");
 	    	news.add(newsBuilder.toString());
 	    }
 	    ManageInput.handleArray(news, listview, cont);

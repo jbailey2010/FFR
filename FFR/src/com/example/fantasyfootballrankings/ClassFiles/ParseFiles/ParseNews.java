@@ -38,14 +38,12 @@ public class ParseNews
 		String report = HandleBasicQueries.handleListsMulti(doc, url, "div.report");
 		String impact = HandleBasicQueries.handleListsMulti(doc, url, "div.impact");
 		String date = HandleBasicQueries.handleListsMulti(doc, url, "div.date");
-		String source = HandleBasicQueries.handleListsMulti(doc,url,"div.source");
 		String[] reportSet = report.split("\n");
 		String[] impactSet = impact.split("\n");
 		String[] dateSet = date.split("\n");
-		String[] sourceSet = source.split("\n");
 		for(int i = 0; i < reportSet.length; i++)
 		{
-			NewsObjects news = new NewsObjects(reportSet[i], impactSet[i+1], dateSet[i], sourceSet[i]);
+			NewsObjects news = new NewsObjects(reportSet[i], impactSet[i+1], dateSet[i]);
 			newsSet.add(news);
 		}
 		return newsSet;

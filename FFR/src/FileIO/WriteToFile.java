@@ -223,7 +223,7 @@ public class WriteToFile {
     	for(NewsObjects newsObj : news)
     	{
     		newsSet.append(newsObj.news + "~~" + newsObj.impact + "~~" + 
-    				newsObj.date + "~~" + newsObj.source + "@@@");
+    				newsObj.date + "@@@");
     	}
     	editor.putString("News RotoWorld", newsSet.toString()).commit();
 	}
