@@ -1,6 +1,7 @@
 package AsyncTasks;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -503,9 +504,19 @@ public class ParsingAsyncTask
 	    protected List<NewsObjects> doInBackground(Object... data) 
 	    {
 	    	Context cont = (Context) data[0];
+	    	boolean rh = (Boolean)data[1];
+	    	boolean rp = (Boolean)data[2];
 	    	try {
-				List<NewsObjects> news = ParseNews.parseNewsRoto();
-				WriteToFile.writeNewsRoto(cont, news);
+	    		List<NewsObjects> news = new ArrayList<NewsObjects>(100);
+	    		if(rh)
+	    		{
+	    			news = ParseNews.parseNewsRoto("http://www.rotoworld.com/headlines/nfl/0/football-headlines");
+	    		}
+	    		else if(rp)
+	    		{
+	    			news = ParseNews.parseNewsRoto("http://www.rotoworld.com/playernews/nfl/football-player-news");
+	    		}
+	    		WriteToFile.writeNewsRoto(cont, news, rh, rp);
 				return news;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
@@ -93,7 +94,7 @@ public class News extends Activity {
 		String newsWhole = prefs.getString("News RotoWorld", "Not Set");
 		if(newsWhole.equals("Not Set"))
 		{
-			ParseNews.startNewsAsync(cont);
+			ParseNews.startNewsAsync(cont, true, false);
 		}
 		else
 		{
@@ -107,18 +108,29 @@ public class News extends Activity {
 	public static void refreshNewsDialog()
 	{
 		final Dialog dialog = new Dialog(cont);
-		dialog.setContentView(R.layout.refresh_news);
-		Button submit = (Button)dialog.findViewById(R.id.news_refresh_submit);
+		dialog.setContentView(R.layout.news_topics_dialog);
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		boolean rhCheck = prefs.getBoolean("Use Headlines", false);
+		boolean rpCheck = prefs.getBoolean("Use Player News", false);
+		if(!rpCheck && !rhCheck)
+		{
+			rhCheck = true;
+		}
+    	final RadioButton rh = (RadioButton)dialog.findViewById(R.id.rotoworld_headlines);
+    	final RadioButton rp = (RadioButton)dialog.findViewById(R.id.rotoworld_player_news);
+    	rh.setChecked(rhCheck);
+    	rp.setChecked(rpCheck);
+		Button submit = (Button)dialog.findViewById(R.id.button_news_confirm);
 		submit.setOnClickListener(new View.OnClickListener()
 		{	
             @Override
             public void onClick(View v) 
             {
-            	ParseNews.startNewsAsync(cont);
+            	ParseNews.startNewsAsync(cont, rh.isChecked(), rp.isChecked());
             	dialog.dismiss();
             }
 		});
-		Button cancel = (Button)dialog.findViewById(R.id.news_refresh_cancel);
+		Button cancel = (Button)dialog.findViewById(R.id.button_news_cancel);
 		cancel.setOnClickListener(new View.OnClickListener()
 		{	
             @Override

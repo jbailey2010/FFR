@@ -30,10 +30,9 @@ public class ParseNews
 	 * @return
 	 * @throws IOException
 	 */
-	public static List<NewsObjects> parseNewsRoto() throws IOException
+	public static List<NewsObjects> parseNewsRoto(String url) throws IOException
 	{
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
-		String url = "http://www.rotoworld.com/headlines/nfl/0/football-headlines";
 		Document doc = Jsoup.connect(url).get();
 		String report = HandleBasicQueries.handleListsMulti(doc, url, "div.report");
 		String impact = HandleBasicQueries.handleListsMulti(doc, url, "div.impact");
@@ -65,11 +64,11 @@ public class ParseNews
 	 * Handles conditionally fetching the news
 	 * @param cont
 	 */
-	public static void startNewsAsync(Context cont) 
+	public static void startNewsAsync(Context cont, boolean rh, boolean rp) 
 	{
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
 		ParseRotoWorldNews news = stupid.new ParseRotoWorldNews(cont);
-		news.execute(cont);
+		news.execute(cont, rh, rp);
 
 	}
 }
