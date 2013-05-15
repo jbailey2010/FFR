@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/calc_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:text="Trade Calculator"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/your_loss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/calc_header"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="58dp"
+        android:text="Who you are giving"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <TextView
+        android:id="@+id/your_gain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/calc_header"
+        android:layout_marginRight="55dp"
+        android:layout_marginTop="58dp"
+        android:text="Who you are getting"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/your_loss_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/your_loss"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="41dp"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/your_gain_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/your_loss_input"
+        android:layout_alignBottom="@+id/your_loss_input"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="27dp"
+        android:ems="10" >
+    </EditText>
+
+    <Button
+        android:id="@+id/search_close"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="100"
+        android:text="X" />
+
+    <View
+       	android:layout_width="1dp"
+		android:background="#90909090"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/search_close"/>
+
+    <View
+       	android:layout_width="65dp"
+		android:background="#90909090"
+        android:layout_height="1dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/search_close" />
+
+    <TextView
+        android:id="@+id/trade_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/your_loss"
+        android:layout_below="@+id/your_loss_input"
+        android:layout_marginTop="41dp"
+        android:text="Enter what you'd give above" />
+
+    <TextView
+        android:id="@+id/trade_output"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/trade_input"
+        android:layout_alignBottom="@+id/trade_input"
+        android:layout_alignLeft="@+id/your_gain"
+        android:text="Enter what you&apos;d get above" />
+
+    <Button
+        android:id="@+id/clear_trade"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Clear" />
+    
+    <View
+       	android:layout_width="65dp"
+		android:background="#90909090"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/clear_trade" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/clear_trade"
+        android:background="#90909090" />
+
+    <TextView
+        android:id="@+id/trade_fairness_output"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/trade_input"
+        android:layout_marginTop="85dp"
+        android:layout_toRightOf="@+id/your_loss"
+        android:text=" "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout>

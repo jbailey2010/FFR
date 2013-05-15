@@ -22,6 +22,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.TradeHandling;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
@@ -236,7 +237,15 @@ public class Rankings extends Activity {
 	    });  
 		//Comparator not yet implemented
 		
-		//Calculator not yet implemented
+		//Calculator pop up on click
+		calc.setOnClickListener(new View.OnClickListener() 
+	    {
+	          @Override
+	          public void onClick(View v) 
+	          {
+	        	  TradeHandling.handleTradeInit(holder, cont);
+	          }
+	    }); 
 	}
 	
 	/**
