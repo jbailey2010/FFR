@@ -153,6 +153,10 @@ public class ParseStats
 				}
 				else
 				{
+					if(name.contains("Stewart") && name.contains("J") && player[1].contains("OAK"))
+					{
+						continue;
+					}
 					data.append("Carries: " + player[6] + "\n");
 					data.append("Yards: " + player[7] + "\n");
 					data.append("Adjusted Yards: " + player[8].replace(",", "") + "\n");

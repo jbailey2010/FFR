@@ -58,6 +58,11 @@ public class ParseRankings
 	    
 	}
 	
+	/**
+	 * Calls the high level functions
+	 * @param cont
+	 * @param holder
+	 */
 	public static void highLevel(Activity cont, Storage holder)
 	{
 		
