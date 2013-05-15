@@ -4,16 +4,6 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/calc_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
-        android:text="Trade Calculator"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
         android:id="@+id/your_loss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +12,7 @@
         android:layout_marginLeft="55dp"
         android:layout_marginTop="58dp"
         android:text="Who you are giving"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
     
     <TextView
         android:id="@+id/your_gain"
@@ -33,9 +23,9 @@
         android:layout_marginRight="55dp"
         android:layout_marginTop="58dp"
         android:text="Who you are getting"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/your_loss_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,7 +35,7 @@
         android:layout_marginTop="41dp"
         android:ems="10" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/your_gain_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,8 +43,7 @@
         android:layout_alignBottom="@+id/your_loss_input"
         android:layout_alignParentRight="true"
         android:layout_marginRight="27dp"
-        android:ems="10" >
-    </EditText>
+        android:ems="10" />
 
     <Button
         android:id="@+id/search_close"
@@ -87,7 +76,8 @@
         android:layout_alignLeft="@+id/your_loss"
         android:layout_below="@+id/your_loss_input"
         android:layout_marginTop="41dp"
-        android:text="Enter what you'd give above" />
+        android:visibility="invisible"
+        android:text="What you're giving: " />
 
     <TextView
         android:id="@+id/trade_output"
@@ -96,7 +86,8 @@
         android:layout_alignBaseline="@+id/trade_input"
         android:layout_alignBottom="@+id/trade_input"
         android:layout_alignLeft="@+id/your_gain"
-        android:text="Enter what you&apos;d get above" />
+        android:visibility="invisible"
+        android:text="What you're getting:" />
 
     <Button
         android:id="@+id/clear_trade"
@@ -122,12 +113,21 @@
         android:background="#90909090" />
 
     <TextView
-        android:id="@+id/trade_fairness_output"
+        android:id="@+id/calc_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/trade_input"
-        android:layout_marginTop="85dp"
-        android:layout_toRightOf="@+id/your_loss"
+        android:layout_below="@+id/clear_trade"
+        android:layout_centerHorizontal="true"
+        android:text="Trade Calculator"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/trade_output"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="115dp"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
