@@ -47,6 +47,30 @@ public class ParseNews
 		}
 		return newsSet;
 	}
+	
+	/**
+	 * Handles the huddle news parsing
+	 * @return
+	 * @throws IOException
+	 */
+	public static List<NewsObjects> parseNewsHuddle() throws IOException
+	{
+		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
+		String url = "http://www.thehuddle.com/fantasy_football_news.php";
+		Document doc = Jsoup.connect(url).get();
+		String report = HandleBasicQueries.handleTablesMulti(doc, url, "news-item");
+		String impact = HandleBasicQueries.handleTablesMulti(doc, url, "news-impact");
+		String date = HandleBasicQueries.handleTablesMulti(doc, url, "news-date");
+		String[] reportSet = report.split("\n");
+		String[] impactSet = impact.split("\n");
+		String[] dateSet = date.split("\n");
+		for(int i = 0; i < reportSet.length; i++)
+		{
+			NewsObjects news = new NewsObjects(reportSet[i], impactSet[i].replace("Huddle Up: ", ""), dateSet[i]);
+			newsSet.add(news);
+		}
+		return newsSet;
+	}
 
 	/**
 	 * Handles conditionally reading news
@@ -64,11 +88,11 @@ public class ParseNews
 	 * Handles conditionally fetching the news
 	 * @param cont
 	 */
-	public static void startNewsAsync(Context cont, boolean rh, boolean rp) 
+	public static void startNewsAsync(Context cont, boolean rh, boolean rp, boolean th) 
 	{
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
 		ParseRotoWorldNews news = stupid.new ParseRotoWorldNews(cont);
-		news.execute(cont, rh, rp);
+		news.execute(cont, rh, rp, th);
 
 	}
 }

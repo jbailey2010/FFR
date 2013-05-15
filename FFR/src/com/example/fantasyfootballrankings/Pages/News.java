@@ -94,12 +94,12 @@ public class News extends Activity {
 		String newsWhole = prefs.getString("News RotoWorld", "Not Set");
 		if(newsWhole.equals("Not Set"))
 		{
-			ParseNews.startNewsAsync(cont, true, false);
+			ParseNews.startNewsAsync(cont, true, false, false);
 		}
-		else
+		/*else
 		{
 			ParseNews.startNewsReading(cont);
-		}
+		}*/
 	}
 
 	/**
@@ -112,21 +112,24 @@ public class News extends Activity {
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		boolean rhCheck = prefs.getBoolean("Use Headlines", false);
 		boolean rpCheck = prefs.getBoolean("Use Player News", false);
-		if(!rpCheck && !rhCheck)
+		boolean thCheck = prefs.getBoolean("Use The Huddle", false);
+		if(!rpCheck && !rhCheck && !thCheck)
 		{
 			rhCheck = true;
 		}
     	final RadioButton rh = (RadioButton)dialog.findViewById(R.id.rotoworld_headlines);
     	final RadioButton rp = (RadioButton)dialog.findViewById(R.id.rotoworld_player_news);
+    	final RadioButton th = (RadioButton)dialog.findViewById(R.id.the_huddle_news);
     	rh.setChecked(rhCheck);
     	rp.setChecked(rpCheck);
+    	th.setChecked(thCheck);
 		Button submit = (Button)dialog.findViewById(R.id.button_news_confirm);
 		submit.setOnClickListener(new View.OnClickListener()
 		{	
             @Override
             public void onClick(View v) 
             {
-            	ParseNews.startNewsAsync(cont, rh.isChecked(), rp.isChecked());
+            	ParseNews.startNewsAsync(cont, rh.isChecked(), rp.isChecked(), th.isChecked());
             	dialog.dismiss();
             }
 		});

@@ -506,6 +506,7 @@ public class ParsingAsyncTask
 	    	Context cont = (Context) data[0];
 	    	boolean rh = (Boolean)data[1];
 	    	boolean rp = (Boolean)data[2];
+	    	boolean th = (Boolean)data[3];
 	    	try {
 	    		List<NewsObjects> news = new ArrayList<NewsObjects>(100);
 	    		if(rh)
@@ -516,7 +517,11 @@ public class ParsingAsyncTask
 	    		{
 	    			news = ParseNews.parseNewsRoto("http://www.rotoworld.com/playernews/nfl/football-player-news");
 	    		}
-	    		WriteToFile.writeNewsRoto(cont, news, rh, rp);
+	    		else if(th)
+	    		{
+	    			news = ParseNews.parseNewsHuddle();
+	    		}
+	    		WriteToFile.writeNewsRoto(cont, news, rh, rp, th);
 				return news;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
