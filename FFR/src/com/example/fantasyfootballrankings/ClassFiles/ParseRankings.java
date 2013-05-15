@@ -174,6 +174,18 @@ public class ParseRankings
 		{
 			playerName = "Steve Johnson";
 		}
+		else if(playerName.equals("Robert Housler"))
+		{
+			playerName = "Rob Housler";
+		}
+		else if(playerName.equals("Christopher Ivory"))
+		{
+			playerName = "Chris Ivory";
+		}
+		else if(playerName.toLowerCase().equals("robert griffiniii"))
+		{
+			playerName = "Robert Griffin III";
+		}
 		return playerName;
 	}
 	

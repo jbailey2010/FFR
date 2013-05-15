@@ -332,7 +332,31 @@ public class Rankings extends Activity {
             matchedPlayers = ManageInput.voiceInput(matches, newCont, holder, textView);
             if(matchedPlayers.size() != 0)
             {
-            	textView.setText(matchedPlayers.get(0));
+            	double maxVal = 0.0;
+            	String maxPlayer = "";
+            	for(String player : matchedPlayers)
+            	{
+            		System.out.println("maxVal is " + maxVal);
+            		System.out.println("maxPlayer is " + maxPlayer + ", checking " + player);
+            		System.out.println(holder.players.size());
+            		System.out.println("-------------");
+            		for(int i = 0; i < holder.players.size(); i++)
+            		{
+            			PlayerObject playerIter = holder.players.get(i);
+            			System.out.println("iterating on " + playerIter.info.name);
+            			if(playerIter.info.name.equals(player))
+            			{
+            				System.out.println("Match is " + playerIter.info.name + ", " + playerIter.values.worth);
+            				if(playerIter.values.worth > maxVal)
+            				{
+            					maxPlayer = playerIter.info.name;
+            					maxVal = playerIter.values.worth;
+            				}
+                			break;
+            			}
+            		}
+            	}
+            	textView.setText(maxPlayer);
             }
         }
         super.onActivityResult(requestCode, resultCode, data);

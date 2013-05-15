@@ -58,13 +58,11 @@ public class ManageInput
 		List<String> results = new ArrayList<String>();
 		for(String e:matches)
 		{
-			System.out.println(e);
 			for(String players : holder.parsedPlayers)
 			{
 				if(players.contains(e))
 				{
 					results.add(players);
-					System.out.println("MATCH FOUND: " + e + " " + players);
 				}
 			}
 		}

@@ -6,8 +6,18 @@ import java.util.HashMap;
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 
+/**
+ * Parses injury data
+ * @author Jeff
+ *
+ */
 public class ParseInjuries 
 {
+	/**
+	 * Parses the injury data from rotoworld's page
+	 * @return
+	 * @throws IOException
+	 */
 	public static HashMap<String, String> parseRotoInjuries() throws IOException
 	{
 		HashMap<String, String> injuries = new HashMap<String, String>();
