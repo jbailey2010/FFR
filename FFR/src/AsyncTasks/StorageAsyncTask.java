@@ -16,6 +16,7 @@ import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFreeAgents;
 import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 /**
@@ -234,6 +235,12 @@ public class StorageAsyncTask
 	    	String ranks = prefs.getString("Rankings List", "Not Set");
     		String[] posts = ranks.split("##");
     		List<String>postsList = Arrays.asList(posts);
+    		try {
+				ParseFreeAgents.parseFA();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     		return postsList;
 	    }
 	  }
