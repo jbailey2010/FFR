@@ -112,8 +112,6 @@ public class HighLevel
 	public static void setADP(Storage holder) throws MalformedURLException, IOException, XPatherException
 	{
 		String adpURL = "http://fantasyfootballcalculator.com/adp_csv_ppr.php?teams=12";
-    	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-    	StrictMode.setThreadPolicy(policy);
     	String adpText = HandleBasicQueries.handleLists(adpURL, "pre");
     	String[] adpList = adpText.split("\n");
     	String[][] adpArray = new String[adpList.length][];
@@ -126,6 +124,10 @@ public class HighLevel
     		if(adpArray[i].length > 2)
     		{
 	    		String name = adpArray[i][2];
+	    		if(name.contains("Defense"))
+	    		{
+	    			name = ParseRankings.fixDefenses(name.split(" ")[0]);
+	    		}
 	   			Iterator<PlayerObject> iter = holder.players.iterator();
 	   			while(iter.hasNext())
 	   			{
