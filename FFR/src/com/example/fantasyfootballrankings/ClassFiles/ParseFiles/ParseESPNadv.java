@@ -45,7 +45,7 @@ public class ParseESPNadv
 			if(toBeFixed.contains(","))
 			{
 				intermediate.set(i, toBeFixed.substring(0, toBeFixed.lastIndexOf(',')));
-				String name = intermediate.get(i);
+				String name = ParseRankings.fixNames(intermediate.get(i));
 				String value = intermediate.get(i+1);
 				String difference = intermediate.get(i+2);
 				Double worth = Double.parseDouble(value);

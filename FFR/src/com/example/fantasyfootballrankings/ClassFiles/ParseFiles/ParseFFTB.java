@@ -91,7 +91,9 @@ public class ParseFFTB
 			String[] teamSet = brokenUp[i+1].split(", ");
 			for(String team : teamSet)
 			{
+				System.out.println("Bye parsing before: " + team);
 				String newTeam = ParseRankings.fixTeams(team);
+				System.out.println("Bye parsing after: " + newTeam);
 				byes.put(newTeam, week);
 			}
 		}

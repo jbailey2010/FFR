@@ -54,7 +54,9 @@ public class ParseDraft
 		{ 
 			if(!brokenUp[i].contains("2013"))
 			{
+				System.out.println("GPA before: " + brokenUp[i]);
 				String team = ParseRankings.fixTeams(brokenUp[i]);
+				System.out.println("GPA after: " + team);
 				String grade = brokenUp[i+=3];
 				String rank = brokenUp[i+=2];
 				if(team.equals("High Grade"))

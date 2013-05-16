@@ -17,6 +17,7 @@ import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMyFantasyLeague;
@@ -84,7 +85,7 @@ public class ParsingAsyncTask
 				ParseWF.wfRankings(holder);
 				ParseGE.geRankings(holder);
 				ParseCBS.cbsRankings(holder);
-				//ParseESPNadv.parseESPNAggregate(holder);
+				ParseESPNadv.parseESPNAggregate(holder);
 				ParseFFTB.parseFFTBRankingsWrapper(holder);
 				//ParseESPN.parseESPN300(holder);
 				ParseMyFantasyLeague.parseMFLAggregate(holder);

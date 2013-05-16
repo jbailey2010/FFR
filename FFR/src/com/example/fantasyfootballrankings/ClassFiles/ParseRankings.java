@@ -365,7 +365,8 @@ public class ParseRankings
 		{
 			return "Miami Dolphins";
 		}
-		if(low.equals("nwe") || low.equals("ne") || low.equals("new england") || low.equals("patriots"))
+		if(low.equals("nwe") || low.equals("ne") || low.equals("new england") || 
+				low.contains("england") || low.equals("patriots"))
 		{
 			return "New England Patriots";
 		}
@@ -394,7 +395,7 @@ public class ParseRankings
 		{
 			return "Tennessee Titans";
 		}
-		if(low.equals("kc") || low.equals("kansas city") || low.equals("chiefs"))
+		if(low.equals("kc") || low.contains("kansas") || low.equals("kansas city") || low.equals("chiefs"))
 		{
 			return "Kansas City Chiefs";
 		}
@@ -406,7 +407,7 @@ public class ParseRankings
 		{
 			return "Denver Broncos";
 		}
-		if(low.equals("sd") || low.equals("san diego") || low.equals("chargers"))
+		if(low.equals("sd") || low.equals("san diego") || low.contains("diego") || low.equals("chargers"))
 		{
 			return "San Diego Chargers";
 		}
@@ -423,7 +424,7 @@ public class ParseRankings
 			return "Detroit Lions";
 		}
 		if(low.equals("gb") || low.equals(" gb") || low.equals("gb ") ||
-				low.equals("green bay") || low.equals("packers"))
+				low.equals("green bay") || low.equals("packers") || low.contains("green"))
 		{
 			return "Green Bay Packers";
 		}
@@ -451,11 +452,11 @@ public class ParseRankings
 		{
 			return "Carolina Panthers";
 		}
-		if(low.equals("no") || low.equals("new orleans") || low.equals("saints"))
+		if(low.equals("no") || low.equals("new orleans") || low.equals("saints") || low.contains("orleans"))
 		{
 			return "New Orleans Saints";
 		}
-		if(low.equals("tb") || low.equals("tampa bay") || low.equals("buccaneers"))
+		if(low.equals("tb") || low.equals("tampa bay") || low.equals("buccaneers") || low.contains("tampa"))
 		{
 			return "Tampa Bay Buccaneers";
 		}
@@ -463,12 +464,13 @@ public class ParseRankings
 		{
 			return "Seattle Seahawks";
 		}
-		if(low.equals("sf") || low.equals("san francisco") || low.contains("49ers") || low.equals("ers"))
+		if(low.equals("sf") || low.equals("san francisco") || low.contains("49ers") || low.equals("ers")
+				|| low.contains("francisco"))
 		{
 			return "San Francisco 49ers";
 		}
 		if(low.equals("stl") || low.equals("st. louis") || low.equals("st louis") || 
-				low.equals("rams") || low.equals("sl"))
+				low.equals("rams") || low.equals("sl") || low.contains("louis"))
 		{
 			return "St. Louis Rams";
 		}
