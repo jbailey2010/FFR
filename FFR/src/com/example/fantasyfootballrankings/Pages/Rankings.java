@@ -399,9 +399,15 @@ public class Rankings extends Activity {
     		low = String.valueOf(searchedPlayer.values.high);
     	}
     	output.add("Worth: " + df.format(searchedPlayer.values.worth));
-    	output.add("Position: " + searchedPlayer.info.position);
+    	if(searchedPlayer.info.position.equals("K") || searchedPlayer.info.position.length() > 1)
+    	{
+    		output.add("Position: " + searchedPlayer.info.position);
+    	}
     	output.add("Team: " + searchedPlayer.info.team);
-    	output.add("Age: " + searchedPlayer.info.age);
+    	if(!searchedPlayer.info.age.equals("0") && !searchedPlayer.info.position.equals("D/ST"))
+    	{
+    		output.add("Age: " + searchedPlayer.info.age);
+    	}
     	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST")
     			&& !searchedPlayer.stats.equals(" ") && searchedPlayer.stats.length() > 5)
     	{
@@ -409,26 +415,44 @@ public class Rankings extends Activity {
     		output.add(searchedPlayer.injuryStatus);
     	}
     	output.add("Status: " + searchedPlayer.info.status);
-    	output.add("Positional SOS: " + searchedPlayer.info.sos);
-    	output.add("Bye: " + searchedPlayer.info.bye);
-    	if(!searchedPlayer.info.position.equals("K"))
+    	if(searchedPlayer.info.sos > 0)
+    	{
+    		output.add("Positional SOS: " + searchedPlayer.info.sos);
+    	}
+    	if(!searchedPlayer.info.bye.equals("Not set"))
+    	{
+    		output.add("Bye: " + searchedPlayer.info.bye);
+    	}
+    	if(!searchedPlayer.info.position.equals("K") && searchedPlayer.draftClass.length() > 4)
     	{
     		output.add(searchedPlayer.draftClass);
     	}
-    	output.add("ADP: " + searchedPlayer.info.adp);
-    	output.add("Weekly Value Trend: " + searchedPlayer.info.trend);
+    	if(!searchedPlayer.info.adp.equals("Not set"))
+    	{
+    		output.add("ADP: " + searchedPlayer.info.adp);
+    	}
+    	if(!searchedPlayer.info.trend.equals("0.0"))
+    	{
+    		output.add("Weekly Value Trend: " + searchedPlayer.info.trend);
+    	}
     	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
     	{
     		output.add("Contract Status: " + searchedPlayer.info.contractStatus);
-    	}
+    	} 
     	output.add("Showed up in " + searchedPlayer.values.count + " rankings.");
     	output.add("Highest value: " + searchedPlayer.values.high);
     	output.add("Lowest value: " + low);
     	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
     	{ 
-    		output.add(searchedPlayer.info.passRunRatio);
-    		output.add(searchedPlayer.info.oLineStatus);
-	    	if(!searchedPlayer.info.additionalStat.equals(""))
+    		if(searchedPlayer.info.passRunRatio.length() > 2)
+    		{
+    			output.add(searchedPlayer.info.passRunRatio);
+    		}
+    		if(searchedPlayer.info.oLineStatus.length() > 3)
+    		{
+    			output.add(searchedPlayer.info.oLineStatus);
+    		}
+    		if(!searchedPlayer.info.additionalStat.equals(""))
 	    	{
 	    		output.add(searchedPlayer.info.additionalStat);
 	    	}
