@@ -39,8 +39,7 @@ public class ParseGE
 				name = name.substring(0, name.length()-1);
 				String value = parsedPlayer[parsedPlayer.length-1];
 				value = value.substring(1, value.length());
-				int worth = Integer.parseInt(value);
-				ParseRankings.finalStretch(holder, name, worth, "", "");
+				ParseRankings.finalStretch(holder, name, Integer.parseInt(value), "", "");
 			}
 		}
 	}
