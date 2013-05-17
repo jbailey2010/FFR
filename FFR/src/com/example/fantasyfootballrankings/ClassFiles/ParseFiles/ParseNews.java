@@ -3,6 +3,7 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 import java.io.IOException;
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,6 @@ import org.jsoup.nodes.Document;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseRotoWorldNews;
-import AsyncTasks.ParsingAsyncTask.StatsHighLevel;
 import AsyncTasks.StorageAsyncTask;
 import AsyncTasks.StorageAsyncTask.ReadRotoNews;
 import android.content.Context;

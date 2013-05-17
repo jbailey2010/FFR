@@ -588,6 +588,12 @@ public class Rankings extends Activity {
 	 */
 	public static void intermediateHandleRankings(Activity cont)
 	{
+    	double totalWorth = 0.0;
+    	for(PlayerObject player : holder.players)
+    	{
+    		totalWorth += player.values.worth;
+    	}
+    	System.out.println(holder.players.size() + " " + totalWorth);
 		int maxSize = ReadFromFile.readFilterQuantitySize((Context)cont, "Rankings");
 		PriorityQueue<PlayerObject>inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 		{

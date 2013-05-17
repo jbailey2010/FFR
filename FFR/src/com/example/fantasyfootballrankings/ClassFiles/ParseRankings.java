@@ -3,6 +3,7 @@ package com.example.fantasyfootballrankings.ClassFiles;
 import java.io.IOException;
 
 
+
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -53,9 +54,9 @@ public class ParseRankings
 		holder.players.clear();
 		context = cont;
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
+		
 	    ParseRanks task = stupid.new ParseRanks((Activity)cont, holder);
 	    task.execute(holder, cont);
-	    
 	}
 	
 	/**
@@ -67,14 +68,9 @@ public class ParseRankings
 	{
 		
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
-		
-	    TeamInfoHighLevel task = stupid.new TeamInfoHighLevel(cont);
-	    task.execute(holder, cont);
-	    
+
 	    NonStatHighLevel contract = stupid.new NonStatHighLevel(cont, holder);
 	    contract.execute(holder, cont);
-
-
 	}
 	
 	/**

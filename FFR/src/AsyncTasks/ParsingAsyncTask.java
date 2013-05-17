@@ -50,6 +50,7 @@ public class ParsingAsyncTask
 	 *
 	 */
 	long start;
+	long all;
 	public class ParseRanks extends AsyncTask<Object, Void, Void> 
 	{
 		ProgressDialog pdia;
@@ -75,7 +76,6 @@ public class ParsingAsyncTask
 		   super.onPostExecute(result);
 		   pdia.dismiss();
 		   ParseRankings.highLevel(act, hold);
-		   //((Rankings)act).intermediateHandleRankings(act);
 		}
 		
 	    @Override
@@ -84,8 +84,8 @@ public class ParsingAsyncTask
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
 	    	try { 
-	    		long start = System.nanoTime();
-	    		
+	    		start = System.nanoTime();
+	    		all = System.nanoTime();
 				ParseWF.wfRankings(holder);
 				
 				System.out.print((System.nanoTime() - start));
@@ -121,7 +121,8 @@ public class ParsingAsyncTask
 				
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after mfl aggr");
-				start = System.nanoTime();
+				System.out.println();
+				System.out.println(System.nanoTime() - all);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -178,6 +179,7 @@ public class ParsingAsyncTask
 				HighLevel.setADP(holder);
 	    		//HighLevel.setContractStatus(holder);
 				HighLevel.setStatus(holder);
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -231,12 +233,22 @@ public class ParsingAsyncTask
 	    {
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
+	    	start = System.nanoTime();
 	    	try { 
+				HighLevel.setStats(holder, cont);
+				HighLevel.setTeamInfo(holder, cont);
+				//HighLevel.getSOS(holder);
+				HighLevel.setADP(holder);
+	    		//HighLevel.setContractStatus(holder);
+				HighLevel.setStatus(holder);
 			    HighLevel.getParsedPlayers(holder);
 			    HighLevel.setPermanentData(holder, cont);
 	    		HighLevel.parseSpecificData(holder, cont);
 	    		System.out.println(System.nanoTime() - start); 
 	    	} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (XPatherException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
