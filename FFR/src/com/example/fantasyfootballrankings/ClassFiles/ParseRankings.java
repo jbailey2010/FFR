@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
+
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,9 +20,11 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import AsyncTasks.AlteringDataAsyncTasks;
 import AsyncTasks.AlteringDataAsyncTasks.OfflineHighLevel;
 import AsyncTasks.ParsingAsyncTask;
-import AsyncTasks.ParsingAsyncTask.ADPHighLevel;
+import AsyncTasks.ParsingAsyncTask.NonStatHighLevel;
 import AsyncTasks.ParsingAsyncTask.ParseRanks;
+import AsyncTasks.ParsingAsyncTask.SOSHighLevel;
 import AsyncTasks.ParsingAsyncTask.StatsHighLevel;
+import AsyncTasks.ParsingAsyncTask.TeamInfoHighLevel;
 import FileIO.ReadFromFile;
 import android.R.integer;
 import android.app.Activity;
@@ -72,14 +75,13 @@ public class ParseRankings
 		StatsHighLevel stats = stupid.new StatsHighLevel(cont);
 		stats.execute(holder, cont);
 		
-	    ADPHighLevel task = stupid.new ADPHighLevel(cont);
+	    TeamInfoHighLevel task = stupid.new TeamInfoHighLevel(cont);
 	    task.execute(holder, cont);
 	    
-	    //SOSHighLevel sos = stupid.new SOSHighLevel(cont);
-	    //sos.execute(holder, cont);
-	    
-	    //ContractHighLevel contract = stupid.new ContractHighLevel(cont);
-	    //contract.execute(holder, cont);
+	    SOSHighLevel sos = stupid.new SOSHighLevel(cont);
+	    sos.execute(holder, cont);
+	    NonStatHighLevel contract = stupid.new NonStatHighLevel(cont);
+	    contract.execute(holder, cont);
 	    
 	    OfflineHighLevel offline = status.new OfflineHighLevel(cont, holder);
 	    offline.execute(holder, cont);

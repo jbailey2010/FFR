@@ -116,6 +116,7 @@ public class HighLevel
     	String adpText = HandleBasicQueries.handleLists(adpURL, "pre");
     	String[] adpList = adpText.split("\n");
     	String[][] adpArray = new String[adpList.length][];
+    	HashMap<String, String> adp = new HashMap<String, String>();
     	for(int i = 0; i < adpList.length; i++)
     	{
     		adpArray[i] = adpList[i].split(",");
@@ -129,16 +130,14 @@ public class HighLevel
 	    		{
 	    			name = ParseRankings.fixDefenses(name.split(" ")[0]);
 	    		}
-	   			Iterator<PlayerObject> iter = holder.players.iterator();
-	   			while(iter.hasNext())
-	   			{
-	   				PlayerObject player = (PlayerObject) iter.next();
-	   				String namePlayer = player.info.name;   
-	   				if(namePlayer.equals(name))
-	   				{
-	   					player.info.adp = adpArray[i][1];
-	   				} 
-	   			} 
+	    		adp.put(name, adpArray[i][1]);
+    		}
+    	}
+    	for(PlayerObject player : holder.players)
+    	{
+    		if(adp.containsKey(player.info.name))
+    		{
+    			player.info.adp = adp.get(player.info.name);
     		}
     	}
 	}
@@ -171,6 +170,7 @@ public class HighLevel
 		cyStr += HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=WR", "td:not([.c])");
 		cyStr += HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=TE", "td:not([.c])");
 		String[] players = cyStr.split("\n");
+		HashMap<String, String> cs = new HashMap<String, String>();
 		for(String name:players)
 		{
 			if(name.contains(" "))
@@ -180,14 +180,15 @@ public class HighLevel
 						!name.split(" ")[0].contains("East") &&
 						!name.split(" ")[0].contains("West"))
 				{
-					for(PlayerObject player : holder.players)
-					{
-						if(player.info.name.equals(name))
-						{
-							player.info.contractStatus = "In a contract year";
-						}
-					}
+					cs.put(name, "In a Contract Year");
 				}
+			}
+		}
+		for(PlayerObject player : holder.players)
+		{
+			if(cs.containsKey(player.info.name))
+			{
+				player.info.contractStatus = cs.get(player.info.name);
 			}
 		}
 	}
@@ -250,6 +251,59 @@ public class HighLevel
 	}
 	
 	/**
+	 * Sets the team data for players
+	 * @param holder
+	 * @param cont
+	 * @throws IOException
+	 */
+	public static void setTeamInfo(Storage holder, Context cont) throws IOException
+	{
+		//Fetch the draft data
+		HashMap<String, String> drafts = ParseDraft.parseTeamDraft();
+		HashMap<String, String> gpas = ParseDraft.parseTeamDraftGPA();
+
+		//Parse free agency data
+		HashMap<String, List<String>> fa = ParseFreeAgents.parseFA();
+		for(PlayerObject player : holder.players)
+		{
+			//Set draft data
+			player.draftClass = gpas.get(player.info.team) + drafts.get(player.info.team); 
+			if(fa.containsKey(player.info.team))
+			{
+				player.fa = fa.get(player.info.team);
+			}
+		}
+	}
+	
+	/**
+	 * Parse player specific data that aren't stats
+	 * @param holder
+	 * @param cont
+	 * @throws IOException
+	 */
+	public static void parseSpecificData(Storage holder, Context cont) throws IOException
+	{
+		Map<String, String> bt = ParseBrokenTackles.parseBrokenTackles();
+		HashMap<String, String> injuries = ParseInjuries.parseRotoInjuries();
+		HashMap<String, String> byes = ParseFFTB.parseByeWeeks();
+		for(PlayerObject player : holder.players)
+		{
+			player.info.bye = byes.get(player.info.team);
+			if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
+			{
+				if(bt.containsKey(player.info.name))
+				{
+					player.stats += "Broken Tackles: " + bt.get(player.info.name) + "\n";
+				}
+				if(injuries.containsKey(player.info.name))
+				{
+					player.injuryStatus = injuries.get(player.info.name);
+				}
+			}
+		}
+	}
+	
+	/**
 	 * Sets the stats of a player
 	 * @param holder
 	 * @param cont
@@ -257,42 +311,19 @@ public class HighLevel
 	 */
 	public static void setStats(Storage holder, Context cont) throws IOException
 	{
-		//Fetch the draft data
-		HashMap<String, String> drafts = ParseDraft.parseTeamDraft();
-		HashMap<String, String> gpas = ParseDraft.parseTeamDraftGPA();
-		//Fetch bye week data
-		HashMap<String, String> byes = ParseFFTB.parseByeWeeks();
-		//Parse free agency data
-		HashMap<String, List<String>> fa = ParseFreeAgents.parseFA();
 		//Fetch the stats
 		Map<String, String> qbs = ParseStats.parseQBStats();
 		Map<String, String> rbs = ParseStats.parseRBStats();
 		Map<String, String> wrs = ParseStats.parseWRStats();
 		Map<String, String> tes = ParseStats.parseTEStats();
-		Map<String, String> bt = ParseBrokenTackles.parseBrokenTackles();
-		//Fetch Injury data
-		HashMap<String, String> injuries = ParseInjuries.parseRotoInjuries();
-		//Fetch the keys to see if data applies to a player
-		Set<String> keys = bt.keySet();
-		Set<String> injuryKeys = injuries.keySet();
 		for(PlayerObject player : holder.players)
 		{
-			//Set draft data
-			player.draftClass = gpas.get(player.info.team) + drafts.get(player.info.team); 
-			player.info.bye = byes.get(player.info.team);
 			//If not a kicker/defense, set stats/injury status
 			if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
 			{
 				String[] name = player.info.name.split(" ");
 				String testName = name[0].charAt(0) + " " + name[1];
-				if(fa.containsKey(player.info.team))
-				{
-					player.fa = fa.get(player.info.team);
-				}
-				if(injuryKeys.contains(player.info.name))
-				{
-					player.injuryStatus = injuries.get(player.info.name);
-				}
+				
 				if(player.info.position.equals("QB"))
 				{
 					player.stats = qbs.get(testName);
@@ -309,10 +340,7 @@ public class HighLevel
 				{
 					player.stats = tes.get(testName);
 				}
-				if(keys.contains(player.info.name))
-				{
-					player.stats += "Broken Tackles: " + bt.get(player.info.name) + "\n";
-				}
+
 			}
 		}
 	}

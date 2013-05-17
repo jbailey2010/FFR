@@ -82,13 +82,44 @@ public class ParsingAsyncTask
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
 	    	try { 
+	    		long start = System.nanoTime();
+	    		
 				ParseWF.wfRankings(holder);
+				
+				System.out.print("After WF: ");
+				System.out.println(System.nanoTime() - start);
+				start = System.nanoTime();
+				
 				ParseGE.geRankings(holder);
+				
+				System.out.print("After GE: ");
+				System.out.println(System.nanoTime() - start);
+				start = System.nanoTime();
+				
 				ParseCBS.cbsRankings(holder);
+				
+				System.out.print("After CBS: ");
+				System.out.println(System.nanoTime() - start);
+				start = System.nanoTime();
+				
 				ParseESPNadv.parseESPNAggregate(holder);
+				
+				System.out.println("After ESPN Aggregate: ");
+				System.out.println(System.nanoTime() - start);
+				start = System.nanoTime();
+				
 				ParseFFTB.parseFFTBRankingsWrapper(holder);
+				
+				System.out.println("After fftb: ");
+				System.out.println(System.nanoTime() - start);
+				start = System.nanoTime();
+				
 				//ParseESPN.parseESPN300(holder);
 				ParseMyFantasyLeague.parseMFLAggregate(holder);
+				
+				System.out.print("After MFL Aggregate: ");
+				System.out.println(System.nanoTime() - start);
+				start = System.nanoTime();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -108,11 +139,11 @@ public class ParsingAsyncTask
 	 * @author Jeff
 	 *
 	 */
-	public class ADPHighLevel extends AsyncTask<Object, Void, Void> 
+	public class TeamInfoHighLevel extends AsyncTask<Object, Void, Void> 
 	{
 		Activity act;
 		ProgressDialog pdia;
-	    public ADPHighLevel(Activity activity) 
+	    public TeamInfoHighLevel(Activity activity) 
 	    {
 	        act = activity;
 	        pdia = new ProgressDialog(activity);
@@ -138,11 +169,8 @@ public class ParsingAsyncTask
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
 	    	try { 
-				HighLevel.setADP(holder);
+				HighLevel.setTeamInfo(holder, cont);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (XPatherException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -229,8 +257,13 @@ public class ParsingAsyncTask
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
 	    	try { 
-				HighLevel.getSOS(holder);
+				//HighLevel.getSOS(holder);
+				HighLevel.setADP(holder);
+	    		//HighLevel.setContractStatus(holder);
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (XPatherException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
@@ -244,11 +277,11 @@ public class ParsingAsyncTask
 	 * @author Jeff
 	 *
 	 */
-	public class ContractHighLevel extends AsyncTask<Object, Void, Void> 
+	public class NonStatHighLevel extends AsyncTask<Object, Void, Void> 
 	{
 		Activity act;
 		ProgressDialog pdia;
-	    public ContractHighLevel(Activity activity) 
+	    public NonStatHighLevel(Activity activity) 
 	    {
 	        act = activity;
 	        pdia = new ProgressDialog(activity);
@@ -274,7 +307,7 @@ public class ParsingAsyncTask
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
 	    	try { 
-	    		HighLevel.setContractStatus(holder);
+	    		HighLevel.parseSpecificData(holder, cont);
 	    	} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
