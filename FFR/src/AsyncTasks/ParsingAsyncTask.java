@@ -27,6 +27,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerName
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 import com.example.fantasyfootballrankings.Pages.News;
+import com.example.fantasyfootballrankings.Pages.Rankings;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
@@ -86,39 +87,39 @@ public class ParsingAsyncTask
 	    		
 				ParseWF.wfRankings(holder);
 				
-				System.out.print("After WF: ");
-				System.out.println(System.nanoTime() - start);
+				System.out.print((System.nanoTime() - start));
+				System.out.println("    after WF");
 				start = System.nanoTime();
 				
 				ParseGE.geRankings(holder);
 				
-				System.out.print("After GE: ");
-				System.out.println(System.nanoTime() - start);
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after GE");
 				start = System.nanoTime();
 				
 				ParseCBS.cbsRankings(holder);
 				
-				System.out.print("After CBS: ");
-				System.out.println(System.nanoTime() - start);
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after CBS");
 				start = System.nanoTime();
 				
 				ParseESPNadv.parseESPNAggregate(holder);
 				
-				System.out.println("After ESPN Aggregate: ");
-				System.out.println(System.nanoTime() - start);
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after espn aggr");
 				start = System.nanoTime();
 				
 				ParseFFTB.parseFFTBRankingsWrapper(holder);
 				
-				System.out.println("After fftb: ");
-				System.out.println(System.nanoTime() - start);
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after fftb");
 				start = System.nanoTime();
 				
 				//ParseESPN.parseESPN300(holder);
 				ParseMyFantasyLeague.parseMFLAggregate(holder);
 				
-				System.out.print("After MFL Aggregate: ");
-				System.out.println(System.nanoTime() - start);
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after mfl aggr");
 				start = System.nanoTime();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -260,6 +261,9 @@ public class ParsingAsyncTask
 				//HighLevel.getSOS(holder);
 				HighLevel.setADP(holder);
 	    		//HighLevel.setContractStatus(holder);
+				HighLevel.setStatus(holder);
+			    HighLevel.getParsedPlayers(holder);
+			    HighLevel.setPermanentData(holder, cont);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -281,11 +285,13 @@ public class ParsingAsyncTask
 	{
 		Activity act;
 		ProgressDialog pdia;
-	    public NonStatHighLevel(Activity activity) 
+		Storage hold;
+	    public NonStatHighLevel(Activity activity, Storage holder) 
 	    {
 	        act = activity;
 	        pdia = new ProgressDialog(activity);
 	        pdia.setCancelable(false);
+	        hold = holder;
 	    }
 	    
 		@Override
@@ -299,6 +305,10 @@ public class ParsingAsyncTask
 		protected void onPostExecute(Void result){
 		   super.onPostExecute(result);
 		   pdia.dismiss();
+		   if(hold.players.size() > 1)
+		   {
+			   ((Rankings) act).intermediateHandleRankings(act);
+		   }
 		}
 		
 	    @Override

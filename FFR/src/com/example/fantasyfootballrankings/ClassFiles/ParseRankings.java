@@ -17,8 +17,6 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPN;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 
-import AsyncTasks.AlteringDataAsyncTasks;
-import AsyncTasks.AlteringDataAsyncTasks.OfflineHighLevel;
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.NonStatHighLevel;
 import AsyncTasks.ParsingAsyncTask.ParseRanks;
@@ -70,8 +68,7 @@ public class ParseRankings
 	{
 		
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
-		AlteringDataAsyncTasks status = new AlteringDataAsyncTasks();
-		
+		 
 		StatsHighLevel stats = stupid.new StatsHighLevel(cont);
 		stats.execute(holder, cont);
 		
@@ -80,11 +77,10 @@ public class ParseRankings
 	    
 	    SOSHighLevel sos = stupid.new SOSHighLevel(cont);
 	    sos.execute(holder, cont);
-	    NonStatHighLevel contract = stupid.new NonStatHighLevel(cont);
-	    contract.execute(holder, cont);
 	    
-	    OfflineHighLevel offline = status.new OfflineHighLevel(cont, holder);
-	    offline.execute(holder, cont);
+	    NonStatHighLevel contract = stupid.new NonStatHighLevel(cont, holder);
+	    contract.execute(holder, cont);
+
 
 	}
 	

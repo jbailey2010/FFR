@@ -429,7 +429,6 @@ public class Rankings extends Activity {
     	}
     	if(searchedPlayer.fa.size() > 1)
     	{
-    		System.out.println(searchedPlayer.fa.size());
 	    	if(searchedPlayer.fa.get(0).contains("\n"))
 	    	{
 	    		output.add(searchedPlayer.fa.get(0));
