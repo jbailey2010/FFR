@@ -49,6 +49,7 @@ public class ParsingAsyncTask
 	 * @author Jeff
 	 *
 	 */
+	long start;
 	public class ParseRanks extends AsyncTask<Object, Void, Void> 
 	{
 		ProgressDialog pdia;
@@ -169,111 +170,25 @@ public class ParsingAsyncTask
 	    {
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
-	    	try { 
-				HighLevel.setTeamInfo(holder, cont);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-	    }
-	}
-	
-	/**
-	 * Handles the parsing of the stats
-	 * @author Jeff
-	 *
-	 */
-	public class StatsHighLevel extends AsyncTask<Object, Void, Void> 
-	{
-		Activity act;
-		ProgressDialog pdia;
-	    public StatsHighLevel(Activity activity) 
-	    {
-	        act = activity;
-	        pdia = new ProgressDialog(activity);
-	        pdia.setCancelable(false);
-	    }
-	    
-		@Override
-		protected void onPreExecute(){ 
-		   super.onPreExecute();  
-	        pdia.setMessage("Please wait, fetching the rankings...");
-	        pdia.show(); 
-		}
-
-		@Override
-		protected void onPostExecute(Void result){
-		   super.onPostExecute(result);
-		   pdia.dismiss();
-		}
-		
-	    @Override
-	    protected Void doInBackground(Object... data) 
-	    {
-	    	Storage holder = (Storage) data[0];
-	    	Context cont = (Context) data[1];
+	    	start = System.nanoTime();
 	    	try { 
 				HighLevel.setStats(holder, cont);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-	    }
-	}
-	
-	/**
-	 * Handles the parsing of the strength of schedule
-	 * @author Jeff
-	 *
-	 */
-	public class SOSHighLevel extends AsyncTask<Object, Void, Void> 
-	{
-		Activity act;
-		ProgressDialog pdia;
-	    public SOSHighLevel(Activity activity) 
-	    {
-	        act = activity;
-	        pdia = new ProgressDialog(activity);
-	        pdia.setCancelable(false);
-	    }
-	    
-		@Override
-		protected void onPreExecute(){ 
-		   super.onPreExecute();  
-	        pdia.setMessage("Please wait, fetching the rankings...");
-	        pdia.show(); 
-		}
-
-		@Override
-		protected void onPostExecute(Void result){
-		   super.onPostExecute(result);
-		   pdia.dismiss();
-		}
-		
-	    @Override
-	    protected Void doInBackground(Object... data) 
-	    {
-	    	Storage holder = (Storage) data[0];
-	    	Context cont = (Context) data[1];
-	    	try { 
+				HighLevel.setTeamInfo(holder, cont);
 				//HighLevel.getSOS(holder);
 				HighLevel.setADP(holder);
 	    		//HighLevel.setContractStatus(holder);
 				HighLevel.setStatus(holder);
-			    HighLevel.getParsedPlayers(holder);
-			    HighLevel.setPermanentData(holder, cont);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (XPatherException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} 
+			}
 			return null;
 	    }
 	}
+	
 	
 
 	/**
@@ -317,7 +232,10 @@ public class ParsingAsyncTask
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
 	    	try { 
+			    HighLevel.getParsedPlayers(holder);
+			    HighLevel.setPermanentData(holder, cont);
 	    		HighLevel.parseSpecificData(holder, cont);
+	    		System.out.println(System.nanoTime() - start); 
 	    	} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
