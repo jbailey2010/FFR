@@ -1,6 +1,7 @@
 package AsyncTasks;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,6 +56,15 @@ public class StorageAsyncTask
 	    	StringBuilder players = new StringBuilder(10000);
 	    	for (PlayerObject player : holder.players)
 	    	{
+	    		String fa = "";
+	    		if(player.fa.size() == 0)
+	    		{
+	    			fa = "Signed Free Agents: &&Departing Free Agents: ";
+	    		}
+	    		else
+	    		{
+	    			fa = player.fa.get(0) + "&&" + player.fa.get(1);
+	    		}
 	    		players.append( 
 	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
 	    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
@@ -62,7 +72,7 @@ public class StorageAsyncTask
 	    		player.info.status + "&&" + player.info.adp + "&&" + player.info.bye + "&&" 
 	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
 	    		player.info.age + "&&" + player.stats + "&&" + player.draftClass + "&&" + player.injuryStatus + 
-	    		"~~~~");
+	    		"&&" + fa + "~~~~");
 	    	}
 	    	String playerString = players.toString();
 	    	editor.putString("Player Values", playerString).commit();
@@ -235,12 +245,6 @@ public class StorageAsyncTask
 	    	String ranks = prefs.getString("Rankings List", "Not Set");
     		String[] posts = ranks.split("##");
     		List<String>postsList = Arrays.asList(posts);
-    		try {
-				ParseFreeAgents.parseFA();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
     		return postsList;
 	    }
 	  }
@@ -358,13 +362,16 @@ public class StorageAsyncTask
 		}
 		
 	    protected Void doInBackground(Object... data) 
-	    {
+	    { 
 	    	Storage holder = (Storage) data[0];
 	    	String[][]allData = (String[][])data[1];
 	    	Context cont = (Context)data[2];
 	   		for(int i = 0; i < holder.players.size(); i++)
 	   		{ 
 	   			PlayerObject player = holder.players.get(i);
+	   			player.fa = new ArrayList<String>();
+	   			player.fa.add(0, allData[i][17]);
+	   			player.fa.add(1, allData[i][18]);
 	   			player.injuryStatus = allData[i][16];
 	   			player.draftClass = allData[i][15];
 	   			player.stats = allData[i][14];

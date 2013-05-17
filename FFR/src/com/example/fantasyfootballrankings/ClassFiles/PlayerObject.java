@@ -1,5 +1,8 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 
@@ -16,6 +19,7 @@ public class PlayerObject
 	public String stats;
 	public String draftClass;
 	public String injuryStatus;
+	public List<String> fa;
 	 
 	/**
 	 * Sets up the player object
@@ -33,6 +37,7 @@ public class PlayerObject
 		stats = " ";
 		draftClass = "";
 		injuryStatus = "Injury Status: Healthy";
+		fa = new ArrayList<String>();
 	}
 	
 

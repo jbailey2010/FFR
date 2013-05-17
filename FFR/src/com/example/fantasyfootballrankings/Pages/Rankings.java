@@ -427,6 +427,18 @@ public class Rankings extends Activity {
     	{
     		output.add(searchedPlayer.draftClass);
     	}
+    	if(searchedPlayer.fa.size() > 1)
+    	{
+    		System.out.println(searchedPlayer.fa.size());
+	    	if(searchedPlayer.fa.get(0).contains("\n"))
+	    	{
+	    		output.add(searchedPlayer.fa.get(0));
+	    	}
+	    	if(searchedPlayer.fa.get(1).contains("\n"))
+	    	{
+	    		output.add(searchedPlayer.fa.get(1));
+	    	}
+    	}
     	if(!searchedPlayer.info.adp.equals("Not set"))
     	{
     		output.add("ADP: " + searchedPlayer.info.adp);

@@ -63,7 +63,8 @@ public class ParsePlayerNames {
 		names.add("Kellen Winslow");
 		names.add("Tim Hightower");
 		names.add("Terrell Owens");
-		if(names.size() > 5)
+		names.add("Latavius Murray");
+		if(names.size() > 6)
 		{
 			WriteToFile.storePlayerNames(names, cont);
 		}

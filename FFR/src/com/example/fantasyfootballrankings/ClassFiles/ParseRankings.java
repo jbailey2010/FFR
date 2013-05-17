@@ -191,6 +191,14 @@ public class ParseRankings
 		{
 			playerName = "Robert Griffin III";
 		}
+		else if(playerName.toLowerCase().equals("e.j. manuel"))
+		{
+			playerName = "EJ Manuel";
+		}
+		else if(playerName.toLowerCase().equals("joseph morgan"))
+		{
+			playerName = "Joe Morgan";
+		}
 		return playerName;
 	}
 	

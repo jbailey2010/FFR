@@ -19,6 +19,7 @@ import org.htmlcleaner.XPatherException;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseBrokenTackles;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraft;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFreeAgents;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseInjuries;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
 
@@ -261,6 +262,8 @@ public class HighLevel
 		HashMap<String, String> gpas = ParseDraft.parseTeamDraftGPA();
 		//Fetch bye week data
 		HashMap<String, String> byes = ParseFFTB.parseByeWeeks();
+		//Parse free agency data
+		HashMap<String, List<String>> fa = ParseFreeAgents.parseFA();
 		//Fetch the stats
 		Map<String, String> qbs = ParseStats.parseQBStats();
 		Map<String, String> rbs = ParseStats.parseRBStats();
@@ -282,6 +285,10 @@ public class HighLevel
 			{
 				String[] name = player.info.name.split(" ");
 				String testName = name[0].charAt(0) + " " + name[1];
+				if(fa.containsKey(player.info.team))
+				{
+					player.fa = fa.get(player.info.team);
+				}
 				if(injuryKeys.contains(player.info.name))
 				{
 					player.injuryStatus = injuries.get(player.info.name);
