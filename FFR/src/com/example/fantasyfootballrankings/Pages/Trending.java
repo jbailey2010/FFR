@@ -269,7 +269,6 @@ public class Trending extends Activity {
             {
 				try {
 					WriteToFile.writeLastFilter(cont, filterSize);
-					System.out.println("writing " + filterSize);
 					resetTrendingList(filterSize, cont);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
@@ -330,10 +329,10 @@ public class Trending extends Activity {
 	 */
 	public void handleParsed(PriorityQueue<PostedPlayer> playersTrending, Storage holder, Activity cont)
 	{
-		System.out.println("DONE " + playersTrending.size());
+		int count = 0; 
 		for(PostedPlayer e:playersTrending)
 		{
-			System.out.println(e.name + ": " + e.count);
+			count += e.count;
 		}
 	    listview = (ListView) cont.findViewById(R.id.listview_trending);
 	    listview.setAdapter(null);

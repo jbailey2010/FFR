@@ -29,7 +29,6 @@ public class ParseStats
 			String[] player = rows[i].split(" ");
 			String name = "";
 			StringBuilder data = new StringBuilder(500);
-			Set<String> players = qbPlayers.keySet();
 			//Name
 			if(player[0].equals("Player") || (!qbPlayers.containsKey(player[0].replace(".", " "))
 					&& player.length < 17))
@@ -87,7 +86,6 @@ public class ParseStats
 			String[] player = rows[i].split(" ");
 			String name = "";
 			StringBuilder data = new StringBuilder(500);
-			Set<String> players = rbPlayers.keySet();
 			if(player[0].equals("Player"))
 			{
 				continue;
@@ -186,7 +184,6 @@ public class ParseStats
 			String[] player = rows[i].split(" ");
 			String name = "";
 			StringBuilder data = new StringBuilder(500);
-			Set<String> players = wrPlayers.keySet();
 			if(player[0].equals("Player"))
 			{
 				continue;
@@ -264,7 +261,6 @@ public class ParseStats
 			String[] player = rows[i].split(" ");
 			String name = "";
 			StringBuilder data = new StringBuilder(500);
-			Set<String> players = tePlayers.keySet();
 			if(player[0].equals("Player"))
 			{
 				continue;

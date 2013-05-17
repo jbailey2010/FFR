@@ -166,16 +166,7 @@ public class ParseTrending
 		for(int i = 0; i < posts.size(); i++)
 		{
 			String text = posts.get(i).text;
-			text = text.replaceAll("\\.", " ");
-			text = text.replaceAll(",", " ");
-			text = text.replaceAll(";", " ");
-			text = text.replaceAll("!", " ");
-			text = text.replaceAll("\"", "");
-			text = text.replaceAll("\\\\'", "");
-			text = text.replaceAll("/", " ");
-			text = text.replaceAll("WRs", "");
-			text = text.replaceAll("RBs", "");
-			text = text.replaceAll("TEs", "");
+			text = text.replaceAll("[.,/]", " ");
 			text = text.replaceAll("QBs", "");
 			String[] postWords = text.split(" ");
 			for(int j = 0; j < postWords.length-1; j++)
@@ -412,6 +403,10 @@ public class ParseTrending
 		else if(date.contains("Today"))
 		{
 			return 0;
+		}
+		else if(date.equals(""))
+		{
+			return 365;
 		}
 		String[] dateStuff = date.split("-"); 
 		String useThis = dateStuff[0];
