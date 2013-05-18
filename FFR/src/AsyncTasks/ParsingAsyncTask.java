@@ -17,6 +17,7 @@ import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPN;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
@@ -116,7 +117,12 @@ public class ParsingAsyncTask
 				System.out.println("    after fftb");
 				start = System.nanoTime();
 				
-				//ParseESPN.parseESPN300(holder);
+				ParseESPN.parseESPN300(holder);
+				
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after espn");
+				start = System.nanoTime();
+				
 				ParseMyFantasyLeague.parseMFLAggregate(holder);
 				
 				System.out.print(System.nanoTime() - start);

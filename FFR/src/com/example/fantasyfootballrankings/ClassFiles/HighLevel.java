@@ -62,7 +62,7 @@ public class HighLevel
 				"A.J. Jenkins", "Tandon Doss", "Sam Bradford", "Rashard Mendenhall", 
 				"Matt Forte", "Antonio Brown", "Jake Locker", "Chris Ivory", "Le'Veon Bell",
 				"DeAndre Hopkins", "Sidney Rice", "Mark Ingram", "Chad Spann", "Shane Vereen",
-				"Zac Stacy"));
+				"Zac Stacy", "Jordan Cameron"));
 		
 		List<String> avoid = new ArrayList<String>(Arrays.asList("Andy Dalton", "Eric Decker", 
 				"Wes Welker", "Demaryius Thomas", "Sidney Rice", "Shonn Greene", 

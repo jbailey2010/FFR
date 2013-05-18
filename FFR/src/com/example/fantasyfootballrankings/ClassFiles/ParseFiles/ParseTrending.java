@@ -166,7 +166,7 @@ public class ParseTrending
 		for(int i = 0; i < posts.size(); i++)
 		{
 			String text = posts.get(i).text;
-			text = text.replaceAll("[.,/]", " ");
+			text = text.replaceAll("[.,/?]", " ");
 			String[] postWords = text.split(" ");
 			for(int j = 0; j < postWords.length-1; j++)
 			{
@@ -315,6 +315,10 @@ public class ParseTrending
 			return "Michael Vick";
 		}
 		//Grammatical fixes below
+		else if(name.equals("jerry"))
+		{
+			return "jerry";
+		}
 		else if(name.equals("still"))
 		{
 			return "still";
@@ -382,6 +386,23 @@ public class ParseTrending
 		else if(name.equals("super"))
 		{
 			return "super";
+		}
+		else if(name.equals("you") || name.equals("they") || name.equals("we") || 
+				name.equals("would") || name.equals("the") || name.equals("they're") || name.equals("he"))
+		{
+			return "you";
+		}
+		else if(name.equals("bateman"))
+		{
+			return "bateman";
+		}
+		else if(name.equals("ol") || name.equals("o-lineman"))
+		{
+			return "o-line";
+		}
+		else if(name.equals("jeffcoat"))
+		{
+			return "jeffcoat";
 		}
 		return inName;
 	}
