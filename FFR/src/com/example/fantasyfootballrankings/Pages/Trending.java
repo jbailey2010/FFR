@@ -334,6 +334,7 @@ public class Trending extends Activity {
 		{
 			count += e.count;
 		}
+		System.out.println(playersTrending.size() + " " + count);
 	    listview = (ListView) cont.findViewById(R.id.listview_trending);
 	    listview.setAdapter(null);
 	    List<String> trendingPlayers = new ArrayList<String>(350);

@@ -167,7 +167,6 @@ public class ParseTrending
 		{
 			String text = posts.get(i).text;
 			text = text.replaceAll("[.,/]", " ");
-			text = text.replaceAll("QBs", "");
 			String[] postWords = text.split(" ");
 			for(int j = 0; j < postWords.length-1; j++)
 			{
@@ -352,7 +351,7 @@ public class ParseTrending
 		{
 			return "t";
 		}
-		else if(name.equals("qb"))
+		else if(name.equals("qb") || name.equals("qbs"))
 		{
 			return "qb";
 		}
