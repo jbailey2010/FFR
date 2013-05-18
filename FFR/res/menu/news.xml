@@ -2,7 +2,7 @@
     <item
         android:id="@+id/refresh_news"
         android:orderInCategory="100"
-        android:showAsAction="never"
+		android:showAsAction="ifRoom|withText" 
         android:title="Refresh News"/>
     <item
         android:id="@+id/go_home"

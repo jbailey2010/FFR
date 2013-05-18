@@ -89,10 +89,6 @@ public class Trending extends Activity {
 	{
 		switch (item.getItemId()) 
 		{
-			case R.id.refresh:
-				holder.posts.clear();
-				fetchTrending(holder);
-				return true;
 			case R.id.filter_quantity_menu:
 				filterQuantity();
 				return true;

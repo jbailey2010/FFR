@@ -2,10 +2,9 @@
 <resources>
 
     <string name="app_name">Home</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_news">NFL News</string>
-    <string name="title_activity_team">View Your Team</string>
-    <string name="title_activity_trending">Trending Players</string>
-    <string name="title_activity_rankings">Player Rankings</string>
+    <string name="title_activity_news">News</string>
+    <string name="title_activity_team">Your Team</string>
+    <string name="title_activity_trending">Trends</string>
+    <string name="title_activity_rankings">Ranks</string>
         
 </resources>

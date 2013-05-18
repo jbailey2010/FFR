@@ -2,7 +2,7 @@
     <item
         android:id="@+id/refresh_names"
         android:orderInCategory="100"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom|withText" 
         android:title="Refresh Player Names List"/>
 
    
