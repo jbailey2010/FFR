@@ -1,9 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
+        android:id="@+id/export_names"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom|withText" 
+        android:title="Export Rankings"/>   
+    <item
         android:id="@+id/refresh_names"
         android:orderInCategory="100"
         android:showAsAction="ifRoom|withText" 
-        android:title="Refresh Player Names List"/>
+        android:title="Refresh Player Names"/>
 
    
 </menu>
