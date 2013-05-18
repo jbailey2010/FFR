@@ -38,7 +38,7 @@ public class News extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news);
 		cont = this;
-		//handleInitialLoading();
+		handleInitialLoading();
 	}
 
 	@Override

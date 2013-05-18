@@ -73,6 +73,33 @@ public class ParseNews
 	}
 	
 	/**
+	 * Parses the cbs player news
+	 * @return
+	 * @throws IOException
+	 */
+	public static List<NewsObjects> parseCBS() throws IOException
+	{
+		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
+		String url = "http://fantasynews.cbssports.com/fantasyfootball/playernews";
+		Document doc = Jsoup.connect(url).timeout(0).get();
+		String report = HandleBasicQueries.handleListsMulti(doc, url, "div#newsPage1 table tbody tr td");
+		String[] data = report.split("\n");
+		for(int i = 0; i < data.length; i+=4)
+		{
+			String date = data[i];
+			String name = data[i+1];
+			String news = data[i+3].split("News:")[1];
+			String header = data[i+3].split("News:")[0];
+			String impact = news.split("Analysis:")[1];
+			news = news.split("Analysis:")[0];
+			NewsObjects newNews = new NewsObjects(name + "\n\n" + header + "\n\n" + news.substring(1, news.length()), 
+					impact.substring(1, impact.length()), date);
+			newsSet.add(newNews);
+		}
+		return newsSet;
+	}
+	
+	/**
 	 * SI news parsing
 	 * @return
 	 * @throws IOException

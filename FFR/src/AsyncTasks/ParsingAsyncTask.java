@@ -501,7 +501,7 @@ public class ParsingAsyncTask
 	    		}
 	    		else if(cbs)
 	    		{
-	    			
+	    			news = ParseNews.parseCBS();
 	    		}
 	    		else if(si)
 	    		{
