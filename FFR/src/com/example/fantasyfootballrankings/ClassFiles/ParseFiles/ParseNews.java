@@ -71,6 +71,32 @@ public class ParseNews
 		}
 		return newsSet;
 	}
+	
+	/**
+	 * SI news parsing
+	 * @return
+	 * @throws IOException
+	 */
+	public static List<NewsObjects> parseSI() throws IOException
+	{
+		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
+		String url = "http://sportsillustrated.cnn.com/fantasy/player_news/nfl/";
+		Document doc = Jsoup.connect(url).timeout(0).get();
+		String report = HandleBasicQueries.handleListsMulti(doc, url, "dt");
+		String impact = HandleBasicQueries.handleListsMulti(doc, url, "dd");
+		String date = HandleBasicQueries.handleListsMulti(doc, url, "li div span");
+		String names = HandleBasicQueries.handleListsMulti(doc, url, "li div strong");
+		String[] reportSet = report.split("\n");
+		String[] impactSet = impact.split("\n");
+		String[] dateSet = date.split("\n");
+		String[] namesSet = names.split("\n");
+		for(int i = 0; i < dateSet.length; i++)
+		{
+			NewsObjects news = new NewsObjects(namesSet[i].replace(":", "-") + " " + reportSet[i+2], impactSet[i+2], dateSet[i]);
+			newsSet.add(news);
+		}
+		return newsSet;
+	}
 
 	/**
 	 * Handles conditionally reading news
@@ -88,11 +114,11 @@ public class ParseNews
 	 * Handles conditionally fetching the news
 	 * @param cont
 	 */
-	public static void startNewsAsync(Context cont, boolean rh, boolean rp, boolean th) 
+	public static void startNewsAsync(Context cont, boolean rh, boolean rp, boolean th, boolean cbs, boolean si) 
 	{
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
 		ParseRotoWorldNews news = stupid.new ParseRotoWorldNews(cont);
-		news.execute(cont, rh, rp, th);
+		news.execute(cont, rh, rp, th, cbs, si);
 
 	}
 }

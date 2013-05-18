@@ -38,7 +38,7 @@ public class News extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news);
 		cont = this;
-		handleInitialLoading();
+		//handleInitialLoading();
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class News extends Activity {
 		String newsWhole = prefs.getString("News RotoWorld", "Not Set");
 		if(newsWhole.equals("Not Set"))
 		{
-			ParseNews.startNewsAsync(cont, true, false, false);
+			ParseNews.startNewsAsync(cont, true, false, false, false, false);
 		}
 		else
 		{
@@ -113,6 +113,8 @@ public class News extends Activity {
 		boolean rhCheck = prefs.getBoolean("Use Headlines", false);
 		boolean rpCheck = prefs.getBoolean("Use Player News", false);
 		boolean thCheck = prefs.getBoolean("Use The Huddle", false);
+		boolean cCheck = prefs.getBoolean("Use CBS News", false);
+		boolean siCheck = prefs.getBoolean("Use SI News", false);
 		if(!rpCheck && !rhCheck && !thCheck)
 		{
 			rhCheck = true;
@@ -120,16 +122,21 @@ public class News extends Activity {
     	final RadioButton rh = (RadioButton)dialog.findViewById(R.id.rotoworld_headlines);
     	final RadioButton rp = (RadioButton)dialog.findViewById(R.id.rotoworld_player_news);
     	final RadioButton th = (RadioButton)dialog.findViewById(R.id.the_huddle_news);
+    	final RadioButton cbs = (RadioButton)dialog.findViewById(R.id.cbs_news);
+    	final RadioButton si = (RadioButton)dialog.findViewById(R.id.si_news);
     	rh.setChecked(rhCheck);
     	rp.setChecked(rpCheck);
     	th.setChecked(thCheck);
+    	cbs.setChecked(cCheck);
+    	si.setChecked(siCheck);
 		Button submit = (Button)dialog.findViewById(R.id.button_news_confirm);
 		submit.setOnClickListener(new View.OnClickListener()
 		{	
             @Override
             public void onClick(View v) 
             {
-            	ParseNews.startNewsAsync(cont, rh.isChecked(), rp.isChecked(), th.isChecked());
+            	ParseNews.startNewsAsync(cont, rh.isChecked(), rp.isChecked(), th.isChecked(),
+            			cbs.isChecked(), si.isChecked());
             	dialog.dismiss();
             }
 		});
