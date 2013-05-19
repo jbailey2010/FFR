@@ -23,10 +23,12 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
@@ -59,6 +61,9 @@ public class News extends Activity {
 		{
 			case R.id.refresh_news:
 				refreshNewsDialog();
+				return true;
+			case R.id.twitter_feeds:
+				twitterFeedsDialog();
 				return true;
 			//New page opens up entirely for going home
 			case R.id.go_home:
@@ -149,10 +154,55 @@ public class News extends Activity {
             	dialog.dismiss();
             }
 		});
-		
 		dialog.show();
 	}
 	
+	/**
+	 * Handles conditional refreshing of news
+	 */
+	public static void twitterFeedsDialog()
+	{
+		final Dialog dialog = new Dialog(cont);
+		dialog.setContentView(R.layout.twitter_feeds);
+		List<String> spinnerList = new ArrayList<String>();
+		spinnerList.add("Adam Schefter (NFL News)");
+		spinnerList.add("Chris Mortenson (NFL News)");
+		spinnerList.add("Jason LaCanfora (NFL News)");
+		spinnerList.add("Jay Glazer (NFL News)");
+		spinnerList.add("Brad Evans (Fantasy)");
+		spinnerList.add("Mike Clay (Fantasy)");
+		spinnerList.add("Eric Mack (Fantasy)");
+		spinnerList.add("Fantasy Douche (Fantasy)");
+		spinnerList.add("Late Round QB (Fantasy)");
+		spinnerList.add("Chris Wesseling (Fantasy)");
+		Spinner feeds = (Spinner)dialog.findViewById(R.id.spinner_feeds);
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
+				android.R.layout.simple_spinner_dropdown_item, spinnerList);
+		feeds.setAdapter(spinnerArrayAdapter);
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		//Still need to determine what the last loaded was and set spinner to that
+    	
+		Button submit = (Button)dialog.findViewById(R.id.twitter_submit);
+		submit.setOnClickListener(new View.OnClickListener()
+		{	
+            @Override
+            public void onClick(View v) 
+            {
+            	//Call async function here
+            	dialog.dismiss();
+            }
+		});
+		Button cancel = (Button)dialog.findViewById(R.id.twitter_cancel);
+		cancel.setOnClickListener(new View.OnClickListener()
+		{	
+            @Override
+            public void onClick(View v) 
+            {
+            	dialog.dismiss();
+            }
+		});
+		dialog.show();
+	}
 	/**
 	 * Handles the showing of the listview of news
 	 * @param result

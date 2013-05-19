@@ -76,7 +76,7 @@ public class ParseNews
 	 * Parses the cbs player news
 	 * @return
 	 * @throws IOException
-	 */
+	 */ 
 	public static List<NewsObjects> parseCBS() throws IOException
 	{
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();

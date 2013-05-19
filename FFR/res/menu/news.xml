@@ -1,9 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item
+   <item
         android:id="@+id/refresh_news"
         android:orderInCategory="100"
 		android:showAsAction="ifRoom|withText" 
-        android:title="Refresh News"/>
+        android:title="NFL News"/>
+  	<item
+        android:id="@+id/twitter_feeds"
+        android:orderInCategory="100"
+		android:showAsAction="ifRoom|withText" 
+        android:title="NFL Twitter Feeds"/>
     <item
         android:id="@+id/go_home"
         android:orderInCategory="100"

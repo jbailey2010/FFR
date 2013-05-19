@@ -399,11 +399,14 @@ public class Rankings extends Activity {
     		low = String.valueOf(searchedPlayer.values.high);
     	}
     	output.add("Worth: " + df.format(searchedPlayer.values.worth));
-    	if(searchedPlayer.info.position.equals("K") || searchedPlayer.info.position.length() > 1)
+    	if(searchedPlayer.info.position.length() > 1)
     	{
     		output.add("Position: " + searchedPlayer.info.position);
     	}
-    	output.add("Team: " + searchedPlayer.info.team);
+    	if(searchedPlayer.info.position.length() > 1)
+    	{
+    		output.add("Team: " + searchedPlayer.info.team);
+    	}
     	if(!searchedPlayer.info.age.equals("0") && !searchedPlayer.info.position.equals("D/ST"))
     	{
     		output.add("Age: " + searchedPlayer.info.age);
@@ -419,11 +422,13 @@ public class Rankings extends Activity {
     	{
     		output.add("Positional SOS: " + searchedPlayer.info.sos);
     	}
-    	if(!searchedPlayer.info.bye.equals("Not set"))
+    	if(!searchedPlayer.info.bye.contains("null") && searchedPlayer.info.bye != null && 
+    			!searchedPlayer.info.bye.equals("Not set"))
     	{
     		output.add("Bye: " + searchedPlayer.info.bye);
     	}
-    	if(!searchedPlayer.info.position.equals("K") && searchedPlayer.draftClass.length() > 4)
+    	if(searchedPlayer.draftClass != null && !searchedPlayer.draftClass.contains("null") &&
+    			!searchedPlayer.info.position.equals("K") && searchedPlayer.draftClass.length() > 4)
     	{
     		output.add(searchedPlayer.draftClass);
     	}
@@ -455,15 +460,15 @@ public class Rankings extends Activity {
     	output.add("Lowest value: " + low);
     	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
     	{ 
-    		if(searchedPlayer.info.passRunRatio.length() > 2)
+    		if(searchedPlayer.info.passRunRatio != null && searchedPlayer.info.passRunRatio.length() > 2)
     		{
     			output.add(searchedPlayer.info.passRunRatio);
     		}
-    		if(searchedPlayer.info.oLineStatus.length() > 3)
+    		if(searchedPlayer.info.oLineStatus != null && searchedPlayer.info.oLineStatus.length() > 3)
     		{
     			output.add(searchedPlayer.info.oLineStatus);
     		}
-    		if(!searchedPlayer.info.additionalStat.equals(""))
+    		if(searchedPlayer.info.additionalStat != null && !searchedPlayer.info.additionalStat.equals(""))
 	    	{
 	    		output.add(searchedPlayer.info.additionalStat);
 	    	}

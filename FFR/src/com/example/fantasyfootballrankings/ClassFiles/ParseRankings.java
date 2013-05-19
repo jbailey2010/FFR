@@ -130,6 +130,10 @@ public class ParseRankings
 		{
 			playerName = fixDefenses(playerName);
 		}
+		else if(playerName.toLowerCase().equals("leveon bell"))
+		{
+			playerName = "Le'Veon Bell";
+		}
 		else if(playerName.equals("QB Eagles No. 7"))
 		{
 			playerName = "Michael Vick";
@@ -185,6 +189,14 @@ public class ParseRankings
 		else if(playerName.toLowerCase().equals("joseph morgan"))
 		{
 			playerName = "Joe Morgan";
+		}
+		else if(playerName.equals("B. Green-Ellis"))
+		{
+			playerName = "BenJarvus Green-Ellis";
+		}
+		else if(playerName.equals("R. Mendenhall"))
+		{
+			playerName = "Rashard Mendenhall";
 		}
 		return playerName;
 	}
