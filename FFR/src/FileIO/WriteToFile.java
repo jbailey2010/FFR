@@ -233,4 +233,23 @@ public class WriteToFile {
     	editor.putBoolean("Use SI News", si);
     	editor.putString("News RotoWorld", newsSet.toString()).commit();
 	}
+	
+	/**
+	 * Writes the twitter feed data to file
+	 * @param cont
+	 * @param news
+	 * @param selection
+	 */
+	public static void writeNewsTwitter(Context cont, List<NewsObjects> news, String selection)
+	{
+    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+    	StringBuilder newsSet = new StringBuilder(10000);
+    	for(NewsObjects newsObj : news)
+    	{
+    		newsSet.append(newsObj.news + "~~" + newsObj.impact + "~~" + 
+    				newsObj.date + "@@@");
+    	}
+    	editor.putString("News RotoWorld", newsSet.toString()).commit();
+    	editor.putString("Selected Twitter Feed", selection).commit();
+	}
 }

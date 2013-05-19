@@ -1,17 +1,27 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
+import java.io.StringReader;
 
 
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseRotoWorldNews;
+import AsyncTasks.ParsingAsyncTask.ParseTwitterFeeds;
 import AsyncTasks.StorageAsyncTask;
 import AsyncTasks.StorageAsyncTask.ReadRotoNews;
 import android.content.Context;
@@ -124,6 +134,18 @@ public class ParseNews
 		}
 		return newsSet;
 	}
+	
+	/**
+	 *Twitter parsing
+	 * @return
+	 * @throws IOException
+	 * @throws ParserConfigurationException 
+	 * @throws SAXException 
+	 */
+	public static List<NewsObjects> parseTwitter(String url) throws IOException, SAXException, ParserConfigurationException
+	{
+		return ParseTwitter.twitterParse(url);
+	}
 
 	/**
 	 * Handles conditionally reading news
@@ -146,6 +168,17 @@ public class ParseNews
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
 		ParseRotoWorldNews news = stupid.new ParseRotoWorldNews(cont);
 		news.execute(cont, rh, rp, th, cbs, si);
-
+	}
+	
+	/**
+	 * Handles conditionally fetching twitter data
+	 * @param cont
+	 * @param selection
+	 */
+	public static void startTwitterAsync(Context cont, String selection)
+	{
+		ParsingAsyncTask stupid = new ParsingAsyncTask();
+		ParseTwitterFeeds news = stupid.new ParseTwitterFeeds(cont);
+		news.execute(cont, selection);	
 	}
 }

@@ -31,7 +31,11 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
-
+/**
+ * Handles news parsing/twitter parsing
+ * @author Jeff
+ *
+ */
 public class News extends Activity {
 	public static Context cont;
 	public Dialog dialog;
@@ -40,7 +44,7 @@ public class News extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news);
 		cont = this;
-		handleInitialLoading();
+		//handleInitialLoading();
 	}
 
 	@Override
@@ -162,36 +166,44 @@ public class News extends Activity {
 	 */
 	public static void twitterFeedsDialog()
 	{
+		//Set up dialog
 		final Dialog dialog = new Dialog(cont);
 		dialog.setContentView(R.layout.twitter_feeds);
+		//Set up adapter
 		List<String> spinnerList = new ArrayList<String>();
 		spinnerList.add("Adam Schefter (NFL News)");
 		spinnerList.add("Chris Mortenson (NFL News)");
 		spinnerList.add("Jason LaCanfora (NFL News)");
 		spinnerList.add("Jay Glazer (NFL News)");
+		spinnerList.add("Aggregate Feed (Fantasy)");
 		spinnerList.add("Brad Evans (Fantasy)");
 		spinnerList.add("Mike Clay (Fantasy)");
 		spinnerList.add("Eric Mack (Fantasy)");
 		spinnerList.add("Fantasy Douche (Fantasy)");
 		spinnerList.add("Late Round QB (Fantasy)");
 		spinnerList.add("Chris Wesseling (Fantasy)");
-		Spinner feeds = (Spinner)dialog.findViewById(R.id.spinner_feeds);
+		final Spinner feeds = (Spinner)dialog.findViewById(R.id.spinner_feeds);
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
 				android.R.layout.simple_spinner_dropdown_item, spinnerList);
 		feeds.setAdapter(spinnerArrayAdapter);
+		//Load pre-selected item
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
-		//Still need to determine what the last loaded was and set spinner to that
-    	
+		String selection = prefs.getString("Selected Twitter Feed", "Adam Schefter (NFL News)");
+		feeds.setSelection(spinnerList.indexOf(selection));
+		
+		//Submit onclick
 		Button submit = (Button)dialog.findViewById(R.id.twitter_submit);
 		submit.setOnClickListener(new View.OnClickListener()
 		{	
             @Override
             public void onClick(View v) 
             {
-            	//Call async function here
+            	String selection = feeds.getSelectedItem().toString();
+            	ParseNews.startTwitterAsync(cont, selection);
             	dialog.dismiss();
             }
 		});
+		//cancel onclick
 		Button cancel = (Button)dialog.findViewById(R.id.twitter_cancel);
 		cancel.setOnClickListener(new View.OnClickListener()
 		{	

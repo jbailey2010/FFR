@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.htmlcleaner.XPatherException;
+import org.xml.sax.SAXException;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
@@ -448,7 +451,7 @@ public class ParsingAsyncTask
 	  }
 	
 	/**
-	 * Handles the back-end parsing of the permanent data
+	 * Handles the back-end parsing of the news
 	 * @author Jeff
 	 *
 	 */
@@ -510,6 +513,100 @@ public class ParsingAsyncTask
 	    		WriteToFile.writeNewsRoto(cont, news, rh, rp, th, cbs, si);
 				return news;
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+	    }
+	  }
+	
+	/**
+	 * Handles the back-end parsing of the twitter feeds
+	 * @author Jeff
+	 *
+	 */
+	public class ParseTwitterFeeds extends AsyncTask<Object, Void, List<NewsObjects>> 
+	{
+		ProgressDialog pdia;
+		Activity act;
+	    public ParseTwitterFeeds(Context cont) 
+	    {
+	        pdia = new ProgressDialog(cont);
+	        act = (Activity)cont;
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		        pdia.setMessage("Please wait, fetching the feeds...");
+		        pdia.show();    
+		}
+
+		@Override
+		protected void onPostExecute(List<NewsObjects> result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		   News.handleNewsListView(result, act);
+		}
+		
+	    @Override
+	    protected List<NewsObjects> doInBackground(Object... data) 
+	    {
+	    	Context cont = (Context) data[0];
+	    	String selection = (String)data[1];
+	    	try {
+	    		List<NewsObjects> news = new ArrayList<NewsObjects>(100);
+	    		String url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=adamschefter&count=15";
+	    		if(selection.contains("Mortenson"))
+	    		{
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=mortreport&count=15";
+	    		}
+	    		else if(selection.contains("LaCanfora"))
+	    		{
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=jasonlacanfora&count=15";
+	    		}
+	    		else if(selection.contains("Brad Evans"))
+	    		{
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=yahoonoise&count=15";
+	    		}
+	    		else if(selection.contains("Glazer"))
+	    		{
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=jayglazer&count=15";
+	    		}
+	    		else if(selection.contains("Clay"))
+	    		{
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=mikeclaynfl&count=15";
+	    		}
+	    		else if(selection.contains("Douche"))
+	    		{
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=fantasydouche&count=15";
+	    		}
+	    		else if(selection.contains("Eric Mack"))
+	    		{
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=ericmackfantasy&count=15";
+	    		}
+	    		else if(selection.contains("Late Round"))
+	    		{
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=lateroundqb&count=15";
+	    		}
+	    		else if(selection.contains("Wesseling"))
+	    		{
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=chriswesseling&count=15";
+	    		}
+	    		else if(selection.contains("Aggregate"))
+	    		{
+	    			url = "https://api.twitter.com/1/lists/statuses.xml?slug=fantasy-football-writers&owner_screen_name=ChrisWesseling&count=25";
+	    		}
+	    		news = ParseNews.parseTwitter(url);
+	    		WriteToFile.writeNewsTwitter(cont, news, selection);
+				return news;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
