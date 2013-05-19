@@ -85,13 +85,13 @@ public class ReadFromFile {
 	 * @throws ExecutionException 
 	 * @throws InterruptedException 
 	 */
-	public static void fetchPlayers(Storage holder, Context cont) throws IOException, XPatherException, InterruptedException, ExecutionException
+	public static void fetchPlayers(Storage holder, Context cont, boolean flag) throws IOException, XPatherException, InterruptedException, ExecutionException
 	{
 	
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	if(!prefs.getString("Rankings List", "Not Set").equals("Not Set"))
     	{
-    		ReadList listRanks = readFromFileAsyncObj.new ReadList((Activity)cont);
+    		ReadList listRanks = readFromFileAsyncObj.new ReadList((Activity)cont, flag);
     		listRanks.execute(holder, cont, prefs);
     	}
 	    ReadRanks rankings = readFromFileAsyncObj.new ReadRanks((Activity)cont);
@@ -103,7 +103,7 @@ public class ReadFromFile {
 		ReadNames names = readFromFileAsyncObj.new ReadNames((Activity)cont);
 		names.execute(holder, cont);
 		
-	    ReadDraft draft = readFromFileAsyncObj.new ReadDraft((Activity)cont);
+	    ReadDraft draft = readFromFileAsyncObj.new ReadDraft((Activity)cont, flag);
 		draft.execute(holder, cont);		
 	}
 	

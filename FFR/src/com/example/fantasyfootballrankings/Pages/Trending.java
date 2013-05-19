@@ -10,6 +10,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.PriorityQueue;
+import java.util.concurrent.ExecutionException;
+
+import org.htmlcleaner.XPatherException;
 
 import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.R.id;
@@ -34,10 +37,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Sets up the trending page
@@ -48,12 +55,13 @@ public class Trending extends Activity {
 	//Some globals, the dialog and the context
 	Dialog dialog;
 	final Context cont = this;
+	static Context context;
 	Button day;
 	Button week;
 	Button month;
 	Button all;
 	static Storage holder = new Storage();
-	ListView listview;
+	static ListView listview;
 	long start;
 	static boolean refreshed = false;
 	int lastFilter;
@@ -68,7 +76,22 @@ public class Trending extends Activity {
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	listview = (ListView)findViewById(R.id.listview_trending);
 		initialLoad(prefs);
-		handleDates(prefs);
+		context = this;
+		try {
+			handleDates(prefs);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XPatherException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -129,14 +152,19 @@ public class Trending extends Activity {
     		String[] posts = storedPosts.split("##");
     		List<String>postsList = Arrays.asList(posts);
     		ManageInput.handleArray(postsList, listview, this);
+    	    setListViewOnClick();
     	}
 	}
 	
 	/**
 	 * Handles possible refreshing of trending player data
 	 * @param prefs
+	 * @throws ExecutionException 
+	 * @throws InterruptedException 
+	 * @throws XPatherException 
+	 * @throws IOException 
 	 */
-	public void handleDates(SharedPreferences prefs)
+	public void handleDates(SharedPreferences prefs) throws IOException, XPatherException, InterruptedException, ExecutionException
 	{
     	//Get the posts, if they're not set, fetch them. Otherwise, get from storage.
     	String checkExists = prefs.getString("Posts", "Not Set");
@@ -147,6 +175,7 @@ public class Trending extends Activity {
     	else
     	{
     		ReadFromFile.fetchPostsLocal(holder, cont);
+			ReadFromFile.fetchPlayers(holder,cont, false);
     	}
     	getFilterForPosts(holder);
 	}
@@ -333,6 +362,7 @@ public class Trending extends Activity {
 		System.out.println(playersTrending.size() + " " + count);
 	    listview = (ListView) cont.findViewById(R.id.listview_trending);
 	    listview.setAdapter(null);
+	    setListViewOnClick();
 	    List<String> trendingPlayers = new ArrayList<String>(350);
 	    while(!playersTrending.isEmpty())
 	    {
@@ -345,5 +375,40 @@ public class Trending extends Activity {
 	    	refreshed = false;
 	    }
 	    ManageInput.handleArray(trendingPlayers, listview, cont);
+	}
+	
+	/**
+	 * handles what happens on click of the item in the list
+	 */
+	public static void setListViewOnClick()
+	{
+	    listview.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				String selected = ((TextView)arg1).getText().toString();
+				selected = selected.split(":")[0];
+				int index = -1;
+				for(int i = 0; i < holder.players.size(); i++)
+				{
+					PlayerObject player = holder.players.get(i);
+					if(player.info.name.equals(selected))
+					{
+						index = i;
+					}
+				}
+				if(index == -1)
+				{
+					Toast.makeText(context, "Information not found, player not parsed.", Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					Dialog dialog = new Dialog(context);
+					Rankings.outputResults(dialog, selected, true, (Trending)context);
+				}
+			}
+	    });
 	}
 }

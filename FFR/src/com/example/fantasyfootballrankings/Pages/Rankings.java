@@ -189,7 +189,7 @@ public class Rankings extends Activity {
     	if(checkExists != "Not Set")
     	{
 			try {
-				ReadFromFile.fetchPlayers(holder,cont);
+				ReadFromFile.fetchPlayers(holder,cont, true);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -301,7 +301,7 @@ public class Rankings extends Activity {
 				if(holder.parsedPlayers.contains(textView.getText().toString()))
 				{
 					dialog.dismiss();
-					outputResults(dialog, textView.getText().toString());
+					outputResults(dialog, textView.getText().toString(), false, (Rankings)newCont);
 				}
 			}
 		});
@@ -373,7 +373,8 @@ public class Rankings extends Activity {
      * @param dialog
      * @param namePlayer
      */
-    public static void outputResults(final Dialog dialog, String namePlayer)
+    public static void outputResults(final Dialog dialog, String namePlayer, boolean flag, 
+    		Activity act)
     {
     	dialog.setContentView(R.layout.search_output);
     	List<String>output = new ArrayList<String>(12);
@@ -391,6 +392,13 @@ public class Rankings extends Activity {
     			searchedPlayer = player;
     			break;
     		}
+    	}
+    	if(flag)
+    	{
+    		Button backButton = (Button)dialog.findViewById(R.id.search_back);
+    		backButton.setVisibility(Button.GONE);
+    		View backView = (View)dialog.findViewById(R.id.back_view);
+    		backView.setVisibility(View.GONE);
     	}
     	DecimalFormat df = new DecimalFormat("#.##");
     	String low = String.valueOf(searchedPlayer.values.low);
@@ -475,7 +483,7 @@ public class Rankings extends Activity {
     	}
     	dialog.show();
     	ListView results = (ListView)dialog.findViewById(R.id.listview_search);
-    	ManageInput.handleArray(output, results, (Rankings)newCont);
+    	ManageInput.handleArray(output, results, act);
     	Button back = (Button)dialog.findViewById(R.id.search_back);
 		back.setOnClickListener(new OnClickListener()
 		{

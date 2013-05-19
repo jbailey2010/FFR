@@ -221,9 +221,11 @@ public class StorageAsyncTask
 	public class ReadList extends AsyncTask<Object, Void, List<String>> 
 	{
 		Activity act;
-	    public ReadList(Activity activity) 
+		boolean flag;
+	    public ReadList(Activity activity, boolean flagCheck) 
 	    {
 	    	act = activity;
+	    	flag = flagCheck;
 	    }
 	    
 		@Override
@@ -234,7 +236,10 @@ public class StorageAsyncTask
 	
 		@Override
 		protected void onPostExecute(List<String> result){
-			Rankings.listSetUp(result, act);
+			if(flag)
+			{
+				Rankings.listSetUp(result, act);
+			}
 		}
 		
 	    protected List<String> doInBackground(Object... data) 
@@ -402,9 +407,11 @@ public class StorageAsyncTask
 	public class ReadDraft extends AsyncTask<Object, Void, Void> 
 	{
 		Activity act;
-	    public ReadDraft(Activity activity) 
+		boolean flag;
+	    public ReadDraft(Activity activity, boolean flagCheck) 
 	    {
 	        act = activity;
+	        flag = flagCheck;
 	    }
 	    
 		@Override
@@ -413,7 +420,8 @@ public class StorageAsyncTask
 		}
 		@Override
 		protected void onPostExecute(Void result){
-			if(act.getSharedPreferences("FFR", 0).getString("Rankings List", "Not Set").equals("Not Set"))
+			if(act.getSharedPreferences("FFR", 0).getString("Rankings List", "Not Set").equals("Not Set") &&
+					flag)
 			{
 				Rankings.intermediateHandleRankings(act);
 			}
