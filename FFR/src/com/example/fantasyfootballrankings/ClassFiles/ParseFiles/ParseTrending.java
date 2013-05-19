@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
@@ -47,6 +48,7 @@ public class ParseTrending
 	public static Context context;
 	public static Context inter;
 	public static Storage holder;
+	public static HashMap<String, String> fixes = new HashMap<String, String>();
 
 	/**
 	 * Calls the controller to handle each url.
@@ -118,6 +120,7 @@ public class ParseTrending
 			super.onPreExecute();
 		    pdia.setMessage("Please wait, checking the posts...");
 		    pdia.show();    
+		    setUpFixes();
 		}
 
 		@Override
@@ -255,6 +258,58 @@ public class ParseTrending
 			}
 		}
 	}
+	
+	/**
+	 * Sets up the fixes hashmap
+	 */
+	public static void setUpFixes()
+	{
+		fixes.put("megatron", "Calvin Johnson");
+		fixes.put("calvin", "Calvin Johnson");
+		fixes.put("matthews", "Ryan Mathews");
+		fixes.put("djax", "DeSean Jackson");
+		fixes.put("gronk", "Rob Gronkowski");
+		fixes.put("sjax", "Steven Jackson");
+		fixes.put("s.jax", "Steven Jackson");
+		fixes.put("marshall", "Brandon Marshall");
+		fixes.put("brady", "Tom Brady");
+		fixes.put("kaep", "Colin Kaepernick");
+		fixes.put("iii", "iii");
+		fixes.put("payton", "payton");
+		fixes.put("rgiii", "robert Griffin III");
+		fixes.put("rg3", "Robert Griffin III");
+		fixes.put("vick", "Michael Vick");
+		fixes.put("jerry", "jerry");
+		fixes.put("still", "still");
+		fixes.put("round", "round");
+		fixes.put("i'm", "i'm");
+		fixes.put("i'll", "i'll");
+		fixes.put("i'd", "i'd");
+		fixes.put("it's", "it's");
+		fixes.put("both", "both");
+		fixes.put("tds","tds");
+		fixes.put("t",  "t");
+		fixes.put("qb", "qb");
+		fixes.put("qbs", "qb");
+		fixes.put("well","well");
+		fixes.put("true","true");
+		fixes.put("i", "i");
+		fixes.put("qb's", "qb's");
+		fixes.put("houston", "houston");
+		fixes.put("double-check","double-check");
+		fixes.put("super", "super");
+		fixes.put("you", "you");
+		fixes.put("they", "they");
+		fixes.put("we", "we");
+		fixes.put("would", "would");
+		fixes.put("the", "the");
+		fixes.put("they're", "they're");
+		fixes.put("he", "he");
+		fixes.put("bateman", "bateman");
+		fixes.put("ol", "ol");
+		fixes.put("o-lineman", "ol");
+		fixes.put("jeffcoat", "jeffcoat");
+	}
 
 	/**
 	 * A very very very subjective function that will
@@ -265,144 +320,9 @@ public class ParseTrending
 	public static String commonFixes(String inName)
 	{
 		String name = inName.toLowerCase();
-		//Name shorthand/fixes below
-		if(name.equals("megatron") || name.equals("calvin"))
+		if(fixes.containsKey(name))
 		{
-			return "Calvin Johnson";
-		}
-		else if(name.contains("matthews"))
-		{
-			return "Ryan Mathews";
-		}
-		else if(name.contains("djax"))
-		{
-			return "DeSean Jackson";
-		}
-		else if(name.contains("gronk"))
-		{
-			return "Rob Gronkowski";
-		}
-		else if(name.contains("sjax") || name.contains("s.jax"))
-		{
-			return "Steven Jackson";
-		}
-		else if(name.equals("marshall"))
-		{
-			return "Brandon Marshall";
-		}
-		else if(name.equals("brady"))
-		{
-			return "Tom Brady";
-		}
-		else if(name.equals("Payton"))
-		{
-			return "payton";
-		}
-		else if(name.contains("kaep"))
-		{
-			return "Colin Kaepernick";
-		}
-		else if(name.equals("iii"))
-		{
-			return "iii";
-		}
-		else if(name.contains("rgiii") || name.contains("rg3"))
-		{
-			return "Robert Griffin III";
-		}
-		else if(name.equals("vick"))
-		{
-			return "Michael Vick";
-		}
-		//Grammatical fixes below
-		else if(name.equals("jerry"))
-		{
-			return "jerry";
-		}
-		else if(name.equals("still"))
-		{
-			return "still";
-		}
-		else if(name.equals("round"))
-		{
-			return "round";
-		}
-		else if(name.equals("i'm"))
-		{
-			return "i'm";
-		}
-		else if(name.contains("i'll"))
-		{
-			return "i'll";
-		}
-		else if(name.equals("i'd"))
-		{
-			return "i'd";
-		}
-		else if(name.contains("it's"))
-		{
-			return "it's";
-		}
-		else if(name.equals("both"))
-		{
-			return "both";
-		}
-		else if(name.equals("tds"))
-		{
-			return "tds";
-		}
-		else if(name.equals("t"))
-		{
-			return "t";
-		}
-		else if(name.equals("qb") || name.equals("qbs"))
-		{
-			return "qb";
-		}
-		else if(name.equals("well"))
-		{
-			return "well";
-		}
-		else if(name.equals("true"))
-		{
-			return "true";
-		}
-		else if(name.equals("i"))
-		{
-			return "i";
-		}
-		else if(name.equals("qb's"))
-		{
-			return "qb's";
-		}
-		else if(name.equals("houston"))
-		{
-			return "houston";
-		}
-		else if(name.equals("double-check"))
-		{
-			return "double-check";
-		}
-		else if(name.equals("super"))
-		{
-			return "super";
-		}
-		else if(name.equals("you") || name.equals("they") || name.equals("we") || 
-				name.equals("would") || name.equals("the") || name.equals("they're") || name.equals("he"))
-		{
-			return "you";
-		}
-		else if(name.equals("bateman"))
-		{
-			return "bateman";
-		}
-		else if(name.equals("ol") || name.equals("o-lineman"))
-		{
-			return "o-line";
-		}
-		else if(name.equals("jeffcoat"))
-		{
-			return "jeffcoat";
+			return fixes.get(name);
 		}
 		return inName;
 	}
