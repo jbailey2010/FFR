@@ -33,10 +33,6 @@ public class ParseBrokenTackles {
 			
 			String[] individual = rows[i].split(" ");
 			String output = individual[3];
-			for(int j = 0; j < individual.length; j++)
-			{
-				System.out.println(individual[j]);
-			}
 			if(individual.length >= 8)
 			{
 				output += ", " + individual[7] + " of touches";

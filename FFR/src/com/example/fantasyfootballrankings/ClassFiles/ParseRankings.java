@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 import org.htmlcleaner.XPatherException;
@@ -40,6 +41,10 @@ import android.os.StrictMode;
  */
 public class ParseRankings 
 {
+	public static HashMap<String, String> fixes = new HashMap<String, String>();
+	public static HashMap<String, String> teams = new HashMap<String, String>();
+	public static HashMap<String, String> defenses = new HashMap<String, String>();
+	
 	static Context context;
 	/** 
 	 * This is where the magic happens. This sets the names/fetches them if they're
@@ -51,12 +56,147 @@ public class ParseRankings
 	 */
 	public static void runRankings(final Storage holder, final Context cont) throws IOException, XPatherException
 	{  
+		handleHashes();
 		holder.players.clear();
 		context = cont;
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
 		
 	    ParseRanks task = stupid.new ParseRanks((Activity)cont, holder);
 	    task.execute(holder, cont);
+	}
+	
+	public static void handleHashes()
+	{
+		fixes.put("Leveon Bell", "Le'Veon Bell");
+		fixes.put("LeVeon Bell", "Le'Veon Bell");
+		fixes.put("QB Eagles No. 7", "Michael Vick");
+		fixes.put("Robert Griffin", "Robert Griffin III");
+		fixes.put("Jonathan Baldwin", "Jon Baldwin");
+		fixes.put("Chris Wells", "Beanie Wells");
+		fixes.put("Steve L. Smith", "Steve Smith");
+		fixes.put("Mike A. Williams", "Mike Williams");
+		fixes.put("Alex D. Smith", "Alex Smith");
+		fixes.put("Adrian L. Peterson", "Adrian Peterson");
+		fixes.put("Stevie Johnson", "Steve Johnson");
+		fixes.put("Robert Housler", "Rob Housler");
+		fixes.put("Christopher Ivory", "Chris Ivory");
+		fixes.put("R. Mendenhall", "Rashard Mendenhall");
+		fixes.put("B. Green-Ellis", "BenJarvus Green-Ellis");
+		fixes.put("Joseph Morgan", "Joe Morgan");
+		fixes.put("E.j. Manuel", "EJ Manuel");
+		fixes.put("E.J. Manuel", "EJ Manuel");
+		
+		teams.put("cin", "Cincinnati Bengals");
+		teams.put("cincinnati", "Cincinnati Bengals");
+		teams.put("bengals", "Cincinnati Bengals");
+		teams.put("pit", "Pittsburgh Steelers");
+		teams.put("pittsburgh", "Pittsburgh Steelers");
+		teams.put("steelers", "Pittsburgh Steelers");
+		teams.put("cle", "Cleveland Browns");
+		teams.put("clv", "Cleveland Browns");
+		teams.put("cleveland", "Cleveland Browns");
+		teams.put("browns", "Cleveland Browns");
+		teams.put("bal", "Baltimore Ravens");
+		teams.put("blt", "Baltimore Ravens");
+		teams.put("baltimore", "Baltimore Ravens");
+		teams.put("ravens", "Baltimore Ravens");
+		teams.put("mia", "Miami Dolphins");
+		teams.put("miami", "Miami Dolphins");
+		teams.put("dolphins", "Miami Dolphins");
+		teams.put("nwe", "New England Patriots");
+		teams.put("ne", "New England Patriots");
+		teams.put("new england", "New England Patriots");
+		teams.put("england", "New England Patriots");
+		teams.put("patriots", "New England Patriots");
+		teams.put("pats", "New England Patriots");
+		teams.put("nyj", "New York Jets");
+		teams.put("jets", "New York Jets");
+		teams.put("buf", "Buffalo Bills");
+		teams.put("buffalo", "Buffalo Bills");
+		teams.put("bills", "Buffalo Bills");
+		teams.put("ind", "Indianapolis Colts");
+		teams.put("indianapolis", "Indianapolis Colts");
+		teams.put("colts", "Indianapolis Colts");
+		teams.put("jac", "Jacksonville Jaguars");
+		teams.put(" jac", "Jacksonville Jaguars");
+		teams.put("jac ", "Jacksonville Jaguars");
+		teams.put("jax", "Jacksonville Jaguars");
+		teams.put("jacksonville", "Jacksonville Jaguars");
+		teams.put("jaguars", "Jacksonville Jaguars");
+		teams.put("hou", "Houston Texans");
+		teams.put("houston", "Houston Texans");
+		teams.put("texans", "Houston Texans");
+		teams.put("ten", "Tennessee Titans");
+		teams.put("tennessee", "Tennessee Titans");
+		teams.put("titans", "Tennessee Titans");
+		teams.put("kc", "Kansas City Chiefs");
+		teams.put("kansas", "Kansas City Chiefs");
+		teams.put("kansas city", "Kansas City Chiefs");
+		teams.put("chiefs", "Kansas City Chiefs");
+		teams.put("oak", "Oakland Raiders");
+		teams.put("oakland", "Oakland Raiders");
+		teams.put("raiders", "Oakland Raiders");
+		teams.put("den", "Denver Broncos");
+		teams.put("denver", "Denver Broncos");
+		teams.put("broncos", "Denver Broncos");
+		teams.put("sd", "San Diego Chargers");
+		teams.put("san diego", "San Diego Chargers");
+		teams.put("chargers", "San Diego Chargers");
+		teams.put("chi", "Chicago Bears");
+		teams.put("chicago", "Chicago Bears");
+		teams.put("bears", "Chicago Bears");
+		teams.put("min", "Minnesota Vikings");
+		teams.put("minnesota", "Minnesota Vikings");
+		teams.put("vikings", "Minnesota Vikings");
+		teams.put("det", "Detroit Lions");
+		teams.put("detroit", "Detroit Lions");
+		teams.put("lions", "Detroit Lions");
+		teams.put("gb", "Green Bay Packers");
+		teams.put("gb", "Green Bay Packers");
+		teams.put("gb ", "Green Bay Packers");
+		teams.put(" gb", "Green Bay Packers");
+		teams.put("green bay", "Green Bay Packers");
+		teams.put("packers", "Green Bay Packers");
+		teams.put("nyg", "New York Giants");
+		teams.put("giants", "New York Giants");
+		teams.put("phi", "Philadelphia Eagles");
+		teams.put("philadelphia", "Philadelphia Eagles");
+		teams.put("eagles", "Philadelphia Eagles");
+		teams.put("dal", "Dallas Cowboys");
+		teams.put("dallas", "Dallas Cowboys");
+		teams.put("cowboys", "Dallas Cowboys");
+		teams.put("was", "Washington Redskins");
+		teams.put("washington", "Washington Redskins");
+		teams.put("redskins", "Washington Redskins");
+		teams.put("atl", "Atlanta Falcons");
+		teams.put("atlanta", "Atlanta Falcons");
+		teams.put("falcons", "Atlanta Falcons");
+		teams.put("car", "Carolina Panthers");
+		teams.put("carolina", "Carolina Panthers");
+		teams.put("panthers", "Carolina Panthers");
+		teams.put("no", "New Orleans Saints");
+		teams.put("new orleans", "New Orleans Saints");
+		teams.put("saints", "New Orleans Saints");
+		teams.put("tb", "Tampa Bay Buccaneers");
+		teams.put("tampa bay", "Tampa Bay Buccaneers");
+		teams.put("buccaneers", "Tampa Bay Buccaneers");
+		teams.put("tampa", "Tampa Bay Buccaneers");
+		teams.put("sea", "Seattle Seahawks");
+		teams.put("seattle", "Seattle Seahawks");
+		teams.put("seahawks", "Seattle Seahawks");
+		teams.put("sf", "San Francisco 49ers");
+		teams.put("san francisco", "San Francisco 49ers");
+		teams.put("ers", "San Francisco 49ers");
+		teams.put("49ers", "San Francisco 49ers");
+		teams.put("stl", "St. Louis Rams");
+		teams.put("st. louis", "St. Louis Rams");
+		teams.put("st louis", "St. Louis Rams");
+		teams.put("rams", "St. Louis Rams");
+		teams.put("sl", "St. Louis Rams");
+		teams.put("ari", "Arizona Cardinals");
+		teams.put("arz", "Arizona Cardinals");
+		teams.put("arizona", "Arizona Cardinals");
+		teams.put("cardinals", "Arizona Cardinals");
 	}
 	
 	/**
@@ -126,77 +266,21 @@ public class ParseRankings
 	 */
 	public static String fixNames(String playerName)
 	{
-		if(playerName.contains("D/ST"))
+		if(fixes.containsKey(playerName))
+		{
+			playerName = fixes.get(playerName);
+		}
+		else if(playerName.contains("D/ST"))
 		{
 			playerName = fixDefenses(playerName);
 		}
-		else if(playerName.toLowerCase().equals("leveon bell"))
-		{
-			playerName = "Le'Veon Bell";
-		}
-		else if(playerName.equals("QB Eagles No. 7"))
-		{
-			playerName = "Michael Vick";
-		}
-		else if(playerName.equals("Robert Griffin"))
-		{
-			playerName = "Robert Griffin III";
-		}
-		else if(playerName.equals("Jonathan Baldwin"))
-		{
-			playerName = "Jon Baldwin";
-		}
-		else if(playerName.equals("Chris Wells") || playerName.contains("Beanie"))
+		else if(playerName.contains("Beanie"))
 		{
 			playerName = "Beanie Wells";
 		}		
-		else if(playerName.equals("Steve L. Smith"))
-		{
-			playerName = "Steve Smith";
-		}
-		else if(playerName.equals("Mike A. Williams"))
-		{
-			playerName = "Mike Williams";
-		}
-		else if(playerName.equals("Alex D. Smith"))
-		{
-			playerName = "Alex Smith";
-		}
-		else if(playerName.equals("Adrian L. Peterson"))
-		{
-			playerName = "Adrian Peterson";
-		}
-		else if(playerName.equals("Stevie Johnson"))
-		{
-			playerName = "Steve Johnson";
-		}
-		else if(playerName.equals("Robert Housler"))
-		{
-			playerName = "Rob Housler";
-		}
-		else if(playerName.equals("Christopher Ivory"))
-		{
-			playerName = "Chris Ivory";
-		}
 		else if(playerName.toLowerCase().equals("robert griffiniii"))
 		{
 			playerName = "Robert Griffin III";
-		}
-		else if(playerName.toLowerCase().equals("e.j. manuel"))
-		{
-			playerName = "EJ Manuel";
-		}
-		else if(playerName.toLowerCase().equals("joseph morgan"))
-		{
-			playerName = "Joe Morgan";
-		}
-		else if(playerName.equals("B. Green-Ellis"))
-		{
-			playerName = "BenJarvus Green-Ellis";
-		}
-		else if(playerName.equals("R. Mendenhall"))
-		{
-			playerName = "Rashard Mendenhall";
 		}
 		return playerName;
 	}
@@ -352,138 +436,37 @@ public class ParseRankings
 	public static String fixTeams(String team)
 	{
 		String low = team.toLowerCase().trim().replaceAll("[^a-zA-Z]+","");
-		if(low.equals("cin") || low.equals("cincinnati") || low.equals("bengals"))
+		if(teams.containsKey(low))
 		{
-			return "Cincinnati Bengals";
+			return teams.get(low);
 		}
-		if(low.equals("pit") || low.equals("pittsburgh") || low.equals("steelers"))
-		{
-			return "Pittsburgh Steelers";
-		}
-		if(low.equals("cle") || low.equals("clv") || low.equals("cleveland") || low.equals("browns"))
-		{
-			return "Cleveland Browns";
-		}
-		if(low.equals("bal") || low.equals("blt") || low.equals("baltimore") || low.equals("ravens"))
-		{
-			return "Baltimore Ravens";
-		}
-		if(low.equals("mia") || low.equals("miami") || low.equals("dolphins"))
-		{
-			return "Miami Dolphins";
-		}
-		if(low.equals("nwe") || low.equals("ne") || low.equals("new england") || 
-				low.contains("england") || low.equals("patriots"))
-		{
-			return "New England Patriots";
-		}
-		if(low.equals("nyj") || low.equals("jets"))
-		{
-			return "New York Jets";
-		}
-		if(low.equals("buf") || low.equals("buffalo") || low.equals("bills"))
-		{
-			return "Buffalo Bills";
-		}
-		if(low.equals("ind") || low.equals("indianapolis") || low.equals("colts"))
-		{
-			return "Indianapolis Colts";
-		}
-		if(low.equals("jac") || low.equals(" jac") || low.equals("jac ") ||
-				low.equals("jax") || low.equals("jacksonville") || low.equals("jaguars"))
-		{
-			return "Jacksonville Jaguars";
-		}
-		if(low.equals("hou") || low.equals("hst") || low.equals("houston") || low.equals("texans"))
-		{
-			return "Houston Texans";
-		}
-		if(low.equals("ten") || low.equals("tennessee") || low.equals("titans"))
-		{
-			return "Tennessee Titans";
-		}
-		if(low.equals("kc") || low.contains("kansas") || low.equals("kansas city") || low.equals("chiefs"))
+		else if(low.contains("kansas"))
 		{
 			return "Kansas City Chiefs";
 		}
-		if(low.equals("oak") || low.equals("oakland") || low.equals("raiders"))
-		{
-			return "Oakland Raiders";
-		}
-		if(low.equals("den") || low.equals("denver") || low.equals("broncos"))
-		{
-			return "Denver Broncos";
-		}
-		if(low.equals("sd") || low.equals("san diego") || low.contains("diego") || low.equals("chargers"))
+		else if(low.contains("diego"))
 		{
 			return "San Diego Chargers";
 		}
-		if(low.equals("chi") || low.equals("chicago") || low.equals("bears"))
-		{
-			return "Chicago Bears";
-		}
-		if(low.equals("min") || low.equals("minnesota") || low.equals("vikings"))
-		{
-			return "Minnesota Vikings";
-		}
-		if(low.equals("det") || low.equals("detroit") || low.equals("lions"))
-		{
-			return "Detroit Lions";
-		}
-		if(low.equals("gb") || low.equals(" gb") || low.equals("gb ") ||
-				low.equals("green bay") || low.equals("packers") || low.contains("green"))
-		{
+		else if(low.contains("green"))
+		{ 
 			return "Green Bay Packers";
 		}
-		if(low.equals("nyg") || low.equals("giants"))
-		{
-			return "New York Giants";
-		}
-		if(low.equals("phi") || low.equals("philadelphia") || low.equals("eagles"))
-		{
-			return "Philadelphia Eagles";
-		}
-		if(low.equals("dal") || low.equals("dallas") || low.equals("cowboys"))
-		{
-			return "Dallas Cowboys";
-		}
-		if(low.equals("was") || low.equals("washington") || low.equals("redskins"))
-		{
-			return "Washington Redskins";
-		}
-		if(low.equals("atl") || low.equals("atlanta") || low.equals("falcons"))
-		{
-			return "Atlanta Falcons";
-		}
-		if(low.equals("car") || low.equals("carolina") || low.equals("panthers"))
-		{
-			return "Carolina Panthers";
-		}
-		if(low.equals("no") || low.equals("new orleans") || low.equals("saints") || low.contains("orleans"))
-		{
-			return "New Orleans Saints";
-		}
-		if(low.equals("tb") || low.equals("tampa bay") || low.equals("buccaneers") || low.contains("tampa"))
+		else if(low.contains("tampa"))
 		{
 			return "Tampa Bay Buccaneers";
 		}
-		if(low.equals("sea") || low.equals("seattle") || low.equals("seahawks"))
+		else if(low.contains("orleans"))
 		{
-			return "Seattle Seahawks";
+			return "New Orleans Saints";
 		}
-		if(low.equals("sf") || low.equals("san francisco") || low.contains("49ers") || low.equals("ers")
-				|| low.contains("francisco"))
-		{
-			return "San Francisco 49ers";
-		}
-		if(low.equals("stl") || low.equals("st. louis") || low.equals("st louis") || 
-				low.equals("rams") || low.equals("sl") || low.contains("louis"))
+		else if(low.contains("louis"))
 		{
 			return "St. Louis Rams";
 		}
-		if(low.equals("ari") || low.equals("arizona") || low.equals("cardinals") || low.equals("arz"))
+		else if(low.contains("francisco"))
 		{
-			return "Arizona Cardinals";
+			return "San Francisco 49ers";
 		}
 		return team;
 	}

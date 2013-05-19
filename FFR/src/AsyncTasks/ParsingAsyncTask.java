@@ -556,46 +556,46 @@ public class ParsingAsyncTask
 	    	String selection = (String)data[1];
 	    	try {
 	    		List<NewsObjects> news = new ArrayList<NewsObjects>(100);
-	    		String url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=adamschefter&count=15";
+	    		String url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=adamschefter&count=12";
 	    		if(selection.contains("Mortenson"))
 	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=mortreport&count=15";
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=mortreport&count=12";
 	    		}
 	    		else if(selection.contains("LaCanfora"))
 	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=jasonlacanfora&count=15";
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=jasonlacanfora&count=12";
 	    		}
 	    		else if(selection.contains("Brad Evans"))
 	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=yahoonoise&count=15";
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=yahoonoise&count=12";
 	    		}
 	    		else if(selection.contains("Glazer"))
 	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=jayglazer&count=15";
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=jayglazer&count=12";
 	    		}
 	    		else if(selection.contains("Clay"))
 	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=mikeclaynfl&count=15";
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=mikeclaynfl&count=12";
 	    		}
 	    		else if(selection.contains("Douche"))
 	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=fantasydouche&count=15";
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=fantasydouche&count=12";
 	    		}
 	    		else if(selection.contains("Eric Mack"))
 	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=ericmackfantasy&count=15";
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=ericmackfantasy&count=12";
 	    		}
 	    		else if(selection.contains("Late Round"))
 	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=lateroundqb&count=15";
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=lateroundqb&count=12";
 	    		}
 	    		else if(selection.contains("Wesseling"))
 	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=chriswesseling&count=15";
+	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=chriswesseling&count=12";
 	    		}
 	    		else if(selection.contains("Aggregate"))
 	    		{
-	    			url = "https://api.twitter.com/1/lists/statuses.xml?slug=fantasy-football-writers&owner_screen_name=ChrisWesseling&count=25";
+	    			url = "https://api.twitter.com/1/lists/statuses.xml?slug=fantasy-football-writers&owner_screen_name=ChrisWesseling&count=15";
 	    		}
 	    		news = ParseNews.parseTwitter(url);
 	    		WriteToFile.writeNewsTwitter(cont, news, selection);

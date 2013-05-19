@@ -69,6 +69,10 @@ public class ParseTwitter
 	    {  
 	        e.printStackTrace();  
 	    } 
+	    if(newsSet.size() == 0)
+	    {
+	    	newsSet.add(new NewsObjects("Request Limit Exceeded", "Check Back in an Hour", ""));
+	    }
 		return newsSet;
 	}
 	
