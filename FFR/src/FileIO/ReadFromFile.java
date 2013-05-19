@@ -257,4 +257,15 @@ public class ReadFromFile {
 		}
 		return newsSet;
 	}
+	
+	/**
+	 * Reads the news title from file
+	 * @param cont
+	 * @return
+	 */
+	public static String readNewsTitle(Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		return prefs.getString("News Title", "NFL News");
+	}
 }

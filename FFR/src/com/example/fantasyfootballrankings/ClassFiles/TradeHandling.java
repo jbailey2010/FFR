@@ -135,7 +135,10 @@ public class TradeHandling
 			}
 		}
 		TextView fairness = (TextView)dialog.findViewById(R.id.calc_header);
-		fairness.setText(findRelativeValue(holder));
+		if(tradeOutput.getText().toString().contains("\n") && tradeInput.getText().toString().contains("\n"))
+		{
+			fairness.setText(findRelativeValue(holder));
+		}
 	}
 	
 	/**

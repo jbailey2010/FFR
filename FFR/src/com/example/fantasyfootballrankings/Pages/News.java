@@ -12,6 +12,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 
+import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.os.Bundle;
 import android.app.Activity;
@@ -39,6 +40,7 @@ import android.widget.TextView.BufferType;
 public class News extends Activity {
 	public static Context cont;
 	public Dialog dialog;
+	public static String selection = "NFL News";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -108,6 +110,7 @@ public class News extends Activity {
 		else
 		{
 			ParseNews.startNewsReading(cont);
+			selection = ReadFromFile.readNewsTitle(cont);
 		}
 	}
 
@@ -146,6 +149,28 @@ public class News extends Activity {
             {
             	ParseNews.startNewsAsync(cont, rh.isChecked(), rp.isChecked(), th.isChecked(),
             			cbs.isChecked(), si.isChecked());
+            	if(rh.isChecked())
+            	{
+            		selection = "Rotoworld Headline News";
+            	}
+            	else if(rp.isChecked())
+            	{
+            		selection = "Rotoworld Player News";
+            	}
+            	else if(th.isChecked())
+            	{
+            		selection = "The Huddle News";
+            	}
+            	else if(cbs.isChecked())
+            	{
+            		selection = "CBS News";
+            	}
+            	else if(si.isChecked())
+            	{
+            		selection = "Sports Illustrated News";
+            	}
+            	setHeader(selection);
+            	WriteToFile.writeNewsSelection(cont, selection);
             	dialog.dismiss();
             }
 		});
@@ -188,8 +213,8 @@ public class News extends Activity {
 		feeds.setAdapter(spinnerArrayAdapter);
 		//Load pre-selected item
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
-		String selection = prefs.getString("Selected Twitter Feed", "Adam Schefter (NFL News)");
-		feeds.setSelection(spinnerList.indexOf(selection));
+		String selectionFeed = prefs.getString("Selected Twitter Feed", "Adam Schefter (NFL News)");
+		feeds.setSelection(spinnerList.indexOf(selectionFeed));
 		
 		//Submit onclick
 		Button submit = (Button)dialog.findViewById(R.id.twitter_submit);
@@ -198,8 +223,12 @@ public class News extends Activity {
             @Override
             public void onClick(View v) 
             {
-            	String selection = feeds.getSelectedItem().toString();
-            	ParseNews.startTwitterAsync(cont, selection);
+            	String selectionFeed = feeds.getSelectedItem().toString();
+            	ParseNews.startTwitterAsync(cont, selectionFeed);
+            	String[] brokenUp = selectionFeed.split(" \\(");
+            	selection = brokenUp[0] + "'s Twitter Feed";
+            	WriteToFile.writeNewsSelection(cont, selection);
+            	setHeader(selection);
             	dialog.dismiss();
             }
 		});
@@ -215,6 +244,17 @@ public class News extends Activity {
 		});
 		dialog.show();
 	}
+	
+	/**
+	 * Sets the header of the page to the context
+	 * @param selection
+	 */
+	public static void setHeader(String selection)
+	{
+		TextView header = (TextView)((Activity) cont).findViewById(R.id.news_header);
+		header.setText(selection);
+	}
+	
 	/**
 	 * Handles the showing of the listview of news
 	 * @param result

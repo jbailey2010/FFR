@@ -292,6 +292,7 @@ public class ParseTrending
 		fixes.put("qb", "qb");
 		fixes.put("qbs", "qb");
 		fixes.put("well","well");
+		fixes.put("still", "still");
 		fixes.put("true","true");
 		fixes.put("i", "i");
 		fixes.put("qb's", "qb's");

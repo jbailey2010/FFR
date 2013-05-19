@@ -252,4 +252,10 @@ public class WriteToFile {
     	editor.putString("News RotoWorld", newsSet.toString()).commit();
     	editor.putString("Selected Twitter Feed", selection).commit();
 	}
+	
+	public static void writeNewsSelection(Context cont, String selection)
+	{
+    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+    	editor.putString("News Title", selection).commit();
+	}
 }
