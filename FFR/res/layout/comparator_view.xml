@@ -26,35 +26,4 @@
 	        android:layout_alignParentRight="true"
 	        android:layout_below="@+id/comparator_close" />
 
-	    <TableLayout
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/comparator_close"
-	        android:layout_centerHorizontal="true" >
-
-	        <TableRow
-	            android:id="@+id/tableRow1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content" >
-	        </TableRow>
-
-	        <TableRow
-	            android:id="@+id/tableRow2"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content" >
-	        </TableRow>
-
-	        <TableRow
-	            android:id="@+id/tableRow3"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content" >
-	        </TableRow>
-
-	        <TableRow
-	            android:id="@+id/tableRow4"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content" >
-	        </TableRow>
-	    </TableLayout>
-
 </RelativeLayout>

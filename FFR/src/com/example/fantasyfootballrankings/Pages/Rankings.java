@@ -630,7 +630,8 @@ public class Rankings extends Activity {
     	{
     		output.add("Weekly Value Trend: " + searchedPlayer.info.trend);
     	}
-    	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
+    	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST") && 
+    			!searchedPlayer.info.contractStatus.contains("Under Contract"))
     	{
     		output.add("Contract Status: " + searchedPlayer.info.contractStatus);
     	} 
