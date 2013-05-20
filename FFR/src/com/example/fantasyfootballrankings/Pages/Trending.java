@@ -429,7 +429,7 @@ public class Trending extends Activity {
 				}
 				if(index == -1)
 				{
-					Toast.makeText(context, "Information not found, player not parsed.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, "Information not found, player not parsed. Possibly a defensive player?", Toast.LENGTH_SHORT).show();
 				}
 				else
 				{

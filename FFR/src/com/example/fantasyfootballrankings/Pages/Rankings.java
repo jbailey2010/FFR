@@ -585,7 +585,10 @@ public class Rankings extends Activity {
     		output.add(searchedPlayer.stats);
     		output.add(searchedPlayer.injuryStatus);
     	}
-    	output.add("Status: " + searchedPlayer.info.status);
+    	if(!searchedPlayer.info.status.contains("intuition"))
+    	{
+    		output.add("Status: " + searchedPlayer.info.status);
+    	}
     	if(searchedPlayer.info.sos > 0)
     	{
     		output.add("Positional SOS: " + searchedPlayer.info.sos);
