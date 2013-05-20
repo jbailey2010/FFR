@@ -310,6 +310,20 @@ public class ParseTrending
 		fixes.put("ol", "ol");
 		fixes.put("o-lineman", "ol");
 		fixes.put("jeffcoat", "jeffcoat");
+		fixes.put("take", "take");
+		fixes.put("hit", "hit");
+		fixes.put("taker", "taker");
+		fixes.put("lemon", "lemon");
+		fixes.put("have", "have");
+		fixes.put("take", "nnnn");
+		fixes.put("bump", "bump");
+		fixes.put("may", "may");
+		fixes.put("there's", "there's");
+		fixes.put("seahags", "seahags");
+		fixes.put("les", "nnnn");
+		fixes.put("myles", "nnnn");
+		fixes.put("emery", "emery");
+		fixes.put("niners", "niners");
 	}
 
 	/**

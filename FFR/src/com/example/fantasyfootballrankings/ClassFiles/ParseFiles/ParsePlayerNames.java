@@ -66,6 +66,8 @@ public class ParsePlayerNames {
 		names.add("Latavius Murray");
 		names.add("Xavier Rhodes");
 		names.add("Ezekiel Ansah");
+		names.add("Alec Ogletree");
+		names.add("Bernard Pollard");
 		if(names.size() > 10)
 		{
 			WriteToFile.storePlayerNames(names, cont);
