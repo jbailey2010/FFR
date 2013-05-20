@@ -13,9 +13,9 @@ public class ComparatorHandling
 	public static void handleComparingInit(Storage holder, Context cont)
 	{
 		final Dialog dialog = new Dialog(cont);
-		dialog.setContentView(R.layout.export_dialog);
+		dialog.setContentView(R.layout.comparator_view);
 		dialog.show();
-		Button close = (Button)dialog.findViewById(R.id.export_close);
+		Button close = (Button)dialog.findViewById(R.id.comparator_close);
 		close.setOnClickListener(new OnClickListener() 
 		{
 			public void onClick(View v) {
