@@ -1,0 +1,77 @@
+<LinearLayout
+  	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        
+	 	<Button
+	        android:id="@+id/export_close"
+	        style="?android:attr/buttonBarButtonStyle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_weight="100"
+	        android:text="X" />
+	
+	    <View
+	       	android:layout_width="1dp"
+			android:background="#90909090"
+	        android:layout_height="50dp"
+	        android:layout_alignParentTop="true"
+	        android:layout_toLeftOf="@+id/rankings_filter_close"/>
+	
+	    <View
+	       	android:layout_width="65dp"
+			android:background="#90909090"
+	        android:layout_height="1dp"
+	        android:layout_alignParentRight="true"
+	        android:layout_below="@+id/rankings_filter_close" />
+
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_centerVertical="true"
+	        android:text="Select Where You&apos;d Like To Save the .csv"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </RelativeLayout>
+   	<View android:layout_width="fill_parent"
+		   android:layout_height="1dp"
+		   android:background="#90909090"/>
+    <Button
+        android:id="@+id/storage"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:text="Export Rankings to Local Storage" />
+    
+   	<View android:layout_width="fill_parent"
+		   android:layout_height="1dp"
+		   android:background="#90909090"/>
+    
+    <Button
+        android:id="@+id/dropbox"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        style="?android:attr/buttonBarButtonStyle"
+        android:text="Export Rankings to Dropbox" />
+
+   	<View android:layout_width="fill_parent"
+		   android:layout_height="1dp"
+		   android:background="#90909090"/>  	
+    <Button
+        android:id="@+id/google_drive"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        style="?android:attr/buttonBarButtonStyle"
+        android:text="Export Rankings to Google Drive" />
+    
+
+</LinearLayout>

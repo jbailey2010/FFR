@@ -18,6 +18,7 @@ import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.R.id;
 import com.example.fantasyfootballrankings.R.layout;
 import com.example.fantasyfootballrankings.R.menu;
+import com.example.fantasyfootballrankings.ClassFiles.ComparatorHandling;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
@@ -395,7 +396,14 @@ public class Rankings extends Activity {
 	        	  }
 	          }
 	    });  
-		//Comparator not yet implemented
+		compare.setOnClickListener(new View.OnClickListener()
+		{
+	          @Override
+	          public void onClick(View v) 
+	          {
+	        	  ComparatorHandling.handleComparingInit(holder, cont);
+	          }
+		});
 		
 		//Calculator pop up on click
 		calc.setOnClickListener(new View.OnClickListener() 
