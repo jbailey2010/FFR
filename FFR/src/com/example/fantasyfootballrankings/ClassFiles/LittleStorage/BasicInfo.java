@@ -57,6 +57,14 @@ public class BasicInfo
 	public static String standardPos(String position, BasicInfo player2)
 	{
 		String returnString = player2.position;
+		if(returnString.equals("PK"))
+		{
+			returnString = "K";
+		}
+		else if(position.equals("K"))
+		{
+			position = "K";
+		}
 		if(position.length() >= player2.position.length())
 		{
 			returnString = position;
