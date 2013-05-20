@@ -195,7 +195,7 @@ public class ManageInput
 		{
 			float percentage = (float)filterSize/100;
     		int total = (int)(listSize * percentage);
-    		String newSize = total + " players";
+    		String newSize = total + " players maximum";
 			display.setText(newSize);
 		}
 		selector.setProgress(filterSize);
@@ -216,7 +216,7 @@ public class ManageInput
     	    	{
     	    		float percentage = (float)prog/100;
     	    		int total = (int)(listSize * percentage);
-    	    		size = total + " players";
+    	    		size = total + " players maximum";
     	    	}
     	    	display.setText(size);	
 				
