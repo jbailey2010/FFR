@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Spinner
+        android:id="@+id/team_spinner"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="51dp" />
+
+    <Spinner
+        android:id="@+id/position_spinner"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/team_spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp" />
+    
+    <Button
+        android:id="@+id/rankings_filter_close"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="100"
+        android:text="X" />
+
+    <View
+       	android:layout_width="1dp"
+		android:background="#90909090"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/rankings_filter_close"/>
+
+    <View
+       	android:layout_width="65dp"
+		android:background="#90909090"
+        android:layout_height="1dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/rankings_filter_close" />
+
+    <Button
+        android:id="@+id/filter_rankings_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/position_spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp"
+        android:text="Submit" />
+
+</RelativeLayout>

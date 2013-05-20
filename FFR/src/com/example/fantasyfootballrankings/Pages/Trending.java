@@ -49,7 +49,7 @@ import android.widget.Toast;
 /**
  * Sets up the trending page
  * @author Jeff
- *
+ * 
  */ 
 public class Trending extends Activity {
 	//Some globals, the dialog and the context
@@ -174,10 +174,38 @@ public class Trending extends Activity {
     	}
     	else
     	{
-    		ReadFromFile.fetchPostsLocal(holder, cont);
-			ReadFromFile.fetchPlayers(holder,cont, false);
+    		if(holder.players.size() < 5 && holder.posts.size() < 5)
+    		{
+	    		ReadFromFile.fetchPostsLocal(holder, cont);
+	    		if(holder.playerNames.size() < 19)
+	    		{
+	    			ReadFromFile.fetchNamesBackEnd(holder, cont);
+	    		}
+	    		if(holder.players.size() < 10)
+	    		{
+	    	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
+	    	    	if(checkExists2 != "Not Set")
+	    	    	{
+	    				try {
+	    					ReadFromFile.fetchPlayers(holder,cont, false);
+	    				} catch (IOException e) {
+	    					// TODO Auto-generated catch block
+	    					e.printStackTrace();
+	    				} catch (XPatherException e) {
+	    					// TODO Auto-generated catch block
+	    					e.printStackTrace();
+	    				} catch (InterruptedException e) {
+	    					// TODO Auto-generated catch block
+	    					e.printStackTrace();
+	    				} catch (ExecutionException e) {
+	    					// TODO Auto-generated catch block
+	    					e.printStackTrace();
+	    				}
+	    	    	}
+	    		}    		
+	    	}
     	}
-    	getFilterForPosts(holder);
+    	getFilterForPosts(holder); 
 	}
 	
 	/**
@@ -406,7 +434,7 @@ public class Trending extends Activity {
 				else
 				{
 					Dialog dialog = new Dialog(context);
-					Rankings.outputResults(dialog, selected, true, (Trending)context);
+					Rankings.outputResults(dialog, selected, true, (Trending)context, holder);
 				}
 			}
 	    });

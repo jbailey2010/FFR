@@ -54,6 +54,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 /**
@@ -65,11 +66,12 @@ import android.widget.Toast;
 public class Rankings extends Activity {
 	final Context cont = this;
 	static Context newCont;
+	static Context context;
 	static Storage holder = new Storage();
 	static Button voice;
 	static AutoCompleteTextView textView;
 	private static final int REQUEST_CODE = 1234;
-	Dialog dialog;
+	static Dialog dialog;
 	static List<String> matchedPlayers;
 	static Button search;
 	static Button info;
@@ -78,6 +80,10 @@ public class Rankings extends Activity {
 	static ListView listview;
 	static boolean refreshed = false;
 	static int sizeOutput = -1;
+	static String teamFilter = "";
+	static String posFilter = "";
+	static List<String> teamList = new ArrayList<String>();
+	static List<String> posList = new ArrayList<String>();
 	/**
 	 * Sets up the view
 	 */
@@ -90,6 +96,47 @@ public class Rankings extends Activity {
 		compare = (Button)findViewById(R.id.player_comparator);
 		calc = (Button)findViewById(R.id.trade_calc);
     	listview = (ListView)findViewById(R.id.listview_rankings);
+    	context = this;
+		posList.add("All Positions");
+		posList.add("QB");
+		posList.add("RB");
+		posList.add("WR");
+		posList.add("TE");
+		posList.add("D/ST");
+		posList.add("K");
+		teamList.add("All Teams");
+		teamList.add("Arizona Cardinals");
+		teamList.add("Atlanta Falcons");
+		teamList.add("Baltimore Ravens");
+		teamList.add("Buffalo Bills");
+		teamList.add("Carolina Panthers");
+		teamList.add("Chicago Bears");
+		teamList.add("Cincinnati Bengals");
+		teamList.add("Cleveland Browns");
+		teamList.add("Dallas Cowboys");
+		teamList.add("Denver Broncos");
+		teamList.add("Detroit Lions");
+		teamList.add("Green Bay Packers");
+		teamList.add("Houston Texans");
+		teamList.add("Indianapolis Colts");
+		teamList.add("Jacksonville Jaguars");
+		teamList.add("Kansas City Chiefs");
+		teamList.add("Miami Dolphins");
+		teamList.add("Minnesota Vikings");
+		teamList.add("New England Patriots");
+		teamList.add("New Orleans Saints");
+		teamList.add("New York Giants");
+		teamList.add("New York Jets");
+		teamList.add("Oakland Raiders");
+		teamList.add("Philadelphia Eagles");
+		teamList.add("Pittsburgh Steelers");
+		teamList.add("San Diego Chargers");
+		teamList.add("San Francisco 49ers");
+		teamList.add("Seattle Seahawks");
+		teamList.add("St. Louis Rams");
+		teamList.add("Tampa Bay Buccaneers");
+		teamList.add("Tennessee Titans");
+		teamList.add("Washington Redskins");
 		handleRefresh();
 		handleOnClickButtons();
 	}
@@ -115,6 +162,9 @@ public class Rankings extends Activity {
 			case R.id.refresh:
 				refreshRanks(dialog);
 		    	return true;
+			case R.id.filter_topics_rankings:
+				filterTopics(dialog);
+				return true;
 			case R.id.filter_quantity_menu:
 				filterQuantity();
 				return true;
@@ -143,6 +193,106 @@ public class Rankings extends Activity {
 		}
 	}
     
+	/**
+	 * handles relavent filter dialog
+	 * @param dialog2
+	 */
+	public static void filterTopics(final Dialog dialog2) 
+	{
+		dialog.setContentView(R.layout.rankings_filter);
+		Button cancel = (Button)dialog.findViewById(R.id.rankings_filter_close);
+		cancel.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				dialog.dismiss();
+	    	}	
+		});
+		posList.clear();
+		posList.add("All Positions");
+		posList.add("QB");
+		posList.add("RB");
+		posList.add("WR");
+		posList.add("TE");
+		posList.add("D/ST");
+		posList.add("K");
+		teamList.clear();
+		teamList.add("All Teams");
+		teamList.add("Arizona Cardinals");
+		teamList.add("Atlanta Falcons");
+		teamList.add("Baltimore Ravens");
+		teamList.add("Buffalo Bills");
+		teamList.add("Carolina Panthers");
+		teamList.add("Chicago Bears");
+		teamList.add("Cincinnati Bengals");
+		teamList.add("Cleveland Browns");
+		teamList.add("Dallas Cowboys");
+		teamList.add("Denver Broncos");
+		teamList.add("Detroit Lions");
+		teamList.add("Green Bay Packers");
+		teamList.add("Houston Texans");
+		teamList.add("Indianapolis Colts");
+		teamList.add("Jacksonville Jaguars");
+		teamList.add("Kansas City Chiefs");
+		teamList.add("Miami Dolphins");
+		teamList.add("Minnesota Vikings");
+		teamList.add("New England Patriots");
+		teamList.add("New Orleans Saints");
+		teamList.add("New York Giants");
+		teamList.add("New York Jets");
+		teamList.add("Oakland Raiders");
+		teamList.add("Philadelphia Eagles");
+		teamList.add("Pittsburgh Steelers");
+		teamList.add("San Diego Chargers");
+		teamList.add("San Francisco 49ers");
+		teamList.add("Seattle Seahawks");
+		teamList.add("St. Louis Rams");
+		teamList.add("Tampa Bay Buccaneers");
+		teamList.add("Tennessee Titans");
+		teamList.add("Washington Redskins");
+		if(teamFilter.length() < 3)
+		{
+			teamFilter = "All Teams";
+		}
+		if(posFilter.length() < 2 && !posFilter.equals("K"))
+		{
+			posFilter = "All Teams";
+		}
+		final Spinner pos = (Spinner)dialog.findViewById(R.id.position_spinner);
+		final Spinner teams = (Spinner)dialog.findViewById(R.id.team_spinner);
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(context, 
+				android.R.layout.simple_spinner_dropdown_item, posList);
+		pos.setAdapter(spinnerArrayAdapter);
+		ArrayAdapter<String> spinnerArrayAdapte2r = new ArrayAdapter<String>(context, 
+				android.R.layout.simple_spinner_dropdown_item, teamList);
+		teams.setAdapter(spinnerArrayAdapte2r);
+		teams.setSelection(teamList.indexOf(teamFilter));
+		pos.setSelection(posList.indexOf(posFilter));
+
+		//Actual non-initialization work
+		Button submit = (Button)dialog2.findViewById(R.id.filter_rankings_submit);
+		submit.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) 
+			{
+				teamFilter = teams.getSelectedItem().toString();
+				posFilter = pos.getSelectedItem().toString();
+				if(!teamFilter.contains("All"))
+				{
+					teamList.clear();
+					teamList.add(teamFilter);
+				}
+				if(!posFilter.contains("All"))
+				{
+					posList.clear();
+					posList.add(posFilter);
+				}
+				intermediateHandleRankings((Rankings)context);
+				dialog.dismiss();
+	    	}	
+		});
+		dialog.show();
+	}
+
 	/**
 	 * Handles the refreshing of the rankings/user input to do so
 	 * @param dialog
@@ -183,27 +333,37 @@ public class Rankings extends Activity {
 	 */
 	public void handleRefresh()
 	{
-		ReadFromFile.fetchNamesBackEnd(holder, cont);
-    	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-    	String checkExists = prefs.getString("Player Values", "Not Set");
-    	if(checkExists != "Not Set")
-    	{
-			try {
-				ReadFromFile.fetchPlayers(holder,cont, true);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (XPatherException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
+		if(holder.playerNames.size() < 19)
+		{
+			ReadFromFile.fetchNamesBackEnd(holder, cont);
+		}
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		if(holder.players.size() < 10)
+		{
+	    	String checkExists = prefs.getString("Player Values", "Not Set");
+	    	if(checkExists != "Not Set")
+	    	{
+				try {
+					ReadFromFile.fetchPlayers(holder,cont, true);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (XPatherException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    	}
+		}
+		else
+		{
+			intermediateHandleRankings((Rankings)cont);
+		}
 	}
 	
 	/**
@@ -301,7 +461,7 @@ public class Rankings extends Activity {
 				if(holder.parsedPlayers.contains(textView.getText().toString()))
 				{
 					dialog.dismiss();
-					outputResults(dialog, textView.getText().toString(), false, (Rankings)newCont);
+					outputResults(dialog, textView.getText().toString(), false, (Rankings)newCont, holder);
 				}
 			}
 		});
@@ -374,7 +534,7 @@ public class Rankings extends Activity {
      * @param namePlayer
      */
     public static void outputResults(final Dialog dialog, String namePlayer, boolean flag, 
-    		Activity act)
+    		Activity act, Storage holder)
     {
     	dialog.setContentView(R.layout.search_output);
     	List<String>output = new ArrayList<String>(12);
@@ -476,7 +636,8 @@ public class Rankings extends Activity {
     		{
     			output.add(searchedPlayer.info.oLineStatus);
     		}
-    		if(searchedPlayer.info.additionalStat != null && !searchedPlayer.info.additionalStat.equals(""))
+    		if(searchedPlayer.info.additionalStat != null && !searchedPlayer.info.additionalStat.equals("")
+    				&& searchedPlayer.info.additionalStat.length() > 2)
 	    	{
 	    		output.add(searchedPlayer.info.additionalStat);
 	    	}
@@ -640,13 +801,33 @@ public class Rankings extends Activity {
 			    return 0;
 			}
 		});
-		int total = holder.players.size();
-		double fraction = (double)maxSize * 0.01;
-		double newSize = total * fraction;
+		if(posList.size() > 1)
+		{
+			posFilter = "All Positions";
+		}
+		else
+		{
+			posFilter = posList.get(0);
+		}
+		if(teamList.size() > 1)
+		{
+			teamFilter = "All Positions";
+		}
+		else
+		{
+			teamFilter = teamList.get(0);
+		}
 		for(int i = 0; i < holder.players.size(); i++)
 		{
-			inter.add(holder.players.get(i));
+			PlayerObject player = holder.players.get(i);
+			if(posList.contains(player.info.position) && teamList.contains(player.info.team))
+			{
+				inter.add(player);
+			}
 		}
+		int total = inter.size();
+		double fraction = (double)maxSize * 0.01;
+		double newSize = total * fraction;
 		for(int i = 0; i < newSize; i++)
 		{
 			totalList.add(inter.poll());

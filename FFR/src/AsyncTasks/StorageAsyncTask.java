@@ -65,6 +65,24 @@ public class StorageAsyncTask
 	    		{
 	    			fa = player.fa.get(0) + "&&" + player.fa.get(1);
 	    		}
+	    		String oLine = " ";
+	    		if(player.info.oLineStatus != null && !player.info.oLineStatus.equals("") 
+	    				&& player.info.oLineStatus.length() >= 3)
+	    		{
+	    			oLine = player.info.oLineStatus;
+	    		}
+	    		String passRun = " ";
+	    		if(player.info.passRunRatio != null && !player.info.passRunRatio.equals("") 
+	    				&& player.info.passRunRatio.length() >= 3)
+	    		{
+	    			passRun = player.info.passRunRatio;
+	    		}
+	    		String additStat = " ";
+	    		if(player.info.additionalStat != null && !player.info.additionalStat.equals("") 
+	    				&& player.info.additionalStat.length() >= 3)
+	    		{
+	    			additStat = player.info.additionalStat;
+	    		}
 	    		players.append( 
 	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
 	    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
@@ -72,7 +90,7 @@ public class StorageAsyncTask
 	    		player.info.status + "&&" + player.info.adp + "&&" + player.info.bye + "&&" 
 	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
 	    		player.info.age + "&&" + player.stats + "&&" + player.draftClass + "&&" + player.injuryStatus + 
-	    		"&&" + fa + "~~~~");
+	    		"&&" + fa + "&&" + oLine + "&&" + passRun + "&&" + additStat + "~~~~");
 	    	}
 	    	String playerString = players.toString();
 	    	editor.putString("Player Values", playerString).commit();
@@ -296,6 +314,7 @@ public class StorageAsyncTask
 	   			allData[i] = perPlayer[i].split("&&");
 	   			PlayerObject newPlayer = new PlayerObject(allData[i][4], allData[i][5], allData[i][6], 0);
 	   			holder.players.add(newPlayer);
+	   			
 	   		}
 			return allData;
 	    }
@@ -374,6 +393,9 @@ public class StorageAsyncTask
 	   		for(int i = 0; i < holder.players.size(); i++)
 	   		{ 
 	   			PlayerObject player = holder.players.get(i);
+	   			player.info.additionalStat = allData[i][21];
+	   			player.info.passRunRatio = allData[i][20];
+	   			player.info.oLineStatus = allData[i][19];
 	   			player.fa = new ArrayList<String>();
 	   			player.fa.add(0, allData[i][17]);
 	   			player.fa.add(1, allData[i][18]);
@@ -392,7 +414,6 @@ public class StorageAsyncTask
 	   			player.values.count = Double.parseDouble(allData[i][1]);
 	   			player.values.worth = Double.parseDouble(allData[i][0]);
 	   		}
-   			HighLevel.setPermanentData(holder, cont);
 			return null;
 	    }
 	  }
