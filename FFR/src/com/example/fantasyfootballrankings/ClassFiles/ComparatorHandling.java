@@ -128,8 +128,8 @@ public class ComparatorHandling
 	 */
 	public static void startBackEnd(Dialog dialog, Context cont, Storage holder) 
 	{
-		AutoCompleteTextView player1 = (AutoCompleteTextView)dialog.findViewById(R.id.first_player_compare);
-		AutoCompleteTextView player2 = (AutoCompleteTextView)dialog.findViewById(R.id.second_player_compare);
+		AutoCompleteTextView player1 = (AutoCompleteTextView)dialog.findViewById(R.id.player1_input);
+		AutoCompleteTextView player2 = (AutoCompleteTextView)dialog.findViewById(R.id.player2_input);
 		String name1 = player1.getText().toString();
 		String name2 = player2.getText().toString();
 		//First player fetching and other lists
@@ -140,8 +140,362 @@ public class ComparatorHandling
 		PlayerObject secondPlayer = getPlayer(name2, holder);
 		List<PlayerObject> secTeam = getPlayerTeam(holder, secondPlayer);
 		List<PlayerObject> secPos = getPlayerPosition(holder, firstPlayer);
+		//Get the stats
+		handleStats(dialog, cont, holder, firstPlayer, secondPlayer, firstTeam, secTeam, firstPos, secPos);
 	}
 	
+	public static void handleStats(Dialog dialog, Context cont,	Storage holder, 
+			PlayerObject player1, PlayerObject player2, List<PlayerObject> firstTeam,
+			List<PlayerObject> secTeam, List<PlayerObject> firstPos, List<PlayerObject> secPos) 
+	{
+		StringBuilder p1 = new StringBuilder(1000);
+		StringBuilder p2 = new StringBuilder(1000);
+		int rank1 = posRank(player1, firstPos);
+		int rank2 = posRank(player2, secPos);
+		if(rank1 != rank2)
+		{
+			if(rank1 < rank2)
+			{
+				p1.append("Positionally higher valued" + "\n");
+			}
+			else
+			{
+				p2.append("Positionally higher valued" + "\n");
+			}
+		}
+		double worth1 = player1.values.worth;
+		double worth2 = player2.values.worth;
+		if(worth1 != worth2)
+		{
+			if(worth1 > worth2)
+			{
+				p2.append("Costs less" + "\n");
+			}
+			else
+			{
+				p1.append("Costs less" + "\n");
+			}
+		}
+		int age1 = Integer.parseInt(player1.info.age);
+		int age2 = Integer.parseInt(player2.info.age);
+		if(age1 != age2)
+		{
+			if(age1 > age2)
+			{
+				p2.append("Younger" + "\n");
+			}
+			else
+			{
+				p1.append("Younger" + "\n");
+			}
+		}
+		int depth1 = teamDepth(player1, firstTeam);
+		int depth2 = teamDepth(player2, secTeam);
+		if(depth1 != depth2)
+		{
+			if(depth1 < depth2)
+			{
+				p1.append("Higher on his team's depth chart" + "\n");
+			}
+			else
+			{
+				p2.append("Higher on his team's depth chart" + "\n");
+			}
+		}
+		double cast1 = teamWorth(firstTeam);
+		double cast2 = teamWorth(secTeam);
+		if(cast1 != cast2)
+		{
+			if(cast1 > cast2)
+			{
+				p1.append("Better supporting cast\n");
+			}
+			else
+			{
+				p2.append("Better supporting cast\n");
+			}
+		}
+		boolean sameBye1 = teamBye(holder, player1);
+		boolean sameBye2 = teamBye(holder, player2);
+		if(sameBye1)
+		{
+			p1.append("Same bye as a player you've drafted\n");
+		}
+		if(sameBye2)
+		{
+			p2.append("Same bye as a player you've drafted\n");
+		}
+		double trend1 = trend(player1);
+		double trend2 = trend(player2);
+		if(trend1 != trend2)
+		{
+			if(trend1 > trend2)
+			{
+				p1.append("Value is trending more positively\n");
+			}
+			else
+			{
+				p2.append("Value is trending more positively\n");
+			}
+		}
+		double quantity1 = player1.values.count;
+		double quantity2 = player2.values.count;
+		if(quantity1 > quantity2)
+		{
+			p1.append("Shows up in more rankings\n");
+		}
+		else if(quantity2 > quantity1)
+		{
+			p2.append("Shows up in more rankings\n");
+		}
+		int lineRank1 = lineRank(player1);
+		int lineRank2 = lineRank(player2);
+		if(lineRank1 < lineRank2)
+		{
+			p1.append("Better offensive line\n");
+		}
+		else
+		{
+			p2.append("Better offensive line\n");
+		}
+		int pr1 = prRatio(player1);
+		int pr2 = prRatio(player2);
+		if((player1.info.position.equals("QB") || player2.info.position.equals("WR") ||
+				player1.info.position.equals("TE")) && pr1 > pr2)
+		{
+			p1.append("Passes more often\n");
+		}
+		else if((player2.info.position.equals("QB") || player2.info.position.equals("WR") ||
+				player2.info.position.equals("TE")) && pr2 > pr1)
+		{
+			p2.append("Passes more often\n");
+		}
+		else if(player1.info.position.equals("RB") && pr1 < pr2)
+		{
+			p1.append("Runs more often\n");
+		}
+		else if(player2.info.position.equals("RB") && pr2 < pr1)
+		{
+			p2.append("Runs more often\n");
+		}
+		int draft1 = draftRank(player1);
+		int draft2 = draftRank(player2);
+		if(draft1 < draft2)
+		{
+			p1.append("Better graded draft\n");
+		}
+		else
+		{
+			p2.append("Better graded draft\n");
+		}
+		double diff1 = player1.values.high - player1.values.low;
+		double diff2 = player2.values.high - player2.values.low;
+		if(diff1 < diff2)
+		{
+			p1.append("More consistent value\n");
+			p2.append("Less consistent value\n");
+		}
+		else if(diff2 < diff1)
+		{
+			p1.append("Less consistent value\n");
+			p2.append("More consistent value\n");
+		}
+		double adp1 = adp(player1);
+		double adp2 = adp(player2);
+		if(adp1 < adp2)
+		{
+			p1.append("Higher adp\n");
+		}
+		else
+		{
+			p2.append("Higher adp\n");
+		}
+		fixOutput(dialog, cont, holder, player1, player2, p1, p2);
+	}
+	
+	/**
+	 * Sets the output of the results
+	 */
+	public static void fixOutput(final Dialog dialog, final Context cont, final Storage holder,
+			PlayerObject player1, PlayerObject player2, StringBuilder p1,
+			StringBuilder p2) 
+	{
+		dialog.setContentView(R.layout.comparator_output);
+		TextView header1 = (TextView)dialog.findViewById(R.id.compare_header_1);
+		header1.setText(player1.info.name);
+		TextView header2 = (TextView)dialog.findViewById(R.id.compare_header_2);
+		header2.setText(player2.info.name);
+		Button back = (Button)dialog.findViewById(R.id.compare_back);
+		back.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				dialog.dismiss();
+				handleComparingInit(holder, cont);
+	    	}	
+		});
+		TextView output1 = (TextView)dialog.findViewById(R.id.compare_output_1);
+		TextView output2 = (TextView)dialog.findViewById(R.id.compare_output_2);
+		output1.setText(p1.toString());
+		output2.setText(p2.toString());
+		Button close = (Button)dialog.findViewById(R.id.compare_close);
+		close.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				dialog.dismiss();
+	    	}	
+		});
+		dialog.show();
+	}
+
+	/**
+	 * Parses draft rank
+	 */
+	public static int draftRank(PlayerObject player)
+	{
+		String[] split = player.draftClass.split("\n");
+		String average = split[0];
+		String rank = average.split("\\(")[1].substring(0, average.split("\\(")[1].length() - 1);
+		return Integer.parseInt(rank);
+	}
+	
+	/**
+	 * returns the overall line rank
+	 */
+	public static int lineRank(PlayerObject player)
+	{
+		String[] split = player.info.oLineStatus.split("\n");
+		String overall = split[0];
+		String result = overall.split(": ")[1];
+		return Integer.parseInt(result);
+	}
+	
+	/**
+	 * Returns the team pass/run ratio
+	 */
+	public static int prRatio(PlayerObject player)
+	{
+		String ratio = player.info.passRunRatio.replace("%", "");
+		String[] split = ratio.split(": ");
+		return Integer.parseInt(split[1]);
+	}
+	
+	/**
+	 * Parses the adp
+	 */
+	public static double adp(PlayerObject player)
+	{
+		if(player.info.adp.equals("Not Set"))
+		{
+			return 500.0;
+		}
+		return Double.parseDouble(player.info.adp);
+	}
+	
+	/**
+	 * Returns the trend of a player
+	 */
+	public static double trend(PlayerObject player)
+	{
+		if(player.info.trend.contains("+") || player.info.trend.contains("-"))
+		{
+			String trendStr = player.info.trend.replace("+", "");
+			if(trendStr.contains("-"))
+			{
+				return 0.0 - Double.parseDouble(trendStr.replace("-", ""));
+			}
+			return Double.parseDouble(trendStr);
+		}
+		return 0.0;
+	}
+	
+	/**
+	 * Sees if you've drafted a player with the same bye as the player considered
+	 */
+	public static boolean teamBye(Storage holder, PlayerObject player)
+	{
+		List<PlayerObject> draft = new ArrayList<PlayerObject>();
+		if(player.info.position.equals("QB"))
+		{
+			draft = holder.draft.qb;
+		}
+		else if(player.info.position.equals("RB"))
+		{
+			draft = holder.draft.rb;
+		}
+		else if(player.info.position.equals("WR"))
+		{
+			draft = holder.draft.wr;
+		}
+		else if(player.info.position.equals("TE"))
+		{
+			draft = holder.draft.te;
+		}
+		else if(player.info.position.equals("D/ST"))
+		{
+			draft = holder.draft.def;
+		}
+		else
+		{
+			draft = holder.draft.k;
+		}
+		boolean sameBye = false;
+		for(PlayerObject iter : draft)
+		{
+			if(iter.info.position.equals(player.info.position))
+			{
+				return true;
+			}
+		}
+		return sameBye;
+	}
+	
+	/**
+	 * Finds the sum of the worth of a team (supporting cast)
+	 */
+	public static double teamWorth(List<PlayerObject> teamList)
+	{
+		double sum = 0.0;
+		for(PlayerObject player : teamList)
+		{
+			sum+=player.values.worth;
+		}
+		return sum;
+	}
+	
+	/**
+	 * Finds if a player on the same team with the same position
+	 * has a higher worth
+	 */
+	public static int teamDepth(PlayerObject player, List<PlayerObject> teamList)
+	{
+		int depth = 1;
+		for(PlayerObject iter : teamList)
+		{
+			if(iter.info.position.equals(player.info.position) && iter.values.worth > player.values.worth)
+			{
+				depth++;
+			}
+		}
+		return depth;
+	}
+	
+	/**
+	 * Finds the positional rank of a player
+	 */
+	public static int posRank(PlayerObject player, List<PlayerObject> posList)
+	{
+		double worth = player.values.worth;
+		int rank = 1;
+		for(PlayerObject iter : posList)
+		{
+			if(iter.values.worth > worth)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+
 	/**
 	 * Gets the player given a name
 	 */
