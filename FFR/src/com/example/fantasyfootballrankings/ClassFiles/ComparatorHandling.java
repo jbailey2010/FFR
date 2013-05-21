@@ -480,7 +480,8 @@ public class ComparatorHandling
 		{
 			p2.append("You have not yet drafted a player \nof this position\n");
 		}
-		if(player1.stats.contains("Broken Tackles") && player2.stats.contains("Broken Tackles"))
+		if(player1.stats.contains("Broken Tackles") && player2.stats.contains("Broken Tackles") &&
+				player1.info.position.equals(player2.info.position))
 		{
 			int bt1 = bt(player1);
 			int bt2 = bt(player2);
