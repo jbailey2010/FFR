@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -90,7 +91,7 @@ public class ComparatorHandling
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				TextView list2 = (TextView)dialog.findViewById(R.id.second_player_compare);
-				showInput(player1, dialog, cont, holder, R.id.first_player_compare);
+				showInput(player1, dialog, cont, holder, R.id.first_player_compare, "First Player: ");
 				if(list2.getText().toString().contains("\n"))
 				{
 					startBackEnd(dialog, cont, holder);
@@ -103,7 +104,7 @@ public class ComparatorHandling
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				TextView list1 = (TextView)dialog.findViewById(R.id.first_player_compare);
-				showInput(player2, dialog, cont, holder, R.id.second_player_compare);
+				showInput(player2, dialog, cont, holder, R.id.second_player_compare, "Second Player: ");
 				if(list1.getText().toString().contains("\n"))
 				{
 					startBackEnd(dialog, cont, holder);
@@ -115,11 +116,12 @@ public class ComparatorHandling
 	/**
 	 * Sets the textview at the bottom to be the inputted player
 	 */
-	public static void showInput(AutoCompleteTextView player, Dialog dialog, Context cont, Storage holder, int id) 
+	public static void showInput(AutoCompleteTextView player, Dialog dialog, Context cont, Storage holder, int id,
+			String text) 
 	{
 		String input = player.getText().toString();
 		TextView list = (TextView)dialog.findViewById(id);
-		list.setText(list.getText().toString() + input + "\n");
+		list.setText(text + input + "\n");
 		list.setVisibility(TextView.VISIBLE);
 	}
 	
@@ -139,7 +141,7 @@ public class ComparatorHandling
 		//Fetch second player and other lists
 		PlayerObject secondPlayer = getPlayer(name2, holder);
 		List<PlayerObject> secTeam = getPlayerTeam(holder, secondPlayer);
-		List<PlayerObject> secPos = getPlayerPosition(holder, firstPlayer);
+		List<PlayerObject> secPos = getPlayerPosition(holder, secondPlayer);
 		//Get the stats
 		handleStats(dialog, cont, holder, firstPlayer, secondPlayer, firstTeam, secTeam, firstPos, secPos);
 	}
@@ -156,24 +158,52 @@ public class ComparatorHandling
 		{
 			if(rank1 < rank2)
 			{
-				p1.append("Positionally higher valued" + "\n");
+				if(rank2 - rank1 > 10)
+				{
+					p1.append("Positionally much higher ranked" + "\n");
+				}
+				else
+				{
+					p1.append("Positionally higher ranked\n");
+				}
 			}
 			else
 			{
-				p2.append("Positionally higher valued" + "\n");
+				if(rank1 - rank2 > 10)
+				{
+					p2.append("Positionally much higher ranked" + "\n");
+				}
+				else
+				{
+					p2.append("Positionally higher ranked\n");
+				}		
 			}
 		}
 		double worth1 = player1.values.worth;
 		double worth2 = player2.values.worth;
-		if(worth1 != worth2)
+		if(Math.abs(worth1 - worth2) > 3.0)
 		{
 			if(worth1 > worth2)
 			{
-				p2.append("Costs less" + "\n");
+				if(worth1 - worth2 > 10)
+				{
+					p2.append("Costs much less\n");
+				}
+				else
+				{
+					p2.append("Costs less" + "\n");
+				}
 			}
 			else
 			{
-				p1.append("Costs less" + "\n");
+				if(worth2 - worth1 > 10)
+				{
+					p1.append("Costs much less\n");
+				}
+				else
+				{
+					p1.append("Costs less" + "\n");
+				}
 			}
 		}
 		int age1 = Integer.parseInt(player1.info.age);
@@ -182,11 +212,25 @@ public class ComparatorHandling
 		{
 			if(age1 > age2)
 			{
-				p2.append("Younger" + "\n");
+				if(age1 - age2 > 5)
+				{
+					p2.append("Much younger\n");
+				}
+				else
+				{
+					p2.append("Younger" + "\n");
+				}
 			}
 			else
 			{
-				p1.append("Younger" + "\n");
+				if(age2 - age1 > 5)
+				{
+					p1.append("Much younger\n");
+				}
+				else
+				{
+					p1.append("Younger" + "\n");
+				}		
 			}
 		}
 		int depth1 = teamDepth(player1, firstTeam);
@@ -204,15 +248,29 @@ public class ComparatorHandling
 		}
 		double cast1 = teamWorth(firstTeam);
 		double cast2 = teamWorth(secTeam);
-		if(cast1 != cast2)
+		if(Math.abs(cast1 - cast2) > 4.0)
 		{
 			if(cast1 > cast2)
 			{
-				p1.append("Better supporting cast\n");
+				if(cast1 - cast2 > 20.0)
+				{
+					p1.append("Much better supporting cast\n");
+				}
+				else
+				{
+					p1.append("Better supporting cast\n");
+				}
 			}
 			else
 			{
-				p2.append("Better supporting cast\n");
+				if(cast2 - cast1 > 20.0)
+				{
+					p2.append("Much better supporting cast\n");
+				}
+				else
+				{
+					p2.append("Better supporting cast\n");
+				}
 			}
 		}
 		boolean sameBye1 = teamBye(holder, player1);
@@ -231,84 +289,250 @@ public class ComparatorHandling
 		{
 			if(trend1 > trend2)
 			{
-				p1.append("Value is trending more positively\n");
+				if(trend1 - trend2 > 10.0)
+				{
+					p1.append("Value is trending in a much better direction\n");
+				}
+				else
+				{
+					p1.append("Value is trending in a better direction\n");
+				}
 			}
 			else
 			{
-				p2.append("Value is trending more positively\n");
+				if(trend2 - trend1 > 10.0)
+				{
+					p2.append("Value is trending in a much better direction\n");
+				}
+				else
+				{
+					p2.append("Value is trending in a better direction\n");
+				}		
 			}
 		}
 		double quantity1 = player1.values.count;
 		double quantity2 = player2.values.count;
 		if(quantity1 > quantity2)
 		{
-			p1.append("Shows up in more rankings\n");
+			if(quantity1 - quantity2 > 3)
+			{
+				p1.append("Shows up in a lot more rankings\n");
+			}
+			else
+			{
+				p1.append("Shows up in more rankings\n");
+			}
 		}
 		else if(quantity2 > quantity1)
 		{
-			p2.append("Shows up in more rankings\n");
+			if(quantity2 - quantity1 > 3)
+			{
+				p2.append("Shows up in a lot more rankings\n");
+			}
+			else
+			{
+				p2.append("Shows up in more rankings\n");
+			}	
 		}
 		int lineRank1 = lineRank(player1);
 		int lineRank2 = lineRank(player2);
 		if(lineRank1 < lineRank2)
 		{
-			p1.append("Better offensive line\n");
+			if(lineRank2 - lineRank1 > 6)
+			{
+				p1.append("Much better offensive line\n");
+			}
+			else
+			{
+				p1.append("Better offensive line\n");
+			}
 		}
 		else
 		{
-			p2.append("Better offensive line\n");
+			if(lineRank1 - lineRank2 > 6)
+			{
+				p2.append("Much better offensive line\n");
+			}
+			else
+			{
+				p2.append("Better offensive line\n");
+			}	
 		}
 		int pr1 = prRatio(player1);
 		int pr2 = prRatio(player2);
-		if((player1.info.position.equals("QB") || player2.info.position.equals("WR") ||
+		if((player1.info.position.equals("QB") || player1.info.position.equals("WR") ||
 				player1.info.position.equals("TE")) && pr1 > pr2)
 		{
-			p1.append("Passes more often\n");
+			p1.append("Team passes more often\n");
 		}
-		else if((player2.info.position.equals("QB") || player2.info.position.equals("WR") ||
+		if((player2.info.position.equals("QB") || player2.info.position.equals("WR") ||
 				player2.info.position.equals("TE")) && pr2 > pr1)
 		{
-			p2.append("Passes more often\n");
+			p2.append("Team passes more often\n");
 		}
-		else if(player1.info.position.equals("RB") && pr1 < pr2)
+		if(player1.info.position.equals("RB") && pr1 < pr2)
 		{
-			p1.append("Runs more often\n");
+			p1.append("Team runs more often\n");
 		}
-		else if(player2.info.position.equals("RB") && pr2 < pr1)
+		if(player2.info.position.equals("RB") && pr2 < pr1)
 		{
-			p2.append("Runs more often\n");
+			p2.append("Team runs more often\n");
 		}
 		int draft1 = draftRank(player1);
 		int draft2 = draftRank(player2);
 		if(draft1 < draft2)
 		{
-			p1.append("Better graded draft\n");
+			if(draft2 - draft1 > 5)
+			{
+				p1.append("Much better graded draft\n");
+			}
+			else
+			{
+				p1.append("Better graded draft\n");
+			}
 		}
 		else
 		{
-			p2.append("Better graded draft\n");
+			if(draft1 - draft2 > 5)
+			{
+				p2.append("Much better graded draft\n");
+			}
+			else
+			{
+				p2.append("Better graded draft\n");
+			}	
 		}
 		double diff1 = player1.values.high - player1.values.low;
 		double diff2 = player2.values.high - player2.values.low;
-		if(diff1 < diff2)
+		if(Math.abs(diff1 - diff2) > 5.0)
 		{
-			p1.append("More consistent value\n");
-			p2.append("Less consistent value\n");
-		}
-		else if(diff2 < diff1)
-		{
-			p1.append("Less consistent value\n");
-			p2.append("More consistent value\n");
+			if(diff1 < diff2)
+			{
+				if(diff2 - diff1 > 15.0)
+				{
+					p1.append("Much more consistently ranked value\n");
+					p2.append("Much less consistently ranked value\n");
+				}
+				else
+				{
+					p1.append("More consistent value\n");
+					p2.append("Less consistent value\n");
+				}
+			}
+			else if(diff2 < diff1)
+			{
+				if(diff1 - diff2 > 15.0)
+				{
+					p2.append("Much more consistently ranked value\n");
+					p1.append("Much less consistently ranked value\n");
+				}
+				else
+				{
+					p2.append("More consistent value\n");
+					p1.append("Less consistent value\n");
+				}
+			}
 		}
 		double adp1 = adp(player1);
 		double adp2 = adp(player2);
-		if(adp1 < adp2)
+		if(Math.abs(adp1 - adp2) > 2.0)
 		{
-			p1.append("Higher adp\n");
+			if(adp1 < adp2)
+			{
+				if(adp2 - adp1 > 15.0)
+				{
+					p1.append("Much higher adp\n");
+				}
+				else
+				{
+					p1.append("Higher adp\n");
+				}
+			}
+			else
+			{
+				if(adp1 - adp2 > 15.0)
+				{
+					p2.append("Much higher adp\n");
+				}
+				else
+				{
+					p2.append("Higher adp\n");
+				}		
+			}
 		}
-		else
+		boolean inj1 = injury(player1);
+		boolean inj2 = injury(player2);
+		if(inj1)
 		{
-			p2.append("Higher adp\n");
+			p1.append("Injured\n");
+		}
+		if(inj2)
+		{
+			p2.append("Injured\n");
+		}
+		boolean pos1 = samePos(player1, holder);
+		boolean pos2 = samePos(player2, holder);
+		if(!pos1)
+		{
+			p1.append("You have not yet drafted a player \nof this position\n");
+		}
+		if(!pos2)
+		{
+			p2.append("You have not yet drafted a player \nof this position\n");
+		}
+		if(player1.stats.contains("Broken Tackles") && player2.stats.contains("Broken Tackles"))
+		{
+			int bt1 = bt(player1);
+			int bt2 = bt(player2);
+			if(bt1 > bt2)
+			{
+				if(bt1 - bt2 > 15)
+				{
+					p1.append("Broke many more tackles last year\n");
+				}
+				else
+				{
+					p1.append("Broke more tackles last year\n");
+				}
+			}
+			else
+			{
+				if(bt2 - bt1 > 15)
+				{
+					p2.append("Broke many more tackles last year\n");
+				}
+				else
+				{
+					p2.append("Broke more tackles last year\n");
+				}
+			}
+		}
+		if(player1.info.additionalStat.contains("%") && player2.info.additionalStat.contains("%"))
+		{
+			double mib1 = mib(player1);
+			double mib2 = mib(player2);
+			if(mib1 > mib2)
+			{
+				if(mib1 - mib2 > 10.0)
+				{
+					p1.append("Faced 8+ in the box much more often last year\n");
+				}
+				else
+				{
+					p1.append("Faced 8+ in the box more often last year\n");
+				}
+			}
+			else
+			{
+				if(mib2 - mib1 > 10.0)
+				{
+					p2.append("Faced 8+ in the box much more often last year\n");
+				}
+				else
+				{
+					p2.append("Faced 8+ in the box more often last year\n");
+				}
+			}
 		}
 		fixOutput(dialog, cont, holder, player1, player2, p1, p2);
 	}
@@ -321,6 +545,11 @@ public class ComparatorHandling
 			StringBuilder p2) 
 	{
 		dialog.setContentView(R.layout.comparator_output);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.height = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
 		TextView header1 = (TextView)dialog.findViewById(R.id.compare_header_1);
 		header1.setText(player1.info.name);
 		TextView header2 = (TextView)dialog.findViewById(R.id.compare_header_2);
@@ -345,6 +574,76 @@ public class ComparatorHandling
 	    	}	
 		});
 		dialog.show();
+	}
+	
+	/**
+	 * Gets the broken tackle total
+	 */
+	public static int bt(PlayerObject player)
+	{
+		String btStr = player.stats.split("Broken Tackles: ")[1];
+		String total = btStr.split(", ")[0];
+		return Integer.parseInt(total);
+	}
+	
+	/**
+	 * Gets the 8+ men in box percentage
+	 */
+	public static double mib(PlayerObject player)
+	{
+		String statWhole = player.info.additionalStat;
+		String percentOn = statWhole.split(": ")[1];
+		String relativeLeft = percentOn.split(", ")[0];
+		return Double.parseDouble(relativeLeft.substring(0, relativeLeft.length()-1));
+	}
+	
+	/**
+	 * Determines if you've drafted a player of a certain position
+	 */
+	public static boolean samePos(PlayerObject player, Storage holder)
+	{
+		List<PlayerObject> draft = new ArrayList<PlayerObject>();
+		if(player.info.position.equals("QB"))
+		{
+			draft = holder.draft.qb;
+		}
+		else if(player.info.position.equals("RB"))
+		{
+			draft = holder.draft.rb;
+		}
+		else if(player.info.position.equals("WR"))
+		{
+			draft = holder.draft.wr;
+		}
+		else if(player.info.position.equals("TE"))
+		{
+			draft = holder.draft.te;
+		}
+		else if(player.info.position.equals("D/ST"))
+		{
+			draft = holder.draft.def;
+		}
+		else
+		{
+			draft = holder.draft.k;
+		}
+		if(draft.size() == 0)
+		{
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Determines if a player is injured or not
+	 */
+	public static boolean injury(PlayerObject player)
+	{
+		if(!player.injuryStatus.contains("Healthy"))
+		{
+			return true;
+		}
+		return false;
 	}
 
 	/**
