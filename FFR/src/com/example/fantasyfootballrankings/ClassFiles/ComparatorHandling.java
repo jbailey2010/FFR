@@ -93,8 +93,7 @@ public class ComparatorHandling
 				showInput(player1, dialog, cont, holder, R.id.first_player_compare);
 				if(list2.getText().toString().contains("\n"))
 				{
-					System.out.println("Call something");
-					//Call function to do comparing
+					startBackEnd(dialog, cont, holder);
 				}
 			}
 		});
@@ -107,8 +106,7 @@ public class ComparatorHandling
 				showInput(player2, dialog, cont, holder, R.id.second_player_compare);
 				if(list1.getText().toString().contains("\n"))
 				{
-					System.out.println("Call something");
-					//Call function to do comparing
+					startBackEnd(dialog, cont, holder);
 				}
 			}
 		});
@@ -123,5 +121,71 @@ public class ComparatorHandling
 		TextView list = (TextView)dialog.findViewById(id);
 		list.setText(list.getText().toString() + input + "\n");
 		list.setVisibility(TextView.VISIBLE);
+	}
+	
+	/**
+	 * Starts the back-end work of the comparator
+	 */
+	public static void startBackEnd(Dialog dialog, Context cont, Storage holder) 
+	{
+		AutoCompleteTextView player1 = (AutoCompleteTextView)dialog.findViewById(R.id.first_player_compare);
+		AutoCompleteTextView player2 = (AutoCompleteTextView)dialog.findViewById(R.id.second_player_compare);
+		String name1 = player1.getText().toString();
+		String name2 = player2.getText().toString();
+		//First player fetching and other lists
+		PlayerObject firstPlayer = getPlayer(name1, holder);
+		List<PlayerObject> firstTeam = getPlayerTeam(holder, firstPlayer);
+		List<PlayerObject> firstPos = getPlayerPosition(holder, firstPlayer);
+		//Fetch second player and other lists
+		PlayerObject secondPlayer = getPlayer(name2, holder);
+		List<PlayerObject> secTeam = getPlayerTeam(holder, secondPlayer);
+		List<PlayerObject> secPos = getPlayerPosition(holder, firstPlayer);
+	}
+	
+	/**
+	 * Gets the player given a name
+	 */
+	public static PlayerObject getPlayer(String name, Storage holder)
+	{
+		for(PlayerObject player : holder.players)
+		{
+			if(player.info.name.equals(name))
+			{
+				return player;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Gets all players of the same position of the player
+	 */
+	public static List<PlayerObject> getPlayerPosition(Storage holder, PlayerObject player)
+	{
+		List<PlayerObject> positionList = new ArrayList<PlayerObject>();
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.info.position.equals(player.info.position))
+			{
+				positionList.add(iter);
+			}
+		}
+		return positionList;
+	}
+	
+	/**
+	 * Gets all the players on the same team as the player
+	 */
+	public static List<PlayerObject> getPlayerTeam(Storage holder, PlayerObject player)
+	{
+		List<PlayerObject> teamList = new ArrayList<PlayerObject>();
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.info.team.equals(player.info.team))
+			{
+				teamList.add(iter);
+			}
+		}
+		return teamList;
 	}
 }
