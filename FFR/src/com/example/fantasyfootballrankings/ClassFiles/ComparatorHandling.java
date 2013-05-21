@@ -30,6 +30,17 @@ public class ComparatorHandling
 		final Dialog dialog = new Dialog(cont);
 		dialog.setContentView(R.layout.comparator_view);
 		dialog.show();
+		//For when this is called back by the comparing part:
+		final AutoCompleteTextView player1Input = (AutoCompleteTextView)dialog.findViewById(R.id.player1_input);
+		final AutoCompleteTextView player2Input = (AutoCompleteTextView)dialog.findViewById(R.id.player2_input);
+		player1Input.setText("");
+		player2Input.setText("");
+		final TextView player1 = (TextView)dialog.findViewById(R.id.first_player_compare);
+		final TextView player2 = (TextView)dialog.findViewById(R.id.second_player_compare);
+		player1.setText("First Player: ");
+		player2.setText("Second Player: ");
+		player1.setVisibility(TextView.INVISIBLE);
+		player2.setVisibility(TextView.INVISIBLE);
 		//Get rid of dialog
 		Button close = (Button)dialog.findViewById(R.id.compare_close);
 		close.setOnClickListener(new OnClickListener() 
@@ -44,16 +55,16 @@ public class ComparatorHandling
 		clear.setOnClickListener(new OnClickListener() 
 		{
 			public void onClick(View v) {
-				TextView player1 = (TextView)dialog.findViewById(R.id.first_player_compare);
-				TextView player2 = (TextView)dialog.findViewById(R.id.second_player_compare);
-				player1.setText("Second Player: ");
-				player2.setText("First Player: ");
+				player1.setText("First Player: ");
+				player2.setText("Second Player: ");
 				player1.setVisibility(TextView.INVISIBLE);
 				player2.setVisibility(TextView.INVISIBLE);
 				final AutoCompleteTextView player1Input = (AutoCompleteTextView)dialog.findViewById(R.id.player1_input);
 				final AutoCompleteTextView player2Input = (AutoCompleteTextView)dialog.findViewById(R.id.player2_input);
 				player1Input.setText("");
 				player2Input.setText("");
+				player1Input.setFocusableInTouchMode(true);
+				player1Input.requestFocus();
 	    	}	
 		});
 		setAdapter(holder, cont, dialog);
