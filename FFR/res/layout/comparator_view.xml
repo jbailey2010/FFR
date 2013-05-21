@@ -2,28 +2,121 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    	<Button
-	        android:id="@+id/comparator_close"
-	        style="?android:attr/buttonBarButtonStyle"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-	        android:layout_alignParentTop="true"
-	        android:layout_weight="100"
-	        android:text="X" />
-	
-	    <View
-	       	android:layout_width="1dp"
-			android:background="#90909090"
-	        android:layout_height="50dp"
-	        android:layout_alignParentTop="true"
-	        android:layout_toLeftOf="@+id/comparator_close"/>
-	
-	    <View
-	       	android:layout_width="65dp"
-			android:background="#90909090"
-	        android:layout_height="1dp"
-	        android:layout_alignParentRight="true"
-	        android:layout_below="@+id/comparator_close" />
+
+    <Button
+        android:id="@+id/compare_close"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="100"
+        android:text="X" />
+
+    <View
+       	android:layout_width="1dp"
+		android:background="#90909090"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/compare_close"/>
+
+    <View
+       	android:layout_width="65dp"
+		android:background="#90909090"
+        android:layout_height="1dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/compare_close" />
+
+    <Button
+        android:id="@+id/clear_compare"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Clear" />
+    
+    <View
+       	android:layout_width="65dp"
+		android:background="#90909090"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/clear_compare" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/clear_compare"
+        android:background="#90909090" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/trade_output"
+        android:layout_marginTop="115dp"
+        android:text=" "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/player_comparator_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/compare_close"
+        android:layout_centerHorizontal="true"
+        android:text="Enter 2 Players Below"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <AutoCompleteTextView
+        android:id="@+id/player1_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/textView1"
+        android:ems="10" />
+
+    <AutoCompleteTextView
+        android:id="@+id/player2_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/second_player_compare"
+        android:layout_alignParentRight="true"
+        android:ems="10" >
+
+        <requestFocus />
+    </AutoCompleteTextView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/first_player_compare"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="81dp"
+        android:text=" "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/first_player_compare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/second_player_compare"
+        android:layout_alignBottom="@+id/second_player_compare"
+        android:layout_marginLeft="35dp"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="First Player: "
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/second_player_compare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/player1_input"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="62dp"
+        android:text="Second Player: "
+        android:visibility="invisible" />
 
 </RelativeLayout>

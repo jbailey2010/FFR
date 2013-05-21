@@ -601,7 +601,7 @@ public class Rankings extends Activity {
     	{
     		output.add("Positional SOS: " + searchedPlayer.info.sos);
     	}
-    	if(!searchedPlayer.info.bye.contains("null") && searchedPlayer.info.bye != null && 
+    	if(searchedPlayer.info.bye != null && !searchedPlayer.info.bye.contains("null") &&  
     			!searchedPlayer.info.bye.equals("Not set"))
     	{
     		output.add("Bye: " + searchedPlayer.info.bye);

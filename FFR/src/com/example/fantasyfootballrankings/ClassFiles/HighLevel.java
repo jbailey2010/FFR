@@ -54,7 +54,7 @@ public class HighLevel
 				"Eddie Lacy", "Jonathan Franklin", "Giovani Bernard", "Lamar Miller", 
 				"Marshawn Lynch", "Peyton Manning", "Browns D/ST", "Reggie Bush",
 				"Danny Amendola", "Seahawks D/ST", "Trent Richardson", 
-				"Colin Kaepernick", "Chris Johnson", "A.J. Green", "Aaron Dobson"));
+				"Colin Kaepernick", "Chris Johnson", "A.J. Green", "Aaron Dobson", "Texans D/ST"));
 		
 		List<String> hflc = new ArrayList<String>(Arrays.asList("DeSean Jackson", 
 				"Larry Fitzgerald", "Michael Vick", "Torrey Smith", "Maurice Jones-Drew", 

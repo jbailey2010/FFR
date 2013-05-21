@@ -468,6 +468,10 @@ public class ParseRankings
 		{
 			return "San Francisco 49ers";
 		}
+		else if(low.contains("england"))
+		{
+			return "New England Patriots";
+		}
 		return team;
 	}
 
