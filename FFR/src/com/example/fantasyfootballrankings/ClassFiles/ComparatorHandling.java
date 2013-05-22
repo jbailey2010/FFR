@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 /**
  * Handles the player comparing
@@ -134,6 +135,11 @@ public class ComparatorHandling
 		AutoCompleteTextView player2 = (AutoCompleteTextView)dialog.findViewById(R.id.player2_input);
 		String name1 = player1.getText().toString();
 		String name2 = player2.getText().toString();
+		if(name1.equals(name2))
+		{
+			Toast.makeText(cont, "Please enter 2 different players", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		//First player fetching and other lists
 		PlayerObject firstPlayer = getPlayer(name1, holder);
 		List<PlayerObject> firstTeam = getPlayerTeam(holder, firstPlayer);
@@ -347,7 +353,7 @@ public class ComparatorHandling
 				p1.append("Better offensive line\n");
 			}
 		}
-		else
+		else if(lineRank2 < lineRank1)
 		{
 			if(lineRank1 - lineRank2 > 6)
 			{
@@ -391,7 +397,7 @@ public class ComparatorHandling
 				p1.append("Better graded draft\n");
 			}
 		}
-		else
+		else if(draft2 < draft1)
 		{
 			if(draft1 - draft2 > 5)
 			{
@@ -496,7 +502,7 @@ public class ComparatorHandling
 					p1.append("Broke more tackles last year\n");
 				}
 			}
-			else
+			else if(bt2 > bt1)
 			{
 				if(bt2 - bt1 > 15)
 				{
@@ -523,7 +529,7 @@ public class ComparatorHandling
 					p1.append("Faced 8+ in the box more often last year\n");
 				}
 			}
-			else
+			else if(mib2 > mib1)
 			{
 				if(mib2 - mib1 > 10.0)
 				{
