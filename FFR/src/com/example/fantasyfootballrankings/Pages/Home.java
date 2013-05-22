@@ -92,9 +92,8 @@ public class Home extends Activity implements Serializable{
         news = (Button)findViewById(R.id.news_button);
         news.setOnClickListener(newsHandler);
         handleInitialRefresh();
-        
+        /*
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
         StrictMode.setThreadPolicy(policy); 
         try {
 			ParseESPNadv.parseESPNAggregate(new Storage());
@@ -104,7 +103,7 @@ public class Home extends Activity implements Serializable{
 		} catch (XPatherException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}  
 	
 	/**
