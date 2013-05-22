@@ -94,6 +94,7 @@ public class ReadFromFile {
     		ReadList listRanks = readFromFileAsyncObj.new ReadList((Activity)cont, flag);
     		listRanks.execute(holder, cont, prefs);
     	}
+    	long start = System.nanoTime();
 	    ReadRanks rankings = readFromFileAsyncObj.new ReadRanks((Activity)cont);
 		String[][] data=rankings.execute(holder, cont).get();
 		
@@ -104,7 +105,7 @@ public class ReadFromFile {
 		names.execute(holder, cont);
 		
 	    ReadDraft draft = readFromFileAsyncObj.new ReadDraft((Activity)cont, flag);
-		draft.execute(holder, cont);		
+		draft.execute(holder, cont, start);		
 	}
 	
 	

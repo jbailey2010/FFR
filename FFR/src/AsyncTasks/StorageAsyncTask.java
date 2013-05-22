@@ -451,6 +451,7 @@ public class StorageAsyncTask
 	    {
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
+	    	long start = (Long)data[2];
 	   		//Get the aggregate rankings
 	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 			String draftSet = prefs.getString("Draft Information", "Doesn't matter");
@@ -475,6 +476,7 @@ public class StorageAsyncTask
 			//Values
 			holder.draft.remainingSalary = Integer.parseInt(individual[6][0]);
 			holder.draft.value = Double.parseDouble(individual[7][0]);
+			System.out.println(System.nanoTime() - start + " to load from file");
 			return null;
 	    }
 	  }

@@ -30,14 +30,10 @@ public class ParseESPNadv
 				"div div div div table tbody tr td");
 		String[] brokenValues = values.split("\n");
 		ArrayList<String>intermediate = new ArrayList<String>(500);
-		for(int i = 13; i < brokenValues.length; i++)
+		for(int i = 13; i < brokenValues.length; i+=8)
 		{
-			//Get rid of all but the name and aav
-			if(((i-16)%8)!=0 && ((i-13)%8)!=0 && ((i-15)%8)!=0 	&& ((i-20)%8)!=0
-					&& ((i-17)%8)!=0)
-			{ 
-				intermediate.add(brokenValues[i]);
-			}
+			intermediate.add(brokenValues[i+1]);
+			intermediate.add(brokenValues[i+5]);
 		}
 		for(int i = 0; i < intermediate.size(); i+=3)
 		{

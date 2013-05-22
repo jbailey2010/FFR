@@ -19,6 +19,7 @@ import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.Parse4for4;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPN;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
@@ -130,6 +131,13 @@ public class ParsingAsyncTask
 				
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after mfl aggr");
+				start = System.nanoTime();
+				
+				Parse4for4.parse4for4Wrapper(holder);
+				
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after 4 for 4 sets of rankings");
+				
 				System.out.println();
 				System.out.println(System.nanoTime() - all);
 			} catch (IOException e) {
