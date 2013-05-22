@@ -98,46 +98,7 @@ public class Rankings extends Activity {
 		calc = (Button)findViewById(R.id.trade_calc);
     	listview = (ListView)findViewById(R.id.listview_rankings);
     	context = this;
-		posList.add("All Positions");
-		posList.add("QB");
-		posList.add("RB");
-		posList.add("WR");
-		posList.add("TE");
-		posList.add("D/ST");
-		posList.add("K");
-		teamList.add("All Teams");
-		teamList.add("Arizona Cardinals");
-		teamList.add("Atlanta Falcons");
-		teamList.add("Baltimore Ravens");
-		teamList.add("Buffalo Bills");
-		teamList.add("Carolina Panthers");
-		teamList.add("Chicago Bears");
-		teamList.add("Cincinnati Bengals");
-		teamList.add("Cleveland Browns");
-		teamList.add("Dallas Cowboys");
-		teamList.add("Denver Broncos");
-		teamList.add("Detroit Lions");
-		teamList.add("Green Bay Packers");
-		teamList.add("Houston Texans");
-		teamList.add("Indianapolis Colts");
-		teamList.add("Jacksonville Jaguars");
-		teamList.add("Kansas City Chiefs");
-		teamList.add("Miami Dolphins");
-		teamList.add("Minnesota Vikings");
-		teamList.add("New England Patriots");
-		teamList.add("New Orleans Saints");
-		teamList.add("New York Giants");
-		teamList.add("New York Jets");
-		teamList.add("Oakland Raiders");
-		teamList.add("Philadelphia Eagles");
-		teamList.add("Pittsburgh Steelers");
-		teamList.add("San Diego Chargers");
-		teamList.add("San Francisco 49ers");
-		teamList.add("Seattle Seahawks");
-		teamList.add("St. Louis Rams");
-		teamList.add("Tampa Bay Buccaneers");
-		teamList.add("Tennessee Titans");
-		teamList.add("Washington Redskins");
+    	setLists();
 		handleRefresh();
 		handleOnClickButtons();
 	}
@@ -194,6 +155,53 @@ public class Rankings extends Activity {
 		}
 	}
     
+	/**
+	 * Populate team/pos lists
+	 */
+	public static void setLists()
+	{
+		posList.add("All Positions");
+		posList.add("QB");
+		posList.add("RB");
+		posList.add("WR");
+		posList.add("TE");
+		posList.add("D/ST");
+		posList.add("K");
+		teamList.add("All Teams");
+		teamList.add("Arizona Cardinals");
+		teamList.add("Atlanta Falcons");
+		teamList.add("Baltimore Ravens");
+		teamList.add("Buffalo Bills");
+		teamList.add("Carolina Panthers");
+		teamList.add("Chicago Bears");
+		teamList.add("Cincinnati Bengals");
+		teamList.add("Cleveland Browns");
+		teamList.add("Dallas Cowboys");
+		teamList.add("Denver Broncos");
+		teamList.add("Detroit Lions");
+		teamList.add("Green Bay Packers");
+		teamList.add("Houston Texans");
+		teamList.add("Indianapolis Colts");
+		teamList.add("Jacksonville Jaguars");
+		teamList.add("Kansas City Chiefs");
+		teamList.add("Miami Dolphins");
+		teamList.add("Minnesota Vikings");
+		teamList.add("New England Patriots");
+		teamList.add("New Orleans Saints");
+		teamList.add("New York Giants");
+		teamList.add("New York Jets");
+		teamList.add("Oakland Raiders");
+		teamList.add("Philadelphia Eagles");
+		teamList.add("Pittsburgh Steelers");
+		teamList.add("San Diego Chargers");
+		teamList.add("San Francisco 49ers");
+		teamList.add("Seattle Seahawks");
+		teamList.add("St. Louis Rams");
+		teamList.add("Tampa Bay Buccaneers");
+		teamList.add("Tennessee Titans");
+		teamList.add("Washington Redskins");
+	}
+	
 	/**
 	 * handles relavent filter dialog
 	 * @param dialog2
