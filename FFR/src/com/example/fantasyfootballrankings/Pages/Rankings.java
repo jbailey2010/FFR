@@ -93,6 +93,7 @@ public class Rankings extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		watchList.clear();
 		setContentView(R.layout.activity_rankings);
 		search = (Button)findViewById(R.id.search);
 		info = (Button)findViewById(R.id.draft_info);
@@ -124,7 +125,21 @@ public class Rankings extends Activity {
 		switch (item.getItemId()) 
 		{
 			case R.id.watch_list:
-				HandleWatchList.handleWatchInit(holder, cont, watchList);
+				if(watchList.size() > 0 && holder.parsedPlayers.contains(watchList.get(0)))
+				{
+					HandleWatchList.handleWatchInit(holder, cont, watchList);
+				}
+				else
+				{
+					if(watchList.size() > 0)
+					{
+						for(int i = 0; i < watchList.size(); i++)
+						{
+							System.out.println(i + ": " + watchList.get(i));
+						}
+					}
+					Toast.makeText(context, "Watch list is empty", Toast.LENGTH_SHORT).show();
+				}
 				return true;
 			case R.id.refresh:
 				refreshRanks(dialog);
@@ -560,11 +575,13 @@ public class Rankings extends Activity {
     {
     	dialog.setContentView(R.layout.search_output);
     	Button addWatch = (Button)dialog.findViewById(R.id.add_watch);
+    	//If the add to list boolean exists
     	if(!watchFlag)
     	{
 	    	addWatch.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v) {
+					//Check if the player is in the watchList
 					int i = -1;
 					for(String name : watchList)
 					{
@@ -574,19 +591,21 @@ public class Rankings extends Activity {
 							break;
 						}
 					}
+					//if not, add him on the click of the button
 					if(i == -1)
 					{
 						watchList.add(namePlayer);
 						WriteToFile.writeWatchList(context, watchList);
 						Toast.makeText(context, namePlayer + " added to watch list", Toast.LENGTH_SHORT).show();
 					}
-					else
+					else//if so, ignore the click
 					{
 						Toast.makeText(context, namePlayer + " already in watch list", Toast.LENGTH_SHORT).show();
 					}
 				}
 	    	});
     	}
+    	//Otherwise, the call is from the watch list, so it gives the option to remove it
     	else
     	{
     		addWatch.setText("Remove From Watch List");
@@ -601,13 +620,14 @@ public class Rankings extends Activity {
 				}
     		});
     	}
-    
+    	//Create the output, make sure it's valid
     	List<String>output = new ArrayList<String>(12);
     	TextView name = (TextView)dialog.findViewById(R.id.name);
     	if(namePlayer.equals(""))
     	{
     		return;
     	}
+    	//Set up the header, and make a mock object with the set name
     	name.setText(namePlayer);
     	PlayerObject searchedPlayer = new PlayerObject("","","",0);
     	for(PlayerObject player : holder.players)
@@ -618,6 +638,7 @@ public class Rankings extends Activity {
     			break;
     		}
     	}
+    	//If it's called from trending or watch list, ignore back
     	if(flag)
     	{
     		Button backButton = (Button)dialog.findViewById(R.id.search_back);
@@ -625,7 +646,52 @@ public class Rankings extends Activity {
     		View backView = (View)dialog.findViewById(R.id.back_view);
     		backView.setVisibility(View.GONE);
     	}
-    	DecimalFormat df = new DecimalFormat("#.##");
+    	//Set the data in the list
+    	setSearchContent(searchedPlayer, output);
+    	//Show the dialog, then set the list
+    	dialog.show();
+    	ListView results = (ListView)dialog.findViewById(R.id.listview_search);
+    	ManageInput.handleArray(output, results, act);
+    	Button back = (Button)dialog.findViewById(R.id.search_back);
+    	//If it isn't gone, set that it goes back
+		back.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(View v) {
+				try {
+					searchCalled(dialog, newCont);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}); 
+		//Setting up close
+    	Button close = (Button)dialog.findViewById(R.id.search_close);
+		close.setOnClickListener(new OnClickListener()
+		{ 
+			public void onClick(View v) {
+				//If it is called from trending or rankings, dismiss it
+				if(!watchFlag)
+				{
+					dialog.dismiss();
+				}
+				else //otherwise it was from watch list, so call back from there
+				{
+					dialog.dismiss();
+					HandleWatchList.handleWatchInit(holder, (Context)act, watchList);
+				}
+			}
+		}); 
+    }
+    
+    /**
+     * Sets the output of the search
+     * @param searchedPlayer
+     * @param output
+     */
+    public static void setSearchContent(PlayerObject searchedPlayer, List<String> output)
+    {
+       	DecimalFormat df = new DecimalFormat("#.##");
     	String low = String.valueOf(searchedPlayer.values.low);
     	if(searchedPlayer.values.low == 100)
     	{
@@ -711,36 +777,6 @@ public class Rankings extends Activity {
 	    		output.add(searchedPlayer.info.additionalStat);
 	    	}
     	}
-    	dialog.show();
-    	ListView results = (ListView)dialog.findViewById(R.id.listview_search);
-    	ManageInput.handleArray(output, results, act);
-    	Button back = (Button)dialog.findViewById(R.id.search_back);
-		back.setOnClickListener(new OnClickListener()
-		{
-			public void onClick(View v) {
-				try {
-					searchCalled(dialog, newCont);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
-    	Button close = (Button)dialog.findViewById(R.id.search_close);
-		close.setOnClickListener(new OnClickListener()
-		{ 
-			public void onClick(View v) {
-				if(!watchFlag)
-				{
-					dialog.dismiss();
-				}
-				else
-				{
-					dialog.dismiss();
-					HandleWatchList.handleWatchInit(holder, (Context)act, watchList);
-				}
-			}
-		});
     }
     
     /**
@@ -775,6 +811,7 @@ public class Rankings extends Activity {
 		});
     	dialog.show();
     }
+
     
     /**
      * Sets the dialog to hold the selected players

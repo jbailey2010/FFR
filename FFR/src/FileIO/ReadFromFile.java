@@ -283,7 +283,10 @@ public class ReadFromFile {
 		String[] watchSet = watch.split("----");
 		for(String player : watchSet)
 		{
-			watchList.add(player);
+			if(player.length() > 3)
+			{
+				watchList.add(player);
+			}
 		}
 		return watchList;
 	}

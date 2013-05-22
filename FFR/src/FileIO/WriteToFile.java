@@ -273,7 +273,10 @@ public class WriteToFile {
     	StringBuilder newsSet = new StringBuilder(10000);
     	for(String name : watch)
     	{
-    		newsSet.append(name + "----");
+    		if(name.length() > 3)
+    		{
+    			newsSet.append(name + "----");
+    		}
     	}
     	editor.putString("Watch List", newsSet.toString()).commit();
 	}

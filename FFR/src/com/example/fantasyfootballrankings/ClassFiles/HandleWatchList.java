@@ -22,14 +22,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
+/**
+ * Handles watch list stufcf
+ * @author Jeff
+ *
+ */
 public class HandleWatchList 
 {
+	/**
+	 * Sets up the display
+	 * @param holder
+	 * @param cont
+	 * @param watchList
+	 */
 	public static void handleWatchInit(final Storage holder, final Context cont, final List<String> watchList)
 	{
 		final Dialog dialog = new Dialog(cont);
 		dialog.setContentView(R.layout.search_output);
 		dialog.show();
-
+		if(watchList.size() == 0 || (watchList.size() > 0 && !holder.parsedPlayers.contains(watchList.get(0))))
+		{
+			Toast.makeText(cont, "Watch list empty", Toast.LENGTH_SHORT);
+			dialog.dismiss();
+			return;
+		}
 		Button close = (Button)dialog.findViewById(R.id.search_close);
 		TextView header = (TextView)dialog.findViewById(R.id.name);
 		header.setText("Watch List");
@@ -48,27 +64,23 @@ public class HandleWatchList
 		back.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				if(watchList.size() > 0)
+				if(watchList.size() > 0 && holder.parsedPlayers.contains(watchList.get(0)))
 				{
 					Toast.makeText(cont, "Watch List Cleared", Toast.LENGTH_SHORT).show();
+					watchList.clear();
+					WriteToFile.writeWatchList(cont, watchList);
+					dialog.dismiss();
+					return;
 				}
 				else
 				{
-					Toast.makeText(cont, "No players in the list", Toast.LENGTH_SHORT).show();
+					Toast.makeText(cont, "No players in the list to clear", Toast.LENGTH_SHORT).show();
 				}
-				watchList.clear();
-				WriteToFile.writeWatchList(cont, watchList);
-				dialog.dismiss();
-				return;
 			}
 		});
 		ListView listWatch = (ListView)dialog.findViewById(R.id.listview_search);
 	    listWatch.setAdapter(null);
 	    List<String> listAdapter = new ArrayList<String>();
-	    if(watchList.size() == 0)
-	    {
-	    	listAdapter.add("No players in the watch list");
-	    }
 	    for(String name : watchList)
 	    {
 	    	for(PlayerObject iter : holder.players)
@@ -87,6 +99,9 @@ public class HandleWatchList
 	    handleListSelect(holder, cont, watchList, listWatch, dialog);
 	}
 
+	/**
+	 * Sets the element onclick to show data
+	 */
 	public static void handleListSelect(final Storage holder, final Context cont,final List<String> watchList, 
 			ListView listview, final Dialog dialog)
 	{
