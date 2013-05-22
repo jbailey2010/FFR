@@ -8,14 +8,18 @@ import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.example.fantasyfootballrankings.Pages.Trending;
 
+import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -118,5 +122,22 @@ public class HandleWatchList
 				Rankings.outputResults(dialog2, selected, true,(Activity)cont, holder, true);
 			}
 	    });	
+		listview.setOnItemLongClickListener(new OnItemLongClickListener(){
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				TextView elem = (TextView)arg1;
+				elem.setVisibility(TextView.GONE);
+				watchList.remove(elem.getText().toString().split(": ")[1].split(", ")[0]);
+				WriteToFile.writeWatchList(cont, watchList);
+				if(watchList.size() == 0)
+				{
+					dialog.dismiss();
+					Toast.makeText(cont, "No players left in the watch list", Toast.LENGTH_SHORT).show();
+				}
+				return true;
+			}
+		});
 	}
 }

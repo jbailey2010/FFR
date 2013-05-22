@@ -131,13 +131,6 @@ public class Rankings extends Activity {
 				}
 				else
 				{
-					if(watchList.size() > 0)
-					{
-						for(int i = 0; i < watchList.size(); i++)
-						{
-							System.out.println(i + ": " + watchList.get(i));
-						}
-					}
 					Toast.makeText(context, "Watch list is empty", Toast.LENGTH_SHORT).show();
 				}
 				return true;
