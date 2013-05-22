@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.example.fantasyfootballrankings.R;
 
+import FileIO.ReadFromFile;
+import FileIO.WriteToFile;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
@@ -548,7 +550,7 @@ public class ComparatorHandling
 	 * Sets the output of the results
 	 */
 	public static void fixOutput(final Dialog dialog, final Context cont, final Storage holder,
-			PlayerObject player1, PlayerObject player2, StringBuilder p1,
+			final PlayerObject player1, final PlayerObject player2, StringBuilder p1,
 			StringBuilder p2) 
 	{
 		dialog.setContentView(R.layout.comparator_output);
@@ -578,6 +580,40 @@ public class ComparatorHandling
 		{
 			public void onClick(View v) {
 				dialog.dismiss();
+	    	}	
+		});
+		Button add1 = (Button)dialog.findViewById(R.id.add_comparator_1);
+		Button add2 = (Button)dialog.findViewById(R.id.add_comparator_2);
+		add1.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				List<String> watch = ReadFromFile.readWatchList(cont);
+				if(!watch.contains(player1.info.name))
+				{
+					Toast.makeText(cont, player1.info.name + " added to the watch list", Toast.LENGTH_SHORT).show();
+					watch.add(player1.info.name);
+					WriteToFile.writeWatchList(cont, watch);
+				}
+				else
+				{ 
+					Toast.makeText(cont, player1.info.name + " already in the watch list", Toast.LENGTH_SHORT).show();
+				}
+	    	}	
+		});
+		add2.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				List<String> watch = ReadFromFile.readWatchList(cont);
+				if(!watch.contains(player2.info.name))
+				{
+					Toast.makeText(cont, player2.info.name + " added to the watch list", Toast.LENGTH_SHORT).show();
+					watch.add(player2.info.name);
+					WriteToFile.writeWatchList(cont, watch);
+				}
+				else
+				{
+					Toast.makeText(cont, player2.info.name + " already in the watch list", Toast.LENGTH_SHORT).show();
+				}
 	    	}	
 		});
 		dialog.show();

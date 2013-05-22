@@ -125,6 +125,7 @@ public class Rankings extends Activity {
 		switch (item.getItemId()) 
 		{
 			case R.id.watch_list:
+				watchList = ReadFromFile.readWatchList(context);
 				if(watchList.size() > 0 && holder.parsedPlayers.contains(watchList.get(0)))
 				{
 					HandleWatchList.handleWatchInit(holder, cont, watchList);
