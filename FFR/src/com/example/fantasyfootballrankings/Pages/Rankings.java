@@ -708,7 +708,10 @@ public class Rankings extends Activity {
     			&& !searchedPlayer.stats.equals(" ") && searchedPlayer.stats.length() > 5)
     	{
     		output.add(searchedPlayer.stats);
-    		output.add(searchedPlayer.injuryStatus);
+    		if(!searchedPlayer.injuryStatus.contains("Healthy"))
+    		{
+    			output.add(searchedPlayer.injuryStatus);
+    		}
     	}
     	if(!searchedPlayer.info.status.contains("intuition"))
     	{
