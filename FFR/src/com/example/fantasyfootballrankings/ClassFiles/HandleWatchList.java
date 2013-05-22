@@ -83,7 +83,14 @@ public class HandleWatchList
 			}
 		});
 		ListView listWatch = (ListView)dialog.findViewById(R.id.listview_search);
-	    listWatch.setAdapter(null);
+	    display(dialog, watchList, holder, listWatch, cont);
+	    handleListSelect(holder, cont, watchList, listWatch, dialog);
+	}
+	
+	public static void display(Dialog dialog, List<String> watchList, Storage holder, ListView listWatch,
+			Context cont)
+	{
+		listWatch.setAdapter(null);
 	    List<String> listAdapter = new ArrayList<String>();
 	    for(String name : watchList)
 	    {
@@ -100,7 +107,6 @@ public class HandleWatchList
 	    	}
 	    }
 	    ManageInput.handleArray(listAdapter, listWatch, (Activity) cont);
-	    handleListSelect(holder, cont, watchList, listWatch, dialog);
 	}
 
 	/**
@@ -136,6 +142,8 @@ public class HandleWatchList
 					dialog.dismiss();
 					Toast.makeText(cont, "No players left in the watch list", Toast.LENGTH_SHORT).show();
 				}
+				ListView listWatch = (ListView)dialog.findViewById(R.id.listview_search);
+			    display(dialog, watchList, holder, listWatch, cont);
 				return true;
 			}
 		});
