@@ -269,4 +269,22 @@ public class ReadFromFile {
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		return prefs.getString("News Title", "NFL News");
 	}
+	
+	/**
+	 * Reads the watch list from file
+	 * @param cont
+	 * @return
+	 */
+	public static List<String> readWatchList(Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		List<String> watchList = new ArrayList<String>();
+		String watch = prefs.getString("Watch List", "");
+		String[] watchSet = watch.split("----");
+		for(String player : watchSet)
+		{
+			watchList.add(player);
+		}
+		return watchList;
+	}
 }

@@ -19,6 +19,7 @@ import com.example.fantasyfootballrankings.R.id;
 import com.example.fantasyfootballrankings.R.layout;
 import com.example.fantasyfootballrankings.R.menu;
 import com.example.fantasyfootballrankings.ClassFiles.ComparatorHandling;
+import com.example.fantasyfootballrankings.ClassFiles.HandleWatchList;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
@@ -85,6 +86,7 @@ public class Rankings extends Activity {
 	static String posFilter = "";
 	static List<String> teamList = new ArrayList<String>();
 	static List<String> posList = new ArrayList<String>();
+	static List<String> watchList = new ArrayList<String>();
 	/**
 	 * Sets up the view
 	 */
@@ -121,6 +123,9 @@ public class Rankings extends Activity {
 		dialog = new Dialog(cont);
 		switch (item.getItemId()) 
 		{
+			case R.id.watch_list:
+				HandleWatchList.handleWatchInit(holder, cont, watchList);
+				return true;
 			case R.id.refresh:
 				refreshRanks(dialog);
 		    	return true;
@@ -200,6 +205,7 @@ public class Rankings extends Activity {
 		teamList.add("Tampa Bay Buccaneers");
 		teamList.add("Tennessee Titans");
 		teamList.add("Washington Redskins");
+		watchList = ReadFromFile.readWatchList(context);
 	}
 	
 	/**
@@ -477,7 +483,7 @@ public class Rankings extends Activity {
 				if(holder.parsedPlayers.contains(textView.getText().toString()))
 				{
 					dialog.dismiss();
-					outputResults(dialog, textView.getText().toString(), false, (Rankings)newCont, holder);
+					outputResults(dialog, textView.getText().toString(), false, (Rankings)newCont, holder, false);
 				}
 			}
 		});
@@ -549,10 +555,53 @@ public class Rankings extends Activity {
      * @param dialog
      * @param namePlayer
      */
-    public static void outputResults(final Dialog dialog, String namePlayer, boolean flag, 
-    		Activity act, Storage holder)
+    public static void outputResults(final Dialog dialog, final String namePlayer, boolean flag, 
+    		final Activity act, final Storage holder, final boolean watchFlag)
     {
     	dialog.setContentView(R.layout.search_output);
+    	Button addWatch = (Button)dialog.findViewById(R.id.add_watch);
+    	if(!watchFlag)
+    	{
+	    	addWatch.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					int i = -1;
+					for(String name : watchList)
+					{
+						if(name.equals(namePlayer))
+						{
+							i++;
+							break;
+						}
+					}
+					if(i == -1)
+					{
+						watchList.add(namePlayer);
+						WriteToFile.writeWatchList(context, watchList);
+						Toast.makeText(context, namePlayer + " added to watch list", Toast.LENGTH_SHORT).show();
+					}
+					else
+					{
+						Toast.makeText(context, namePlayer + " already in watch list", Toast.LENGTH_SHORT).show();
+					}
+				}
+	    	});
+    	}
+    	else
+    	{
+    		addWatch.setText("Remove From Watch List");
+    		addWatch.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(context, namePlayer + " removed from watch list", Toast.LENGTH_SHORT).show();
+					watchList.remove(namePlayer);
+					WriteToFile.writeWatchList((Context)act, watchList);
+					dialog.dismiss();
+					HandleWatchList.handleWatchInit(holder, (Context)act, watchList);
+				}
+    		});
+    	}
+    
     	List<String>output = new ArrayList<String>(12);
     	TextView name = (TextView)dialog.findViewById(R.id.name);
     	if(namePlayer.equals(""))
@@ -681,7 +730,15 @@ public class Rankings extends Activity {
 		close.setOnClickListener(new OnClickListener()
 		{ 
 			public void onClick(View v) {
-				dialog.dismiss();
+				if(!watchFlag)
+				{
+					dialog.dismiss();
+				}
+				else
+				{
+					dialog.dismiss();
+					HandleWatchList.handleWatchInit(holder, (Context)act, watchList);
+				}
 			}
 		});
     }

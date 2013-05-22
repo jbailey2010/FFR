@@ -253,9 +253,28 @@ public class WriteToFile {
     	editor.putString("Selected Twitter Feed", selection).commit();
 	}
 	
+	/**
+	 * Writes the news selection to file
+	 * @param cont
+	 * @param selection
+	 */
 	public static void writeNewsSelection(Context cont, String selection)
 	{
     	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
     	editor.putString("News Title", selection).commit();
+	}
+	
+	/**
+	 * Writes the watch list to file
+	 */
+	public static void writeWatchList(Context cont, List<String> watch)
+	{
+    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+    	StringBuilder newsSet = new StringBuilder(10000);
+    	for(String name : watch)
+    	{
+    		newsSet.append(name + "----");
+    	}
+    	editor.putString("Watch List", newsSet.toString()).commit();
 	}
 }

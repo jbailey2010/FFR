@@ -411,7 +411,6 @@ public class Trending extends Activity {
 	public static void setListViewOnClick()
 	{
 	    listview.setOnItemClickListener(new OnItemClickListener(){
-
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
@@ -434,7 +433,7 @@ public class Trending extends Activity {
 				else
 				{
 					Dialog dialog = new Dialog(context);
-					Rankings.outputResults(dialog, selected, true, (Trending)context, holder);
+					Rankings.outputResults(dialog, selected, true, (Trending)context, holder, false);
 				}
 			}
 	    });

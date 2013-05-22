@@ -4,44 +4,62 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="51dp" >
         
         <Button
             android:id="@+id/search_back"
-            android:layout_width="146dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="100"
             style="?android:attr/buttonBarButtonStyle"
             android:text="Back" />
         <View 
             android:id="@+id/back_view"
             android:layout_height="fill_parent"
 		    android:layout_width="1dp"
+            android:layout_toRightOf="@+id/search_back"
 		    android:background="#90909090"/>
         
         <TextView
             android:id="@+id/name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="100"
             android:gravity="center"
             android:text="Name Here"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <View android:layout_height="fill_parent"
 		    android:layout_width="1dp"
+            android:layout_toLeftOf="@+id/search_close"
 		    android:background="#90909090"/>
+
         <Button
             android:id="@+id/search_close"
-            android:layout_width="146dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="100"
             style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:text="X" />
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/add_watch"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/search_close"
+            android:text="Add to Watch List" />
+        
+        <View android:id="@+id/add_view"
+            android:layout_height="fill_parent"
+		    android:layout_width="1dp"
+            android:layout_toLeftOf="@+id/add_watch"
+		    android:background="#90909090"/>
+
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/listview_search"
