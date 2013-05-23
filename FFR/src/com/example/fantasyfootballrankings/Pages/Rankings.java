@@ -1008,17 +1008,6 @@ public class Rankings extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				/*String selected = ((TextView)arg1).getText().toString();
-				selected = selected.split(":  ")[1];
-				System.out.println(selected + " is selected");
-				//SUPER TENTATIVE
-				for(PlayerObject player : holder.players)
-				{
-					if(player.info.name.equals(selected))
-					{
-						holder.draft.draftPlayer(player, holder.draft, 1, cont);
-					}
-				}*/
 				handleDrafted(arg1, holder, cont, listview);
 				return true;
 			}
@@ -1103,11 +1092,18 @@ public class Rankings extends Activity {
 				{
 					if(player.info.name.equals(name))
 					{
-						holder.draft.draftPlayer(player, holder.draft, val, cont);
-						Toast.makeText(cont, "Drafting " + name, Toast.LENGTH_SHORT).show();
-						holder.draft.ignore.add(name);
-						WriteToFile.writeDraft(holder.draft, cont);
-						intermediateHandleRankings(cont);
+						if(val <= holder.draft.remainingSalary)
+						{
+							holder.draft.draftPlayer(player, holder.draft, val, cont);
+							Toast.makeText(cont, "Drafting " + name, Toast.LENGTH_SHORT).show();
+							holder.draft.ignore.add(name);
+							WriteToFile.writeDraft(holder.draft, cont);
+							intermediateHandleRankings(cont);
+						}
+						else
+						{
+							Toast.makeText(cont, "Not enough salary left", Toast.LENGTH_SHORT).show();
+						}
 						break;
 					}
 				}
