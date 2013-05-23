@@ -50,6 +50,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -59,6 +60,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 /**
  * Handles the rankings part of the java file
  * 
@@ -324,6 +326,13 @@ public class Rankings extends Activity {
 	public void refreshRanks(final Dialog dialog)
 	{
 		dialog.setContentView(R.layout.refresh); 
+		Button refreshDraft = (Button)dialog.findViewById(R.id.reset_draft);
+		refreshDraft.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				Draft.resetDraft(holder.draft, holder, context);				
+			}
+		});
 		Button refreshDismiss = (Button)dialog.findViewById(R.id.refresh_cancel);
 		refreshDismiss.setOnClickListener(new OnClickListener() 
 		{
@@ -873,12 +882,6 @@ public class Rankings extends Activity {
 	 */
 	public static void intermediateHandleRankings(Activity cont)
 	{
-    	double totalWorth = 0.0;
-    	for(PlayerObject player : holder.players)
-    	{
-    		totalWorth += player.values.worth;
-    	}
-    	System.out.println(holder.players.size() + " " + totalWorth);
 		int maxSize = ReadFromFile.readFilterQuantitySize((Context)cont, "Rankings");
 		PriorityQueue<PlayerObject>inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 		{
@@ -956,6 +959,7 @@ public class Rankings extends Activity {
 	{
 	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
 	    listview.setAdapter(null);
+	    handleRankingsClick(holder, cont, listview);
 	    ManageInput.handleArray(rankings, listview, cont);
 	}
 	
@@ -968,6 +972,7 @@ public class Rankings extends Activity {
     {
 	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
 	    listview.setAdapter(null);
+	    handleRankingsClick(holder, cont, listview);
 	    List<String> rankings = new ArrayList<String>(400);
 	    while(!playerList.isEmpty())
 	    {
@@ -983,4 +988,116 @@ public class Rankings extends Activity {
     	WriteToFile.storeListRankings(rankings, cont);
 	    ManageInput.handleArray(rankings, listview, cont);
 	}
+    
+    public static void handleRankingsClick(final Storage holder, final Activity cont, final ListView listview)
+    {
+    	System.out.println("In rankings onclick fn " + holder.players.size());
+    	 listview.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				String selected = ((TextView)arg1).getText().toString();
+				selected = selected.split(":  ")[1];
+				System.out.println(selected + " is selected");
+				Rankings.outputResults(dialog, selected, true, (Rankings)context, holder, false);
+			}
+    	 });
+    	 listview.setOnItemLongClickListener(new OnItemLongClickListener(){
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				/*String selected = ((TextView)arg1).getText().toString();
+				selected = selected.split(":  ")[1];
+				System.out.println(selected + " is selected");
+				//SUPER TENTATIVE
+				for(PlayerObject player : holder.players)
+				{
+					if(player.info.name.equals(selected))
+					{
+						holder.draft.draftPlayer(player, holder.draft, 1, cont);
+					}
+				}*/
+				handleDrafted(arg1, holder, cont, listview);
+				return true;
+			}
+    	 });
+    }
+    
+    public static void handleDrafted(final View view, final Storage holder, final Activity cont, 
+    		final ListView listview)
+    { 
+    	final Dialog popup = new Dialog(cont);
+    	popup.setContentView(R.layout.draft_by_who);
+    	popup.show();
+    	Button close = (Button)popup.findViewById(R.id.draft_who_close);
+    	close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				popup.dismiss();
+				return;
+			}
+    	});
+    	Button someone = (Button)popup.findViewById(R.id.drafted_by_someone);
+    	someone.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				//Call redrawing function here
+				popup.dismiss();
+				Toast.makeText(cont, "Removing " + ((TextView)view).getText().toString().split(":  ")[1] +
+						" from the list", Toast.LENGTH_SHORT).show();
+			}
+    	});
+    	
+    	Button me = (Button)popup.findViewById(R.id.drafted_by_me);
+    	me.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				draftedByMe(((TextView)view).getText().toString().split(":  ")[1], view, holder, cont, listview, popup);
+			}
+    	});
+    }
+    
+    public static void draftedByMe(final String name, final View view, final Storage holder, final Activity cont,
+    		final ListView listview, final Dialog popup)
+    {
+    	popup.setContentView(R.layout.draft_by_me);
+    	Button back = (Button)popup.findViewById(R.id.draft_who_close);
+    	back.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				popup.dismiss();
+				handleDrafted(view, holder, cont, listview);
+			}
+    	});
+    	List<String> possResults = new ArrayList<String>();
+    	for(int i = 1; i < 201; i++)
+    	{
+    		possResults.add(String.valueOf(i));
+    	}
+    	AutoCompleteTextView price = (AutoCompleteTextView)popup.findViewById(R.id.amount_paid);
+    	ArrayAdapter<String> doubleAdapter = new ArrayAdapter<String>(cont,
+                android.R.layout.simple_dropdown_item_1line, possResults);
+    	price.setAdapter(doubleAdapter);
+    	price.setThreshold(1);
+    	price.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				int val = Integer.parseInt(((TextView)arg1).getText().toString());
+				for(PlayerObject player : holder.players)
+				{
+					if(player.info.name.equals(name))
+					{
+						holder.draft.draftPlayer(player, holder.draft, val, cont);
+						Toast.makeText(cont, "Drafting " + name, Toast.LENGTH_SHORT).show();
+						//Call redraw function here
+						break;
+					}
+				}
+				popup.dismiss();
+			}
+    	});
+    }
 }

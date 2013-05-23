@@ -379,6 +379,7 @@ public class ParsingAsyncTask
 	    public ParseNames(Activity activity) 
 	    {
 	        pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
 	        act = activity;
 	    }
 	    
@@ -421,6 +422,7 @@ public class ParsingAsyncTask
 	    public ParsePermanentDataSets(Activity activity) 
 	    {
 	        pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
 	        act = activity;
 	    }
 	    
@@ -470,6 +472,7 @@ public class ParsingAsyncTask
 	    public ParseRotoWorldNews(Context cont) 
 	    {
 	        pdia = new ProgressDialog(cont);
+	        pdia.setCancelable(false);
 	        act = (Activity)cont;
 	    }
 	    
@@ -540,6 +543,7 @@ public class ParsingAsyncTask
 	    public ParseTwitterFeeds(Context cont) 
 	    {
 	        pdia = new ProgressDialog(cont);
+	        pdia.setCancelable(false);
 	        act = (Activity)cont;
 	    }
 	    

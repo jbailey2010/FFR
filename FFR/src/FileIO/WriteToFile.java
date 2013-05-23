@@ -11,6 +11,7 @@ import java.util.Set;
 import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 
 import AsyncTasks.StorageAsyncTask;
@@ -279,5 +280,35 @@ public class WriteToFile {
     		}
     	}
     	editor.putString("Watch List", newsSet.toString()).commit();
+	}
+	
+	/**
+	 * Writes the draft to file (supplementary to writing rankings to file)
+	 */
+	public static void writeDraft(Draft draft, Context cont)
+	{
+    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+    	String draftList = "";
+    	draftList += writeDraftHelper(draft.qb) + "@";
+    	draftList += writeDraftHelper(draft.rb) + "@";
+    	draftList += writeDraftHelper(draft.wr) + "@";
+    	draftList += writeDraftHelper(draft.te) + "@";
+    	draftList += writeDraftHelper(draft.def)+ "@";
+    	draftList += writeDraftHelper(draft.k)  + "@";
+    	draftList += draft.remainingSalary + "@" + draft.value;
+    	editor.putString("Draft Information", draftList).commit();
+	}
+	
+	/**
+	 * A helper for writing rankings to file
+	 */
+	public static String writeDraftHelper(List<PlayerObject> list)
+	{
+		StringBuilder retSet = new StringBuilder(5000);
+		for(PlayerObject player : list)
+		{
+			retSet.append(player.info.name + "~");
+		}
+		return retSet.toString();
 	}
 }

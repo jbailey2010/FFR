@@ -4,7 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import FileIO.WriteToFile;
+import android.app.Activity;
+import android.content.Context;
+import android.widget.Toast;
+
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.Storage;
+import com.example.fantasyfootballrankings.Pages.Rankings;
 
 /**
  * A class that will hold the structures to store a draft class,
@@ -34,6 +41,44 @@ public class Draft
 	}
 	
 	/**
+	 * Sets up when a player is drafted
+	 */
+	public void draftPlayer(PlayerObject player, Draft draft, int paid, Context cont)
+	{
+		if(player.info.position.equals("QB"))
+		{
+			draft.qb.add(player);
+			newPick(player.values.worth, paid);
+		}
+		else if(player.info.position.equals("RB"))
+		{
+			draft.rb.add(player);
+			newPick(player.values.worth, paid);
+		}
+		else if(player.info.position.equals("WR"))
+		{
+			draft.wr.add(player);
+			newPick(player.values.worth, paid);
+		}
+		else if(player.info.position.equals("TE"))
+		{
+			draft.te.add(player);
+			newPick(player.values.worth, paid);
+		}
+		else if(player.info.position.equals("D/ST"))
+		{
+			draft.def.add(player);
+			newPick(player.values.worth, paid);
+		}
+		else
+		{
+			draft.k.add(player);
+			newPick(player.values.worth, paid);
+		}
+		WriteToFile.writeDraft(draft, cont);
+	}
+	
+	/**
 	 * Adjusts the values of a draft class given
 	 * values of a pick that's made
 	 * @param valuePlayer
@@ -43,5 +88,23 @@ public class Draft
 	{
 		remainingSalary -= paid;
 		value += (valuePlayer - (double)paid);
+	}
+	
+	/**
+	 * Resets the draft data
+	 */
+	public static void resetDraft(Draft draft, Storage holder, Context cont)
+	{
+		Toast.makeText(cont, "Draft information reset", Toast.LENGTH_SHORT).show();
+		draft.qb.clear();
+		draft.rb.clear();
+		draft.wr.clear();
+		draft.te.clear();
+		draft.def.clear();
+		draft.k.clear();
+		draft.remainingSalary = 200;
+		draft.value = 0.0;
+		WriteToFile.writeDraft(draft, cont);
+		Rankings.intermediateHandleRankings((Activity)cont);
 	}
 }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/draft_who_close"
+        android:layout_centerHorizontal="true"
+        android:text="How much did you pay?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/draft_who_close"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="100"
+        android:text="Back" />
+    <View
+       	android:layout_width="1dp"
+		android:background="#90909090"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/draft_who_close"/>
+
+    <View
+        android:layout_width="65dp"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/draft_who_close"
+        android:background="#90909090" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="248dp"
+        android:text=" "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <AutoCompleteTextView
+        android:id="@+id/amount_paid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="69dp"
+        android:ems="10" >
+
+        <requestFocus />
+    </AutoCompleteTextView>
+
+</RelativeLayout>

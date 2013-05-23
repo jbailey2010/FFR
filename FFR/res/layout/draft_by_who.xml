@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <Button
+        android:id="@+id/draft_who_close"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="100"
+        android:text="X" />
+
+    <View
+       	android:layout_width="1dp"
+		android:background="#90909090"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/draft_who_close"/>
+
+    <View
+       	android:layout_width="65dp"
+		android:background="#90909090"
+        android:layout_height="1dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/draft_who_close" />
+
+    <Button
+        android:id="@+id/drafted_by_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/draft_who_close"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="65dp"
+        android:text="Drafted by Me" />
+
+    <Button
+        android:id="@+id/drafted_by_someone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/drafted_by_me"
+        android:layout_alignBottom="@+id/drafted_by_me"
+        android:layout_toLeftOf="@+id/draft_who_close"
+        android:text="Drafted by Someone" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/drafted_by_someone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:text=" "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout>

@@ -1,30 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
 <RelativeLayout 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <Button
-        android:id="@+id/refresh_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/refresh_confirm"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="93dp"
-        android:text="Cancel" />
-
-    <Button
-        android:id="@+id/refresh_confirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="122dp"
-        android:text="Yes, Refresh the Rankings" />
+    xmlns:android="http://schemas.android.com/apk/res/android"
+  	xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
 
     <TextView
         android:id="@+id/textView1"
@@ -32,9 +11,35 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
-        android:text="Are you sure you want to refresh the rankings?"
+        android:layout_marginTop="45dp"
+        android:text="What would you like to refresh?"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <Button
+        android:id="@+id/refresh_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginLeft="49dp"
+        android:layout_marginTop="66dp"
+        android:text="Rankings" />
+
+    <Button
+        android:id="@+id/refresh_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/refresh_confirm"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="115dp"
+        android:text="Cancel" />
+
+    <Button
+        android:id="@+id/reset_draft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/refresh_confirm"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="Draft" />
+
 </RelativeLayout>
-</ScrollView>
