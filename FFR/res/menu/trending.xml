@@ -24,9 +24,4 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="NFL News"/>
-    <item
-        android:id="@+id/view_team"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="View Team"/>
 </menu>

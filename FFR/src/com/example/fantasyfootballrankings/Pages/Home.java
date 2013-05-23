@@ -72,7 +72,6 @@ public class Home extends Activity implements Serializable{
 	final Context cont = this;
 	Dialog dialog;
 	Button rankings;
-	Button team;
 	Button trending;
 	Button news;
 	
@@ -85,8 +84,6 @@ public class Home extends Activity implements Serializable{
 		setContentView(R.layout.activity_home);
         rankings = (Button)findViewById(R.id.rankings);
         rankings.setOnClickListener(rankHandler);
-        team = (Button)findViewById(R.id.team);
-        team.setOnClickListener(teamHandler);
         trending = (Button)findViewById(R.id.trending);
         trending.setOnClickListener(trendHandler);
         news = (Button)findViewById(R.id.news_button);
@@ -193,18 +190,6 @@ public class Home extends Activity implements Serializable{
 	        cont.startActivity(intent);		
 		}
 	};	
-
-	/**
-	 * Sends the team button to the ranking page
-	 */
-	View.OnClickListener teamHandler = new View.OnClickListener() 
-	{
-		public void onClick(View v) 
-		{
-	        Intent intent = new Intent(cont, Team.class);
-	        cont.startActivity(intent);		
-		}	
-	};
 	
 	/**
 	 * Sends the trending button to the ranking page

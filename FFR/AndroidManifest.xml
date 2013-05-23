@@ -32,11 +32,6 @@
             android:label="@string/title_activity_rankings" >
         </activity>
         <activity
-            android:name="com.example.fantasyfootballrankings.Pages.Team"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_team" >
-        </activity>
-        <activity
             android:name="com.example.fantasyfootballrankings.Pages.Trending"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_trending" >

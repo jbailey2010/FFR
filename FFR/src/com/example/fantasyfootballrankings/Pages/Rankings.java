@@ -155,11 +155,6 @@ public class Rankings extends Activity {
 		        Intent intent_news = new Intent(cont, News.class);
 		        cont.startActivity(intent_news);		
  		        return true;
-		    //New page opens up entirely for viewing the team page
-			case R.id.view_team:
-		        Intent intent = new Intent(cont, Team.class);
-		        cont.startActivity(intent);		
- 		        return true;
  		    //New page opens up entirely for viewing trending players
 			case R.id.view_trending:
 		        Intent team_intent = new Intent(cont, Trending.class);

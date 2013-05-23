@@ -130,10 +130,6 @@ public class Trending extends Activity {
 		        Intent intent = new Intent(cont, Rankings.class);
 		        cont.startActivity(intent);		
  		        return true;
-			case R.id.view_team:
-		        Intent team_intent = new Intent(cont, Team.class);
-		        cont.startActivity(team_intent);		
-				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
