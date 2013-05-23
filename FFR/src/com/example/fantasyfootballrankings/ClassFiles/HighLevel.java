@@ -318,28 +318,28 @@ public class HighLevel
 		Map<String, String> wrs = ParseStats.parseWRStats();
 		Map<String, String> tes = ParseStats.parseTEStats();
 		for(PlayerObject player : holder.players)
-		{
-			//If not a kicker/defense, set stats/injury status
+		{ 
+			//If not a kicker/defense, set stats
 			if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
 			{
 				String[] name = player.info.name.split(" ");
 				String testName = name[0].charAt(0) + " " + name[1];
 				
-				if(player.info.position.equals("QB"))
+				if(player.info.position.equals("QB") && qbs.containsKey(testName + "/" + player.info.team))
 				{
-					player.stats = qbs.get(testName);
+					player.stats = qbs.get(testName + "/" + player.info.team);
 				}
-				else if(player.info.position.equals("RB"))
+				else if(player.info.position.equals("RB")&& rbs.containsKey(testName + "/" + player.info.team))
 				{
-					player.stats = rbs.get(testName);
+					player.stats = rbs.get(testName + "/" + player.info.team);
 				}
-				else if(player.info.position.equals("WR"))
+				else if(player.info.position.equals("WR") && wrs.containsKey(testName + "/" + player.info.team))
 				{
-					player.stats = wrs.get(testName);
+					player.stats = wrs.get(testName + "/" + player.info.team);
 				}
-				else if(player.info.position.equals("TE"))
+				else if(player.info.position.equals("TE") && tes.containsKey(testName + "/" + player.info.team))
 				{
-					player.stats = tes.get(testName);
+					player.stats = tes.get(testName + "/" + player.info.team);
 				}
 
 			}
