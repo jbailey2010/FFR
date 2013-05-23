@@ -27,6 +27,7 @@ public class Draft
 	public List<PlayerObject> te = new ArrayList<PlayerObject>();
 	public List<PlayerObject> def = new ArrayList<PlayerObject>();
 	public List<PlayerObject> k = new ArrayList<PlayerObject>();
+	public List<String> ignore = new ArrayList<String>();
 	public int remainingSalary;
 	public double value;
 	
@@ -101,6 +102,7 @@ public class Draft
 		draft.wr.clear();
 		draft.te.clear();
 		draft.def.clear();
+		draft.ignore.clear();
 		draft.k.clear();
 		draft.remainingSalary = 200;
 		draft.value = 0.0;

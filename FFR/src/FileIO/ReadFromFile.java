@@ -123,11 +123,14 @@ public class ReadFromFile {
 		target.clear();
 		for(String qb : individual)
 		{
-			for(PlayerObject player : holder.players)
+			if(qb.length() > 3)
 			{
-				if(player.info.name.equals(qb))
+				for(PlayerObject player : holder.players)
 				{
-					target.add(player);
+					if(player.info.name.equals(qb))
+					{
+						target.add(player);
+					}
 				}
 			}
 		}

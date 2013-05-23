@@ -102,7 +102,7 @@ public class StorageAsyncTask
 	    	}
 	    	String namesString = names.toString();
 	    	editor.putString("Parsed Player Names", namesString).commit();
-	    	//Setting up draft input
+/*	    	//Setting up draft input
 	    	String draft = "";
 	    	//QB
 	    	draft += WriteToFile.handleDraftInput(holder.draft.qb, "") + "@";
@@ -118,7 +118,7 @@ public class StorageAsyncTask
 	    	draft += WriteToFile.handleDraftInput(holder.draft.k, "") + "@";
 	    	//Values
 	    	draft += holder.draft.remainingSalary + "@" + holder.draft.value;
-	    	editor.putString("Draft Information", draft);
+	    	editor.putString("Draft Information", draft);*/
 	    	editor.commit();
 			return null;
 	    }
@@ -451,7 +451,7 @@ public class StorageAsyncTask
 	    {
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
-	    	/*long start = (Long)data[2];
+	    	long start = (Long)data[2];
 	   		//Get the aggregate rankings
 	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 			String draftSet = prefs.getString("Draft Information", "Doesn't matter");
@@ -473,10 +473,18 @@ public class StorageAsyncTask
 			ReadFromFile.handleDraftReading(individual[4], holder.draft.def, holder);
 			//K fetching
 			ReadFromFile.handleDraftReading(individual[5], holder.draft.k, holder);
-			//Values
-			holder.draft.remainingSalary = Integer.parseInt(individual[6][0]);
-			holder.draft.value = Double.parseDouble(individual[7][0]);
-			System.out.println(System.nanoTime() - start + " to load from file");*/
+			//Ignore fetching
+			for(String name : individual[6])
+			{
+				if(name.length() > 3)
+				{
+					holder.draft.ignore.add(name);
+				}
+			}
+			//Values 
+			holder.draft.remainingSalary = Integer.parseInt(individual[7][0]);
+			holder.draft.value = Double.parseDouble(individual[8][0]);
+			System.out.println(System.nanoTime() - start + " to load from file");
 			return null;
 	    }
 	  }

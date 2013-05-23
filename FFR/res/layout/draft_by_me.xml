@@ -3,15 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/draft_who_close"
-        android:layout_centerHorizontal="true"
-        android:text="How much did you pay?"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <Button
         android:id="@+id/draft_who_close"
         style="?android:attr/buttonBarButtonStyle"
@@ -56,5 +47,15 @@
 
         <requestFocus />
     </AutoCompleteTextView>
+
+    <TextView
+        android:id="@+id/name_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/draft_who_close"
+        android:layout_alignBottom="@+id/draft_who_close"
+        android:layout_centerHorizontal="true"
+        android:text="Header"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

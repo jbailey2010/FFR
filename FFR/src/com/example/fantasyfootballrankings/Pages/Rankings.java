@@ -934,7 +934,8 @@ public class Rankings extends Activity {
 		for(int i = 0; i < holder.players.size(); i++)
 		{
 			PlayerObject player = holder.players.get(i);
-			if(posList.contains(player.info.position) && teamList.contains(player.info.team))
+			if(posList.contains(player.info.position) && teamList.contains(player.info.team)
+					&& !holder.draft.ignore.contains(player.info.name))
 			{
 				inter.add(player);
 			}
@@ -1024,11 +1025,16 @@ public class Rankings extends Activity {
     	 });
     }
     
+    /**
+     * Handles the drafted dialog
+     */
     public static void handleDrafted(final View view, final Storage holder, final Activity cont, 
     		final ListView listview)
     { 
     	final Dialog popup = new Dialog(cont);
     	popup.setContentView(R.layout.draft_by_who);
+    	TextView header = (TextView)popup.findViewById(R.id.name_header);
+    	header.setText("Who drafted " + ((TextView)view).getText().toString().split(":  ")[1] + "?");
     	popup.show();
     	Button close = (Button)popup.findViewById(R.id.draft_who_close);
     	close.setOnClickListener(new OnClickListener(){
@@ -1042,7 +1048,9 @@ public class Rankings extends Activity {
     	someone.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				//Call redrawing function here
+				holder.draft.ignore.add(((TextView)view).getText().toString().split(":  ")[1]);
+				intermediateHandleRankings(cont);
+				WriteToFile.writeDraft(holder.draft, cont);
 				popup.dismiss();
 				Toast.makeText(cont, "Removing " + ((TextView)view).getText().toString().split(":  ")[1] +
 						" from the list", Toast.LENGTH_SHORT).show();
@@ -1058,10 +1066,15 @@ public class Rankings extends Activity {
     	});
     }
     
+    /**
+     * Handles the 'drafted by me' dialog
+     */
     public static void draftedByMe(final String name, final View view, final Storage holder, final Activity cont,
     		final ListView listview, final Dialog popup)
     {
     	popup.setContentView(R.layout.draft_by_me);
+    	TextView header = (TextView)popup.findViewById(R.id.name_header);
+    	header.setText("How much did " + name + " cost?");
     	Button back = (Button)popup.findViewById(R.id.draft_who_close);
     	back.setOnClickListener(new OnClickListener(){
 
@@ -1092,7 +1105,9 @@ public class Rankings extends Activity {
 					{
 						holder.draft.draftPlayer(player, holder.draft, val, cont);
 						Toast.makeText(cont, "Drafting " + name, Toast.LENGTH_SHORT).show();
-						//Call redraw function here
+						holder.draft.ignore.add(name);
+						WriteToFile.writeDraft(holder.draft, cont);
+						intermediateHandleRankings(cont);
 						break;
 					}
 				}

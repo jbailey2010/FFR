@@ -55,4 +55,13 @@
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <TextView
+        android:id="@+id/name_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/draft_who_close"
+        android:layout_centerHorizontal="true"
+        android:text="Header"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
 </RelativeLayout>

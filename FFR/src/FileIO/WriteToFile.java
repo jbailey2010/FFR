@@ -295,6 +295,16 @@ public class WriteToFile {
     	draftList += writeDraftHelper(draft.te) + "@";
     	draftList += writeDraftHelper(draft.def)+ "@";
     	draftList += writeDraftHelper(draft.k)  + "@";
+    	StringBuilder inter = new StringBuilder(1000);
+    	for(String name : draft.ignore)
+    	{
+    		inter.append(name + "~");
+    	}
+    	if(inter.length() < 3)
+    	{
+    		inter.append(" ");
+    	}
+    	draftList += inter.toString() + "@"; 
     	draftList += draft.remainingSalary + "@" + draft.value;
     	editor.putString("Draft Information", draftList).commit();
 	}
@@ -305,9 +315,15 @@ public class WriteToFile {
 	public static String writeDraftHelper(List<PlayerObject> list)
 	{
 		StringBuilder retSet = new StringBuilder(5000);
+		int counter = -1;
 		for(PlayerObject player : list)
 		{
 			retSet.append(player.info.name + "~");
+			counter ++;
+		}
+		if(counter == -1)
+		{
+			retSet.append(" ");
 		}
 		return retSet.toString();
 	}
