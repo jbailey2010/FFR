@@ -95,6 +95,7 @@ public class Storage
 		name = name.toLowerCase();
 		for(int i = 0; i < holder.playerNames.size(); i++)
 		{
+			
 			String nameIter = holder.playerNames.get(i);
 			nameIter = nameIter.toLowerCase();
 			if(name.equals(nameIter))

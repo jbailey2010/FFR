@@ -31,7 +31,8 @@ public class ParseESPNadv
 		String[] brokenValues = values.split("\n");
 		for(int i = 13; i < brokenValues.length; i+=8)
 		{ 
-			String name = Storage.nameExists(holder, brokenValues[i+1].split(", ")[0]);
+			String name = ParseRankings.fixNames(brokenValues[i+1].split(", ")[0]);
+			name = Storage.nameExists(holder, name);
 			String val = brokenValues[i+5];
 			String trend = brokenValues[i+6];
 			int worth = (int)Double.parseDouble(val);
