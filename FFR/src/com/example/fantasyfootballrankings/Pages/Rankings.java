@@ -325,7 +325,8 @@ public class Rankings extends Activity {
 		refreshDraft.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				Draft.resetDraft(holder.draft, holder, context);				
+				Draft.resetDraft(holder.draft, holder, context);	
+				dialog.dismiss();
 			}
 		});
 		Button refreshDismiss = (Button)dialog.findViewById(R.id.refresh_cancel);
