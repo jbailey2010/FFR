@@ -2,7 +2,9 @@ package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.Pages.Rankings;
@@ -87,10 +89,29 @@ public class HandleWatchList
 	    handleListSelect(holder, cont, watchList, listWatch, dialog);
 	}
 	
+	/**
+	 * Sets the display of the watch list
+	 */
 	public static void display(Dialog dialog, List<String> watchList, Storage holder, ListView listWatch,
 			Context cont)
 	{
 		listWatch.setAdapter(null);
+		PriorityQueue<PlayerObject>totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b) 
+			{
+				if (a.values.worth > b.values.worth)
+			    {
+			        return -1;
+			    }
+			    if (a.values.worth < b.values.worth)
+			    {
+			    	return 1;
+			    }
+			    return 0;
+			}
+		});
 	    List<String> listAdapter = new ArrayList<String>();
 	    for(String name : watchList)
 	    {
@@ -98,13 +119,18 @@ public class HandleWatchList
 	    	{
 	    		if(iter.info.name.equals(name))
 	    		{
-	    			DecimalFormat df = new DecimalFormat("#.##");
-	    	    	String val = df.format(iter.values.worth);
-	    	    	listAdapter.add(val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
-	    	    			iter.info.team);
+	    			totalList.add(iter);
 	    	    	break;
 	    		}
 	    	}
+	    }
+	    while(!totalList.isEmpty())
+	    {
+	    	PlayerObject iter = totalList.poll();
+			DecimalFormat df = new DecimalFormat("#.##");
+	    	String val = df.format(iter.values.worth);
+	    	listAdapter.add(val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
+	    			iter.info.team);
 	    }
 	    ManageInput.handleArray(listAdapter, listWatch, (Activity) cont);
 	}
