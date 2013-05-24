@@ -269,16 +269,16 @@ public class ParseStats
 			{
 				continue;
 			}
-			if(!tePlayers.containsKey(player[0].replace(".", " ")) && player[6].contains("%") &&
-					player[8].contains("%") && player.length < 15)
-			{
-				continue;
-			}
 			name = player[0].replace(".", " ");
 			team = player[1];
 			if(name.split(" ").length == 3)
 			{
 				name = name.split(" ")[0] + " " + name.split(" ")[2];
+			}
+			if(!tePlayers.containsKey(name + "/" + team) && player[6].contains("%") &&
+					player[8].contains("%") && player.length < 15)
+			{
+				continue;
 			}
 			if(tePlayers.containsKey(name + "/" + team))
 			{

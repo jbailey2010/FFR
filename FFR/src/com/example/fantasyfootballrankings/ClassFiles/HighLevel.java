@@ -314,14 +314,18 @@ public class HighLevel
 	{
 		//Fetch the stats
 		Map<String, String> qbs = ParseStats.parseQBStats();
+		Set<String> qbKeys = qbs.keySet();
 		Map<String, String> rbs = ParseStats.parseRBStats();
+		Set<String> rbKeys = rbs.keySet();
 		Map<String, String> wrs = ParseStats.parseWRStats();
+		Set<String> wrKeys = wrs.keySet();
 		Map<String, String> tes = ParseStats.parseTEStats();
+		Set<String> teKeys = tes.keySet();
 		for(PlayerObject player : holder.players)
 		{ 
-			//If not a kicker/defense, set stats
 			if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
 			{
+				//else if testname in keyset
 				String[] name = player.info.name.split(" ");
 				String testName = name[0].charAt(0) + " " + name[1];
 				
@@ -329,19 +333,64 @@ public class HighLevel
 				{
 					player.stats = qbs.get(testName + "/" + player.info.team);
 				}
+				else if(player.info.position.equals("QB"))
+				{
+					for(String key : qbKeys)
+					{
+						if(key.contains(testName))
+						{
+							player.stats = qbs.get(key);
+							break;
+						}
+					}
+				}
 				else if(player.info.position.equals("RB")&& rbs.containsKey(testName + "/" + player.info.team))
 				{
 					player.stats = rbs.get(testName + "/" + player.info.team);
+				}
+				else if(player.info.position.equals("RB"))
+				{
+					for(String key : rbKeys)
+					{
+						if(key.contains(testName))
+						{
+							player.stats = rbs.get(key);
+							break;
+						}
+					}
 				}
 				else if(player.info.position.equals("WR") && wrs.containsKey(testName + "/" + player.info.team))
 				{
 					player.stats = wrs.get(testName + "/" + player.info.team);
 				}
+				else if(player.info.position.equals("WR"))
+				{
+					for(String key : wrKeys)
+					{
+						if(key.contains(testName))
+						{
+							player.stats = wrs.get(key);
+							break;
+						}
+					}
+				}
 				else if(player.info.position.equals("TE") && tes.containsKey(testName + "/" + player.info.team))
 				{
 					player.stats = tes.get(testName + "/" + player.info.team);
 				}
-
+				else if(player.info.position.equals("TE"))
+				{
+					for(String key : teKeys)
+					{
+						if(key.contains(testName))
+						{
+							player.stats = tes.get(key);
+							System.out.println(player.info.name);
+							System.out.println(player.stats);
+							break;
+						}
+					}
+				}
 			}
 		}
 	}
