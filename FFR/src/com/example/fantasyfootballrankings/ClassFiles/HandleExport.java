@@ -71,11 +71,6 @@ public class HandleExport
 		return totalList;
 	}
 	
-	public static File writeFile(PriorityQueue<PlayerObject> players)
-	{
-		return null;
-	}
-	
 	
 	/**
 	 * Writes each line of the .csv
