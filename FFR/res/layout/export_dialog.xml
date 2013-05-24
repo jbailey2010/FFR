@@ -43,28 +43,18 @@
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="fill_parent"
         android:layout_height="150dp"
-        android:text="Export Rankings to Local Storage" />
+        android:text="Export to Local Storage" />
     
    	<View android:layout_width="fill_parent"
 		   android:layout_height="1dp"
 		   android:background="#90909090"/>
     
     <Button
-        android:id="@+id/dropbox"
+        android:id="@+id/email"
         android:layout_width="fill_parent"
         android:layout_height="150dp"
         style="?android:attr/buttonBarButtonStyle"
-        android:text="Export Rankings to Dropbox" />
-
-   	<View android:layout_width="fill_parent"
-		   android:layout_height="1dp"
-		   android:background="#90909090"/>  	
-    <Button
-        android:id="@+id/google_drive"
-        android:layout_width="fill_parent"
-        android:layout_height="150dp"
-        style="?android:attr/buttonBarButtonStyle"
-        android:text="Export Rankings to Google Drive" />
+        android:text="Email or Upload to Google Drive" />
     
 
 </LinearLayout>

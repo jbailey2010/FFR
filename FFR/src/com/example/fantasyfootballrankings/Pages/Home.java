@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 import java.net.MalformedURLException;
 import java.util.Iterator;
+import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
 import org.jsoup.Jsoup;
@@ -16,11 +17,19 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.dropbox.sync.android.DbxAccountManager;
+import com.dropbox.sync.android.DbxException;
+import com.dropbox.sync.android.DbxException.Unauthorized;
+import com.dropbox.sync.android.DbxFile;
+import com.dropbox.sync.android.DbxFileSystem;
+import com.dropbox.sync.android.DbxPath;
+import com.dropbox.sync.android.DbxPath.InvalidPathException;
 import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.R.id;
 import com.example.fantasyfootballrankings.R.layout;
 import com.example.fantasyfootballrankings.R.menu;
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.HandleExport;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
@@ -42,6 +51,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
 import AsyncTasks.ParsingAsyncTask.ParsePermanentDataSets;
+import FileIO.ReadFromFile;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -69,6 +79,7 @@ import android.widget.Toast;
  */ 
 public class Home extends Activity implements Serializable{
 	//Some global variables, context and a few buttons
+	Storage holder = new Storage();
 	final Context cont = this;
 	Dialog dialog;
 	Button rankings;
@@ -121,12 +132,37 @@ public class Home extends Activity implements Serializable{
 		dialog = new Dialog(cont);
 		switch (item.getItemId()) 
 		{
-			//Refresh the names list
+			case R.id.export_names:
+				callExport();
+				return true;
 			case R.id.refresh_names:
 				nameRefresh(dialog);
 		    	return true;			
 			default:
 				return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	/**
+	 * Calls the handle export fn
+	 */
+	public void callExport()
+	{
+		try {
+			ReadFromFile.fetchPlayers(holder,cont, false);
+			HandleExport.driveInit(HandleExport.orderPlayers(holder), dialog, cont);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XPatherException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

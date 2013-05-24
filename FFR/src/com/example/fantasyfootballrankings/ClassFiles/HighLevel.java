@@ -385,8 +385,6 @@ public class HighLevel
 						if(key.contains(testName))
 						{
 							player.stats = tes.get(key);
-							System.out.println(player.info.name);
-							System.out.println(player.stats);
 							break;
 						}
 					}
