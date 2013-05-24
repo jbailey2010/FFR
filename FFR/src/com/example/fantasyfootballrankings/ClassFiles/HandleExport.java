@@ -123,8 +123,6 @@ public class HandleExport
 		i.setType("message/rfc822");
 		i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(output));
 		cont.startActivity(Intent.createChooser(i, "Exported to the SD card, directory Fantasy Football Rankings. " +
-				"Where else would you like to send the file?"));
-	}
-	
-	
+				"Select below if you'd also like to send it elsewhere."));
+	}	
 }
