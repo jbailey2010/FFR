@@ -76,9 +76,9 @@ public class HandleExport
 	 * Writes each line of the .csv
 	 */
 	private static void writeCsvData(double worth, String name, String pos, String team, String age,
-			String bye, String adp, String trend, FileWriter writer) throws IOException 
+			String bye, String adp, String trend, double high, double low, FileWriter writer) throws IOException 
 	{  
-		  String line = String.format("%f,%s,%s,%s,%s,%s,%s,%s\n", worth, name, pos, team, age, bye, adp, trend);
+		  String line = String.format("%f,%s,%s,%s,%s,%s,%s,%s,%f,%f\n", worth, name, pos, team, age, bye, adp, trend, high, low);
 		  writer.write(line);
 	}
 	
@@ -87,7 +87,7 @@ public class HandleExport
 	 */
 	private static void writeCsvHeader(FileWriter writer) throws IOException 
 	{
-		String line = String.format("Worth,Name,Position,Team,Age,Bye,ADP,Trend\n");
+		String line = String.format("Worth,Name,Position,Team,Age,Bye,ADP,Trend,High,Low\n");
 		writer.write(line);
 	}
 
@@ -110,7 +110,8 @@ public class HandleExport
 			{
 				PlayerObject player = players.poll();
 				writeCsvData(player.values.worth, player.info.name, player.info.position, player.info.team,
-						player.info.age, player.info.bye, player.info.adp, player.info.trend, writer);
+						player.info.age, player.info.bye, player.info.adp, player.info.trend, player.values.high,
+						player.values.low, writer);
 			}
 			writer.flush();
 			writer.close(); 

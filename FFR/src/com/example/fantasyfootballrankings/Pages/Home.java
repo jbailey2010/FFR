@@ -88,7 +88,7 @@ public class Home extends Activity implements Serializable{
 	
 	/** 
 	 * Makes the buttons and sets the listeners for them
-	 */
+	 */ 
 	@Override  
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -148,9 +148,19 @@ public class Home extends Activity implements Serializable{
 	 */
 	public void callExport()
 	{
+			HandleExport.driveInit(HandleExport.orderPlayers(holder), dialog, cont);
+	}
+	
+	/**
+	 * Handles the initial fetching of player names
+	 * and permanent data if they haven't been
+	 * fetched (initial opening of the app)
+	 */
+	public void handleInitialRefresh()
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		try {
 			ReadFromFile.fetchPlayers(holder,cont, false);
-			HandleExport.driveInit(HandleExport.orderPlayers(holder), dialog, cont);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -164,16 +174,7 @@ public class Home extends Activity implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	/**
-	 * Handles the initial fetching of player names
-	 * and permanent data if they haven't been
-	 * fetched (initial opening of the app)
-	 */
-	public void handleInitialRefresh()
-	{
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+
 		String checkExists = prefs.getString("O Line Ranks", "Not Set");
 		if(checkExists.equals("Not Set"))
 		{
