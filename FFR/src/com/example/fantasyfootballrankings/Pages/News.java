@@ -197,6 +197,7 @@ public class News extends Activity {
 		spinnerList.add("Jason LaCanfora (NFL News)");
 		spinnerList.add("Jay Glazer (NFL News)");
 		spinnerList.add("Aggregate Feed (Fantasy)");
+		spinnerList.add("Kay Adams (Fantasy)");
 		spinnerList.add("Brad Evans (Fantasy)");
 		spinnerList.add("Mike Clay (Fantasy)");
 		spinnerList.add("Eric Mack (Fantasy)");

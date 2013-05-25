@@ -176,13 +176,11 @@ public class ParseTwitter
         TwitterFactory factory = new TwitterFactory(cb.build());
         Twitter twitter = factory.getInstance();
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
-        Paging paging = new Paging(1, 15);
+        Paging paging = new Paging(1, 13);
         try {
 			List<Status> statuses = twitter.getUserTimeline(accountName, paging);
 			for(Status status : statuses)
 			{
-				System.out.println(status.getUser().getName() + " " + status.getText() + "\n\n" + status.getCreatedAt());
-				System.out.println();
 				String header = status.getUser().getName() + ": " + status.getText();
 				String date = status.getCreatedAt().toString();
 				StringBuilder replySet = new StringBuilder(1000);
@@ -205,7 +203,7 @@ public class ParseTwitter
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        if(newsSet.size() == 0)
+        if(newsSet.size() < 10)
         {
         	newsSet.add(new NewsObjects("Rate limit exceeded, try again in a few minutes", " ", " "));
         } 

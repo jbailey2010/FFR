@@ -140,7 +140,7 @@ public class Home extends Activity implements Serializable{
 	 */
 	public void callExport()
 	{
-			HandleExport.driveInit(HandleExport.orderPlayers(holder), dialog, cont);
+		HandleExport.driveInit(HandleExport.orderPlayers(holder), dialog, cont);
 	}
 	
 	/**
@@ -152,7 +152,10 @@ public class Home extends Activity implements Serializable{
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		try {
-			ReadFromFile.fetchPlayers(holder,cont, false);
+			if(holder.players.size() < 5)
+			{
+				ReadFromFile.fetchPlayers(holder,cont, false);
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
