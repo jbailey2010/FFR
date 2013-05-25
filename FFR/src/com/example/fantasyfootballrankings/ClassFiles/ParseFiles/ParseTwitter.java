@@ -176,32 +176,43 @@ public class ParseTwitter
         TwitterFactory factory = new TwitterFactory(cb.build());
         Twitter twitter = factory.getInstance();
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
-        Paging paging = new Paging(1, 13);
+        Paging paging = new Paging(1, 20);
+        List<Status> statuses = new ArrayList<Status>();
         try {
-			List<Status> statuses = twitter.getUserTimeline(accountName, paging);
-			for(Status status : statuses)
-			{
-				String header = status.getUser().getName() + ": " + status.getText();
-				String date = status.getCreatedAt().toString();
-				StringBuilder replySet = new StringBuilder(1000);
-				int counter = 0;
-				while(status.getInReplyToStatusId() != -1L && counter < 4)
-				{
-					status = twitter.showStatus(status.getInReplyToStatusId());
-					replySet.append("In reply to: " + status.getUser().getName() + " (" + status.getCreatedAt() + ")\n" 
-							+ status.getText() + "\n\n");
-					counter++;
-				}
-				if(replySet.length() < 5)
-				{
-					replySet.append(" ");
-				}
-				NewsObjects news = new NewsObjects(header, replySet.toString(), date);
-				newsSet.add(news);
-			}
+			statuses = twitter.getUserTimeline(accountName, paging);
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		for(Status status : statuses)
+		{
+			String header = status.getUser().getName() + ": " + status.getText();
+			String date = status.getCreatedAt().toString();
+			StringBuilder replySet = new StringBuilder(1000);
+			System.out.println("iterating outer");
+			System.out.println(status.getAccessLevel() + ", " + status.getInReplyToStatusId());
+			System.out.println(status.getText());
+			int counter = 0;
+			while(status.getInReplyToStatusId() != -1L && counter < 4)
+			{
+				try {
+					status = twitter.showStatus(status.getInReplyToStatusId());
+				} catch (TwitterException e) {
+					break;
+				}
+				System.out.println("iterating");
+				System.out.println(status.getAccessLevel());
+				System.out.println(status.getText());
+				replySet.append("In reply to: " + status.getUser().getName() + " (" + status.getCreatedAt() + ")\n" 
+						+ status.getText() + "\n\n");
+				counter++;
+			}
+			if(replySet.length() < 5)
+			{
+				replySet.append(" ");
+			}
+			NewsObjects news = new NewsObjects(header, replySet.toString(), date);
+			newsSet.add(news);
 		}
         if(newsSet.size() < 10)
         {
@@ -221,7 +232,7 @@ public class ParseTwitter
         TwitterFactory factory = new TwitterFactory(cb.build());
         Twitter twitter = factory.getInstance();
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
-        Paging paging = new Paging(1, 15);
+        Paging paging = new Paging(1, 20);
         try {
         	int id = -1;
 			ResponseList<UserList> list = twitter.getUserLists("chriswesseling");
