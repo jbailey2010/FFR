@@ -726,7 +726,7 @@ public class ComparatorHandling
 	 */
 	public static double adp(PlayerObject player)
 	{
-		if(player.info.adp.equals("Not Set"))
+		if(player.info.adp.equals("Not set"))
 		{
 			return 500.0;
 		}

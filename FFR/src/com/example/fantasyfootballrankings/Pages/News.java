@@ -46,7 +46,7 @@ public class News extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news);
 		cont = this;
-		//handleInitialLoading();
+		handleInitialLoading();
 	}
 
 	@Override
@@ -106,6 +106,7 @@ public class News extends Activity {
 		{
 			ParseNews.startNewsReading(cont);
 			selection = ReadFromFile.readNewsTitle(cont);
+			setHeader(selection);
 		}
 	}
 
@@ -206,7 +207,7 @@ public class News extends Activity {
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
 				android.R.layout.simple_spinner_dropdown_item, spinnerList);
 		feeds.setAdapter(spinnerArrayAdapter);
-		//Load pre-selected item
+		//Load pre-selected item 
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
 		String selectionFeed = prefs.getString("Selected Twitter Feed", "Adam Schefter (NFL News)");
 		feeds.setSelection(spinnerList.indexOf(selectionFeed));
@@ -222,6 +223,10 @@ public class News extends Activity {
             	ParseNews.startTwitterAsync(cont, selectionFeed);
             	String[] brokenUp = selectionFeed.split(" \\(");
             	selection = brokenUp[0] + "'s Twitter Feed";
+            	if(selection.contains("Aggregate"))
+            	{
+            		selection = "Aggregate Fantasy Twitter Feed";
+            	}
             	WriteToFile.writeNewsSelection(cont, selection);
             	setHeader(selection);
             	dialog.dismiss();
@@ -246,6 +251,10 @@ public class News extends Activity {
 	 */
 	public static void setHeader(String selection)
 	{
+		if(selection.contains("Aggregate"))
+		{
+			selection = "Aggregate Fantasy Twitter Feed";
+		}
 		TextView header = (TextView)((Activity) cont).findViewById(R.id.news_header);
 		header.setText(selection);
 	}

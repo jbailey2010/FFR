@@ -46,6 +46,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePermanentData;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTwitter;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 
 import AsyncTasks.ParsingAsyncTask;
@@ -100,18 +101,9 @@ public class Home extends Activity implements Serializable{
         news = (Button)findViewById(R.id.news_button);
         news.setOnClickListener(newsHandler);
         handleInitialRefresh();
-        /*
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
-        try {
-			ParseESPNadv.parseESPNAggregate(new Storage());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (XPatherException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+        ParseTwitter.parseTwitter4jList();*/
 	}  
 	
 	/**

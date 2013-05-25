@@ -30,6 +30,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePermanentData;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTwitter;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
@@ -566,63 +567,59 @@ public class ParsingAsyncTask
 	    {
 	    	Context cont = (Context) data[0];
 	    	String selection = (String)data[1];
-	    	try {
-	    		List<NewsObjects> news = new ArrayList<NewsObjects>(100);
-	    		String url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=adamschefter&count=12";
-	    		if(selection.contains("Mortenson"))
-	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=mortreport&count=12";
-	    		}
-	    		else if(selection.contains("LaCanfora"))
-	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=jasonlacanfora&count=12";
-	    		}
-	    		else if(selection.contains("Brad Evans"))
-	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=yahoonoise&count=12";
-	    		}
-	    		else if(selection.contains("Glazer"))
-	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=jayglazer&count=12";
-	    		}
-	    		else if(selection.contains("Clay"))
-	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=mikeclaynfl&count=12";
-	    		}
-	    		else if(selection.contains("Douche"))
-	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=fantasydouche&count=12";
-	    		}
-	    		else if(selection.contains("Eric Mack"))
-	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=ericmackfantasy&count=12";
-	    		}
-	    		else if(selection.contains("Late Round"))
-	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=lateroundqb&count=12";
-	    		}
-	    		else if(selection.contains("Wesseling"))
-	    		{
-	    			url = "https://api.twitter.com/1/statuses/user_timeline.xml?include_entities=true&include_rts=true&screen_name=chriswesseling&count=12";
-	    		}
-	    		else if(selection.contains("Aggregate"))
-	    		{
-	    			url = "https://api.twitter.com/1/lists/statuses.xml?slug=fantasy-football-writers&owner_screen_name=ChrisWesseling&count=15";
-	    		}
-	    		news = ParseNews.parseTwitter(url);
-	    		WriteToFile.writeNewsTwitter(cont, news, selection);
-				return news;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
+	    	List<NewsObjects> news = new ArrayList<NewsObjects>(100);
+	    	String url = "adamschefter";
+	    	if(selection.contains("Mortenson"))
+	    	{
+	    		url = "mortreport";
+		    	news = ParseTwitter.parseTwitter4j(url);
+	    	}
+	    	else if(selection.contains("LaCanfora"))
+	    	{
+	    		url = "jasonlacanfora";
+		    	news = ParseTwitter.parseTwitter4j(url);
+	    	}
+	    	else if(selection.contains("Brad Evans"))
+	    	{
+	    		url = "yahoonoise";
+		    	news = ParseTwitter.parseTwitter4j(url);
+	    	}
+	    	else if(selection.contains("Glazer"))
+	    	{
+	    		url = "jayglazer";
+		    	news = ParseTwitter.parseTwitter4j(url);
+	    	}
+	    	else if(selection.contains("Clay"))
+	    	{
+	    		url = "mikeclaynfl";
+		    	news = ParseTwitter.parseTwitter4j(url);
+	    	}
+	    	else if(selection.contains("Douche"))
+	    	{
+	    		url = "fantasydouche";
+		    	news = ParseTwitter.parseTwitter4j(url);
+	    	}
+	    	else if(selection.contains("Eric Mack"))
+	    	{
+	    		url = "ericmackfantasy";
+		    	news = ParseTwitter.parseTwitter4j(url);
+	    	}
+	    	else if(selection.contains("Late Round"))
+	    	{
+	    		url = "lateroundqb";
+		    	news = ParseTwitter.parseTwitter4j(url);
+	    	}
+	    	else if(selection.contains("Wesseling"))
+	    	{
+	    		url = "chriswesseling";
+		    	news = ParseTwitter.parseTwitter4j(url);
+	    	}
+	    	else if(selection.contains("Aggregate"))
+	    	{
+	    		news = ParseTwitter.parseTwitter4jList();
+	    	}
+	    	WriteToFile.writeNewsTwitter(cont, news, selection);
+			return news;
 	    }
 	  }
 }
