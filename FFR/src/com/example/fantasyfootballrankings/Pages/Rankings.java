@@ -48,6 +48,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -630,13 +631,23 @@ public class Rankings extends Activity {
     	}
     	//Create the output, make sure it's valid
     	List<String>output = new ArrayList<String>(12);
-    	TextView name = (TextView)dialog.findViewById(R.id.name);
+    	final TextView name = (TextView)dialog.findViewById(R.id.name);
     	if(namePlayer.equals(""))
     	{
     		return;
     	}
     	//Set up the header, and make a mock object with the set name
     	name.setText(namePlayer);
+    	if(!watchFlag)
+    	{
+    		name.setOnLongClickListener(new OnLongClickListener(){
+				@Override
+				public boolean onLongClick(View v) {
+					handleDrafted(name, holder, (Activity)context, dialog);
+					return true;
+				}
+    		});
+    	}
     	PlayerObject searchedPlayer = new PlayerObject("","","",0);
     	for(PlayerObject player : holder.players)
     	{
@@ -1002,6 +1013,9 @@ public class Rankings extends Activity {
 	    ManageInput.handleArray(rankings, listview, cont);
 	}
     
+    /**
+     * Handles rankings onclick (dialog)
+     */
     public static void handleRankingsClick(final Storage holder, final Activity cont, final ListView listview)
     {
     	System.out.println("In rankings onclick fn " + holder.players.size());
@@ -1020,7 +1034,7 @@ public class Rankings extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				handleDrafted(arg1, holder, cont, listview);
+				handleDrafted(arg1, holder, cont, null);
 				return true;
 			}
     	 });
@@ -1029,13 +1043,22 @@ public class Rankings extends Activity {
     /**
      * Handles the drafted dialog
      */
-    public static void handleDrafted(final View view, final Storage holder, final Activity cont, 
-    		final ListView listview)
+    public static void handleDrafted(final View view, final Storage holder, final Activity cont, final Dialog dialog)
     { 
     	final Dialog popup = new Dialog(cont);
     	popup.setContentView(R.layout.draft_by_who);
     	TextView header = (TextView)popup.findViewById(R.id.name_header);
-    	header.setText("Who drafted " + ((TextView)view).getText().toString().split(":  ")[1] + "?");
+    	String name = "";
+    	if(((TextView)view).getText().toString().contains(":"))
+    	{
+    		name = ((TextView)view).getText().toString().split(":  ")[1];
+    		header.setText("Who drafted " + name + "?");
+    	}
+    	else
+    	{
+    		name = ((TextView)view).getText().toString();
+    		header.setText("Who drafted " + name + "?");
+    	}
     	popup.show();
     	Button close = (Button)popup.findViewById(R.id.draft_who_close);
     	close.setOnClickListener(new OnClickListener(){
@@ -1049,12 +1072,20 @@ public class Rankings extends Activity {
     	someone.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				holder.draft.ignore.add(((TextView)view).getText().toString().split(":  ")[1]);
+		    	String name =  ((TextView)view).getText().toString();
+		    	if(((TextView)view).getText().toString().contains(":"))
+		    	{
+		    		name = ((TextView)view).getText().toString().split(":  ")[1];
+		    	} 	
+				holder.draft.ignore.add(name);
 				intermediateHandleRankings(cont);
 				WriteToFile.writeDraft(holder.draft, cont);
 				popup.dismiss();
-				Toast.makeText(cont, "Removing " + ((TextView)view).getText().toString().split(":  ")[1] +
-						" from the list", Toast.LENGTH_SHORT).show();
+				if(dialog != null)
+				{
+					dialog.dismiss();
+				}
+				Toast.makeText(cont, "Removing " + name + " from the list", Toast.LENGTH_SHORT).show();
 			}
     	});
     	
@@ -1062,7 +1093,12 @@ public class Rankings extends Activity {
     	me.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				draftedByMe(((TextView)view).getText().toString().split(":  ")[1], view, holder, cont, listview, popup);
+		    	String name =  ((TextView)view).getText().toString();
+		    	if(((TextView)view).getText().toString().contains(":"))
+		    	{
+		    		name = ((TextView)view).getText().toString().split(":  ")[1];
+		    	} 	
+				draftedByMe(name, view, holder, cont, listview, popup, dialog);
 			}
     	});
     }
@@ -1071,7 +1107,7 @@ public class Rankings extends Activity {
      * Handles the 'drafted by me' dialog
      */
     public static void draftedByMe(final String name, final View view, final Storage holder, final Activity cont,
-    		final ListView listview, final Dialog popup)
+    		final ListView listview, final Dialog popup, final Dialog dialog)
     {
     	popup.setContentView(R.layout.draft_by_me);
     	TextView header = (TextView)popup.findViewById(R.id.name_header);
@@ -1082,7 +1118,7 @@ public class Rankings extends Activity {
 			@Override
 			public void onClick(View v) {
 				popup.dismiss();
-				handleDrafted(view, holder, cont, listview);
+				handleDrafted(view, holder, cont, dialog);
 			}
     	});
     	List<String> possResults = new ArrayList<String>();
@@ -1104,6 +1140,10 @@ public class Rankings extends Activity {
 				{
 					if(player.info.name.equals(name))
 					{
+						if(dialog != null)
+						{
+							dialog.dismiss();
+						}
 						if(val <= holder.draft.remainingSalary)
 						{
 							holder.draft.draftPlayer(player, holder.draft, val, cont);
