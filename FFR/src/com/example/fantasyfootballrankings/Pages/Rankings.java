@@ -824,7 +824,7 @@ public class Rankings extends Activity {
 		unDraft.setOnClickListener(new OnClickListener() 
 		{
 			public void onClick(View v) {
-				Draft.undraft(dialog, holder);
+				Draft.undraft(dialog, holder, context);
 	    	}	
 		});
     	dialog.show();

@@ -1,15 +1,30 @@
 package com.example.fantasyfootballrankings.ClassFiles.LittleStorage;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import FileIO.WriteToFile;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
+import com.example.fantasyfootballrankings.R;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.Pages.Rankings;
@@ -40,6 +55,16 @@ public class Draft
 	{
 		remainingSalary = 200;
 		value = 0.0;
+	}
+	
+	/**
+	 * Returns number of players drafted
+	 * @param draft
+	 * @return
+	 */
+	public static int playersDrafted(Draft draft)
+	{
+		return draft.qb.size() + draft.rb.size() + draft.wr.size() + draft.te.size() + draft.def.size() + draft.k.size();
 	}
 	
 	/**
@@ -114,13 +139,207 @@ public class Draft
 	/**
 	 * Starts the undrafting process
 	 */
-	public static void undraft(Dialog dialog, Storage holder)
+	public static void undraft(final Dialog dialog, final Storage holder, final Context cont)
 	{
-		//Create content view that has a header of 'select who to undraft' and listview beneath with drafted players
-		//Set content view with that
-		//Onclick, go to dialog to decide who the player was drafted by
-			//If someone else, remove from ignore, redraw
-			//If you, ask how much you bid, re-adjust salary and value, remove from ignore list, redraw
-			//Either way, afterwards dismiss dialog
+		dialog.setContentView(R.layout.search_output);
+		dialog.show();
+		if(holder.draft.ignore.size() == 0)
+		{
+			Toast.makeText(cont, "No one drafted", Toast.LENGTH_SHORT).show();
+			dialog.dismiss();
+			return;
+		}
+		Button close = (Button)dialog.findViewById(R.id.search_close);
+		TextView header = (TextView)dialog.findViewById(R.id.name);
+		header.setText("Select the player to undraft");
+		Button add = (Button)dialog.findViewById(R.id.add_watch);
+		View addView = (View)dialog.findViewById(R.id.add_view);
+		add.setVisibility(Button.GONE);
+		addView.setVisibility(View.GONE);
+		close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+		Button back = (Button)dialog.findViewById(R.id.search_back);
+		back.setText("Reset draft");
+		back.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				resetDraft(holder.draft, holder, cont);
+			}
+		});
+		ListView listWatch = (ListView)dialog.findViewById(R.id.listview_search);
+	    display(dialog, holder.draft.ignore, holder, listWatch, cont);
+	    handleListSelect(holder, cont, listWatch, dialog);
 	}
+	
+	/**
+	 * Sets the display of the watch list
+	 */
+	public static void display(Dialog dialog, List<String> ignore, Storage holder, ListView listWatch,
+			Context cont)
+	{
+		listWatch.setAdapter(null);
+		List<String> totalList = new ArrayList<String>();
+		for(String player : ignore)
+		{
+			totalList.add(player);
+		}
+	    ManageInput.handleArray(totalList, listWatch, (Activity) cont);
+	}
+	
+	/**
+	 * Sets the element onclick to show data
+	 */
+	public static void handleListSelect(final Storage holder, final Context cont, ListView listview, 
+			final Dialog dialog)
+	{
+	    listview.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				String selected = ((TextView)arg1).getText().toString();
+				Dialog dialog2 = new Dialog(cont);
+				dialog.dismiss();
+				undraftPlayer(selected, dialog2, holder, (Activity)cont);
+			}
+	    });	
+	}
+	
+	/**
+	 * Starts the undrafting of the player
+	 */
+	public static void undraftPlayer(final String name, final Dialog dialog, final Storage holder, 
+			final Activity cont)
+	{
+		dialog.setContentView(R.layout.draft_by_who);
+		dialog.show();
+		Button close = (Button)dialog.findViewById(R.id.draft_who_close);
+		close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				undraft(new Dialog(cont), holder, cont);
+			}
+		});
+		TextView header = (TextView)dialog.findViewById(R.id.name_header);
+		header.setText("Who drafted " + name + "?");
+		Button someone = (Button)dialog.findViewById(R.id.drafted_by_someone);
+		someone.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				holder.draft.ignore.remove(name);
+				WriteToFile.writeDraft(holder.draft, cont);
+				Toast.makeText(cont, "Undrafting " + name, Toast.LENGTH_SHORT).show();
+				Rankings.intermediateHandleRankings(cont);
+			}
+		});
+		Button me = (Button)dialog.findViewById(R.id.drafted_by_me);
+		me.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				System.out.println("Clicked");
+				draftedByMe(name, holder,cont, new Dialog(cont));
+				dialog.dismiss();
+			}
+		});
+	}
+	
+	   /**
+     * Handles the 'drafted by me' dialog
+     */
+    public static void draftedByMe(final String name, final Storage holder, final Activity cont, final Dialog popup)
+    {
+    	popup.setContentView(R.layout.draft_by_me);
+    	popup.show();
+    	TextView header = (TextView)popup.findViewById(R.id.name_header);
+    	header.setText("How much did " + name + " cost?");
+    	Button back = (Button)popup.findViewById(R.id.draft_who_close);
+    	back.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				popup.dismiss();
+				undraftPlayer(name, new Dialog(cont), holder, cont);
+			}
+    	});
+    	List<String> possResults = new ArrayList<String>();
+    	for(int i = 1; i < 201; i++)
+    	{
+    		possResults.add(String.valueOf(i));
+    	}
+    	AutoCompleteTextView price = (AutoCompleteTextView)popup.findViewById(R.id.amount_paid);
+    	ArrayAdapter<String> doubleAdapter = new ArrayAdapter<String>(cont,
+                android.R.layout.simple_dropdown_item_1line, possResults);
+    	price.setAdapter(doubleAdapter);
+    	price.setThreshold(1);
+    	System.out.println("After threshold");
+    	price.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+		    	int val = Integer.parseInt(((TextView)arg1).getText().toString());
+				popup.dismiss();
+				handleUnDraftingMe(val, holder, name, cont, popup);
+			}
+    	});
+    }
+    
+    /**
+     * Handles undrafting a player 
+     */
+    public static void handleUnDraftingMe(int val, Storage holder, String name, Context cont, Dialog popup)
+    {
+		for(PlayerObject player : holder.players)
+		{
+			if(player.info.name.equals(name))
+			{
+				System.out.println("in if");
+				if(player.info.position.equals("QB"))
+				{
+					holder.draft.qb.remove(player);
+				}
+				else if(player.info.position.equals("RB"))
+				{
+					System.out.println("in rb");
+					holder.draft.rb.remove(player);
+				}
+				else if(player.info.position.equals("WR"))
+				{
+					holder.draft.wr.remove(player);
+				}
+				else if(player.info.position.equals("TE"))
+				{
+					holder.draft.te.remove(player);
+				}
+				else if(player.info.position.equals("D/ST"))
+				{
+					holder.draft.def.remove(player);
+				}
+				else
+				{
+					holder.draft.k.remove(player);
+				}
+				holder.draft.ignore.remove(name);
+				holder.draft.remainingSalary += val;
+				if(holder.draft.remainingSalary > 200)
+				{
+					holder.draft.remainingSalary = 200;
+				}
+				holder.draft.value -= (player.values.worth - val);
+				if(playersDrafted(holder.draft) == 0)
+				{
+					holder.draft.remainingSalary = 200;
+					holder.draft.value = 0;
+				}
+				Toast.makeText(cont, "Undrafting " + name, Toast.LENGTH_SHORT).show();
+				WriteToFile.writeDraft(holder.draft, cont);
+				Rankings.intermediateHandleRankings((Activity)cont);
+			}
+		}
+    }
 }
