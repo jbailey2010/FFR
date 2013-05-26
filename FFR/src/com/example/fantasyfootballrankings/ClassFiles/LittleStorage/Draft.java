@@ -6,6 +6,7 @@ import java.util.List;
 
 import FileIO.WriteToFile;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -108,5 +109,18 @@ public class Draft
 		draft.value = 0.0;
 		WriteToFile.writeDraft(draft, cont);
 		Rankings.intermediateHandleRankings((Activity)cont);
+	}
+	
+	/**
+	 * Starts the undrafting process
+	 */
+	public static void undraft(Dialog dialog, Storage holder)
+	{
+		//Create content view that has a header of 'select who to undraft' and listview beneath with drafted players
+		//Set content view with that
+		//Onclick, go to dialog to decide who the player was drafted by
+			//If someone else, remove from ignore, redraw
+			//If you, ask how much you bid, re-adjust salary and value, remove from ignore list, redraw
+			//Either way, afterwards dismiss dialog
 	}
 }

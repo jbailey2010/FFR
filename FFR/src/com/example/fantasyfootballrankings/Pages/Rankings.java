@@ -820,6 +820,13 @@ public class Rankings extends Activity {
 				handleInfo(dialog);
 	    	}	
 		});
+		Button unDraft = (Button)dialog.findViewById(R.id.undraft);
+		unDraft.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				Draft.undraft(dialog, holder);
+	    	}	
+		});
     	dialog.show();
     }
 

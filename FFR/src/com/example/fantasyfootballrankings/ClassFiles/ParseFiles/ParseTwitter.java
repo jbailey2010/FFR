@@ -68,14 +68,12 @@ public class ParseTwitter
 	    	DocumentBuilder db = dbf.newDocumentBuilder();
 	    	Document doc = db.parse(new URL(url).openStream());
 			NodeList nList = doc.getElementsByTagName("status");
-			System.out.println("Size: " + nList.getLength());
 			for(int i = 0; i < nList.getLength(); i++)
 			{
 				Node node = nList.item(i);
 				if(node.getNodeType() == Node.ELEMENT_NODE) 
 				{
 					Element element = (Element) node;
-					System.out.println(getValue("text", element));
 					String date = getValue("created_at", element).split("\\+0000")[0];
 					String header = getValue("name", element) + ": " + getValue("text", element);
 					StringBuilder replySet = new StringBuilder(1000);
@@ -121,10 +119,8 @@ public class ParseTwitter
 		while(getValue("in_reply_to_status_id", element) != null && counter < 2)
 		{
 			counter++;
-			System.out.println("had reply");
 			String commentId = getValue("in_reply_to_status_id", element);
 			String url = urlBase + commentId + "&include_entities=true";
-			System.out.println(url);
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 	    	DocumentBuilder db = dbf.newDocumentBuilder();
 	    	Document doc;
@@ -135,9 +131,6 @@ public class ParseTwitter
 			if(node.getNodeType() == Node.ELEMENT_NODE) 
 			{
 				element = (Element) node;
-				System.out.println(getValue("text", element));
-				System.out.println(getValue("name", element));
-				System.out.println(getValue("created_at", element));
 				replies.add(getValue("name", element) + " (" + getValue("created_at",element) + "): "  
 						+ getValue("text", element) + "\n");
 			}
@@ -189,9 +182,6 @@ public class ParseTwitter
 			String header = status.getUser().getName() + ": " + status.getText();
 			String date = status.getCreatedAt().toString();
 			StringBuilder replySet = new StringBuilder(1000);
-			System.out.println("iterating outer");
-			System.out.println(status.getAccessLevel() + ", " + status.getInReplyToStatusId());
-			System.out.println(status.getText());
 			int counter = 0;
 			while(status.getInReplyToStatusId() != -1L && counter < 4)
 			{
@@ -200,9 +190,6 @@ public class ParseTwitter
 				} catch (TwitterException e) {
 					break;
 				}
-				System.out.println("iterating");
-				System.out.println(status.getAccessLevel());
-				System.out.println(status.getText());
 				replySet.append("In reply to: " + status.getUser().getName() + " (" + status.getCreatedAt() + ")\n" 
 						+ status.getText() + "\n\n");
 				counter++;

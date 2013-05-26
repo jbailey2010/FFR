@@ -35,21 +35,32 @@
         android:layout_marginTop="31dp" />
 
     <Button
-        android:id="@+id/salValDismiss"
+        android:id="@+id/undraft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/draftValue"
-        android:layout_marginTop="39dp"
-        android:layout_toRightOf="@+id/remSalary"
-        android:text="Dismiss" />
+        android:layout_alignBaseline="@+id/salValDismiss"
+        android:layout_alignBottom="@+id/salValDismiss"
+        android:layout_centerHorizontal="true"
+        android:text="Undraft Someone" />
 
     <Button
         android:id="@+id/more_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/salValDismiss"
-        android:layout_alignBottom="@+id/salValDismiss"
-        android:layout_toLeftOf="@+id/draftValue"
+        android:layout_alignBaseline="@+id/undraft"
+        android:layout_alignBottom="@+id/undraft"
+        android:layout_marginRight="45dp"
+        android:layout_toLeftOf="@+id/undraft"
         android:text="More Info" />
+
+    <Button
+        android:id="@+id/salValDismiss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/draftValue"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="42dp"
+        android:layout_toRightOf="@+id/undraft"
+        android:text="Dismiss" />
 
 </RelativeLayout>

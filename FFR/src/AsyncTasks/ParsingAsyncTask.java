@@ -614,7 +614,7 @@ public class ParsingAsyncTask
 	    		url = "chriswesseling";
 		    	news = ParseTwitter.parseTwitter4j(url);
 	    	}
-	    	else if(selection.contains("Adams"))
+	    	else if(selection.contains("Kay Adams"))
 	    	{
 	    		url = "heykayadams";
 	    		news = ParseTwitter.parseTwitter4j(url);
@@ -622,6 +622,11 @@ public class ParsingAsyncTask
 	    	else if(selection.contains("Aggregate"))
 	    	{
 	    		news = ParseTwitter.parseTwitter4jList();
+	    	}
+	    	else if(selection.contains("Schefter"))
+	    	{
+	    		url = "adamschefter";
+	    		news = ParseTwitter.parseTwitter4j(url);
 	    	}
 	    	WriteToFile.writeNewsTwitter(cont, news, selection);
 			return news;
