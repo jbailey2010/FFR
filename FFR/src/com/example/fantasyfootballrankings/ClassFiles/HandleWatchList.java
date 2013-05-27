@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 import com.example.fantasyfootballrankings.R;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.example.fantasyfootballrankings.Pages.Trending;
 
@@ -129,8 +130,16 @@ public class HandleWatchList
 	    	PlayerObject iter = totalList.poll();
 			DecimalFormat df = new DecimalFormat("#.##");
 	    	String val = df.format(iter.values.worth);
-	    	listAdapter.add(val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
-	    			iter.info.team);
+	    	if(Draft.isDrafted(iter.info.name, holder.draft))
+	    	{
+		    	listAdapter.add("DRAFTED - " + val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
+		    			iter.info.team);
+	    	}
+	    	else
+	    	{
+		    	listAdapter.add(val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
+		    			iter.info.team);
+	    	}
 	    }
 	    ManageInput.handleArray(listAdapter, listWatch, (Activity) cont);
 	}

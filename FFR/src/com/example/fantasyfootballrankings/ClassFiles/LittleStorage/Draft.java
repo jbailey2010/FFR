@@ -106,6 +106,65 @@ public class Draft
 	}
 	
 	/**
+	 * Checks if a player is drafted
+	 */
+	public static boolean isDrafted(String name, Draft draft)
+	{
+		System.out.println("Name: " + name + " size: " + draft.rb.size());
+		for(PlayerObject player : draft.qb)
+		{
+			if(player.info.name.equals(name))
+			{
+				return true;
+			}
+		}
+		for(PlayerObject player : draft.rb)
+		{
+			System.out.println(player.info.name);
+			if(player.info.name.equals(name))
+			{
+				return true;
+			}
+		}
+		for(PlayerObject player : draft.wr)
+		{
+			if(player.info.name.equals(name))
+			{
+				return true;
+			}
+		}
+		for(PlayerObject player : draft.te)
+		{
+			if(player.info.name.equals(name))
+			{
+				return true;
+			}
+		}
+		for(PlayerObject player : draft.def)
+		{
+			if(player.info.name.equals(name))
+			{
+				return true;
+			}
+		}
+		for(PlayerObject player : draft.k)
+		{
+			if(player.info.name.equals(name))
+			{
+				return true;
+			}
+		}
+		for(String playerName : draft.ignore)
+		{
+			if(playerName.equals(name))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * Adjusts the values of a draft class given
 	 * values of a pick that's made
 	 * @param valuePlayer
