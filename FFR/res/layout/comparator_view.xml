@@ -10,22 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_weight="100"
-        android:text="X" />
-
-    <View
-       	android:layout_width="1dp"
-		android:background="#90909090"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/compare_close"/>
-
-    <View
-       	android:layout_width="65dp"
-		android:background="#90909090"
-        android:layout_height="1dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/compare_close" />
+        android:background="#CD0000"
+        android:text="X"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/clear_compare"

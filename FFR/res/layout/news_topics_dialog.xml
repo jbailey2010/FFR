@@ -54,9 +54,9 @@
         android:id="@+id/button_news_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/radioGroup1"
-        android:layout_marginTop="66dp"
-        android:layout_toRightOf="@+id/radioGroup1"
+        android:layout_marginTop="94dp"
         android:text="Confirm" />
 
     <Button
@@ -65,8 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/button_news_confirm"
         android:layout_alignBottom="@+id/button_news_confirm"
-        android:layout_marginRight="18dp"
-        android:layout_toLeftOf="@+id/radioGroup1"
+        android:layout_alignRight="@+id/textView1"
         android:text="Cancel" />
 
 </RelativeLayout>

@@ -61,6 +61,6 @@
         android:layout_marginLeft="55dp"
         android:layout_marginTop="42dp"
         android:layout_toRightOf="@+id/undraft"
-        android:text="Dismiss" />
+        android:text="Cancel" />
 
 </RelativeLayout>

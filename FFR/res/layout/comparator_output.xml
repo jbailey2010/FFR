@@ -11,21 +11,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_weight="100"
-        android:text="X" />
+        android:background="#CD0000"
+        android:text="X"
+        android:textColor="#FFFFFF" />
 
-    <View
-       	android:layout_width="1dp"
-		android:background="#90909090"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/compare_close"/>
-
-    <View
-       	android:layout_width="65dp"
-		android:background="#90909090"
-        android:layout_height="1dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/compare_close" />
     <Button
         android:id="@+id/compare_back"
         style="?android:attr/buttonBarButtonStyle"

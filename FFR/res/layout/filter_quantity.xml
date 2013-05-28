@@ -23,24 +23,6 @@
         android:progress="100"
         android:layout_marginTop="79dp" />
 
-    <Button
-        android:id="@+id/filter_size_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/seekBar_quantity"
-        android:layout_below="@+id/quantity_display"
-        android:layout_marginTop="65dp"
-        android:text="Cancel" />
-
-    <Button
-        android:id="@+id/filter_size_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/filter_size_cancel"
-        android:layout_alignBottom="@+id/filter_size_cancel"
-        android:layout_alignRight="@+id/seekBar_quantity"
-        android:text="Submit" />
-
     <TextView
         android:id="@+id/quantity_display"
         android:layout_width="wrap_content"
@@ -50,5 +32,23 @@
         android:layout_marginTop="66dp"
         android:text="All of the players"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/filter_size_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/seekBar_quantity"
+        android:layout_below="@+id/quantity_display"
+        android:layout_marginTop="53dp"
+        android:text="Submit" />
+
+    <Button
+        android:id="@+id/filter_size_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/filter_size_submit"
+        android:layout_alignBottom="@+id/filter_size_submit"
+        android:layout_alignRight="@+id/seekBar_quantity"
+        android:text="Cancel" />
 
 </RelativeLayout>

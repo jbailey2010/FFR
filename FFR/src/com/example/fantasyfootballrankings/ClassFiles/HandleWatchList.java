@@ -51,17 +51,17 @@ public class HandleWatchList
 		dialog.show();
 		if(watchList.size() == 0 || (watchList.size() > 0 && !holder.parsedPlayers.contains(watchList.get(0))))
 		{
-			Toast.makeText(cont, "Watch list empty", Toast.LENGTH_SHORT);
+			Toast.makeText(cont, "Watch list empty", Toast.LENGTH_SHORT).show();
 			dialog.dismiss();
 			return;
-		}
+		} 
 		Button close = (Button)dialog.findViewById(R.id.search_close);
 		TextView header = (TextView)dialog.findViewById(R.id.name);
 		header.setText("Watch List");
 		Button add = (Button)dialog.findViewById(R.id.add_watch);
-		View addView = (View)dialog.findViewById(R.id.add_view);
+		View backView = (View)dialog.findViewById(R.id.add_view);
 		add.setVisibility(Button.GONE);
-		addView.setVisibility(View.GONE);
+		backView.setVisibility(View.GONE);
 		close.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {

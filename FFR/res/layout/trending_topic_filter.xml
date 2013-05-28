@@ -41,24 +41,6 @@
         android:layout_alignRight="@+id/textView1"
         android:text="Value Picks" />
 
-    <Button
-        android:id="@+id/trending_filter_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/trending_filter_submit"
-        android:layout_below="@+id/trending_filter_submit"
-        android:layout_marginTop="33dp"
-        android:text="Cancel" />
-
-    <Button
-        android:id="@+id/trending_filter_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dont_want"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="89dp"
-        android:text="Submit" />
-
     <CheckBox
         android:id="@+id/rookies"
         android:layout_width="wrap_content"
@@ -66,5 +48,23 @@
         android:layout_above="@+id/trending_filter_submit"
         android:layout_alignLeft="@+id/value_box"
         android:text="Rookies" />
+
+    <Button
+        android:id="@+id/trending_filter_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dont_want"
+        android:layout_below="@+id/dont_want"
+        android:layout_marginTop="129dp"
+        android:text="Submit" />
+
+    <Button
+        android:id="@+id/trending_filter_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/trending_filter_submit"
+        android:layout_alignBottom="@+id/trending_filter_submit"
+        android:layout_alignRight="@+id/value_box"
+        android:text="Cancel" />
 
 </RelativeLayout>

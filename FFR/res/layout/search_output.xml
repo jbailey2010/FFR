@@ -23,20 +23,17 @@
             android:layout_toRightOf="@+id/search_back"
 		    android:background="#FF0000"/>
 
-        <View android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-            android:layout_toLeftOf="@+id/search_close"
-		    android:background="#FF0000"/>
-
         <Button
             android:id="@+id/search_close"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:textColor="#FFFFFF"
-            android:text="X" />
+            android:background="#CD0000"
+            android:text="X"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/add_watch"
