@@ -21,21 +21,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Clear" />
-    
-    <View
-       	android:layout_width="65dp"
-		android:background="#90909090"
-        android:layout_height="1dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/clear_compare" />
-
-    <View
-        android:layout_width="1dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/clear_compare"
-        android:background="#90909090" />
+        android:text="Clear"
+        android:textColor="#FFFFFF"
+        android:background="#000000" />
 
     <TextView
         android:id="@+id/player_comparator_header"

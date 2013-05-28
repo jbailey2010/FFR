@@ -83,21 +83,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Clear" />
-    
-    <View
-       	android:layout_width="65dp"
-		android:background="#90909090"
-        android:layout_height="1dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/clear_trade" />
-
-    <View
-        android:layout_width="1dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/clear_trade"
-        android:background="#90909090" />
+        android:text="Clear"
+        android:background="#000000"
+		android:textColor="#FFFFFF"/>
 
     <TextView
         android:id="@+id/calc_header"

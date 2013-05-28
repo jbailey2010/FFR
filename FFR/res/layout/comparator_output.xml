@@ -23,21 +23,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_weight="100"
-        android:text="Back" />
-
-    <View
-       	android:layout_width="1dp"
-		android:background="#90909090"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/compare_back"/>
-
-    <View
-        android:layout_width="65dp"
-        android:layout_height="1dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/compare_back"
-        android:background="#90909090" />
+        android:text="Back"
+        android:textColor="#FFFFFF"
+        android:background="#000000" />
 
     <TextView
         android:id="@+id/compare_output_1"
