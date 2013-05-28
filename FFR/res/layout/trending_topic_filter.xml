@@ -21,6 +21,7 @@
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="51dp"
+        android:button="@drawable/custom_checkbox"
         android:text="Must Have Players" />
 
     <CheckBox
@@ -30,6 +31,7 @@
         android:layout_alignLeft="@+id/must_haves"
         android:layout_below="@+id/must_haves"
         android:layout_marginTop="44dp"
+       	android:button="@drawable/custom_checkbox"
         android:text="Don&apos;t Want/Overvalued" />
 
     <CheckBox
@@ -39,6 +41,7 @@
         android:layout_alignBaseline="@+id/must_haves"
         android:layout_alignBottom="@+id/must_haves"
         android:layout_alignRight="@+id/textView1"
+        android:button="@drawable/custom_checkbox"
         android:text="Value Picks" />
 
     <CheckBox
@@ -47,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/trending_filter_submit"
         android:layout_alignLeft="@+id/value_box"
+        android:button="@drawable/custom_checkbox"
         android:text="Rookies" />
 
     <Button

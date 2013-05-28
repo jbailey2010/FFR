@@ -82,13 +82,13 @@
 
     <Button
         android:id="@+id/add_comparator_1"
+        style="@style/ButtonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/compare_output_1"
         android:layout_below="@+id/compare_output_1"
-        android:layout_marginTop="160dp"
-        android:text="Add to Watch List"
+        android:layout_marginTop="69dp"
         android:background="@drawable/btn_red"
-        style="@style/ButtonText" />
+        android:text="Add to Watch List" />
 
 </RelativeLayout>
