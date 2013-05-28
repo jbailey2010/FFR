@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="121dp"
-        android:text="This should be done if a player was traded/cut/drafted...etc"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+    android:layout_height="fill_parent" >
 
     <TextView
         android:id="@+id/textView2"
@@ -23,21 +13,46 @@
         android:text="Are you sure you want to refresh the player list?"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="72dp"
+        android:text="This should be done if a player was traded/cut/drafted...etc"
+        android:paddingBottom="25dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/confirm_list_refresh"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="87dp"
+        android:text=" "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <Button
         android:id="@+id/confirm_list_refresh"
+        style="@style/ButtonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="111dp"
+        android:layout_marginTop="87dp"
+        android:background="@drawable/btn_red"
         android:text="Refresh" />
 
     <Button
         android:id="@+id/cancel_list_refresh"
+        style="@style/ButtonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/textView3"
         android:layout_alignRight="@+id/textView1"
-        android:layout_alignTop="@+id/confirm_list_refresh"
+        android:background="@drawable/btn_red"
         android:text="Cancel" />
 
 </RelativeLayout>

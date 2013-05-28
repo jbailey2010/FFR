@@ -57,7 +57,9 @@
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/radioGroup1"
         android:layout_marginTop="94dp"
-        android:text="Confirm" />
+        android:text="Confirm"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText" />
 
     <Button
         android:id="@+id/button_news_cancel"
@@ -66,6 +68,8 @@
         android:layout_alignBaseline="@+id/button_news_confirm"
         android:layout_alignBottom="@+id/button_news_confirm"
         android:layout_alignRight="@+id/textView1"
-        android:text="Cancel" />
+        android:text="Cancel"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText" />
 
 </RelativeLayout>

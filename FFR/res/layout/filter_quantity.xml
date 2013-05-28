@@ -40,7 +40,9 @@
         android:layout_alignLeft="@+id/seekBar_quantity"
         android:layout_below="@+id/quantity_display"
         android:layout_marginTop="53dp"
-        android:text="Submit" />
+        android:text="Submit"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText" />
 
     <Button
         android:id="@+id/filter_size_cancel"
@@ -49,6 +51,8 @@
         android:layout_alignBaseline="@+id/filter_size_submit"
         android:layout_alignBottom="@+id/filter_size_submit"
         android:layout_alignRight="@+id/seekBar_quantity"
-        android:text="Cancel" />
+        android:text="Cancel"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText" />
 
 </RelativeLayout>

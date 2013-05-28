@@ -6,5 +6,15 @@
     <string name="title_activity_team">Your Team</string>
     <string name="title_activity_trending">Trends</string>
     <string name="title_activity_rankings">Ranks</string>
-        
+    
+    <style name="ButtonText">
+	    <item name="android:textColor">#ffffff</item>
+	    <item name="android:gravity">center</item>
+	    <item name="android:textSize">20sp</item>
+	    <item name="android:textStyle">bold</item>
+	    <item name="android:shadowColor">#000000</item>
+	    <item name="android:shadowDx">1</item>
+	    <item name="android:shadowDy">1</item>
+	    <item name="android:shadowRadius">2</item>
+	</style>
 </resources>

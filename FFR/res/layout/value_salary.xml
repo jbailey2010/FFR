@@ -41,7 +41,9 @@
         android:layout_alignBaseline="@+id/salValDismiss"
         android:layout_alignBottom="@+id/salValDismiss"
         android:layout_centerHorizontal="true"
-        android:text="Undraft Someone" />
+        android:text="Undraft Someone"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText" />
 
     <Button
         android:id="@+id/more_info"
@@ -51,7 +53,9 @@
         android:layout_alignBottom="@+id/undraft"
         android:layout_marginRight="45dp"
         android:layout_toLeftOf="@+id/undraft"
-        android:text="More Info" />
+        android:text="More Info"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText" />
 
     <Button
         android:id="@+id/salValDismiss"
@@ -61,6 +65,8 @@
         android:layout_marginLeft="55dp"
         android:layout_marginTop="42dp"
         android:layout_toRightOf="@+id/undraft"
-        android:text="Cancel" />
+        android:text="Cancel"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText" />
 
 </RelativeLayout>

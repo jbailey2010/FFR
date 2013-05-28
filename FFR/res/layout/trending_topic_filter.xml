@@ -56,7 +56,9 @@
         android:layout_alignLeft="@+id/dont_want"
         android:layout_below="@+id/dont_want"
         android:layout_marginTop="129dp"
-        android:text="Submit" />
+        android:text="Submit"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText" />
 
     <Button
         android:id="@+id/trending_filter_cancel"
@@ -65,6 +67,8 @@
         android:layout_alignBaseline="@+id/trending_filter_submit"
         android:layout_alignBottom="@+id/trending_filter_submit"
         android:layout_alignRight="@+id/value_box"
-        android:text="Cancel" />
+        android:text="Cancel"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText" />
 
 </RelativeLayout>

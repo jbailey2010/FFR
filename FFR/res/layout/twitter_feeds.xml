@@ -24,12 +24,13 @@
 
     <Button
         android:id="@+id/twitter_submit"
-        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/spinner_feeds"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="110dp"
-        android:text="Submit" />
+        android:text="Submit"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText" />
 
 </RelativeLayout>

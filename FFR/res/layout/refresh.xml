@@ -23,7 +23,9 @@
         android:layout_below="@+id/textView1"
         android:layout_marginLeft="49dp"
         android:layout_marginTop="66dp"
-        android:text="Rankings" />
+        android:text="Rankings"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText" />
 
     <Button
         android:id="@+id/refresh_cancel"
@@ -32,7 +34,9 @@
         android:layout_below="@+id/refresh_confirm"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="115dp"
-        android:text="Cancel" />
+        android:text="Cancel"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText" />
 
     <Button
         android:id="@+id/reset_draft"
@@ -40,6 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/refresh_confirm"
         android:layout_toRightOf="@+id/textView1"
-        android:text="Draft" />
+        android:text="Draft"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText" />
 
 </RelativeLayout>

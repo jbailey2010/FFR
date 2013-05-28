@@ -47,6 +47,7 @@
         android:layout_below="@+id/compare_header_1"
         android:layout_marginTop="25dp"
         android:text="Medium Text"
+        android:paddingBottom="35dp"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -57,6 +58,7 @@
         android:layout_alignBottom="@+id/compare_output_1"
         android:layout_alignLeft="@+id/compare_header_2"
         android:text="Medium Text"
+        android:paddingBottom="35dp"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -86,7 +88,9 @@
         android:layout_alignBaseline="@+id/add_comparator_1"
         android:layout_alignBottom="@+id/add_comparator_1"
         android:layout_toLeftOf="@+id/compare_close"
-        android:text="Add to Watch List" />
+        android:text="Add to Watch List" 
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText"/>
 
     <Button
         android:id="@+id/add_comparator_1"
@@ -95,6 +99,8 @@
         android:layout_alignLeft="@+id/compare_output_1"
         android:layout_below="@+id/compare_output_1"
         android:layout_marginTop="160dp"
-        android:text="Add to Watch List" />
+        android:text="Add to Watch List"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText" />
 
 </RelativeLayout>

@@ -71,6 +71,8 @@
         android:layout_below="@+id/k_header"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        android:text="Back" />
+        android:text="Back" 
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText"/>
 
 </RelativeLayout>
