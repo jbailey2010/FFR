@@ -288,7 +288,9 @@ public class News extends Activity {
 	    			 + "Date: " + newsObj.date + "\n");
 	    	news.add(newsBuilder.toString());
 	    }
-	    ManageInput.handleArray(news, listview, cont);
+	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(cont,
+	            android.R.layout.simple_list_item_1, news);
+	    listview.setAdapter(adapter);
 	}
 
 }

@@ -751,7 +751,8 @@ public class Rankings extends Activity {
     	{
     		output.add("Team: " + searchedPlayer.info.team);
     	}
-    	if(!searchedPlayer.info.age.equals("0") && !searchedPlayer.info.position.equals("D/ST"))
+    	if(!searchedPlayer.info.age.equals("0") && !searchedPlayer.info.position.equals("D/ST") && 
+    			!searchedPlayer.info.age.equals("") && searchedPlayer.info.age.length() >= 2)
     	{
     		output.add("Age: " + searchedPlayer.info.age);
     	}
