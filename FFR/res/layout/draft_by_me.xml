@@ -32,7 +32,9 @@
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="69dp"
-        android:ems="10" >
+        android:ems="10"
+        android:background="#cdcdcd"
+    	android:dropDownSelector="#FF0000" >
 
         <requestFocus />
     </AutoCompleteTextView>

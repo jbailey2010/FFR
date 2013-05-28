@@ -481,6 +481,8 @@ public class Rankings extends Activity {
 		matchedPlayers = new ArrayList<String>(15);
 		newCont = oCont;
 		ReadFromFile.fetchNames(holder, newCont);
+        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+
 		dialog.setContentView(R.layout.search_players);
 		/*WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());

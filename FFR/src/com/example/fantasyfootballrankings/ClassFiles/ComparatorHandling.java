@@ -10,6 +10,7 @@ import FileIO.WriteToFile;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -32,6 +33,7 @@ public class ComparatorHandling
 	public static void handleComparingInit(Storage holder, Context cont)
 	{
 		final Dialog dialog = new Dialog(cont);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		dialog.setContentView(R.layout.comparator_view);
 		dialog.show();
 		//For when this is called back by the comparing part:

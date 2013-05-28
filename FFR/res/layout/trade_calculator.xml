@@ -33,7 +33,9 @@
         android:layout_below="@+id/your_loss"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="41dp"
-        android:ems="10" />
+        android:ems="10"
+        android:background="#cdcdcd"
+    	android:dropDownSelector="#FF0000" />
 
     <AutoCompleteTextView
         android:id="@+id/your_gain_input"
@@ -43,7 +45,9 @@
         android:layout_alignBottom="@+id/your_loss_input"
         android:layout_alignParentRight="true"
         android:layout_marginRight="27dp"
-        android:ems="10" />
+        android:ems="10"
+        android:background="#cdcdcd"
+    	android:dropDownSelector="#FF0000" />
 
     <Button
         android:id="@+id/search_close"

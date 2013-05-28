@@ -43,7 +43,9 @@
     android:layout_alignParentTop="true"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="175dp"
-    android:ems="10" >
+    android:ems="10"
+    android:background="#cdcdcd"
+    android:dropDownSelector="#FF0000">
 
     <requestFocus />
 </AutoCompleteTextView>

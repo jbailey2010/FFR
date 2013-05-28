@@ -40,7 +40,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/second_player_compare"
         android:layout_alignParentRight="true"
-        android:ems="10" >
+        android:ems="10"
+        android:background="#cdcdcd"
+    	android:dropDownSelector="#FF0000" >
     </AutoCompleteTextView>
 
     <TextView
@@ -61,7 +63,9 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/clear_compare"
         android:layout_marginTop="111dp"
-        android:ems="10" >
+        android:ems="10"
+        android:background="#cdcdcd"
+    	android:dropDownSelector="#FF0000" >
         <requestFocus />
     </AutoCompleteTextView>
 
