@@ -19,6 +19,8 @@ import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnDragListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -87,7 +89,12 @@ public class ManageInput
 	public static void filterQuantity(final Context cont, final String flag, final int listSize)
 	{
 		final Dialog dialog = new Dialog(cont);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.filter_quantity);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		int filterSize = ReadFromFile.readFilterQuantitySize(cont, flag);
 		final SeekBar selector = (SeekBar)dialog.findViewById(R.id.seekBar_quantity);

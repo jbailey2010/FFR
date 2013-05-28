@@ -233,7 +233,13 @@ public class Rankings extends Activity {
 	 */
 	public static void filterTopics(final Dialog dialog2) 
 	{
+		final Dialog dialog = new Dialog(context);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.rankings_filter);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
 		Button cancel = (Button)dialog.findViewById(R.id.rankings_filter_close);
 		cancel.setOnClickListener(new OnClickListener() 
 		{
@@ -303,7 +309,7 @@ public class Rankings extends Activity {
 		pos.setSelection(posList.indexOf(posFilter));
 
 		//Actual non-initialization work
-		Button submit = (Button)dialog2.findViewById(R.id.filter_rankings_submit);
+		Button submit = (Button)dialog.findViewById(R.id.filter_rankings_submit);
 		submit.setOnClickListener(new OnClickListener() 
 		{
 			public void onClick(View v) 
@@ -333,7 +339,12 @@ public class Rankings extends Activity {
 	 */
 	public void refreshRanks(final Dialog dialog)
 	{
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.refresh); 
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
 		Button refreshDraft = (Button)dialog.findViewById(R.id.reset_draft);
 		refreshDraft.setOnClickListener(new OnClickListener(){
 			@Override
@@ -430,7 +441,7 @@ public class Rankings extends Activity {
 	          public void onClick(View v) 
 	          {
 	        	  try {
-	        		  searchCalled(dialog, cont);
+	        		  searchCalled(new Dialog(cont), cont);
 	        	  } catch (IOException e) {
 						// TODO Auto-generated catch block
 	        		  e.printStackTrace();
@@ -481,14 +492,15 @@ public class Rankings extends Activity {
 		matchedPlayers = new ArrayList<String>(15);
 		newCont = oCont;
 		ReadFromFile.fetchNames(holder, newCont);
-        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 
 		dialog.setContentView(R.layout.search_players);
-		/*WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+		
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-	    lp.height = WindowManager.LayoutParams.FILL_PARENT;
-	    dialog.getWindow().setAttributes(lp);*/
+	    dialog.getWindow().setAttributes(lp);
+	    
 		voice = (Button) dialog.findViewById(R.id.speakButton);
         textView = (AutoCompleteTextView)(dialog).findViewById(R.id.player_input);
         voice.setOnClickListener(new OnClickListener() {
@@ -822,7 +834,7 @@ public class Rankings extends Activity {
     {
 		dialog.setContentView(R.layout.value_salary); 
 		String salRem = Integer.toString(holder.draft.remainingSalary);
-		String value = Integer.toString((int)holder.draft.value);
+		String value = Integer.toString((int)holder.draft.value); 
 		TextView remSalary = (TextView)dialog.findViewById(R.id.remSalary);
 		TextView draftVal = (TextView)dialog.findViewById(R.id.draftValue);
 		ProgressBar salBar = (ProgressBar)dialog.findViewById(R.id.progressBar1);
@@ -1032,14 +1044,12 @@ public class Rankings extends Activity {
      */
     public static void handleRankingsClick(final Storage holder, final Activity cont, final ListView listview)
     {
-    	System.out.println("In rankings onclick fn " + holder.players.size());
     	 listview.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				String selected = ((TextView)arg1).getText().toString();
 				selected = selected.split(":  ")[1];
-				System.out.println(selected + " is selected");
 				Rankings.outputResults(dialog, selected, true, (Rankings)context, holder, false);
 			}
     	 });
@@ -1060,7 +1070,12 @@ public class Rankings extends Activity {
     public static void handleDrafted(final View view, final Storage holder, final Activity cont, final Dialog dialog)
     { 
     	final Dialog popup = new Dialog(cont);
+		popup.requestWindowFeature(Window.FEATURE_NO_TITLE);
     	popup.setContentView(R.layout.draft_by_who);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(popup.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    popup.getWindow().setAttributes(lp);
     	TextView header = (TextView)popup.findViewById(R.id.name_header);
     	String name = "";
     	if(((TextView)view).getText().toString().contains(":"))

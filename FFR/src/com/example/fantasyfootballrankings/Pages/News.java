@@ -24,6 +24,8 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -116,7 +118,12 @@ public class News extends Activity {
 	public static void refreshNewsDialog()
 	{
 		final Dialog dialog = new Dialog(cont);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.news_topics_dialog);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		boolean rhCheck = prefs.getBoolean("Use Headlines", false);
 		boolean rpCheck = prefs.getBoolean("Use Player News", false);
@@ -189,7 +196,12 @@ public class News extends Activity {
 	{
 		//Set up dialog
 		final Dialog dialog = new Dialog(cont);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.twitter_feeds);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
 		//Set up adapter
 		List<String> spinnerList = new ArrayList<String>();
 		spinnerList.add("Adam Schefter (NFL News)");

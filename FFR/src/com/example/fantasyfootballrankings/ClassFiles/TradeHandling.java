@@ -9,6 +9,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -38,6 +40,7 @@ public class TradeHandling
 	public static void handleTradeInit(Storage holder, Context cont)
 	{
 		final Dialog dialog = new Dialog(cont);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.trade_calculator);
 		dialog.show(); 
 		tradeInput = (TextView)dialog.findViewById(R.id.trade_input);

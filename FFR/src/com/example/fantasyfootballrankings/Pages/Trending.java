@@ -37,6 +37,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -212,7 +214,12 @@ public class Trending extends Activity {
 	public void topicalTrending(final Storage holder)
 	{
 		dialog = new Dialog(cont);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.trending_topic_filter);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		final CheckBox value = (CheckBox)dialog.findViewById(R.id.value_box);
 		final CheckBox rookie = (CheckBox)dialog.findViewById(R.id.rookies);

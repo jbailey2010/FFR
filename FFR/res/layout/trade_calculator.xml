@@ -13,17 +13,6 @@
         android:layout_marginTop="58dp"
         android:text="Who you are giving"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-    
-    <TextView
-        android:id="@+id/your_gain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/calc_header"
-        android:layout_marginRight="55dp"
-        android:layout_marginTop="58dp"
-        android:text="Who you are getting"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <AutoCompleteTextView
         android:id="@+id/your_loss_input"
@@ -109,5 +98,14 @@
         android:layout_marginTop="115dp"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/your_gain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/your_loss_input"
+        android:layout_toLeftOf="@+id/search_close"
+        android:text="Who you are getting"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

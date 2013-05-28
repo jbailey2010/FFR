@@ -68,6 +68,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -188,8 +190,13 @@ public class Home extends Activity implements Serializable{
 	 */
 	public void nameRefresh(final Dialog dialog)
 	{
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.refresh_list);
 		dialog.show();
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
 		Button cancel = (Button)dialog.findViewById(R.id.cancel_list_refresh);
 		Button submit = (Button)dialog.findViewById(R.id.confirm_list_refresh);
 		final ParsingAsyncTask stupid = new ParsingAsyncTask();
