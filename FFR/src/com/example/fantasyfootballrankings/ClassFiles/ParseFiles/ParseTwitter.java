@@ -169,7 +169,7 @@ public class ParseTwitter
         TwitterFactory factory = new TwitterFactory(cb.build());
         Twitter twitter = factory.getInstance();
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
-        Paging paging = new Paging(1, 20);
+        Paging paging = new Paging(1, 25);
         List<Status> statuses = new ArrayList<Status>();
         try {
 			statuses = twitter.getUserTimeline(accountName, paging);
@@ -219,7 +219,7 @@ public class ParseTwitter
         TwitterFactory factory = new TwitterFactory(cb.build());
         Twitter twitter = factory.getInstance();
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
-        Paging paging = new Paging(1, 20);
+        Paging paging = new Paging(1, 25);
         try {
         	int id = -1;
 			ResponseList<UserList> list = twitter.getUserLists("chriswesseling");

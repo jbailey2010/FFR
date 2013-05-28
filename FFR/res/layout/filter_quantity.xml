@@ -20,8 +20,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/what_filtered"
         android:layout_centerHorizontal="true"
-        android:progress="100"
-        android:layout_marginTop="79dp" />
+        android:progress="100" 
+        android:layout_marginTop="79dp" 
+        android:progressDrawable="@drawable/red_scrubber_progress"
+    	android:thumb="@drawable/red_scrubber_control" />
 
     <TextView
         android:id="@+id/quantity_display"
