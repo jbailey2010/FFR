@@ -5,49 +5,54 @@
     android:orientation="vertical" >
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content" 
+        android:background="#000000">
 
         <Button
             android:id="@+id/draft_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
         	android:text="Draft Information"
+        	android:textColor="#FFFFFF"
         	android:layout_weight="25"
         	style="?android:attr/buttonBarButtonStyle"/>
         
        	<View android:layout_height="fill_parent"
-		    android:layout_width="1dp"
-		    android:background="#90909090"/>
+		    android:layout_width="2dp"
+		    android:background="#FF0000"/>
 
         <Button
             android:id="@+id/search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Search Players" 
+            android:textColor="#FFFFFF"
             android:layout_weight="25"
             style="?android:attr/buttonBarButtonStyle"/>
         
         <View android:layout_height="fill_parent"
-		    android:layout_width="1dp"
-		    android:background="#90909090"/>
+		    android:layout_width="2dp"
+		    android:background="#FF0000"/>
 
         <Button
             android:id="@+id/player_comparator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Compare Players"
+            android:textColor="#FFFFFF"
             android:layout_weight="25" 
             style="?android:attr/buttonBarButtonStyle"/>
        
         <View android:layout_height="fill_parent"
-		    android:layout_width="1dp"
-		    android:background="#90909090"/>
+		    android:layout_width="2dp"
+		    android:background="#FF0000"/>
 
         <Button
             android:id="@+id/trade_calc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Trade Calculator" 
+            android:textColor="#FFFFFF"
             android:layout_weight="25"
             style="?android:attr/buttonBarButtonStyle"/>
 

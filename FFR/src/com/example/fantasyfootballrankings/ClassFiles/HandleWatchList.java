@@ -19,6 +19,7 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -45,6 +46,7 @@ public class HandleWatchList
 	public static void handleWatchInit(final Storage holder, final Context cont, final List<String> watchList)
 	{
 		final Dialog dialog = new Dialog(cont);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.search_output);
 		dialog.show();
 		if(watchList.size() == 0 || (watchList.size() > 0 && !holder.parsedPlayers.contains(watchList.get(0))))

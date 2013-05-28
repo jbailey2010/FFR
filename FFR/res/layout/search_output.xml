@@ -6,33 +6,27 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="51dp" >
+        android:layout_height="51dp" 
+        android:background="#000000">
         
         <Button
             android:id="@+id/search_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="?android:attr/buttonBarButtonStyle"
+            android:textColor="#FFFFFF"
             android:text="Back" />
         <View 
             android:id="@+id/back_view"
             android:layout_height="fill_parent"
-		    android:layout_width="1dp"
+		    android:layout_width="2dp"
             android:layout_toRightOf="@+id/search_back"
-		    android:background="#90909090"/>
-        
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Name Here"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+		    android:background="#FF0000"/>
 
         <View android:layout_height="fill_parent"
-		    android:layout_width="1dp"
+		    android:layout_width="2dp"
             android:layout_toLeftOf="@+id/search_close"
-		    android:background="#90909090"/>
+		    android:background="#FF0000"/>
 
         <Button
             android:id="@+id/search_close"
@@ -41,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:textColor="#FFFFFF"
             android:text="X" />
 
         <Button
@@ -50,14 +45,26 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/search_close"
+            android:textColor="#FFFFFF"
             android:text="Add to Watch List" />
         
         <View android:id="@+id/add_view"
             android:layout_height="fill_parent"
-		    android:layout_width="1dp"
+		    android:layout_width="2dp"
             android:layout_toLeftOf="@+id/add_watch"
-		    android:background="#90909090"/>
+		    android:background="#FF0000"/>
 
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/search_back"
+            android:layout_alignBottom="@+id/search_back"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:text="Name Here"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
     </RelativeLayout>
 

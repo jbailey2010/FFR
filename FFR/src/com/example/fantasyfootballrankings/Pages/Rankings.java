@@ -51,6 +51,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -481,6 +482,11 @@ public class Rankings extends Activity {
 		newCont = oCont;
 		ReadFromFile.fetchNames(holder, newCont);
 		dialog.setContentView(R.layout.search_players);
+		/*WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.height = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);*/
 		voice = (Button) dialog.findViewById(R.id.speakButton);
         textView = (AutoCompleteTextView)(dialog).findViewById(R.id.player_input);
         voice.setOnClickListener(new OnClickListener() {
@@ -581,9 +587,11 @@ public class Rankings extends Activity {
      * @param dialog
      * @param namePlayer
      */
-    public static void outputResults(final Dialog dialog, final String namePlayer, boolean flag, 
+    public static void outputResults(final Dialog dialog2, final String namePlayer, boolean flag, 
     		final Activity act, final Storage holder, final boolean watchFlag)
     {
+    	final Dialog dialog = new Dialog(act);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
     	dialog.setContentView(R.layout.search_output);
     	Button addWatch = (Button)dialog.findViewById(R.id.add_watch);
     	//If the add to list boolean exists
@@ -679,7 +687,8 @@ public class Rankings extends Activity {
 		{
 			public void onClick(View v) {
 				try {
-					searchCalled(dialog, newCont);
+					dialog.dismiss();
+					searchCalled(dialog2, newCont);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -837,7 +846,8 @@ public class Rankings extends Activity {
 		unDraft.setOnClickListener(new OnClickListener() 
 		{
 			public void onClick(View v) {
-				Draft.undraft(dialog, holder, context);
+				dialog.dismiss();
+				Draft.undraft(new Dialog(context), holder, context);
 	    	}	
 		});
     	dialog.show();

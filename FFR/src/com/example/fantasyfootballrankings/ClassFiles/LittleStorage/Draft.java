@@ -13,6 +13,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -200,6 +201,7 @@ public class Draft
 	 */
 	public static void undraft(final Dialog dialog, final Storage holder, final Context cont)
 	{
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.search_output);
 		dialog.show();
 		if(holder.draft.ignore.size() == 0)

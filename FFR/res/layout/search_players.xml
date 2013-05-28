@@ -3,16 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <AutoCompleteTextView
-        android:id="@+id/player_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="132dp"
-        android:ems="10" >
-    </AutoCompleteTextView>
-
     <Button
         android:id="@+id/search_submit"
         android:layout_width="wrap_content"
@@ -39,5 +29,27 @@
     android:layout_centerHorizontal="true"
     android:text="Voice Search" 
     android:onClick="speakButtonClicked"/>
+
+<AutoCompleteTextView
+    android:id="@+id/player_input"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="175dp"
+    android:ems="10" >
+
+    <requestFocus />
+</AutoCompleteTextView>
+
+<TextView
+    android:id="@+id/textView1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="69dp"
+    android:text="Enter the player's name below"
+    android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
