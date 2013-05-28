@@ -33,4 +33,14 @@
         android:background="@drawable/btn_red"
         style="@style/ButtonText" />
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/twitter_submit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="49dp"
+        android:text=" "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 </RelativeLayout>

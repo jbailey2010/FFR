@@ -36,7 +36,8 @@
         android:layout_marginTop="115dp"
         android:text="Cancel"
         android:background="@drawable/btn_red"
-        style="@style/ButtonText" />
+        style="@style/ButtonText"
+        android:paddingBottom="15dp" />
 
     <Button
         android:id="@+id/reset_draft"
