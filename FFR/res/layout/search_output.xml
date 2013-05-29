@@ -69,15 +69,9 @@
         android:id="@+id/listview_search"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:divider="#707070"
+        android:dividerHeight="1dp"
         android:layout_width="fill_parent" >
     </ListView>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="4.05"
-        android:minHeight="50dp">
-
-    </RelativeLayout>
 
 </LinearLayout>
