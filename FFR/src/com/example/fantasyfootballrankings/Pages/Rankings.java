@@ -1087,6 +1087,7 @@ public class Rankings extends Activity {
 	    popup.getWindow().setAttributes(lp);
     	TextView header = (TextView)popup.findViewById(R.id.name_header);
     	String name = "";
+
     	if(((TextView)view).getText().toString().contains(":"))
     	{
     		name = ((TextView)view).getText().toString().split(":  ")[1];
@@ -1096,6 +1097,11 @@ public class Rankings extends Activity {
     	{
     		name = ((TextView)view).getText().toString();
     		header.setText("Who drafted " + name + "?");
+    	}
+    	if(Draft.isDrafted(name, holder.draft))
+    	{
+    		Toast.makeText(cont, name + " is already drafted", Toast.LENGTH_SHORT).show();
+    		return;
     	}
     	popup.show();
     	Button close = (Button)popup.findViewById(R.id.draft_who_close);
