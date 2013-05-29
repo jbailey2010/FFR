@@ -1067,8 +1067,7 @@ public class Rankings extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				listview.smoothScrollToPosition(0);
-				//handleDrafted(arg1, holder, cont, null);
+				handleDrafted(arg1, holder, cont, null);
 				return true;
 			}
     	 });
