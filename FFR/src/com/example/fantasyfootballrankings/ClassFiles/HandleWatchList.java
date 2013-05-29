@@ -162,7 +162,7 @@ public class HandleWatchList
 				selected = selected.split(", ")[0];
 				Dialog dialog2 = new Dialog(cont);
 				dialog.dismiss();
-				Rankings.outputResults(dialog2, selected, true,(Activity)cont, holder, true);
+				Rankings.outputResults(dialog2, selected, true,(Activity)cont, holder, true, true);
 			}
 	    });	
 		listview.setOnItemLongClickListener(new OnItemLongClickListener(){

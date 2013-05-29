@@ -53,11 +53,10 @@
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/search_back"
-            android:layout_alignBottom="@+id/search_back"
-            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="Name Here"
             android:textAppearance="?android:attr/textAppearanceLarge"

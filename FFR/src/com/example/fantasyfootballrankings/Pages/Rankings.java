@@ -537,7 +537,7 @@ public class Rankings extends Activity {
 				if(holder.parsedPlayers.contains(textView.getText().toString()))
 				{
 					dialog.dismiss();
-					outputResults(dialog, textView.getText().toString(), false, (Rankings)newCont, holder, false);
+					outputResults(dialog, textView.getText().toString(), false, (Rankings)newCont, holder, false, true);
 				}
 			}
 		});
@@ -610,7 +610,7 @@ public class Rankings extends Activity {
      * @param namePlayer
      */
     public static void outputResults(final Dialog dialog2, final String namePlayer, boolean flag, 
-    		final Activity act, final Storage holder, final boolean watchFlag)
+    		final Activity act, final Storage holder, final boolean watchFlag, boolean draftable)
     {
     	final Dialog dialog = new Dialog(act);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
@@ -670,7 +670,7 @@ public class Rankings extends Activity {
     	}
     	//Set up the header, and make a mock object with the set name
     	name.setText(namePlayer);
-    	if(!watchFlag)
+    	if(draftable)
     	{
     		name.setOnLongClickListener(new OnLongClickListener(){
 				@Override
@@ -1059,7 +1059,7 @@ public class Rankings extends Activity {
 					long arg3) {
 				String selected = ((TextView)arg1).getText().toString();
 				selected = selected.split(":  ")[1];
-				Rankings.outputResults(dialog, selected, true, (Rankings)context, holder, false);
+				Rankings.outputResults(dialog, selected, true, (Rankings)context, holder, false, true);
 			}
     	 });
     	 listview.setOnItemLongClickListener(new OnItemLongClickListener(){
