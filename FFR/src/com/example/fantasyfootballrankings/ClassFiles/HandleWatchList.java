@@ -132,7 +132,12 @@ public class HandleWatchList
 	    	PlayerObject iter = totalList.poll();
 			DecimalFormat df = new DecimalFormat("#.##");
 	    	String val = df.format(iter.values.worth);
-	    	if(Draft.isDrafted(iter.info.name, holder.draft))
+	    	if(Draft.draftedMe(iter.info.name, holder.draft))
+	    	{
+		    	listAdapter.add("DRAFTED (YOU) - " + val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
+		    			iter.info.team);
+	    	}
+	    	else if(Draft.isDrafted(iter.info.name, holder.draft))
 	    	{
 		    	listAdapter.add("DRAFTED - " + val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
 		    			iter.info.team);
