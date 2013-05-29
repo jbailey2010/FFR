@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -279,7 +280,14 @@ public class News extends Activity {
 	 */
 	public static void handleNewsListView(List<NewsObjects> result, Activity cont) 
 	{
-		ListView listview = (ListView)cont.findViewById(R.id.listview_news);
+		final ListView listview = (ListView)cont.findViewById(R.id.listview_news);
+		View v = cont.findViewById(android.R.id.home);
+		v.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				listview.smoothScrollToPosition(0);		
+			}
+		});
 	    List<String> news = new ArrayList<String>(10000);
 	    for(NewsObjects newsObj : result)
 	    {

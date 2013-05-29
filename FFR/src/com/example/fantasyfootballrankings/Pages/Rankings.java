@@ -387,6 +387,13 @@ public class Rankings extends Activity {
 	 */
 	public void handleRefresh()
 	{
+		View v = findViewById(android.R.id.home);
+		v.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				listview.smoothScrollToPosition(0);		
+			}
+		});
 		if(holder.playerNames.size() < 19)
 		{
 			ReadFromFile.fetchNamesBackEnd(holder, cont);
@@ -1060,7 +1067,8 @@ public class Rankings extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				handleDrafted(arg1, holder, cont, null);
+				listview.smoothScrollToPosition(0);
+				//handleDrafted(arg1, holder, cont, null);
 				return true;
 			}
     	 });

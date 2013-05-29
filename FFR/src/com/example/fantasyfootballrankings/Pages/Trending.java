@@ -143,6 +143,13 @@ public class Trending extends Activity {
 	 */
 	public void initialLoad(SharedPreferences prefs)
 	{
+		View v = findViewById(android.R.id.home);
+		v.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				listview.smoothScrollToPosition(0);		
+			}
+		});
 		ReadFromFile.fetchNamesBackEnd(holder, cont);
 		String storedPosts = prefs.getString("Posted Players", "Not Posted");
     	if(storedPosts != "Not Posted")
