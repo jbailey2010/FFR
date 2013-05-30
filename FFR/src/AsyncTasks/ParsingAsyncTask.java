@@ -32,6 +32,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerName
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTwitter;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseYahoo;
 import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 
@@ -138,6 +139,11 @@ public class ParsingAsyncTask
 				
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after 4 for 4 sets of rankings");
+				start = System.nanoTime();
+				
+				ParseYahoo.parseYahooWrapper(holder);
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after yahoo rankings and aggregate data");
 				
 				System.out.println();
 				System.out.println(System.nanoTime() - all);

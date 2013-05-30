@@ -111,7 +111,6 @@ public class Draft
 	 */
 	public static boolean isDrafted(String name, Draft draft)
 	{
-		System.out.println("Name: " + name + " size: " + draft.rb.size());
 		for(PlayerObject player : draft.qb)
 		{
 			if(player.info.name.equals(name))

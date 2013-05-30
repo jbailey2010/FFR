@@ -48,6 +48,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerName
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTwitter;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseYahoo;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
@@ -105,7 +106,12 @@ public class Home extends Activity implements Serializable{
         handleInitialRefresh();
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
-        ParseTwitter.parseTwitter4jList();*/
+        try {
+			ParseYahoo.parseYahooWrapper(new Storage());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 	}  
 	
 	/**
