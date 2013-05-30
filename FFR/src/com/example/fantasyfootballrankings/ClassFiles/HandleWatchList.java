@@ -37,6 +37,7 @@ import android.widget.AdapterView.OnItemClickListener;
  */
 public class HandleWatchList 
 {
+	static boolean selected = false;
 	/**
 	 * Sets up the display
 	 * @param holder
@@ -48,6 +49,7 @@ public class HandleWatchList
 		final Dialog dialog = new Dialog(cont);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.search_output);
+		final ListView listWatch = (ListView)dialog.findViewById(R.id.listview_search);
 		dialog.show();
 		if(watchList.size() == 0 || (watchList.size() > 0 && !holder.parsedPlayers.contains(watchList.get(0))))
 		{
@@ -59,9 +61,14 @@ public class HandleWatchList
 		TextView header = (TextView)dialog.findViewById(R.id.name);
 		header.setText("Watch List");
 		Button add = (Button)dialog.findViewById(R.id.add_watch);
-		View backView = (View)dialog.findViewById(R.id.add_view);
-		add.setVisibility(Button.GONE);
-		backView.setVisibility(View.GONE);
+		add.setText("Hide/Show Drafted");
+		add.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+			    selected = !selected;
+			    display(dialog, watchList, holder, listWatch, cont);
+			}
+		});
 		close.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -87,7 +94,6 @@ public class HandleWatchList
 				}
 			}
 		});
-		ListView listWatch = (ListView)dialog.findViewById(R.id.listview_search);
 	    display(dialog, watchList, holder, listWatch, cont);
 	    handleListSelect(holder, cont, watchList, listWatch, dialog);
 	}
@@ -132,20 +138,35 @@ public class HandleWatchList
 	    	PlayerObject iter = totalList.poll();
 			DecimalFormat df = new DecimalFormat("#.##");
 	    	String val = df.format(iter.values.worth);
-	    	if(Draft.draftedMe(iter.info.name, holder.draft))
+	    	if(selected)
 	    	{
-		    	listAdapter.add("DRAFTED (YOU) - " + val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
-		    			iter.info.team);
-	    	}
-	    	else if(Draft.isDrafted(iter.info.name, holder.draft))
-	    	{
-		    	listAdapter.add("DRAFTED - " + val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
-		    			iter.info.team);
+	    		if(Draft.isDrafted(iter.info.name, holder.draft))
+	    		{
+	    			continue;
+	    		}
+		    	else
+		    	{
+			    	listAdapter.add(val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
+			    			iter.info.team);
+		    	}
 	    	}
 	    	else
 	    	{
-		    	listAdapter.add(val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
-		    			iter.info.team);
+		    	if(Draft.draftedMe(iter.info.name, holder.draft))
+		    	{
+			    	listAdapter.add("DRAFTED (YOU) - " + val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
+			    			iter.info.team);
+		    	}
+		    	else if(Draft.isDrafted(iter.info.name, holder.draft))
+		    	{
+			    	listAdapter.add("DRAFTED - " + val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
+			    			iter.info.team);
+		    	}
+		    	else
+		    	{
+			    	listAdapter.add(val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
+			    			iter.info.team);
+		    	}
 	    	}
 	    }
 	    ManageInput.handleArray(listAdapter, listWatch, (Activity) cont);
