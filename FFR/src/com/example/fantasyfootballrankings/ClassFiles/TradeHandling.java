@@ -43,12 +43,18 @@ public class TradeHandling
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.trade_calculator);
 		dialog.show(); 
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
 		tradeInput = (TextView)dialog.findViewById(R.id.trade_input);
 		tradeOutput = (TextView)dialog.findViewById(R.id.trade_output);
 		inputView = (AutoCompleteTextView)dialog.findViewById(R.id.your_loss_input);
 		outputView = (AutoCompleteTextView)dialog.findViewById(R.id.your_gain_input);
 		inputView.setAdapter(null);
 		outputView.setAdapter(null);
+		inputView.setThreshold(1);
+		outputView.setThreshold(1);
 		setAdapter(holder, cont, dialog);
 		Button dismiss = (Button)dialog.findViewById(R.id.search_close);
 		dismiss.setOnClickListener(new OnClickListener() 
@@ -100,7 +106,7 @@ public class TradeHandling
 		});
 		outputView.setAdapter(doubleAdapter);
 		outputView.setOnItemClickListener(new OnItemClickListener(){
-
+ 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
@@ -108,6 +114,8 @@ public class TradeHandling
 				outputView.setText("");
 			}
 		});
+		inputView.setThreshold(1);
+		outputView.setThreshold(1);
 	}
 	
 	/**
