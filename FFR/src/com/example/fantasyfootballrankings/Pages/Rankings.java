@@ -763,6 +763,10 @@ public class Rankings extends Activity {
     	{
     		output.add("Age: " + searchedPlayer.info.age);
     	}
+    	if(watchList.contains(searchedPlayer.info.name))
+    	{
+    		output.add("He is in your watch list");
+    	}
     	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST")
     			&& !searchedPlayer.stats.equals(" ") && searchedPlayer.stats.length() > 5)
     	{
