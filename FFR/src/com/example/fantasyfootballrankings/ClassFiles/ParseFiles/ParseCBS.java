@@ -18,23 +18,19 @@ import com.example.fantasyfootballrankings.ClassFiles.Storage;
  */
 public class ParseCBS 
 {
-	/**
-	 * NOTE CHECK FOR A PPR UPDATE WITH AUCTION VALUES
-	 * THESE ARE NOT PPR, BUT NONE ELSE HAD AUCTION.
-	 * Code can be copy/pasted to another fn to do the same
-	 * NOTE: THIS DOES NOT VALIDATE PLAYER NAMES IN THE 
+	/**Calls the actual parser with both rows styling
 	 * @param holder the storage to check/write to
 	 * @throws IOException
 	 */
 	public static void cbsRankings(Storage holder) throws IOException
 	{
 		String url = "http://fantasynews.cbssports.com/fantasyfootball/rankings/yearly";
-		
+
 		try {
 			Document doc = Jsoup.connect(url).timeout(0).get();
 			cbsHelper(doc, holder, url, "row1");
 			cbsHelper(doc, holder, url, "row2");
-		
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,19 +87,13 @@ public class ParseCBS
 				String value = words[i][a];
 				value = value.replace("$", "");
 				val = Integer.parseInt(value) * 2;
-				if(val == 0)
-				{
-					val = 1;
-				}
 			}
-			String pos = " ";
 			String[] check = playerName.split(" ");
 			if(check.length == 1)
 			{
-				pos = "D/ST";
 				playerName += " D/ST";
 			}
-			ParseRankings.finalStretch(holder, playerName, val, team, pos);
+			ParseRankings.finalStretch(holder, playerName, val, team, "");
 		}
 	}
 }
