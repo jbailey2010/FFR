@@ -175,12 +175,21 @@ public class ParseTrending
 			{
 				String firstName = postWords[j].replaceAll("\\s", "");
 				String lastName = postWords[j+1].replaceAll("\\s", "");
-				if(holder.playerNames.contains(firstName + " " + lastName))
+				String capFirst = firstName;
+				String capLast = lastName;
+				if(firstName.length() > 0 && lastName.length() > 0 && 
+						Character.isLetter(lastName.charAt(0)) && Character.isLetter(firstName.charAt(0)))
+				{
+					capFirst = Character.toUpperCase(firstName.charAt(0)) + firstName.substring(1);
+					capLast = Character.toUpperCase(lastName.charAt(0)) + lastName.substring(1);
+				}
+				if(holder.playerNames.contains(firstName + " " + lastName) || 
+						holder.playerNames.contains(capFirst + " " + capLast))
 				{
 					boolean inserted = false;
                     for (PostedPlayer e : holder.postedPlayers)
                     {
-                    	if(e.name.equals(firstName + " " + lastName))
+                    	if(e.name.equals(capFirst + " " + capLast))
                         {
                     		holder.postedPlayers.remove(e);
                             e.count++;
@@ -190,7 +199,7 @@ public class ParseTrending
                     }
 					if(inserted == false)
 					{
-						PostedPlayer newPlayer = new PostedPlayer(firstName + " " + lastName, 1);
+						PostedPlayer newPlayer = new PostedPlayer(capFirst + " " + capLast, 1);
 						holder.postedPlayers.add(newPlayer);
 					}
 				}
