@@ -58,7 +58,7 @@ public class ParsingAsyncTask
 	 */
 	long start;
 	long all;
-	public class ParseRanks extends AsyncTask<Object, Void, Void> 
+	public class ParseRanks extends AsyncTask<Object, String, Void> 
 	{
 		ProgressDialog pdia;
 		Activity act;
@@ -74,7 +74,7 @@ public class ParsingAsyncTask
 		@Override
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
-		        pdia.setMessage("Please wait, fetching the rankings...");
+		        pdia.setMessage("Please wait, fetching the rankings...(0/17)");
 		        pdia.show();    
 		}
 
@@ -94,54 +94,63 @@ public class ParsingAsyncTask
 	    		start = System.nanoTime();
 	    		all = System.nanoTime();
 				ParseWF.wfRankings(holder);
-				
+		        publishProgress("Please wait, fetching the rankings...(3/17)");
+
 				System.out.print((System.nanoTime() - start));
 				System.out.println("    after WF");
 				start = System.nanoTime();
 				
 				ParseGE.geRankings(holder);
-				
+		        publishProgress("Please wait, fetching the rankings...(4/17)");
+
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after GE");
 				start = System.nanoTime();
 				
 				ParseCBS.cbsRankings(holder);
+		        publishProgress("Please wait, fetching the rankings...(7/17)");
 				
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after CBS");
 				start = System.nanoTime();
 				
 				ParseESPNadv.parseESPNAggregate(holder);
+		        publishProgress("Please wait, fetching the rankings...(8/17)");
 				
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after espn aggr");
 				start = System.nanoTime();
 				
 				ParseFFTB.parseFFTBRankingsWrapper(holder);
+		        publishProgress("Please wait, fetching the rankings...(9/17)");
 				
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after fftb");
 				start = System.nanoTime();
 				
 				ParseESPN.parseESPN300(holder);
+		        publishProgress("Please wait, fetching the rankings...(10/17)");
 				
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after espn");
 				start = System.nanoTime();
 				
 				ParseMyFantasyLeague.parseMFLAggregate(holder);
+		        publishProgress("Please wait, fetching the rankings...(11/17)");
 				
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after mfl aggr");
 				start = System.nanoTime();
 				
 				Parse4for4.parse4for4Wrapper(holder);
+		        publishProgress("Please wait, fetching the rankings...(15/17)");
 				
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after 4 for 4 sets of rankings");
 				start = System.nanoTime();
 				
 				ParseYahoo.parseYahooWrapper(holder);
+		        publishProgress("Please wait, fetching the rankings...(17/17)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after yahoo rankings and aggregate data");
 				
@@ -159,61 +168,15 @@ public class ParsingAsyncTask
 			} 
 			return null;
 	    }
+	    
+	    @Override
+	    public void onProgressUpdate(String... values)
+	    {
+	    	super.onProgressUpdate(values);
+	    	pdia.setMessage((String) values[0]);
+	    }
 	  }
 
-	/**
-	 * Handles the parsing of the adp data
-	 * @author Jeff
-	 *
-	 */
-	public class TeamInfoHighLevel extends AsyncTask<Object, Void, Void> 
-	{
-		Activity act;
-		ProgressDialog pdia;
-	    public TeamInfoHighLevel(Activity activity) 
-	    {
-	        act = activity;
-	        pdia = new ProgressDialog(activity);
-	        pdia.setCancelable(false);
-	    }
-	    
-		@Override
-		protected void onPreExecute(){ 
-		   super.onPreExecute();  
-	        pdia.setMessage("Please wait, fetching the rankings...");
-	        pdia.show(); 
-		}
-
-		@Override
-		protected void onPostExecute(Void result){
-		   super.onPostExecute(result);
-		   pdia.dismiss();
-		}
-		
-	    @Override
-	    protected Void doInBackground(Object... data) 
-	    {
-	    	Storage holder = (Storage) data[0];
-	    	Context cont = (Context) data[1];
-	    	start = System.nanoTime();
-	    	try { 
-				HighLevel.setStats(holder, cont);
-				HighLevel.setTeamInfo(holder, cont);
-				//HighLevel.getSOS(holder);
-				HighLevel.setADP(holder);
-	    		//HighLevel.setContractStatus(holder);
-				HighLevel.setStatus(holder);
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (XPatherException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-	    }
-	}
 	
 	
 
@@ -222,7 +185,7 @@ public class ParsingAsyncTask
 	 * @author Jeff
 	 *
 	 */
-	public class NonStatHighLevel extends AsyncTask<Object, Void, Void> 
+	public class NonStatHighLevel extends AsyncTask<Object, String, Void> 
 	{
 		Activity act;
 		ProgressDialog pdia;
@@ -252,6 +215,12 @@ public class ParsingAsyncTask
 		   }
 		}
 		
+		@Override
+		protected void onProgressUpdate(String... values){
+            super.onProgressUpdate(values);
+			pdia.setMessage(values[0]);
+		}
+		
 	    @Override
 	    protected Void doInBackground(Object... data) 
 	    {
@@ -259,14 +228,23 @@ public class ParsingAsyncTask
 	    	Context cont = (Context) data[1];
 	    	start = System.nanoTime();
 	    	try { 
+	    		publishProgress("Please wait, fetching player stats...");
 				HighLevel.setStats(holder, cont);
+				publishProgress("Please wait, fetching team data...");
 				HighLevel.setTeamInfo(holder, cont);
+				publishProgress("Please wait, fetching positional SOS...");
 				//HighLevel.getSOS(holder);
+				publishProgress("Please wait, fetching player ADP...");
 				HighLevel.setADP(holder);
+				publishProgress("Please wait, fetching player contract status...");
 	    		//HighLevel.setContractStatus(holder);
+				publishProgress("Please wait, setting player status...");
 				HighLevel.setStatus(holder);
+				publishProgress("Please wait, establishing list of parsed players...");
 			    HighLevel.getParsedPlayers(holder);
+			    publishProgress("Please wait, setting last year's team data...");
 			    HighLevel.setPermanentData(holder, cont);
+			    publishProgress("Please wait, setting specific player info...");
 	    		HighLevel.parseSpecificData(holder, cont);
 	    		System.out.println(System.nanoTime() - start); 
 	    	} catch (IOException e) {

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 
 
+
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,7 +24,6 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.NonStatHighLevel;
 import AsyncTasks.ParsingAsyncTask.ParseRanks;
-import AsyncTasks.ParsingAsyncTask.TeamInfoHighLevel;
 import FileIO.ReadFromFile;
 import android.R.integer;
 import android.app.Activity;
@@ -65,6 +65,9 @@ public class ParseRankings
 	    task.execute(holder, cont);
 	}
 	
+	/**
+	 * Populates the fix hashes
+	 */
 	public static void handleHashes()
 	{
 		fixes.put("Leveon Bell", "Le'Veon Bell");
