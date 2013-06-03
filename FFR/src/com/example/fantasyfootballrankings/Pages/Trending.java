@@ -249,6 +249,10 @@ public class Trending extends Activity {
             @Override
             public void onClick(View v) 
             {
+            	day.setBackgroundColor(Color.BLACK);
+            	week.setBackgroundColor(Color.BLACK);
+            	month.setBackgroundColor(Color.BLACK);
+            	all.setBackgroundColor(Color.BLACK);
 				Boolean valueChecked = value.isChecked();
 				Boolean rookieChecked = rookie.isChecked();
 				Boolean wantChecked = want.isChecked();
