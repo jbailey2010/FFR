@@ -33,6 +33,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -316,6 +317,23 @@ public class Trending extends Activity {
         setOnClicks(month, 30);
         all = (Button)findViewById(R.id.filter_all);
         setOnClicks(all, 365);
+		lastFilter = ReadFromFile.readLastFilter(cont);
+		if(lastFilter == 1)
+		{
+			day.setBackgroundColor(Color.RED);
+		}
+		if(lastFilter == 7)
+		{
+			week.setBackgroundColor(Color.RED);
+		}		
+		if(lastFilter == 30)
+		{
+			month.setBackgroundColor(Color.RED);
+		}		
+		if(lastFilter == 365)
+		{
+			all.setBackgroundColor(Color.RED);
+		}
 	}
 	
 	/**
@@ -323,13 +341,18 @@ public class Trending extends Activity {
 	 * @param button
 	 * @param filterSize
 	 */
-	public void setOnClicks(Button button, final int filterSize)
+	public void setOnClicks(final Button button, final int filterSize)
 	{
 		button.setOnClickListener(new View.OnClickListener()
 		{	
             @Override
             public void onClick(View v) 
             {
+            	day.setBackgroundColor(Color.BLACK);
+            	week.setBackgroundColor(Color.BLACK);
+            	month.setBackgroundColor(Color.BLACK);
+            	all.setBackgroundColor(Color.BLACK);
+            	button.setBackgroundColor(Color.RED);
 				try {
 					WriteToFile.writeLastFilter(cont, filterSize);
 					resetTrendingList(filterSize, cont);

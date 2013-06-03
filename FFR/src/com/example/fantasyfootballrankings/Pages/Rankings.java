@@ -445,6 +445,7 @@ public class Rankings extends Activity {
 		//Handle the search onclick
 		search.setOnClickListener(new View.OnClickListener() 
 	    {
+			
 	          @Override
 	          public void onClick(View v) 
 	          {
