@@ -218,10 +218,9 @@ public class HighLevel
 			sos.put(keyBase + "K", Integer.parseInt(team[i][5]));
 			sos.put(keyBase + "D/ST", Integer.parseInt(team[i][6]));
 		}
-		Set<String> keys = sos.keySet();
 		for(PlayerObject player : holder.players)
 		{
-			if(keys.contains(player.info.team + "," + player.info.position))
+			if(sos.containsKey(player.info.team + "," + player.info.position))
 			{
 				player.info.sos = sos.get(player.info.team + "," + player.info.position);
 			}
