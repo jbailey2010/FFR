@@ -91,6 +91,10 @@ public class Home extends Activity implements Serializable{
 	Button trending;
 	Button news;
 	
+	
+	long start;
+	
+	
 	/** 
 	 * Makes the buttons and sets the listeners for them
 	 */ 
@@ -104,6 +108,7 @@ public class Home extends Activity implements Serializable{
         trending.setOnClickListener(trendHandler);
         news = (Button)findViewById(R.id.news_button);
         news.setOnClickListener(newsHandler);
+        start = System.nanoTime();
         handleInitialRefresh();
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
@@ -178,7 +183,6 @@ public class Home extends Activity implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		String checkExists = prefs.getString("O Line Ranks", "Not Set");
 		if(checkExists.equals("Not Set"))
 		{

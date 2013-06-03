@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Home</string>
+    <string name="app_name">Fantasy Football Rankings</string>
     <string name="title_activity_news">News</string>
     <string name="title_activity_team">Your Team</string>
     <string name="title_activity_trending">Trends</string>
