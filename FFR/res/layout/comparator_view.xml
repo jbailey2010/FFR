@@ -32,6 +32,7 @@
         android:layout_alignBottom="@+id/compare_close"
         android:layout_centerHorizontal="true"
         android:text="Enter 2 Players Below"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <AutoCompleteTextView

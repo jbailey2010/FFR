@@ -58,6 +58,7 @@
     android:layout_centerHorizontal="true"
     android:layout_marginTop="69dp"
     android:text="Enter the player's name below"
+    android:textStyle="bold"
     android:textAppearance="?android:attr/textAppearanceLarge" />
 
 <TextView

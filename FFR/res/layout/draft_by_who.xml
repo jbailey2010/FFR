@@ -20,6 +20,7 @@
         android:layout_alignBottom="@+id/draft_who_close"
         android:layout_centerHorizontal="true"
         android:text="Header"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button

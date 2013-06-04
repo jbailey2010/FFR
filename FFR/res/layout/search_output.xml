@@ -59,6 +59,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="Name Here"
+            android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
 

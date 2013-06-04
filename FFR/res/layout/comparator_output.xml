@@ -57,6 +57,7 @@
         android:layout_below="@+id/compare_back"
         android:layout_marginLeft="38dp"
         android:text="Large Text"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -67,6 +68,7 @@
         android:layout_marginRight="68dp"
         android:layout_toLeftOf="@+id/compare_close"
         android:text="Large Text"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button

@@ -75,6 +75,7 @@
         android:layout_below="@+id/clear_trade"
         android:layout_centerHorizontal="true"
         android:text="Trade Calculator"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
