@@ -135,7 +135,7 @@ public class Home extends Activity implements Serializable{
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{  
-		dialog = new Dialog(cont);
+		dialog = new Dialog(cont, R.style.RoundCornersFull);
 		switch (item.getItemId()) 
 		{
 			case R.id.export_names:

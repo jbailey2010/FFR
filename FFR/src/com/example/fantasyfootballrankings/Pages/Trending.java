@@ -221,7 +221,7 @@ public class Trending extends Activity {
 	 */
 	public void topicalTrending(final Storage holder)
 	{
-		dialog = new Dialog(cont);
+		dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.trending_topic_filter);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -452,6 +452,7 @@ public class Trending extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
+				listview.setSelection(arg2);
 				String selected = ((TextView)arg1).getText().toString();
 				selected = selected.split(":")[0];
 				int index = -1;

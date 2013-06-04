@@ -27,6 +27,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -299,6 +301,13 @@ public class News extends Activity {
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(cont,
 	            android.R.layout.simple_list_item_1, news);
 	    listview.setAdapter(adapter);
+	    listview.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				listview.setSelection(arg2);
+			}
+	    });
 	}
 
 }

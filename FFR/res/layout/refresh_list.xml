@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/confirm_list_refresh"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="87dp"
+        android:layout_marginTop="75dp"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

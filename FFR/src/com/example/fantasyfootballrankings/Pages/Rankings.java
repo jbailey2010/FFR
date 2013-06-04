@@ -439,7 +439,7 @@ public class Rankings extends Activity {
 	          @Override
 	          public void onClick(View v) 
 	          {
-	        	  moreInfo(dialog);
+	        	  moreInfo(new Dialog(context, R.style.RoundCornersFull));
 	          }
 	    });    
 		//Handle the search onclick
@@ -450,7 +450,7 @@ public class Rankings extends Activity {
 	          public void onClick(View v) 
 	          {
 	        	  try {
-	        		  searchCalled(new Dialog(cont), cont);
+	        		  searchCalled(new Dialog(cont, R.style.RoundCornersFull), cont);
 	        	  } catch (IOException e) {
 						// TODO Auto-generated catch block
 	        		  e.printStackTrace();
@@ -846,7 +846,12 @@ public class Rankings extends Activity {
      */
     public static void moreInfo(final Dialog dialog)
     {
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.value_salary); 
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
 		String salRem = Integer.toString(holder.draft.remainingSalary);
 		String value = Integer.toString((int)holder.draft.value); 
 		TextView remSalary = (TextView)dialog.findViewById(R.id.remSalary);
@@ -867,7 +872,7 @@ public class Rankings extends Activity {
 		{
 			public void onClick(View v) {
 				dialog.dismiss();
-				handleInfo(dialog);
+				handleInfo(new Dialog(context, R.style.RoundCornersFull));
 	    	}	
 		});
 		Button unDraft = (Button)dialog.findViewById(R.id.undraft);
@@ -889,7 +894,12 @@ public class Rankings extends Activity {
      */
     public static void handleInfo(final Dialog dialog)
     {
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.draft_team_status);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
     	String qbs = handleDraftParsing(holder.draft.qb);
     	String rbs = handleDraftParsing(holder.draft.rb);
     	String wrs = handleDraftParsing(holder.draft.wr);
@@ -913,7 +923,8 @@ public class Rankings extends Activity {
 		back.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(View v) {
-				moreInfo(dialog);
+				dialog.dismiss();
+				moreInfo(new Dialog(context, R.style.RoundCornersFull));
 			}
 		});
     }
@@ -1062,6 +1073,7 @@ public class Rankings extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+				listview.setSelection(arg2);
 				String selected = ((TextView)arg1).getText().toString();
 				selected = selected.split(":  ")[1];
 				Rankings.outputResults(dialog, selected, true, (Rankings)context, holder, false, true);

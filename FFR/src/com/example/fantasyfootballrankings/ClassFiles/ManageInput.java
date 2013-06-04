@@ -88,7 +88,7 @@ public class ManageInput
 	 */
 	public static void filterQuantity(final Context cont, final String flag, final int listSize)
 	{
-		final Dialog dialog = new Dialog(cont);
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.filter_quantity);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
