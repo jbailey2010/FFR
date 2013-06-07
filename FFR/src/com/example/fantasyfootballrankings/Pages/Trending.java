@@ -471,7 +471,7 @@ public class Trending extends Activity {
 				else
 				{
 					Dialog dialog = new Dialog(context);
-					Rankings.outputResults(dialog, selected, true, (Trending)context, holder, false, false);
+					Rankings.outputResults(selected, true, (Trending)context, holder, false, false);
 				}
 			}
 	    });

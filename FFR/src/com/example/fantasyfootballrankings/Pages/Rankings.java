@@ -451,7 +451,7 @@ public class Rankings extends Activity {
 	          public void onClick(View v) 
 	          {
 	        	  try {
-	        		  searchCalled(new Dialog(cont, R.style.RoundCornersFull), cont);
+	        		  searchCalled(cont);
 	        	  } catch (IOException e) {
 						// TODO Auto-generated catch block
 	        		  e.printStackTrace();
@@ -497,11 +497,12 @@ public class Rankings extends Activity {
 	 * @param dialog
 	 * @throws IOException 
 	 */
-	public static void searchCalled(final Dialog dialog, final Context oCont) throws IOException
+	public static void searchCalled(final Context oCont) throws IOException
 	{
 		matchedPlayers = new ArrayList<String>(15);
 		newCont = oCont;
 		ReadFromFile.fetchNames(holder, newCont);
+		final Dialog dialog = new Dialog(newCont, R.style.RoundCornersFull);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 
 		dialog.setContentView(R.layout.search_players);
@@ -539,7 +540,7 @@ public class Rankings extends Activity {
 				if(holder.parsedPlayers.contains(textView.getText().toString()))
 				{
 					dialog.dismiss();
-					outputResults(dialog, textView.getText().toString(), false, (Rankings)newCont, holder, false, true);
+					outputResults(textView.getText().toString(), false, (Rankings)newCont, holder, false, true);
 				}
 			}
 		});
@@ -611,7 +612,7 @@ public class Rankings extends Activity {
      * @param dialog
      * @param namePlayer
      */
-    public static void outputResults(final Dialog dialog2, final String namePlayer, boolean flag, 
+    public static void outputResults(final String namePlayer, boolean flag, 
     		final Activity act, final Storage holder, final boolean watchFlag, boolean draftable)
     {
     	final Dialog dialog = new Dialog(act);
@@ -712,7 +713,7 @@ public class Rankings extends Activity {
 			public void onClick(View v) {
 				try {
 					dialog.dismiss();
-					searchCalled(dialog2, newCont);
+					searchCalled(newCont);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -1006,12 +1007,6 @@ public class Rankings extends Activity {
 		{
 			teamFilter = teamList.get(0);
 		}
-		System.out.println("List size: " + holder.players.size());
-		System.out.println("Ignore size: " + holder.draft.ignore.size());
-		for(int i = 0; i < holder.draft.ignore.size(); i++)
-		{
-			System.out.println(holder.draft.ignore.get(i));
-		}
 		for(int i = 0; i < holder.players.size(); i++)
 		{
 			PlayerObject player = holder.players.get(i);
@@ -1083,7 +1078,7 @@ public class Rankings extends Activity {
 				listview.setSelection(arg2);
 				String selected = ((TextView)arg1).getText().toString();
 				selected = selected.split(":  ")[1];
-				Rankings.outputResults(dialog, selected, true, (Rankings)context, holder, false, true);
+				Rankings.outputResults(selected, true, (Rankings)context, holder, false, true);
 			}
     	 });
     	 listview.setOnItemLongClickListener(new OnItemLongClickListener(){
