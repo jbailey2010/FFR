@@ -40,6 +40,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseBrokenTack
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraft;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFantasyPros;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseInjuries;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMyFantasyLeague;
@@ -110,14 +111,14 @@ public class Home extends Activity implements Serializable{
         news.setOnClickListener(newsHandler);
         start = System.nanoTime();
         handleInitialRefresh();
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try {
-			ParseWF.wfRankings(new Storage());
+			ParseFantasyPros.parseFantasyProsAgg(new Storage());
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}  
 	
 	/**
