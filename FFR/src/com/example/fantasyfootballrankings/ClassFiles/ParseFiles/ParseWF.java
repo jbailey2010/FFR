@@ -46,16 +46,20 @@ public class ParseWF
 			all[i] = perPlayer[i].split(", ");
 			String playerName = all[i][0];
 			playerName = ParseRankings.fixNames(playerName);
-			String team = all[i][2].split(". ")[0];
-			String pos = all[i][1];
+			String team = "";
+			String pos="";
 			int val = 0;
 			if(!perPlayer[i].contains("DEF"))
 			{
+				team = all[i][2].split(". ")[0];
+				pos = all[i][1];
 				val = Integer.parseInt(all[i][3].substring(1, all[i][3].length()));
 			}
 			else
 			{
+				team = playerName;
 				playerName += " D/ST";
+				pos = "D/ST";
 				val = Integer.parseInt(all[i][2].substring(1, all[i][2].length()));
 			}
 			ParseRankings.finalStretch(holder, playerName, val, team, pos);

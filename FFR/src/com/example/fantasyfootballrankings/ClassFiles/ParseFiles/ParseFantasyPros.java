@@ -18,6 +18,11 @@ public class ParseFantasyPros
 		for(int i = 8; i < td.length; i+=6)
 		{
 			String name = td[i].split(", ")[0];
+			if(td[i].contains("DST"))
+			{
+				String[] fullName = name.split(" ");
+				name = fullName[fullName.length-1] + " D/ST";
+			}
 			int val1 = Integer.parseInt(td[i+1].split("\\$")[1]);
 			int val2 = Integer.parseInt(td[i+2].split("\\$")[1]);
 			int val3 = Integer.parseInt(td[i+3].split("\\$")[1]);

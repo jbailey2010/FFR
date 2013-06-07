@@ -29,10 +29,20 @@ public class ParseYahoo
 		String[] td = html.split("\n");
 		for(int i = 2; i < td.length; i+=4)
 		{
+			
 			String name = td[i].split(" \\(")[0];
 			if(td[i].contains("DEF"))
 			{
+				if(td[i].contains("NYG"))
+				{
+					name = "New York Giants";
+				}
+				else if(td[i].contains("NYJ"))
+				{
+					name = "New York Jets";
+				}
 				name = ParseRankings.fixDefenses(name);
+
 			}
 			String rank = td[i+1].split("\\$")[1];
 			String aavStr = td[i+2].split("\\$")[1];
@@ -42,7 +52,6 @@ public class ParseYahoo
 			{
 				aav = Double.parseDouble(aavStr);
 			}
-			
 			String validated = ParseRankings.fixNames(name);
 			String newName = Storage.nameExists(holder, validated);
 			PlayerObject newPlayer = new PlayerObject(newName, "", "", worth);

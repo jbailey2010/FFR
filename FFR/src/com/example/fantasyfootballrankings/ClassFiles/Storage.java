@@ -131,6 +131,7 @@ public class Storage
 				return holder.playerNames.get(i);
 			}
 		}
+		System.out.println(name + " wasn't found...");
 		return name + " NO MATCH FOUND";
 	}
 	

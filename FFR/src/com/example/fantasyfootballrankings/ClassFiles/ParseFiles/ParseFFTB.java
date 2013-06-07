@@ -58,7 +58,7 @@ public class ParseFFTB
 			{
 				if(name.contains("Defense"))
 				{
-					name = name.replaceAll("Defense", "D/ST");
+					name = ParseRankings.fixDefenses(name.replaceAll("Defense", "D/ST"));
 				}
 				val = val.substring(1, val.length());
 				String validated = ParseRankings.fixNames(name);

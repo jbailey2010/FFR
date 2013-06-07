@@ -69,7 +69,11 @@ public class ParsePlayerNames {
 		names.add("Alec Ogletree");
 		names.add("Bernard Pollard");
 		names.add("John Potter");
-		if(names.size() > 10)
+		names.add("Neil Rackers");
+		names.add("Vince Young");
+		names.add("John Beck");
+		names.add("Daniel Hrapmann");
+		if(names.size() > 20)
 		{
 			WriteToFile.storePlayerNames(names, cont);
 		}

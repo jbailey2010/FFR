@@ -87,6 +87,9 @@ public class ParseRankings
 		fixes.put("B. Green-Ellis", "BenJarvus Green-Ellis");
 		fixes.put("Joseph Morgan", "Joe Morgan");
 		fixes.put("E.j. Manuel", "EJ Manuel");
+		fixes.put("TY Hilton", "T.Y. Hilton");
+		fixes.put("Ty Hilton", "T.Y. Hilton");
+		fixes.put("Reuben Randle", "Rueben Randle");
 		fixes.put("E.J. Manuel", "EJ Manuel");
 		fixes.put("Steve L Smith", "Steve Smith");
 		fixes.put("Michael Crabtree*", "Michael Crabtree");
@@ -410,7 +413,7 @@ public class ParseRankings
 		{
 			uName = "Panthers D/ST";
 		}
-		else if(name.contains("tamba bay"))
+		else if(name.contains("tamba bay") || name.contains("tampa bay"))
 		{
 			uName = "Buccaneers D/ST";
 		}
