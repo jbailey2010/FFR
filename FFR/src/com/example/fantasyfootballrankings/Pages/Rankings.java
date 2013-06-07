@@ -45,6 +45,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.speech.RecognizerIntent;
 import android.view.HapticFeedbackConstants;
 import android.view.Menu;
@@ -1004,6 +1005,12 @@ public class Rankings extends Activity {
 		else
 		{
 			teamFilter = teamList.get(0);
+		}
+		System.out.println("List size: " + holder.players.size());
+		System.out.println("Ignore size: " + holder.draft.ignore.size());
+		for(int i = 0; i < holder.draft.ignore.size(); i++)
+		{
+			System.out.println(holder.draft.ignore.get(i));
 		}
 		for(int i = 0; i < holder.players.size(); i++)
 		{

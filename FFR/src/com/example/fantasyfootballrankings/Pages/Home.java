@@ -110,14 +110,14 @@ public class Home extends Activity implements Serializable{
         news.setOnClickListener(newsHandler);
         start = System.nanoTime();
         handleInitialRefresh();
-        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try {
-			ParseCBS.cbsRankings(new Storage());
+			ParseWF.wfRankings(new Storage());
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 	}  
 	
 	/**
