@@ -90,7 +90,7 @@ public class StorageAsyncTask
 	    		player.info.status + "&&" + player.info.adp + "&&" + player.info.bye + "&&" 
 	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
 	    		player.info.age + "&&" + player.stats + "&&" + player.draftClass + "&&" + player.injuryStatus + 
-	    		"&&" + fa + "&&" + oLine + "&&" + passRun + "&&" + additStat + "~~~~");
+	    		"&&" + fa + "&&" + oLine + "&&" + passRun + "&&" + additStat + "&&" + player.values.ecr + "~~~~");
 	    	}
 	    	String playerString = players.toString();
 	    	editor.putString("Player Values", playerString).commit();
@@ -393,6 +393,7 @@ public class StorageAsyncTask
 	   		for(int i = 0; i < holder.players.size(); i++)
 	   		{ 
 	   			PlayerObject player = holder.players.get(i);
+	   			player.values.ecr = Integer.parseInt(allData[i][22]);
 	   			player.info.additionalStat = allData[i][21];
 	   			player.info.passRunRatio = allData[i][20];
 	   			player.info.oLineStatus = allData[i][19];

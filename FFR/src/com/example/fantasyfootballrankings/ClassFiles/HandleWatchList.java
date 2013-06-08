@@ -186,7 +186,6 @@ public class HandleWatchList
 				String selected = ((TextView)arg1).getText().toString();
 				selected = selected.split(": ")[1];
 				selected = selected.split(", ")[0];
-				Dialog dialog2 = new Dialog(cont);
 				dialog.dismiss();
 				Rankings.outputResults(selected, true,(Activity)cont, holder, true, true);
 			}

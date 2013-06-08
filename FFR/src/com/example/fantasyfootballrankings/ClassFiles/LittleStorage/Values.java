@@ -14,6 +14,7 @@ public class Values
 	public double worth;
 	public double high;
 	public double low;
+	public int ecr;
 	/**
 	 * Just initializes the values stored in the object,
 	 * count to one (obviously)
@@ -25,6 +26,7 @@ public class Values
 		count = 1.0;
 		high = 0.0;
 		low = 100.0;
+		ecr = -1;
 	}
 
 	/**

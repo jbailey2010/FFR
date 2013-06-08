@@ -808,6 +808,10 @@ public class Rankings extends Activity {
 	    		output.add(searchedPlayer.fa.get(1));
 	    	}
     	}
+    	if(searchedPlayer.values.ecr != -1)
+    	{
+    		output.add("Average Expert Ranking: " + searchedPlayer.values.ecr);
+    	}
     	if(!searchedPlayer.info.adp.equals("Not set"))
     	{
     		output.add("ADP: " + searchedPlayer.info.adp);
