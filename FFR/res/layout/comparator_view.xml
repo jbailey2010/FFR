@@ -42,6 +42,7 @@
         android:layout_above="@+id/second_player_compare"
         android:layout_alignParentRight="true"
         android:ems="10"
+        android:layout_marginRight="20dp"
         android:background="#cdcdcd"
     	android:dropDownSelector="#FF0000" >
     </AutoCompleteTextView>
@@ -66,6 +67,7 @@
         android:layout_marginTop="111dp"
         android:ems="10"
         android:background="#cdcdcd"
+        android:layout_marginLeft="20dp"
     	android:dropDownSelector="#FF0000" >
         <requestFocus />
     </AutoCompleteTextView>

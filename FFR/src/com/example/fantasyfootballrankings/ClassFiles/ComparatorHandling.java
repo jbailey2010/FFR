@@ -216,32 +216,38 @@ public class ComparatorHandling
 				}
 			}
 		}
-		int age1 = Integer.parseInt(player1.info.age);
-		int age2 = Integer.parseInt(player2.info.age);
-		if(age1 != age2)
+		try{
+			int age1 = Integer.parseInt(player1.info.age);
+			int age2 = Integer.parseInt(player2.info.age);
+			if(age1 != age2)
+			{
+				if(age1 > age2)
+				{
+					if(age1 - age2 > 5)
+					{
+						p2.append("Much younger\n");
+					}
+					else
+					{
+						p2.append("Younger" + "\n");
+					}
+				}
+				else
+				{
+					if(age2 - age1 > 5)
+					{
+						p1.append("Much younger\n");
+					}
+					else
+					{
+						p1.append("Younger" + "\n");
+					}		
+				}
+			}
+		}
+		catch(NumberFormatException e)
 		{
-			if(age1 > age2)
-			{
-				if(age1 - age2 > 5)
-				{
-					p2.append("Much younger\n");
-				}
-				else
-				{
-					p2.append("Younger" + "\n");
-				}
-			}
-			else
-			{
-				if(age2 - age1 > 5)
-				{
-					p1.append("Much younger\n");
-				}
-				else
-				{
-					p1.append("Younger" + "\n");
-				}		
-			}
+			//Nothing, just don't use the data
 		}
 		int depth1 = teamDepth(player1, firstTeam);
 		int depth2 = teamDepth(player2, secTeam);
@@ -468,6 +474,33 @@ public class ComparatorHandling
 				{
 					p2.append("Higher adp\n");
 				}		
+			}
+		}
+		int ecr1 = player1.values.ecr;
+		int ecr2 = player2.values.ecr;
+		if(Math.abs(ecr1 - ecr2) > 2)
+		{
+			if(ecr1 < ecr2)
+			{
+				if(ecr2 - ecr1 > 10)
+				{
+					p1.append("Much higher ECR\n");
+				}
+				else
+				{
+					p1.append("Higher ECR\n");
+				}
+			}
+			if(ecr2 < ecr1)
+			{
+				if(ecr1 - ecr2 > 10)
+				{
+					p2.append("Much higher ECR\n");
+				}
+				else
+				{
+					p2.append("Higher ECR\n");
+				}
 			}
 		}
 		boolean inj1 = injury(player1);
