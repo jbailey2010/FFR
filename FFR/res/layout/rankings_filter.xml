@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp" />
+        android:layout_marginTop="51dp"
+        android:background="@drawable/spinner_well" />
 
     <Spinner
         android:id="@+id/position_spinner"
@@ -18,7 +19,8 @@
         android:layout_below="@+id/team_spinner"
         android:layout_centerHorizontal="true"
         android:hapticFeedbackEnabled="true"
-        android:layout_marginTop="80dp" />
+        android:layout_marginTop="80dp"
+        android:background="@drawable/spinner_well" />
     
     <Button
         android:id="@+id/rankings_filter_close"

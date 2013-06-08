@@ -20,7 +20,8 @@
         android:layout_width="375dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="57dp" />
+        android:layout_marginTop="57dp"
+        android:background="@drawable/spinner_well" />
 
     <Button
         android:id="@+id/twitter_submit"
