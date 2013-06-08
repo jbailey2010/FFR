@@ -633,11 +633,15 @@ public class ParsingAsyncTask
 	{
 		ProgressDialog pdia;
 		Activity act;
-	    public ParseTwitterSearch(Context cont) 
+		boolean flag;
+		String query;
+	    public ParseTwitterSearch(Context cont, boolean news, String input) 
 	    {
 	        pdia = new ProgressDialog(cont);
 	        pdia.setCancelable(false);
 	        act = (Activity)cont;
+	        flag = news;
+	        query = input;
 	    }
 	    
 		@Override
@@ -649,9 +653,16 @@ public class ParsingAsyncTask
 
 		@Override
 		protected void onPostExecute(List<NewsObjects> result){
-		   super.onPostExecute(result);
-		   pdia.dismiss();
-		   News.handleNewsListView(result, act);
+			super.onPostExecute(result);
+			pdia.dismiss();
+			if(flag)
+			{
+			    News.handleNewsListView(result, act);
+			}
+			else
+			{
+				Rankings.playerTweetSearch(result, act, query);
+			}
 		}
 		
 	    @Override

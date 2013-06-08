@@ -21,6 +21,7 @@ import com.example.fantasyfootballrankings.R.menu;
 import com.example.fantasyfootballrankings.ClassFiles.ComparatorHandling;
 import com.example.fantasyfootballrankings.ClassFiles.HandleWatchList;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
+import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
@@ -28,6 +29,7 @@ import com.example.fantasyfootballrankings.ClassFiles.TradeHandling;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 
 import AsyncTasks.StorageAsyncTask;
@@ -705,6 +707,17 @@ public class Rankings extends Activity {
     	//Show the dialog, then set the list
     	dialog.show();
     	ListView results = (ListView)dialog.findViewById(R.id.listview_search);
+    	results.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				String input = ((TextView)arg1).getText().toString();
+				if(input.contains("See tweets about"))
+				{
+					playerTweetSearchInit(namePlayer, act);
+				}
+			}
+    	});
     	ManageInput.handleArray(output, results, act);
     	Button back = (Button)dialog.findViewById(R.id.search_back);
     	//If it isn't gone, set that it goes back
@@ -844,6 +857,57 @@ public class Rankings extends Activity {
 	    		output.add(searchedPlayer.info.additionalStat);
 	    	}
     	}
+    	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
+    	{
+    		output.add("See tweets about this player");
+    	}
+    }
+    
+    /**
+     * Calls the asynchronous search of tweets about a player
+     */
+    public static void playerTweetSearchInit(String name, Activity act)
+    {
+		ParseNews.startTwitterSearchAsync(act, name, "Twitter Search: " + name, false, name);
+    }
+    
+    /**
+     * Displays the output of the tweets about the player
+     * @param result
+     * @param act
+     */
+    public static void playerTweetSearch(List<NewsObjects> result, Activity act, String name)
+    {
+    	final Dialog dialog = new Dialog(act);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.player_tweet_search); 
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+	    dialog.show();
+	    TextView header = (TextView)dialog.findViewById(R.id.name);
+	    header.setText("Twitter Search: " + name);
+	    ListView tweetResults = (ListView)dialog.findViewById(R.id.listview_search);
+	    Button close = (Button)dialog.findViewById(R.id.search_close);
+	    close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				return;
+			}
+	    });
+	    List<String> news = new ArrayList<String>(10000);
+	    for(NewsObjects newsObj : result)
+	    {
+	    	StringBuilder newsBuilder = new StringBuilder(1000);
+	    	newsBuilder.append(newsObj.news + "\n\n" + newsObj.impact + "\n\n"
+	    			 + "Date: " + newsObj.date + "\n");
+	    	news.add(newsBuilder.toString());
+	    }
+	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(act,
+	            android.R.layout.simple_list_item_1, news);
+	    tweetResults.setAdapter(adapter);
     }
     
     /**

@@ -188,10 +188,10 @@ public class ParseNews
 	 * @param cont
 	 * @param search
 	 */
-	public static void startTwitterSearchAsync(Context cont, String search, String header)
+	public static void startTwitterSearchAsync(Context cont, String search, String header, boolean flag, String query)
 	{
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
-		ParseTwitterSearch news = stupid.new ParseTwitterSearch(cont);
+		ParseTwitterSearch news = stupid.new ParseTwitterSearch(cont, flag, query);
 		news.execute(cont, search, header);	
 	}
 }

@@ -299,7 +299,7 @@ public class News extends Activity {
 				}
 				else
 				{
-					ParseNews.startTwitterSearchAsync(cont, queryTerms, "Twitter Search: " + queryTerms);
+					ParseNews.startTwitterSearchAsync(cont, queryTerms, "Twitter Search: " + queryTerms, true, " ");
 					WriteToFile.writeNewsSelection(cont, "Twitter Search: " + queryTerms);
 					setHeader("Twitter Search: " + queryTerms);
 					dialog.dismiss();
