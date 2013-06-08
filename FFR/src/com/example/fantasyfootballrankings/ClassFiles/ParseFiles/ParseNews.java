@@ -22,6 +22,7 @@ import org.xml.sax.SAXException;
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseRotoWorldNews;
 import AsyncTasks.ParsingAsyncTask.ParseTwitterFeeds;
+import AsyncTasks.ParsingAsyncTask.ParseTwitterSearch;
 import AsyncTasks.StorageAsyncTask;
 import AsyncTasks.StorageAsyncTask.ReadRotoNews;
 import android.content.Context;
@@ -180,5 +181,17 @@ public class ParseNews
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
 		ParseTwitterFeeds news = stupid.new ParseTwitterFeeds(cont);
 		news.execute(cont, selection);	
+	}
+	
+	/**
+	 * Calls the actual searching function
+	 * @param cont
+	 * @param search
+	 */
+	public static void startTwitterSearchAsync(Context cont, String search)
+	{
+		ParsingAsyncTask stupid = new ParsingAsyncTask();
+		ParseTwitterSearch news = stupid.new ParseTwitterSearch(cont);
+		news.execute(cont, search);	
 	}
 }

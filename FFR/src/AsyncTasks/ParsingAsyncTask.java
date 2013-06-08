@@ -623,5 +623,46 @@ public class ParsingAsyncTask
 			return news;
 	    }
 	  }
+	
+	/**
+	 * Handles the back-end parsing of the twitter feeds
+	 * @author Jeff
+	 *
+	 */
+	public class ParseTwitterSearch extends AsyncTask<Object, Void, List<NewsObjects>> 
+	{
+		ProgressDialog pdia;
+		Activity act;
+	    public ParseTwitterSearch(Context cont) 
+	    {
+	        pdia = new ProgressDialog(cont);
+	        pdia.setCancelable(false);
+	        act = (Activity)cont;
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		        pdia.setMessage("Please wait, searching the feeds...");
+		        pdia.show();    
+		}
+
+		@Override
+		protected void onPostExecute(List<NewsObjects> result){
+		   super.onPostExecute(result);
+		   pdia.dismiss();
+		   News.handleNewsListView(result, act);
+		}
+		
+	    @Override
+	    protected List<NewsObjects> doInBackground(Object... data) 
+	    {
+	    	Context cont = (Context) data[0];
+	    	String selection = (String)data[1];
+	    	List<NewsObjects> news = new ArrayList<NewsObjects>(100);
+	    	news = ParseTwitter.searchTweets(selection);
+			return news;
+	    }
+	  }
 }
 

@@ -31,12 +31,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
+import android.widget.Toast;
 /**
  * Handles news parsing/twitter parsing
  * @author Jeff
@@ -75,6 +77,9 @@ public class News extends Activity {
 				return true;
 			case R.id.twitter_feeds:
 				twitterFeedsDialog();
+				return true;
+			case R.id.twitter_search:
+				twitterSearchDialog();
 				return true;
 			//New page opens up entirely for going home
 			case R.id.go_home:
@@ -259,6 +264,46 @@ public class News extends Activity {
             }
 		});
 		dialog.show();
+	}
+	
+	/**
+	 * Handles the pop up to get the user input
+	 */
+	public static void twitterSearchDialog()
+	{
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.twitter_search);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+	    dialog.show();
+	    Button cancel = (Button)dialog.findViewById(R.id.twitter_search_cancel);
+	    Button submit = (Button)dialog.findViewById(R.id.twitter_search_submit);
+	    final EditText input = (EditText)dialog.findViewById(R.id.twitter_search_input);
+	    cancel.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				return;
+			}
+	    });
+	    submit.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				String queryTerms = input.getText().toString().replace(",", " ");
+				if(queryTerms.length() < 3)
+				{
+					Toast.makeText(cont, "Please input a query", Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					ParseNews.startTwitterSearchAsync(cont, queryTerms);
+					dialog.dismiss();
+				}
+			}
+	    });
 	}
 	
 	/**

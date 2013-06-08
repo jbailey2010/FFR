@@ -30,6 +30,8 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import twitter4j.Paging;
+import twitter4j.Query;
+import twitter4j.QueryResult;
 import twitter4j.ResponseList;
 import twitter4j.StallWarning;
 import twitter4j.Status;
@@ -208,6 +210,10 @@ public class ParseTwitter
         return newsSet;
 	}
 	
+	/**
+	 * Handles twitter parsing for a list instead of a user
+	 * @return
+	 */
 	public static List<NewsObjects> parseTwitter4jList()
 	{
 		ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -260,6 +266,53 @@ public class ParseTwitter
         {
         	newsSet.add(new NewsObjects("Rate limit exceeded, try again in a few minutes", " ", " "));
         }
+        return newsSet;
+	}
+	
+	/**
+	 * Parses twitter given a user's input query terms, returning relevant tweets
+	 */
+	public static List<NewsObjects> searchTweets(String query)
+	{
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setDebugEnabled(true)
+		  .setOAuthConsumerKey("BCARDaoZRV1VhOVh3Nxq4g")
+		  .setOAuthConsumerSecret("u84R7JlzTNtss0Tut61oSRKYpgo4uW8G1moOlrBOgSg")
+		  .setOAuthAccessToken("734038682-8h2b63A8UM0UoMrlPHKZGa6RIzOZLpx5qsPeZ1Ma")
+		  .setOAuthAccessTokenSecret("Zijqkk2GU4WINIQ67YCnBE6Yz2Ahzk6XIYckMv8zRY");
+        TwitterFactory factory = new TwitterFactory(cb.build());
+        Twitter twitter = factory.getInstance();
+		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
+        try {
+        	Query queryObj = new Query(query);
+	    	queryObj.setCount(30);
+	        QueryResult result;
+			result = twitter.search(queryObj);
+			List<Status> statuses = result.getTweets();
+		    for(Status status: statuses)
+		    {
+				String header = status.getUser().getName() + ": " + status.getText();
+				String date = status.getCreatedAt().toString();
+				StringBuilder replySet = new StringBuilder(1000);
+				int counter = 0;
+				while(status.getInReplyToStatusId() != -1L && counter < 3)
+				{
+					status = twitter.showStatus(status.getInReplyToStatusId());
+					replySet.append("In reply to:  " + status.getUser().getName() + " (" + status.getCreatedAt() + ")\n" 
+							+ status.getText() + "\n\n");
+					counter++;
+				}
+				if(replySet.length() < 5)
+				{
+					replySet.append(" ");
+				}
+				NewsObjects news = new NewsObjects(header, replySet.toString(), date);
+				newsSet.add(news);
+			}
+		} catch (TwitterException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         return newsSet;
 	}
 }
