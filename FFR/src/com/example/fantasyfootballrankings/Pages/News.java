@@ -299,7 +299,9 @@ public class News extends Activity {
 				}
 				else
 				{
-					ParseNews.startTwitterSearchAsync(cont, queryTerms);
+					ParseNews.startTwitterSearchAsync(cont, queryTerms, "Twitter Search: " + queryTerms);
+					WriteToFile.writeNewsSelection(cont, "Twitter Search: " + queryTerms);
+					setHeader("Twitter Search: " + queryTerms);
 					dialog.dismiss();
 				}
 			}

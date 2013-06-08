@@ -659,8 +659,10 @@ public class ParsingAsyncTask
 	    {
 	    	Context cont = (Context) data[0];
 	    	String selection = (String)data[1];
+	    	String header = (String)data[2];
 	    	List<NewsObjects> news = new ArrayList<NewsObjects>(100);
 	    	news = ParseTwitter.searchTweets(selection);
+	    	WriteToFile.writeNewsTwitter(cont, news, header);
 			return news;
 	    }
 	  }
