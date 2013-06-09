@@ -713,10 +713,12 @@ public class Rankings extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				String input = ((TextView)arg1).getText().toString();
+				//Show tweets about the player
 				if(input.contains("See tweets about"))
 				{
 					playerTweetSearchInit(namePlayer, act);
 				}
+				//Bring up the interweb to show highlights of the player
 				else if(input.contains("See highlights of"))
 				{
 					String[] nameArr = namePlayer.split(" ");

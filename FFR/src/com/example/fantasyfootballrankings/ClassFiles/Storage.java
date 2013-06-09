@@ -4,6 +4,7 @@ package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.Serializable;
 
+
 import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseGE;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 import com.example.fantasyfootballrankings.Pages.Home;
 
