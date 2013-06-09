@@ -285,7 +285,7 @@ public class ParseTwitter
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
         try {
         	Query queryObj = new Query(query);
-	    	queryObj.setCount(30);
+	    	queryObj.setCount(40);
 	        QueryResult result;
 			result = twitter.search(queryObj);
 			List<Status> statuses = result.getTweets();

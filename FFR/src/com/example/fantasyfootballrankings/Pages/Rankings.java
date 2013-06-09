@@ -893,7 +893,7 @@ public class Rankings extends Activity {
      * @param result
      * @param act
      */
-    public static void playerTweetSearch(List<NewsObjects> result, Activity act, String name)
+    public static void playerTweetSearch(List<NewsObjects> result, final Activity act, String name)
     {
     	final Dialog dialog = new Dialog(act);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -929,7 +929,40 @@ public class Rankings extends Activity {
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(act,
 	            android.R.layout.simple_list_item_1, news);
 	    tweetResults.setAdapter(adapter);
+	    tweetResults.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				listview.setSelection(arg2);
+				tweetPopUp((TextView)arg1, act);
+			}
+	    });
     }
+    
+    /**
+	 * Makes a popup that shows the tweet so it's copyable from a user
+	 */
+	public static void tweetPopUp(TextView tweet, Activity cont)
+	{
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.tweet_popup);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+	    dialog.show();
+	    Button cancel = (Button)dialog.findViewById(R.id.tweet_popup_close);
+	    cancel.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				return;
+			}
+	    });
+	    TextView showTweet = (TextView)dialog.findViewById(R.id.tweet_field);
+	    showTweet.setText(tweet.getText().toString());
+	}
     
     /**
      * Sets the dialog to handle the salary/value information

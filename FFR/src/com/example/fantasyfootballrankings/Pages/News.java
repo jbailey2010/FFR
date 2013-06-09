@@ -327,7 +327,7 @@ public class News extends Activity {
 	 * @param result
 	 * @param cont
 	 */
-	public static void handleNewsListView(List<NewsObjects> result, Activity cont) 
+	public static void handleNewsListView(List<NewsObjects> result, final Activity cont) 
 	{
 		final ListView listview = (ListView)cont.findViewById(R.id.listview_news);
 		View v = cont.findViewById(android.R.id.home);
@@ -353,8 +353,34 @@ public class News extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				listview.setSelection(arg2);
+				tweetPopUp((TextView)arg1, cont);
 			}
 	    });
+	}
+	
+	/**
+	 * Makes a popup that shows the tweet so it's copyable from a user
+	 */
+	public static void tweetPopUp(TextView tweet, Activity cont)
+	{
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.tweet_popup);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+	    dialog.show();
+	    Button cancel = (Button)dialog.findViewById(R.id.tweet_popup_close);
+	    cancel.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				return;
+			}
+	    });
+	    TextView showTweet = (TextView)dialog.findViewById(R.id.tweet_field);
+	    showTweet.setText(tweet.getText().toString());
 	}
 
 }
