@@ -36,6 +36,7 @@ import AsyncTasks.StorageAsyncTask;
 import AsyncTasks.StorageAsyncTask.ReadDraft;
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -716,6 +717,19 @@ public class Rankings extends Activity {
 				{
 					playerTweetSearchInit(namePlayer, act);
 				}
+				else if(input.contains("See highlights of"))
+				{
+					String[] nameArr = namePlayer.split(" ");
+					String url = "http://www.youtube.com/results?search_query=";
+					for(String name : nameArr)
+					{
+						url += name + "+";
+					}
+					url += "highlights";
+					Intent i = new Intent(Intent.ACTION_VIEW);
+					i.setData(Uri.parse(url));
+					act.startActivity(i);
+				}
 			}
     	});
     	ManageInput.handleArray(output, results, act);
@@ -860,6 +874,7 @@ public class Rankings extends Activity {
     	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
     	{
     		output.add("See tweets about this player");
+    		output.add("See highlights of this player");
     	}
     }
     
@@ -904,6 +919,10 @@ public class Rankings extends Activity {
 	    	newsBuilder.append(newsObj.news + "\n\n" + newsObj.impact + "\n\n"
 	    			 + "Date: " + newsObj.date + "\n");
 	    	news.add(newsBuilder.toString());
+	    }
+	    if(result.size() == 0)
+	    {
+	    	news.add("No tweets found");
 	    }
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(act,
 	            android.R.layout.simple_list_item_1, news);
