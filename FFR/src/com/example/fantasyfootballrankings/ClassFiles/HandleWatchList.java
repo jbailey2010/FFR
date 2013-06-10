@@ -31,7 +31,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 /**
- * Handles watch list stufcf
+ * Handles watch list
  * @author Jeff
  *
  */
@@ -66,6 +66,14 @@ public class HandleWatchList
 			@Override
 			public void onClick(View arg0) {
 			    selected = !selected;
+			    if(!selected)
+			    {
+			    	Toast.makeText(cont, "Showing drafted players", Toast.LENGTH_SHORT).show();
+			    }
+			    else
+			    {
+			    	Toast.makeText(cont, "Hiding drafted players", Toast.LENGTH_SHORT).show();
+			    }
 			    display(dialog, watchList, holder, listWatch, cont);
 			}
 		});
