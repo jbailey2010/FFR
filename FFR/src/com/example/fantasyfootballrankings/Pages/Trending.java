@@ -24,6 +24,7 @@ import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
@@ -153,11 +154,32 @@ public class Trending extends Activity {
 		});
 		ReadFromFile.fetchNamesBackEnd(holder, cont);
 		String storedPosts = prefs.getString("Posted Players", "Not Posted");
+		List<String>postsList = new ArrayList<String>();
+		for(String post : storedPosts.split("##"))
+		{
+			postsList.add(post);
+		}
     	if(storedPosts != "Not Posted")
     	{
-    		String[] posts = storedPosts.split("##");
-    		List<String>postsList = Arrays.asList(posts);
-    		ManageInput.handleArray(postsList, listview, this);
+    		final ArrayAdapter<String> mAdapter = ManageInput.handleArray(postsList, listview, this);
+    		SwipeDismissListViewTouchListener touchListener =
+                    new SwipeDismissListViewTouchListener(
+                            listview,
+                            new SwipeDismissListViewTouchListener.OnDismissCallback() {
+                                @Override
+                                public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                	String name = "";
+                                    for (int position : reverseSortedPositions) {
+                                    	name = mAdapter.getItem(position).split(": ")[0];
+                                        mAdapter.remove(mAdapter.getItem(position));
+                                    }
+                                    mAdapter.notifyDataSetChanged();
+                                    Toast.makeText(cont, "Temporarily hiding " + name, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+            listview.setOnTouchListener(touchListener);
+            listview.setOnScrollListener(touchListener.makeScrollListener());
+
     	    setListViewOnClick();
     	}
 	}
@@ -417,7 +439,7 @@ public class Trending extends Activity {
 	 * Does sexy things
 	 * @param holder
 	 */
-	public void handleParsed(PriorityQueue<PostedPlayer> playersTrending, Storage holder, Activity cont)
+	public void handleParsed(PriorityQueue<PostedPlayer> playersTrending, Storage holder, final Activity cont)
 	{
 		int count = 0; 
 		for(PostedPlayer e:playersTrending)
@@ -439,7 +461,25 @@ public class Trending extends Activity {
 	    	WriteToFile.writePostsList(trendingPlayers, cont);
 	    	refreshed = false;
 	    }
-	    ManageInput.handleArray(trendingPlayers, listview, cont);
+	    final ArrayAdapter<String> mAdapter = ManageInput.handleArray(trendingPlayers, listview, cont);
+	    SwipeDismissListViewTouchListener touchListener =
+                new SwipeDismissListViewTouchListener(
+                        listview,
+                        new SwipeDismissListViewTouchListener.OnDismissCallback() {
+                            @Override
+                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                            	String name = "";
+                                for (int position : reverseSortedPositions) {
+                                	name = mAdapter.getItem(position).split(": ")[0];
+                                    mAdapter.remove(mAdapter.getItem(position));
+                                }
+                                mAdapter.notifyDataSetChanged();
+                                Toast.makeText(cont, "Temporarily hiding " + name, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+        listview.setOnTouchListener(touchListener);
+        listview.setOnScrollListener(touchListener.makeScrollListener());
+
 	}
 	
 	/**
@@ -474,5 +514,6 @@ public class Trending extends Activity {
 				}
 			}
 	    });
+	    
 	}
 }

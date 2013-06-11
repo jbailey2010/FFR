@@ -11,6 +11,7 @@ import com.example.fantasyfootballrankings.R.menu;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
@@ -345,7 +346,7 @@ public class News extends Activity {
 	    			 + "Date: " + newsObj.date + "\n");
 	    	news.add(newsBuilder.toString());
 	    }
-	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(cont,
+	    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(cont,
 	            android.R.layout.simple_list_item_1, news);
 	    listview.setAdapter(adapter);
 	    listview.setOnItemClickListener(new OnItemClickListener(){
@@ -356,6 +357,22 @@ public class News extends Activity {
 				tweetPopUp((TextView)arg1, cont);
 			}
 	    });
+	    SwipeDismissListViewTouchListener touchListener =
+                new SwipeDismissListViewTouchListener(
+                        listview,
+                        new SwipeDismissListViewTouchListener.OnDismissCallback() {
+                            @Override
+                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                for (int position : reverseSortedPositions) {
+                                    adapter.remove(adapter.getItem(position));
+                                }
+                                adapter.notifyDataSetChanged();
+                                Toast.makeText(cont, "Temporarily hiding this news piece", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+        listview.setOnTouchListener(touchListener);
+        listview.setOnScrollListener(touchListener.makeScrollListener());
+
 	}
 	
 	/**
