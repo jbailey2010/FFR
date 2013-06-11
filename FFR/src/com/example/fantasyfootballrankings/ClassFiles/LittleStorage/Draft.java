@@ -29,6 +29,7 @@ import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 
 /**
@@ -288,14 +289,14 @@ public class Draft
 			}
 		});
 		ListView listWatch = (ListView)dialog.findViewById(R.id.listview_search);
-	    display(dialog, holder.draft.ignore, holder, listWatch, cont);
-	    handleListSelect(holder, cont, listWatch, dialog);
+	    ArrayAdapter<String> mAdapter = display(dialog, holder.draft.ignore, holder, listWatch, cont);
+	    handleListSelect(holder, cont, listWatch, dialog, mAdapter);
 	}
 	
 	/**
 	 * Sets the display of the watch list
 	 */
-	public static void display(Dialog dialog, List<String> ignore, Storage holder, ListView listWatch,
+	public static ArrayAdapter<String> display(Dialog dialog, List<String> ignore, Storage holder, ListView listWatch,
 			Context cont)
 	{
 		listWatch.setAdapter(null);
@@ -304,14 +305,14 @@ public class Draft
 		{
 			totalList.add(player);
 		}
-	    ManageInput.handleArray(totalList, listWatch, (Activity) cont);
+	    return ManageInput.handleArray(totalList, listWatch, (Activity) cont);
 	}
 	
 	/**
 	 * Sets the element onclick to show data
 	 */
 	public static void handleListSelect(final Storage holder, final Context cont, ListView listview, 
-			final Dialog dialog)
+			final Dialog dialog, final ArrayAdapter<String> mAdapter)
 	{
 	    listview.setOnItemClickListener(new OnItemClickListener(){
 			@Override

@@ -8,6 +8,7 @@ import java.util.PriorityQueue;
 
 import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.example.fantasyfootballrankings.Pages.Trending;
 
@@ -24,6 +25,7 @@ import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -102,14 +104,14 @@ public class HandleWatchList
 				}
 			}
 		});
-	    display(dialog, watchList, holder, listWatch, cont);
-	    handleListSelect(holder, cont, watchList, listWatch, dialog);
+	    ArrayAdapter<String> mAdapter = display(dialog, watchList, holder, listWatch, cont);
+	    handleListSelect(holder, cont, watchList, listWatch, dialog, mAdapter);
 	}
 	
 	/**
 	 * Sets the display of the watch list
 	 */
-	public static void display(Dialog dialog, List<String> watchList, Storage holder, ListView listWatch,
+	public static ArrayAdapter<String> display(Dialog dialog, List<String> watchList, Storage holder, ListView listWatch,
 			Context cont)
 	{
 		listWatch.setAdapter(null);
@@ -177,14 +179,14 @@ public class HandleWatchList
 		    	}
 	    	}
 	    }
-	    ManageInput.handleArray(listAdapter, listWatch, (Activity) cont);
+	    return ManageInput.handleArray(listAdapter, listWatch, (Activity) cont);
 	}
 
 	/**
 	 * Sets the element onclick to show data
 	 */
 	public static void handleListSelect(final Storage holder, final Context cont,final List<String> watchList, 
-			ListView listview, final Dialog dialog)
+			ListView listview, final Dialog dialog, final ArrayAdapter<String> mAdapter)
 	{
 	    listview.setOnItemClickListener(new OnItemClickListener(){
 			@Override
@@ -198,24 +200,29 @@ public class HandleWatchList
 				Rankings.outputResults(selected, true,(Activity)cont, holder, true, true);
 			}
 	    });	
-		listview.setOnItemLongClickListener(new OnItemLongClickListener(){
-
-			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				TextView elem = (TextView)arg1;
-				elem.setVisibility(TextView.GONE);
-				watchList.remove(elem.getText().toString().split(": ")[1].split(", ")[0]);
-				WriteToFile.writeWatchList(cont, watchList);
-				if(watchList.size() == 0)
-				{
-					dialog.dismiss();
-					Toast.makeText(cont, "No players left in the watch list", Toast.LENGTH_SHORT).show();
-				}
-				ListView listWatch = (ListView)dialog.findViewById(R.id.listview_search);
-			    display(dialog, watchList, holder, listWatch, cont);
-				return true;
-			}
-		});
+	    SwipeDismissListViewTouchListener touchListener =
+                new SwipeDismissListViewTouchListener(
+                        listview,
+                        new SwipeDismissListViewTouchListener.OnDismissCallback() {
+                            @Override
+                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                            	String name = "";
+                                for (int position : reverseSortedPositions) {
+                                	name = mAdapter.getItem(position).split(": ")[1].split(", ")[0];
+                                    mAdapter.remove(mAdapter.getItem(position));
+                                }
+                                mAdapter.notifyDataSetChanged();
+                                watchList.remove(name);
+                                WriteToFile.writeWatchList(cont, watchList);
+                                if(watchList.size() == 0)
+                				{
+                					dialog.dismiss();
+                					Toast.makeText(cont, "No players left in the watch list", Toast.LENGTH_SHORT).show();
+                				}
+                                Toast.makeText(cont, "Removing " + name, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+        listview.setOnTouchListener(touchListener);
+        listview.setOnScrollListener(touchListener.makeScrollListener());
 	}
 }

@@ -75,11 +75,12 @@ public class ManageInput
 	 * Handles the addition of an adapter to the listview
 	 * on rankings and trending
 	 */
-	public static void handleArray(List<String> list, ListView listView, Activity cont)
+	public static ArrayAdapter<String> handleArray(List<String> list, ListView listView, Activity cont)
 	{
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(cont,
 	            android.R.layout.simple_list_item_1, list);
 	    listView.setAdapter(adapter);
+	    return adapter;
 	}
 	
 	/**

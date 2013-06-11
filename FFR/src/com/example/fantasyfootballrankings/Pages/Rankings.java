@@ -3,6 +3,7 @@ package com.example.fantasyfootballrankings.Pages;
 import java.io.IOException;
 
 
+
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -31,6 +32,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.*;
 
 import AsyncTasks.StorageAsyncTask;
 import AsyncTasks.StorageAsyncTask.ReadDraft;
@@ -50,12 +52,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.speech.RecognizerIntent;
+import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
