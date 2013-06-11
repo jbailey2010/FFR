@@ -37,23 +37,40 @@ public class ParseFantasyPros
 			String newName = Storage.nameExists(holder, validated);
 			PlayerObject newPlayer = new PlayerObject(newName, "", "", val1);
 			PlayerObject match =  Storage.pqExists(holder, newName);
+			double a = ecr;
+			double log = Math.log(a);
+			log = log * -12.5;
+			log = log - 0.06*a;
+			log = log + 73.0;
+			if(log < 0.0)
+			{
+				log = 0.0;
+			}
+			else if(log < 1.0)
+			{
+				log = 1.0;
+			}
 			if(match != null)
 			{    
-				holder.players.remove(match);
 				BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
 				Values.handleNewValue(match.values, newPlayer.values.worth);
 				Values.handleNewValue(match.values, val2);
 				Values.handleNewValue(match.values, val3);
+				if(a != -1)
+				{
+					Values.handleNewValue(match.values, log);
+				}
 				match.values.ecr = ecr;
-				holder.players.add(match);
 			}
 			else
 			{
 				Values.isExtreme(newPlayer.values, newPlayer.values.worth);
 				Values.handleNewValue(newPlayer.values, val2);
-				Values.isExtreme(newPlayer.values, val2);
 				Values.handleNewValue(newPlayer.values, val3);
-				Values.isExtreme(newPlayer.values, val3);
+				if(a != -1)
+				{
+					Values.handleNewValue(newPlayer.values, log);
+				}
 				newPlayer.values.ecr = ecr;
 				holder.players.add(newPlayer);
 			}	

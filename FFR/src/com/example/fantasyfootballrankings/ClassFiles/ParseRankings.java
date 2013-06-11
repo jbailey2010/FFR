@@ -253,11 +253,9 @@ public class ParseRankings
 	{
 		if(match != null)
 		{
-			holder.players.remove(match);
 			BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
 			Values.handleNewValue(match.values, newPlayer.values.worth);
 			match.info.team = fixTeams(match.info.team);
-			holder.players.add(match);
 		}
 		else
 		{

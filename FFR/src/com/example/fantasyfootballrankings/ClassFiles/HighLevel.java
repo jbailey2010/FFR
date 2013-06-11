@@ -16,6 +16,7 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.htmlcleaner.XPatherException;
 
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseBrokenTackles;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraft;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
@@ -139,6 +140,20 @@ public class HighLevel
     		if(adp.containsKey(player.info.name))
     		{
     			player.info.adp = adp.get(player.info.name);
+    			double a = Double.parseDouble(adp.get(player.info.name));
+    			double log = Math.log(a);
+    			log = log * -12.5;
+    			log = log - 0.06*a;
+    			log = log + 73.0;
+    			if(log < 0.0)
+    			{
+    				log = 0.0;
+    			}
+    			else if(log < 1.0)
+    			{
+    				log = 1.0;
+    			}
+    			Values.handleNewValue(player.values, log);
     		}
     	}
 	}

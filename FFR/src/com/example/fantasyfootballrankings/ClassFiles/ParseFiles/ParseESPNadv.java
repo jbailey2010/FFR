@@ -9,6 +9,8 @@ import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 
 /**
  * A simple library to help parse espn's adv value from
@@ -38,15 +40,35 @@ public class ParseESPNadv
 			int worth = (int)Double.parseDouble(val);
 			PlayerObject newPlayer = new PlayerObject(name, "", "", worth);
 			PlayerObject match =  Storage.pqExists(holder, name);
+			double a = Double.parseDouble(brokenValues[i+3]);
+			double log = Math.log(a);
+			log = log * -12.5;
+			log = log - 0.06*a;
+			log = log + 73.0;
+			if(log < 0.0)
+			{
+				log = 0.0;
+			}
+			else if(log < 1.0)
+			{
+				log = 1.0;
+			}
 			if(match != null)
 			{
 				match.info.trend = trend;
+				BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
+				Values.handleNewValue(match.values, newPlayer.values.worth);
+				Values.handleNewValue(match.values, log);
+				match.info.team = ParseRankings.fixTeams(match.info.team);
 			}
 			else
 			{
 				newPlayer.info.trend = trend;
+				Values.isExtreme(newPlayer.values, newPlayer.values.worth);
+				Values.handleNewValue(newPlayer.values, log);
+				newPlayer.info.team = ParseRankings.fixTeams(newPlayer.info.team);
+				holder.players.add(newPlayer);
 			}
-			ParseRankings.handlePlayer(holder, newPlayer, match);
 		}
 	}
 }

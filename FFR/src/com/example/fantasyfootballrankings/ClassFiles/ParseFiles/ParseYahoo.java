@@ -58,17 +58,14 @@ public class ParseYahoo
 			PlayerObject match =  Storage.pqExists(holder, newName);
 			if(match != null)
 			{
-				holder.players.remove(match);
 				BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
 				Values.handleNewValue(match.values, newPlayer.values.worth);
 				Values.handleNewValue(match.values, aav);
-				holder.players.add(match);
 			}
 			else
 			{
 				Values.isExtreme(newPlayer.values, newPlayer.values.worth);
 				Values.handleNewValue(newPlayer.values, aav);
-				Values.isExtreme(newPlayer.values, aav);
 				holder.players.add(newPlayer);
 			}	
 		}
