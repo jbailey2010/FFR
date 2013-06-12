@@ -314,24 +314,31 @@ public class Draft
 	public static void handleListSelect(final Storage holder, final Context cont, ListView listview, 
 			final Dialog dialog, final ArrayAdapter<String> mAdapter)
 	{
-	    listview.setOnItemClickListener(new OnItemClickListener(){
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				// TODO Auto-generated method stub
-				String selected = ((TextView)arg1).getText().toString();
-				Dialog dialog2 = new Dialog(cont);
-				dialog.dismiss();
-				undraftPlayer(selected, dialog2, holder, (Activity)cont);
-			}
-	    });	
+	    SwipeDismissListViewTouchListener touchListener =
+                new SwipeDismissListViewTouchListener(
+                        listview,
+                        new SwipeDismissListViewTouchListener.OnDismissCallback() {
+                            @Override
+                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                            	String name = "";
+                                for (int position : reverseSortedPositions) {
+                                	name = mAdapter.getItem(position);
+                                	dialog.dismiss();
+                                	undraftPlayer(name, new Dialog(cont), holder, (Activity)cont, mAdapter, position);
+                                	mAdapter.remove(mAdapter.getItem(position));
+                                }
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        });
+        listview.setOnTouchListener(touchListener);
+        listview.setOnScrollListener(touchListener.makeScrollListener());
 	}
 	
 	/**
 	 * Starts the undrafting of the player
 	 */
 	public static void undraftPlayer(final String name, final Dialog dialog, final Storage holder, 
-			final Activity cont)
+			final Activity cont, final ArrayAdapter<String> mAdapter, final int position)
 	{
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.draft_by_who);
@@ -344,6 +351,8 @@ public class Draft
 		close.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
+				mAdapter.add(name);
+				mAdapter.notifyDataSetChanged();
 				dialog.dismiss();
 				undraft(new Dialog(cont), holder, cont);
 			}
@@ -357,6 +366,8 @@ public class Draft
 				dialog.dismiss();
 				holder.draft.ignore.remove(name);
 				WriteToFile.writeDraft(holder.draft, cont);
+				mAdapter.remove(mAdapter.getItem(position));
+				mAdapter.notifyDataSetChanged();
 				Toast.makeText(cont, "Undrafting " + name, Toast.LENGTH_SHORT).show();
 				Rankings.intermediateHandleRankings(cont);
 			}
@@ -366,7 +377,7 @@ public class Draft
 			@Override
 			public void onClick(View v) {
 				System.out.println("Clicked");
-				draftedByMe(name, holder,cont, new Dialog(cont));
+				draftedByMe(name, holder,cont, new Dialog(cont), mAdapter, position);
 				dialog.dismiss();
 			}
 		});
@@ -375,7 +386,8 @@ public class Draft
 	   /**
      * Handles the 'drafted by me' dialog
      */
-    public static void draftedByMe(final String name, final Storage holder, final Activity cont, final Dialog popup)
+    public static void draftedByMe(final String name, final Storage holder, final Activity cont, final Dialog popup,
+    		final ArrayAdapter<String> mAdapter, final int position)
     {
     	popup.setContentView(R.layout.draft_by_me);
     	popup.show();
@@ -386,7 +398,7 @@ public class Draft
 			@Override
 			public void onClick(View v) {
 				popup.dismiss();
-				undraftPlayer(name, new Dialog(cont), holder, cont);
+				undraftPlayer(name, new Dialog(cont), holder, cont, mAdapter, position);
 			}
     	});
     	List<String> possResults = new ArrayList<String>();
@@ -406,6 +418,8 @@ public class Draft
 					long arg3) {
 		    	int val = Integer.parseInt(((TextView)arg1).getText().toString());
 				popup.dismiss();
+				mAdapter.remove(mAdapter.getItem(position));
+				mAdapter.notifyDataSetChanged();
 				handleUnDraftingMe(val, holder, name, cont, popup);
 			}
     	});
