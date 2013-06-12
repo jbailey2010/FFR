@@ -35,6 +35,10 @@ public class ComparatorHandling
 		final Dialog dialog = new Dialog(cont);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		dialog.setContentView(R.layout.comparator_view);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		//For when this is called back by the comparing part:
 		final AutoCompleteTextView player1Input = (AutoCompleteTextView)dialog.findViewById(R.id.player1_input);
@@ -170,22 +174,22 @@ public class ComparatorHandling
 			{
 				if(rank2 - rank1 > 10)
 				{
-					p1.append("Positionally much higher ranked" + "\n");
+					p1.append("-Positionally much higher ranked" + "\n");
 				}
 				else
 				{
-					p1.append("Positionally higher ranked\n");
+					p1.append("-Positionally higher ranked\n");
 				}
 			}
 			else
 			{
 				if(rank1 - rank2 > 10)
 				{
-					p2.append("Positionally much higher ranked" + "\n");
+					p2.append("-Positionally much higher ranked" + "\n");
 				}
 				else
 				{
-					p2.append("Positionally higher ranked\n");
+					p2.append("-Positionally higher ranked\n");
 				}		
 			}
 		}
@@ -197,22 +201,22 @@ public class ComparatorHandling
 			{
 				if(worth1 - worth2 > 10)
 				{
-					p2.append("Costs much less\n");
+					p2.append("-Costs much less\n");
 				}
 				else
 				{
-					p2.append("Costs less" + "\n");
+					p2.append("-Costs less" + "\n");
 				}
 			}
 			else
 			{
 				if(worth2 - worth1 > 10)
 				{
-					p1.append("Costs much less\n");
+					p1.append("-Costs much less\n");
 				}
 				else
 				{
-					p1.append("Costs less" + "\n");
+					p1.append("-Costs less" + "\n");
 				}
 			}
 		}
@@ -225,22 +229,22 @@ public class ComparatorHandling
 				{
 					if(age1 - age2 > 5)
 					{
-						p2.append("Much younger\n");
+						p2.append("-Much younger\n");
 					}
 					else
 					{
-						p2.append("Younger" + "\n");
+						p2.append("-Younger" + "\n");
 					}
 				}
 				else
 				{
 					if(age2 - age1 > 5)
 					{
-						p1.append("Much younger\n");
+						p1.append("-Much younger\n");
 					}
 					else
 					{
-						p1.append("Younger" + "\n");
+						p1.append("-Younger" + "\n");
 					}		
 				}
 			}
@@ -255,11 +259,11 @@ public class ComparatorHandling
 		{
 			if(depth1 < depth2)
 			{
-				p1.append("Higher on his team's depth chart" + "\n");
+				p1.append("-Higher on his team's depth chart" + "\n");
 			}
 			else
 			{
-				p2.append("Higher on his team's depth chart" + "\n");
+				p2.append("-Higher on his team's depth chart" + "\n");
 			}
 		}
 		double cast1 = teamWorth(firstTeam);
@@ -270,22 +274,22 @@ public class ComparatorHandling
 			{
 				if(cast1 - cast2 > 20.0)
 				{
-					p1.append("Much better supporting cast\n");
+					p1.append("-Much better supporting cast\n");
 				}
 				else
 				{
-					p1.append("Better supporting cast\n");
+					p1.append("-Better supporting cast\n");
 				}
 			}
 			else
 			{
 				if(cast2 - cast1 > 20.0)
 				{
-					p2.append("Much better supporting cast\n");
+					p2.append("-Much better supporting cast\n");
 				}
 				else
 				{
-					p2.append("Better supporting cast\n");
+					p2.append("-Better supporting cast\n");
 				}
 			}
 		}
@@ -293,11 +297,11 @@ public class ComparatorHandling
 		boolean sameBye2 = teamBye(holder, player2);
 		if(sameBye1)
 		{
-			p1.append("Same bye as a player you've drafted\n");
+			p1.append("-Same bye as a player you've drafted\n");
 		}
 		if(sameBye2)
 		{
-			p2.append("Same bye as a player you've drafted\n");
+			p2.append("-Same bye as a player you've drafted\n");
 		}
 		double trend1 = trend(player1);
 		double trend2 = trend(player2);
@@ -307,22 +311,22 @@ public class ComparatorHandling
 			{
 				if(trend1 - trend2 > 10.0)
 				{
-					p1.append("Value is trending in a much better direction\n");
+					p1.append("-Value is trending in a much\n better direction\n");
 				}
 				else
 				{
-					p1.append("Value is trending in a better direction\n");
+					p1.append("-Value is trending in a better direction\n");
 				}
 			}
 			else
 			{
 				if(trend2 - trend1 > 10.0)
 				{
-					p2.append("Value is trending in a much better direction\n");
+					p2.append("-Value is trending in a much\n better direction\n");
 				}
 				else
 				{
-					p2.append("Value is trending in a better direction\n");
+					p2.append("-Value is trending in a better direction\n");
 				}		
 			}
 		}
@@ -332,22 +336,22 @@ public class ComparatorHandling
 		{
 			if(quantity1 - quantity2 > 3)
 			{
-				p1.append("Shows up in a lot more rankings\n");
+				p1.append("-Shows up in a lot more rankings\n");
 			}
 			else
 			{
-				p1.append("Shows up in more rankings\n");
+				p1.append("-Shows up in more rankings\n");
 			}
 		}
 		else if(quantity2 > quantity1)
 		{
 			if(quantity2 - quantity1 > 3)
 			{
-				p2.append("Shows up in a lot more rankings\n");
+				p2.append("-Shows up in a lot more rankings\n");
 			}
 			else
 			{
-				p2.append("Shows up in more rankings\n");
+				p2.append("-Shows up in more rankings\n");
 			}	
 		}
 		int lineRank1 = lineRank(player1);
@@ -356,22 +360,22 @@ public class ComparatorHandling
 		{
 			if(lineRank2 - lineRank1 > 6)
 			{
-				p1.append("Much better offensive line\n");
+				p1.append("-Much better offensive line\n");
 			}
 			else
 			{
-				p1.append("Better offensive line\n");
+				p1.append("-Better offensive line\n");
 			}
 		}
 		else if(lineRank2 < lineRank1)
 		{
 			if(lineRank1 - lineRank2 > 6)
 			{
-				p2.append("Much better offensive line\n");
+				p2.append("-Much better offensive line\n");
 			}
 			else
 			{
-				p2.append("Better offensive line\n");
+				p2.append("-Better offensive line\n");
 			}	
 		}
 		int pr1 = prRatio(player1);
@@ -379,20 +383,20 @@ public class ComparatorHandling
 		if((player1.info.position.equals("QB") || player1.info.position.equals("WR") ||
 				player1.info.position.equals("TE")) && pr1 > pr2)
 		{
-			p1.append("Team passes more often\n");
+			p1.append("-Team passes more often\n");
 		}
 		if((player2.info.position.equals("QB") || player2.info.position.equals("WR") ||
 				player2.info.position.equals("TE")) && pr2 > pr1)
 		{
-			p2.append("Team passes more often\n");
+			p2.append("-Team passes more often\n");
 		}
 		if(player1.info.position.equals("RB") && pr1 < pr2)
 		{
-			p1.append("Team runs more often\n");
+			p1.append("-Team runs more often\n");
 		}
 		if(player2.info.position.equals("RB") && pr2 < pr1)
 		{
-			p2.append("Team runs more often\n");
+			p2.append("-Team runs more often\n");
 		}
 		int draft1 = draftRank(player1);
 		int draft2 = draftRank(player2);
@@ -400,22 +404,22 @@ public class ComparatorHandling
 		{
 			if(draft2 - draft1 > 5)
 			{
-				p1.append("Much better graded draft\n");
+				p1.append("-Much better graded draft\n");
 			}
 			else
 			{
-				p1.append("Better graded draft\n");
+				p1.append("-Better graded draft\n");
 			}
 		}
 		else if(draft2 < draft1)
 		{
 			if(draft1 - draft2 > 5)
 			{
-				p2.append("Much better graded draft\n");
+				p2.append("-Much better graded draft\n");
 			}
 			else
 			{
-				p2.append("Better graded draft\n");
+				p2.append("-Better graded draft\n");
 			}	
 		}
 		double diff1 = player1.values.high - player1.values.low;
@@ -426,26 +430,26 @@ public class ComparatorHandling
 			{
 				if(diff2 - diff1 > 15.0)
 				{
-					p1.append("Much more consistently ranked value\n");
-					p2.append("Much less consistently ranked value\n");
+					p1.append("-Much more consistently ranked value\n");
+					p2.append("-Much less consistently ranked value\n");
 				}
 				else
 				{
-					p1.append("More consistent value\n");
-					p2.append("Less consistent value\n");
+					p1.append("-More consistent value\n");
+					p2.append("-Less consistent value\n");
 				}
 			}
 			else if(diff2 < diff1)
 			{
 				if(diff1 - diff2 > 15.0)
 				{
-					p2.append("Much more consistently ranked value\n");
-					p1.append("Much less consistently ranked value\n");
+					p2.append("-Much more consistently ranked value\n");
+					p1.append("-Much less consistently ranked value\n");
 				}
 				else
 				{
-					p2.append("More consistent value\n");
-					p1.append("Less consistent value\n");
+					p2.append("-More consistent value\n");
+					p1.append("-Less consistent value\n");
 				}
 			}
 		}
@@ -457,22 +461,22 @@ public class ComparatorHandling
 			{
 				if(adp2 - adp1 > 15.0)
 				{
-					p1.append("Much higher adp\n");
+					p1.append("-Much higher ADP\n");
 				}
 				else
 				{
-					p1.append("Higher adp\n");
+					p1.append("-Higher ADP\n");
 				}
 			}
 			else
 			{
 				if(adp1 - adp2 > 15.0)
 				{
-					p2.append("Much higher adp\n");
+					p2.append("-Much higher ADP\n");
 				}
 				else
 				{
-					p2.append("Higher adp\n");
+					p2.append("-Higher ADP\n");
 				}		
 			}
 		}
@@ -484,22 +488,22 @@ public class ComparatorHandling
 			{
 				if(ecr2 - ecr1 > 10)
 				{
-					p1.append("Much higher ECR\n");
+					p1.append("-Much higher ECR\n");
 				}
 				else
 				{
-					p1.append("Higher ECR\n");
+					p1.append("-Higher ECR\n");
 				}
 			}
 			if(ecr2 < ecr1)
 			{
 				if(ecr1 - ecr2 > 10)
 				{
-					p2.append("Much higher ECR\n");
+					p2.append("-Much higher ECR\n");
 				}
 				else
 				{
-					p2.append("Higher ECR\n");
+					p2.append("-Higher ECR\n");
 				}
 			}
 		}
@@ -507,21 +511,11 @@ public class ComparatorHandling
 		boolean inj2 = injury(player2);
 		if(inj1)
 		{
-			p1.append("Injured\n");
+			p1.append("-Injured\n");
 		}
 		if(inj2)
 		{
-			p2.append("Injured\n");
-		}
-		boolean pos1 = samePos(player1, holder);
-		boolean pos2 = samePos(player2, holder);
-		if(!pos1)
-		{
-			p1.append("You have not yet drafted a player \nof this position\n");
-		}
-		if(!pos2)
-		{
-			p2.append("You have not yet drafted a player \nof this position\n");
+			p2.append("-Injured\n");
 		}
 		if(player1.stats.contains("Broken Tackles") && player2.stats.contains("Broken Tackles") &&
 				player1.info.position.equals(player2.info.position))
@@ -532,22 +526,22 @@ public class ComparatorHandling
 			{
 				if(bt1 - bt2 > 15)
 				{
-					p1.append("Broke many more tackles last year\n");
+					p1.append("-Broke many more tackles last year\n");
 				}
 				else
 				{
-					p1.append("Broke more tackles last year\n");
+					p1.append("-Broke more tackles last year\n");
 				}
 			}
 			else if(bt2 > bt1)
 			{
 				if(bt2 - bt1 > 15)
 				{
-					p2.append("Broke many more tackles last year\n");
+					p2.append("-Broke many more tackles last year\n");
 				}
 				else
 				{
-					p2.append("Broke more tackles last year\n");
+					p2.append("-Broke more tackles last year\n");
 				}
 			}
 		}
@@ -559,24 +553,34 @@ public class ComparatorHandling
 			{
 				if(mib1 - mib2 > 10.0)
 				{
-					p1.append("Faced 8+ in the box much more often last year\n");
+					p1.append("-Faced 8+ in the box much more often last year\n");
 				}
 				else
 				{
-					p1.append("Faced 8+ in the box more often last year\n");
+					p1.append("-Faced 8+ in the box more often last year\n");
 				}
 			}
 			else if(mib2 > mib1)
 			{
 				if(mib2 - mib1 > 10.0)
 				{
-					p2.append("Faced 8+ in the box much more often last year\n");
+					p2.append("-Faced 8+ in the box much more often last year\n");
 				}
 				else
 				{
-					p2.append("Faced 8+ in the box more often last year\n");
+					p2.append("-Faced 8+ in the box more often last year\n");
 				}
 			}
+		}
+		boolean pos1 = samePos(player1, holder);
+		boolean pos2 = samePos(player2, holder);
+		if(!pos1)
+		{
+			p1.append("-You have not yet drafted a player \nof this position\n");
+		} 
+		if(!pos2)
+		{
+			p2.append("-You have not yet drafted a player \nof this position\n");
 		}
 		fixOutput(dialog, cont, holder, player1, player2, p1, p2);
 	}
