@@ -274,7 +274,7 @@ public class WriteToFile {
     	StringBuilder newsSet = new StringBuilder(10000);
     	for(String name : watch)
     	{
-    		if(name.length() > 3)
+    		if(name.length() > 3 && name.charAt(0)!=' ')
     		{
     			newsSet.append(name + "----");
     		}

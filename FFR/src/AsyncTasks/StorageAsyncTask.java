@@ -267,7 +267,11 @@ public class StorageAsyncTask
 	    	SharedPreferences prefs = (SharedPreferences)data[2];
 	    	String ranks = prefs.getString("Rankings List", "Not Set");
     		String[] posts = ranks.split("##");
-    		List<String>postsList = Arrays.asList(posts);
+    		List<String> postsList = new ArrayList<String>();
+    		for(String post : posts)
+    		{
+    			postsList.add(post);
+    		}
     		return postsList;
 	    }
 	  }

@@ -103,6 +103,7 @@ public class Rankings extends Activity {
 	static List<String> teamList = new ArrayList<String>();
 	static List<String> posList = new ArrayList<String>();
 	static List<String> watchList = new ArrayList<String>();
+	static ArrayAdapter<String> adapter;
 	/**
 	 * Sets up the view
 	 */
@@ -686,7 +687,17 @@ public class Rankings extends Activity {
     		name.setOnLongClickListener(new OnLongClickListener(){
 				@Override
 				public boolean onLongClick(View v) {
-					handleDrafted(name, holder, (Activity)context, dialog);
+					int index = 0;
+                    for(int i = 0; i < adapter.getCount(); i++)
+                    {
+                   	 	if(listview.getChildAt(i) != null && 
+                   	 			((TextView)listview.getChildAt(i)).getText().toString().equals(name))
+                   	 	{
+                   	 		index = listview.getPositionForView(((TextView)listview.getChildAt(i)));
+                   	 		break;
+                   	 	}
+                    }
+					handleDrafted(name, holder, (Activity)context, dialog, index);
 					return true;
 				}
     		});
@@ -1184,7 +1195,7 @@ public class Rankings extends Activity {
 	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
 	    listview.setAdapter(null);
 	    handleRankingsClick(holder, cont, listview);
-	    ManageInput.handleArray(rankings, listview, cont);
+	    adapter = ManageInput.handleArray(rankings, listview, cont);
 	}
 	
 	/**
@@ -1210,7 +1221,7 @@ public class Rankings extends Activity {
 	    	refreshed = false;
 	    }
     	WriteToFile.storeListRankings(rankings, cont);
-	    ManageInput.handleArray(rankings, listview, cont);
+	    adapter = ManageInput.handleArray(rankings, listview, cont);
 	}
     
     /**
@@ -1233,16 +1244,50 @@ public class Rankings extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				handleDrafted(arg1, holder, cont, null);
+				String namePlayer = ((TextView)arg1).getText().toString().split(":  ")[1];
+				watchList.add(namePlayer);
+				WriteToFile.writeWatchList(context, watchList);
+				Toast.makeText(context, namePlayer + " added to watch list", Toast.LENGTH_SHORT).show();
 				return true;
 			}
     	 });
+    	 SwipeDismissListViewTouchListener touchListener =
+                 new SwipeDismissListViewTouchListener(
+                         listview,
+                         new SwipeDismissListViewTouchListener.OnDismissCallback() {
+                             @Override
+                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                            	 View view = null;
+                            	 String name = "";
+                                 for (int position : reverseSortedPositions) {
+                                	 name = adapter.getItem(position);
+                                     adapter.remove(adapter.getItem(position));
+                                 }
+                                 int index = 0;
+                                 for(int i = 0; i < adapter.getCount(); i++)
+                                 {
+                                	 	if(listView.getChildAt(i) != null && 
+                                	 			((TextView)listView.getChildAt(i)).getText().toString().equals(name))
+                                	 	{
+                                	 		view = listView.getChildAt(i);
+                                	 		index = listView.getPositionForView(view);
+                                	 		System.out.println(index);
+                                	 		break;
+                                	 	}
+                                 }
+                                 adapter.notifyDataSetChanged();
+                                 handleDrafted(view, holder, cont, null, index);
+                             }
+                         });
+         listview.setOnTouchListener(touchListener);
+         listview.setOnScrollListener(touchListener.makeScrollListener());
     }
     
     /**
      * Handles the drafted dialog
      */
-    public static void handleDrafted(final View view, final Storage holder, final Activity cont, final Dialog dialog)
+    public static void handleDrafted(final View view, final Storage holder, final Activity cont, final Dialog dialog, 
+    		final int index)
     { 
     	final Dialog popup = new Dialog(cont);
 		popup.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -1252,8 +1297,8 @@ public class Rankings extends Activity {
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
 	    popup.getWindow().setAttributes(lp);
     	TextView header = (TextView)popup.findViewById(R.id.name_header);
-    	String name = "";
-
+    	String name = ((TextView)view).getText().toString();
+    	final String adapt = name;
     	if(((TextView)view).getText().toString().contains(":"))
     	{
     		name = ((TextView)view).getText().toString().split(":  ")[1];
@@ -1274,6 +1319,10 @@ public class Rankings extends Activity {
     	close.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
+				adapter.insert(adapt, index);
+				System.out.println(index);
+				adapter.notifyDataSetChanged();
+				//intermediateHandleRankings(cont);
 				popup.dismiss();
 				return;
 			}
@@ -1308,7 +1357,7 @@ public class Rankings extends Activity {
 		    	{
 		    		name = ((TextView)view).getText().toString().split(":  ")[1];
 		    	} 	
-				draftedByMe(name, view, holder, cont, listview, popup, dialog);
+				draftedByMe(name, view, holder, cont, listview, popup, dialog, index);
 			}
     	});
     }
@@ -1317,7 +1366,7 @@ public class Rankings extends Activity {
      * Handles the 'drafted by me' dialog
      */
     public static void draftedByMe(final String name, final View view, final Storage holder, final Activity cont,
-    		final ListView listview, final Dialog popup, final Dialog dialog)
+    		final ListView listview, final Dialog popup, final Dialog dialog, final int index)
     {
     	popup.setContentView(R.layout.draft_by_me);
     	TextView header = (TextView)popup.findViewById(R.id.name_header);
@@ -1328,7 +1377,7 @@ public class Rankings extends Activity {
 			@Override
 			public void onClick(View v) {
 				popup.dismiss();
-				handleDrafted(view, holder, cont, dialog);
+				handleDrafted(view, holder, cont, dialog, index);
 			}
     	});
     	List<String> possResults = new ArrayList<String>();
