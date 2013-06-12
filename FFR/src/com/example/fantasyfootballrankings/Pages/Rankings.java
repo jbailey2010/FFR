@@ -1323,7 +1323,6 @@ public class Rankings extends Activity {
 				adapter.insert(adapt, index);
 				System.out.println(index);
 				adapter.notifyDataSetChanged();
-				//intermediateHandleRankings(cont);
 				popup.dismiss();
 				return;
 			}
