@@ -366,8 +366,6 @@ public class Draft
 				dialog.dismiss();
 				holder.draft.ignore.remove(name);
 				WriteToFile.writeDraft(holder.draft, cont);
-				mAdapter.remove(mAdapter.getItem(position));
-				mAdapter.notifyDataSetChanged();
 				Toast.makeText(cont, "Undrafting " + name, Toast.LENGTH_SHORT).show();
 				Rankings.intermediateHandleRankings(cont);
 			}

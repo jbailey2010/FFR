@@ -1259,21 +1259,21 @@ public class Rankings extends Activity {
                              public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                             	 View view = null;
                             	 String name = "";
+                                 int index = 0;
                                  for (int position : reverseSortedPositions) {
                                 	 name = adapter.getItem(position);
+                                	 for(int i = 0; i < adapter.getCount(); i++)
+                                     {
+                                    	 	if(listView.getChildAt(i) != null && 
+                                    	 			((TextView)listView.getChildAt(i)).getText().toString().equals(name))
+                                    	 	{
+                                    	 		view = listView.getChildAt(i);
+                                    	 		index = listView.getPositionForView(view) - 1;
+                                    	 		System.out.println(index);
+                                    	 		break;
+                                    	 	}
+                                     }
                                      adapter.remove(adapter.getItem(position));
-                                 }
-                                 int index = 0;
-                                 for(int i = 0; i < adapter.getCount(); i++)
-                                 {
-                                	 	if(listView.getChildAt(i) != null && 
-                                	 			((TextView)listView.getChildAt(i)).getText().toString().equals(name))
-                                	 	{
-                                	 		view = listView.getChildAt(i);
-                                	 		index = listView.getPositionForView(view);
-                                	 		System.out.println(index);
-                                	 		break;
-                                	 	}
                                  }
                                  adapter.notifyDataSetChanged();
                                  handleDrafted(view, holder, cont, null, index);
@@ -1314,6 +1314,7 @@ public class Rankings extends Activity {
     		Toast.makeText(cont, name + " is already drafted", Toast.LENGTH_SHORT).show();
     		return;
     	}
+    	final String d = name;
     	popup.show();
     	Button close = (Button)popup.findViewById(R.id.draft_who_close);
     	close.setOnClickListener(new OnClickListener(){
@@ -1331,12 +1332,7 @@ public class Rankings extends Activity {
     	someone.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-		    	String name =  ((TextView)view).getText().toString();
-		    	if(((TextView)view).getText().toString().contains(":"))
-		    	{
-		    		name = ((TextView)view).getText().toString().split(":  ")[1];
-		    	} 	
-				holder.draft.ignore.add(name);
+		    	holder.draft.ignore.add(d);
 				intermediateHandleRankings(cont);
 				WriteToFile.writeDraft(holder.draft, cont);
 				popup.dismiss();
@@ -1344,7 +1340,7 @@ public class Rankings extends Activity {
 				{
 					dialog.dismiss();
 				}
-				Toast.makeText(cont, "Removing " + name + " from the list", Toast.LENGTH_SHORT).show();
+				Toast.makeText(cont, "Removing " + d + " from the list", Toast.LENGTH_SHORT).show();
 			}
     	});
     	
