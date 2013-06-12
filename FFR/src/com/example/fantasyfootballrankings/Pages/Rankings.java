@@ -931,7 +931,7 @@ public class Rankings extends Activity {
 	    {
 	    	news.add("No tweets found");
 	    }
-	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(act,
+	    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(act,
 	            android.R.layout.simple_list_item_1, news);
 	    tweetResults.setAdapter(adapter);
 	    tweetResults.setOnItemClickListener(new OnItemClickListener(){
@@ -942,6 +942,26 @@ public class Rankings extends Activity {
 				tweetPopUp((TextView)arg1, act);
 			}
 	    });
+	    SwipeDismissListViewTouchListener touchListener =
+                new SwipeDismissListViewTouchListener(
+                        tweetResults,
+                        new SwipeDismissListViewTouchListener.OnDismissCallback() {
+                            @Override
+                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                for (int position : reverseSortedPositions) {
+                                    adapter.remove(adapter.getItem(position));
+                                }
+                                adapter.notifyDataSetChanged();
+                                Toast.makeText(context, "Temporarily hiding this news piece", Toast.LENGTH_SHORT).show();
+                                if(adapter.isEmpty())
+                                {
+                                	dialog.dismiss();
+                                	Toast.makeText(context, "You've hidden all of the tweets", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+        tweetResults.setOnTouchListener(touchListener);
+        tweetResults.setOnScrollListener(touchListener.makeScrollListener());
     }
     
     /**
