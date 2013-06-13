@@ -573,22 +573,22 @@ public class ComparatorHandling
 			{
 				if(mib1 - mib2 > 10.0)
 				{
-					p1.append("-Faced 8+ in the box much more \noften last year\n");
+					p2.append("-Faced 8+ in the box much less \noften last year\n");
 				}
 				else
 				{
-					p1.append("-Faced 8+ in the box more often last year\n");
+					p2.append("-Faced 8+ in the box less often last year\n");
 				}
 			}
 			else if(mib2 > mib1)
 			{
 				if(mib2 - mib1 > 10.0)
 				{
-					p2.append("-Faced 8+ in the box much more \noften last year\n");
+					p1.append("-Faced 8+ in the box much less \noften last year\n");
 				}
 				else
 				{
-					p2.append("-Faced 8+ in the box more often last year\n");
+					p1.append("-Faced 8+ in the box less often last year\n");
 				}
 			}
 		}

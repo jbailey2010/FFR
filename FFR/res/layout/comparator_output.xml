@@ -60,28 +60,6 @@
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/compare_header_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/compare_output_1"
-        android:layout_marginRight="68dp"
-        android:layout_toLeftOf="@+id/compare_close"
-        android:text="Large Text"
-        android:textStyle="bold"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Button
-        android:id="@+id/add_comparator_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/add_comparator_1"
-        android:layout_alignBottom="@+id/add_comparator_1"
-        android:layout_toLeftOf="@+id/compare_close"
-        android:text="Add to Watch List" 
-        android:background="@drawable/btn_red"
-        style="@style/ButtonText"/>
-
     <Button
         android:id="@+id/add_comparator_1"
         style="@style/ButtonText"
@@ -92,5 +70,27 @@
         android:layout_marginTop="69dp"
         android:background="@drawable/btn_red"
         android:text="Add to Watch List" />
+
+    <Button
+        android:id="@+id/add_comparator_2"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/add_comparator_1"
+        android:layout_alignBottom="@+id/add_comparator_1"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/compare_close"
+        android:background="@drawable/btn_red"
+        android:text="Add to Watch List" />
+
+    <TextView
+        android:id="@+id/compare_header_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/compare_output_1"
+        android:layout_alignLeft="@+id/add_comparator_2"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
 </RelativeLayout>
