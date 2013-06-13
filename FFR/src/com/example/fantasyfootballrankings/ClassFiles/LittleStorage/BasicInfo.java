@@ -65,6 +65,14 @@ public class BasicInfo
 		{
 			position = "K";
 		}
+		if(returnString.equals("DEF"))
+		{
+			returnString = "D/ST";
+		}
+		else if(returnString.equals("DEF"))
+		{
+			position="D/ST";
+		}
 		if(position.length() >= player2.position.length())
 		{
 			returnString = position;

@@ -233,7 +233,7 @@ public class ParsingAsyncTask
 				publishProgress("Please wait, fetching team data...");
 				HighLevel.setTeamInfo(holder, cont);
 				publishProgress("Please wait, fetching positional SOS...");
-				//HighLevel.getSOS(holder);
+				HighLevel.getSOS(holder);
 				publishProgress("Please wait, fetching player ADP...");
 				HighLevel.setADP(holder);
 				publishProgress("Please wait, fetching player contract status...");

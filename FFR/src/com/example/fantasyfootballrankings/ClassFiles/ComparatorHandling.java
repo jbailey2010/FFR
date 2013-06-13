@@ -507,6 +507,30 @@ public class ComparatorHandling
 				}
 			}
 		}
+		int sos1 = player1.info.sos;
+		int sos2 = player2.info.sos;
+		if(sos1 > sos2)
+		{
+			if(sos1 - sos2 < 5)
+			{
+				p2.append("-Easier positional SOS\n");
+			}
+			else
+			{
+				p2.append("-Much easier positional SOS\n");
+			}
+		}
+		else if(sos2 > sos1)
+		{
+			if(sos2 - sos1 < 5)
+			{
+				p1.append("-Easier positional SOS\n");
+			}
+			else
+			{
+				p1.append("-Much easier positional SOS\n");
+			}
+		}
 		boolean inj1 = injury(player1);
 		boolean inj2 = injury(player2);
 		if(inj1)
@@ -553,7 +577,7 @@ public class ComparatorHandling
 			{
 				if(mib1 - mib2 > 10.0)
 				{
-					p1.append("-Faced 8+ in the box much more often last year\n");
+					p1.append("-Faced 8+ in the box much more \noften last year\n");
 				}
 				else
 				{
@@ -564,7 +588,7 @@ public class ComparatorHandling
 			{
 				if(mib2 - mib1 > 10.0)
 				{
-					p2.append("-Faced 8+ in the box much more often last year\n");
+					p2.append("-Faced 8+ in the box much more \noften last year\n");
 				}
 				else
 				{
