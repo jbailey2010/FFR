@@ -431,12 +431,10 @@ public class ComparatorHandling
 				if(diff2 - diff1 > 15.0)
 				{
 					p1.append("-Much more consistently ranked value\n");
-					p2.append("-Much less consistently ranked value\n");
 				}
 				else
 				{
 					p1.append("-More consistent value\n");
-					p2.append("-Less consistent value\n");
 				}
 			}
 			else if(diff2 < diff1)
@@ -444,12 +442,10 @@ public class ComparatorHandling
 				if(diff1 - diff2 > 15.0)
 				{
 					p2.append("-Much more consistently ranked value\n");
-					p1.append("-Much less consistently ranked value\n");
 				}
 				else
 				{
 					p2.append("-More consistent value\n");
-					p1.append("-Less consistent value\n");
 				}
 			}
 		}
