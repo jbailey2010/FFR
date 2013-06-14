@@ -122,7 +122,6 @@ public class Draft
 		}
 		for(PlayerObject player : draft.rb)
 		{
-			System.out.println(player.info.name);
 			if(player.info.name.equals(name))
 			{
 				return true;
@@ -180,7 +179,6 @@ public class Draft
 		}
 		for(PlayerObject player : draft.rb)
 		{
-			System.out.println(player.info.name);
 			if(player.info.name.equals(name))
 			{
 				return true;
@@ -374,7 +372,6 @@ public class Draft
 		me.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				System.out.println("Clicked");
 				draftedByMe(name, holder,cont, new Dialog(cont), mAdapter, position);
 				dialog.dismiss();
 			}
@@ -409,7 +406,6 @@ public class Draft
                 android.R.layout.simple_dropdown_item_1line, possResults);
     	price.setAdapter(doubleAdapter);
     	price.setThreshold(1);
-    	System.out.println("After threshold");
     	price.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -432,14 +428,12 @@ public class Draft
 		{
 			if(player.info.name.equals(name))
 			{
-				System.out.println("in if");
 				if(player.info.position.equals("QB"))
 				{
 					holder.draft.qb.remove(player);
 				}
 				else if(player.info.position.equals("RB"))
 				{
-					System.out.println("in rb");
 					holder.draft.rb.remove(player);
 				}
 				else if(player.info.position.equals("WR"))

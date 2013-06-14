@@ -697,7 +697,7 @@ public class Rankings extends Activity {
                    	 		break;
                    	 	}
                     }
-					handleDrafted(name, holder, (Activity)context, dialog, index);
+					handleDrafted(name.getText().toString(), holder, (Activity)context, dialog, index);
 					return true;
 				}
     		});
@@ -796,6 +796,14 @@ public class Rankings extends Activity {
     	if(searchedPlayer.values.low == 100)
     	{
     		low = String.valueOf(searchedPlayer.values.high);
+    	}
+    	if(Draft.draftedMe(searchedPlayer.info.name, holder.draft))
+    	{
+    		output.add("DRAFTED BY YOU");
+    	}
+    	else if(Draft.isDrafted(searchedPlayer.info.name, holder.draft))
+    	{
+    		output.add("DRAFTED");
     	}
     	output.add("Worth: " + df.format(searchedPlayer.values.worth));
     	if(searchedPlayer.info.position.length() > 1)
@@ -1268,15 +1276,14 @@ public class Rankings extends Activity {
                                     	 			((TextView)listView.getChildAt(i)).getText().toString().equals(name))
                                     	 	{
                                     	 		view = listView.getChildAt(i);
-                                    	 		index = listView.getPositionForView(view) - 1;
-                                    	 		System.out.println(index);
+                                    	 		index = listView.getPositionForView(view);
                                     	 		break;
                                     	 	}
                                      }
                                      adapter.remove(adapter.getItem(position));
                                  }
                                  adapter.notifyDataSetChanged();
-                                 handleDrafted(view, holder, cont, null, index);
+                                 handleDrafted(((TextView)view).getText().toString(), holder, cont, null, index);
                              }
                          });
          listview.setOnTouchListener(touchListener);
@@ -1286,7 +1293,7 @@ public class Rankings extends Activity {
     /**
      * Handles the drafted dialog
      */
-    public static void handleDrafted(final View view, final Storage holder, final Activity cont, final Dialog dialog, 
+    public static void handleDrafted(final String nameOrig, final Storage holder, final Activity cont, final Dialog dialog, 
     		final int index)
     { 
     	final Dialog popup = new Dialog(cont);
@@ -1297,16 +1304,16 @@ public class Rankings extends Activity {
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
 	    popup.getWindow().setAttributes(lp);
     	TextView header = (TextView)popup.findViewById(R.id.name_header);
-    	String name = ((TextView)view).getText().toString();
+    	String name = nameOrig;
     	final String adapt = name;
-    	if(((TextView)view).getText().toString().contains(":"))
+    	if(nameOrig.contains(":"))
     	{
-    		name = ((TextView)view).getText().toString().split(":  ")[1];
+    		name = nameOrig.split(":  ")[1];
     		header.setText("Who drafted " + name + "?");
     	}
     	else
     	{
-    		name = ((TextView)view).getText().toString();
+    		name = nameOrig;
     		header.setText("Who drafted " + name + "?");
     	}
     	if(Draft.isDrafted(name, holder.draft))
@@ -1321,7 +1328,6 @@ public class Rankings extends Activity {
 			@Override
 			public void onClick(View v) {
 				adapter.insert(adapt, index);
-				System.out.println(index);
 				adapter.notifyDataSetChanged();
 				popup.dismiss();
 				return;
@@ -1332,7 +1338,7 @@ public class Rankings extends Activity {
 			@Override
 			public void onClick(View v) {
 		    	holder.draft.ignore.add(d);
-				intermediateHandleRankings(cont);
+				//intermediateHandleRankings(cont);
 				WriteToFile.writeDraft(holder.draft, cont);
 				popup.dismiss();
 				if(dialog != null)
@@ -1347,12 +1353,7 @@ public class Rankings extends Activity {
     	me.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-		    	String name =  ((TextView)view).getText().toString();
-		    	if(((TextView)view).getText().toString().contains(":"))
-		    	{
-		    		name = ((TextView)view).getText().toString().split(":  ")[1];
-		    	} 	
-				draftedByMe(name, view, holder, cont, listview, popup, dialog, index);
+		    	draftedByMe(d, nameOrig, holder, cont, listview, popup, dialog, index);
 			}
     	});
     }
@@ -1360,7 +1361,7 @@ public class Rankings extends Activity {
     /**
      * Handles the 'drafted by me' dialog
      */
-    public static void draftedByMe(final String name, final View view, final Storage holder, final Activity cont,
+    public static void draftedByMe(final String name, final String nameOrig, final Storage holder, final Activity cont,
     		final ListView listview, final Dialog popup, final Dialog dialog, final int index)
     {
     	popup.setContentView(R.layout.draft_by_me);
@@ -1372,7 +1373,7 @@ public class Rankings extends Activity {
 			@Override
 			public void onClick(View v) {
 				popup.dismiss();
-				handleDrafted(view, holder, cont, dialog, index);
+				handleDrafted(nameOrig, holder, cont, dialog, index);
 			}
     	});
     	List<String> possResults = new ArrayList<String>();
@@ -1404,7 +1405,6 @@ public class Rankings extends Activity {
 							Toast.makeText(cont, "Drafting " + name, Toast.LENGTH_SHORT).show();
 							holder.draft.ignore.add(name);
 							WriteToFile.writeDraft(holder.draft, cont);
-							intermediateHandleRankings(cont);
 						}
 						else
 						{
