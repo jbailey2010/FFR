@@ -181,30 +181,31 @@ public class HighLevel
 	 */
 	public static void setContractStatus(Storage holder) throws IOException
 	{
-		String cyStr = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=QB", "td:not([.c])");
-		cyStr += HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=RB", "td:not([.c])");
-		cyStr += HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=WR", "td:not([.c])");
-		cyStr += HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/contract_year_players.cfm?player_pos=TE", "td:not([.c])");
-		String[] players = cyStr.split("\n");
 		HashMap<String, String> cs = new HashMap<String, String>();
-		for(String name:players)
+		String html = HandleBasicQueries.handleLists("http://www.kffl.com/static/nfl/features/freeagents/fa.php?option=All&y=2014", "td");
+		String[] td = html.split("\n");
+		for(int i = 20; i < td.length; i+=5)
 		{
-			if(name.contains(" "))
+			String pos = td[i];
+			if(pos.equals("FB"))
 			{
-				if(!name.split(" ")[0].contains("North") &&
-						!name.split(" ")[0].contains("South") &&
-						!name.split(" ")[0].contains("East") &&
-						!name.split(" ")[0].contains("West"))
-				{
-					cs.put(name, "In a Contract Year");
-				}
+				pos = "RB";
+			}
+			else if(pos.equals("PK"))
+			{
+				pos = "K";
+			}
+			String name = td[i+1];
+			if(!name.equals("Player"))
+			{
+				cs.put(pos + "/" + name, "In a contract year");
 			}
 		}
 		for(PlayerObject player : holder.players)
 		{
-			if(cs.containsKey(player.info.name))
+			if(cs.containsKey(player.info.position + "/" + player.info.name))
 			{
-				player.info.contractStatus = cs.get(player.info.name);
+				player.info.contractStatus = cs.get(player.info.position + "/" + player.info.name);
 			}
 		}
 	}

@@ -815,6 +815,11 @@ public class Rankings extends Activity {
     	{
     		output.add("He is in your watch list");
     	}
+    	if(!searchedPlayer.info.position.equals("D/ST") && 
+    			!searchedPlayer.info.contractStatus.contains("Under Contract"))
+    	{
+    		output.add(searchedPlayer.info.contractStatus);
+    	} 
     	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST")
     			&& !searchedPlayer.stats.equals(" ") && searchedPlayer.stats.length() > 5)
     	{
@@ -865,11 +870,6 @@ public class Rankings extends Activity {
     	{
     		output.add("Weekly Value Trend: " + searchedPlayer.info.trend);
     	}
-    	if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST") && 
-    			!searchedPlayer.info.contractStatus.contains("Under Contract"))
-    	{
-    		output.add("Contract Status: " + searchedPlayer.info.contractStatus);
-    	} 
     	output.add("Showed up in " + searchedPlayer.values.count + " rankings.");
     	output.add("Highest value: " + searchedPlayer.values.high);
     	output.add("Lowest value: " + low);

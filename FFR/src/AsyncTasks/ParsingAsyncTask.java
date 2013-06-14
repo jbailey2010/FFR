@@ -237,7 +237,7 @@ public class ParsingAsyncTask
 				publishProgress("Please wait, fetching player ADP...");
 				HighLevel.setADP(holder);
 				publishProgress("Please wait, fetching player contract status...");
-	    		//HighLevel.setContractStatus(holder);
+	    		HighLevel.setContractStatus(holder);
 				publishProgress("Please wait, setting player status...");
 				HighLevel.setStatus(holder);
 				publishProgress("Please wait, establishing list of parsed players...");

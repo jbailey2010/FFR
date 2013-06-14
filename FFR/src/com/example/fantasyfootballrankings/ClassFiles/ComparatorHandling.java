@@ -160,6 +160,9 @@ public class ComparatorHandling
 		handleStats(dialog, cont, holder, firstPlayer, secondPlayer, firstTeam, secTeam, firstPos, secPos);
 	}
 	
+	/**
+	 * Handles the various stats of the players to be compared
+	 */
 	public static void handleStats(Dialog dialog, Context cont,	Storage holder, 
 			PlayerObject player1, PlayerObject player2, List<PlayerObject> firstTeam,
 			List<PlayerObject> secTeam, List<PlayerObject> firstPos, List<PlayerObject> secPos) 
@@ -292,6 +295,16 @@ public class ComparatorHandling
 					p2.append("-Better supporting cast\n");
 				}
 			}
+		}
+		String cy1 = player1.info.contractStatus;
+		String cy2 = player2.info.contractStatus;
+		if(!cy1.contains("Under"))
+		{
+			p1.append("-In a contract year\n");
+		}
+		if(!cy2.contains("Under"))
+		{
+			p2.append("-In a contract year\n");
 		}
 		boolean sameBye1 = teamBye(holder, player1);
 		boolean sameBye2 = teamBye(holder, player2);
