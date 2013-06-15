@@ -70,6 +70,9 @@ public class ParseRankings
 	 */
 	public static void handleHashes()
 	{
+		fixes.put("Chris D. Johnson", "Chris Johnson");
+		fixes.put("Charles D. Johnson", "Charles Johnson");
+		fixes.put("Zach J. Miller", "Zach Miller");
 		fixes.put("Leveon Bell", "Le'Veon Bell");
 		fixes.put("LeVeon Bell", "Le'Veon Bell");
 		fixes.put("QB Eagles No. 7", "Michael Vick");
@@ -77,7 +80,7 @@ public class ParseRankings
 		fixes.put("Jonathan Baldwin", "Jon Baldwin");
 		fixes.put("Chris Wells", "Beanie Wells");
 		fixes.put("Steve L. Smith", "Steve Smith");
-		fixes.put("Mike A. Williams", "Mike Williams");
+		fixes.put("Mike A. Williams", "Mike Williams"); 
 		fixes.put("Alex D. Smith", "Alex Smith");
 		fixes.put("Adrian L. Peterson", "Adrian Peterson");
 		fixes.put("Stevie Johnson", "Steve Johnson");
