@@ -41,10 +41,11 @@ public class ParseOLineAdvanced
 			
 			String team2 = ParseRankings.fixTeams(td[i+12]);
 			String sack = td[i+15];
-			data.put(team2 + "/" + "pass", sack + " adjusted team sack rate\n\n");
+			data.put(team2 + "/" + "pass", sack + " adjusted team sack rate (" + td[i+13] + ")\n\n");
 			
 			String team1 = ParseRankings.fixTeams(td[i+1]);
 			String adjYPC = td[i+2];
+			String adjYPCRank = td[i];
 			String power = td[i+4];
 			String powerRank = td[i+5];
 			String stuff = td[i+6];
@@ -54,8 +55,8 @@ public class ParseOLineAdvanced
 			String openField = td[i+10];
 			String openFieldRank = td[i+11];
 			StringBuilder runData = new StringBuilder(1000);
-			runData.append(adjYPC + " adjusted team yards per carry\n\n");
-			runData.append(power + " success rate with <= 2 yards per go (" + powerRank + ")\n\n");
+			runData.append(adjYPC + " adjusted team yards per carry (" + adjYPCRank + ")\n\n");
+			runData.append(power + " success rate with < 3 yards per go (" + powerRank + ")\n\n");
 			runData.append(stuff + " rate of being stuffed at the line (" + stuffRank + ")\n\n");
 			runData.append(secLevel + " YPC earned between 5 and 10 yards past LOS (" + secLevelRank + ")\n\n");
 			runData.append(openField + " YPC earned 10+ yards past LOS (" + openFieldRank + ")");
