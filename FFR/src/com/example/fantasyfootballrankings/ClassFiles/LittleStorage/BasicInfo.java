@@ -12,13 +12,13 @@ public class BasicInfo
 	public String name;
 	public String team;
 	public String position;
-	public String status;
 	public String adp;
 	public String bye;
 	public String trend;
 	public String contractStatus;
 	public String age;
 	public String oLineStatus;
+	public String oLineAdv;
 	public String passRunRatio;
 	public String additionalStat;
 	public int sos;
@@ -33,7 +33,6 @@ public class BasicInfo
 		name = playerName;
 		team = playerTeam;
 		position = pos;
-		status = "This player's value is exactly what common intuition states.";
 		adp = "Not set";
 		bye = "Not set";
 		trend = "0.0";
@@ -43,6 +42,7 @@ public class BasicInfo
 		oLineStatus = "";
 		passRunRatio = "";
 		additionalStat = "";
+		oLineAdv = "";
 	}
 
 	/**

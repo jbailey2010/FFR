@@ -83,15 +83,20 @@ public class StorageAsyncTask
 	    		{
 	    			additStat = player.info.additionalStat;
 	    		}
+	    		String oLineAdv = " ";
+	    		if(player.info.oLineAdv != null && player.info.oLineAdv.length() > 3)
+	    		{
+	    			oLineAdv = player.info.oLineAdv;
+	    		}
 	    		players.append( 
 	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
 	    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
 	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
-	    		player.info.status + "&&" + player.info.adp + "&&" + player.info.bye + "&&" 
+	    		player.info.adp + "&&" + player.info.bye + "&&" 
 	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
 	    		player.info.age + "&&" + player.stats + "&&" + player.draftClass + "&&" + player.injuryStatus + 
 	    		"&&" + fa + "&&" + oLine + "&&" + passRun + "&&" + additStat + "&&" + player.values.ecr + "&&" + 
-	    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "~~~~");
+	    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "&&" + oLineAdv + "~~~~");
 	    	}
 	    	String playerString = players.toString();
 	    	editor.putString("Player Values", playerString).commit();
@@ -103,23 +108,6 @@ public class StorageAsyncTask
 	    	}
 	    	String namesString = names.toString();
 	    	editor.putString("Parsed Player Names", namesString).commit();
-/*	    	//Setting up draft input
-	    	String draft = "";
-	    	//QB
-	    	draft += WriteToFile.handleDraftInput(holder.draft.qb, "") + "@";
-	    	//RB
-	    	draft += WriteToFile.handleDraftInput(holder.draft.rb, "") + "@";
-	    	//WR
-	    	draft += WriteToFile.handleDraftInput(holder.draft.wr, "") + "@";
-	    	//TE
-	    	draft += WriteToFile.handleDraftInput(holder.draft.te, "") + "@";
-	    	//D
-	    	draft += WriteToFile.handleDraftInput(holder.draft.def, "") + "@";
-	    	//K
-	    	draft += WriteToFile.handleDraftInput(holder.draft.k, "") + "@";
-	    	//Values
-	    	draft += holder.draft.remainingSalary + "@" + holder.draft.value;
-	    	editor.putString("Draft Information", draft);*/
 	    	editor.commit();
 			return null;
 	    }
@@ -396,28 +384,28 @@ public class StorageAsyncTask
 	    	String[][]allData = (String[][])data[1];
 	    	Context cont = (Context)data[2];
 	   		for(int i = 0; i < holder.players.size(); i++)
-	   		{ 
+	   		{  
 	   			PlayerObject player = holder.players.get(i);
-	   			player.riskAll = Double.parseDouble(allData[i][25]);
-	   			player.riskPos = Double.parseDouble(allData[i][24]);
-	   			player.risk = Double.parseDouble(allData[i][23]);
-	   			player.values.ecr = Integer.parseInt(allData[i][22]);
-	   			player.info.additionalStat = allData[i][21];
-	   			player.info.passRunRatio = allData[i][20];
-	   			player.info.oLineStatus = allData[i][19];
+	   			player.info.oLineAdv = allData[i][25];
+	   			player.riskAll = Double.parseDouble(allData[i][24]);
+	   			player.riskPos = Double.parseDouble(allData[i][23]);
+	   			player.risk = Double.parseDouble(allData[i][22]);
+	   			player.values.ecr = Integer.parseInt(allData[i][21]);
+	   			player.info.additionalStat = allData[i][20];
+	   			player.info.passRunRatio = allData[i][19];
+	   			player.info.oLineStatus = allData[i][18];
 	   			player.fa = new ArrayList<String>();
-	   			player.fa.add(0, allData[i][17]);
-	   			player.fa.add(1, allData[i][18]);
-	   			player.injuryStatus = allData[i][16];
-	   			player.draftClass = allData[i][15];
-	   			player.stats = allData[i][14];
-	   			player.info.age = allData[i][13];
-	   			player.info.sos = Integer.parseInt(allData[i][12]);
-	   			player.info.contractStatus = allData[i][11];
-	   			player.info.trend = allData[i][10];
-	   			player.info.bye = allData[i][9];
-	   			player.info.adp = allData[i][8];
-	   			player.info.status = allData[i][7];
+	   			player.fa.add(0, allData[i][16]);
+	   			player.fa.add(1, allData[i][17]);
+	   			player.injuryStatus = allData[i][15];
+	   			player.draftClass = allData[i][14];
+	   			player.stats = allData[i][13];
+	   			player.info.age = allData[i][12];
+	   			player.info.sos = Integer.parseInt(allData[i][11]);
+	   			player.info.contractStatus = allData[i][10];
+	   			player.info.trend = allData[i][9];
+	   			player.info.bye = allData[i][8];
+	   			player.info.adp = allData[i][7];
 	   			player.values.low = Double.parseDouble(allData[i][3]);
 	   			player.values.high = Double.parseDouble(allData[i][2]);
 	   			player.values.count = Double.parseDouble(allData[i][1]);

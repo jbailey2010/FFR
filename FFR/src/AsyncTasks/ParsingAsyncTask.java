@@ -28,6 +28,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFantasyPros;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMyFantasyLeague;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseOLineAdvanced;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePFF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePermanentData;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
@@ -245,8 +246,6 @@ public class ParsingAsyncTask
 				HighLevel.setADP(holder);
 				publishProgress("Please wait, fetching player contract status...");
 	    		HighLevel.setContractStatus(holder);
-				publishProgress("Please wait, setting player status...");
-				HighLevel.setStatus(holder);
 				publishProgress("Please wait, establishing list of parsed players...");
 			    HighLevel.getParsedPlayers(holder);
 			    publishProgress("Please wait, setting last year's team data...");
@@ -255,6 +254,8 @@ public class ParsingAsyncTask
 	    		HighLevel.parseSpecificData(holder, cont);
 	    		publishProgress("Please wait, calculating relative risk...");
 	    		HighLevel.setRisk(holder);
+	    		publishProgress("Please wait, getting advanced line stats...");
+	    		ParseOLineAdvanced.parsePFOLineData(holder);
 	    		System.out.println(System.nanoTime() - start); 
 	    	} catch (IOException e) {
 				// TODO Auto-generated catch block

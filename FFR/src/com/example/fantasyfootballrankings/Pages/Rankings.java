@@ -842,10 +842,6 @@ public class Rankings extends Activity {
     			output.add(searchedPlayer.injuryStatus);
     		}
     	}
-    	if(!searchedPlayer.info.status.contains("intuition"))
-    	{
-    		output.add("Status: " + searchedPlayer.info.status);
-    	}
     	if(searchedPlayer.info.sos > 0)
     	{
     		output.add("Positional SOS: " + searchedPlayer.info.sos);
@@ -895,6 +891,10 @@ public class Rankings extends Activity {
     		if(searchedPlayer.info.oLineStatus != null && searchedPlayer.info.oLineStatus.length() > 3)
     		{
     			output.add(searchedPlayer.info.oLineStatus);
+    		}
+    		if(searchedPlayer.info.oLineAdv != null && searchedPlayer.info.oLineAdv.length() > 3)
+    		{
+    			output.add(searchedPlayer.info.oLineAdv);
     		}
     		if(searchedPlayer.info.additionalStat != null && !searchedPlayer.info.additionalStat.equals("")
     				&& searchedPlayer.info.additionalStat.length() > 2)

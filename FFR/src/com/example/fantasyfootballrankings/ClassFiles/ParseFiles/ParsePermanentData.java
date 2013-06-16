@@ -42,8 +42,10 @@ public class ParsePermanentData
 		String value = "";
 		for(int i = 0; i < brokenData.length; i++)
 		{
+			System.out.println(i + ": " + brokenData[i]);
 			if((i-1)%6 == 0)
 			{
+				System.out.println(brokenData[i]);
 				name = brokenData[i];
 				ReadFromFile.fetchNames(holder, cont);
 				String validated = ParseRankings.fixNames(name);
@@ -51,6 +53,7 @@ public class ParsePermanentData
 			}
 			else if((i-5)%6 == 0)
 			{
+				System.out.println(brokenData[i]);
 				value = "Amount of time 8+ men were in the box: " + brokenData[i];
 				players.put(name, value);
 				name = "";
@@ -163,7 +166,6 @@ public class ParsePermanentData
 				{
 					name = "St. Louis Rams";
 				}
-				System.out.println(name);
 			}
 			if(brokenData[i].contains("PB"))
 			{
@@ -171,7 +173,7 @@ public class ParsePermanentData
 				String[] pb = data[0].split(" – ");
 				String[] rb = data[1].split(" – ");
 				value += "Pass Blocking Ranking: " + pb[1].substring(0, pb[1].length() - 2) + "\n" + "\n";
-				value += "Run Blocking Ranking: " + rb[1].substring(0, rb[1].length() - 2);
+				value += "Run Blocking Ranking: " + rb[1].substring(0, rb[1].length() - 2) + "\n\n";
 				teams.put(name, value);
 				value = "";
 				name = "";

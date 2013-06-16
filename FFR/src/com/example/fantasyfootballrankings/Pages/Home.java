@@ -46,6 +46,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFantasyPro
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseInjuries;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMyFantasyLeague;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseOLineAdvanced;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePFF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePermanentData;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
@@ -116,7 +117,7 @@ public class Home extends Activity implements Serializable{
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try {
-			ParseRData.fetchFile();
+			ParseOLineAdvanced.parsePFOLineData(new Storage());
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -191,7 +192,7 @@ public class Home extends Activity implements Serializable{
 		{
 			final ParsingAsyncTask stupid = new ParsingAsyncTask();
 			ParseNames task = stupid.new ParseNames((Activity)cont);
-		    task.execute(cont);	
+		    task.execute(cont);
 		    
 		    ParsePermanentDataSets advancedData = stupid.new ParsePermanentDataSets((Activity) cont);
 		    advancedData.execute(cont, new Storage());

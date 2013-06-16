@@ -38,72 +38,6 @@ import android.os.StrictMode;
 
 public class HighLevel 
 {
-	/**
-	 * Takes in the storage unit, makes four arrays of the great looking players, the good,
-	 * those with a high floor but a low ceiling, and the avoids. It iterates through all of it,
-	 * if a match is found, then it sets the status.
-	 * NOTE: Untested, and, as of now, it just sets the status with no other effect. Also, arrays are a work in progress.
-	 * @param holder the storage to work through
-	 */
-	public static void setStatus(Storage holder)
-	{
-		List<String> mustOwn = new ArrayList<String>(Arrays.asList("Jamaal Charles", 
-				"David Wilson", "Randall Cobb", "Dez Bryant"));
-		
-		List<String> good = new ArrayList<String>(Arrays.asList("Russell Wilson", 
-				"Kenny Britt", "Doug Martin", "Jimmy Graham", "C.J. Spiller", 
-				"Aaron Hernandez", "LeSean McCoy", "Vincent Brown", 
-				"Eddie Lacy", "Jonathan Franklin", "Giovani Bernard", "Lamar Miller", 
-				"Marshawn Lynch", "Peyton Manning", "Browns D/ST", "Reggie Bush",
-				"Danny Amendola", "Seahawks D/ST", "Trent Richardson", 
-				"Colin Kaepernick", "Chris Johnson", "A.J. Green", "Aaron Dobson", "Texans D/ST"));
-		
-		List<String> hflc = new ArrayList<String>(Arrays.asList("DeSean Jackson", 
-				"Larry Fitzgerald", "Michael Vick", "Torrey Smith", "Maurice Jones-Drew", 
-				"Ryan Mathews", "Danario Alexander", "Jay Cutler", "Michael Floyd", 
-				"A.J. Jenkins", "Tandon Doss", "Sam Bradford", "Rashard Mendenhall", 
-				"Matt Forte", "Antonio Brown", "Jake Locker", "Chris Ivory", "Le'Veon Bell",
-				"DeAndre Hopkins", "Sidney Rice", "Mark Ingram", "Chad Spann", "Shane Vereen",
-				"Zac Stacy", "Jordan Cameron"));
-		
-		List<String> avoid = new ArrayList<String>(Arrays.asList("Andy Dalton", "Eric Decker", 
-				"Wes Welker", "Demaryius Thomas", "Sidney Rice", "Shonn Greene", 
-				"Mike Wallace", "Jacob Tamme", "Mikel Leshoure"));
-		Iterator<PlayerObject> iter = holder.players.iterator();
-		while(iter.hasNext())
-		{
-			PlayerObject player = (PlayerObject) iter.next();
-			String name = player.info.name;
-			//Go through the must own array
-			if(mustOwn.contains(name))
-			{
-				player.info.status = "Great upside, good-looking floor. Get this player.";
-				player.values.worth += 2.5;
-			}
-			//Go through the good array
-			if(good.contains(name))
-			{
-				player.info.status = "Looks like he could be good considering the cost, definitely worth a shot.";
-				player.values.worth += 1.25;
-			}
-			//Go through the high floor, low ceiling array
-			if(hflc.contains(name))
-			{
-				player.info.status = "Could be a monster, but could be a dud. Be wary.";
-				player.values.worth += 0.75;
-			}
-			//Go through the avoid array
-			if(avoid.contains(name))
-			{
-				player.info.status = "Not promising. Unless you can get him cheap, don't. Limited upside.";
-				player.values.worth -= 1.0;
-				if(player.values.worth <= 0)
-				{
-					player.values.worth = 1.0;
-				}
-			}
-		}
-	}
 	
 	/**
 	 * This parses an adp site to fetch the adp of all players given a match
@@ -451,12 +385,12 @@ public class HighLevel
 				qbRisk += player.risk;
 				qbCount++;
 			}
-			else if(player.info.position.equals("RB") && player.values.worth >= 1.0)
+			else if(player.info.position.equals("RB") && player.values.worth >= 3.0)
 			{
 				rbRisk += player.risk;
 				rbCount++;
 			}
-			else if(player.info.position.equals("WR") && player.values.worth >= 1.0)
+			else if(player.info.position.equals("WR") && player.values.worth >= 2.5)
 			{
 				wrRisk += player.risk;
 				wrCount++;
@@ -466,17 +400,21 @@ public class HighLevel
 				teRisk += player.risk;
 				teCount++;
 			}
-			else if(player.info.position.equals("D/ST") && player.values.worth >= 1.0)
+			else if(player.info.position.equals("D/ST"))
 			{
 				dRisk += player.risk;
 				dCount++;
 			}
-			else if(player.info.position.equals("K") && player.values.worth >= 1.0)
+			else if(player.info.position.equals("K"))
 			{
 				kRisk += player.risk;
 				kCount++;
 			}
-			if(player.values.worth >= 1.0)
+			if((player.info.position.equals("QB") && player.values.worth >= 1.0) ||
+					(player.info.position.equals("RB") && player.values.worth >= 3.0) ||
+					(player.info.position.equals("WR") && player.values.worth >= 2.5) ||
+					(player.info.position.equals("TE") && player.values.worth >= 1.0) ||
+					(player.info.position.equals("K") || player.info.position.equals("D/ST")))
 			{
 				allRisk += player.risk;
 				allCount++;
