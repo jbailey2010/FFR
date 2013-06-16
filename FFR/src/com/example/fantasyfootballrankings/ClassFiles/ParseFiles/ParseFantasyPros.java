@@ -59,8 +59,12 @@ public class ParseFantasyPros
 				if(a != -1)
 				{
 					Values.handleNewValue(match.values, log);
+					match.vals.add(log);
 				}
 				match.values.ecr = ecr;
+				match.vals.add(newPlayer.values.worth);
+				match.vals.add((double) val2);
+				match.vals.add((double) val3);
 			}
 			else
 			{
@@ -70,9 +74,13 @@ public class ParseFantasyPros
 				if(a != -1)
 				{
 					Values.handleNewValue(newPlayer.values, log);
+					newPlayer.vals.add(log);
 				}
 				newPlayer.values.ecr = ecr;
 				holder.players.add(newPlayer);
+				newPlayer.vals.add(newPlayer.values.worth);
+				newPlayer.vals.add((double)val2);
+				newPlayer.vals.add((double)val3);
 			}	
 		}
 	}

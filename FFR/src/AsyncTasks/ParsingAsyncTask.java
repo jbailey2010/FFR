@@ -253,6 +253,8 @@ public class ParsingAsyncTask
 			    HighLevel.setPermanentData(holder, cont);
 			    publishProgress("Please wait, setting specific player info...");
 	    		HighLevel.parseSpecificData(holder, cont);
+	    		publishProgress("Please wait, calculating relative risk...");
+	    		HighLevel.setRisk(holder);
 	    		System.out.println(System.nanoTime() - start); 
 	    	} catch (IOException e) {
 				// TODO Auto-generated catch block

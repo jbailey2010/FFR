@@ -2,6 +2,7 @@ package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -153,6 +154,7 @@ public class HighLevel
     			{
     				log = 1.0;
     			}
+    			player.vals.add(log);
     			Values.handleNewValue(player.values, log);
     		}
     	}
@@ -405,6 +407,120 @@ public class HighLevel
 					}
 				}
 			}
+		}
+	}
+	
+	/**
+	 * Sets the relative risk of a player
+	 * @param holder
+	 */
+	public static void setRisk(Storage holder)
+	{
+		double qbRisk = 0.0;
+		int qbCount = 0;
+		double rbRisk = 0.0;
+		int rbCount = 0;
+		double wrRisk = 0.0;
+		int wrCount = 0;
+		double teRisk = 0.0;
+		int teCount = 0;
+		double dRisk = 0.0;
+		int dCount = 0;
+		double kRisk = 0.0;
+		int kCount = 0;
+		double allRisk = 0.0;
+		int allCount = 0;
+		for(PlayerObject player : holder.players)
+		{
+			double mean = player.values.worth;
+            double risk = 0;
+            for(double a : player.vals)
+            {
+                risk += (mean-a)*(mean-a);
+            }
+            risk = risk / player.values.count;
+            risk = Math.sqrt(risk);
+            DecimalFormat twoDForm = new DecimalFormat("#.##");
+            risk = Double.valueOf(twoDForm.format(risk));
+            player.risk = risk;
+		}
+		for(PlayerObject player : holder.players)
+		{
+			if(player.info.position.equals("QB"))
+			{
+				qbRisk += player.risk;
+				qbCount++;
+			}
+			else if(player.info.position.equals("RB"))
+			{
+				rbRisk += player.risk;
+				rbCount++;
+			}
+			else if(player.info.position.equals("WR"))
+			{
+				wrRisk += player.risk;
+				wrCount++;
+			}
+			else if(player.info.position.equals("TE"))
+			{
+				teRisk += player.risk;
+				teCount++;
+			}
+			else if(player.info.position.equals("D/ST"))
+			{
+				dRisk += player.risk;
+				dCount++;
+			}
+			else if(player.info.position.equals("K"))
+			{
+				kRisk += player.risk;
+				kCount++;
+			}
+			allRisk += player.risk;
+			allCount++;
+		}
+		qbRisk /= qbCount;
+		DecimalFormat twoDForm = new DecimalFormat("#.##");
+        qbRisk = Double.valueOf(twoDForm.format(qbRisk));
+		rbRisk /= rbCount;
+        rbRisk = Double.valueOf(twoDForm.format(rbRisk));
+		wrRisk /= wrCount;
+		wrRisk = Double.valueOf(twoDForm.format(wrRisk));
+		teRisk /= teCount;
+		teRisk = Double.valueOf(twoDForm.format(teRisk));
+		dRisk /= dCount;
+		dRisk = Double.valueOf(twoDForm.format(dRisk));
+		kRisk /= kCount;
+		kRisk = Double.valueOf(twoDForm.format(kRisk));
+		allRisk /= allCount;
+		allRisk = Double.valueOf(twoDForm.format(allRisk));
+		for(PlayerObject player : holder.players)
+		{
+			if(player.info.position.equals("QB"))
+			{
+				player.riskPos = Double.valueOf(twoDForm.format(player.risk - qbRisk));
+			}
+			if(player.info.position.equals("RB"))
+			{
+				player.riskPos = Double.valueOf(twoDForm.format(player.risk - rbRisk));
+			}
+			if(player.info.position.equals("WR"))
+			{
+				player.riskPos = Double.valueOf(twoDForm.format(player.risk - wrRisk));
+			}
+			if(player.info.position.equals("TE"))
+			{
+				player.riskPos = Double.valueOf(twoDForm.format(player.risk - teRisk));
+			}
+			if(player.info.position.equals("K"))
+			{
+				player.riskPos = Double.valueOf(twoDForm.format(player.risk - kRisk));
+			}
+			if(player.info.position.equals("D/ST"))
+			{
+				player.riskPos = Double.valueOf(twoDForm.format(player.risk - dRisk));
+			}
+			player.riskAll = Double.valueOf(twoDForm.format(player.risk - allRisk));
 		}
 	}
 }

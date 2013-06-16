@@ -5,6 +5,7 @@ package com.example.fantasyfootballrankings.Pages;
 import java.io.IOException;
 
 
+
 import java.io.Serializable;
 
 
@@ -115,7 +116,7 @@ public class Home extends Activity implements Serializable{
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try {
-			ParsePFF.parsePFFWrapper(new Storage());
+			ParseRData.fetchFile();
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace();

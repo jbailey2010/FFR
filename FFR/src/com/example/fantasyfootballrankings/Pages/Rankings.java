@@ -823,6 +823,11 @@ public class Rankings extends Activity {
     	{
     		output.add("He is in your watch list");
     	}
+    	if(searchedPlayer.risk > 0.0)
+    	{
+    		output.add(searchedPlayer.risk + " risk\n" + searchedPlayer.riskPos + " risk relative to his position\n" + 
+    				searchedPlayer.riskAll + " risk relative to all players");
+    	}
     	if(!searchedPlayer.info.position.equals("D/ST") && 
     			!searchedPlayer.info.contractStatus.contains("Under Contract"))
     	{

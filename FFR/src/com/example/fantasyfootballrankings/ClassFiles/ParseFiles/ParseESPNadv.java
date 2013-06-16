@@ -59,6 +59,8 @@ public class ParseESPNadv
 				BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
 				Values.handleNewValue(match.values, newPlayer.values.worth);
 				Values.handleNewValue(match.values, log);
+				match.vals.add(log);
+				match.vals.add(newPlayer.values.worth);
 				match.info.team = ParseRankings.fixTeams(match.info.team);
 			}
 			else
@@ -67,6 +69,8 @@ public class ParseESPNadv
 				Values.isExtreme(newPlayer.values, newPlayer.values.worth);
 				Values.handleNewValue(newPlayer.values, log);
 				newPlayer.info.team = ParseRankings.fixTeams(newPlayer.info.team);
+				newPlayer.vals.add(log);
+				newPlayer.vals.add(newPlayer.values.worth);
 				holder.players.add(newPlayer);
 			}
 		}

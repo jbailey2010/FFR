@@ -316,6 +316,57 @@ public class ComparatorHandling
 		{
 			p2.append("-Same bye as a player you've drafted\n");
 		}
+		double risk1 = player1.risk;
+		double risk2 = player2.risk;
+		if(risk1 != 0 && risk2 != 0)
+		{
+			if(risk1 > risk2)
+			{
+				if(risk1 - risk2 > 3.0)
+				{
+					p2.append("-Much lower risk\n");
+				}
+				else
+				{
+					p2.append("-Lower risk\n");
+				}
+			}
+			if(risk2 > risk1)
+			{
+				if(risk2 - risk1 > 3.0)
+				{
+					p1.append("-Much lower risk\n");
+				}
+				else
+				{
+					p1.append("-Lower risk\n");
+				}
+			}
+		}
+		double riskPos1 = player1.riskPos;
+		double riskPos2 = player2.riskPos;
+		if(riskPos1 > riskPos2)
+		{
+			if(riskPos1 - riskPos2 > 3.0)
+			{
+				p2.append("-Much lower positional risk\n");
+			}
+			else
+			{
+				p2.append("-Lower positional risk\n");
+			}
+		}
+		if(riskPos2 > riskPos1)
+		{
+			if(riskPos2 - riskPos1 > 3.0)
+			{
+				p1.append("-Much lower positional risk\n");
+			}
+			else
+			{
+				p1.append("-Lower positional risk\n");
+			}
+		}
 		double trend1 = trend(player1);
 		double trend2 = trend(player2);
 		if(trend1 != trend2)

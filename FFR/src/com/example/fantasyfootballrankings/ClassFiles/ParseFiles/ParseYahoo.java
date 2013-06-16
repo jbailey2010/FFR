@@ -61,12 +61,16 @@ public class ParseYahoo
 				BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
 				Values.handleNewValue(match.values, newPlayer.values.worth);
 				Values.handleNewValue(match.values, aav);
+				match.vals.add(aav);
+				match.vals.add(newPlayer.values.worth);
 			}
 			else
 			{
 				Values.isExtreme(newPlayer.values, newPlayer.values.worth);
 				Values.handleNewValue(newPlayer.values, aav);
 				holder.players.add(newPlayer);
+				newPlayer.vals.add(aav);
+				newPlayer.vals.add(newPlayer.values.worth);
 			}	
 		}
 	}
