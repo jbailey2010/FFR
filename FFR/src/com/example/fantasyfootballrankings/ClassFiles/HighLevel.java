@@ -446,38 +446,41 @@ public class HighLevel
 		}
 		for(PlayerObject player : holder.players)
 		{
-			if(player.info.position.equals("QB"))
+			if(player.info.position.equals("QB") && player.values.worth >= 1.0)
 			{
 				qbRisk += player.risk;
 				qbCount++;
 			}
-			else if(player.info.position.equals("RB"))
+			else if(player.info.position.equals("RB") && player.values.worth >= 1.0)
 			{
 				rbRisk += player.risk;
 				rbCount++;
 			}
-			else if(player.info.position.equals("WR"))
+			else if(player.info.position.equals("WR") && player.values.worth >= 1.0)
 			{
 				wrRisk += player.risk;
 				wrCount++;
 			}
-			else if(player.info.position.equals("TE"))
+			else if(player.info.position.equals("TE") && player.values.worth >= 1.0)
 			{
 				teRisk += player.risk;
 				teCount++;
 			}
-			else if(player.info.position.equals("D/ST"))
+			else if(player.info.position.equals("D/ST") && player.values.worth >= 1.0)
 			{
 				dRisk += player.risk;
 				dCount++;
 			}
-			else if(player.info.position.equals("K"))
+			else if(player.info.position.equals("K") && player.values.worth >= 1.0)
 			{
 				kRisk += player.risk;
 				kCount++;
 			}
-			allRisk += player.risk;
-			allCount++;
+			if(player.values.worth >= 1.0)
+			{
+				allRisk += player.risk;
+				allCount++;
+			}
 		}
 		qbRisk /= qbCount;
 		DecimalFormat twoDForm = new DecimalFormat("#.##");
