@@ -380,44 +380,46 @@ public class HighLevel
 		}
 		for(PlayerObject player : holder.players)
 		{
-			if(player.info.position.equals("QB") && player.values.worth >= 1.0)
+			if(player.values.count > 2.0)
 			{
-				qbRisk += player.risk;
-				qbCount++;
-			}
-			else if(player.info.position.equals("RB") && player.values.worth >= 3.0)
-			{
-				rbRisk += player.risk;
-				rbCount++;
-			}
-			else if(player.info.position.equals("WR") && player.values.worth >= 2.5)
-			{
-				wrRisk += player.risk;
-				wrCount++;
-			}
-			else if(player.info.position.equals("TE") && player.values.worth >= 1.0)
-			{
-				teRisk += player.risk;
-				teCount++;
-			}
-			else if(player.info.position.equals("D/ST"))
-			{
-				dRisk += player.risk;
-				dCount++;
-			}
-			else if(player.info.position.equals("K"))
-			{
-				kRisk += player.risk;
-				kCount++;
-			}
-			if((player.info.position.equals("QB") && player.values.worth >= 1.0) ||
-					(player.info.position.equals("RB") && player.values.worth >= 3.0) ||
-					(player.info.position.equals("WR") && player.values.worth >= 2.5) ||
-					(player.info.position.equals("TE") && player.values.worth >= 1.0) ||
-					(player.info.position.equals("K") || player.info.position.equals("D/ST")))
-			{
-				allRisk += player.risk;
-				allCount++;
+				if(player.info.position.equals("QB") && player.values.worth >= 1.0)
+				{
+					qbRisk += player.risk;
+					qbCount++;
+				}
+				else if(player.info.position.equals("RB") && player.values.worth >= 3.0)
+				{
+					rbRisk += player.risk;
+					rbCount++;
+				}
+				else if(player.info.position.equals("WR") && player.values.worth >= 2.5)
+				{
+					wrRisk += player.risk;
+					wrCount++;
+				}
+				else if(player.info.position.equals("TE") && player.values.worth >= 1.0)
+				{
+					teRisk += player.risk;
+					teCount++;
+				}
+				else if(player.info.position.equals("D/ST"))
+				{
+					dRisk += player.risk;
+					dCount++;
+				}
+				else if(player.info.position.equals("K"))
+				{
+					kRisk += player.risk;
+					kCount++;
+				}
+				if((player.info.position.equals("QB") && player.values.worth >= 1.0) ||
+						(player.info.position.equals("RB") && player.values.worth >= 3.0) ||
+						(player.info.position.equals("WR") && player.values.worth >= 2.5) ||
+						(player.info.position.equals("TE") && player.values.worth >= 1.0))
+				{
+					allRisk += player.risk;
+					allCount++;
+				}
 			}
 		}
 		qbRisk /= qbCount;
