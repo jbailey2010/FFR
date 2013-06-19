@@ -1302,6 +1302,7 @@ public class Rankings extends Activity {
     		final int index)
     { 
     	final Dialog popup = new Dialog(cont);
+    	popup.setCancelable(false);
 		popup.requestWindowFeature(Window.FEATURE_NO_TITLE);
     	popup.setContentView(R.layout.draft_by_who);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
