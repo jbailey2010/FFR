@@ -104,6 +104,7 @@ public class Rankings extends Activity {
 	static List<String> posList = new ArrayList<String>();
 	static List<String> watchList = new ArrayList<String>();
 	static ArrayAdapter<String> adapter;
+	static SwipeDismissListViewTouchListener touchListener;
 	/**
 	 * Sets up the view
 	 */
@@ -1264,7 +1265,7 @@ public class Rankings extends Activity {
 				return true;
 			}
     	 });
-    	 SwipeDismissListViewTouchListener touchListener =
+    	 touchListener =
                  new SwipeDismissListViewTouchListener(
                          listview,
                          new SwipeDismissListViewTouchListener.OnDismissCallback() {
@@ -1288,7 +1289,10 @@ public class Rankings extends Activity {
                                      adapter.remove(adapter.getItem(position));
                                  }
                                  adapter.notifyDataSetChanged();
+                                 listview.setOnTouchListener(null);
+                                 listview.setOnScrollListener(null);
                                  handleDrafted(((TextView)view).getText().toString(), holder, cont, null, index);
+                                 
                              }
                          });
          listview.setOnTouchListener(touchListener);
@@ -1301,6 +1305,8 @@ public class Rankings extends Activity {
     public static void handleDrafted(final String nameOrig, final Storage holder, final Activity cont, final Dialog dialog, 
     		final int index)
     { 
+    	listview.setOnTouchListener(touchListener);
+        listview.setOnScrollListener(touchListener.makeScrollListener());
     	final Dialog popup = new Dialog(cont);
     	popup.setCancelable(false);
 		popup.requestWindowFeature(Window.FEATURE_NO_TITLE);
