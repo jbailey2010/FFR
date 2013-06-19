@@ -1259,9 +1259,25 @@ public class Rankings extends Activity {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				String namePlayer = ((TextView)arg1).getText().toString().split(":  ")[1];
-				watchList.add(namePlayer);
-				WriteToFile.writeWatchList(context, watchList);
-				Toast.makeText(context, namePlayer + " added to watch list", Toast.LENGTH_SHORT).show();
+				int i = -1;
+				for(String name : watchList)
+				{
+					if(name.equals(namePlayer))
+					{
+						i = 1;
+						break;
+					}
+				}
+				if(i == -1)
+				{
+					watchList.add(namePlayer);
+					WriteToFile.writeWatchList(context, watchList);
+					Toast.makeText(context, namePlayer + " added to watch list", Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					Toast.makeText(context, namePlayer + " already in watch list", Toast.LENGTH_SHORT).show();
+				}
 				return true;
 			}
     	 });
