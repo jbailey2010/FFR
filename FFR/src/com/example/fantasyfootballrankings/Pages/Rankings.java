@@ -683,6 +683,16 @@ public class Rankings extends Activity {
     	}
     	//Set up the header, and make a mock object with the set name
     	name.setText(namePlayer);
+    	PlayerObject searchedPlayer = new PlayerObject("","","",0);
+    	for(PlayerObject player : holder.players)
+    	{
+    		if(player.info.name.equals(namePlayer))
+    		{
+    			searchedPlayer = player;
+    			break;
+    		}
+    	}
+    	final PlayerObject copy = searchedPlayer;
     	if(draftable)
     	{
     		name.setOnLongClickListener(new OnLongClickListener(){
@@ -692,25 +702,20 @@ public class Rankings extends Activity {
                     for(int i = 0; i < adapter.getCount(); i++)
                     {
                    	 	if(listview.getChildAt(i) != null && 
-                   	 			((TextView)listview.getChildAt(i)).getText().toString().equals(name))
+                   	 			((TextView)listview.getChildAt(i)).getText().toString().contains(namePlayer))
                    	 	{
                    	 		index = listview.getPositionForView(((TextView)listview.getChildAt(i)));
                    	 		break;
                    	 	}
                     }
-					handleDrafted(name.getText().toString(), holder, (Activity)context, dialog, index);
+                   	DecimalFormat df = new DecimalFormat("#.##");
+                   	adapter.remove(adapter.getItem(index));
+                   	adapter.notifyDataSetChanged();
+					handleDrafted(df.format(copy.values.worth)+ ":  " + copy.info.name, 
+							holder, (Activity)context, dialog, index);
 					return true;
 				}
     		});
-    	}
-    	PlayerObject searchedPlayer = new PlayerObject("","","",0);
-    	for(PlayerObject player : holder.players)
-    	{
-    		if(player.info.name.equals(namePlayer))
-    		{
-    			searchedPlayer = player;
-    			break;
-    		}
     	}
     	//If it's called from trending or watch list, ignore back
     	if(flag)
@@ -1366,7 +1371,6 @@ public class Rankings extends Activity {
 			@Override
 			public void onClick(View v) {
 		    	holder.draft.ignore.add(d);
-				//intermediateHandleRankings(cont);
 				WriteToFile.writeDraft(holder.draft, cont);
 				popup.dismiss();
 				if(dialog != null)
