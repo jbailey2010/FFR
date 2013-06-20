@@ -26,6 +26,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPN;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFantasyPros;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFantasySharks;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMyFantasyLeague;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseOLineAdvanced;
@@ -77,7 +78,7 @@ public class ParsingAsyncTask
 		@Override
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
-		        pdia.setMessage("Please wait, fetching the rankings...(0/23)");
+		        pdia.setMessage("Please wait, fetching the rankings...(0/24)");
 		        pdia.show();    
 		}
 
@@ -97,70 +98,77 @@ public class ParsingAsyncTask
 	    		start = System.nanoTime();
 	    		all = System.nanoTime();
 				ParseWF.wfRankings(holder);
-		        publishProgress("Please wait, fetching the rankings...(3/23)");
+		        publishProgress("Please wait, fetching the rankings...(3/24)");
 
 				System.out.print((System.nanoTime() - start));
 				System.out.println("    after WF");
 				start = System.nanoTime();
 				
 				ParseCBS.cbsRankings(holder);
-		        publishProgress("Please wait, fetching the rankings...(6/23)");
+		        publishProgress("Please wait, fetching the rankings...(6/24)");
 				
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after CBS");
 				start = System.nanoTime();
 				
 				ParseESPNadv.parseESPNAggregate(holder);
-		        publishProgress("Please wait, fetching the rankings...(8/23)");
+		        publishProgress("Please wait, fetching the rankings...(8/24)");
 				
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after espn aggr");
 				start = System.nanoTime();
 				
 				ParseFFTB.parseFFTBRankingsWrapper(holder);
-		        publishProgress("Please wait, fetching the rankings...(9/23)");
+		        publishProgress("Please wait, fetching the rankings...(9/24)");
 				
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after fftb");
 				start = System.nanoTime();
 				
 				ParseESPN.parseESPN300(holder);
-		        publishProgress("Please wait, fetching the rankings...(10/23)");
+		        publishProgress("Please wait, fetching the rankings...(10/24)");
 				
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after espn");
 				start = System.nanoTime();
 				
 				ParseMyFantasyLeague.parseMFLAggregate(holder);
-		        publishProgress("Please wait, fetching the rankings...(11/23)");
+		        publishProgress("Please wait, fetching the rankings...(11/24)");
 				
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after mfl aggr");
 				start = System.nanoTime();
 				
 				Parse4for4.parse4for4Wrapper(holder);
-		        publishProgress("Please wait, fetching the rankings...(15/23)");
+		        publishProgress("Please wait, fetching the rankings...(15/24)");
 				
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after 4 for 4 sets of rankings");
 				start = System.nanoTime();
 				
 				ParseYahoo.parseYahooWrapper(holder);
-		        publishProgress("Please wait, fetching the rankings...(17/23)");
+		        publishProgress("Please wait, fetching the rankings...(17/24)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after yahoo rankings and aggregate data");
 				start = System.nanoTime();
 				
 				ParseFantasyPros.parseFantasyProsAgg(holder);
-				publishProgress("Please wait, fetching the rankings...(21/23)");
+				publishProgress("Please wait, fetching the rankings...(21/24)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after fantasy  pros aggregate data");
 				start = System.nanoTime();
 				
 				ParsePFF.parsePFFWrapper(holder);
-				publishProgress("Please wait, fetching the rankings...(22/23)");
+				publishProgress("Please wait, fetching the rankings...(22/24)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after pff parser");
+				start = System.nanoTime();
+				
+				ParseFantasySharks.parseFSAverage(holder);
+				publishProgress("Please wait, fetching the rankings...(23/24)");
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after fantasy sharks parser");
+				
 				
 				System.out.println();
 				System.out.println(System.nanoTime() - all);

@@ -1287,6 +1287,8 @@ public class Rankings extends Activity {
                          new SwipeDismissListViewTouchListener.OnDismissCallback() {
                              @Override
                              public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                 listview.setOnTouchListener(null);
+                                 listview.setOnScrollListener(null);
                             	 View view = null;
                             	 String name = "";
                                  int index = 0;
@@ -1305,8 +1307,6 @@ public class Rankings extends Activity {
                                      adapter.remove(adapter.getItem(position));
                                  }
                                  adapter.notifyDataSetChanged();
-                                 listview.setOnTouchListener(null);
-                                 listview.setOnScrollListener(null);
                                  handleDrafted(((TextView)view).getText().toString(), holder, cont, null, index);
                                  
                              }

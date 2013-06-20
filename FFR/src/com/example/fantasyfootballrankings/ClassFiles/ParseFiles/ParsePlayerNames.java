@@ -75,7 +75,8 @@ public class ParsePlayerNames {
 		names.add("Daniel Hrapmann");
 		names.add("Darrel Young");
 		names.add("Erik Lorig");
-		if(names.size() > 20)
+		names.add("Thaddeus Lewis");
+		if(names.size() > 40)
 		{
 			WriteToFile.storePlayerNames(names, cont);
 		}
