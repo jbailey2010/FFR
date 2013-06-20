@@ -591,7 +591,6 @@ public class Rankings extends Activity {
             matchedPlayers = ManageInput.voiceInput(matches, newCont, holder, textView);
             if(matchedPlayers.size() != 0)
             {
-            	System.out.println(matchedPlayers.size());
             	double maxVal = 0.0;
             	String maxPlayer = "";
             	for(String player : matchedPlayers)
@@ -599,7 +598,6 @@ public class Rankings extends Activity {
             		for(int i = 0; i < holder.players.size(); i++)
             		{
             			PlayerObject playerIter = holder.players.get(i);
-            			System.out.println(playerIter.info.name);
             			if(playerIter.info.name.equals(player))
             			{
             				if(playerIter.values.worth > maxVal)
@@ -610,8 +608,7 @@ public class Rankings extends Activity {
                 			break;
             			}
             		}
-            	}
-            	System.out.println(maxPlayer);
+            	}            	
             	textView.setText(maxPlayer);
             }
         }
@@ -700,12 +697,13 @@ public class Rankings extends Activity {
 				@Override
 				public boolean onLongClick(View v) {
 					int index = 0;
-                    for(int i = 0; i < adapter.getCount(); i++)
+                    for(int i = 0; i < holder.players.size(); i++)
                     {
-                   	 	if(listview.getChildAt(i) != null && 
-                   	 			((TextView)listview.getChildAt(i)).getText().toString().contains(namePlayer))
+                    	System.out.println(adapter.getItem(i));
+                   	 	if(adapter.getItem(i).contains(namePlayer))
                    	 	{
-                   	 		index = listview.getPositionForView(((TextView)listview.getChildAt(i)));
+                   	 		index = i;
+                   	 		System.out.println("SETTING: " + index);
                    	 		break;
                    	 	}
                     }
