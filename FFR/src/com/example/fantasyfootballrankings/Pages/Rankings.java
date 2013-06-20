@@ -585,14 +585,13 @@ public class Rankings extends Activity {
     {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK)
         {
-            textView = (AutoCompleteTextView)dialog.findViewById(R.id.player_input);
-
             // Populate the wordsList with the String values the recognition engine thought it heard
             ArrayList<String> matches = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
             matchedPlayers = ManageInput.voiceInput(matches, newCont, holder, textView);
             if(matchedPlayers.size() != 0)
             {
+            	System.out.println(matchedPlayers.size());
             	double maxVal = 0.0;
             	String maxPlayer = "";
             	for(String player : matchedPlayers)
@@ -600,6 +599,7 @@ public class Rankings extends Activity {
             		for(int i = 0; i < holder.players.size(); i++)
             		{
             			PlayerObject playerIter = holder.players.get(i);
+            			System.out.println(playerIter.info.name);
             			if(playerIter.info.name.equals(player))
             			{
             				if(playerIter.values.worth > maxVal)
@@ -611,6 +611,7 @@ public class Rankings extends Activity {
             			}
             		}
             	}
+            	System.out.println(maxPlayer);
             	textView.setText(maxPlayer);
             }
         }
