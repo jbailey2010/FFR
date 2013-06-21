@@ -21,8 +21,16 @@ public class ParseESPN
 	 */
 	public static void parseESPN300(Storage holder) throws IOException
 	{
-		//String text = HandleBasicQueries.handleLists("http://sports.espn.go.com/fantasy/football/ffl/story?page=NFLDK2K13ranksTop300", "td");
-		String text = HandleBasicQueries.handleLists("http://espn.go.com/fantasy/football/story/_/page/2013preseasonFFLranks250/top-300-position", "td");
+		parseESPN300Worker(HandleBasicQueries.handleLists("http://espn.go.com/fantasy/football/story/_/page/2013preseasonFFLranks300PPR/top-300-ppr-point-per-reception", "td"), holder);
+		parseESPN300Worker(HandleBasicQueries.handleLists("http://espn.go.com/fantasy/football/story/_/page/2013preseasonFFLranks250/top-300-position", "td"), holder);
+
+	}
+	
+	/**
+	 * Does the actual espn parsing work
+	 */
+	public static void parseESPN300Worker(String text, Storage holder)
+	{
 		String[] brokenUp=text.split("\n");
 		for(int i = 1; i < brokenUp.length; i+=5)
 		{

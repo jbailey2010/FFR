@@ -20,7 +20,7 @@ public class ParseFantasySharks {
 	{
 		String html = HandleBasicQueries.handleLists("http://www.fantasysharks.com/apps/Projections/SeasonProjections.php?pos=ALL", "td");
 		String[] td = html.split("\n");
-		for(int i = 38; i < td.length; i+=20)
+		for(int i = 37; i < td.length; i+=20)
 		{
 			if(td[i].contains("The above views are not"))
 			{
@@ -31,9 +31,10 @@ public class ParseFantasySharks {
 				i++;
 			}
 			String nameFull = td[i+3];
-			String lastName = nameFull.split(",")[0];
-			String firstName = nameFull.split(",")[1];
+			String lastName = nameFull.split(",")[0].trim().replaceAll("[^a-zA-Z]+","");
+			String firstName = nameFull.split(",")[1].trim().replaceAll("[^a-zA-Z]+","");
 			String name = ParseRankings.fixNames(firstName + " " + lastName);
+			System.out.println("+" + name + "+");
 			String val = td[i+19].replace("$", "");
 			if(val.equals("") || val.equals(" "))
 			{

@@ -259,4 +259,9 @@ public class ManageInput
 	    	}	
 		});
 	}
+	
+	public static void setUpScoring(Context cont)
+	{
+
+	}
 }

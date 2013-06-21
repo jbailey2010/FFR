@@ -699,11 +699,9 @@ public class Rankings extends Activity {
 					int index = 0;
                     for(int i = 0; i < holder.players.size(); i++)
                     {
-                    	System.out.println(adapter.getItem(i));
                    	 	if(adapter.getItem(i).contains(namePlayer))
                    	 	{
                    	 		index = i;
-                   	 		System.out.println("SETTING: " + index);
                    	 		break;
                    	 	}
                     }
