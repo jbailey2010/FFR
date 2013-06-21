@@ -15,6 +15,7 @@ import FileIO.WriteToFile;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -260,8 +261,19 @@ public class ManageInput
 		});
 	}
 	
-	public static void setUpScoring(Context cont)
+	public static void setUpScoring(Context cont, Scoring scoring)
 	{
-
+		if(scoring.passYards != 0 && scoring.rushYards != 0 && scoring.recYards != 0)
+		{
+			return;
+		}
+		else if(scoring.passYards == 0 && !cont.getSharedPreferences("FFR", 0).getBoolean("Is Scoring Set?", false))
+		{
+			//show dialog
+		}
+		else
+		{
+			//read scoring from file
+		}
 	}
 }

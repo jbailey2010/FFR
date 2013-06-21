@@ -10,6 +10,7 @@ import java.util.Set;
 
 import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
@@ -307,6 +308,25 @@ public class WriteToFile {
     	draftList += inter.toString() + "@"; 
     	draftList += draft.remainingSalary + "@" + draft.value;
     	editor.putString("Draft Information", draftList).commit();
+	}
+	
+	/**
+	 * Writes scoring to file
+	 */
+	public static void writeScoring(Context cont, Scoring scoring)
+	{
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		editor.putInt("Pass Yards", scoring.passYards);
+		editor.putInt("Pass Touchdowns", scoring.passTD);
+		editor.putInt("Rush Yards", scoring.rushYards);
+		editor.putInt("Rush Touchdowns", scoring.rushTD);
+		editor.putInt("Receiving Yards", scoring.recYards);
+		editor.putInt("Receiving Touchdowns", scoring.recTD);
+		editor.putInt("Catches", scoring.catches);
+		editor.putInt("Interceptions", scoring.interception);
+		editor.putInt("Fumbles", scoring.fumble);
+		editor.putBoolean("Is Scoring Set?", true);
+		editor.commit();
 	}
 	
 	/**

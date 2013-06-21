@@ -6,21 +6,21 @@ package com.example.fantasyfootballrankings.ClassFiles;
  */
 public class Scoring 
 {
-	public double passYards;
+	public int passYards;
 	public int passTD;
 	public int interception;
-	public double rushYards;
+	public int rushYards;
 	public int rushTD;
 	public int fumble;
-	public double recYards;
+	public int recYards;
 	public int recTD;
-	public double catches;
+	public int catches;
 	
 	/**
 	 * Sets all of the variables. Super simple.
 	 */
-	public Scoring(double passYardsIn, int passTDin, int intIn, double rushYardsin, int rushTDin, int fumbleIn, 
-			double recYardsin, int recTDin, double catchesIn)
+	public Scoring(int passYardsIn, int passTDin, int intIn, int rushYardsin, int rushTDin, int fumbleIn, 
+			int recYardsin, int recTDin, int catchesIn)
 	{
 		passYards = passYardsIn;
 		passTD = passTDin;

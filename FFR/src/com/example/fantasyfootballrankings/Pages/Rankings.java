@@ -25,6 +25,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.TradeHandling;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
@@ -105,6 +106,7 @@ public class Rankings extends Activity {
 	static List<String> watchList = new ArrayList<String>();
 	static ArrayAdapter<String> adapter;
 	static SwipeDismissListViewTouchListener touchListener;
+	static Scoring scoring = new Scoring();
 	/**
 	 * Sets up the view
 	 */
@@ -122,6 +124,7 @@ public class Rankings extends Activity {
     	setLists();
 		handleRefresh();
 		handleOnClickButtons();
+		ManageInput.setUpScoring(cont, scoring);
 	}
 	
 	/**
