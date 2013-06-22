@@ -34,8 +34,10 @@ import com.example.fantasyfootballrankings.R.menu;
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.HandleExport;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.Parse4for4;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseBrokenTackles;
@@ -115,6 +117,7 @@ public class Home extends Activity implements Serializable{
         news.setOnClickListener(newsHandler);
         start = System.nanoTime();
         handleInitialRefresh();
+		ManageInput.setUpScoring(cont, new Scoring());
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try {

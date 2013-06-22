@@ -15,16 +15,6 @@
         android:text="6" />
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:text="How many points per passing touchdown?"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,5 +69,28 @@
          android:background="@drawable/btn_red"
         style="@style/ButtonText"
         android:text="Continue" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="83dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="How many points per passing touchdown?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:text="You need to set scoring settings..."
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

@@ -124,7 +124,6 @@ public class Rankings extends Activity {
     	setLists();
 		handleRefresh();
 		handleOnClickButtons();
-		ManageInput.setUpScoring(cont, scoring);
 	}
 	
 	/**

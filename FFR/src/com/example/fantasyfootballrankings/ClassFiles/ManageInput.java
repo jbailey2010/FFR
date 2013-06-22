@@ -394,7 +394,7 @@ public class ManageInput
 		final EditText yards = (EditText)dialog.findViewById(R.id.scoring_rec_yards);
 		final EditText tds = (EditText)dialog.findViewById(R.id.scoring_rec_td);
 		final EditText ints = (EditText)dialog.findViewById(R.id.scoring_rec_catch);
-		Button back = (Button)dialog.findViewById(R.id.scoring_run_back);
+		Button back = (Button)dialog.findViewById(R.id.scoring_rec_back);
 		back.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -402,7 +402,7 @@ public class ManageInput
 				runSettings(cont, scoring);
 			}
 		});
-		Button toRun = (Button)dialog.findViewById(R.id.scoring_run_continue);
+		Button toRun = (Button)dialog.findViewById(R.id.scoring_rec_continue);
 		toRun.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
@@ -420,7 +420,7 @@ public class ManageInput
 				else
 				{
 					Toast.makeText(cont, "Please enter integer values greater than 0", Toast.LENGTH_SHORT).show();
-				}
+				} 
 			}
 		});
 	}
