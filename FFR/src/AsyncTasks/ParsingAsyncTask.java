@@ -19,6 +19,7 @@ import org.xml.sax.SAXException;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.Parse4for4;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
@@ -672,7 +673,7 @@ public class ParsingAsyncTask
 			}
 			else
 			{
-				Rankings.playerTweetSearch(result, act, query);
+				PlayerInfo.playerTweetSearch(result, act, query);
 			}
 		}
 		

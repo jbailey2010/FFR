@@ -9,7 +9,6 @@ import java.util.PriorityQueue;
 import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
-import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.example.fantasyfootballrankings.Pages.Trending;
 
 import FileIO.ReadFromFile;
@@ -197,7 +196,7 @@ public class HandleWatchList
 				selected = selected.split(": ")[1];
 				selected = selected.split(", ")[0];
 				dialog.dismiss();
-				Rankings.outputResults(selected, true,(Activity)cont, holder, true, true);
+				PlayerInfo.outputResults(selected, true,(Activity)cont, holder, true, true);
 			}
 	    });	
 	    SwipeDismissListViewTouchListener touchListener =

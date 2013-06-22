@@ -20,6 +20,7 @@ import com.example.fantasyfootballrankings.R.layout;
 import com.example.fantasyfootballrankings.R.menu;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
@@ -510,7 +511,7 @@ public class Trending extends Activity {
 				}
 				else
 				{
-					Rankings.outputResults(selected, true, (Trending)context, holder, false, false);
+					PlayerInfo.outputResults(selected, true, (Trending)context, holder, false, false);
 				}
 			}
 	    });
