@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <EditText
+        android:id="@+id/scoring_pass_td"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="6" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="How many points per passing touchdown?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scoring_pass_td"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:text="How many passing yards per fantasy point?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/scoring_pass_yards"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/scoring_pass_td"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="39dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="25" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scoring_pass_yards"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp"
+        android:text="How many points are lost per interception?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/scoring_pass_int"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:ems="10"
+        android:text="2"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/scoring_pass_continue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scoring_pass_int"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="54dp"
+         android:background="@drawable/btn_red"
+        style="@style/ButtonText"
+        android:text="Continue" />
+
+</RelativeLayout>

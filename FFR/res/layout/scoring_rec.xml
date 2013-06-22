@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <EditText
+        android:id="@+id/scoring_rec_td"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="6" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="How many points per receiving touchdown?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scoring_rec_td"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:text="How many receiving yards per fantasy point?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/scoring_rec_yards"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/scoring_rec_td"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="39dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scoring_rec_yards"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp"
+        android:text="How many points per catch?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/scoring_rec_catch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:ems="10"
+        android:text="1"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/scoring_rec_continue"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight = "20dp"
+        android:layout_below="@+id/scoring_rec_catch"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/btn_red"
+        android:text="Submit" />
+
+    <Button
+        android:id="@+id/scoring_rec_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/scoring_rec_continue"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText"
+        android:text="Back" />
+
+</RelativeLayout>

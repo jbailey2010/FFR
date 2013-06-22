@@ -25,8 +25,10 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 /**
@@ -37,6 +39,7 @@ import android.widget.TextView;
  */
 public class ManageInput 
 {
+	static Scoring dummyScoring = new Scoring();
 	/**
 	 * This sets up the auto complete search with the given arraylist
 	 * so that it autocompletes suggestions based on players who have
@@ -261,6 +264,9 @@ public class ManageInput
 		});
 	}
 	
+	/**
+	 * Determines whether to get scoring settings or ask for them, if anything.
+	 */
 	public static void setUpScoring(Context cont, Scoring scoring)
 	{
 		if(scoring.passYards != 0 && scoring.rushYards != 0 && scoring.recYards != 0)
@@ -269,11 +275,167 @@ public class ManageInput
 		}
 		else if(scoring.passYards == 0 && !cont.getSharedPreferences("FFR", 0).getBoolean("Is Scoring Set?", false))
 		{
-			//show dialog
+			passSettings(cont, scoring);
 		}
 		else
 		{
-			//read scoring from file
+			scoring = ReadFromFile.readScoring(cont);
 		}
+	}
+	
+	/**
+	 * Sets up pass settings
+	 * @param cont
+	 * @param scoring
+	 */
+	public static void passSettings(final Context cont, final Scoring scoring)
+	{
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.scoring_pass);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+		dialog.show();
+		dialog.setCancelable(false);
+		final EditText yards = (EditText)dialog.findViewById(R.id.scoring_pass_yards);
+		final EditText tds = (EditText)dialog.findViewById(R.id.scoring_pass_td);
+		final EditText ints = (EditText)dialog.findViewById(R.id.scoring_pass_yards);
+		Button toRun = (Button)dialog.findViewById(R.id.scoring_pass_continue);
+		toRun.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				String yardStr = yards.getText().toString();
+				String tdStr = tds.getText().toString();
+				String intStr = ints.getText().toString();
+				if(isInteger(yardStr) && isInteger(tdStr) && isInteger(intStr))
+				{
+					dummyScoring.passYards = Integer.parseInt(yardStr);
+					dummyScoring.passTD = Integer.parseInt(tdStr);
+					dummyScoring.interception = Integer.parseInt(intStr);
+					dialog.dismiss();
+					runSettings(cont, scoring);
+				}
+				else
+				{
+					Toast.makeText(cont, "Please enter integer values greater than 0", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+	}
+	
+	/**
+	 * Sets up run settings
+	 * @param cont
+	 * @param scoring
+	 */
+	public static void runSettings(final Context cont, final Scoring scoring)
+	{
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.scoring_run);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+		dialog.show();
+		dialog.setCancelable(false);
+		final EditText yards = (EditText)dialog.findViewById(R.id.scoring_run_yards);
+		final EditText tds = (EditText)dialog.findViewById(R.id.scoring_run_td);
+		final EditText ints = (EditText)dialog.findViewById(R.id.scoring_run_int);
+		Button back = (Button)dialog.findViewById(R.id.scoring_run_back);
+		back.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				passSettings(cont, scoring);
+			}
+		});
+		Button toRun = (Button)dialog.findViewById(R.id.scoring_run_continue);
+		toRun.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				String yardStr = yards.getText().toString();
+				String tdStr = tds.getText().toString();
+				String intStr = ints.getText().toString();
+				if(isInteger(yardStr) && isInteger(tdStr) && isInteger(intStr))
+				{
+					dummyScoring.rushYards = Integer.parseInt(yardStr);
+					dummyScoring.rushTD = Integer.parseInt(tdStr);
+					dummyScoring.fumble = Integer.parseInt(intStr);
+					dialog.dismiss();
+					recSettings(cont, scoring);
+				}
+				else
+				{
+					Toast.makeText(cont, "Please enter integer values greater than 0", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+	}
+	
+	/**
+	 * Sets up receiving numbers
+	 * @param cont
+	 * @param scoring
+	 */
+	public static void recSettings(final Context cont, final Scoring scoring)
+	{
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.scoring_rec);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+		dialog.show();
+		dialog.setCancelable(false);
+		final EditText yards = (EditText)dialog.findViewById(R.id.scoring_rec_yards);
+		final EditText tds = (EditText)dialog.findViewById(R.id.scoring_rec_td);
+		final EditText ints = (EditText)dialog.findViewById(R.id.scoring_rec_catch);
+		Button back = (Button)dialog.findViewById(R.id.scoring_run_back);
+		back.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				runSettings(cont, scoring);
+			}
+		});
+		Button toRun = (Button)dialog.findViewById(R.id.scoring_run_continue);
+		toRun.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				String yardStr = yards.getText().toString();
+				String tdStr = tds.getText().toString();
+				String intStr = ints.getText().toString();
+				if(isInteger(yardStr) && isInteger(tdStr) && isInteger(intStr))
+				{
+					dummyScoring.recYards = Integer.parseInt(yardStr);
+					dummyScoring.recTD = Integer.parseInt(tdStr);
+					dummyScoring.catches = Integer.parseInt(intStr);
+					dialog.dismiss();
+					WriteToFile.writeScoring(cont, dummyScoring);
+				}
+				else
+				{
+					Toast.makeText(cont, "Please enter integer values greater than 0", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+	}
+	
+	/**
+	 * Makes sure a string is valid
+	 * @param s
+	 * @return
+	 */
+	public static boolean isInteger(String s) {
+	    try { 
+	        Integer.parseInt(s); 
+	    } catch(NumberFormatException e) { 
+	        return false; 
+	    }
+	    return true;
 	}
 }
