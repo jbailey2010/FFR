@@ -56,7 +56,7 @@ public class Values
 		{
 			player.high = newValue;
 		}
-		else if(player.low > newValue)
+		if(player.low > newValue)
 		{
 			player.low = newValue;
 		}

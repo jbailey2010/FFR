@@ -26,6 +26,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Scoring;
+import com.example.fantasyfootballrankings.ClassFiles.SortHandler;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.TradeHandling;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
@@ -93,6 +94,7 @@ public class Rankings extends Activity {
 	static Button info;
 	static Button compare;
 	static Button calc;
+	static Button sort;
 	public static ListView listview;
 	static boolean refreshed = false;
 	static int sizeOutput = -1;
@@ -116,6 +118,7 @@ public class Rankings extends Activity {
 		info = (Button)findViewById(R.id.draft_info);
 		compare = (Button)findViewById(R.id.player_comparator);
 		calc = (Button)findViewById(R.id.trade_calc);
+		sort = (Button)findViewById(R.id.sort_players);
     	listview = (ListView)findViewById(R.id.listview_rankings);
     	context = this;
     	setLists();
@@ -485,6 +488,13 @@ public class Rankings extends Activity {
 	        	  TradeHandling.handleTradeInit(holder, cont);
 	          }
 	    }); 
+		//sort pop up on click
+		sort.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				SortHandler.initialPopUp(cont, holder);
+			}
+		});
 	}
 	
 	/**
