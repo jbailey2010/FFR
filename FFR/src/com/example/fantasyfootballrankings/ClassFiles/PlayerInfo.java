@@ -209,7 +209,7 @@ public class PlayerInfo
 			backView.setVisibility(View.GONE);
 		}
 		//Set the data in the list
-		setSearchContent(searchedPlayer, output);
+		setSearchContent(searchedPlayer, output, holder);
 		//Show the dialog, then set the list
 		dialog.show();
 		ListView results = (ListView)dialog.findViewById(R.id.listview_search);
@@ -277,8 +277,9 @@ public class PlayerInfo
 	 * Sets the output of the search
 	 * @param searchedPlayer
 	 * @param output
+	 * @param holder 
 	 */
-	public static void setSearchContent(PlayerObject searchedPlayer, List<String> output)
+	public static void setSearchContent(PlayerObject searchedPlayer, List<String> output, Storage holder)
 	{
 	   	DecimalFormat df = new DecimalFormat("#.##");
 		String low = String.valueOf(searchedPlayer.values.low);
@@ -314,8 +315,18 @@ public class PlayerInfo
 		}
 		if(searchedPlayer.risk > 0.0)
 		{
-			output.add(searchedPlayer.risk + " risk\n" + searchedPlayer.riskPos + " risk relative to his position\n" + 
-					searchedPlayer.riskAll + " risk relative to all players");
+			if(searchedPlayer.values.count > 8 && searchedPlayer.values.worth > 5 && !searchedPlayer.info.position.equals("K") && 
+					!searchedPlayer.info.position.equals("D/ST"))
+			{
+				output.add(searchedPlayer.risk + " risk\n" + searchedPlayer.riskPos + " risk relative to his position (" + 
+						rankRiskPos(searchedPlayer, holder) + ")\n" + searchedPlayer.riskAll + " risk relative to all players (" +
+						rankRiskAll(searchedPlayer, holder) + ")");
+			}
+			else
+			{
+				output.add(searchedPlayer.risk + " risk\n" + searchedPlayer.riskPos + " risk relative to his position\n" + 
+						searchedPlayer.riskAll + " risk relative to all players");
+			}
 		}
 		if(!searchedPlayer.info.position.equals("D/ST") && 
 				!searchedPlayer.info.contractStatus.contains("Under Contract"))
@@ -358,11 +369,26 @@ public class PlayerInfo
 		}
 		if(searchedPlayer.values.ecr != -1)
 		{
-			output.add("Average Expert Ranking: " + searchedPlayer.values.ecr);
+			if(rankECRPos(searchedPlayer, holder) != -1)
+			{
+				output.add("Average Expert Ranking: " + searchedPlayer.values.ecr + " (ranked " + rankECRPos(searchedPlayer, holder)
+						 + " positionally)");
+			}
+			else
+			{
+				output.add("Average Expert Ranking: " + searchedPlayer.values.ecr);
+			}
 		}
 		if(!searchedPlayer.info.adp.equals("Not set"))
 		{
-			output.add("ADP: " + searchedPlayer.info.adp);
+			if(rankADPPos(searchedPlayer, holder) != -1)
+			{
+				output.add("ADP: " + searchedPlayer.info.adp + " (ranked " + rankADPPos(searchedPlayer, holder) + " positionally)");
+			}
+			else
+			{
+				output.add("ADP: " + searchedPlayer.info.adp);
+			}
 		}
 		if(!searchedPlayer.info.trend.equals("0.0"))
 		{
@@ -396,6 +422,112 @@ public class PlayerInfo
 			output.add("See tweets about this player");
 			output.add("See highlights of this player");
 		}
+	}
+	
+	/**
+	 * Ranks risk relative to position
+	 */
+	public static int rankRiskPos(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		for(PlayerObject iter : holder.players)
+		{
+			if(player.info.position.equals("QB"))
+			{
+				if(iter.riskPos < player.riskPos && iter.values.count > 9 && iter.values.worth > 3 && player.info.position.equals(iter.info.position))
+				{
+					rank++;
+				}
+			}
+			else if(player.info.position.equals("RB"))
+			{
+				if(iter.riskPos < player.riskPos && iter.values.count > 9 && iter.values.worth > 5 && player.info.position.equals(iter.info.position))
+				{
+					rank++;
+				}
+			}
+			else if(player.info.position.equals("WR"))
+			{
+				if(iter.riskPos < player.riskPos && iter.values.count > 9 && iter.values.worth > 4 && player.info.position.equals(iter.info.position))
+				{
+					rank++;
+				}
+			}
+			else if( player.info.position.equals("TE") && iter.riskPos < player.riskPos 
+					&& iter.values.count > 9 && iter.values.worth > 1 && 
+					iter.info.position.equals(player.info.position))
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Ranks risk relative to all
+	 */
+	public static int rankRiskAll(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		System.out.println(player.info.name + ": " + player.riskPos);
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.riskAll < player.riskAll && iter.values.count > 9 && iter.values.worth > 3)
+			{
+				System.out.println(iter.info.name + ": " + iter.riskAll);
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Ranks ECR positionally
+	 */
+	public static int rankECRPos(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		if(player.values.ecr == -1)
+		{
+			return -1;
+		}
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.values.ecr == -1)
+			{
+				continue;
+			}
+			if(iter.info.position.equals(player.info.position)&&iter.values.ecr < player.values.ecr)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Ranks the adp positionally
+	 */
+	public static int rankADPPos(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		if(player.info.adp.equals("Not set"))
+		{
+			return -1;
+		}
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.info.adp.equals("Not set"))
+			{
+				continue;
+			}
+			if(iter.info.position.equals(player.info.position) && Double.parseDouble(iter.info.adp)
+					< Double.parseDouble(player.info.adp))
+			{
+				rank++;
+			}
+		}
+		return rank;
 	}
 
 	/**
