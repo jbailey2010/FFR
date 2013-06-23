@@ -364,7 +364,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.high != 0)
 			{
 				sorted.add(player);
 			}
@@ -395,7 +395,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.low != 100)
 			{
 				sorted.add(player);
 			}
