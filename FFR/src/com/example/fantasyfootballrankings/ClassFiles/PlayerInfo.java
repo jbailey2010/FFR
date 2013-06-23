@@ -469,12 +469,11 @@ public class PlayerInfo
 	public static int rankRiskAll(PlayerObject player, Storage holder)
 	{
 		int rank = 1;
-		System.out.println(player.info.name + ": " + player.riskPos);
 		for(PlayerObject iter : holder.players)
 		{
-			if(iter.riskAll < player.riskAll && iter.values.count > 9 && iter.values.worth > 3)
+			if(iter.riskAll < player.riskAll && iter.values.count > 9 && iter.values.worth > 3 && !iter.info.position.equals("K") && 
+					!iter.info.position.equals("D/ST"))
 			{
-				System.out.println(iter.info.name + ": " + iter.riskAll);
 				rank++;
 			}
 		}
