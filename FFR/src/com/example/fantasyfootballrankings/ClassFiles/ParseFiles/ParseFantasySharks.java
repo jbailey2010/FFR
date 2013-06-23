@@ -34,7 +34,6 @@ public class ParseFantasySharks {
 			String lastName = nameFull.split(",")[0].trim().replaceAll("[^a-zA-Z]+","");
 			String firstName = nameFull.split(",")[1].trim().replaceAll("[^a-zA-Z]+","");
 			String name = ParseRankings.fixNames(firstName + " " + lastName);
-			System.out.println("+" + name + "+");
 			String val = td[i+19].replace("$", "");
 			if(val.equals("") || val.equals(" "))
 			{
