@@ -89,7 +89,7 @@
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="29dp"
-        android:text="You need to set scoring settings..."
+        android:text="Please enter your league's scoring settings"
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

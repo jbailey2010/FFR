@@ -152,6 +152,9 @@ public class Home extends Activity implements Serializable{
 			case R.id.refresh_names:
 				nameRefresh(dialog);
 		    	return true;			
+			case R.id.start_scoring:
+				ManageInput.passSettings(cont, new Scoring());
+		    	return true;	
 			default:
 				return super.onOptionsItemSelected(item);
 		}

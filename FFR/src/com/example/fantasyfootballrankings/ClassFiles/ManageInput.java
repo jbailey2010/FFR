@@ -301,7 +301,7 @@ public class ManageInput
 		dialog.setCancelable(false);
 		final EditText yards = (EditText)dialog.findViewById(R.id.scoring_pass_yards);
 		final EditText tds = (EditText)dialog.findViewById(R.id.scoring_pass_td);
-		final EditText ints = (EditText)dialog.findViewById(R.id.scoring_pass_yards);
+		final EditText ints = (EditText)dialog.findViewById(R.id.scoring_pass_int);
 		Button toRun = (Button)dialog.findViewById(R.id.scoring_pass_continue);
 		toRun.setOnClickListener(new OnClickListener(){
 			@Override
