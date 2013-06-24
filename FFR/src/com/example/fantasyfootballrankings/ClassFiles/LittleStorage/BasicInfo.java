@@ -21,6 +21,7 @@ public class BasicInfo
 	public String oLineAdv;
 	public String passRunRatio;
 	public String additionalStat;
+	public int tier;
 	public int sos;
 	/**
 	 * Simply establishes the values. Nothing special
@@ -43,6 +44,7 @@ public class BasicInfo
 		passRunRatio = "";
 		additionalStat = "";
 		oLineAdv = "";
+		tier = 0;
 	}
 
 	/**
