@@ -466,4 +466,140 @@ public class HighLevel
 			player.riskAll = Double.valueOf(twoDForm.format(player.risk - allRisk));
 		}
 	}
+	
+	/**
+	 * Calls the specific parsers and sets the projections
+	 */
+	public static void projPointsWrapper(Storage holder, Context cont) throws IOException
+	{
+		HashMap<String, Double> points = new HashMap<String, Double>();
+		Scoring scoring = ReadFromFile.readScoring(cont);
+		qbProj("http://www.fantasypros.com/nfl/projections/qb.php", points, scoring);
+		rbProj("http://www.fantasypros.com/nfl/projections/rb.php", points, scoring);
+		wrProj("http://www.fantasypros.com/nfl/projections/wr.php", points, scoring);
+		teProj("http://www.fantasypros.com/nfl/projections/te.php", points, scoring);
+		for(PlayerObject player : holder.players)
+		{
+			if(points.containsKey(player.info.name))
+			{
+				if(player.info.position.equals("QB") || player.info.position.equals("RB") ||
+						player.info.position.equals("WR") || player.info.position.equals("TE"))
+				{
+					player.values.points = points.get(player.info.name);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Gets the qb projections
+	 */
+	public static void qbProj(String url, HashMap<String, Double> points, Scoring scoring) throws IOException
+	{
+        DecimalFormat df = new DecimalFormat("#.##");
+		String html = HandleBasicQueries.handleLists(url, "td");
+		String[] td = html.split("\n");
+		for(int i = 16; i < td.length; i+=11)
+		{
+			double proj = 0;
+			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
+			double yards = Double.parseDouble(td[i+3].replace(",", ""));
+			double tdRush = Double.parseDouble(td[i+4]);
+			double ints = Double.parseDouble(td[i+5]);
+			double rushYards = Double.parseDouble(td[i+7]);
+			double rushTD = Double.parseDouble(td[i+8]);
+			double fumbles = Double.parseDouble(td[i+9]);
+			proj += (yards/(scoring.passYards));
+			proj -= ints * scoring.interception;
+			proj += tdRush * scoring.passTD;
+			proj += (rushYards / (scoring.rushYards));
+			proj += rushTD * scoring.rushTD;
+			proj -= fumbles * scoring.fumble;
+			proj = Double.parseDouble(df.format(proj));
+			points.put(name, proj);
+		}
+	}
+	
+	/**
+	 * Gets the running back projections
+	 */
+	public static void rbProj(String url, HashMap<String, Double> points, Scoring scoring) throws IOException
+	{
+        DecimalFormat df = new DecimalFormat("#.##");
+		String html = HandleBasicQueries.handleLists(url, "td");
+		String[] td = html.split("\n");
+		for(int i = 16; i < td.length; i+=9)
+		{
+			double proj = 0;
+			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
+			double rushYards = Double.parseDouble(td[i+2].replace(",",""));
+			double rushTD = Double.parseDouble(td[i+3]);
+			double catches = Double.parseDouble(td[i+4]);
+			double recYards = Double.parseDouble(td[i+5].replace(",",""));
+			double recTD = Double.parseDouble(td[i+6]);
+			double fumbles = Double.parseDouble(td[i+7]);
+			proj += (rushYards/(scoring.rushYards));
+			proj += rushTD *scoring.rushTD;
+			proj += catches*scoring.catches;
+			proj += (recYards/(scoring.recYards));
+			proj += recTD * scoring.recTD;
+			proj -= fumbles * scoring.fumble;
+			proj = Double.parseDouble(df.format(proj));
+			points.put(name, proj);
+		}
+	}
+	
+	/**
+	 * Gets the wide receiver projections
+	 */
+	public static void wrProj(String url, HashMap<String, Double> points, Scoring scoring) throws IOException
+	{
+		DecimalFormat df = new DecimalFormat("#.##");
+		String html = HandleBasicQueries.handleLists(url, "td");
+		String[] td = html.split("\n");
+		for(int i = 16; i < td.length; i+=9)
+		{
+			double proj = 0;
+			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
+			double rushYards = Double.parseDouble(td[i+2].replace(",",""));
+			double rushTD = Double.parseDouble(td[i+3]);
+			double catches = Double.parseDouble(td[i+4]);
+			double recYards = Double.parseDouble(td[i+5].replace(",",""));
+			double recTD = Double.parseDouble(td[i+6]);
+			double fumbles = Double.parseDouble(td[i+7]);
+			proj += (rushYards/(scoring.rushYards));
+			proj += rushTD *scoring.rushTD;
+			proj += catches*scoring.catches;
+			proj += (recYards/(scoring.recYards));
+			proj += recTD * scoring.recTD;
+			proj -= fumbles * scoring.fumble;
+			proj = Double.parseDouble(df.format(proj));
+			points.put(name, proj);
+		}
+	}
+	
+	/**
+	 * Gets the tight end projections
+	 */
+	public static void teProj(String url, HashMap<String, Double> points, Scoring scoring) throws IOException
+	{
+		DecimalFormat df = new DecimalFormat("#.##");
+		String html = HandleBasicQueries.handleLists(url, "td");
+		String[] td = html.split("\n");
+		for(int i = 15; i < td.length; i+=6)
+		{		
+			double proj = 0;
+			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
+			double catches = Double.parseDouble(td[i+1].replace(",",""));
+			double recTD = Double.parseDouble(td[i+3]);
+			double recYards = Double.parseDouble(td[i+2].replace(",",""));
+			double fumbles = Double.parseDouble(td[i+4]);
+			proj += catches*scoring.catches;
+			proj += (recYards/(scoring.recYards));
+			proj += recTD * scoring.recTD;
+			proj -= fumbles * scoring.fumble;
+			proj = Double.parseDouble(df.format(proj));
+			points.put(name, proj);
+		}		
+	}
 }

@@ -121,7 +121,7 @@ public class Home extends Activity implements Serializable{
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try {
-			ParseFantasySharks.parseFSAverage(new Storage());
+			HighLevel.projPointsWrapper(new Storage(), cont);
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
