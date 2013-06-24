@@ -443,6 +443,7 @@ public class SortHandler
 	    ListView results = (ListView)dialog.findViewById(R.id.listview_search);
 	    results.setAdapter(null);
 	    List<String> rankings = new ArrayList<String>(400);
+	    int counter = 0;
 	    while(!sorted.isEmpty())
 	    {
 	    	PlayerObject elem = sorted.poll();

@@ -24,8 +24,8 @@ public class Values
 	{
 		worth = firstWorth * 1.0;
 		count = 1.0;
-		high = 0.0;
-		low = 100.0;
+		high = firstWorth;
+		low = firstWorth;
 		ecr = -1;
 	}
 
