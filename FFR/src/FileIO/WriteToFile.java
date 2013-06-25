@@ -10,6 +10,7 @@ import java.util.Set;
 
 import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
@@ -326,6 +327,21 @@ public class WriteToFile {
 		editor.putInt("Interceptions", scoring.interception);
 		editor.putInt("Fumbles", scoring.fumble);
 		editor.putBoolean("Is Scoring Set?", true);
+		editor.commit();
+	}
+	
+	/**
+	 * Writes roster to file
+	 */
+	public static void writeRoster(Context cont, Roster roster)
+	{
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		editor.putInt("Number of teams", roster.teams);
+		editor.putInt("Starting QBs", roster.qbs);
+		editor.putInt("Starting RBs", roster.rbs);
+		editor.putInt("Starting WRs", roster.wrs);
+		editor.putInt("Starting TEs", roster.tes);
+		editor.putBoolean("Is roster set?", true);
 		editor.commit();
 	}
 	

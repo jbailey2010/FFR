@@ -133,7 +133,7 @@ public class ParsingAsyncTask
 				System.out.println("    after espn");
 				start = System.nanoTime();
 				
-				//ParseMyFantasyLeague.parseMFLAggregate(holder);
+				ParseMyFantasyLeague.parseMFLAggregate(holder);
 		        publishProgress("Please wait, fetching the rankings...(12/25)");
 				
 				System.out.print(System.nanoTime() - start);
@@ -265,6 +265,10 @@ public class ParsingAsyncTask
 	    		HighLevel.setRisk(holder);
 	    		publishProgress("Please wait, getting advanced line stats...");
 	    		ParseOLineAdvanced.parsePFOLineData(holder);
+	    		publishProgress("Please wait, getting projected points...");
+	    		HighLevel.projPointsWrapper(holder, cont);
+	    		publishProgress("Please wait, normalizing projections...");
+	    		HighLevel.getPAA(holder, cont);
 	    		System.out.println(System.nanoTime() - start); 
 	    	} catch (IOException e) {
 				// TODO Auto-generated catch block

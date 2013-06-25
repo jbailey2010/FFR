@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ import android.widget.TextView;
 public class ManageInput 
 {
 	static Scoring dummyScoring = new Scoring();
+	static Roster dummyRoster = new Roster();
 	/**
 	 * This sets up the auto complete search with the given arraylist
 	 * so that it autocompletes suggestions based on players who have
@@ -269,17 +271,9 @@ public class ManageInput
 	 */
 	public static void setUpScoring(Context cont, Scoring scoring)
 	{
-		if(scoring.passYards != 0 && scoring.rushYards != 0 && scoring.recYards != 0)
-		{
-			return;
-		}
-		else if(scoring.passYards == 0 && !cont.getSharedPreferences("FFR", 0).getBoolean("Is Scoring Set?", false))
+		if(!cont.getSharedPreferences("FFR", 0).getBoolean("Is Scoring Set?", false))
 		{
 			passSettings(cont, scoring);
-		}
-		else
-		{
-			scoring = ReadFromFile.readScoring(cont);
 		}
 	}
 	
@@ -421,6 +415,75 @@ public class ManageInput
 				{
 					Toast.makeText(cont, "Please enter integer values greater than 0", Toast.LENGTH_SHORT).show();
 				} 
+			}
+		});
+	}
+	
+	/**
+	 * Determines whether or not to get the roster
+	 */
+	public static void setUpRoster(Context cont)
+	{
+		if(!cont.getSharedPreferences("FFR", 0).getBoolean("Is roster set?", false))
+		{
+			getRoster(cont);
+		}
+	}
+	
+	/**
+	 * Gets the roster/teams input from the user
+	 */
+	public static void getRoster(final Context cont)
+	{
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.roster_selections);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+		dialog.show();
+		dialog.setCancelable(false);
+		List<String>quantitiesQBTE = new ArrayList<String>();
+		quantitiesQBTE.add("1");
+		quantitiesQBTE.add("2");
+		List<String>quantitiesRBWR = new ArrayList<String>();
+		quantitiesRBWR.add("1");
+		quantitiesRBWR.add("2");
+		quantitiesRBWR.add("3");
+		List<String>quantitiesTeam = new ArrayList<String>();
+		quantitiesTeam.add("8");
+		quantitiesTeam.add("10");
+		quantitiesTeam.add("12");
+		quantitiesTeam.add("14");
+		quantitiesTeam.add("16");
+		final Spinner qb = (Spinner)dialog.findViewById(R.id.qb_quantity);
+		final Spinner te = (Spinner)dialog.findViewById(R.id.te_quantity);
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
+				android.R.layout.simple_spinner_dropdown_item, quantitiesQBTE);
+		qb.setAdapter(spinnerArrayAdapter);
+		te.setAdapter(spinnerArrayAdapter);
+		final Spinner rb = (Spinner)dialog.findViewById(R.id.rb_quantity);
+		final Spinner wr = (Spinner)dialog.findViewById(R.id.wr_quantity);
+		spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
+				android.R.layout.simple_spinner_dropdown_item, quantitiesRBWR);
+		rb.setAdapter(spinnerArrayAdapter);
+		wr.setAdapter(spinnerArrayAdapter);
+		final Spinner team = (Spinner)dialog.findViewById(R.id.team_quantity);
+		spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
+				android.R.layout.simple_spinner_dropdown_item, quantitiesTeam);
+		team.setAdapter(spinnerArrayAdapter);
+		Button submit = (Button)dialog.findViewById(R.id.roster_submit);
+		submit.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dummyRoster.qbs = Integer.parseInt((String)qb.getSelectedItem());
+				dummyRoster.rbs = Integer.parseInt((String)rb.getSelectedItem());
+				dummyRoster.wrs = Integer.parseInt((String)wr.getSelectedItem());
+				dummyRoster.tes = Integer.parseInt((String)te.getSelectedItem());
+				dummyRoster.teams = Integer.parseInt((String)team.getSelectedItem());
+				WriteToFile.writeRoster(cont, dummyRoster);
+				dialog.dismiss();
 			}
 		});
 	}

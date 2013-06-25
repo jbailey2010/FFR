@@ -16,6 +16,8 @@ public class Values
 	public double low;
 	public int ecr;
 	public double points;
+	public double paa;
+	public double paapd;
 	/**
 	 * Just initializes the values stored in the object,
 	 * count to one (obviously)
@@ -28,7 +30,9 @@ public class Values
 		high = firstWorth;
 		low = firstWorth;
 		ecr = -1;
-		points = 0;
+		points = 0.0;
+		paa = 0.0;
+		paapd = 0.0;
 	}
 
 	/**

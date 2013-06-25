@@ -2,7 +2,6 @@
     <item
         android:id="@+id/export_names"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom|withText" 
         android:title="Export Rankings"/>   
     <item
         android:id="@+id/refresh_names"
@@ -13,6 +12,11 @@
         android:orderInCategory="100"
         android:showAsAction="ifRoom|withText" 
         android:title="Scoring Settings"/>
+    <item
+        android:id="@+id/start_roster"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom|withText" 
+        android:title="Roster Settings"/>
 
    
 </menu>

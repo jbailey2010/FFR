@@ -313,6 +313,17 @@ public class PlayerInfo
 		{
 			output.add("He is in your watch list");
 		}
+		if(searchedPlayer.values.points != 0.0)
+		{
+			output.add(searchedPlayer.values.points + " projected points (ranked " + rankProjPos(searchedPlayer, holder)  +
+					" positionally)");
+		}
+		if(searchedPlayer.values.paa != 0.0)
+		{
+			output.add(df.format(searchedPlayer.values.paa) + " points above average\n" +
+						df.format(searchedPlayer.values.paapd)+ " points above average per dollar");
+
+		}
 		if(searchedPlayer.risk > 0.0)
 		{
 			if(searchedPlayer.values.count > 8 && searchedPlayer.values.worth > 5 && !searchedPlayer.info.position.equals("K") && 
@@ -522,6 +533,23 @@ public class PlayerInfo
 			}
 			if(iter.info.position.equals(player.info.position) && Double.parseDouble(iter.info.adp)
 					< Double.parseDouble(player.info.adp))
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Ranks the projections positionally
+	 */
+	public static int rankProjPos(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.values.points != 0 && iter.values.points > player.values.points && 
+					iter.info.position.equals(player.info.position))
 			{
 				rank++;
 			}

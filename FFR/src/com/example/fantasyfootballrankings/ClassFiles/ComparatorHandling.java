@@ -223,6 +223,57 @@ public class ComparatorHandling
 				}
 			}
 		}
+		double paa1 = player1.values.paa;
+		double paa2 = player2.values.paa;
+		if(paa1 != 0.0 && paa2 != 0.0)
+		{
+			if(paa1 > paa2)
+			{
+				if(paa1 - paa2 > 15.0)
+				{
+					p1.append("-Much higher PAA\n");
+				}
+				else
+				{
+					p1.append("-Higher PAA\n");
+				}
+			}
+			if(paa2 > paa1)
+			{
+				if(paa2 - paa1 > 15.0)
+				{
+					p2.append("-Much higher PAA\n");
+				}
+				else
+				{
+					p2.append("-Higher PAA\n");
+				}
+			}
+			double paapd1 = player1.values.paapd;
+			double paapd2 = player2.values.paapd;
+			if(paapd1 > paapd2)
+			{
+				if(paapd1 - paapd2 > 1.0)
+				{
+					p1.append("-Much higher PAAPD\n");
+				}
+				else
+				{
+					p1.append("-Higher PAAPD\n");
+				}
+			}
+			if(paapd2 > paapd1)
+			{
+				if(paapd2 - paapd1 > 1.0)
+				{
+					p2.append("-Much higher PAAPD\n");
+				}
+				else
+				{
+					p2.append("-Higher PAAPD\n");
+				}
+			}
+		}
 		try{
 			int age1 = Integer.parseInt(player1.info.age);
 			int age2 = Integer.parseInt(player2.info.age);

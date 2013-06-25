@@ -96,8 +96,8 @@ public class StorageAsyncTask
 	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
 	    		player.info.age + "&&" + player.stats + "&&" + player.draftClass + "&&" + player.injuryStatus + 
 	    		"&&" + fa + "&&" + oLine + "&&" + passRun + "&&" + additStat + "&&" + player.values.ecr + "&&" + 
-	    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "&&" + oLineAdv + "&&" + player.info.tier + "&&" +
-	    		player.values.points + "~~~~");
+	    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "&&" + oLineAdv + "&&" + 
+	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "~~~~");
 	    	}
 	    	String playerString = players.toString();
 	    	editor.putString("Player Values", playerString).commit();
@@ -387,8 +387,9 @@ public class StorageAsyncTask
 	   		for(int i = 0; i < holder.players.size(); i++)
 	   		{  
 	   			PlayerObject player = holder.players.get(i);
-	   			player.values.points = Double.parseDouble(allData[i][27]);
-	   			player.info.tier = Integer.parseInt(allData[i][26]);
+	   			player.values.paapd = Double.parseDouble(allData[i][28]);
+	   			player.values.paa = Double.parseDouble(allData[i][27]);
+	   			player.values.points = Double.parseDouble(allData[i][26]);
 	   			player.info.oLineAdv = allData[i][25];
 	   			player.riskAll = Double.parseDouble(allData[i][24]);
 	   			player.riskPos = Double.parseDouble(allData[i][23]);

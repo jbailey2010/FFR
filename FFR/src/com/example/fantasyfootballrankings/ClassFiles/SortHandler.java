@@ -79,6 +79,9 @@ public class SortHandler
 	    List<String> topics = new ArrayList<String>();
 	    List<String> positions = new ArrayList<String>();
 	    //Add the topics which it can sort by
+	    topics.add("Projected points scored");
+	    topics.add("Points above average");
+	    topics.add("Points above average per dollar");
 	    topics.add("Risk relative to position");
 	    topics.add("Risk relative to everyone");
 	    topics.add("ECR");
@@ -114,8 +117,15 @@ public class SortHandler
 					{
 						position = (String)pos.getSelectedItem();
 						subject = (String)sort.getSelectedItem();
-						dialog.dismiss();
-						handleSortingSetUp();
+						if(subject.equals("Projected points scored") && (position.equals("K") || position.equals("D/ST")))
+						{
+							Toast.makeText(context, "Projections not available for kickers and defenses", Toast.LENGTH_SHORT).show();
+						}
+						else
+						{
+							dialog.dismiss();
+							handleSortingSetUp();
+						}
 					}
 					else
 					{
@@ -156,7 +166,19 @@ public class SortHandler
 				players.add(player);
 			}
 		}
-		if(subject.equals("Risk relative to position"))
+		if(subject.equals("Projected points scored"))
+		{
+			projPoints();
+		}
+		else if(subject.equals("Points above average"))
+		{
+			paa();
+		}
+		else if(subject.equals("Points above average per dollar"))
+		{
+			paapd();
+		}
+		else if(subject.equals("Risk relative to position"))
 		{
 			riskPos();
 		}
@@ -184,6 +206,99 @@ public class SortHandler
 		{
 			lowVal();
 		}
+	}
+	
+	/**
+	 * Sets up the priority queue for projected points
+	 */
+	public static void projPoints()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b)
+			{
+				if(a.values.points > b.values.points)
+				{
+					return -1;
+				}
+				if(a.values.points < b.values.points)
+				{
+					return 1;
+				}
+				return 0;
+			}
+		});
+		for(PlayerObject player : players)
+		{
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points != 0.0)
+			{
+				sorted.add(player);
+			}
+		}
+		wrappingUp(sorted);
+	}
+	
+	/**
+	 * Sorts by paa
+	 */
+	public static void paa()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						if(a.values.paa > b.values.paa)
+						{
+							return -1;
+						}
+						if(a.values.paa < b.values.paa)
+						{
+							return 1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points != 0.0)
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted);
+	}
+	
+	/**
+	 * Sorts by paapd
+	 */
+	public static void paapd()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						if(a.values.paapd > b.values.paapd)
+						{
+							return -1;
+						}
+						if(a.values.paapd < b.values.paapd)
+						{
+							return 1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points != 0.0)
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted);
 	}
 	
 	/**
@@ -447,7 +562,19 @@ public class SortHandler
 	    while(!sorted.isEmpty())
 	    {
 	    	PlayerObject elem = sorted.poll();
-			if(subject.equals("Risk relative to position"))
+	    	if(subject.equals("Projected points scored"))
+			{
+				rankings.add(elem.values.points + ": " + elem.info.name);
+			}
+	    	else if(subject.equals("Points above average"))
+	    	{
+	    		rankings.add(df.format(elem.values.paa)+ ": " + elem.info.name);
+	    	}
+	    	else if(subject.equals("Points above average per dollar"))
+	    	{
+	    		rankings.add(df.format(elem.values.paapd) + ": " + elem.info.name);
+	    	}
+	    	else if(subject.equals("Risk relative to position"))
 			{
 				rankings.add(elem.riskPos + ": " + elem.info.name);
 			}

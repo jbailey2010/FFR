@@ -5,10 +5,12 @@ import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Set;
 
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -601,5 +603,194 @@ public class HighLevel
 			proj = Double.parseDouble(df.format(proj));
 			points.put(name, proj);
 		}		
+	}
+	
+	public static void getPAA(Storage holder, Context cont)
+	{
+		Roster roster = ReadFromFile.readRoster(cont);
+		double qbLimit = 0.0;
+		double rbLimit = 0.0;
+		double wrLimit = 0.0;
+		double teLimit = 0.0;
+		int x = roster.teams;
+		if(roster.qbs == 1)
+		{
+			qbLimit = (1.25 * x) + 1.33333;
+		}
+		else
+		{
+			qbLimit = (6 * x) - 29.33333;
+		}
+		if(roster.rbs == 1)
+		{
+			rbLimit = (1.5 * x) - 2;
+		}
+		else if(roster.rbs == 2)
+		{
+			rbLimit = (3.25 * x) - 5.33333;
+		}
+		else
+		{
+			rbLimit = (6 * x) - 16.33333;
+		}
+		if(roster.wrs == 1)
+		{
+			wrLimit = (1.25 * x) + 0.33333;
+		}
+		else if(roster.wrs == 2)
+		{
+			wrLimit = (2.75 * x) - 1.66667;
+		}
+		else
+		{
+			wrLimit = (4.5 * x) - 5;
+		}
+		if(roster.tes == 1)
+		{
+			teLimit = (1.75 * x) - 3.33333;
+		}
+		else
+		{
+			teLimit = (7.5 * x) - 41.66667;
+		}
+		double qbCounter = 0.0;
+		double rbCounter = 0.0;
+		double wrCounter = 0.0;
+		double teCounter = 0.0;
+		double qbTotal = 0.0;
+		double rbTotal = 0.0;
+		double wrTotal = 0.0;
+		double teTotal = 0.0;
+		PriorityQueue<PlayerObject>qb = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b) 
+			{
+				if (a.values.worth > b.values.worth)
+			    {
+			        return -1;
+			    }
+			    if (a.values.worth < b.values.worth)
+			    {
+			    	return 1;
+			    }
+			    return 0;
+			}
+		});
+		PriorityQueue<PlayerObject>rb = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b) 
+					{
+						if (a.values.worth > b.values.worth)
+					    {
+					        return -1;
+					    }
+					    if (a.values.worth < b.values.worth)
+					    {
+					    	return 1;
+					    }
+					    return 0;
+					}
+				});
+		PriorityQueue<PlayerObject>wr = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b) 
+					{
+						if (a.values.worth > b.values.worth)
+					    {
+					        return -1;
+					    }
+					    if (a.values.worth < b.values.worth)
+					    {
+					    	return 1;
+					    }
+					    return 0;
+					}
+				});
+		PriorityQueue<PlayerObject>te = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b) 
+					{
+						if (a.values.worth > b.values.worth)
+					    {
+					        return -1;
+					    }
+					    if (a.values.worth < b.values.worth)
+					    {
+					    	return 1;
+					    }
+					    return 0;
+					}
+				});
+		for(PlayerObject player : holder.players)
+		{
+			if(player.info.position.equals("QB"))
+			{
+				qb.add(player);
+			}
+			else if(player.info.position.equals("RB"))
+			{
+				rb.add(player);
+			}
+			else if(player.info.position.equals("WR"))
+			{
+				wr.add(player);
+			}
+			else if(player.info.position.equals("TE"))
+			{
+				te.add(player);
+			}
+		}
+		for(qbCounter = 0; qbCounter < qbLimit; qbCounter++)
+		{
+			qbTotal += qb.poll().values.points;
+		}
+		for(rbCounter = 0; rbCounter < rbLimit; rbCounter++)
+		{
+			rbTotal += rb.poll().values.points;
+		}
+		for(wrCounter = 0; wrCounter < wrLimit; wrCounter++)
+		{
+			wrTotal += wr.poll().values.points;
+		}
+		for(teCounter = 0; teCounter < teLimit; teCounter++)
+		{
+			teTotal += te.poll().values.points;
+		}
+		qbTotal /= qbCounter;
+		rbTotal /= rbCounter;
+		wrTotal /= wrCounter;
+		teTotal /= teCounter;
+		for(PlayerObject player : holder.players)
+		{
+			if(player.info.position.equals("QB") || player.info.position.equals("RB") || 
+					player.info.position.equals("WR") || player.info.position.equals("TE") && 
+					player.values.points != 0.0)
+			{
+				if(player.info.position.equals("QB"))
+				{
+					player.values.paa = player.values.points - qbTotal;
+					player.values.paapd = player.values.paa / player.values.worth;
+				}
+				else if(player.info.position.equals("RB"))
+				{
+					player.values.paa = player.values.points - rbTotal;
+					player.values.paapd = player.values.paa / player.values.worth;
+				}
+				else if(player.info.position.equals("WR"))
+				{
+					player.values.paa = player.values.points - wrTotal;
+					player.values.paapd = player.values.paa / player.values.worth;
+				}
+				else if(player.info.position.equals("TE"))
+				{
+					player.values.paa = player.values.points - teTotal;
+					player.values.paapd = player.values.paa / player.values.worth;
+				}
+			}
+		}
 	}
 }

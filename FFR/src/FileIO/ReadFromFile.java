@@ -27,6 +27,7 @@ import android.os.AsyncTask;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
@@ -312,5 +313,20 @@ public class ReadFromFile {
 		scoring.interception = prefs.getInt("Interceptions", 0);
 		scoring.fumble = prefs.getInt("Fumbles", 0);
 		return scoring;
+	}
+	
+	/**
+	 * Returns the roster object
+	 */
+	public static Roster readRoster(Context cont)
+	{
+		Roster roster = new Roster();
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		roster.teams = prefs.getInt("Number of teams", 0);
+		roster.qbs = prefs.getInt("Starting QBs", 0);
+		roster.rbs = prefs.getInt("Starting RBs", 0);
+		roster.wrs = prefs.getInt("Starting WRs", 0);
+		roster.tes = prefs.getInt("Starting TEs", 0);
+		return roster;
 	}
 }
