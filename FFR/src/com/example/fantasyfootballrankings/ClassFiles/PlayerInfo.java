@@ -320,8 +320,10 @@ public class PlayerInfo
 		}
 		if(searchedPlayer.values.paa != 0.0)
 		{
-			output.add(df.format(searchedPlayer.values.paa) + " points above average\n" +
-						df.format(searchedPlayer.values.paapd)+ " points above average per dollar");
+			output.add(df.format(searchedPlayer.values.paa) + " points above average (" + rankPAAPos(searchedPlayer, holder) + 
+					", " + rankPAAAll(searchedPlayer, holder) + " overall)\n" +
+						df.format(searchedPlayer.values.paapd)+ " points above average per dollar (" 
+					+ rankPAAPDPos(searchedPlayer, holder) + ", " + rankPAAPDAll(searchedPlayer, holder) + " overall)");
 
 		}
 		if(searchedPlayer.risk > 0.0)
@@ -548,8 +550,74 @@ public class PlayerInfo
 		int rank = 1;
 		for(PlayerObject iter : holder.players)
 		{
-			if(iter.values.points != 0 && iter.values.points > player.values.points && 
+			if(iter.values.points != 0.0 && iter.values.points > player.values.points && 
 					iter.info.position.equals(player.info.position))
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Ranks paa among positional players
+	 */
+	public static int rankPAAPos(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.values.paa != 0.0 && iter.info.position.equals(player.info.position) && 
+					iter.values.paa > player.values.paa)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Ranks paa among all players
+	 */
+	public static int rankPAAAll(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.values.paa != 0.0 && iter.values.paa > player.values.paa)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Ranks paapd among positional players
+	 */
+	public static int rankPAAPDPos(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.values.paa != 0.0 && iter.info.position.equals(player.info.position) && 
+					iter.values.paapd > player.values.paapd)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Ranks paapd among all players
+	 */
+	public static int rankPAAPDAll(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.values.paapd != 0.0 && iter.values.paapd > player.values.paapd)
 			{
 				rank++;
 			}
