@@ -117,7 +117,9 @@ public class SortHandler
 					{
 						position = (String)pos.getSelectedItem();
 						subject = (String)sort.getSelectedItem();
-						if(subject.equals("Projected points scored") && (position.equals("K") || position.equals("D/ST")))
+						if((subject.equals("Projected points scored") || subject.equals("Projected points above average") ||
+								subject.equals("Projected points above average per dollar")) 
+								&& (position.equals("K") || position.equals("D/ST")))
 						{
 							Toast.makeText(context, "Projections not available for kickers and defenses", Toast.LENGTH_SHORT).show();
 						}
