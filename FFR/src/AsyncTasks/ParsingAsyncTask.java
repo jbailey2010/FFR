@@ -165,7 +165,7 @@ public class ParsingAsyncTask
 				System.out.println("    after pff parser");
 				start = System.nanoTime();
 				
-				//ParseFantasySharks.parseFSAverage(holder);
+				ParseFantasySharks.parseFSAverage(holder);
 				publishProgress("Please wait, fetching the rankings...(24/25)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after fantasy sharks parser");
