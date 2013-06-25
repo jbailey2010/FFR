@@ -321,9 +321,9 @@ public class PlayerInfo
 		if(searchedPlayer.values.paa != 0.0)
 		{
 			output.add(df.format(searchedPlayer.values.paa) + " points above average (" + rankPAAPos(searchedPlayer, holder) + 
-					", " + rankPAAAll(searchedPlayer, holder) + " overall)\n" +
+					" positionally, " + rankPAAAll(searchedPlayer, holder) + " overall)\n" +
 						df.format(searchedPlayer.values.paapd)+ " points above average per dollar (" 
-					+ rankPAAPDPos(searchedPlayer, holder) + ", " + rankPAAPDAll(searchedPlayer, holder) + " overall)");
+					+ rankPAAPDPos(searchedPlayer, holder) + " positionally, " + rankPAAPDAll(searchedPlayer, holder) + " overall)");
 
 		}
 		if(searchedPlayer.risk > 0.0)
