@@ -1,4 +1,4 @@
-package com.example.fantasyfootballrankings.Pages;
+package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
 

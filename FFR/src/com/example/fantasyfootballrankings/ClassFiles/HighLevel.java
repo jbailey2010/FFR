@@ -447,7 +447,16 @@ public class HighLevel
         DecimalFormat df = new DecimalFormat("#.##");
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = html.split("\n");
-		for(int i = 16; i < td.length; i+=11)
+		int min = 0;
+		for(int i = 0; i < td.length; i++)
+		{
+			if(td[i].contains("MISC"))
+			{
+				min=i+1;
+				break;
+			}
+		}
+		for(int i = min; i < td.length; i+=11)
 		{
 			double proj = 0;
 			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
@@ -476,7 +485,16 @@ public class HighLevel
         DecimalFormat df = new DecimalFormat("#.##");
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = html.split("\n");
-		for(int i = 16; i < td.length; i+=9)
+		int min = 0;
+		for(int i = 0; i < td.length; i++)
+		{
+			if(td[i].contains("MISC"))
+			{
+				min=i+1;
+				break;
+			}
+		}
+		for(int i = min; i < td.length; i+=9)
 		{
 			double proj = 0;
 			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
@@ -505,7 +523,16 @@ public class HighLevel
 		DecimalFormat df = new DecimalFormat("#.##");
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = html.split("\n");
-		for(int i = 16; i < td.length; i+=9)
+		int min = 0;
+		for(int i = 0; i < td.length; i++)
+		{
+			if(td[i].contains("MISC"))
+			{
+				min=i+1;
+				break;
+			}
+		}
+		for(int i = min; i < td.length; i+=9)
 		{
 			double proj = 0;
 			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
@@ -534,7 +561,16 @@ public class HighLevel
 		DecimalFormat df = new DecimalFormat("#.##");
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = html.split("\n");
-		for(int i = 15; i < td.length; i+=6)
+		int min = 0;
+		for(int i = 0; i < td.length; i++)
+		{
+			if(td[i].contains("MISC"))
+			{
+				min=i+1;
+				break;
+			}
+		}
+		for(int i = min; i < td.length; i+=6)
 		{		
 			double proj = 0;
 			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
@@ -551,6 +587,11 @@ public class HighLevel
 		}		
 	}
 	
+	/**
+	 * Calculates the points above average per player per position
+	 * @param holder
+	 * @param cont
+	 */
 	public static void getPAA(Storage holder, Context cont)
 	{
 		Roster roster = ReadFromFile.readRoster(cont);

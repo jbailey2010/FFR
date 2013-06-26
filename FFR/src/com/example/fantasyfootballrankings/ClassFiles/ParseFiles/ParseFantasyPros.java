@@ -25,7 +25,17 @@ public class ParseFantasyPros
 	{
 		String html = HandleBasicQueries.handleLists("http://www.fantasypros.com/nfl/auction-values/overall.php", "td");
 		String[] td = html.split("\n");
-		for(int i = 8; i < td.length; i+=6)
+		int min = 0;
+		for(int i = 0; i < td.length; i++)
+		{
+			if(td[i].contains(" RB ") ||  td[i].contains(" QB ") || td[i].contains(" WR ") || td[i].contains(" TE ") ||
+					td[i].contains(" K ") || td[i].contains(" DST "))
+			{
+				min = i;
+				break;
+			}
+		}
+		for(int i = min; i < td.length; i+=6)
 		{
 			String name = td[i].split(", ")[0];
 			if(td[i].contains("DST"))

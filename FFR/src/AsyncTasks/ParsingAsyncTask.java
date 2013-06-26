@@ -34,12 +34,12 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseOLineAdvan
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePFF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePermanentData;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseRotoPost;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTwitter;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseYahoo;
 import com.example.fantasyfootballrankings.Pages.News;
-import com.example.fantasyfootballrankings.Pages.ParseRotoPost;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 
 import FileIO.ReadFromFile;

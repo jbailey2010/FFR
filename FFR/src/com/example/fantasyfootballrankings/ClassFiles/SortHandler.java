@@ -3,10 +3,12 @@ package com.example.fantasyfootballrankings.ClassFiles;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.PriorityQueue;
 
 import com.example.fantasyfootballrankings.R;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.Pages.Rankings;
@@ -45,6 +47,8 @@ public class SortHandler
 	public static Context context;
 	public static List<PlayerObject> players = new ArrayList<PlayerObject>();
 	public static ArrayAdapter<String> adapter;
+	static boolean isHidden = false;
+	static HashMap<String, Integer> ignore = new HashMap<String, Integer>();
 	
 	/**
 	 * Sets up the new dialog to get all the relevant info from the user
@@ -79,9 +83,9 @@ public class SortHandler
 	    List<String> topics = new ArrayList<String>();
 	    List<String> positions = new ArrayList<String>();
 	    //Add the topics which it can sort by
-	    topics.add("Projected points scored");
-	    topics.add("Points above average");
-	    topics.add("Points above average per dollar");
+	    topics.add("Projections");
+	    topics.add("PAA");
+	    topics.add("PAA per dollar");
 	    topics.add("Risk relative to position");
 	    topics.add("Risk relative to everyone");
 	    topics.add("ECR");
@@ -117,8 +121,8 @@ public class SortHandler
 					{
 						position = (String)pos.getSelectedItem();
 						subject = (String)sort.getSelectedItem();
-						if((subject.equals("Projected points scored") || subject.equals("Projected points above average") ||
-								subject.equals("Projected points above average per dollar")) 
+						if((subject.equals("Projections") || subject.equals("Projected PAA") ||
+								subject.equals("Projected PAA per dollar")) 
 								&& (position.equals("K") || position.equals("D/ST")))
 						{
 							Toast.makeText(context, "Projections not available for kickers and defenses", Toast.LENGTH_SHORT).show();
@@ -168,15 +172,16 @@ public class SortHandler
 				players.add(player);
 			}
 		}
-		if(subject.equals("Projected points scored"))
+		if(subject.equals("Projections"))
 		{
 			projPoints();
 		}
-		else if(subject.equals("Points above average"))
+		else if(subject.equals("PAA"))
 		{
+			System.out.println("Calling paa");
 			paa();
 		}
-		else if(subject.equals("Points above average per dollar"))
+		else if(subject.equals("PAA per dollar"))
 		{
 			paapd();
 		}
@@ -534,11 +539,9 @@ public class SortHandler
 	    lp.copyFrom(dialog.getWindow().getAttributes());
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
 	    dialog.getWindow().setAttributes(lp);
-	    dialog.show();
+	    dialog.show(); 
 	    Button watch = (Button)dialog.findViewById(R.id.add_watch);
-	    View watchView = (View)dialog.findViewById(R.id.add_view);
-	    watch.setVisibility(View.GONE);
-	    watchView.setVisibility(View.GONE);
+	    watch.setText("Hide/Show Drafted");
 	    TextView header = (TextView)dialog.findViewById(R.id.name);
 	    header.setText(subject);
 	    Button back = (Button)dialog.findViewById(R.id.search_back);
@@ -564,48 +567,88 @@ public class SortHandler
 	    while(!sorted.isEmpty())
 	    {
 	    	PlayerObject elem = sorted.poll();
-	    	if(subject.equals("Projected points scored"))
-			{
-				rankings.add(elem.values.points + ": " + elem.info.name);
-			}
-	    	else if(subject.equals("Points above average"))
+	    	String output = "";
+	    	if(Draft.draftedMe(elem.info.name, holder.draft))
 	    	{
-	    		rankings.add(df.format(elem.values.paa)+ ": " + elem.info.name);
+	    		output = "DRAFTED (YOU) - ";
 	    	}
-	    	else if(subject.equals("Points above average per dollar"))
+	    	else if(Draft.isDrafted(elem.info.name, holder.draft))
 	    	{
-	    		rankings.add(df.format(elem.values.paapd) + ": " + elem.info.name);
+	    		output = "DRAFTED - ";
+	    	}
+	    	if(subject.equals("Projections"))
+			{
+				rankings.add(output + elem.values.points + ": " + elem.info.name);
+			}
+	    	else if(subject.equals("PAA"))
+	    	{
+	    		rankings.add(output + df.format(elem.values.paa)+ ": " + elem.info.name);
+	    	}
+	    	else if(subject.equals("PAA per dollar"))
+	    	{
+	    		rankings.add(output + df.format(elem.values.paapd) + ": " + elem.info.name);
 	    	}
 	    	else if(subject.equals("Risk relative to position"))
 			{
-				rankings.add(elem.riskPos + ": " + elem.info.name);
+				rankings.add(output + elem.riskPos + ": " + elem.info.name);
 			}
 			else if(subject.equals("Risk relative to everyone"))
 			{
-				rankings.add(elem.riskAll + ": " + elem.info.name);
+				rankings.add(output + elem.riskAll + ": " + elem.info.name);
 			}
 			else if(subject.equals("ECR"))
 			{
-				rankings.add(elem.values.ecr + ": " + elem.info.name);
+				rankings.add(output + elem.values.ecr + ": " + elem.info.name);
 			}
 			else if(subject.equals("ADP"))
 			{
-				rankings.add(elem.info.adp + ": " + elem.info.name);
+				rankings.add(output + elem.info.adp + ": " + elem.info.name);
 			}
 			else if(subject.equals("Weekly Trend"))
 			{
-				rankings.add(elem.info.trend + ": " + elem.info.name);
+				rankings.add(output + elem.info.trend + ": " + elem.info.name);
 			}
 			else if(subject.equals("Highest Value"))
 			{
-				rankings.add(df.format(elem.values.high) + ": " + elem.info.name);
+				rankings.add(output + df.format(elem.values.high) + ": " + elem.info.name);
 			}
 			else if(subject.equals("Lowest Value"))
 			{
-				rankings.add(df.format(elem.values.low) + ": " + elem.info.name);
+				rankings.add(output + df.format(elem.values.low) + ": " + elem.info.name);
 			}
 		} 
 	    adapter = ManageInput.handleArray(rankings, results, (Activity) context);
+	    watch.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				if(isHidden)
+				{
+					isHidden = false;
+					Toast.makeText(context, "Un-hiding the drafted players", Toast.LENGTH_SHORT).show();
+					for(String name : ignore.keySet())
+					{
+						adapter.insert(name, ignore.get(name));
+					}
+					adapter.notifyDataSetChanged();
+				}
+				else
+				{
+					isHidden = true;
+					ignore.clear();
+					Toast.makeText(context, "Hiding the drafted players", Toast.LENGTH_SHORT).show();
+					for(int i = 0; i < adapter.getCount(); i++)
+					{
+						String name = adapter.getItem(i);
+						if(name.contains("DRAFTED"))
+						{
+							ignore.put(name, i);
+							adapter.remove(name);
+						}
+					}
+					adapter.notifyDataSetChanged();
+				}
+			}
+	    });
 	    handleOnClicks(results);
 	}
 	
