@@ -9,8 +9,18 @@ import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 
+/**
+ * Gets an aggregate set of auction values
+ * @author Jeff
+ *
+ */
 public class ParseFantasyPros 
 {
+	/**
+	 * Gets the auction set, ecr set, and adp set
+	 * @param holder
+	 * @throws IOException
+	 */
 	public static void parseFantasyProsAgg(Storage holder) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists("http://www.fantasypros.com/nfl/auction-values/overall.php", "td");
@@ -33,11 +43,19 @@ public class ParseFantasyPros
 			catch (NumberFormatException e) {
 				  ecr = -1;
 			} 
+			int adp = -1;
+			try{
+				adp = Integer.parseInt(td[i+5]);
+			}
+			catch (NumberFormatException e) {
+				  adp = -1;
+			} 
 			String validated = ParseRankings.fixNames(name);
 			String newName = Storage.nameExists(holder, validated);
 			PlayerObject newPlayer = new PlayerObject(newName, "", "", val1);
 			PlayerObject match =  Storage.pqExists(holder, newName);
 			double a = ecr;
+			double b = adp;
 			double log = Math.log(a);
 			log = log * -12.5;
 			log = log - 0.06*a;
@@ -50,6 +68,18 @@ public class ParseFantasyPros
 			{
 				log = 1.0;
 			}
+			double logb = Math.log(b);
+			logb = logb * -23.5;
+			logb = logb - 0.06*b;
+			logb = logb + 73.0;
+			if(logb < 0.0)
+			{
+				logb = 0.0;
+			}
+			else if(logb < 1.0)
+			{
+				logb = 1.0;
+			}
 			if(match != null)
 			{    
 				BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
@@ -60,6 +90,12 @@ public class ParseFantasyPros
 				{
 					Values.handleNewValue(match.values, log);
 					match.vals.add(log);
+				}
+				if(b != -1)
+				{
+					Values.handleNewValue(match.values, logb);
+					match.vals.add(logb);
+					match.info.adp = String.valueOf(b);
 				}
 				match.values.ecr = ecr;
 				match.vals.add(newPlayer.values.worth);
@@ -75,6 +111,12 @@ public class ParseFantasyPros
 				{
 					Values.handleNewValue(newPlayer.values, log);
 					newPlayer.vals.add(log);
+				}
+				if(b != -1)
+				{
+					Values.handleNewValue(newPlayer.values, logb);
+					newPlayer.vals.add(logb);
+					newPlayer.info.adp = String.valueOf(b);
 				}
 				newPlayer.values.ecr = ecr;
 				holder.players.add(newPlayer);

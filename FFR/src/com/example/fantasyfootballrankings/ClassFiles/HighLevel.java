@@ -41,60 +41,6 @@ import android.os.StrictMode;
 public class HighLevel 
 {
 	
-	/**
-	 * This parses an adp site to fetch the adp of all players given a match
-	 * it also, in the interest of two birds, one stone, fetches the bye week
-	 * @param holder the storage unit holding all of the players to check in
-	 * @throws MalformedURLException
-	 * @throws IOException
-	 * @throws XPatherException
-	 */
-	public static void setADP(Storage holder) throws MalformedURLException, IOException, XPatherException
-	{
-		String adpURL = "http://fantasyfootballcalculator.com/adp_csv_ppr.php?teams=12";
-    	String adpText = HandleBasicQueries.handleLists(adpURL, "pre");
-    	String[] adpList = adpText.split("\n");
-    	String[][] adpArray = new String[adpList.length][];
-    	HashMap<String, String> adp = new HashMap<String, String>();
-    	for(int i = 0; i < adpList.length; i++)
-    	{
-    		adpArray[i] = adpList[i].split(",");
-    	}
-    	for(int i = 0; i < adpArray.length; i++)
-    	{ 
-    		if(adpArray[i].length > 2)
-    		{
-	    		String name = adpArray[i][2];
-	    		if(name.contains("Defense"))
-	    		{
-	    			name = ParseRankings.fixDefenses(name.split(" ")[0]);
-	    		}
-	    		adp.put(name, adpArray[i][1]);
-    		}
-    	}
-    	for(PlayerObject player : holder.players)
-    	{
-    		if(adp.containsKey(player.info.name))
-    		{
-    			player.info.adp = adp.get(player.info.name);
-    			double a = Double.parseDouble(adp.get(player.info.name));
-    			double log = Math.log(a);
-    			log = log * -12.5;
-    			log = log - 0.06*a;
-    			log = log + 73.0;
-    			if(log < 0.0)
-    			{
-    				log = 0.0;
-    			}
-    			else if(log < 1.0)
-    			{
-    				log = 1.0;
-    			}
-    			player.vals.add(log);
-    			Values.handleNewValue(player.values, log);
-    		}
-    	}
-	}
 	
 	/**
 	 * Couldn't be simpler. It just adds all the parsed
