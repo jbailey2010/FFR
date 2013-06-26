@@ -96,6 +96,8 @@ public class ParseRankings
 		fixes.put("E.J. Manuel", "EJ Manuel");
 		fixes.put("Steve L Smith", "Steve Smith");
 		fixes.put("Michael Crabtree*", "Michael Crabtree");
+		fixes.put("Malcolm Floyd", "Malcom Floyd");
+		
 		
 		teams.put("cin", "Cincinnati Bengals");
 		teams.put("cincinnati", "Cincinnati Bengals");
