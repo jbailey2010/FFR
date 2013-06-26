@@ -288,7 +288,6 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
         // Animate the dismissed list item to zero-height and fire the dismiss callback when
         // all dismissed list item animations have completed. This triggers layout on each animation
         // frame; in the future we may want to do something smarter and more performant.
-    	mListView.setOnTouchListener(null);
         final ViewGroup.LayoutParams lp = dismissView.getLayoutParams();
         final int originalHeight = dismissView.getHeight();
  
