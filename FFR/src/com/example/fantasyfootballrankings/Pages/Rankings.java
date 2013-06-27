@@ -413,32 +413,25 @@ public class Rankings extends Activity {
 			ReadFromFile.fetchNamesBackEnd(holder, cont);
 		}
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		if(holder.players.size() < 10)
-		{
-	    	String checkExists = prefs.getString("Player Values", "Not Set");
-	    	if(checkExists != "Not Set")
-	    	{
-				try {
-					ReadFromFile.fetchPlayers(holder,cont, true);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (XPatherException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	    	}
-		}
-		else
-		{
-			intermediateHandleRankings((Rankings)cont);
-		}
+    	String checkExists = prefs.getString("Player Values", "Not Set");
+    	if(checkExists != "Not Set")
+    	{
+			try {
+				ReadFromFile.fetchPlayers(holder,cont, true);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (XPatherException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
 	}
 	
 	/**

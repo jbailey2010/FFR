@@ -10,6 +10,10 @@ import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.example.fantasyfootballrankings.Pages.Trending;
 
+import AsyncTasks.ParsingAsyncTask;
+import AsyncTasks.StorageAsyncTask;
+import AsyncTasks.ParsingAsyncTask.ParseProjections;
+import AsyncTasks.StorageAsyncTask.WriteNewPAA;
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.app.Activity;
@@ -42,6 +46,8 @@ public class ManageInput
 {
 	static Scoring dummyScoring = new Scoring();
 	static Roster dummyRoster = new Roster();
+	static boolean doSyncData = false;
+	static Storage holderObj = new Storage();
 	/**
 	 * This sets up the auto complete search with the given arraylist
 	 * so that it autocompletes suggestions based on players who have
@@ -117,6 +123,9 @@ public class ManageInput
 
 	}
 
+	/**
+	 * Sets the quantity size...etc. for trending
+	 */
 	private static void trendingSetContent(final Dialog dialog, final int filterSize,
 			final SeekBar selector, final TextView display, final Context cont, final String flag,
 			final int listSize) {
@@ -193,6 +202,9 @@ public class ManageInput
 		
 	}
 
+	/**
+	 * Same thing as above with trending, except with quantity in rankings
+	 */
 	private static void rankingsSetContent(final Dialog dialog, int filterSize,
 			final SeekBar selector, final TextView display, final Context cont, final String flag,
 			final int listSize) 
@@ -269,11 +281,11 @@ public class ManageInput
 	/**
 	 * Determines whether to get scoring settings or ask for them, if anything.
 	 */
-	public static void setUpScoring(Context cont, Scoring scoring)
+	public static void setUpScoring(Context cont, Scoring scoring, boolean doSync, Storage holder)
 	{
 		if(!cont.getSharedPreferences("FFR", 0).getBoolean("Is Scoring Set?", false))
 		{
-			passSettings(cont, scoring);
+			passSettings(cont, scoring, doSync, holder);
 		}
 	}
 	
@@ -282,8 +294,10 @@ public class ManageInput
 	 * @param cont
 	 * @param scoring
 	 */
-	public static void passSettings(final Context cont, final Scoring scoring)
+	public static void passSettings(final Context cont, final Scoring scoring, final boolean doSync, final Storage holder)
 	{
+		doSyncData = doSync;
+		holderObj = holder;
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.scoring_pass);
@@ -309,7 +323,7 @@ public class ManageInput
 					dummyScoring.passTD = Integer.parseInt(tdStr);
 					dummyScoring.interception = Integer.parseInt(intStr);
 					dialog.dismiss();
-					runSettings(cont, scoring);
+					runSettings(cont, scoring, doSync, holder);
 				}
 				else
 				{
@@ -324,7 +338,7 @@ public class ManageInput
 	 * @param cont
 	 * @param scoring
 	 */
-	public static void runSettings(final Context cont, final Scoring scoring)
+	public static void runSettings(final Context cont, final Scoring scoring, final boolean doSync, final Storage holder)
 	{
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -343,7 +357,7 @@ public class ManageInput
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				passSettings(cont, scoring);
+				passSettings(cont, scoring, doSync, holder);
 			}
 		});
 		Button toRun = (Button)dialog.findViewById(R.id.scoring_run_continue);
@@ -359,7 +373,7 @@ public class ManageInput
 					dummyScoring.rushTD = Integer.parseInt(tdStr);
 					dummyScoring.fumble = Integer.parseInt(intStr);
 					dialog.dismiss();
-					recSettings(cont, scoring);
+					recSettings(cont, scoring, doSync, holder);
 				}
 				else
 				{
@@ -374,7 +388,7 @@ public class ManageInput
 	 * @param cont
 	 * @param scoring
 	 */
-	public static void recSettings(final Context cont, final Scoring scoring)
+	public static void recSettings(final Context cont, final Scoring scoring, final boolean doSync, final Storage holder)
 	{
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -393,7 +407,7 @@ public class ManageInput
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				runSettings(cont, scoring);
+				runSettings(cont, scoring, doSync, holder);
 			}
 		});
 		Button toRun = (Button)dialog.findViewById(R.id.scoring_rec_continue);
@@ -410,6 +424,12 @@ public class ManageInput
 					dummyScoring.catches = Integer.parseInt(intStr);
 					dialog.dismiss();
 					WriteToFile.writeScoring(cont, dummyScoring);
+					if(doSyncData)
+					{
+						ParsingAsyncTask stupid = new ParsingAsyncTask();
+					    ParseProjections task = stupid.new ParseProjections((Activity)cont, holder);
+					    task.execute(holderObj, cont);
+					}
 				}
 				else
 				{
@@ -422,20 +442,22 @@ public class ManageInput
 	/**
 	 * Determines whether or not to get the roster
 	 */
-	public static void setUpRoster(Context cont)
+	public static void setUpRoster(Context cont, Storage holder)
 	{
 		if(!cont.getSharedPreferences("FFR", 0).getBoolean("Is roster set?", false))
 		{
-			getRoster(cont);
+			getRoster(cont, false, holder);
 		}
 	}
 	
 	/**
 	 * Gets the roster/teams input from the user
 	 */
-	public static void getRoster(final Context cont)
+	public static void getRoster(final Context cont, final boolean doSync, final Storage holder)
 	{
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		doSyncData = doSync;
+		holderObj = holder;
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.roster_selections);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -484,6 +506,12 @@ public class ManageInput
 				dummyRoster.teams = Integer.parseInt((String)team.getSelectedItem());
 				WriteToFile.writeRoster(cont, dummyRoster);
 				dialog.dismiss();
+				if(doSyncData)
+				{
+					StorageAsyncTask obj = new StorageAsyncTask();
+				    WriteNewPAA task2 = obj.new WriteNewPAA();
+				    task2.execute(holderObj, cont);
+				}
 			}
 		});
 	}

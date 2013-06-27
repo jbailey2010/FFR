@@ -20,6 +20,7 @@ import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
+import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.Parse4for4;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
@@ -193,6 +194,96 @@ public class ParsingAsyncTask
 	    	super.onProgressUpdate(values);
 	    	pdia.setMessage((String) values[0]);
 	    }
+	  }
+	
+	/**
+	 * Re-calls projections, and stores changes.
+	 * @author Jeff
+	 *
+	 */
+	public class ParseProjections extends AsyncTask<Object, String, Void> 
+	{
+		Activity act;
+		Storage hold;
+	    public ParseProjections(Activity activity, Storage holder) 
+	    {
+	        act = activity;
+	        hold = holder;
+	    }
+	    
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();   
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+		   super.onPostExecute(result);
+		}
+		
+	    @Override
+	    protected Void doInBackground(Object... data) 
+	    {
+	    	Storage holder = (Storage) data[0];
+	    	Context cont = (Context) data[1];
+	    	try {
+				HighLevel.projPointsWrapper(holder, cont);
+				SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		    	//Rankings work
+		    	StringBuilder players = new StringBuilder(10000);
+		    	for (PlayerObject player : holder.players)
+		    	{
+		    		String fa = "";
+		    		if(player.fa.size() == 0)
+		    		{
+		    			fa = "Signed Free Agents: &&Departing Free Agents: ";
+		    		}
+		    		else
+		    		{
+		    			fa = player.fa.get(0) + "&&" + player.fa.get(1);
+		    		}
+		    		String oLine = " ";
+		    		if(player.info.oLineStatus != null && !player.info.oLineStatus.equals("") 
+		    				&& player.info.oLineStatus.length() >= 3)
+		    		{
+		    			oLine = player.info.oLineStatus;
+		    		}
+		    		String passRun = " ";
+		    		if(player.info.passRunRatio != null && !player.info.passRunRatio.equals("") 
+		    				&& player.info.passRunRatio.length() >= 3)
+		    		{
+		    			passRun = player.info.passRunRatio;
+		    		}
+		    		String additStat = " ";
+		    		if(player.info.additionalStat != null && !player.info.additionalStat.equals("") 
+		    				&& player.info.additionalStat.length() >= 3)
+		    		{
+		    			additStat = player.info.additionalStat;
+		    		}
+		    		String oLineAdv = " ";
+		    		if(player.info.oLineAdv != null && player.info.oLineAdv.length() > 3)
+		    		{
+		    			oLineAdv = player.info.oLineAdv;
+		    		}
+		    		players.append( 
+		    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
+		    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
+		    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
+		    		player.info.adp + "&&" + player.info.bye + "&&" 
+		    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
+		    		player.info.age + "&&" + player.stats + "&&" + player.draftClass + "&&" + player.injuryStatus + 
+		    		"&&" + fa + "&&" + oLine + "&&" + passRun + "&&" + additStat + "&&" + player.values.ecr + "&&" + 
+		    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "&&" + oLineAdv + "&&" + 
+		    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "~~~~");
+		    	}
+		    	String playerString = players.toString();
+		    	editor.putString("Player Values", playerString).commit();
+			} catch (IOException e) {
+				return null;
+			}
+			return null;
+	    }
+
 	  }
 
 	

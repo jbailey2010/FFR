@@ -62,6 +62,10 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseYahoo;
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
 import AsyncTasks.ParsingAsyncTask.ParsePermanentDataSets;
+import AsyncTasks.ParsingAsyncTask.ParseProjections;
+import AsyncTasks.ParsingAsyncTask.ParseRanks;
+import AsyncTasks.StorageAsyncTask;
+import AsyncTasks.StorageAsyncTask.WriteNewPAA;
 import FileIO.ReadFromFile;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -118,9 +122,9 @@ public class Home extends Activity implements Serializable{
         news.setOnClickListener(newsHandler);
         start = System.nanoTime();
         handleInitialRefresh();
-		/*ManageInput.setUpScoring(cont, new Scoring());
-		ManageInput.setUpRoster(cont);
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		ManageInput.setUpScoring(cont, new Scoring(), false, holder);
+		ManageInput.setUpRoster(cont, holder);
+        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
 			HighLevel.qbProj("http://www.fantasypros.com/nfl/projections/qb.php", new HashMap<String, Double>(), ReadFromFile.readScoring(cont));
@@ -155,10 +159,12 @@ public class Home extends Activity implements Serializable{
 				nameRefresh(dialog);
 		    	return true;			
 			case R.id.start_scoring:
-				ManageInput.passSettings(cont, new Scoring());
+				System.out.println("Calling get scoring settings");
+				ManageInput.passSettings(cont, new Scoring(), true, holder);
 		    	return true;	
 			case R.id.start_roster:
-				ManageInput.getRoster(cont);
+				System.out.println("Calling get roster");
+				ManageInput.getRoster(cont, true, holder);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
