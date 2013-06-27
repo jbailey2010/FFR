@@ -121,8 +121,8 @@ public class SortHandler
 					{
 						position = (String)pos.getSelectedItem();
 						subject = (String)sort.getSelectedItem();
-						if((subject.equals("Projections") || subject.equals("Projected PAA") ||
-								subject.equals("Projected PAA per dollar")) 
+						if((subject.equals("Projections") || subject.equals("PAA") ||
+								subject.equals("PAA per dollar")) 
 								&& (position.equals("K") || position.equals("D/ST")))
 						{
 							Toast.makeText(context, "Projections not available for kickers and defenses", Toast.LENGTH_SHORT).show();
@@ -665,7 +665,7 @@ public class SortHandler
 				results.setSelection(arg2);
 				String selected = ((TextView)arg1).getText().toString();
 				selected = selected.split(": ")[1];
-				PlayerInfo.outputResults(selected, true, (Rankings)context, holder, false, true);
+				PlayerInfo.outputResults(selected, true, (Rankings)context, holder, false, false);
 			}
     	 });
 		SwipeDismissListViewTouchListener touchListener =
