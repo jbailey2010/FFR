@@ -124,6 +124,7 @@ public class ParseRankings
 		teams.put("pats", "New England Patriots");
 		teams.put("nyj", "New York Jets");
 		teams.put("jets", "New York Jets");
+		teams.put("ny jets", "New York Jets");
 		teams.put("buf", "Buffalo Bills");
 		teams.put("buffalo", "Buffalo Bills");
 		teams.put("bills", "Buffalo Bills");
@@ -172,6 +173,7 @@ public class ParseRankings
 		teams.put("packers", "Green Bay Packers");
 		teams.put("nyg", "New York Giants");
 		teams.put("giants", "New York Giants");
+		teams.put("ny giants", "New York Giants");
 		teams.put("phi", "Philadelphia Eagles");
 		teams.put("philadelphia", "Philadelphia Eagles");
 		teams.put("eagles", "Philadelphia Eagles");
@@ -448,7 +450,7 @@ public class ParseRankings
 	 */
 	public static String fixTeams(String team)
 	{
-		String low = team.toLowerCase().trim().replaceAll("[^a-zA-Z]+","");
+		String low = team.toLowerCase().replaceAll("[^\\x20-\\x7e]","");
 		if(teams.containsKey(low))
 		{
 			return teams.get(low);

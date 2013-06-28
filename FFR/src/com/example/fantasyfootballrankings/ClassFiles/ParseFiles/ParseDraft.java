@@ -29,12 +29,18 @@ public class ParseDraft
 		{
 			String round = perPick[i];
 			String overall = perPick[++i];
-			String team = perPick[++i];
+			String team = ParseRankings.fixTeams(perPick[++i].replaceAll("[^\\x20-\\x7e]",""));
 			String name = perPick[++i];
 			String position = perPick[++i];
 			String pick = round + " (" + overall + "): " + name + ", " + position + "\n";
-			String existing = picks.get(team);
-			picks.put(team, existing == null ? pick : existing + pick);
+			if(picks.containsKey(team))
+			{
+				picks.put(team, picks.get(team) + pick);
+			}
+			else
+			{
+				picks.put(team, pick);
+			}
 		}
 		return picks;
 	}
@@ -54,7 +60,8 @@ public class ParseDraft
 		{ 
 			if(!brokenUp[i].contains("2013"))
 			{
-				String team = ParseRankings.fixTeams(brokenUp[i]);
+				String before = brokenUp[i];
+				String team = ParseRankings.fixTeams(before);
 				String grade = brokenUp[i+=3];
 				String rank = brokenUp[i+=2];
 				if(team.equals("High Grade"))
