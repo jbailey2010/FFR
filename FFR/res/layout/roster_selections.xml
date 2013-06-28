@@ -10,18 +10,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="41dp"
-        android:layout_marginTop="89dp"
+        android:layout_marginTop="79dp"
         android:background="@drawable/spinner_well"/>"
     
-    <Spinner
-        android:id="@+id/rb_quantity"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="41dp"
-        android:layout_marginTop="89dp"
-        android:background="@drawable/spinner_well" />
+    
 
     <TextView
         android:id="@+id/textView1"
@@ -29,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/qb_quantity"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:text="How many QBs start?"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -49,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/qb_quantity"
         android:layout_below="@+id/qb_quantity"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="26dp"
         android:text="How many WRs start?"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -79,25 +71,6 @@
         android:layout_alignTop="@+id/wr_quantity"
         android:background="@drawable/spinner_well" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/te_quantity"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:text="How many teams are in this league?"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <Spinner
-        android:id="@+id/team_quantity"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textView5"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/spinner_well" />
-
     <Button
         android:id="@+id/roster_submit"
         android:layout_width="wrap_content"
@@ -108,5 +81,61 @@
         android:background="@drawable/btn_red"
         style="@style/ButtonText"
         android:text="Submit" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/wr_quantity"
+        android:layout_below="@+id/wr_quantity"
+        android:layout_marginTop="26dp"
+        android:text="How many teams are in this league?"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView5"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_alignLeft="@+id/te_quantity"
+        android:text="How many flexes (RB/WR) start?"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/roster_submit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text=" "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/rb_quantity"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/qb_quantity"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/roster_submit"
+        android:background="@drawable/spinner_well" />
+
+    <Spinner
+        android:id="@+id/flex_quantity"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_below="@+id/textView6"
+        android:layout_marginTop="43dp"
+        android:background="@drawable/spinner_well" />
+
+    <Spinner
+        android:id="@+id/team_quantity"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignTop="@+id/flex_quantity"
+        android:background="@drawable/spinner_well" />
 
 </RelativeLayout>

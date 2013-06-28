@@ -479,6 +479,9 @@ public class ManageInput
 		quantitiesTeam.add("12");
 		quantitiesTeam.add("14");
 		quantitiesTeam.add("16");
+		List<String>quantitiesFlex = new ArrayList<String>();
+		quantitiesFlex.add("0");
+		quantitiesFlex.add("1");
 		final Spinner qb = (Spinner)dialog.findViewById(R.id.qb_quantity);
 		final Spinner te = (Spinner)dialog.findViewById(R.id.te_quantity);
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
@@ -495,6 +498,10 @@ public class ManageInput
 		spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
 				android.R.layout.simple_spinner_dropdown_item, quantitiesTeam);
 		team.setAdapter(spinnerArrayAdapter);
+		final Spinner flex = (Spinner)dialog.findViewById(R.id.flex_quantity);
+		spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
+				android.R.layout.simple_spinner_dropdown_item, quantitiesFlex);
+		flex.setAdapter(spinnerArrayAdapter);
 		Button submit = (Button)dialog.findViewById(R.id.roster_submit);
 		submit.setOnClickListener(new OnClickListener(){
 			@Override
@@ -504,6 +511,7 @@ public class ManageInput
 				dummyRoster.wrs = Integer.parseInt((String)wr.getSelectedItem());
 				dummyRoster.tes = Integer.parseInt((String)te.getSelectedItem());
 				dummyRoster.teams = Integer.parseInt((String)team.getSelectedItem());
+				dummyRoster.flex = Integer.parseInt((String)flex.getSelectedItem());
 				WriteToFile.writeRoster(cont, dummyRoster);
 				dialog.dismiss();
 				if(doSyncData)

@@ -341,6 +341,7 @@ public class WriteToFile {
 		editor.putInt("Starting RBs", roster.rbs);
 		editor.putInt("Starting WRs", roster.wrs);
 		editor.putInt("Starting TEs", roster.tes);
+		editor.putInt("Starting flexes", roster.flex);
 		editor.putBoolean("Is roster set?", true);
 		editor.commit();
 	}

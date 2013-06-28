@@ -327,6 +327,7 @@ public class ReadFromFile {
 		roster.rbs = prefs.getInt("Starting RBs", 0);
 		roster.wrs = prefs.getInt("Starting WRs", 0);
 		roster.tes = prefs.getInt("Starting TEs", 0);
+		roster.flex = prefs.getInt("Starting flexes", 0);
 		return roster;
 	}
 }

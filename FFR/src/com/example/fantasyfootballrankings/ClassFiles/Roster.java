@@ -11,17 +11,19 @@ public class Roster
 	public int rbs;
 	public int wrs;
 	public int tes;
+	public int flex;
 	
 	/**
 	 * Stores the roster numbers
 	 */
-	public Roster(int teamCt, int qbCt, int rbCt, int wrCt, int teCt)
+	public Roster(int teamCt, int qbCt, int rbCt, int wrCt, int teCt, int flexCt)
 	{
 		teams = teamCt;
 		qbs = qbCt;
 		rbs = rbCt;
 		wrs = wrCt;
 		tes = teCt;
+		flex = flexCt;
 	}
 	
 	/**
@@ -34,5 +36,6 @@ public class Roster
 		rbs = 0;
 		wrs = 0;
 		tes = 0;
+		flex = 0;
 	}
 }
