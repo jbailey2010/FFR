@@ -86,8 +86,8 @@ public class SortHandler
 	    topics.add("Projections");
 	    topics.add("PAA");
 	    topics.add("PAA per dollar");
-	    topics.add("oTD");
-	    topics.add("TD difference");
+	    topics.add("Rec oTD");
+	    topics.add("Rec TD Difference");
 	    topics.add("Risk relative to position");
 	    topics.add("Risk relative to everyone");
 	    topics.add("ECR");
@@ -124,11 +124,11 @@ public class SortHandler
 						position = (String)pos.getSelectedItem();
 						subject = (String)sort.getSelectedItem();
 						if((subject.equals("Projections") || subject.equals("PAA") ||
-								(subject.equals("PAA per dollar")) || subject.equals("TD difference"))
+								(subject.equals("PAA per dollar")) || subject.equals("Rec TD Difference"))
 								&& (position.equals("K") || position.equals("D/ST")) || 
-								(subject.equals("oTD") &&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))))
+								(subject.equals("Rec oTD") &&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))))
 						{
-							Toast.makeText(context, "Projections not available for kickers and defenses", Toast.LENGTH_SHORT).show();
+							Toast.makeText(context, "Projections not available for that position", Toast.LENGTH_SHORT).show();
 						}
 						else
 						{
@@ -188,11 +188,11 @@ public class SortHandler
 		{
 			paapd();
 		}
-		else if(subject.equals("oTD"))
+		else if(subject.equals("Rec oTD"))
 		{
 			oTD();
 		}
-		else if(subject.equals("TD difference"))
+		else if(subject.equals("Rec TD Difference"))
 		{
 			tdDiff();
 		}
@@ -661,11 +661,11 @@ public class SortHandler
 	    	{
 	    		rankings.add(output + df.format(elem.values.paapd) + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
 	    	}
-	    	else if(subject.equals("oTD"))
+	    	else if(subject.equals("Rec oTD"))
 	    	{
 	    		rankings.add(output + df.format(elem.values.oTD) + ": " + elem.info.name + " (" + elem.values.tdDiff + " difference)");
 	    	}
-	    	else if(subject.equals("TD difference"))
+	    	else if(subject.equals("Rec TD Difference"))
 	    	{
 	    		rankings.add(output + df.format(elem.values.tdDiff) + ": " + elem.info.name + " (" + elem.values.oTD + " expected)");
 	    	}

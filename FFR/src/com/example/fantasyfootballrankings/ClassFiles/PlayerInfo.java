@@ -358,7 +358,7 @@ public class PlayerInfo
 					result = "+" + result; 
 				}
 				output.add("Targeted an average of " + searchedPlayer.values.tADEZ + " yards from the endzone\n\n" + 
-						"Opportunity-adjusted touchdowns " + searchedPlayer.values.oTD + " (" + result + 
+						"Opportunity-adjusted receiving touchdowns " + searchedPlayer.values.oTD + " (" + result + 
 						" relative to last year's numbers)");
 			}
 			if(!searchedPlayer.injuryStatus.contains("Healthy"))
