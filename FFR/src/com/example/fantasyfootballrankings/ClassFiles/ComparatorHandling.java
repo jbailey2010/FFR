@@ -274,6 +274,34 @@ public class ComparatorHandling
 				}
 			}
 		}
+		if(player1.info.position.equals(player2.info.position) && (player1.info.position.equals("WR") || 
+				player1.info.position.equals("RB") || player1.info.position.equals("TE")))
+		{
+			double oTD1 = player1.values.oTD;
+			double oTD2 = player2.values.oTD;
+			if(oTD1 > oTD2)
+			{
+				if(oTD1 - oTD2 > 3.0)
+				{
+					p1.append("-Much higher adjusted touchdowns\n");
+				}
+				else
+				{
+					p1.append("-Higher adjusted touchdowns\n");
+				}
+			}
+			if(oTD2 > oTD1)
+			{
+				if(oTD2 - oTD1 > 3.0)
+				{
+					p2.append("-Much higher adjusted touchdowns\n");
+				}
+				else
+				{
+					p2.append("-Higher adjusted touchdowns\n");
+				}
+			}
+		}
 		try{
 			int age1 = Integer.parseInt(player1.info.age);
 			int age2 = Integer.parseInt(player2.info.age);
