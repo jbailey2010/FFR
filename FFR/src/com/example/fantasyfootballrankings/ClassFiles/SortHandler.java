@@ -86,6 +86,8 @@ public class SortHandler
 	    topics.add("Projections");
 	    topics.add("PAA");
 	    topics.add("PAA per dollar");
+	    topics.add("oTD");
+	    topics.add("TD difference");
 	    topics.add("Risk relative to position");
 	    topics.add("Risk relative to everyone");
 	    topics.add("ECR");
@@ -122,8 +124,9 @@ public class SortHandler
 						position = (String)pos.getSelectedItem();
 						subject = (String)sort.getSelectedItem();
 						if((subject.equals("Projections") || subject.equals("PAA") ||
-								subject.equals("PAA per dollar")) 
-								&& (position.equals("K") || position.equals("D/ST")))
+								(subject.equals("PAA per dollar")) || subject.equals("TD difference"))
+								&& (position.equals("K") || position.equals("D/ST")) || 
+								(subject.equals("oTD") &&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))))
 						{
 							Toast.makeText(context, "Projections not available for kickers and defenses", Toast.LENGTH_SHORT).show();
 						}
@@ -184,6 +187,14 @@ public class SortHandler
 		else if(subject.equals("PAA per dollar"))
 		{
 			paapd();
+		}
+		else if(subject.equals("oTD"))
+		{
+			oTD();
+		}
+		else if(subject.equals("TD difference"))
+		{
+			tdDiff();
 		}
 		else if(subject.equals("Risk relative to position"))
 		{
@@ -306,6 +317,68 @@ public class SortHandler
 					}
 				}
 				wrappingUp(sorted);
+	}
+	
+	/**
+	 * Sets up the priority queue for risk relative to a position
+	 */
+	public static void oTD()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b)
+			{
+				if(a.values.oTD > b.values.oTD)
+				{
+					return -1;
+				}
+				if(a.values.oTD < b.values.oTD)
+				{
+					return 1;
+				}
+				return 0;
+			}
+		});
+		for(PlayerObject player : players)
+		{
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.tADEZ != 0.0)
+			{
+				sorted.add(player);
+			}
+		}
+		wrappingUp(sorted);
+	}
+	
+	/**
+	 * Sets up the priority queue for risk relative to a position
+	 */
+	public static void tdDiff()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b)
+			{
+				if(a.values.tdDiff > b.values.tdDiff)
+				{
+					return -1;
+				}
+				if(a.values.tdDiff < b.values.tdDiff)
+				{
+					return 1;
+				}
+				return 0;
+			}
+		});
+		for(PlayerObject player : players)
+		{
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.tADEZ != 0.0)
+			{
+				sorted.add(player);
+			}
+		}
+		wrappingUp(sorted);
 	}
 	
 	/**
@@ -578,15 +651,23 @@ public class SortHandler
 	    	}
 	    	if(subject.equals("Projections"))
 			{
-				rankings.add(output + elem.values.points + ": " + elem.info.name);
+				rankings.add(output + elem.values.points + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
 			}
 	    	else if(subject.equals("PAA"))
 	    	{
-	    		rankings.add(output + df.format(elem.values.paa)+ ": " + elem.info.name);
+	    		rankings.add(output + df.format(elem.values.paa)+ ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
 	    	}
 	    	else if(subject.equals("PAA per dollar"))
 	    	{
-	    		rankings.add(output + df.format(elem.values.paapd) + ": " + elem.info.name);
+	    		rankings.add(output + df.format(elem.values.paapd) + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
+	    	}
+	    	else if(subject.equals("oTD"))
+	    	{
+	    		rankings.add(output + df.format(elem.values.oTD) + ": " + elem.info.name + " (" + elem.values.tdDiff + " difference)");
+	    	}
+	    	else if(subject.equals("TD difference"))
+	    	{
+	    		rankings.add(output + df.format(elem.values.tdDiff) + ": " + elem.info.name + " (" + elem.values.oTD + " expected)");
 	    	}
 	    	else if(subject.equals("Risk relative to position"))
 			{
@@ -606,15 +687,15 @@ public class SortHandler
 			}
 			else if(subject.equals("Weekly Trend"))
 			{
-				rankings.add(output + elem.info.trend + ": " + elem.info.name);
+				rankings.add(output + elem.info.trend + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
 			}
 			else if(subject.equals("Highest Value"))
 			{
-				rankings.add(output + df.format(elem.values.high) + ": " + elem.info.name);
+				rankings.add(output + df.format(elem.values.high) + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
 			}
 			else if(subject.equals("Lowest Value"))
 			{
-				rankings.add(output + df.format(elem.values.low) + ": " + elem.info.name);
+				rankings.add(output + df.format(elem.values.low) + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
 			}
 		} 
 	    adapter = ManageInput.handleArray(rankings, results, (Activity) context);

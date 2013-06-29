@@ -350,6 +350,17 @@ public class PlayerInfo
 				&& !searchedPlayer.stats.equals(" ") && searchedPlayer.stats.length() > 5)
 		{
 			output.add(searchedPlayer.stats);
+			if(searchedPlayer.values.oTD != 0.0 && searchedPlayer.values.tADEZ != 0)
+			{
+				String result = String.valueOf(searchedPlayer.values.tdDiff);
+				if(!result.contains("-"))
+				{
+					result = "+" + result; 
+				}
+				output.add("Targeted an average of " + searchedPlayer.values.tADEZ + " yards from the endzone\n\n" + 
+						"Opportunity-adjusted touchdowns " + searchedPlayer.values.oTD + " (" + result + 
+						" relative to last year's numbers)");
+			}
 			if(!searchedPlayer.injuryStatus.contains("Healthy"))
 			{
 				output.add(searchedPlayer.injuryStatus);

@@ -18,6 +18,9 @@ public class Values
 	public double points;
 	public double paa;
 	public double paapd;
+	public double tADEZ;
+	public double oTD;
+	public double tdDiff;
 	/**
 	 * Just initializes the values stored in the object,
 	 * count to one (obviously)
@@ -33,6 +36,9 @@ public class Values
 		points = 0.0;
 		paa = 0.0;
 		paapd = 0.0;
+		tADEZ = 0.0;
+		oTD = 0.0;
+		tdDiff = 0.0;
 	}
 
 	/**

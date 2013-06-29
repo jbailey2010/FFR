@@ -266,15 +266,17 @@ public class ParsingAsyncTask
 		    			oLineAdv = player.info.oLineAdv;
 		    		}
 		    		players.append( 
-		    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
-		    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
-		    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
-		    		player.info.adp + "&&" + player.info.bye + "&&" 
-		    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
-		    		player.info.age + "&&" + player.stats + "&&" + player.draftClass + "&&" + player.injuryStatus + 
-		    		"&&" + fa + "&&" + oLine + "&&" + passRun + "&&" + additStat + "&&" + player.values.ecr + "&&" + 
-		    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "&&" + oLineAdv + "&&" + 
-		    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "~~~~");
+		    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
+		    	    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
+		    	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
+		    	    		player.info.adp + "&&" + player.info.bye + "&&" 
+		    	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
+		    	    		player.info.age + "&&" + player.stats + "&&" + player.draftClass + "&&" + player.injuryStatus + 
+		    	    		"&&" + fa + "&&" + oLine + "&&" + passRun + "&&" + additStat + "&&" + player.values.ecr + "&&" + 
+		    	    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "&&" + oLineAdv + "&&" + 
+		    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
+		    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "~~~~");
+
 		    	}
 		    	String playerString = players.toString();
 		    	editor.putString("Player Values", playerString).commit();
@@ -359,6 +361,8 @@ public class ParsingAsyncTask
 	    		HighLevel.projPointsWrapper(holder, cont);
 	    		publishProgress("Please wait, normalizing projections...");
 	    		HighLevel.getPAA(holder, cont);
+	    		publishProgress("Please wait, getting advanced redzone stats...");
+	    		HighLevel.parseRedZoneStats(holder);
 	    		System.out.println(System.nanoTime() - start); 
 	    	} catch (IOException e) {
 				// TODO Auto-generated catch block

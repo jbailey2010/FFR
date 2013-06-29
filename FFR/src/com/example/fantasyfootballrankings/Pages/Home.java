@@ -127,7 +127,7 @@ public class Home extends Activity implements Serializable{
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
-			HighLevel.qbProj("http://www.fantasypros.com/nfl/projections/qb.php", new HashMap<String, Double>(), ReadFromFile.readScoring(cont));
+			HighLevel.parseRedZoneStats(new Storage());
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 

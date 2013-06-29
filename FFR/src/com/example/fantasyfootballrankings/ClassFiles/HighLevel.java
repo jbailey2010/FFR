@@ -831,4 +831,36 @@ public class HighLevel
 			}
 		}
 	}
+	
+	/**
+	 * Gets the adjusted touchdown numbers
+	 */
+	public static void parseRedZoneStats(Storage holder) throws IOException
+	{
+		String html = HandleBasicQueries.handleLists("http://www.profootballfocus.com/blog/2013/06/28/introduction-to-otd/", "table#wp-table-reloaded-id-11-no-1 td");
+		String[] td = html.split("\n");
+		HashMap<String, List<Double>> redZoneStats = new HashMap<String, List<Double>>();
+		for(int i = 0; i < td.length; i+=6)
+		{
+			List<Double> data = new ArrayList<Double>(3);
+			String name = ParseRankings.fixNames(td[i]);
+			double tADEZ = Double.parseDouble(td[i+2]);
+			double oTD = Double.parseDouble(td[i+4]);
+			double diff = Double.parseDouble(td[i+5]);
+			data.add(tADEZ);
+			data.add(oTD);
+			data.add(diff);
+			redZoneStats.put(name, data);
+		}
+		for(PlayerObject player : holder.players)
+		{
+			if(redZoneStats.containsKey(player.info.name))
+			{
+				List<Double> data = redZoneStats.get(player.info.name);
+				player.values.tdDiff = data.get(2);
+				player.values.oTD = data.get(1);
+				player.values.tADEZ = data.get(0);
+			}
+		}
+	}
 }
