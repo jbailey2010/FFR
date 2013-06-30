@@ -47,6 +47,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraft;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFantasyPros;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFantasySharks;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFootballGuys;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseInjuries;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMyFantasyLeague;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
@@ -127,7 +128,7 @@ public class Home extends Activity implements Serializable{
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
-			HighLevel.parseRedZoneStats(new Storage());
+			ParseFootballGuys.parseFGWrapper(new Storage());
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
@@ -159,11 +160,9 @@ public class Home extends Activity implements Serializable{
 				nameRefresh(dialog);
 		    	return true;			
 			case R.id.start_scoring:
-				System.out.println("Calling get scoring settings");
 				ManageInput.passSettings(cont, new Scoring(), true, holder);
 		    	return true;	
 			case R.id.start_roster:
-				System.out.println("Calling get roster");
 				ManageInput.getRoster(cont, true, holder);
 				return true;
 			default:
