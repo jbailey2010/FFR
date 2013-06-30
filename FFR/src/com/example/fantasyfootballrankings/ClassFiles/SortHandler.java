@@ -429,11 +429,11 @@ public class SortHandler
 			{
 				if(a.riskPos > b.riskPos)
 				{
-					return -1;
+					return 1;
 				}
 				if(a.riskPos < b.riskPos)
 				{
-					return 1;
+					return -1;
 				}
 				return 0;
 			}
@@ -460,11 +460,11 @@ public class SortHandler
 			{
 				if(a.riskAll > b.riskAll)
 				{
-					return -1;
+					return 1;
 				}
 				if(a.riskAll < b.riskAll)
 				{
-					return 1;
+					return -1;
 				}
 				return 0;
 			}
