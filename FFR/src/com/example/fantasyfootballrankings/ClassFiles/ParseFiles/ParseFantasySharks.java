@@ -20,6 +20,7 @@ public class ParseFantasySharks {
 	{
 		String html = HandleBasicQueries.handleLists("http://www.fantasysharks.com/apps/Projections/SeasonProjections.php?pos=ALL", "td");
 		String[] td = html.split("\n");
+		int counter = 0;
 		for(int i = 37; i < td.length; i+=20)
 		{
 			if(td[i].contains("The above views are not"))
@@ -30,6 +31,7 @@ public class ParseFantasySharks {
 			{
 				i++;
 			}
+			counter++;
 			String nameFull = td[i+3];
 			String lastName = nameFull.split(",")[0].trim().replaceAll("[^\\x20-\\x7e]","");
 			String firstName = nameFull.split(",")[1].trim().replaceAll("[^\\x20-\\x7e]","");
@@ -40,7 +42,7 @@ public class ParseFantasySharks {
 				val = "0";
 			}
 			int worth = Integer.parseInt(val);
-			ParseRankings.finalStretch(holder, name, worth, "", "");
+			ParseRankings.finalStretch(holder, name, worth, "", "", counter);
 		}
 	}
 }

@@ -40,8 +40,10 @@ public class ParseWF
 		String text = HandleBasicQueries.handleLists(url, "ol li");
 		String[] perPlayer = text.split("\n");
 		String[][] all = new String[perPlayer.length][];
+		int counter = 0;
 		for(int i = 0; i < perPlayer.length; i++)
 		{
+			counter++;
 			perPlayer[i] = perPlayer[i].replace(". -- ", ", ");
 			all[i] = perPlayer[i].split(", ");
 			String playerName = all[i][0];
@@ -62,7 +64,7 @@ public class ParseWF
 				pos = "D/ST";
 				val = Integer.parseInt(all[i][2].substring(1, all[i][2].length()));
 			}
-			ParseRankings.finalStretch(holder, playerName, val, team, pos);
+			ParseRankings.finalStretch(holder, playerName, val, team, pos, counter);
 		}
 	}
 } 

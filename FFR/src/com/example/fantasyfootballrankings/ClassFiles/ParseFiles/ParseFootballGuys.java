@@ -36,6 +36,7 @@ public class ParseFootballGuys
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = html.split("\n");
+		int counter = 0;
 		for(int i = 44; i < td.length; i+=5)
 		{
 			if(i < td.length - 1 && td[i+1].contains("Use Position List"))
@@ -83,9 +84,10 @@ public class ParseFootballGuys
 			}
 			if(i < td.length - 1)
 			{
+				counter++;
 				String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i+1].split(" \\(")[0]));
 				int val = Integer.parseInt(td[i+3]);
-				ParseRankings.finalStretch(holder, name, val, "", "");
+				ParseRankings.finalStretch(holder, name, val, "", "", counter);
 			}
 		}
 	}

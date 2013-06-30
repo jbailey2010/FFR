@@ -35,11 +35,13 @@ public class ParseRotoPost
 		String vals = HandleBasicQueries.handleListsMulti(doc, url, "value");
 		String[] nameSet = names.split("\n");
 		String[] valSet = vals.split("\n");
+		int counter =  0;
 		for(int i = 0; i < nameSet.length; i++)
 		{
+			counter++;
 			String name = ParseRankings.fixDefenses(ParseRankings.fixNames(nameSet[i]));
 			int val = Integer.parseInt(valSet[i]);
-			ParseRankings.finalStretch(holder, name, val, "", "");
+			ParseRankings.finalStretch(holder, name, val, "", "", counter);
 		}
 	}
 }

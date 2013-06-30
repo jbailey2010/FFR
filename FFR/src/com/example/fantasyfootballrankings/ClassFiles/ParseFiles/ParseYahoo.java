@@ -27,6 +27,7 @@ public class ParseYahoo
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = html.split("\n");
+		int counter = 0;
 		for(int i = 2; i < td.length; i+=4)
 		{
 			
@@ -44,6 +45,7 @@ public class ParseYahoo
 				name = ParseRankings.fixDefenses(name);
 
 			}
+			counter++;
 			String rank = td[i+1].split("\\$")[1];
 			String aavStr = td[i+2].split("\\$")[1];
 			double aav = 0.0;
@@ -61,16 +63,14 @@ public class ParseYahoo
 				BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
 				Values.handleNewValue(match.values, newPlayer.values.worth);
 				Values.handleNewValue(match.values, aav);
-				match.vals.add(aav);
-				match.vals.add(newPlayer.values.worth);
+				match.vals.add(counter);
 			}
 			else
 			{
 				Values.isExtreme(newPlayer.values, newPlayer.values.worth);
 				Values.handleNewValue(newPlayer.values, aav);
 				holder.players.add(newPlayer);
-				newPlayer.vals.add(aav);
-				newPlayer.vals.add(newPlayer.values.worth);
+				newPlayer.vals.add(counter);
 			}	
 		}
 	}

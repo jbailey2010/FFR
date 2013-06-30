@@ -26,6 +26,7 @@ public class ParseFantasyPros
 		String html = HandleBasicQueries.handleLists("http://www.fantasypros.com/nfl/auction-values/overall.php", "td");
 		String[] td = html.split("\n");
 		int min = 0;
+		int counter = 0;
 		for(int i = 0; i < td.length; i++)
 		{
 			if(td[i].contains(" RB ") ||  td[i].contains(" QB ") || td[i].contains(" WR ") || td[i].contains(" TE ") ||
@@ -37,6 +38,7 @@ public class ParseFantasyPros
 		}
 		for(int i = min; i < td.length; i+=6)
 		{
+			counter++;
 			String name = td[i].split(", ")[0];
 			if(td[i].contains("DST"))
 			{
@@ -99,18 +101,19 @@ public class ParseFantasyPros
 				if(a != -1)
 				{
 					Values.handleNewValue(match.values, log);
-					match.vals.add(log);
 				}
 				if(b != -1)
 				{
 					Values.handleNewValue(match.values, logb);
-					match.vals.add(logb);
 					match.info.adp = String.valueOf(b);
+					match.vals.add((int) b);
 				}
 				match.values.ecr = ecr;
-				match.vals.add(newPlayer.values.worth);
-				match.vals.add((double) val2);
-				match.vals.add((double) val3);
+				if(ecr != -1)
+				{
+					match.vals.add((int)ecr);
+				}
+				match.vals.add(counter);
 			}
 			else
 			{
@@ -120,19 +123,20 @@ public class ParseFantasyPros
 				if(a != -1)
 				{
 					Values.handleNewValue(newPlayer.values, log);
-					newPlayer.vals.add(log);
 				}
 				if(b != -1)
 				{
 					Values.handleNewValue(newPlayer.values, logb);
-					newPlayer.vals.add(logb);
 					newPlayer.info.adp = String.valueOf(b);
+					newPlayer.vals.add((int) b);
 				}
 				newPlayer.values.ecr = ecr;
+				if(ecr != -1)
+				{
+					newPlayer.vals.add(ecr);
+				}
 				holder.players.add(newPlayer);
-				newPlayer.vals.add(newPlayer.values.worth);
-				newPlayer.vals.add((double)val2);
-				newPlayer.vals.add((double)val3);
+				newPlayer.vals.add(counter);
 			}	
 		}
 	}

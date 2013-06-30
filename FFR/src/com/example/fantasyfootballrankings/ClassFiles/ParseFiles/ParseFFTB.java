@@ -47,6 +47,7 @@ public class ParseFFTB
 	{
 		String text = HandleBasicQueries.handleLists(url, "td");
 		String[] brokenUp = text.split("\n");
+		int counter = 0;
 		for(int i = 1; i < brokenUp.length; i+=2)
 		{ 
 			String name = brokenUp[i];
@@ -56,6 +57,7 @@ public class ParseFFTB
 			String val = brokenUp[i+=2];
 			if(team.split(" ").length <= 2)
 			{
+				counter++;
 				if(name.contains("Defense"))
 				{
 					name = ParseRankings.fixDefenses(name.replaceAll("Defense", "D/ST"));
@@ -70,7 +72,7 @@ public class ParseFFTB
 					match.info.age = age;
 				}
 				newPlayer.info.age = age;
-				ParseRankings.handlePlayer(holder, newPlayer, match);
+				ParseRankings.handlePlayer(holder, newPlayer, match, counter);
 			}
 		}
 	}

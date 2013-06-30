@@ -62,8 +62,10 @@ public class ParsePFF {
 	    }
 	    String html = htmlBuilder.toString().replaceAll("\"", "").replaceAll("\\]", "").replaceAll("\\}", "");
 	    String[] players = html.split("\\[");
+	    int counter = 0;
 	    for(int i = 2; i < players.length; i++)
 	    {
+	    	counter++;
 	    	String[] data = players[i].split(",");
 	    	String name = data[1];
 	    	String team = ParseRankings.fixTeams(data[2]);
@@ -73,7 +75,7 @@ public class ParsePFF {
 	    		name = name.replace("Def", "D/ST");
 	    	}
 	    	int val = Integer.parseInt(data[data.length - 1]);
-	    	ParseRankings.finalStretch(holder, name, val, team, position);
+	    	ParseRankings.finalStretch(holder, name, val, team, position, counter);
 	    }
 	}
 }

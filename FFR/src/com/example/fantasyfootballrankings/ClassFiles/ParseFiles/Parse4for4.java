@@ -32,11 +32,13 @@ public class Parse4for4
 	{
 		String html = HandleBasicQueries.handleLists(url, "table tbody tr td");
 		String[] brokenUp = html.split("\n");
+		int counter = 0;
 		for(int i = 0; i < brokenUp.length; i+=8)
 		{
+			counter++;
 			String name = brokenUp[i+1];
 			String value = brokenUp[i+5].substring(1, brokenUp[i+5].length());
-			ParseRankings.finalStretch(holder, name, Integer.parseInt(value), "", "");
+			ParseRankings.finalStretch(holder, name, Integer.parseInt(value), "", "", counter);
 		}
 	}
 }

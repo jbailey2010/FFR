@@ -320,7 +320,7 @@ public class HighLevel
             {
                 risk += (mean-a)*(mean-a);
             }
-            risk = risk / player.values.count;
+            risk = risk / (player.values.count - 3);
             risk = Math.sqrt(risk);
             DecimalFormat twoDForm = new DecimalFormat("#.##");
             risk = Double.valueOf(twoDForm.format(risk));
@@ -335,12 +335,12 @@ public class HighLevel
 					qbRisk += player.risk;
 					qbCount++;
 				}
-				else if(player.info.position.equals("RB") && player.values.worth >= 7.0)
+				else if(player.info.position.equals("RB") && player.values.worth >= 1.0)
 				{
 					rbRisk += player.risk;
 					rbCount++;
 				}
-				else if(player.info.position.equals("WR") && player.values.worth >= 5.5)
+				else if(player.info.position.equals("WR") && player.values.worth >= 1.0)
 				{
 					wrRisk += player.risk;
 					wrCount++;
@@ -361,8 +361,8 @@ public class HighLevel
 					kCount++;
 				}
 				if((player.info.position.equals("QB") && player.values.worth >= 1.0) ||
-						(player.info.position.equals("RB") && player.values.worth >= 3.0) ||
-						(player.info.position.equals("WR") && player.values.worth >= 2.5) ||
+						(player.info.position.equals("RB") && player.values.worth >= 1.0) ||
+						(player.info.position.equals("WR") && player.values.worth >= 1.0) ||
 						(player.info.position.equals("TE") && player.values.worth >= 1.0))
 				{
 					allRisk += player.risk;
