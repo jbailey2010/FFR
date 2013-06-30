@@ -125,10 +125,10 @@ public class Home extends Activity implements Serializable{
         handleInitialRefresh();
 		ManageInput.setUpScoring(cont, new Scoring(), false, holder);
 		ManageInput.setUpRoster(cont, holder);
-        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+       /* StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
-			ParseFootballGuys.parseFGWrapper(new Storage());
+			HighLevel.parseECRWrapper(new Storage());
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 

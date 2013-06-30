@@ -241,13 +241,13 @@ public class ParseRankings
 	 * @param pos the postition parsed
 	 * @param counter 
 	 */
-	public static void finalStretch(Storage holder, String playerName, int val, String team, String pos, int counter)
+	public static void finalStretch(Storage holder, String playerName, int val, String team, String pos)
 	{
 		String validated = fixNames(playerName);
 		String newName = Storage.nameExists(holder, validated);
 		PlayerObject newPlayer = new PlayerObject(newName, team, pos, val);
 		PlayerObject match =  Storage.pqExists(holder, newName);
-		ParseRankings.handlePlayer(holder, newPlayer, match, counter);
+		ParseRankings.handlePlayer(holder, newPlayer, match);
 	}
 	
 	/**
@@ -259,21 +259,21 @@ public class ParseRankings
 	 * @param newPlayer the newly created player to be worked with
 	 * @param match the already existent match to use if need be
 	 */
-	public static void handlePlayer(Storage holder, PlayerObject newPlayer, PlayerObject match, int counter)
+	public static void handlePlayer(Storage holder, PlayerObject newPlayer, PlayerObject match)
 	{
 		if(match != null)
 		{
 			BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
 			Values.handleNewValue(match.values, newPlayer.values.worth);
 			match.info.team = fixTeams(match.info.team);
-			match.vals.add(counter);
+			match.vals.add(newPlayer.values.worth);
 		}
 		else
 		{
 			Values.isExtreme(newPlayer.values, newPlayer.values.worth);
 			newPlayer.info.team = fixTeams(newPlayer.info.team);
 			holder.players.add(newPlayer);
-			newPlayer.vals.add(counter);
+			newPlayer.vals.add(newPlayer.values.worth);
 		}		
 	}
 	

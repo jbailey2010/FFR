@@ -619,8 +619,8 @@ public class ComparatorHandling
 				}		
 			}
 		}
-		int ecr1 = player1.values.ecr;
-		int ecr2 = player2.values.ecr;
+		double ecr1 = player1.values.ecr;
+		double ecr2 = player2.values.ecr;
 		if(Math.abs(ecr1 - ecr2) > 2)
 		{
 			if(ecr1 < ecr2)

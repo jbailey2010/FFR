@@ -32,10 +32,8 @@ public class ParseESPN
 	public static void parseESPN300Worker(String text, Storage holder)
 	{
 		String[] brokenUp=text.split("\n");
-		int counter = 0;
 		for(int i = 1; i < brokenUp.length; i+=5)
 		{
-			counter++;
 			String namePos = brokenUp[i];
 			String[] nameSplit = namePos.split(", ");
 			String team;
@@ -59,7 +57,7 @@ public class ParseESPN
 			int val = Integer.parseInt(valDS.substring(1, valDS.length()));
 			String posRank = brokenUp[i+2];
 			pos = posRank.replaceAll("\\d*$", "");
-			ParseRankings.finalStretch(holder, name, val, team, pos, counter);
+			ParseRankings.finalStretch(holder, name, val, team, pos);
 		}
 	}
 }

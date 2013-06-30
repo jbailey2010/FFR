@@ -14,7 +14,7 @@ public class Values
 	public double worth;
 	public double high;
 	public double low;
-	public int ecr;
+	public Double ecr;
 	public double points;
 	public double paa;
 	public double paapd;
@@ -32,7 +32,7 @@ public class Values
 		count = 1.0;
 		high = firstWorth;
 		low = firstWorth;
-		ecr = -1;
+		ecr = -1.0;
 		points = 0.0;
 		paa = 0.0;
 		paapd = 0.0;

@@ -26,7 +26,6 @@ public class ParseFantasyPros
 		String html = HandleBasicQueries.handleLists("http://www.fantasypros.com/nfl/auction-values/overall.php", "td");
 		String[] td = html.split("\n");
 		int min = 0;
-		int counter = 0;
 		for(int i = 0; i < td.length; i++)
 		{
 			if(td[i].contains(" RB ") ||  td[i].contains(" QB ") || td[i].contains(" WR ") || td[i].contains(" TE ") ||
@@ -38,7 +37,6 @@ public class ParseFantasyPros
 		}
 		for(int i = min; i < td.length; i+=6)
 		{
-			counter++;
 			String name = td[i].split(", ")[0];
 			if(td[i].contains("DST"))
 			{
@@ -98,45 +96,43 @@ public class ParseFantasyPros
 				Values.handleNewValue(match.values, newPlayer.values.worth);
 				Values.handleNewValue(match.values, val2);
 				Values.handleNewValue(match.values, val3);
+				match.vals.add(newPlayer.values.worth);
+				match.vals.add((double) val2);
+				match.vals.add((double) val3);
 				if(a != -1)
 				{
 					Values.handleNewValue(match.values, log);
+					match.vals.add(log);
+					match.values.ecr = a;
 				}
 				if(b != -1)
 				{
 					Values.handleNewValue(match.values, logb);
 					match.info.adp = String.valueOf(b);
-					match.vals.add((int) b);
+					match.vals.add(logb);
 				}
-				match.values.ecr = ecr;
-				if(ecr != -1)
-				{
-					match.vals.add((int)ecr);
-				}
-				match.vals.add(counter);
 			}
 			else
 			{
 				Values.isExtreme(newPlayer.values, newPlayer.values.worth);
 				Values.handleNewValue(newPlayer.values, val2);
 				Values.handleNewValue(newPlayer.values, val3);
+				newPlayer.vals.add((double) val2);
+				newPlayer.vals.add((double) val3);
+				newPlayer.vals.add(newPlayer.values.worth);
 				if(a != -1)
 				{
 					Values.handleNewValue(newPlayer.values, log);
+					newPlayer.vals.add(log);
+					newPlayer.values.ecr = a;
 				}
 				if(b != -1)
 				{
 					Values.handleNewValue(newPlayer.values, logb);
 					newPlayer.info.adp = String.valueOf(b);
-					newPlayer.vals.add((int) b);
-				}
-				newPlayer.values.ecr = ecr;
-				if(ecr != -1)
-				{
-					newPlayer.vals.add(ecr);
+					newPlayer.vals.add(logb);
 				}
 				holder.players.add(newPlayer);
-				newPlayer.vals.add(counter);
 			}	
 		}
 	}

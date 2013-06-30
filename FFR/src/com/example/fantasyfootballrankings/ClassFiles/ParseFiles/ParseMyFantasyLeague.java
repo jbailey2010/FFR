@@ -26,13 +26,11 @@ public class ParseMyFantasyLeague
 		String html = HandleBasicQueries.handleLists(
 				"http://football.myfantasyleague.com/2013/aav?COUNT=300&POS=QB%2BRB%2BWR%2BTE%2BPK&CUTOFF=5&FRANCHISES=-1&IS_PPR=-1&IS_KEEPER=-1&TIME=", "tr");
 		String[] rows = html.split("\n");
-		int counter = 0;
 		for(int i = 0; i < rows.length; i++)
 		{
 			String[] playerCheck = rows[i].split(" ");
 			if(playerCheck[0].contains("."))
 			{
-				counter++;
 				String[] firstSplit = rows[i].split(", ");
 				String[] firstHalf = firstSplit[0].split(" ");
 				StringBuilder lastNameBuilder = new StringBuilder(100);
@@ -44,7 +42,7 @@ public class ParseMyFantasyLeague
 				String firstName = secondHalf[0];
 				String lastName = lastNameBuilder.toString();
 				int value = Integer.parseInt(secondHalf[3].replace("$", ""));
-				ParseRankings.finalStretch(holder, firstName + " " + lastName, value, "", "", counter);
+				ParseRankings.finalStretch(holder, firstName + " " + lastName, value, "", "");
 			}
 		}
 	}

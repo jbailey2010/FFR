@@ -50,10 +50,8 @@ public class ParseCBS
 		String text = HandleBasicQueries.handleTablesMulti(doc, url, params);
 		String[] textArr = text.split("\n");
 		String[][] words = new String[textArr.length][];
-		int counter = 0;
 		for(int i = 0; i < words.length; i++)
 		{
-			counter++;
 			words[i] = textArr[i].split(" ");
 			int val = 0;
 			int a = -1; 
@@ -95,7 +93,7 @@ public class ParseCBS
 			{
 				playerName += " D/ST";
 			}
-			ParseRankings.finalStretch(holder, playerName, val, team, "", counter);
+			ParseRankings.finalStretch(holder, playerName, val, team, "");
 		}
 	}
 }

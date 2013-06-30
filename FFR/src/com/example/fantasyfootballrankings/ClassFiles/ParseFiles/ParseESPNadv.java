@@ -31,10 +31,8 @@ public class ParseESPNadv
 		String values = HandleBasicQueries.handleLists("http://games.espn.go.com/ffl/livedraftresults",
 				"div div div div table tbody tr td");
 		String[] brokenValues = values.split("\n");
-		int counter = 0;
 		for(int i = 13; i < brokenValues.length; i+=8)
 		{ 
-			counter++;
 			String name = ParseRankings.fixNames(brokenValues[i+1].split(", ")[0]);
 			name = Storage.nameExists(holder, name);
 			String val = brokenValues[i+5];
@@ -61,7 +59,8 @@ public class ParseESPNadv
 				BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
 				Values.handleNewValue(match.values, newPlayer.values.worth);
 				Values.handleNewValue(match.values, log);
-				match.vals.add(counter);
+				match.vals.add(log);
+				match.vals.add(newPlayer.values.worth);
 				match.info.team = ParseRankings.fixTeams(match.info.team);
 			}
 			else
@@ -70,7 +69,8 @@ public class ParseESPNadv
 				Values.isExtreme(newPlayer.values, newPlayer.values.worth);
 				Values.handleNewValue(newPlayer.values, log);
 				newPlayer.info.team = ParseRankings.fixTeams(newPlayer.info.team);
-				newPlayer.vals.add(counter);
+				newPlayer.vals.add(newPlayer.values.worth);
+				newPlayer.vals.add(log);
 				holder.players.add(newPlayer);
 			}
 		}

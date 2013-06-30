@@ -478,7 +478,7 @@ public class StorageAsyncTask
 	   			player.riskAll = Double.parseDouble(allData[i][24]);
 	   			player.riskPos = Double.parseDouble(allData[i][23]);
 	   			player.risk = Double.parseDouble(allData[i][22]);
-	   			player.values.ecr = Integer.parseInt(allData[i][21]);
+	   			player.values.ecr = Double.parseDouble(allData[i][21]);
 	   			player.info.additionalStat = allData[i][20];
 	   			player.info.passRunRatio = allData[i][19];
 	   			player.info.oLineStatus = allData[i][18];

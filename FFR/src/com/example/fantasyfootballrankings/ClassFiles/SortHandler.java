@@ -88,6 +88,7 @@ public class SortHandler
 	    topics.add("PAA per dollar");
 	    topics.add("Rec oTD");
 	    topics.add("Rec TD Difference");
+	    topics.add("Risk");
 	    topics.add("Risk relative to position");
 	    topics.add("Risk relative to everyone");
 	    topics.add("ECR");
@@ -195,6 +196,10 @@ public class SortHandler
 		else if(subject.equals("Rec TD Difference"))
 		{
 			tdDiff();
+		}
+		else if(subject.equals("Risk"))
+		{
+			risk();
 		}
 		else if(subject.equals("Risk relative to position"))
 		{
@@ -384,6 +389,37 @@ public class SortHandler
 	/**
 	 * Sets up the priority queue for risk relative to a position
 	 */
+	public static void risk()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b)
+			{
+				if(a.risk > b.risk)
+				{
+					return 1;
+				}
+				if(a.risk < b.risk)
+				{
+					return -1;
+				}
+				return 0;
+			}
+		});
+		for(PlayerObject player : players)
+		{
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.risk != -1.0)
+			{
+				sorted.add(player);
+			}
+		}
+		wrappingUp(sorted);
+	}
+	
+	/**
+	 * Sets up the priority queue for risk relative to a position
+	 */
 	public static void riskPos()
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
@@ -393,18 +429,18 @@ public class SortHandler
 			{
 				if(a.riskPos > b.riskPos)
 				{
-					return 1;
+					return -1;
 				}
 				if(a.riskPos < b.riskPos)
 				{
-					return -1;
+					return 1;
 				}
 				return 0;
 			}
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.riskPos != 1.0)
 			{
 				sorted.add(player);
 			}
@@ -424,18 +460,18 @@ public class SortHandler
 			{
 				if(a.riskAll > b.riskAll)
 				{
-					return 1;
+					return -1;
 				}
 				if(a.riskAll < b.riskAll)
 				{
-					return -1;
+					return 1;
 				}
 				return 0;
 			}
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.riskAll != -1.0)
 			{
 				sorted.add(player);
 			}
@@ -664,6 +700,10 @@ public class SortHandler
 	    	else if(subject.equals("Rec oTD"))
 	    	{
 	    		rankings.add(output + df.format(elem.values.oTD) + ": " + elem.info.name + " (" + elem.values.tdDiff + " difference)");
+	    	}
+	    	else if(subject.equals("Risk"))
+	    	{
+	    		rankings.add(output + df.format(elem.risk)+ ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
 	    	}
 	    	else if(subject.equals("Rec TD Difference"))
 	    	{

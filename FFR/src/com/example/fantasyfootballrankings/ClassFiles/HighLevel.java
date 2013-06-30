@@ -295,8 +295,9 @@ public class HighLevel
 	/**
 	 * Sets the relative risk of a player
 	 * @param holder
+	 * @throws IOException 
 	 */
-	public static void setRisk(Storage holder)
+	public static void setRisk(Storage holder) throws IOException
 	{
 		double qbRisk = 0.0;
 		int qbCount = 0;
@@ -312,40 +313,27 @@ public class HighLevel
 		int kCount = 0;
 		double allRisk = 0.0;
 		int allCount = 0;
+		parseECRWrapper(holder);
 		for(PlayerObject player : holder.players)
 		{
-			double mean = player.values.worth;
-            double risk = 0;
-            for(double a : player.vals)
-            {
-                risk += (mean-a)*(mean-a);
-            }
-            risk = risk / (player.values.count - 3);
-            risk = Math.sqrt(risk);
-            DecimalFormat twoDForm = new DecimalFormat("#.##");
-            risk = Double.valueOf(twoDForm.format(risk));
-            player.risk = risk;
-		}
-		for(PlayerObject player : holder.players)
-		{
-			if(player.values.count > 2.0)
+			if(player.values.count > 2.0 && player.values.ecr != -1.0)
 			{
-				if(player.info.position.equals("QB") && player.values.worth >= 1.0)
+				if(player.info.position.equals("QB"))
 				{
 					qbRisk += player.risk;
 					qbCount++;
 				}
-				else if(player.info.position.equals("RB") && player.values.worth >= 1.0)
+				else if(player.info.position.equals("RB"))
 				{
 					rbRisk += player.risk;
 					rbCount++;
 				}
-				else if(player.info.position.equals("WR") && player.values.worth >= 1.0)
+				else if(player.info.position.equals("WR"))
 				{
 					wrRisk += player.risk;
 					wrCount++;
 				}
-				else if(player.info.position.equals("TE") && player.values.worth >= 1.0)
+				else if(player.info.position.equals("TE"))
 				{
 					teRisk += player.risk;
 					teCount++;
@@ -360,14 +348,8 @@ public class HighLevel
 					kRisk += player.risk;
 					kCount++;
 				}
-				if((player.info.position.equals("QB") && player.values.worth >= 1.0) ||
-						(player.info.position.equals("RB") && player.values.worth >= 1.0) ||
-						(player.info.position.equals("WR") && player.values.worth >= 1.0) ||
-						(player.info.position.equals("TE") && player.values.worth >= 1.0))
-				{
-					allRisk += player.risk;
-					allCount++;
-				}
+				allRisk += player.risk;
+				allCount++;
 			}
 		}
 		qbRisk /= qbCount;
@@ -861,6 +843,45 @@ public class HighLevel
 				player.values.oTD = data.get(1);
 				player.values.tADEZ = data.get(0);
 			}
+		}
+	}
+	
+	public static void parseECRWrapper(Storage holder) throws IOException
+	{
+		HashMap<String, Double> ecr = new HashMap<String, Double>();
+		HashMap<String, Double> risk = new HashMap<String, Double>();
+		parseECRWorker("http://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php", holder, ecr, risk);
+		for(PlayerObject player : holder.players)
+		{
+			if(ecr.containsKey(player.info.name))
+			{
+				player.values.ecr = ecr.get(player.info.name);
+				player.risk = risk.get(player.info.name);
+			}
+		}
+	}
+	
+	public static void parseECRWorker(String url, Storage holder, HashMap<String, Double> ecr, HashMap<String, Double> risk) throws IOException
+	{
+		String html = HandleBasicQueries.handleLists(url, "td");
+		String[] td = html.split("\n");
+		int min = 0;
+		for(int i = 0; i < td.length; i++)
+		{
+			if(td[i].contains("QB") || td[i].contains("RB") || td[i].contains("WR") || td[i].contains("TE"))
+			{
+				min = i;
+				break;
+			}
+		}
+		for(int i = min; i < td.length; i+=9)
+		{
+			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i].split(" \\(")[0].split(", ")[0]));
+			double ecrVal = Double.parseDouble(td[i+3]);
+			double riskVal = Double.parseDouble(td[i+4]);
+			System.out.println(name + ": " + ecrVal + ", " + riskVal);
+			ecr.put(name, ecrVal);
+			risk.put(name, riskVal);
 		}
 	}
 }
