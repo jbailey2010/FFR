@@ -23,7 +23,6 @@ public class PlayerObject
 	public double risk;
 	public double riskPos;
 	public double riskAll;
-	public List<Double> vals;
 	 
 	/**
 	 * Sets up the player object
@@ -42,7 +41,6 @@ public class PlayerObject
 		draftClass = "";
 		injuryStatus = "Injury Status: Healthy";
 		fa = new ArrayList<String>();
-		vals = new ArrayList<Double>();
 		risk = -1.0;
 		riskPos = -1.0;
 		riskAll = -1.0;

@@ -40,37 +40,18 @@ public class ParseESPNadv
 			int worth = (int)Double.parseDouble(val);
 			PlayerObject newPlayer = new PlayerObject(name, "", "", worth);
 			PlayerObject match =  Storage.pqExists(holder, name);
-			double a = Double.parseDouble(brokenValues[i+3]);
-			double log = Math.log(a);
-			log = log * -12.5;
-			log = log - 0.06*a;
-			log = log + 73.0;
-			if(log < 0.0)
-			{
-				log = 0.0;
-			}
-			else if(log < 1.0)
-			{
-				log = 1.0;
-			}
 			if(match != null)
 			{
 				match.info.trend = trend;
 				BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
 				Values.handleNewValue(match.values, newPlayer.values.worth);
-				Values.handleNewValue(match.values, log);
-				match.vals.add(log);
-				match.vals.add(newPlayer.values.worth);
 				match.info.team = ParseRankings.fixTeams(match.info.team);
 			}
 			else
 			{
 				newPlayer.info.trend = trend;
 				Values.isExtreme(newPlayer.values, newPlayer.values.worth);
-				Values.handleNewValue(newPlayer.values, log);
 				newPlayer.info.team = ParseRankings.fixTeams(newPlayer.info.team);
-				newPlayer.vals.add(newPlayer.values.worth);
-				newPlayer.vals.add(log);
 				holder.players.add(newPlayer);
 				holder.parsedPlayers.add(newPlayer.info.name);
 			}

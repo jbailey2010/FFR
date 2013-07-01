@@ -88,6 +88,8 @@ public class SortHandler
 	    topics.add("PAA per dollar");
 	    topics.add("Rec oTD");
 	    topics.add("Rec TD Difference");
+	    topics.add("Rush oTD");
+	    topics.add("Rush TD Difference");
 	    topics.add("Risk");
 	    topics.add("Risk relative to position");
 	    topics.add("Risk relative to everyone");
@@ -128,7 +130,8 @@ public class SortHandler
 						if((subject.equals("Projections") || subject.equals("PAA") ||
 								(subject.equals("PAA per dollar")) || subject.equals("Rec TD Difference"))
 								&& (position.equals("K") || position.equals("D/ST")) || 
-								(subject.equals("Rec oTD") &&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))))
+								((subject.equals("Rec oTD") || subject.equals("Rush oTD") || subject.equals("Rush TD Difference"))
+										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))))
 						{
 							Toast.makeText(context, "Projections not available for that position", Toast.LENGTH_SHORT).show();
 						}
@@ -183,7 +186,6 @@ public class SortHandler
 		}
 		else if(subject.equals("PAA"))
 		{
-			System.out.println("Calling paa");
 			paa();
 		}
 		else if(subject.equals("PAA per dollar"))
@@ -197,6 +199,14 @@ public class SortHandler
 		else if(subject.equals("Rec TD Difference"))
 		{
 			tdDiff();
+		}
+		else if(subject.equals("Rush oTD"))
+		{
+			roTD();
+		}
+		else if(subject.equals("Rush TD Difference"))
+		{
+			rtdDiff();
 		}
 		else if(subject.equals("Risk"))
 		{
@@ -363,6 +373,37 @@ public class SortHandler
 	/**
 	 * Sets up the priority queue for risk relative to a position
 	 */
+	public static void roTD()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b)
+			{
+				if(a.values.roTD > b.values.roTD)
+				{
+					return -1;
+				}
+				if(a.values.roTD < b.values.roTD)
+				{
+					return 1;
+				}
+				return 0;
+			}
+		});
+		for(PlayerObject player : players)
+		{
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.rADEZ != 0.0)
+			{
+				sorted.add(player);
+			}
+		}
+		wrappingUp(sorted);
+	}
+	
+	/**
+	 * Sets up the priority queue for risk relative to a position
+	 */
 	public static void tdDiff()
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
@@ -384,6 +425,37 @@ public class SortHandler
 		for(PlayerObject player : players)
 		{
 			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.tADEZ != 0.0)
+			{
+				sorted.add(player);
+			}
+		}
+		wrappingUp(sorted);
+	}
+	
+	/**
+	 * Sets up the priority queue for risk relative to a position
+	 */
+	public static void rtdDiff()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b)
+			{
+				if(a.values.rtdDiff > b.values.rtdDiff)
+				{
+					return -1;
+				}
+				if(a.values.rtdDiff < b.values.rtdDiff)
+				{
+					return 1;
+				}
+				return 0;
+			}
+		});
+		for(PlayerObject player : players)
+		{
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.rADEZ != 0.0)
 			{
 				sorted.add(player);
 			}
@@ -737,6 +809,10 @@ public class SortHandler
 	    	{
 	    		rankings.add(output + df.format(elem.values.oTD) + ": " + elem.info.name + " (" + elem.values.tdDiff + " difference)");
 	    	}
+	    	else if(subject.equals("Rush oTD"))
+	    	{
+	    		rankings.add(output + df.format(elem.values.roTD) + ": " + elem.info.name + " (" + elem.values.rtdDiff + " difference)");
+	    	}
 	    	else if(subject.equals("Risk"))
 	    	{
 	    		rankings.add(output + df.format(elem.risk)+ ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
@@ -744,6 +820,10 @@ public class SortHandler
 	    	else if(subject.equals("Rec TD Difference"))
 	    	{
 	    		rankings.add(output + df.format(elem.values.tdDiff) + ": " + elem.info.name + " (" + elem.values.oTD + " expected)");
+	    	}
+	    	else if(subject.equals("Rush TD Difference"))
+	    	{
+	    		rankings.add(output + df.format(elem.values.rtdDiff) + ": " + elem.info.name + " (" + elem.values.roTD + " expected)");
 	    	}
 	    	else if(subject.equals("Risk relative to position"))
 			{

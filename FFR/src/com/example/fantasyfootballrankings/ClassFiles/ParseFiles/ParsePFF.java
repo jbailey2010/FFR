@@ -74,6 +74,7 @@ public class ParsePFF {
 	    	}
 	    	int val = Integer.parseInt(data[data.length - 1]);
 	    	ParseRankings.finalStretch(holder, name, val, team, position);
+	    	ParseRankings.finalStretch(holder, name, val, team, position);
 	    }
 	}
 }

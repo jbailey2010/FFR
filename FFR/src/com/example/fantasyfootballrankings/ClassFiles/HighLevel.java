@@ -30,6 +30,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
 import FileIO.ReadFromFile;
 import android.content.Context;
 import android.os.StrictMode;
+import android.provider.ContactsContract.Data;
 
 /**
  * Handles operations done on all of the players
@@ -40,23 +41,6 @@ import android.os.StrictMode;
 
 public class HighLevel 
 {
-	
-	
-	/**
-	 * Couldn't be simpler. It just adds all the parsed
-	 * players to a list of players to be stored.
-	 * Note, this shouldn't be written to file later, as who cares?
-	 * It's volatile and shouldn't be treated as if it isn't.
-	 * @param holder
-	 */
-	/*public static void getParsedPlayers(Storage holder)
-	{ 
-		holder.parsedPlayers.clear();
-		for(PlayerObject e: holder.players)
-		{
-			holder.parsedPlayers.add(e.info.name);
-		}
-	}*/
 	
 	/**
 	 * Sets a contract status for players on the fftoolbox list
@@ -842,6 +826,32 @@ public class HighLevel
 				player.values.tdDiff = data.get(2);
 				player.values.oTD = data.get(1);
 				player.values.tADEZ = data.get(0);
+			}
+		}
+		html = HandleBasicQueries.handleLists("https://www.profootballfocus.com/blog/2013/07/01/adios-redzone-carries-hello-running-back-otd/", "table#wp-table-reloaded-id-14-no-1 td");
+		td = html.split("\n");
+		redZoneStats = new HashMap<String, List<Double>>();
+		redZoneStats.clear();
+		for(int i = 0; i < td.length; i+=6)
+		{
+			List<Double> data = new ArrayList<Double>(3);
+			String name = ParseRankings.fixNames(td[i]);
+			double rADEZ = Double.parseDouble(td[i+2]);
+			double roTD = Double.parseDouble(td[i+4]);
+			double rtdDiff = Double.parseDouble(td[i+5]);
+			data.add(rADEZ);
+			data.add(roTD);
+			data.add(rtdDiff);
+			redZoneStats.put(name, data);
+		}
+		for(PlayerObject player : holder.players)
+		{
+			if(redZoneStats.containsKey(player.info.name))
+			{
+				List<Double> data = redZoneStats.get(player.info.name);
+				player.values.rtdDiff = data.get(2);
+				player.values.roTD = data.get(1);
+				player.values.rADEZ = data.get(0);
 			}
 		}
 	}

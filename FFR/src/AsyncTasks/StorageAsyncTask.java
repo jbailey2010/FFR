@@ -98,7 +98,8 @@ public class StorageAsyncTask
 	    		"&&" + fa + "&&" + oLine + "&&" + passRun + "&&" + additStat + "&&" + player.values.ecr + "&&" + 
 	    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "&&" + oLineAdv + "&&" + 
 	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
-	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "~~~~");
+	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + player.values.roTD + "&&" + player.values.rtdDiff
+	    		+ "&&" + player.values.rADEZ + "~~~~");
 	    	}
 	    	String playerString = players.toString();
 	    	editor.putString("Player Values", playerString).commit();
@@ -221,7 +222,8 @@ public class StorageAsyncTask
 	    	    		"&&" + fa + "&&" + oLine + "&&" + passRun + "&&" + additStat + "&&" + player.values.ecr + "&&" + 
 	    	    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "&&" + oLineAdv + "&&" + 
 	    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
-	    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "~~~~");
+	    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + player.values.roTD + "&&" + player.values.rtdDiff
+	    	    		+ "&&" + player.values.rADEZ + "~~~~");
 
 	    	}
 	    	String playerString = players.toString();

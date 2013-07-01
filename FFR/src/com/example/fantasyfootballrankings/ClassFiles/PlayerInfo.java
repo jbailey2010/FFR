@@ -362,7 +362,18 @@ public class PlayerInfo
 					result = "+" + result; 
 				}
 				output.add("Targeted an average of " + searchedPlayer.values.tADEZ + " yards from the endzone\n\n" + 
-						"Opportunity-adjusted receiving touchdowns " + searchedPlayer.values.oTD + " (" + result + 
+						"Opportunity-adjusted receiving touchdowns: " + searchedPlayer.values.oTD + " (" + result + 
+						" relative to last year's numbers)");
+			}
+			if(searchedPlayer.values.rADEZ != 0)
+			{
+				String result = String.valueOf(searchedPlayer.values.rtdDiff);
+				if(!result.contains("-"))
+				{
+					result = "+" + result;
+				}
+				output.add("Carried the ball an average of " + searchedPlayer.values.rADEZ + " yards from the endzone\n\n" + 
+						"Opportunity-adjusted rushing touchdowns: " + searchedPlayer.values.roTD + " (" + result + 
 						" relative to last year's numbers)");
 			}
 			if(!searchedPlayer.injuryStatus.contains("Healthy"))

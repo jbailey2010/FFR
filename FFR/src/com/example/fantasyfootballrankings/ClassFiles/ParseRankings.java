@@ -274,14 +274,12 @@ public class ParseRankings
 			BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
 			Values.handleNewValue(match.values, newPlayer.values.worth);
 			match.info.team = fixTeams(match.info.team);
-			match.vals.add(newPlayer.values.worth);
 		}
 		else
 		{
 			Values.isExtreme(newPlayer.values, newPlayer.values.worth);
 			newPlayer.info.team = fixTeams(newPlayer.info.team);
 			holder.players.add(newPlayer);
-			newPlayer.vals.add(newPlayer.values.worth);
 			holder.parsedPlayers.add(newPlayer.info.name);
 		}		
 	}

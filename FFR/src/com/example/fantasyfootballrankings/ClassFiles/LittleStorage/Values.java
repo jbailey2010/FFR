@@ -19,8 +19,11 @@ public class Values
 	public double paa;
 	public double paapd;
 	public double tADEZ;
+	public double rADEZ;
 	public double oTD;
+	public double roTD;
 	public double tdDiff;
+	public double rtdDiff;
 	/**
 	 * Just initializes the values stored in the object,
 	 * count to one (obviously)
@@ -37,8 +40,11 @@ public class Values
 		paa = 0.0;
 		paapd = 0.0;
 		tADEZ = 0.0;
+		rADEZ = 0.0;
 		oTD = 0.0;
+		roTD = 0.0;
 		tdDiff = 0.0;
+		rtdDiff = 0.0;
 	}
 
 	/**
