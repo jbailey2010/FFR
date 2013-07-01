@@ -839,7 +839,7 @@ public class HighLevel
 			double rADEZ = Double.parseDouble(td[i+2]);
 			double roTD = Double.parseDouble(td[i+4]);
 			double rtdDiff = Double.parseDouble(td[i+5]);
-			data.add(rADEZ);
+			data.add(rADEZ); 
 			data.add(roTD);
 			data.add(rtdDiff);
 			redZoneStats.put(name, data);

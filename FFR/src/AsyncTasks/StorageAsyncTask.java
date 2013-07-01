@@ -470,6 +470,9 @@ public class StorageAsyncTask
 	   		for(int i = 0; i < holder.players.size(); i++)
 	   		{  
 	   			PlayerObject player = holder.players.get(i);
+	   			player.values.rADEZ = Double.parseDouble(allData[i][34]);
+	   			player.values.rtdDiff = Double.parseDouble(allData[i][33]);
+	   			player.values.roTD = Double.parseDouble(allData[i][32]);
 	   			player.values.tADEZ = Double.parseDouble(allData[i][31]);
 	   			player.values.tdDiff = Double.parseDouble(allData[i][30]);
 	   			player.values.oTD = Double.parseDouble(allData[i][29]);

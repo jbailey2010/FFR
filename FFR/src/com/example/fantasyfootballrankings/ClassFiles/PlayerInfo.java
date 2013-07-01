@@ -318,10 +318,6 @@ public class PlayerInfo
 			output.add(searchedPlayer.values.points + " projected points (ranked " + rankProjPos(searchedPlayer, holder)  +
 					" positionally)");
 		}
-		if(searchedPlayer.info.sos > 0)
-		{
-			output.add("Positional SOS: " + searchedPlayer.info.sos);
-		}
 		if(searchedPlayer.values.paa != 0.0)
 		{
 			output.add(df.format(searchedPlayer.values.paa) + " points above average (" + rankPAAPos(searchedPlayer, holder) + 
@@ -330,6 +326,32 @@ public class PlayerInfo
 					+ rankPAAPDPos(searchedPlayer, holder) + " positionally, " + rankPAAPDAll(searchedPlayer, holder) + " overall)");
 
 		} 
+		if(searchedPlayer.info.sos > 0)
+		{
+			output.add("Positional SOS: " + searchedPlayer.info.sos);
+		}
+		if(searchedPlayer.values.oTD != 0.0 && searchedPlayer.values.tADEZ != 0)
+		{
+			String result = String.valueOf(searchedPlayer.values.tdDiff);
+			if(!result.contains("-"))
+			{
+				result = "+" + result; 
+			}
+			output.add("Targeted an average of " + searchedPlayer.values.tADEZ + " yards from the endzone\n\n" + 
+					"Opportunity-adjusted receiving touchdowns: " + searchedPlayer.values.oTD + " (" + result + 
+					" relative to last year's numbers)");
+		}
+		if(searchedPlayer.values.rADEZ != 0)
+		{
+			String result = String.valueOf(searchedPlayer.values.rtdDiff);
+			if(!result.contains("-"))
+			{
+				result = "+" + result;
+			}
+			output.add("Carried the ball an average of " + searchedPlayer.values.rADEZ + " yards from the endzone\n\n" + 
+					"Opportunity-adjusted rushing touchdowns: " + searchedPlayer.values.roTD + " (" + result + 
+					" relative to last year's numbers)");
+		}
 		if(searchedPlayer.risk > 0.0)
 		{
 			if(searchedPlayer.values.count > 8 && searchedPlayer.values.worth > 5 && !searchedPlayer.info.position.equals("K") && 
@@ -354,28 +376,6 @@ public class PlayerInfo
 				&& !searchedPlayer.stats.equals(" ") && searchedPlayer.stats.length() > 5)
 		{
 			output.add(searchedPlayer.stats);
-			if(searchedPlayer.values.oTD != 0.0 && searchedPlayer.values.tADEZ != 0)
-			{
-				String result = String.valueOf(searchedPlayer.values.tdDiff);
-				if(!result.contains("-"))
-				{
-					result = "+" + result; 
-				}
-				output.add("Targeted an average of " + searchedPlayer.values.tADEZ + " yards from the endzone\n\n" + 
-						"Opportunity-adjusted receiving touchdowns: " + searchedPlayer.values.oTD + " (" + result + 
-						" relative to last year's numbers)");
-			}
-			if(searchedPlayer.values.rADEZ != 0)
-			{
-				String result = String.valueOf(searchedPlayer.values.rtdDiff);
-				if(!result.contains("-"))
-				{
-					result = "+" + result;
-				}
-				output.add("Carried the ball an average of " + searchedPlayer.values.rADEZ + " yards from the endzone\n\n" + 
-						"Opportunity-adjusted rushing touchdowns: " + searchedPlayer.values.roTD + " (" + result + 
-						" relative to last year's numbers)");
-			}
 			if(!searchedPlayer.injuryStatus.contains("Healthy"))
 			{
 				output.add(searchedPlayer.injuryStatus);
