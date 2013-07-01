@@ -318,6 +318,10 @@ public class PlayerInfo
 			output.add(searchedPlayer.values.points + " projected points (ranked " + rankProjPos(searchedPlayer, holder)  +
 					" positionally)");
 		}
+		if(searchedPlayer.info.sos > 0)
+		{
+			output.add("Positional SOS: " + searchedPlayer.info.sos);
+		}
 		if(searchedPlayer.values.paa != 0.0)
 		{
 			output.add(df.format(searchedPlayer.values.paa) + " points above average (" + rankPAAPos(searchedPlayer, holder) + 
@@ -325,7 +329,7 @@ public class PlayerInfo
 						df.format(searchedPlayer.values.paapd)+ " points above average per dollar (" 
 					+ rankPAAPDPos(searchedPlayer, holder) + " positionally, " + rankPAAPDAll(searchedPlayer, holder) + " overall)");
 
-		}
+		} 
 		if(searchedPlayer.risk > 0.0)
 		{
 			if(searchedPlayer.values.count > 8 && searchedPlayer.values.worth > 5 && !searchedPlayer.info.position.equals("K") && 
@@ -365,10 +369,6 @@ public class PlayerInfo
 			{
 				output.add(searchedPlayer.injuryStatus);
 			}
-		}
-		if(searchedPlayer.info.sos > 0)
-		{
-			output.add("Positional SOS: " + searchedPlayer.info.sos);
 		}
 		if(searchedPlayer.info.bye != null && !searchedPlayer.info.bye.contains("null") &&  
 				!searchedPlayer.info.bye.equals("Not set"))

@@ -93,6 +93,7 @@ public class SortHandler
 	    topics.add("Risk relative to everyone");
 	    topics.add("ECR");
 	    topics.add("ADP");
+	    topics.add("Positional SOS");
 	    topics.add("Weekly Trend");
 	    topics.add("Highest Value");
 	    topics.add("Lowest Value");
@@ -208,6 +209,10 @@ public class SortHandler
 		else if(subject.equals("Risk relative to everyone"))
 		{
 			riskAll();
+		}
+		else if(subject.equals("Positional SOS"))
+		{
+			pSOS();
 		}
 		else if(subject.equals("ECR"))
 		{
@@ -379,6 +384,37 @@ public class SortHandler
 		for(PlayerObject player : players)
 		{
 			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.tADEZ != 0.0)
+			{
+				sorted.add(player);
+			}
+		}
+		wrappingUp(sorted);
+	}
+	
+	/**
+	 * Sets up the priority queue for risk relative to a position
+	 */
+	public static void pSOS()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b)
+			{
+				if(a.info.sos > b.info.sos)
+				{
+					return 1;
+				}
+				if(a.info.sos < b.info.sos)
+				{
+					return -1;
+				}
+				return 0;
+			}
+		});
+		for(PlayerObject player : players)
+		{
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.info.sos != -1.0)
 			{
 				sorted.add(player);
 			}
@@ -716,6 +752,10 @@ public class SortHandler
 			else if(subject.equals("Risk relative to everyone"))
 			{
 				rankings.add(output + elem.riskAll + ": " + elem.info.name);
+			}
+			else if(subject.equals("Positional SOS"))
+			{
+				rankings.add(output + elem.info.sos + ": " + elem.info.name + " (" + elem.values.points + ", $" + df.format(elem.values.worth) + ")");
 			}
 			else if(subject.equals("ECR"))
 			{
