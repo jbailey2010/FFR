@@ -63,7 +63,7 @@ public class ParseFFTB
 				val = val.substring(1, val.length());
 				String validated = ParseRankings.fixNames(name);
 				String newName = Storage.nameExists(holder, validated);
-				PlayerObject newPlayer = new PlayerObject(name, team, pos, Integer.parseInt(val));
+				PlayerObject newPlayer = new PlayerObject(newName, team, pos, Integer.parseInt(val));
 				PlayerObject match =  Storage.pqExists(holder, newName);
 				if(match != null)
 				{

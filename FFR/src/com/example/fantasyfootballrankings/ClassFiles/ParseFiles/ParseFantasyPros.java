@@ -133,6 +133,7 @@ public class ParseFantasyPros
 					newPlayer.vals.add(logb);
 				}
 				holder.players.add(newPlayer);
+				holder.parsedPlayers.add(newPlayer.info.name);
 			}	
 		}
 	}

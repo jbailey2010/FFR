@@ -408,10 +408,7 @@ public class Rankings extends Activity {
 				listview.smoothScrollToPosition(0);		
 			}
 		});
-		if(holder.playerNames.size() < 19)
-		{
-			ReadFromFile.fetchNamesBackEnd(holder, cont);
-		}
+		ReadFromFile.fetchNamesBackEnd(holder, cont);
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	String checkExists = prefs.getString("Player Values", "Not Set");
     	if(checkExists != "Not Set")

@@ -93,12 +93,20 @@ public class ParseRankings
 		fixes.put("TY Hilton", "T.Y. Hilton");
 		fixes.put("Ty Hilton", "T.Y. Hilton");
 		fixes.put("Reuben Randle", "Rueben Randle");
-		fixes.put("E.J. Manuel", "EJ Manuel");
+		fixes.put("E.J. Manuel", "EJ Manuel"); 
 		fixes.put("Steve L Smith", "Steve Smith");
 		fixes.put("Michael Crabtree*", "Michael Crabtree");
 		fixes.put("Malcolm Floyd", "Malcom Floyd");
 		fixes.put("Wesley Welker", "Wes Welker"); 
 		fixes.put("LaVon Brazil", "LaVon Brazill");
+		fixes.put("Steve Hauschka", "Steven Hauschka");
+		fixes.put("Ben Watson", "Benjamin Watson");
+		fixes.put("Deangelo Williams", "DeAngelo Williams");
+		fixes.put("Demarco Murray", "DeMarco Murray");
+		fixes.put("Laron Byrd", "LaRon Byrd");
+		fixes.put("Ted Ginn Jr.", "Ted Ginn");
+		fixes.put("D.J. Williams Jr.", "D.J. Williams");
+		fixes.put("Greg Jones II", "Greg Jones");
 		
 		
 		teams.put("cin", "Cincinnati Bengals");
@@ -274,6 +282,7 @@ public class ParseRankings
 			newPlayer.info.team = fixTeams(newPlayer.info.team);
 			holder.players.add(newPlayer);
 			newPlayer.vals.add(newPlayer.values.worth);
+			holder.parsedPlayers.add(newPlayer.info.name);
 		}		
 	}
 	

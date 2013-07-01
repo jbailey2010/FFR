@@ -71,6 +71,7 @@ public class ParseYahoo
 				newPlayer.vals.add(aav);
 				newPlayer.vals.add(newPlayer.values.worth);
 				holder.players.add(newPlayer);
+				holder.parsedPlayers.add(newPlayer.info.name);
 			}	
 		}
 	}

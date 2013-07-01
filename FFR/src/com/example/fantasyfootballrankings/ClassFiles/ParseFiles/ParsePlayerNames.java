@@ -76,6 +76,12 @@ public class ParsePlayerNames {
 		names.add("Darrel Young");
 		names.add("Erik Lorig");
 		names.add("Thaddeus Lewis");
+		names.add("Greg Jones");
+		names.add("Aaron Hernandez");
+		names.add("David Garrard");
+		names.add("Nate Kaeding");
+		names.add("David Ruffer");
+		names.add("Kris Brown");
 		if(names.size() > 40)
 		{
 			WriteToFile.storePlayerNames(names, cont);

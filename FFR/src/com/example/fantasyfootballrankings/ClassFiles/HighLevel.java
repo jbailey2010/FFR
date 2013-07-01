@@ -49,14 +49,14 @@ public class HighLevel
 	 * It's volatile and shouldn't be treated as if it isn't.
 	 * @param holder
 	 */
-	public static void getParsedPlayers(Storage holder)
-	{
+	/*public static void getParsedPlayers(Storage holder)
+	{ 
 		holder.parsedPlayers.clear();
 		for(PlayerObject e: holder.players)
 		{
 			holder.parsedPlayers.add(e.info.name);
 		}
-	}
+	}*/
 	
 	/**
 	 * Sets a contract status for players on the fftoolbox list
@@ -846,6 +846,9 @@ public class HighLevel
 		}
 	}
 	
+	/**
+	 * Calls the parser and gets the functionsn
+	 */
 	public static void parseECRWrapper(Storage holder) throws IOException
 	{
 		HashMap<String, Double> ecr = new HashMap<String, Double>();
@@ -861,25 +864,28 @@ public class HighLevel
 		}
 	}
 	
-	public static void parseECRWorker(String url, Storage holder, HashMap<String, Double> ecr, HashMap<String, Double> risk) throws IOException
+	/**
+	 * Gets the ECR Data for players
+	 */
+	public static void parseECRWorker(String url, Storage holder, HashMap<String, Double> ecr, 
+			HashMap<String, Double> risk) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = html.split("\n");
 		int min = 0;
 		for(int i = 0; i < td.length; i++)
 		{
-			if(td[i].contains("QB") || td[i].contains("RB") || td[i].contains("WR") || td[i].contains("TE"))
+			if(td[i+1].contains("QB") || td[i+1].contains("RB") || td[i+1].contains("WR") || td[i+1].contains("TE"))
 			{
 				min = i;
 				break;
 			}
 		}
-		for(int i = min; i < td.length; i+=9)
+		for(int i = min; i < td.length; i+=10)
 		{
 			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i].split(" \\(")[0].split(", ")[0]));
-			double ecrVal = Double.parseDouble(td[i+3]);
-			double riskVal = Double.parseDouble(td[i+4]);
-			System.out.println(name + ": " + ecrVal + ", " + riskVal);
+			double ecrVal = Double.parseDouble(td[i+4]);
+			double riskVal = Double.parseDouble(td[i+5]);
 			ecr.put(name, ecrVal);
 			risk.put(name, riskVal);
 		}

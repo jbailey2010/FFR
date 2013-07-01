@@ -49,6 +49,10 @@ public class ParseESPN
 				team = "";
 				name = namePos;
 			}
+			if(name.contains("D/ST"))
+			{
+				name = name.replaceAll("D/ST", "").trim() + " D/ST";
+			}
 			String valDS = brokenUp[i+3];
 			if(valDS.contains("-"))
 			{

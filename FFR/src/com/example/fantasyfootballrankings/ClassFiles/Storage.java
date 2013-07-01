@@ -92,44 +92,9 @@ public class Storage
 	 */
 	public static String nameExists(Storage holder, String name)
 	{
-		name = name.toLowerCase();
-		for(int i = 0; i < holder.playerNames.size(); i++)
+		if(holder.playerNames.contains(name))
 		{
-			
-			String nameIter = holder.playerNames.get(i);
-			nameIter = nameIter.toLowerCase();
-			if(name.equals(nameIter))
-			{
-				return holder.playerNames.get(i);
-			}
-			//Handle an extra space just in case that's a problem
-			String[] poss = name.split(" ");
-			String[] exis = nameIter.split(" ");
-			if(name.contains("d/st") && nameIter.contains("d/st"))
-			{
-				if(poss[1] == exis[1])
-				{
-					return holder.playerNames.get(i);
-				}
-			}
-			if(poss[0].equals(exis[0]) && poss[1].equals(exis[1]))
-			{
-				return holder.playerNames.get(i);
-			}
-			//Finally, if one is one character and the other a full name
-			if(poss[0] == exis[0].substring(0,1) && poss[0].length() == 1 && poss[1] == exis[1]
-					&& !exis[1].contains("d/st"))
-			{ 
-				return holder.playerNames.get(i);
-			}
-			//One last case, in case of a shorter version of a name (ced/cedric)...etc,
-			//while avoiding overlap from the previous if statement
-			
-			if(poss[1].equals(exis[1]) && exis[0].contains(poss[0]) 
-					&& poss[0].length() > 1)
-			{
-				return holder.playerNames.get(i);
-			}
+			return name;
 		}
 		System.out.println(name + " wasn't found...");
 		return name + " NO MATCH FOUND";
@@ -144,15 +109,16 @@ public class Storage
 	 */
 	public static PlayerObject pqExists(Storage holder, String name)
 	{
-		 Iterator<PlayerObject> iter = holder.players.iterator();
-		 while(iter.hasNext())
-		 {
-			 PlayerObject player = (PlayerObject) iter.next();
-			 if(player.info.name.equals(name))
+		if(holder.parsedPlayers.contains(name))
+		{
+			 for(PlayerObject player : holder.players)
 			 {
-				 return player;
+				 if(player.info.name.equals(name))
+				 {
+					 return player;
+				 }
 			 }
-		 }
+		}
 		 return null;
 	}
 }

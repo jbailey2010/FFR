@@ -72,6 +72,7 @@ public class ParseESPNadv
 				newPlayer.vals.add(newPlayer.values.worth);
 				newPlayer.vals.add(log);
 				holder.players.add(newPlayer);
+				holder.parsedPlayers.add(newPlayer.info.name);
 			}
 		}
 	}
