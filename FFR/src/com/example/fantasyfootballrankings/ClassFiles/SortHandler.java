@@ -88,8 +88,10 @@ public class SortHandler
 	    topics.add("PAA per dollar");
 	    topics.add("Rec oTD");
 	    topics.add("Rec TD Difference");
+	    topics.add("Average target location");
 	    topics.add("Rush oTD");
 	    topics.add("Rush TD Difference");
+	    topics.add("Average carry location");
 	    topics.add("Risk");
 	    topics.add("Risk relative to position");
 	    topics.add("Risk relative to everyone");
@@ -231,6 +233,14 @@ public class SortHandler
 		else if(subject.equals("ADP"))
 		{
 			adp();
+		}
+		else if(subject.equals("Average target location"))
+		{
+			tadez();
+		}
+		else if(subject.equals("Average carry location"))
+		{
+			radez();
 		}
 		else if(subject.equals("Weekly Trend"))
 		{
@@ -487,6 +497,68 @@ public class SortHandler
 		for(PlayerObject player : players)
 		{
 			if(player.values.worth > minVal && player.values.worth < maxVal && player.info.sos != -1.0)
+			{
+				sorted.add(player);
+			}
+		}
+		wrappingUp(sorted);
+	}
+	
+	/**
+	 * Sets up the priority queue for risk relative to a position
+	 */
+	public static void radez()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b)
+			{
+				if(a.values.rADEZ > b.values.rADEZ)
+				{
+					return 1;
+				}
+				if(a.values.rADEZ < b.values.rADEZ)
+				{
+					return -1;
+				}
+				return 0;
+			}
+		});
+		for(PlayerObject player : players)
+		{
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.rADEZ != 0.0)
+			{
+				sorted.add(player);
+			}
+		}
+		wrappingUp(sorted);
+	}
+	
+	/**
+	 * Sets up the priority queue for risk relative to a position
+	 */
+	public static void tadez()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b)
+			{
+				if(a.values.tADEZ > b.values.tADEZ)
+				{
+					return 1;
+				}
+				if(a.values.tADEZ < b.values.tADEZ)
+				{
+					return -1;
+				}
+				return 0;
+			}
+		});
+		for(PlayerObject player : players)
+		{
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.tADEZ != 0.0)
 			{
 				sorted.add(player);
 			}
@@ -802,7 +874,7 @@ public class SortHandler
 	    		rankings.add(output + df.format(elem.values.paa)+ ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
 	    	}
 	    	else if(subject.equals("PAA per dollar"))
-	    	{
+	    	{ 
 	    		rankings.add(output + df.format(elem.values.paapd) + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
 	    	}
 	    	else if(subject.equals("Rec oTD"))
@@ -812,6 +884,16 @@ public class SortHandler
 	    	else if(subject.equals("Rush oTD"))
 	    	{
 	    		rankings.add(output + df.format(elem.values.roTD) + ": " + elem.info.name + " (" + elem.values.rtdDiff + " difference)");
+	    	}
+	    	else if(subject.equals("Average carry location"))
+	    	{
+	    		rankings.add(output + df.format(elem.values.rADEZ) + ": " + elem.info.name + " (" + elem.values.roTD + 
+	    				" expected rushing TDs, $" + df.format(elem.values.worth) + ")");
+	    	}
+	    	else if(subject.equals("Average target location"))
+	    	{
+	    		rankings.add(output + df.format(elem.values.tADEZ) + ": " + elem.info.name + " (" + elem.values.oTD + 
+	    				" expected receiving TDs, $" + df.format(elem.values.worth) + ")");
 	    	}
 	    	else if(subject.equals("Risk"))
 	    	{
