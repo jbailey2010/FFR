@@ -132,7 +132,8 @@ public class SortHandler
 						if((subject.equals("Projections") || subject.equals("PAA") ||
 								(subject.equals("PAA per dollar")) || subject.equals("Rec TD Difference"))
 								&& (position.equals("K") || position.equals("D/ST")) || 
-								((subject.equals("Rec oTD") || subject.equals("Rush oTD") || subject.equals("Rush TD Difference"))
+								((subject.equals("Rec oTD") || subject.equals("Rush oTD") || subject.equals("Rush TD Difference") || 
+										subject.equals("Average target location") || subject.equals("Average carry location"))
 										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))))
 						{
 							Toast.makeText(context, "Projections not available for that position", Toast.LENGTH_SHORT).show();
@@ -901,11 +902,13 @@ public class SortHandler
 	    	}
 	    	else if(subject.equals("Rec TD Difference"))
 	    	{
-	    		rankings.add(output + df.format(elem.values.tdDiff) + ": " + elem.info.name + " (" + elem.values.oTD + " expected)");
+	    		rankings.add(output + df.format(elem.values.tdDiff) + ": " + elem.info.name + " (" + elem.values.oTD + " expected, had " + 
+	    				df.format(elem.values.oTD - elem.values.tdDiff) + ")");
 	    	}
 	    	else if(subject.equals("Rush TD Difference"))
 	    	{
-	    		rankings.add(output + df.format(elem.values.rtdDiff) + ": " + elem.info.name + " (" + elem.values.roTD + " expected)");
+	    		rankings.add(output + df.format(elem.values.rtdDiff) + ": " + elem.info.name + " (" + elem.values.roTD + " expected, had " + 
+	    				df.format(elem.values.roTD - elem.values.rtdDiff) + ")");
 	    	}
 	    	else if(subject.equals("Risk relative to position"))
 			{
@@ -917,7 +920,15 @@ public class SortHandler
 			}
 			else if(subject.equals("Positional SOS"))
 			{
-				rankings.add(output + elem.info.sos + ": " + elem.info.name + " (" + elem.values.points + ", $" + df.format(elem.values.worth) + ")");
+				if(elem.values.points != 0.0)
+				{
+					rankings.add(output + elem.info.sos + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ", " + 
+							elem.values.points + ")");
+				}
+				else
+				{
+					rankings.add(output + elem.info.sos + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
+				}
 			}
 			else if(subject.equals("ECR"))
 			{
@@ -987,7 +998,7 @@ public class SortHandler
 					long arg3) {
 				results.setSelection(arg2);
 				String selected = ((TextView)arg1).getText().toString();
-				selected = selected.split(": ")[1];
+				selected = selected.split(": ")[1].split(" \\(")[0];
 				PlayerInfo.outputResults(selected, true, (Rankings)context, holder, false, false);
 			}
     	 });

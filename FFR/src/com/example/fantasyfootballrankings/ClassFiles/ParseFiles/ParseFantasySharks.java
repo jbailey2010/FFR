@@ -3,6 +3,7 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 import java.io.IOException;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 /**
@@ -30,12 +31,11 @@ public class ParseFantasySharks {
 			{
 				i++;
 			}
-			String nameFull = td[i+3];
-			String lastName = nameFull.split(",")[0].trim().replaceAll("[^\\x20-\\x7e]","");
-			String firstName = nameFull.split(",")[1].trim().replaceAll("[^\\x20-\\x7e]","");
-			String name = ParseRankings.fixNames(firstName + " " + lastName);
+			String nameFull = td[i+3].replaceAll("[^\\x20-\\x7e]","");
+			String[] names = nameFull.split(",");
+			String name = ParseRankings.fixNames(names[1] + " " + names[0]);
 			String val = td[i+19].replace("$", "");
-			if(val.equals("") || val.equals(" "))
+			if(val.equals(""))
 			{
 				val = "0";
 			}

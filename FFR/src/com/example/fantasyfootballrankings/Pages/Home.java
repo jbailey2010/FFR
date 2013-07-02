@@ -6,6 +6,8 @@ import java.io.IOException;
 
 
 
+
+
 import java.io.Serializable;
 
 
@@ -128,11 +130,11 @@ public class Home extends Activity implements Serializable{
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
-			HighLevel.parseRedZoneStats(new Storage());
+			ParseFantasyInfo.parseFIWrapper(new Storage());
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
-		}*/
+		} */
 	}  
 	
 	/**

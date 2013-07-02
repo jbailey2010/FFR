@@ -2,6 +2,7 @@ package AsyncTasks;
 
 import java.io.IOException;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,7 @@ import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 
 import FileIO.ReadFromFile;
-import FileIO.WriteToFile;
+import FileIO.WriteToFile; 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -179,6 +180,7 @@ public class ParsingAsyncTask
 				publishProgress("Please wait, fetching the rankings...(30/30)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after football guys parser");
+				start = System.nanoTime();
 				
 				
 				System.out.println();
