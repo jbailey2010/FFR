@@ -33,6 +33,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="69dp"
         android:ems="10"
+        android:inputType="number"
         android:background="#cdcdcd"
     	android:dropDownSelector="#FF0000" >
 
