@@ -420,7 +420,7 @@ public class Draft
 		me.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				draftedByMe(name, holder,cont, new Dialog(cont), mAdapter, position);
+				draftedByMe(name, holder,cont, new Dialog(cont), mAdapter, position, false);
 				dialog.dismiss();
 			}
 		});
@@ -430,7 +430,7 @@ public class Draft
      * Handles the 'drafted by me' dialog
      */
     public static void draftedByMe(final String name, final Storage holder, final Activity cont, final Dialog popup,
-    		final ArrayAdapter<String> mAdapter, final int position)
+    		final ArrayAdapter<String> mAdapter, final int position, final boolean flag)
     {
 		popup.requestWindowFeature(Window.FEATURE_NO_TITLE);
     	popup.setContentView(R.layout.draft_by_me);
@@ -465,6 +465,11 @@ public class Draft
 					long arg3) {
 		    	int val = Integer.parseInt(((TextView)arg1).getText().toString());
 				popup.dismiss();
+				if(flag)
+				{
+					mAdapter.remove(mAdapter.getItem(position));
+					mAdapter.notifyDataSetChanged();
+				}
 				handleUnDraftingMe(val, holder, name, cont, popup);
 			}
     	});

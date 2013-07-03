@@ -695,7 +695,7 @@ public class Rankings extends Activity {
 	 * @param cont
 	 */
 	public static void intermediateHandleRankings(Activity cont)
-	{
+	{ 
 		int maxSize = ReadFromFile.readFilterQuantitySize((Context)cont, "Rankings");
 		PriorityQueue<PlayerObject>inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 		{

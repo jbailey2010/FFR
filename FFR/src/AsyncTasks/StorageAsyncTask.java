@@ -531,8 +531,7 @@ public class StorageAsyncTask
 		}
 		@Override
 		protected void onPostExecute(Void result){
-			if(act.getSharedPreferences("FFR", 0).getString("Rankings List", "Not Set").equals("Not Set") &&
-					flag)
+			if(flag)
 			{
 				Rankings.intermediateHandleRankings(act);
 			}

@@ -50,8 +50,7 @@ public class PlayerInfo
 	 * once the stuff is added to the dropdown
 	 * @param dialog
 	 * @throws IOException 
-	 */
-	public static void searchCalled(final Context oCont) throws IOException
+	 */ public static void searchCalled(final Context oCont) throws IOException
 	{
 		Rankings.matchedPlayers = new ArrayList<String>(15);
 		Rankings.newCont = oCont;
@@ -190,7 +189,7 @@ public class PlayerInfo
 	               	 		index = i;
 	               	 		break;
 	               	 	}
-	                }
+	                } 
 	               	DecimalFormat df = new DecimalFormat("#.##");
 	               	Rankings.adapter.remove(Rankings.adapter.getItem(index));
 	               	Rankings.adapter.notifyDataSetChanged();

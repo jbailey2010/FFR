@@ -283,22 +283,50 @@ public class ComparatorHandling
 			{
 				if(oTD1 - oTD2 > 3.0)
 				{
-					p1.append("-Much higher adjusted touchdowns\n");
+					p1.append("-Much higher adjusted rec touchdowns\n");
 				}
 				else
 				{
-					p1.append("-Higher adjusted touchdowns\n");
+					p1.append("-Higher adjusted rec touchdowns\n");
 				}
 			}
 			if(oTD2 > oTD1)
 			{
 				if(oTD2 - oTD1 > 3.0)
 				{
-					p2.append("-Much higher adjusted touchdowns\n");
+					p2.append("-Much higher adjusted rec touchdowns\n");
 				}
 				else
 				{
-					p2.append("-Higher adjusted touchdowns\n");
+					p2.append("-Higher adjusted rec touchdowns\n");
+				}
+			}
+		}
+		if(player1.info.position.equals("RB") && player2.info.position.equals("RB") && player1.values.rADEZ != 0.0 && 
+				player2.values.rADEZ != 0.0)
+		{
+			double rtdDiff1 = player1.values.rtdDiff;
+			double rtdDiff2 = player2.values.rtdDiff;
+			if(rtdDiff1 < rtdDiff2)
+			{
+				if(rtdDiff2 - rtdDiff1 > 2.0)
+				{
+					p1.append("-Made many more rushing TD opportunities\n");
+				}
+				else
+				{
+					p1.append("-Made more rushing TD opportunities\n");
+				}
+			}
+			if(rtdDiff2 < rtdDiff1)
+			{
+				if(rtdDiff1 - rtdDiff2 > 2.0)
+				{
+					p2.append("-Made many more rushing TD opportunities\n");
+				}
+				else
+				{
+					p2.append("-Made more rushing TD opportunities\n");
 				}
 			}
 		}
@@ -384,16 +412,6 @@ public class ComparatorHandling
 		if(!cy2.contains("Under"))
 		{
 			p2.append("-In a contract year\n");
-		}
-		boolean sameBye1 = teamBye(holder, player1);
-		boolean sameBye2 = teamBye(holder, player2);
-		if(sameBye1)
-		{
-			p1.append("-Same bye as a player you've drafted\n");
-		}
-		if(sameBye2)
-		{
-			p2.append("-Same bye as a player you've drafted\n");
 		}
 		double risk1 = player1.risk;
 		double risk2 = player2.risk;
@@ -745,6 +763,16 @@ public class ComparatorHandling
 		{
 			p2.append("-You have not yet drafted a player \nof this position\n");
 		}
+		boolean sameBye1 = teamBye(holder, player1);
+		boolean sameBye2 = teamBye(holder, player2);
+		if(sameBye1)
+		{
+			p1.append("-Same bye as a player you've drafted of \nthe same position\n");
+		}
+		if(sameBye2)
+		{
+			p2.append("-Same bye as a player you've drafted of \nthe same position\n");
+		}
 		fixOutput(dialog, cont, holder, player1, player2, p1, p2);
 	}
 	
@@ -985,7 +1013,7 @@ public class ComparatorHandling
 		boolean sameBye = false;
 		for(PlayerObject iter : draft)
 		{
-			if(iter.info.position.equals(player.info.position))
+			if(iter.info.bye.equals(player.info.bye))
 			{
 				return true;
 			}
