@@ -311,7 +311,7 @@ public class ComparatorHandling
 			{
 				if(rtdDiff2 - rtdDiff1 > 2.0)
 				{
-					p1.append("-Made many more rushing TD opportunities\n");
+					p1.append("-Made many more rushing TD \nopportunities\n");
 				}
 				else
 				{
@@ -322,7 +322,7 @@ public class ComparatorHandling
 			{
 				if(rtdDiff1 - rtdDiff2 > 2.0)
 				{
-					p2.append("-Made many more rushing TD opportunities\n");
+					p2.append("-Made many more rushing TD \nopportunities\n");
 				}
 				else
 				{
