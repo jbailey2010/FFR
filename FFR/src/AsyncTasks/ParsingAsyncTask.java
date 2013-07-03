@@ -349,17 +349,15 @@ public class ParsingAsyncTask
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
 	    	start = System.nanoTime();
-	    	try {  
+	    	try { 
 	    		publishProgress("Please wait, fetching player stats...");
 				HighLevel.setStats(holder, cont);
-				publishProgress("Please wait, fetching team data...");
+	    		publishProgress("Please wait, fetching team data...");
 				HighLevel.setTeamInfo(holder, cont);
 				publishProgress("Please wait, fetching positional SOS...");
 				HighLevel.getSOS(holder);
 				publishProgress("Please wait, fetching player contract status...");
 	    		HighLevel.setContractStatus(holder);
-				//publishProgress("Please wait, establishing list of parsed players...");
-			    //HighLevel.getParsedPlayers(holder);
 			    publishProgress("Please wait, setting last year's team data...");
 			    HighLevel.setPermanentData(holder, cont);
 			    publishProgress("Please wait, setting specific player info...");

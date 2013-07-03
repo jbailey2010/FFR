@@ -60,6 +60,54 @@ public class Draft
 		value = 0.0;
 	}
 	
+	public static double paaTotal(Draft draft)
+	{
+		double total = 0.0;
+		for(PlayerObject player : draft.qb)
+		{
+			if(player.values.paa != 0.0 || player.values.points != 0.0)
+			{
+				total += player.values.paa;
+			}
+		}
+		for(PlayerObject player : draft.rb)
+		{
+			if(player.values.paa != 0.0 || player.values.points != 0.0)
+			{
+				total += player.values.paa;
+			}
+		}
+		for(PlayerObject player : draft.wr)
+		{
+			if(player.values.paa != 0.0 || player.values.points != 0.0)
+			{
+				total += player.values.paa;
+			}
+		}
+		for(PlayerObject player : draft.te)
+		{
+			if(player.values.paa != 0.0 || player.values.points != 0.0)
+			{
+				total += player.values.paa;
+			}
+		}
+		for(PlayerObject player : draft.def)
+		{
+			if(player.values.paa != 0.0 || player.values.points != 0.0)
+			{
+				total += player.values.paa;
+			}
+		}
+		for(PlayerObject player : draft.k)
+		{
+			if(player.values.paa != 0.0 || player.values.points != 0.0)
+			{
+				total += player.values.paa;
+			}
+		}
+		return total;
+	}
+	
 	/**
 	 * Returns number of players drafted
 	 * @param draft
@@ -384,7 +432,12 @@ public class Draft
     public static void draftedByMe(final String name, final Storage holder, final Activity cont, final Dialog popup,
     		final ArrayAdapter<String> mAdapter, final int position)
     {
+		popup.requestWindowFeature(Window.FEATURE_NO_TITLE);
     	popup.setContentView(R.layout.draft_by_me);
+    	WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(popup.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    popup.getWindow().setAttributes(lp);
     	popup.show();
     	TextView header = (TextView)popup.findViewById(R.id.name_header);
     	header.setText("How much did " + name + " cost?");
@@ -412,8 +465,6 @@ public class Draft
 					long arg3) {
 		    	int val = Integer.parseInt(((TextView)arg1).getText().toString());
 				popup.dismiss();
-				mAdapter.remove(mAdapter.getItem(position));
-				mAdapter.notifyDataSetChanged();
 				handleUnDraftingMe(val, holder, name, cont, popup);
 			}
     	});

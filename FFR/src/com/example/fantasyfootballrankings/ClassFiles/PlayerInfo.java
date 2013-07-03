@@ -313,12 +313,17 @@ public class PlayerInfo
 		{
 			output.add("He is in your watch list");
 		}
+		if(searchedPlayer.info.bye != null && !searchedPlayer.info.bye.contains("null") &&  
+				!searchedPlayer.info.bye.equals("Not set"))
+		{
+			output.add("Bye: " + searchedPlayer.info.bye);
+		}
 		if(searchedPlayer.values.points != 0.0)
 		{
 			output.add(searchedPlayer.values.points + " projected points (ranked " + rankProjPos(searchedPlayer, holder)  +
 					" positionally)");
 		}
-		if(searchedPlayer.values.paa != 0.0)
+		if(searchedPlayer.values.paa != 0.0 && searchedPlayer.values.points != 0.0)
 		{
 			output.add(df.format(searchedPlayer.values.paa) + " points above average (" + rankPAAPos(searchedPlayer, holder) + 
 					" positionally, " + rankPAAAll(searchedPlayer, holder) + " overall)\n" +
@@ -380,11 +385,6 @@ public class PlayerInfo
 			{
 				output.add(searchedPlayer.injuryStatus);
 			}
-		}
-		if(searchedPlayer.info.bye != null && !searchedPlayer.info.bye.contains("null") &&  
-				!searchedPlayer.info.bye.equals("Not set"))
-		{
-			output.add("Bye: " + searchedPlayer.info.bye);
 		}
 		if(searchedPlayer.draftClass != null && !searchedPlayer.draftClass.contains("null") &&
 				!searchedPlayer.info.position.equals("K") && searchedPlayer.draftClass.length() > 4)

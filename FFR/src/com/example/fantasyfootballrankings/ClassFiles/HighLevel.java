@@ -212,63 +212,75 @@ public class HighLevel
 				String[] name = player.info.name.split(" ");
 				String testName = name[0].charAt(0) + " " + name[1];
 				
-				if(player.info.position.equals("QB") && qbs.containsKey(testName + "/" + player.info.team))
+				if(player.info.position.equals("QB"))
 				{
-					player.stats = qbs.get(testName + "/" + player.info.team);
-				}
-				else if(player.info.position.equals("QB"))
-				{
-					for(String key : qbKeys)
+					if(qbs.containsKey(testName + "/" + player.info.team))
 					{
-						if(key.contains(testName))
+						player.stats = qbs.get(testName + "/" + player.info.team);
+					}
+					else if(player.info.team.length() < 2)
+					{
+						for(String key : qbKeys) 
 						{
-							player.stats = qbs.get(key);
-							break;
+							if(key.contains(testName))
+							{
+								player.stats = qbs.get(key);
+								break;
+							}
 						}
 					}
-				}
-				else if(player.info.position.equals("RB")&& rbs.containsKey(testName + "/" + player.info.team))
-				{
-					player.stats = rbs.get(testName + "/" + player.info.team);
 				}
 				else if(player.info.position.equals("RB"))
 				{
-					for(String key : rbKeys)
+					if(rbs.containsKey(testName + "/" + player.info.team))
 					{
-						if(key.contains(testName))
+						player.stats = rbs.get(testName + "/" + player.info.team);
+					}
+					else if(player.info.team.length() < 2)
+					{
+						for(String key : rbKeys)
 						{
-							player.stats = rbs.get(key);
-							break;
+							if(key.contains(testName))
+							{
+								player.stats = rbs.get(key);
+								break;
+							}
 						}
 					}
-				}
-				else if(player.info.position.equals("WR") && wrs.containsKey(testName + "/" + player.info.team))
-				{
-					player.stats = wrs.get(testName + "/" + player.info.team);
 				}
 				else if(player.info.position.equals("WR"))
 				{
-					for(String key : wrKeys)
+					if(wrs.containsKey(testName + "/" + player.info.team))
 					{
-						if(key.contains(testName))
+						player.stats = wrs.get(testName + "/" + player.info.team);
+					}
+					else if(player.info.team.length() < 2)
+					{
+						for(String key : wrKeys)
 						{
-							player.stats = wrs.get(key);
-							break;
+							if(key.contains(testName))
+							{
+								player.stats = wrs.get(key);
+								break;
+							}
 						}
 					}
 				}
-				else if(player.info.position.equals("TE") && tes.containsKey(testName + "/" + player.info.team))
-				{
-					player.stats = tes.get(testName + "/" + player.info.team);
-				}
 				else if(player.info.position.equals("TE"))
 				{
-					for(String key : teKeys)
+					if(tes.containsKey(testName + "/" + player.info.team))
 					{
-						if(key.contains(testName))
+						player.stats = tes.get(testName + "/" + player.info.team);
+					}
+					else if(player.info.team.length() < 2)
+					{
+						for(String key : teKeys)
 						{
-							player.stats = tes.get(key);
-							break;
+							if(key.contains(testName))
+							{
+								player.stats = tes.get(key);
+								break;
+							}
 						}
 					}
 				}

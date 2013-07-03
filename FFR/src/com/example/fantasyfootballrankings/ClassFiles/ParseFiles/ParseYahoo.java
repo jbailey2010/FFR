@@ -29,7 +29,10 @@ public class ParseYahoo
 		String[] td = html.split("\n");
 		for(int i = 2; i < td.length; i+=4)
 		{
-			
+			if(td[i].contains("AdChoices"))
+			{
+				break;
+			} 
 			String name = td[i].split(" \\(")[0];
 			if(td[i].contains("DEF"))
 			{

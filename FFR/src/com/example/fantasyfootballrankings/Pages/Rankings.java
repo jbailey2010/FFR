@@ -565,6 +565,7 @@ public class Rankings extends Activity {
      */
     public static void moreInfo(final Dialog dialog)
     {
+    	DecimalFormat df = new DecimalFormat("#.##");
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.value_salary); 
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -575,6 +576,26 @@ public class Rankings extends Activity {
 		String value = Integer.toString((int)holder.draft.value); 
 		TextView remSalary = (TextView)dialog.findViewById(R.id.remSalary);
 		TextView draftVal = (TextView)dialog.findViewById(R.id.draftValue);
+		TextView paaView = (TextView)dialog.findViewById(R.id.draft_paa);
+		TextView paapdView = (TextView)dialog.findViewById(R.id.draft_paapd);
+		double paa = 0.0;
+		double paapd = 0.0;
+		if(holder.draft.remainingSalary != 200)
+		{
+			draftVal.setVisibility(View.VISIBLE);
+			paa = Draft.paaTotal(holder.draft);
+			paapd = paa / (200 - holder.draft.remainingSalary);
+			paaView.setVisibility(View.VISIBLE);
+			paaView.setText("PAA total: " + df.format(paa));
+			paapdView.setVisibility(View.VISIBLE);
+			paapdView.setText("PAA per dollar total: " + df.format(paapd));
+		}
+		else
+		{
+			paaView.setVisibility(View.GONE);
+			paapdView.setVisibility(View.GONE);
+			draftVal.setVisibility(View.GONE);
+		}
 		ProgressBar salBar = (ProgressBar)dialog.findViewById(R.id.progressBar1);
 		remSalary.setText("Salary Left: $" + salRem);
 		draftVal.setText("Value Thus Far: $" + value);
