@@ -15,39 +15,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp" />
 
-    <Button
-        android:id="@+id/undraft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/salValDismiss"
-        android:layout_alignBottom="@+id/salValDismiss"
-        android:layout_centerHorizontal="true"
-        android:text="Undraft Someone"
-        android:background="@drawable/btn_red"
-        style="@style/ButtonText" />
-
-    <Button
-        android:id="@+id/more_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/undraft"
-        android:layout_alignBottom="@+id/undraft"
-        android:layout_marginRight="45dp"
-        android:layout_toLeftOf="@+id/undraft"
-        android:text="More Info"
-        android:background="@drawable/btn_red"
-        style="@style/ButtonText" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/undraft"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text=" "
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <TextView
         android:id="@+id/remSalary"
         android:layout_width="wrap_content"
@@ -67,18 +34,6 @@
         android:layout_marginTop="18dp"
         android:text="Value Thus Far: 0"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Button
-        android:id="@+id/salValDismiss"
-        style="@style/ButtonText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/draft_paapd"
-        android:layout_marginLeft="58dp"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@+id/undraft"
-        android:background="@drawable/btn_red"
-        android:text="Cancel" />
 
     <TextView
         android:id="@+id/draft_paa"
@@ -101,5 +56,62 @@
         android:text="Large Text"
         android:visibility="invisible"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/salValDismiss"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/draft_paapd"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="108dp"
+        android:background="@drawable/btn_red"
+        android:text="Cancel" />
+
+    <Button
+        android:id="@+id/more_info"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/draft_paapd"
+        android:layout_marginRight="45dp"
+        android:layout_marginTop="26dp"
+        android:layout_toLeftOf="@+id/undraft"
+        android:background="@drawable/btn_red"
+        android:text="Your Team" />
+
+    <Button
+        android:id="@+id/undraft"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/more_info"
+        android:layout_alignBottom="@+id/more_info"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_red"
+        android:text="Undraft Someone" />
+
+    <Button
+        android:id="@+id/value_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/undraft"
+        android:layout_alignBottom="@+id/undraft"
+        android:layout_marginLeft="45dp"
+        android:layout_toRightOf="@+id/undraft"
+        android:background="@drawable/btn_red"
+        android:text="Pos. PAA Left"
+        style="@style/ButtonText" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/salValDismiss"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Wide enough to grab and move"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="invisible" />
 
 </RelativeLayout>

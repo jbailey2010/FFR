@@ -623,10 +623,75 @@ public class Rankings extends Activity {
 				Draft.undraft(new Dialog(context), holder, context);
 	    	}	
 		});
+		Button valLeft = (Button)dialog.findViewById(R.id.value_left);
+		valLeft.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				posValLeft(new Dialog(context, R.style.RoundCornersFull), holder, context);
+			}
+		});
     	dialog.show();
     }
 
-    
+	public static void posValLeft(final Dialog dialog, Storage holder, final Context context) 
+	{
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.paa_pos_left); 
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+	    dialog.show();
+	    TextView qbLeft = (TextView)dialog.findViewById(R.id.qb_paa_left);
+	    TextView rbLeft = (TextView)dialog.findViewById(R.id.rb_paa_left);
+	    TextView wrLeft = (TextView)dialog.findViewById(R.id.wr_paa_left);
+	    TextView teLeft = (TextView)dialog.findViewById(R.id.te_paa_left);
+	    DecimalFormat df = new DecimalFormat("#.##");
+	    double val3 = valLeft(holder, "QB", 3);
+	    double val5 = valLeft(holder, "QB", 5);
+	    double val10 = valLeft(holder, "QB", 10);
+	    qbLeft.setText("QB: " + df.format(val3) + ", " + df.format(val5) + ", " + df.format(val10));
+	    val3 = valLeft(holder, "RB", 3);
+	    val5 = valLeft(holder, "RB", 5);
+	    val10 = valLeft(holder, "RB", 10);
+	    rbLeft.setText("RB: " + df.format(val3) + ", " + df.format(val5) + ", " + df.format(val10));
+	    val3 = valLeft(holder, "WR", 3);
+	    val5 = valLeft(holder, "WR", 5);
+	    val10 = valLeft(holder, "WR", 10);
+	    wrLeft.setText("WR: " + df.format(val3) + ", " + df.format(val5) + ", " + df.format(val10));
+	    val3 = valLeft(holder, "TE", 3);
+	    val5 = valLeft(holder, "TE", 5);
+	    val10 = valLeft(holder, "TE", 10);
+	    teLeft.setText("TE: " + df.format(val3) + ", " + df.format(val5) + ", " + df.format(val10));
+	    Button back = (Button)dialog.findViewById(R.id.val_left_back);
+	    back.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				moreInfo(new Dialog(context, R.style.RoundCornersFull));
+			}
+	    });
+	}
+	
+	/**
+	 * Calculates the paa left of the top x players at position y
+	 */
+	public static double valLeft(Storage holder, String pos, int max)
+	{
+		double total = 0.0;
+		int counter = 0;
+		for(PlayerObject player : holder.players)
+		{
+			if(player.info.position.equals(pos) && !Draft.isDrafted(player.info.name, holder.draft) && counter < max)
+			{
+				counter++;
+				total += player.values.paa;
+			}
+		}
+		return total;
+	}
+	
     /**
      * Sets the dialog to hold the selected players
      * then shows it.
