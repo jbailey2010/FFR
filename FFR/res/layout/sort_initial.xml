@@ -22,7 +22,8 @@
         android:ems="10"
         android:text="100"
         android:background="@drawable/spinner_well"
-        android:inputType="number" />
+        android:inputType="number"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/textView3"
@@ -44,7 +45,8 @@
         android:ems="10"
         android:text="0"
         android:background="@drawable/spinner_well"
-        android:inputType="number" >
+        android:inputType="number"
+        android:textColor="#000000" >
     </EditText>
 
     <Button

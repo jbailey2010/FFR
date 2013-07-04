@@ -24,7 +24,8 @@
         android:layout_marginTop="41dp"
         android:ems="10"
         android:background="@drawable/spinner_well"
-    	android:dropDownSelector="#FF0000" />
+    	android:dropDownSelector="#FF0000"
+    	android:textColor="#000000" />
 
     <Button
         android:id="@+id/search_close"
@@ -107,6 +108,7 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/spinner_well"
         android:dropDownSelector="#FF0000"
+        android:textColor="#000000"
         android:ems="10" >
 
         <requestFocus />

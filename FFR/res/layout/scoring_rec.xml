@@ -12,6 +12,7 @@
         android:layout_marginTop="39dp"
         android:ems="10"
         android:inputType="number"
+        android:textColor="#000000"
         android:background="@drawable/spinner_well"
         android:text="6" />
 
@@ -43,6 +44,7 @@
         android:layout_below="@+id/textView2"
         android:layout_marginTop="39dp"
         android:ems="10"
+        android:textColor="#000000"
         android:inputType="number"
         android:background="@drawable/spinner_well"
         android:text="10" >
@@ -69,6 +71,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="39dp"
         android:ems="10"
+        android:textColor="#000000"
         android:text="1"
         android:inputType="number" />
 

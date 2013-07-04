@@ -22,6 +22,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="47dp"
         android:background="@drawable/spinner_well"
+        android:textColor="#000000"
         android:ems="10" />
 
     <Button
