@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/compare_output_1"
         android:layout_below="@+id/compare_output_1"
-        android:layout_marginTop="69dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/btn_red"
         android:text="Add to Watch List" />
 

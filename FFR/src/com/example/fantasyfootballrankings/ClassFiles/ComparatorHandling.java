@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.fantasyfootballrankings.R;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -157,6 +159,7 @@ public class ComparatorHandling
 		List<PlayerObject> secTeam = getPlayerTeam(holder, secondPlayer);
 		List<PlayerObject> secPos = getPlayerPosition(holder, secondPlayer);
 		//Get the stats
+		dialog.dismiss();
 		handleStats(dialog, cont, holder, firstPlayer, secondPlayer, firstTeam, secTeam, firstPos, secPos);
 	}
 	
@@ -167,8 +170,8 @@ public class ComparatorHandling
 			PlayerObject player1, PlayerObject player2, List<PlayerObject> firstTeam,
 			List<PlayerObject> secTeam, List<PlayerObject> firstPos, List<PlayerObject> secPos) 
 	{
-		StringBuilder p1 = new StringBuilder(1000);
-		StringBuilder p2 = new StringBuilder(1000);
+		StringBuilder p1 = new StringBuilder(10000);
+		StringBuilder p2 = new StringBuilder(10000);
 		int rank1 = posRank(player1, firstPos);
 		int rank2 = posRank(player2, secPos);
 		if(rank1 != rank2)
@@ -726,6 +729,30 @@ public class ComparatorHandling
 				}
 			}
 		}
+		double left1 = remTalent(holder, player1);
+		double left2 = remTalent(holder, player2);
+		if(left1 > left2)
+		{
+			if(left1 - left2 > 15.0)
+			{
+				p2.append("-Much less left just behind \nhim at his position\n");
+			}
+			else
+			{
+				p2.append("-Less left just behind him \nat his position\n");
+			}
+		}
+		if(left2 > left1)
+		{
+			if(left2 - left1 > 15.0)
+			{
+				p1.append("-Much less left just behind \nhim at his position\n");
+			}
+			else
+			{
+				p1.append("-Less left just behind him \nat his position\n");
+			}
+		}
 		if(player1.info.additionalStat.contains("%") && player2.info.additionalStat.contains("%"))
 		{
 			double mib1 = mib(player1);
@@ -773,7 +800,9 @@ public class ComparatorHandling
 		{
 			p2.append("-Same bye as a player you've drafted of \nthe same position\n");
 		}
-		fixOutput(dialog, cont, holder, player1, player2, p1, p2);
+		p1.append("\n");
+		p2.append("\n");
+		fixOutput(new Dialog(cont), cont, holder, player1, player2, p1, p2);
 	}
 	
 	/**
@@ -783,12 +812,13 @@ public class ComparatorHandling
 			final PlayerObject player1, final PlayerObject player2, StringBuilder p1,
 			StringBuilder p2) 
 	{
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); 
 		dialog.setContentView(R.layout.comparator_output);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-	    lp.height = WindowManager.LayoutParams.FILL_PARENT;
 	    dialog.getWindow().setAttributes(lp);
+
 		TextView header1 = (TextView)dialog.findViewById(R.id.compare_header_1);
 		header1.setText(player1.info.name);
 		TextView header2 = (TextView)dialog.findViewById(R.id.compare_header_2);
@@ -847,6 +877,25 @@ public class ComparatorHandling
 	    	}	
 		});
 		dialog.show();
+	}
+	
+	/**
+	 * Gets the talent left behind a player at their position
+	 */
+	public static double remTalent(Storage holder, PlayerObject player)
+	{
+		double left = 0.0;
+		int counter = 0;
+		for(PlayerObject iter : holder.players)
+		{
+			if(!iter.info.name.equals(player.info.name) && !Draft.isDrafted(iter.info.name, holder.draft) && counter < 4 &&
+					iter.info.position.equals(player.info.position) && iter.values.points != 0.0)
+			{
+				left += iter.values.points;
+				counter++;
+			}
+		}
+		return left;
 	}
 	
 	/**

@@ -23,7 +23,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="41dp"
         android:ems="10"
-        android:background="#cdcdcd"
+        android:background="@drawable/spinner_well"
     	android:dropDownSelector="#FF0000" />
 
     <Button
@@ -105,7 +105,7 @@
         android:layout_alignBottom="@+id/your_loss_input"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
-        android:background="#cdcdcd"
+        android:background="@drawable/spinner_well"
         android:dropDownSelector="#FF0000"
         android:ems="10" >
 

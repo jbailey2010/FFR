@@ -34,7 +34,7 @@
         android:layout_marginTop="69dp"
         android:ems="10"
         android:inputType="number"
-        android:background="#cdcdcd"
+        android:background="@drawable/spinner_well"
     	android:dropDownSelector="#FF0000" >
 
         <requestFocus />
