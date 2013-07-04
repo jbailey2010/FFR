@@ -11,9 +11,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_weight="100"
-        android:background="#CD0000"
-        android:text="X"
-        android:textColor="#FFFFFF" />
+        android:textColor="#CD0000"
+        android:textSize="28sp"
+        android:text="X" />
 
     <Button
         android:id="@+id/compare_back"
@@ -24,8 +24,8 @@
         android:layout_alignParentTop="true"
         android:layout_weight="100"
         android:text="Back"
-        android:textColor="#FFFFFF"
-        android:background="#000000" />
+        android:textColor="#FFFFFF" 
+        android:textSize="24sp"/>
 
     <TextView
         android:id="@+id/compare_output_1"

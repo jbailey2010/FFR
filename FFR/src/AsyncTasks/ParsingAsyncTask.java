@@ -3,6 +3,7 @@ package AsyncTasks;
 import java.io.IOException;
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,12 +19,11 @@ import org.htmlcleaner.XPatherException;
 import org.xml.sax.SAXException;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
-import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.Parse4for4;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPN;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
@@ -83,7 +83,7 @@ public class ParsingAsyncTask
 		@Override
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
-		        pdia.setMessage("Please wait, fetching the rankings...(0/30)");
+		        pdia.setMessage("Please wait, fetching the rankings...(0/26)");
 		        pdia.show();    
 		}
 
@@ -105,79 +105,73 @@ public class ParsingAsyncTask
 	    		all = System.nanoTime();
 	    		
 				ParseWF.wfRankings(holder);
-		        publishProgress("Please wait, fetching the rankings...(3/30)");
+		        publishProgress("Please wait, fetching the rankings...(3/26)");
 				System.out.print((System.nanoTime() - start));
 				System.out.println("    after WF");
 				start = System.nanoTime();
 				
 				ParseCBS.cbsRankings(holder);
-		        publishProgress("Please wait, fetching the rankings...(6/30)");
+		        publishProgress("Please wait, fetching the rankings...(6/26)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after CBS");
 				start = System.nanoTime();
 				
 				ParseESPNadv.parseESPNAggregate(holder);
-		        publishProgress("Please wait, fetching the rankings...(7/30)");
+		        publishProgress("Please wait, fetching the rankings...(7/26)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after espn aggr");
 				start = System.nanoTime();
 				
 				ParseFFTB.parseFFTBRankingsWrapper(holder);
-		        publishProgress("Please wait, fetching the rankings...(8/30)");
+		        publishProgress("Please wait, fetching the rankings...(8/26)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after fftb");
 				start = System.nanoTime();
 				
 				ParseESPN.parseESPN300(holder);
-		        publishProgress("Please wait, fetching the rankings...(10/30)");
+		        publishProgress("Please wait, fetching the rankings...(10/26)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after espn");
 				start = System.nanoTime();
 				
 				ParseMyFantasyLeague.parseMFLAggregate(holder);
-		        publishProgress("Please wait, fetching the rankings...(11/30)");
+		        publishProgress("Please wait, fetching the rankings...(11/26)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after mfl aggr");
 				start = System.nanoTime();
-				
-				Parse4for4.parse4for4Wrapper(holder);
-		        publishProgress("Please wait, fetching the rankings...(15/30)");
-				System.out.print(System.nanoTime() - start);
-				System.out.println("    after 4 for 4 sets of rankings");
-				start = System.nanoTime();
 				 
 				ParseYahoo.parseYahooWrapper(holder);
-		        publishProgress("Please wait, fetching the rankings...(17/30)");
+		        publishProgress("Please wait, fetching the rankings...(13/26)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after yahoo rankings and aggregate data");
 				start = System.nanoTime();
 				
 				ParseFantasyPros.parseFantasyProsAgg(holder);
-				publishProgress("Please wait, fetching the rankings...(21/30)");
+				publishProgress("Please wait, fetching the rankings...(17/26)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after fantasy  pros aggregate data");
 				start = System.nanoTime();
 				
 				ParsePFF.parsePFFWrapper(holder);
-				publishProgress("Please wait, fetching the rankings...(23/30)");
+				publishProgress("Please wait, fetching the rankings...(19/26)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after pff parser");
 				start = System.nanoTime();
 				
 				ParseFantasySharks.parseFSAverage(holder);
-				publishProgress("Please wait, fetching the rankings...(24/30)");
+				publishProgress("Please wait, fetching the rankings...(20/26)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after fantasy sharks parser");
 				start = System.nanoTime(); 
 				
 				ParseRotoPost.parseRotoPostWrapper(holder);
-				publishProgress("Please wait, fetching the rankings...(26/30)");
+				publishProgress("Please wait, fetching the rankings...(22/26)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after rotopost parser");
 				start = System.nanoTime();
 				
 				ParseFootballGuys.parseFGWrapper(holder);
-				publishProgress("Please wait, fetching the rankings...(30/30)");
+				publishProgress("Please wait, fetching the rankings...(26/26)");
 				System.out.print(System.nanoTime() - start);
 				System.out.println("    after football guys parser");
 				start = System.nanoTime();
@@ -285,7 +279,8 @@ public class ParsingAsyncTask
 		    	    		"&&" + fa + "&&" + oLine + "&&" + passRun + "&&" + additStat + "&&" + player.values.ecr + "&&" + 
 		    	    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "&&" + oLineAdv + "&&" + 
 		    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
-		    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + player.values.roTD + "&&" + player.values.rtdDiff
+		    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + 
+		    	    		player.values.roTD + "&&" + player.values.rtdDiff
 		    	    		+ "&&" + player.values.rADEZ + "~~~~");
 
 		    	}

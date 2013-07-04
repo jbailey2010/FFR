@@ -19,6 +19,8 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.htmlcleaner.XPatherException;
 
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseBrokenTackles;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraft;

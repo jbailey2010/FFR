@@ -370,7 +370,7 @@ public class Draft
                                 for (int position : reverseSortedPositions) {
                                 	name = mAdapter.getItem(position);
                                 	dialog.dismiss();
-                                	undraftPlayer(name, new Dialog(cont), holder, (Activity)cont, mAdapter, position);
+                                	undraftPlayer(name, new Dialog(cont, R.style.RoundCornersFull), holder, (Activity)cont, mAdapter, position);
                                 	mAdapter.remove(mAdapter.getItem(position));
                                 }
                                 mAdapter.notifyDataSetChanged();
@@ -420,7 +420,7 @@ public class Draft
 		me.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				draftedByMe(name, holder,cont, new Dialog(cont), mAdapter, position, false);
+				draftedByMe(name, holder,cont, new Dialog(cont, R.style.RoundCornersFull), mAdapter, position, false);
 				dialog.dismiss();
 			}
 		});

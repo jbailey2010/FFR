@@ -16,28 +16,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="RotoWorld Headline News" />
+            android:text="RotoWorld Headline News"
+            android:textColor="#FFFFFF" />
 
         <RadioButton
             android:id="@+id/rotoworld_player_news"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rotoworld Player News" />
+            android:text="Rotoworld Player News"
+            android:textColor="#FFFFFF" />
         <RadioButton
             android:id="@+id/the_huddle_news"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="The Huddle News" />
+            android:text="The Huddle News"
+            android:textColor="#FFFFFF" />
         <RadioButton
             android:id="@+id/cbs_news"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CBS Player News" />
+            android:text="CBS Player News"
+            android:textColor="#FFFFFF" />
         <RadioButton
             android:id="@+id/si_news"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SI Player News" />
+            android:text="SI Player News"
+            android:textColor="#FFFFFF" />
     </RadioGroup>
 
     <TextView

@@ -9,7 +9,7 @@ import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.R.layout;
 import com.example.fantasyfootballrankings.R.menu;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
-import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 
@@ -70,7 +70,7 @@ public class News extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
-		dialog = new Dialog(cont);
+		dialog = new Dialog(cont, R.style.RoundCornersFull);
 		switch (item.getItemId()) 
 		{
 			case R.id.refresh_news:
@@ -126,7 +126,7 @@ public class News extends Activity {
 	 */
 	public static void refreshNewsDialog()
 	{
-		final Dialog dialog = new Dialog(cont);
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.news_topics_dialog);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -204,7 +204,7 @@ public class News extends Activity {
 	public static void twitterFeedsDialog()
 	{
 		//Set up dialog
-		final Dialog dialog = new Dialog(cont);
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.twitter_feeds);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

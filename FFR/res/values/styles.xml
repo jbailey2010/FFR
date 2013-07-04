@@ -19,6 +19,9 @@
     
     <style name="RoundCornersFull" parent="android:Theme.Holo.Light.Dialog">
         <item name="android:windowBackground">@drawable/round_corners_background</item>
+        <item name="android:textColorPrimary">#EEEEEE</item>
+	    <item name="android:textColorSecondary">#EEEEEE</item>
+	    <item name="android:textColorTertiary">#EEEEEE</item>
     </style>
 
 </resources>

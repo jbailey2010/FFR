@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="#CD0000"
-        android:text="X"
-        android:textColor="#FFFFFF" />
+        android:textColor="#CD0000"
+        android:textSize="28sp"
+        android:text="X" />
 
     <Button
         android:id="@+id/clear_compare"
@@ -22,8 +22,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="Clear"
-        android:textColor="#FFFFFF"
-        android:background="#000000" />
+        android:textColor="#FFFFFF" 
+        android:textSize="24sp"/>
 
     <TextView
         android:id="@+id/player_comparator_header"

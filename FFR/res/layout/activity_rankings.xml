@@ -17,6 +17,7 @@
         	android:text="Draft Information"
         	android:textColor="#FFFFFF"
         	android:layout_weight="25"
+        	android:background="@drawable/menu_btn_black"
         	style="?android:attr/buttonBarButtonStyle"/>
         
        	<View android:layout_height="fill_parent"
@@ -30,6 +31,7 @@
             android:text="Search Players" 
             android:textColor="#FFFFFF"
             android:layout_weight="25"
+            android:background="@drawable/menu_btn_black"
             style="?android:attr/buttonBarButtonStyle"/>
         
         <View android:layout_height="fill_parent"
@@ -43,6 +45,7 @@
             android:text="Compare Players"
             android:textColor="#FFFFFF"
             android:layout_weight="25" 
+            android:background="@drawable/menu_btn_black"
             style="?android:attr/buttonBarButtonStyle"/>
        
         <View android:layout_height="fill_parent"
@@ -56,6 +59,7 @@
             android:text="Trade Calculator" 
             android:textColor="#FFFFFF"
             android:layout_weight="25"
+            android:background="@drawable/menu_btn_black"
             style="?android:attr/buttonBarButtonStyle"/>
         
         <View android:layout_height="fill_parent"
@@ -69,6 +73,7 @@
             android:text="Sort Players" 
             android:textColor="#FFFFFF"
             android:layout_weight="25"
+            android:background="@drawable/menu_btn_black"
             style="?android:attr/buttonBarButtonStyle"/>
 
 

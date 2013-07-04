@@ -33,9 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="#CD0000"
         android:text="X"
-        android:textColor="#FFFFFF" />
+        android:textSize="28sp"
+        android:textColor="#CD0000" />
 
     <TextView
         android:id="@+id/trade_input"
@@ -65,8 +65,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="Clear"
-        android:background="#000000"
-		android:textColor="#FFFFFF"/>
+		android:textColor="#FFFFFF"
+		android:textSize="24sp"/>
 
     <TextView
         android:id="@+id/calc_header"

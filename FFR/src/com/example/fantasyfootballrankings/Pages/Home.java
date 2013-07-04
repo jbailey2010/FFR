@@ -8,6 +8,7 @@ import java.io.IOException;
 
 
 
+
 import java.io.Serializable;
 
 
@@ -40,9 +41,8 @@ import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
-import com.example.fantasyfootballrankings.ClassFiles.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.Parse4for4;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseBrokenTackles;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraft;

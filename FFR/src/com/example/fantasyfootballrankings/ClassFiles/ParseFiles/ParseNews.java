@@ -28,7 +28,7 @@ import AsyncTasks.StorageAsyncTask.ReadRotoNews;
 import android.content.Context;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
-import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 /**
  * A library to handle the parsing of news
  * @author Jeff
@@ -97,14 +97,14 @@ public class ParseNews
 		String[] data = report.split("\n");
 		for(int i = 0; i < data.length; i+=4)
 		{
-			String date = data[i];
-			String name = data[i+1];
-			String news = data[i+3].split("News:")[1];
-			String header = data[i+3].split("News:")[0];
-			String impact = news.split("Analysis:")[1];
+			String newsObj = data[i];
+			System.out.println(newsObj);
+			String date = newsObj.split("\\(")[1].split("\\)")[0];
+			System.out.println(date);
+			String news = newsObj.substring(newsObj.indexOf(")") + 2, newsObj.length());
+			String header = newsObj.split("by")[0];
 			news = news.split("Analysis:")[0];
-			NewsObjects newNews = new NewsObjects(name + "\n\n" + header + "\n\n" + news.substring(1, news.length()), 
-					impact.substring(1, impact.length()), date);
+			NewsObjects newNews = new NewsObjects(header, news, date);
 			newsSet.add(newNews);
 		}
 		return newsSet;

@@ -13,9 +13,9 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
-import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFreeAgents;
 import com.example.fantasyfootballrankings.Pages.News;
@@ -222,7 +222,8 @@ public class StorageAsyncTask
 	    	    		"&&" + fa + "&&" + oLine + "&&" + passRun + "&&" + additStat + "&&" + player.values.ecr + "&&" + 
 	    	    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "&&" + oLineAdv + "&&" + 
 	    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
-	    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + player.values.roTD + "&&" + player.values.rtdDiff
+	    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + player.values.roTD + "&&" 
+	    	    		+ player.values.rtdDiff
 	    	    		+ "&&" + player.values.rADEZ + "~~~~");
 
 	    	}
@@ -487,7 +488,7 @@ public class StorageAsyncTask
 	   			player.info.additionalStat = allData[i][20];
 	   			player.info.passRunRatio = allData[i][19];
 	   			player.info.oLineStatus = allData[i][18];
-	   			player.fa = new ArrayList<String>();
+	   			player.fa = new ArrayList<String>(); 
 	   			player.fa.add(0, allData[i][16]);
 	   			player.fa.add(1, allData[i][17]);
 	   			player.injuryStatus = allData[i][15];

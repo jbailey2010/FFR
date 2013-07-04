@@ -21,6 +21,7 @@
         android:layout_marginTop="28dp"
         android:ems="10"
         android:text="100"
+        android:background="@drawable/spinner_well"
         android:inputType="number" />
 
     <TextView
@@ -42,6 +43,7 @@
         android:layout_marginTop="28dp"
         android:ems="10"
         android:text="0"
+        android:background="@drawable/spinner_well"
         android:inputType="number" >
     </EditText>
 

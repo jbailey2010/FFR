@@ -48,7 +48,7 @@ import twitter4j.conf.ConfigurationBuilder;
 
 import android.util.Base64;
 
-import com.example.fantasyfootballrankings.ClassFiles.NewsObjects;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 /**
  * Handles the parsing of the twitter data
  * @author Jeff

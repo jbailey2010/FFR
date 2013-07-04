@@ -44,7 +44,7 @@
     android:layout_centerHorizontal="true"
     android:layout_marginTop="175dp"
     android:ems="10"
-    android:background="#cdcdcd"
+    android:background="@drawable/spinner_well"
     android:dropDownSelector="#FF0000">
 
     <requestFocus />

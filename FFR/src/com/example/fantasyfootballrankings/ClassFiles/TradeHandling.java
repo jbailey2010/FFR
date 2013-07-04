@@ -39,7 +39,7 @@ public class TradeHandling
 	 */
 	public static void handleTradeInit(Storage holder, Context cont)
 	{
-		final Dialog dialog = new Dialog(cont);
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.trade_calculator);
 		dialog.show(); 

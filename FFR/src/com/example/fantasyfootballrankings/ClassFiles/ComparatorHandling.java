@@ -34,7 +34,7 @@ public class ComparatorHandling
 	 */
 	public static void handleComparingInit(Storage holder, Context cont)
 	{
-		final Dialog dialog = new Dialog(cont);
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		dialog.setContentView(R.layout.comparator_view);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -802,7 +802,7 @@ public class ComparatorHandling
 		}
 		p1.append("\n");
 		p2.append("\n");
-		fixOutput(new Dialog(cont), cont, holder, player1, player2, p1, p2);
+		fixOutput(new Dialog(cont, R.style.RoundCornersFull), cont, holder, player1, player2, p1, p2);
 	}
 	
 	/**

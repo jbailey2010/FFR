@@ -21,7 +21,7 @@
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="47dp"
-        android:background="#CDCDCD"
+        android:background="@drawable/spinner_well"
         android:ems="10" />
 
     <Button

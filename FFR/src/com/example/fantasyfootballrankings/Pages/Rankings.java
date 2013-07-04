@@ -26,13 +26,13 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
-import com.example.fantasyfootballrankings.ClassFiles.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.SortHandler;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.TradeHandling;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.*;
 
@@ -142,7 +142,7 @@ public class Rankings extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
-		dialog = new Dialog(cont);
+		dialog = new Dialog(cont, R.style.RoundCornersFull);
 		switch (item.getItemId()) 
 		{
 			case R.id.watch_list:
@@ -248,7 +248,7 @@ public class Rankings extends Activity {
 	 */
 	public static void filterTopics(final Dialog dialog2) 
 	{
-		final Dialog dialog = new Dialog(context);
+		final Dialog dialog = new Dialog(context, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.rankings_filter);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -436,7 +436,7 @@ public class Rankings extends Activity {
 	 */
 	public void handleOnClickButtons()
 	{
-		dialog = new Dialog(cont);
+		dialog = new Dialog(cont, R.style.RoundCornersFull);
 		//Handle the moreinfo click
 		info.setOnClickListener(new View.OnClickListener() 
 	    {
@@ -954,7 +954,7 @@ public class Rankings extends Activity {
     { 
     	listview.setOnTouchListener(touchListener);
         listview.setOnScrollListener(touchListener.makeScrollListener());
-    	final Dialog popup = new Dialog(cont);
+    	final Dialog popup = new Dialog(cont, R.style.RoundCornersFull);
     	popup.setCancelable(false);
 		popup.requestWindowFeature(Window.FEATURE_NO_TITLE);
     	popup.setContentView(R.layout.draft_by_who);

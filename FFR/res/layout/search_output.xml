@@ -7,14 +7,15 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="51dp" 
-        android:background="#000000">
+        android:background="@drawable/menu_black">
         
         <Button
             android:id="@+id/search_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             style="?android:attr/buttonBarButtonStyle"
             android:textColor="#FFFFFF"
+            android:background="@drawable/menu_btn_black"
             android:text="Back" />
         <View 
             android:id="@+id/back_view"
@@ -31,7 +32,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:background="#CD0000"
+            android:background="@drawable/menu_btn_red"
             android:text="X"
             android:textColor="#FFFFFF" />
 
@@ -39,10 +40,11 @@
             android:id="@+id/add_watch"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/search_close"
             android:textColor="#FFFFFF"
+            android:background="@drawable/menu_btn_black"
             android:text="Add to Watch List" />
         
         <View android:id="@+id/add_view"

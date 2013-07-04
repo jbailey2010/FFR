@@ -10,9 +10,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         style="?android:attr/buttonBarButtonStyle"
-        android:background="#CD0000"
         android:text="X" 
-        android:textColor="#FFFFFF"/>
+        android:textSize="28sp"
+        android:textColor="#CD0000"/>
    
     
     <Spinner

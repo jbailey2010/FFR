@@ -16,6 +16,7 @@
         	android:text="Last 24 hours"
         	android:textColor="#FFFFFF"
         	android:layout_weight="25"
+        	android:background="@drawable/menu_btn_black"
         	style="?android:attr/buttonBarButtonStyle"/>
         
 		<View android:layout_height="fill_parent"
@@ -29,6 +30,7 @@
             android:text="Last 7 days" 
             android:textColor="#FFFFFF"
             android:layout_weight="25"
+            android:background="@drawable/menu_btn_black"
             style="?android:attr/buttonBarButtonStyle"/>
         
 		<View android:layout_height="fill_parent"
@@ -42,6 +44,7 @@
             android:text="Last month"
             android:textColor="#FFFFFF"
             android:layout_weight="25"
+            android:background="@drawable/menu_btn_black"
             style="?android:attr/buttonBarButtonStyle" />
         
        <View android:layout_height="fill_parent"
@@ -55,6 +58,7 @@
             android:text="No Filter" 
             android:textColor="#FFFFFF"
             android:layout_weight="25"
+            android:background="@drawable/menu_btn_black"
             style="?android:attr/buttonBarButtonStyle"/>
 
 
