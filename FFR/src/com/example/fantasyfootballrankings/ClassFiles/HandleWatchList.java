@@ -3,7 +3,9 @@ package com.example.fantasyfootballrankings.ClassFiles;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 import com.example.fantasyfootballrankings.R;
@@ -27,8 +29,10 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TwoLineListItem;
 import android.widget.AdapterView.OnItemClickListener;
 
 /**
@@ -39,6 +43,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class HandleWatchList 
 {
 	static boolean selected = false;
+	public static List<Map<String, String>> dataSet;
 	/**
 	 * Sets up the display
 	 * @param holder
@@ -103,14 +108,14 @@ public class HandleWatchList
 				}
 			}
 		});
-	    ArrayAdapter<String> mAdapter = display(dialog, watchList, holder, listWatch, cont);
+	    SimpleAdapter mAdapter = display(dialog, watchList, holder, listWatch, cont);
 	    handleListSelect(holder, cont, watchList, listWatch, dialog, mAdapter);
 	}
 	
 	/**
 	 * Sets the display of the watch list
 	 */
-	public static ArrayAdapter<String> display(Dialog dialog, List<String> watchList, Storage holder, ListView listWatch,
+	public static SimpleAdapter display(Dialog dialog, List<String> watchList, Storage holder, ListView listWatch,
 			Context cont)
 	{
 		listWatch.setAdapter(null);
@@ -130,6 +135,7 @@ public class HandleWatchList
 			    return 0;
 			}
 		});
+		dataSet = new ArrayList<Map<String, String>>();
 	    List<String> listAdapter = new ArrayList<String>();
 	    for(String name : watchList)
 	    {
@@ -144,6 +150,7 @@ public class HandleWatchList
 	    }
 	    while(!totalList.isEmpty())
 	    {
+	    	Map<String, String> datum = new HashMap<String, String>(2);
 	    	PlayerObject iter = totalList.poll();
 			DecimalFormat df = new DecimalFormat("#.##");
 	    	String val = df.format(iter.values.worth);
@@ -155,37 +162,45 @@ public class HandleWatchList
 	    		}
 		    	else
 		    	{
-			    	listAdapter.add(val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
-			    			iter.info.team);
+			    	datum.put("name", val + ": " + iter.info.name);
+			    	datum.put("info", iter.info.position + " - " + iter.info.team);
 		    	}
 	    	}
 	    	else
 	    	{
 		    	if(Draft.draftedMe(iter.info.name, holder.draft))
 		    	{
-			    	listAdapter.add("DRAFTED (YOU) - " + val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
-			    			iter.info.team);
+			    	datum.put("name", "DRAFTED (YOU) - " + val + ": " + iter.info.name);
+			    	datum.put("info", iter.info.position + " - " + iter.info.team);
+
 		    	}
 		    	else if(Draft.isDrafted(iter.info.name, holder.draft))
 		    	{
-			    	listAdapter.add("DRAFTED - " + val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
-			    			iter.info.team);
+		    		datum.put("name", "DRAFTED - " + val + ": " + iter.info.name);
+			    	datum.put("info", iter.info.position + " - " + iter.info.team);
 		    	}
 		    	else
 		    	{
-			    	listAdapter.add(val + ": " + iter.info.name + ", " + iter.info.position + " - " + 
-			    			iter.info.team);
+		    		datum.put("name", val + ": " + iter.info.name);
+			    	datum.put("info", iter.info.position + " - " + iter.info.team);
 		    	}
 	    	}
+	    	dataSet.add(datum);
 	    }
-	    return ManageInput.handleArray(listAdapter, listWatch, (Activity) cont);
+	    final SimpleAdapter adapter = new SimpleAdapter(cont, dataSet, 
+	    		android.R.layout.simple_list_item_2, 
+	    		new String[] {"name", "info"}, 
+	    		new int[] {android.R.id.text1, 
+	    			android.R.id.text2});
+	    listWatch.setAdapter(adapter);
+	    return adapter;
 	}
 
 	/**
 	 * Sets the element onclick to show data
 	 */
 	public static void handleListSelect(final Storage holder, final Context cont,final List<String> watchList, 
-			ListView listview, final Dialog dialog, final ArrayAdapter<String> mAdapter)
+			ListView listview, final Dialog dialog, final SimpleAdapter mAdapter)
 	{
 	    listview.setOnItemClickListener(new OnItemClickListener(){
 			@Override
@@ -207,8 +222,8 @@ public class HandleWatchList
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                             	String name = "";
                                 for (int position : reverseSortedPositions) {
-                                	name = mAdapter.getItem(position).split(": ")[1].split(", ")[0];
-                                    mAdapter.remove(mAdapter.getItem(position));
+                                	Map<String, String> in = dataSet.remove(position);
+                                	name = in.get("name").split(": ")[1];
                                 }
                                 mAdapter.notifyDataSetChanged();
                                 watchList.remove(name);
