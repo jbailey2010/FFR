@@ -38,6 +38,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,6 +54,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TwoLineListItem;
 
 /**
  * Sets up the trending page
@@ -290,10 +292,10 @@ public class Trending extends Activity {
             @Override
             public void onClick(View v) 
             {
-            	day.setBackgroundColor(Color.BLACK);
-            	week.setBackgroundColor(Color.BLACK);
-            	month.setBackgroundColor(Color.BLACK);
-            	all.setBackgroundColor(Color.BLACK);
+            	day.setBackgroundColor(R.drawable.menu_btn_black);
+            	week.setBackgroundColor(R.drawable.menu_btn_black);
+            	month.setBackgroundColor(R.drawable.menu_btn_black);
+            	all.setBackgroundColor(R.drawable.menu_btn_black);
 				Boolean valueChecked = value.isChecked();
 				Boolean rookieChecked = rookie.isChecked();
 				Boolean wantChecked = want.isChecked();
@@ -365,19 +367,19 @@ public class Trending extends Activity {
 		lastFilter = ReadFromFile.readLastFilter(cont);
 		if(lastFilter == 1)
 		{
-			day.setBackgroundColor(Color.RED);
+			day.setBackgroundColor(Color.BLACK);
 		}
 		if(lastFilter == 7)
 		{
-			week.setBackgroundColor(Color.RED);
+			week.setBackgroundColor(Color.BLACK);
 		}		
 		if(lastFilter == 30)
 		{
-			month.setBackgroundColor(Color.RED);
+			month.setBackgroundColor(Color.BLACK);
 		}		
 		if(lastFilter == 365)
 		{
-			all.setBackgroundColor(Color.RED);
+			all.setBackgroundColor(Color.BLACK);
 		}
 	}
 	
@@ -393,11 +395,11 @@ public class Trending extends Activity {
             @Override
             public void onClick(View v) 
             {
-            	day.setBackgroundColor(Color.BLACK);
-            	week.setBackgroundColor(Color.BLACK);
-            	month.setBackgroundColor(Color.BLACK);
-            	all.setBackgroundColor(Color.BLACK);
-            	button.setBackgroundColor(Color.RED);
+            	day.setBackground(getResources().getDrawable(R.drawable.menu_btn_black));
+            	week.setBackground(getResources().getDrawable(R.drawable.menu_btn_black));
+            	month.setBackground(getResources().getDrawable(R.drawable.menu_btn_black));
+            	all.setBackground(getResources().getDrawable(R.drawable.menu_btn_black));
+            	button.setBackgroundColor(Color.BLACK);
 				try {
 					WriteToFile.writeLastFilter(cont, filterSize);
 					resetTrendingList(filterSize, cont);
@@ -525,8 +527,7 @@ public class Trending extends Activity {
 					long arg3) {
 				// TODO Auto-generated method stub
 				listview.setSelection(arg2);
-				String selected = ((TextView)arg1).getText().toString();
-				selected = selected.split(":")[0];
+				String selected = ((TwoLineListItem)arg1).getText1().getText().toString();
 				int index = -1;
 				for(int i = 0; i < holder.players.size(); i++)
 				{

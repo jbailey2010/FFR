@@ -3,7 +3,9 @@ package com.example.fantasyfootballrankings.ClassFiles;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
@@ -24,8 +26,10 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TwoLineListItem;
 
 import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.R.id;
@@ -209,7 +213,8 @@ public class PlayerInfo
 			backView.setVisibility(View.GONE);
 		}
 		//Set the data in the list
-		setSearchContent(searchedPlayer, output, holder);
+		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+		setSearchContent(searchedPlayer, data, holder);
 		//Show the dialog, then set the list
 		dialog.show();
 		ListView results = (ListView)dialog.findViewById(R.id.listview_search);
@@ -217,7 +222,7 @@ public class PlayerInfo
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				String input = ((TextView)arg1).getText().toString();
+				String input = ((TwoLineListItem)arg1).getText1().getText().toString();
 				//Show tweets about the player
 				if(input.contains("See tweets about"))
 				{
@@ -239,7 +244,13 @@ public class PlayerInfo
 				}
 			}
 		});
-		ManageInput.handleArray(output, results, act);
+		//ManageInput.handleArray(output, results, act);
+		final SimpleAdapter adapter = new SimpleAdapter(act, data, 
+	    		android.R.layout.simple_list_item_2, 
+	    		new String[] {"main", "sub"}, 
+	    		new int[] {android.R.id.text1, 
+	    			android.R.id.text2});
+	    results.setAdapter(adapter);
 		Button back = (Button)dialog.findViewById(R.id.search_back);
 		//If it isn't gone, set that it goes back
 		back.setOnClickListener(new OnClickListener()
@@ -276,10 +287,10 @@ public class PlayerInfo
 	/**
 	 * Sets the output of the search
 	 * @param searchedPlayer
-	 * @param output
+	 * @param data
 	 * @param holder 
 	 */
-	public static void setSearchContent(PlayerObject searchedPlayer, List<String> output, Storage holder)
+	public static void setSearchContent(PlayerObject searchedPlayer, List<Map<String, String>> data, Storage holder)
 	{
 	   	DecimalFormat df = new DecimalFormat("#.##");
 		String low = String.valueOf(searchedPlayer.values.low);
@@ -287,175 +298,255 @@ public class PlayerInfo
 		{
 			low = String.valueOf(searchedPlayer.values.high);
 		}
+		//See if they're drafted by me
 		if(Draft.draftedMe(searchedPlayer.info.name, Rankings.holder.draft))
 		{
-			output.add("DRAFTED BY YOU");
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "DRAFTED BY YOU");
+			data.add(datum);
 		}
+		//See if they're drafted by someone else
 		else if(Draft.isDrafted(searchedPlayer.info.name, Rankings.holder.draft))
 		{
-			output.add("DRAFTED");
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "DRAFTED");
+			data.add(datum);
 		}
-		output.add("Worth: " + df.format(searchedPlayer.values.worth));
-		if(searchedPlayer.info.position.length() > 1)
+		//Is he in the watch list?
+		if(Rankings.watchList.contains(searchedPlayer.info.name))
 		{
-			output.add("Position: " + searchedPlayer.info.position);
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "He is in your watch list");
+			datum.put("sub", "");
+			data.add(datum);
 		}
-		if(searchedPlayer.info.position.length() > 1)
+		//Worth
+		Map<String, String> datumWorth = new HashMap<String, String>(2);
+		datumWorth.put("main", "$" + df.format(searchedPlayer.values.worth));
+		datumWorth.put("sub", "High: " + searchedPlayer.values.high + "\nLow: " + searchedPlayer.values.low + 
+				"\nShowed up in " + searchedPlayer.values.count + " rankings");
+		data.add(datumWorth);
+		//Team, position, and bye
+		if(searchedPlayer.info.position.length() > 1 && searchedPlayer.info.position.length() > 1)
 		{
-			output.add("Team: " + searchedPlayer.info.team);
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", searchedPlayer.info.position);
+			String sub = searchedPlayer.info.team;
+			if(searchedPlayer.info.bye != null && !searchedPlayer.info.bye.contains("null") &&  
+					!searchedPlayer.info.bye.equals("Not set"))
+			{
+				sub += " (" + searchedPlayer.info.bye + ")";
+			}
+			datum.put("sub", sub);
+			data.add(datum);
 		}
+		//Set age
 		if(!searchedPlayer.info.age.equals("0") && !searchedPlayer.info.position.equals("D/ST") && 
 				!searchedPlayer.info.age.equals("") && searchedPlayer.info.age.length() >= 2)
 		{
-			output.add("Age: " + searchedPlayer.info.age);
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "Age: " + searchedPlayer.info.age);
+			datum.put("sub", "");
+			data.add(datum);
 		}
-		if(Rankings.watchList.contains(searchedPlayer.info.name))
-		{
-			output.add("He is in your watch list");
-		}
-		if(searchedPlayer.info.bye != null && !searchedPlayer.info.bye.contains("null") &&  
-				!searchedPlayer.info.bye.equals("Not set"))
-		{
-			output.add("Bye: " + searchedPlayer.info.bye);
-		}
+		//Projections
 		if(searchedPlayer.values.points != 0.0)
 		{
-			output.add(searchedPlayer.values.points + " projected points (ranked " + rankProjPos(searchedPlayer, holder)  +
-					" positionally)");
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", searchedPlayer.values.points + " projected points");
+			datum.put("sub", "Ranked " + rankProjPos(searchedPlayer, holder)  + " positionally");
+			data.add(datum);
 		}
+		//PAA and PAAPD
 		if(searchedPlayer.values.paa != 0.0 && searchedPlayer.values.points != 0.0)
 		{
-			output.add(df.format(searchedPlayer.values.paa) + " points above average (" + rankPAAPos(searchedPlayer, holder) + 
-					" positionally, " + rankPAAAll(searchedPlayer, holder) + " overall)\n" +
-						df.format(searchedPlayer.values.paapd)+ " points above average per dollar (" 
-					+ rankPAAPDPos(searchedPlayer, holder) + " positionally, " + rankPAAPDAll(searchedPlayer, holder) + " overall)");
-
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", df.format(searchedPlayer.values.paa) + " PAA");
+			datum.put("sub", "Ranked " + rankPAAPos(searchedPlayer, holder) + " positionally, Ranked" + rankPAAAll(searchedPlayer, holder) + 
+						 " overall");
+			data.add(datum);
+			Map<String, String> datum2 = new HashMap<String, String>(2);
+			datum2.put("main", df.format(searchedPlayer.values.paapd) + " PAA per dollar");
+			datum2.put("sub", "Ranked " + rankPAAPDPos(searchedPlayer, holder) + " positionally, Ranked" + rankPAAPDAll(searchedPlayer, holder) + " overall");
+			data.add(datum2);
 		} 
+		//Positional SOS
 		if(searchedPlayer.info.sos > 0)
 		{
-			output.add("Positional SOS: " + searchedPlayer.info.sos);
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "Positional SOS: " + searchedPlayer.info.sos);
+			datum.put("sub", "1 is Easiest, 32 Hardest");
+			data.add(datum);
 		}
+		//Rec oTD stuff
 		if(searchedPlayer.values.oTD != 0.0 && searchedPlayer.values.tADEZ != 0)
 		{
+			Map<String, String> datum = new HashMap<String, String>(2);
 			String result = String.valueOf(searchedPlayer.values.tdDiff);
 			if(!result.contains("-"))
 			{
 				result = "+" + result; 
 			}
-			output.add("Targeted an average of " + searchedPlayer.values.tADEZ + " yards from the endzone\n\n" + 
-					"Opportunity-adjusted receiving touchdowns: " + searchedPlayer.values.oTD + " (" + result + 
-					" relative to last year's numbers)");
+			datum.put("main", "Receiving oTD: " + searchedPlayer.values.oTD + " \n(" + result + " relative to last year's numbers)");
+			datum.put("sub", "Targeted an average of " + searchedPlayer.values.tADEZ + " yards from the endzone");
+			data.add(datum);
 		}
+		//Rush oTD stuff
 		if(searchedPlayer.values.rADEZ != 0)
 		{
+			Map<String, String> datum = new HashMap<String, String>(2);
 			String result = String.valueOf(searchedPlayer.values.rtdDiff);
 			if(!result.contains("-"))
 			{
 				result = "+" + result;
 			}
-			output.add("Carried the ball an average of " + searchedPlayer.values.rADEZ + " yards from the endzone\n\n" + 
-					"Opportunity-adjusted rushing touchdowns: " + searchedPlayer.values.roTD + " (" + result + 
-					" relative to last year's numbers)");
+			datum.put("main", "Rushing oTD: " + searchedPlayer.values.roTD + " (" + result + " relative to last year's numbers");
+			datum.put("sub", "Carried an average of " + searchedPlayer.values.rADEZ + " yards from the endzone");
+			data.add(datum);
 		}
+		//Risk
 		if(searchedPlayer.risk > 0.0)
 		{
+			Map<String, String> datum = new HashMap<String, String>(2);
 			if(searchedPlayer.values.count > 8 && searchedPlayer.values.worth > 5 && !searchedPlayer.info.position.equals("K") && 
 					!searchedPlayer.info.position.equals("D/ST"))
 			{
-				output.add(searchedPlayer.risk + " risk\n" + searchedPlayer.riskPos + " risk relative to his position (" + 
-						rankRiskPos(searchedPlayer, holder) + ")\n" + searchedPlayer.riskAll + " risk relative to all players (" +
-						rankRiskAll(searchedPlayer, holder) + ")");
+				datum.put("main", searchedPlayer.risk + " Risk");
+				datum.put("sub", searchedPlayer.riskPos + " relative to his position (" + rankRiskPos(searchedPlayer, holder) + ")\n" + 
+						searchedPlayer.riskAll + " relative to everyone (" + rankRiskAll(searchedPlayer, holder) + ")");
+				data.add(datum);
 			}
 			else
 			{
-				output.add(searchedPlayer.risk + " risk\n" + searchedPlayer.riskPos + " risk relative to his position\n" + 
-						searchedPlayer.riskAll + " risk relative to all players");
+				datum.put("main", searchedPlayer.risk + " Risk");
+				datum.put("sub", searchedPlayer.riskPos + " relative to his position\n" + 
+						searchedPlayer.riskAll + " relative to everyone");
+				data.add(datum);
 			}
 		}
+		//Contract status
 		if(!searchedPlayer.info.position.equals("D/ST") && 
 				!searchedPlayer.info.contractStatus.contains("Under Contract"))
 		{
-			output.add(searchedPlayer.info.contractStatus);
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", searchedPlayer.info.contractStatus);
+			datum.put("sub", "");
 		} 
+		//Injury status and stats
 		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST")
 				&& !searchedPlayer.stats.equals(" ") && searchedPlayer.stats.length() > 5)
 		{
-			output.add(searchedPlayer.stats);
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", searchedPlayer.stats);
+			if(searchedPlayer.info.additionalStat != null && !searchedPlayer.info.additionalStat.equals("")
+					&& searchedPlayer.info.additionalStat.length() > 2)
+	    	{
+	    		datum.put("sub", searchedPlayer.info.additionalStat);
+	    	}
+			data.add(datum);
 			if(!searchedPlayer.injuryStatus.contains("Healthy"))
 			{
-				output.add(searchedPlayer.injuryStatus);
+				Map<String, String> datum2 = new HashMap<String, String>(2);
+				datum2.put("main", searchedPlayer.injuryStatus);
+				datum2.put("sub", "");
+				data.add(datum2);
 			}
 		}
+		//Draft class
 		if(searchedPlayer.draftClass != null && !searchedPlayer.draftClass.contains("null") &&
 				!searchedPlayer.info.position.equals("K") && searchedPlayer.draftClass.length() > 4)
 		{
-			output.add(searchedPlayer.draftClass);
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", searchedPlayer.draftClass);
+			datum.put("sub", "");
+			data.add(datum);
 		}
+		//Free agency classes
 		if(searchedPlayer.fa.size() > 1)
 		{
+			Map<String, String> datum = new HashMap<String, String>(2);
 	    	if(searchedPlayer.fa.get(0).contains("\n"))
 	    	{
-	    		output.add(searchedPlayer.fa.get(0));
+	    		datum.put("main", searchedPlayer.fa.get(0));
+	    		datum.put("sub", "");
+	    		data.add(datum);
 	    	}
 	    	if(searchedPlayer.fa.get(1).contains("\n"))
 	    	{
-	    		output.add(searchedPlayer.fa.get(1));
+	    		datum.put("main",  searchedPlayer.fa.get(1));
+	    		datum.put("sub", "");
+	    		data.add(datum);
 	    	}
 		}
+		//Rank ecr
 		if(searchedPlayer.values.ecr != -1)
 		{
+			Map<String, String> datum = new HashMap<String, String>(2);
 			if(rankECRPos(searchedPlayer, holder) != -1)
 			{
-				output.add("Average Expert Ranking: " + searchedPlayer.values.ecr + " (ranked " + rankECRPos(searchedPlayer, holder)
-						 + " positionally)");
+				datum.put("main", "Average Expert Ranking: " + searchedPlayer.values.ecr);
+				datum.put("sub", "Ranked " + rankECRPos(searchedPlayer, holder) + " positionally");
+				data.add(datum);
 			}
 			else
 			{
-				output.add("Average Expert Ranking: " + searchedPlayer.values.ecr);
+				datum.put("main", "Average Expert Rankings: " + searchedPlayer.values.ecr);
+				datum.put("sub", "");
 			}
 		}
+		//ADP Rankings
 		if(!searchedPlayer.info.adp.equals("Not set"))
 		{
+			Map<String, String> datum = new HashMap<String, String>(2);
 			if(rankADPPos(searchedPlayer, holder) != -1)
 			{
-				output.add("ADP: " + searchedPlayer.info.adp + " (ranked " + rankADPPos(searchedPlayer, holder) + " positionally)");
+				datum.put("main", "Average Draft Position: " + searchedPlayer.info.adp);
+				datum.put("sub", "Ranked " + rankADPPos(searchedPlayer, holder) + " positionally");
+				data.add(datum);
 			}
 			else
 			{
-				output.add("ADP: " + searchedPlayer.info.adp);
+				datum.put("main", "Average Draft Position: " + searchedPlayer.info.adp);
+				datum.put("sub", "");
+				data.add(datum);
 			}
 		}
 		if(!searchedPlayer.info.trend.equals("0.0"))
 		{
-			output.add("Weekly Value Trend: " + searchedPlayer.info.trend);
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "Weekly Value Trend: " + searchedPlayer.info.trend);
+			datum.put("sub", "Per ESPN's AAV data");
+			data.add(datum);
 		}
-		output.add("Showed up in " + searchedPlayer.values.count + " rankings.");
-		output.add("Highest value: " + searchedPlayer.values.high);
-		output.add("Lowest value: " + low);
+		
 		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
 		{ 
-			if(searchedPlayer.info.passRunRatio != null && searchedPlayer.info.passRunRatio.length() > 2)
+			if(searchedPlayer.info.passRunRatio != null && searchedPlayer.info.passRunRatio.length() > 2 && 
+					searchedPlayer.info.oLineStatus != null && searchedPlayer.info.oLineStatus.length() > 3)
 			{
-				output.add(searchedPlayer.info.passRunRatio);
-			}
-			if(searchedPlayer.info.oLineStatus != null && searchedPlayer.info.oLineStatus.length() > 3)
-			{
-				output.add(searchedPlayer.info.oLineStatus);
+				Map<String, String> datum = new HashMap<String, String>(2);
+				datum.put("main", searchedPlayer.info.oLineStatus + "\n");
+				datum.put("sub", searchedPlayer.info.passRunRatio);
+				data.add(datum);
 			}
 			if(searchedPlayer.info.oLineAdv != null && searchedPlayer.info.oLineAdv.length() > 3)
 			{
-				output.add(searchedPlayer.info.oLineAdv);
+				Map<String, String> datum = new HashMap<String, String>(2);
+				datum.put("main", searchedPlayer.info.oLineAdv);
+				datum.put("sub", "");
+				data.add(datum);
 			}
-			if(searchedPlayer.info.additionalStat != null && !searchedPlayer.info.additionalStat.equals("")
-					&& searchedPlayer.info.additionalStat.length() > 2)
-	    	{
-	    		output.add(searchedPlayer.info.additionalStat);
-	    	}
 		}
 		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
 		{
-			output.add("See tweets about this player");
-			output.add("See highlights of this player");
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "See tweets about this player");
+			datum.put("sub", "");
+			data.add(datum);
+			Map<String, String> datum2 = new HashMap<String, String>(2);
+			datum2.put("main", "See highlights of this player");
+			datum2.put("sub", "");
+			data.add(datum2);
 		}
 	}
 	
@@ -658,7 +749,7 @@ public class PlayerInfo
 	/**
 	 * Makes a popup that shows the tweet so it's copyable from a user
 	 */
-	public static void tweetPopUp(TextView tweet, Activity cont)
+	public static void tweetPopUp(View arg1, Activity cont)
 	{
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -677,7 +768,9 @@ public class PlayerInfo
 			}
 	    });
 	    TextView showTweet = (TextView)dialog.findViewById(R.id.tweet_field);
-	    showTweet.setText(tweet.getText().toString());
+	    String tweet = ((TwoLineListItem)arg1).getText1().getText().toString();
+		tweet += "\n\n" + ((TwoLineListItem)arg1).getText2().getText().toString();
+	    showTweet.setText(tweet);
 	}
 
 	/**
@@ -707,26 +800,26 @@ public class PlayerInfo
 			}
 	    });
 	    List<String> news = new ArrayList<String>(10000);
+	    final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 	    for(NewsObjects newsObj : result)
 	    {
-	    	StringBuilder newsBuilder = new StringBuilder(1000);
-	    	newsBuilder.append(newsObj.news + "\n\n" + newsObj.impact + "\n\n"
-	    			 + "Date: " + newsObj.date + "\n");
-	    	news.add(newsBuilder.toString());
+	    	Map<String, String> datum = new HashMap<String, String>();
+	    	datum.put("news", newsObj.news + "\n\n" + newsObj.impact + "\n");
+	    	datum.put("date", newsObj.date);
+	    	data.add(datum);
 	    }
-	    if(result.size() == 0)
-	    {
-	    	news.add("No tweets found");
-	    }
-	    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(act,
-	            android.R.layout.simple_list_item_1, news);
+	    final SimpleAdapter adapter = new SimpleAdapter(act, data, 
+	    		android.R.layout.simple_list_item_2, 
+	    		new String[] {"news", "date"}, 
+	    		new int[] {android.R.id.text1, 
+	    			android.R.id.text2});
 	    tweetResults.setAdapter(adapter);
 	    tweetResults.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				Rankings.listview.setSelection(arg2);
-				tweetPopUp((TextView)arg1, act);
+				tweetPopUp(arg1, act);
 			}
 	    });
 	    SwipeDismissListViewTouchListener touchListener =
@@ -736,7 +829,7 @@ public class PlayerInfo
 	                        @Override
 	                        public void onDismiss(ListView listView, int[] reverseSortedPositions) {
 	                            for (int position : reverseSortedPositions) {
-	                                adapter.remove(adapter.getItem(position));
+	                                data.remove(position);
 	                            }
 	                            adapter.notifyDataSetChanged();
 	                            Toast.makeText(Rankings.context, "Temporarily hiding this news piece", Toast.LENGTH_SHORT).show();

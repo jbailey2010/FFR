@@ -42,6 +42,7 @@ import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TwoLineListItem;
 import android.widget.TextView.BufferType;
 import android.widget.Toast;
 /**
@@ -362,7 +363,7 @@ public class News extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				listview.setSelection(arg2);
-				tweetPopUp((TextView)arg1, cont);
+				tweetPopUp(arg1, cont);
 			}
 	    });
 	    SwipeDismissListViewTouchListener touchListener =
@@ -387,7 +388,7 @@ public class News extends Activity {
 	/**
 	 * Makes a popup that shows the tweet so it's copyable from a user
 	 */
-	public static void tweetPopUp(TextView tweet, Activity cont)
+	public static void tweetPopUp(View arg1, Activity cont)
 	{
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -406,7 +407,9 @@ public class News extends Activity {
 			}
 	    });
 	    TextView showTweet = (TextView)dialog.findViewById(R.id.tweet_field);
-	    showTweet.setText(tweet.getText().toString());
+	    String text = ((TwoLineListItem)arg1).getText1().getText().toString();
+		text += "\n\n" + ((TwoLineListItem)arg1).getText2().getText().toString();
+	    showTweet.setText(text);
 	}
 
 }

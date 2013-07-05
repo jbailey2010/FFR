@@ -207,9 +207,8 @@ public class HandleWatchList
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				String selected = ((TextView)arg1).getText().toString();
-				selected = selected.split(": ")[1];
-				selected = selected.split(", ")[0];
+				String nameText = ((TwoLineListItem)arg1).getText1().getText().toString();
+				String selected = nameText.split(": ")[1];
 				dialog.dismiss();
 				PlayerInfo.outputResults(selected, true,(Activity)cont, holder, true, true);
 			}

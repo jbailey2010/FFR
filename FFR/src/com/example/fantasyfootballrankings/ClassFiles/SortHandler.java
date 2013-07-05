@@ -31,6 +31,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TwoLineListItem;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 
@@ -1148,8 +1149,8 @@ public class SortHandler
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				results.setSelection(arg2);
-				String selected = ((TextView)arg1).getText().toString();
-				selected = selected.split(": ")[1].split(" \\(")[0];
+				String tv1 = ((TwoLineListItem)arg1).getText1().getText().toString();
+				String selected = tv1.split(": ")[1];
 				PlayerInfo.outputResults(selected, true, (Rankings)context, holder, false, false);
 			}
     	 });
