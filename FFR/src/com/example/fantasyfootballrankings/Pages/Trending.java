@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.concurrent.ExecutionException;
 
@@ -48,6 +50,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -156,13 +159,26 @@ public class Trending extends Activity {
 		ReadFromFile.fetchNamesBackEnd(holder, cont);
 		String storedPosts = prefs.getString("Posted Players", "Not Posted");
 		List<String>postsList = new ArrayList<String>();
+		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		for(String post : storedPosts.split("##"))
 		{
+			String[] nameSet = post.split(": mentioned ");
+			Map<String, String> datum = new HashMap<String, String>(2);
+			String name = nameSet[0];
+			String count = (nameSet[1].split(" times")[0]);
+			datum.put("name", name);
+			datum.put("count", count + " times");
+			data.add(datum);
 			postsList.add(post);
 		}
     	if(storedPosts != "Not Posted")
     	{
-    		final ArrayAdapter<String> mAdapter = ManageInput.handleArray(postsList, listview, this);
+    		 final SimpleAdapter mAdapter = new SimpleAdapter(cont, data, 
+    		    		android.R.layout.simple_list_item_2, 
+    		    		new String[] {"name", "count"}, 
+    		    		new int[] {android.R.id.text1, 
+    		    			android.R.id.text2});
+    		    listview.setAdapter(mAdapter);
     		SwipeDismissListViewTouchListener touchListener =
                     new SwipeDismissListViewTouchListener(
                             listview,
@@ -170,9 +186,11 @@ public class Trending extends Activity {
                                 @Override
                                 public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 	String name = "";
-                                    for (int position : reverseSortedPositions) {
-                                    	name = mAdapter.getItem(position).split(": ")[0];
-                                        mAdapter.remove(mAdapter.getItem(position));
+                                	for (int position : reverseSortedPositions) {
+                                    	Map<String, String> datum = new HashMap<String, String>(2);
+                                    	datum = data.get(position);
+                                    	name = datum.get("name");
+                                        data.remove(mAdapter.getItem(position));
                                     }
                                     mAdapter.notifyDataSetChanged();
                                     Toast.makeText(cont, "Temporarily hiding " + name, Toast.LENGTH_SHORT).show();
@@ -450,11 +468,16 @@ public class Trending extends Activity {
 		System.out.println(playersTrending.size() + " " + count);
 	    listview = (ListView) cont.findViewById(R.id.listview_trending);
 	    listview.setAdapter(null);
+	    final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 	    setListViewOnClick();
 	    List<String> trendingPlayers = new ArrayList<String>(350);
 	    while(!playersTrending.isEmpty())
 	    {
 	    	PostedPlayer elem = playersTrending.poll();
+	    	Map<String, String> datum = new HashMap<String, String>(2);
+	    	datum.put("name", elem.name);
+	    	datum.put("count", elem.count + " times");
+	    	data.add(datum);
 	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times");
 	    }
 	    if(refreshed)
@@ -462,7 +485,13 @@ public class Trending extends Activity {
 	    	WriteToFile.writePostsList(trendingPlayers, cont);
 	    	refreshed = false;
 	    }
-	    final ArrayAdapter<String> mAdapter = ManageInput.handleArray(trendingPlayers, listview, cont);
+	    //final ArrayAdapter<String> mAdapter = ManageInput.handleArray(trendingPlayers, listview, cont);
+	    final SimpleAdapter mAdapter = new SimpleAdapter(cont, data, 
+	    		android.R.layout.simple_list_item_2, 
+	    		new String[] {"name", "count"}, 
+	    		new int[] {android.R.id.text1, 
+	    			android.R.id.text2});
+	    listview.setAdapter(mAdapter);
 	    SwipeDismissListViewTouchListener touchListener =
                 new SwipeDismissListViewTouchListener(
                         listview,
@@ -471,8 +500,10 @@ public class Trending extends Activity {
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                             	String name = "";
                                 for (int position : reverseSortedPositions) {
-                                	name = mAdapter.getItem(position).split(": ")[0];
-                                    mAdapter.remove(mAdapter.getItem(position));
+                                	Map<String, String> datum = new HashMap<String, String>(2);
+                                	datum = data.get(position);
+                                	name = datum.get("name");
+                                    data.remove(mAdapter.getItem(position));
                                 }
                                 mAdapter.notifyDataSetChanged();
                                 Toast.makeText(cont, "Temporarily hiding " + name, Toast.LENGTH_SHORT).show();
