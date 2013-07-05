@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 import com.example.fantasyfootballrankings.R;
@@ -26,6 +27,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,9 +48,10 @@ public class SortHandler
 	public static Storage holder;
 	public static Context context;
 	public static List<PlayerObject> players = new ArrayList<PlayerObject>();
-	public static ArrayAdapter<String> adapter;
+	public static SimpleAdapter adapter;
 	static boolean isHidden = false;
-	static HashMap<String, Integer> ignore = new HashMap<String, Integer>();
+	public static List<Map<String, String>> data;
+	static HashMap<PlayerObject, Integer> ignore = new HashMap<PlayerObject, Integer>();
 	
 	/**
 	 * Sets up the new dialog to get all the relevant info from the user
@@ -850,13 +853,16 @@ public class SortHandler
 				return;
 			}
 	    });
-	    ListView results = (ListView)dialog.findViewById(R.id.listview_search);
+	    final ListView results = (ListView)dialog.findViewById(R.id.listview_search);
 	    results.setAdapter(null);
 	    List<String> rankings = new ArrayList<String>(400);
 	    int counter = 0;
+	    data = new ArrayList<Map<String, String>>();
+
 	    while(!sorted.isEmpty())
 	    {
 	    	PlayerObject elem = sorted.poll();
+	    	Map<String, String> datum = new HashMap<String, String>(2);
 	    	String output = "";
 	    	if(Draft.draftedMe(elem.info.name, holder.draft))
 	    	{
@@ -868,100 +874,239 @@ public class SortHandler
 	    	}
 	    	if(subject.equals("Projections"))
 			{
-				rankings.add(output + elem.values.points + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
+				datum.put("main", output + elem.values.points + ": " + elem.info.name);
+				datum.put("sub", "$" + df.format(elem.values.worth));
 			}
 	    	else if(subject.equals("PAA"))
 	    	{
-	    		rankings.add(output + df.format(elem.values.paa)+ ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
+	    		datum.put("main", output + df.format(elem.values.paa)+ ": " + elem.info.name);
+	    		datum.put("sub", "$" + df.format(elem.values.worth));
 	    	}
 	    	else if(subject.equals("PAA per dollar"))
 	    	{ 
-	    		rankings.add(output + df.format(elem.values.paapd) + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
+	    		datum.put("main", output + df.format(elem.values.paapd)+ ": " + elem.info.name);
+	    		datum.put("sub", "$" + df.format(elem.values.worth));
 	    	}
 	    	else if(subject.equals("Rec oTD"))
 	    	{
-	    		rankings.add(output + df.format(elem.values.oTD) + ": " + elem.info.name + " (" + elem.values.tdDiff + " difference)");
+	    		datum.put("main", output + df.format(elem.values.oTD) + ": " + elem.info.name);
+	    		datum.put("sub", elem.values.tdDiff + " difference");
 	    	}
 	    	else if(subject.equals("Rush oTD"))
 	    	{
-	    		rankings.add(output + df.format(elem.values.roTD) + ": " + elem.info.name + " (" + elem.values.rtdDiff + " difference)");
+	    		datum.put("main", output + df.format(elem.values.roTD) + ": " + elem.info.name);
+	    		datum.put("sub", elem.values.rtdDiff + " difference");
 	    	}
 	    	else if(subject.equals("Average carry location"))
 	    	{
-	    		rankings.add(output + df.format(elem.values.rADEZ) + ": " + elem.info.name + " (" + elem.values.roTD + 
-	    				" expected rushing TDs, $" + df.format(elem.values.worth) + ")");
+	    		datum.put("main", output + df.format(elem.values.rADEZ) + ": " + elem.info.name);
+	    		datum.put("sub",  elem.values.roTD + " expected rushing TDs, $" + df.format(elem.values.worth));
 	    	}
 	    	else if(subject.equals("Average target location"))
 	    	{
-	    		rankings.add(output + df.format(elem.values.tADEZ) + ": " + elem.info.name + " (" + elem.values.oTD + 
-	    				" expected receiving TDs, $" + df.format(elem.values.worth) + ")");
+	    		datum.put("main", output + df.format(elem.values.tADEZ) + ": " + elem.info.name);
+	    		datum.put("sub", elem.values.oTD + 
+	    				" expected receiving TDs, $" + df.format(elem.values.worth));
 	    	}
 	    	else if(subject.equals("Risk"))
 	    	{
-	    		rankings.add(output + df.format(elem.risk)+ ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
+	    		datum.put("main", output + df.format(elem.risk)+ ": " + elem.info.name);
+	    		datum.put("sub", "$" + df.format(elem.values.worth));
 	    	}
 	    	else if(subject.equals("Rec TD Difference"))
 	    	{
-	    		rankings.add(output + df.format(elem.values.tdDiff) + ": " + elem.info.name + " (" + elem.values.oTD + " expected, had " + 
-	    				df.format(elem.values.oTD - elem.values.tdDiff) + ")");
+	    		datum.put("main", output + df.format(elem.values.tdDiff) + ": " + elem.info.name);
+	    		datum.put("sub", elem.values.oTD + " expected, had " + 
+	    				df.format(elem.values.oTD - elem.values.tdDiff));
 	    	}
 	    	else if(subject.equals("Rush TD Difference"))
 	    	{
-	    		rankings.add(output + df.format(elem.values.rtdDiff) + ": " + elem.info.name + " (" + elem.values.roTD + " expected, had " + 
-	    				df.format(elem.values.roTD - elem.values.rtdDiff) + ")");
+	    		datum.put("main", output + df.format(elem.values.rtdDiff) + ": " + elem.info.name);
+	    		datum.put("sub", elem.values.roTD + " expected, had " + 
+	    				df.format(elem.values.roTD - elem.values.rtdDiff));
 	    	}
 	    	else if(subject.equals("Risk relative to position"))
 			{
-				rankings.add(output + elem.riskPos + ": " + elem.info.name);
+	    		datum.put("main",output + elem.riskPos + ": " + elem.info.name);
+	    		datum.put("sub", "$" + df.format(elem.values.worth));
 			}
 			else if(subject.equals("Risk relative to everyone"))
 			{
-				rankings.add(output + elem.riskAll + ": " + elem.info.name);
+				datum.put("main", output + elem.riskAll + ": " + elem.info.name);
+	    		datum.put("sub", "$" + df.format(elem.values.worth));
 			}
 			else if(subject.equals("Positional SOS"))
 			{
 				if(elem.values.points != 0.0)
 				{
-					rankings.add(output + elem.info.sos + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ", " + 
-							elem.values.points + ")");
+					datum.put("main",output + elem.info.sos + ": " + elem.info.name);
+		    		datum.put("sub", "$" + df.format(elem.values.worth) + ", " + 
+							elem.values.points);
 				}
 				else
 				{
-					rankings.add(output + elem.info.sos + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
+					datum.put("main",output + elem.info.sos + ": " + elem.info.name);
+		    		datum.put("sub", "$" + df.format(elem.values.worth));
 				}
 			}
 			else if(subject.equals("ECR"))
 			{
-				rankings.add(output + elem.values.ecr + ": " + elem.info.name);
+				datum.put("main", output + elem.values.ecr + ": " + elem.info.name);
+	    		datum.put("sub", "$" + df.format(elem.values.worth));
 			}
 			else if(subject.equals("ADP"))
 			{
-				rankings.add(output + elem.info.adp + ": " + elem.info.name);
+				datum.put("main", output + elem.info.adp + ": " + elem.info.name);
+	    		datum.put("sub", "$" + df.format(elem.values.worth));
 			}
 			else if(subject.equals("Weekly Trend"))
 			{
-				rankings.add(output + elem.info.trend + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
+				datum.put("main", output + elem.info.trend + ": " + elem.info.name);
+	    		datum.put("sub", "$" + df.format(elem.values.worth));
 			}
 			else if(subject.equals("Highest Value"))
 			{
-				rankings.add(output + df.format(elem.values.high) + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
+				datum.put("main", output + df.format(elem.values.high) + ": " + elem.info.name);
+	    		datum.put("sub", "$" + df.format(elem.values.worth));
 			}
 			else if(subject.equals("Lowest Value"))
 			{
-				rankings.add(output + df.format(elem.values.low) + ": " + elem.info.name + " ($" + df.format(elem.values.worth) + ")");
+				datum.put("main", output + df.format(elem.values.low) + ": " + elem.info.name);
+	    		datum.put("sub", "$" + df.format(elem.values.worth));
 			}
+	    	data.add(datum);
 		} 
-	    adapter = ManageInput.handleArray(rankings, results, (Activity) context);
+	    adapter = new SimpleAdapter(context, data, 
+	    		android.R.layout.simple_list_item_2, 
+	    		new String[] {"main", "sub"}, 
+	    		new int[] {android.R.id.text1, 
+	    			android.R.id.text2});
+	    results.setAdapter(adapter);
+	    //adapter = ManageInput.handleArray(rankings, results, (Activity) context);
 	    watch.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				if(isHidden)
 				{
 					isHidden = false;
+					DecimalFormat df = new DecimalFormat("#.##");
 					Toast.makeText(context, "Un-hiding the drafted players", Toast.LENGTH_SHORT).show();
-					for(String name : ignore.keySet())
+					for(PlayerObject elem : ignore.keySet())
 					{
-						adapter.insert(name, ignore.get(name));
+						int marker = ignore.get(elem);
+						Map<String, String> datum = new HashMap<String, String>(2);
+				    	String output = "";
+				    	if(Draft.draftedMe(elem.info.name, holder.draft))
+				    	{
+				    		output = "DRAFTED (YOU) - ";
+				    	}
+				    	else if(Draft.isDrafted(elem.info.name, holder.draft))
+				    	{
+				    		output = "DRAFTED - ";
+				    	}
+				    	if(subject.equals("Projections"))
+						{
+							datum.put("main", output + elem.values.points + ": " + elem.info.name);
+							datum.put("sub", "$" + df.format(elem.values.worth));
+						}
+				    	else if(subject.equals("PAA"))
+				    	{
+				    		datum.put("main", output + df.format(elem.values.paa)+ ": " + elem.info.name);
+				    		datum.put("sub", "$" + df.format(elem.values.worth));
+				    	}
+				    	else if(subject.equals("PAA per dollar"))
+				    	{ 
+				    		datum.put("main", output + df.format(elem.values.paapd)+ ": " + elem.info.name);
+				    		datum.put("sub", "$" + df.format(elem.values.worth));
+				    	}
+				    	else if(subject.equals("Rec oTD"))
+				    	{
+				    		datum.put("main", output + df.format(elem.values.oTD) + ": " + elem.info.name);
+				    		datum.put("sub", elem.values.tdDiff + " difference");
+				    	}
+				    	else if(subject.equals("Rush oTD"))
+				    	{
+				    		datum.put("main", output + df.format(elem.values.roTD) + ": " + elem.info.name);
+				    		datum.put("sub", elem.values.rtdDiff + " difference");
+				    	}
+				    	else if(subject.equals("Average carry location"))
+				    	{
+				    		datum.put("main", output + df.format(elem.values.rADEZ) + ": " + elem.info.name);
+				    		datum.put("sub",  elem.values.roTD + " expected rushing TDs, $" + df.format(elem.values.worth));
+				    	}
+				    	else if(subject.equals("Average target location"))
+				    	{
+				    		datum.put("main", output + df.format(elem.values.tADEZ) + ": " + elem.info.name);
+				    		datum.put("sub", elem.values.oTD + 
+				    				" expected receiving TDs, $" + df.format(elem.values.worth));
+				    	}
+				    	else if(subject.equals("Risk"))
+				    	{
+				    		datum.put("main", output + df.format(elem.risk)+ ": " + elem.info.name);
+				    		datum.put("sub", "$" + df.format(elem.values.worth));
+				    	}
+				    	else if(subject.equals("Rec TD Difference"))
+				    	{
+				    		datum.put("main", output + df.format(elem.values.tdDiff) + ": " + elem.info.name);
+				    		datum.put("sub", elem.values.oTD + " expected, had " + 
+				    				df.format(elem.values.oTD - elem.values.tdDiff));
+				    	}
+				    	else if(subject.equals("Rush TD Difference"))
+				    	{
+				    		datum.put("main", output + df.format(elem.values.rtdDiff) + ": " + elem.info.name);
+				    		datum.put("sub", elem.values.roTD + " expected, had " + 
+				    				df.format(elem.values.roTD - elem.values.rtdDiff));
+				    	}
+				    	else if(subject.equals("Risk relative to position"))
+						{
+				    		datum.put("main",output + elem.riskPos + ": " + elem.info.name);
+				    		datum.put("sub", "$" + df.format(elem.values.worth));
+						}
+						else if(subject.equals("Risk relative to everyone"))
+						{
+							datum.put("main", output + elem.riskAll + ": " + elem.info.name);
+				    		datum.put("sub", "$" + df.format(elem.values.worth));
+						}
+						else if(subject.equals("Positional SOS"))
+						{
+							if(elem.values.points != 0.0)
+							{
+								datum.put("main",output + elem.info.sos + ": " + elem.info.name);
+					    		datum.put("sub", "$" + df.format(elem.values.worth) + ", " + 
+										elem.values.points);
+							}
+							else
+							{
+								datum.put("main",output + elem.info.sos + ": " + elem.info.name);
+					    		datum.put("sub", "$" + df.format(elem.values.worth));
+							}
+						}
+						else if(subject.equals("ECR"))
+						{
+							datum.put("main", output + elem.values.ecr + ": " + elem.info.name);
+				    		datum.put("sub", "$" + df.format(elem.values.worth));
+						}
+						else if(subject.equals("ADP"))
+						{
+							datum.put("main", output + elem.info.adp + ": " + elem.info.name);
+				    		datum.put("sub", "$" + df.format(elem.values.worth));
+						}
+						else if(subject.equals("Weekly Trend"))
+						{
+							datum.put("main", output + elem.info.trend + ": " + elem.info.name);
+				    		datum.put("sub", "$" + df.format(elem.values.worth));
+						}
+						else if(subject.equals("Highest Value"))
+						{
+							datum.put("main", output + df.format(elem.values.high) + ": " + elem.info.name);
+				    		datum.put("sub", "$" + df.format(elem.values.worth));
+						}
+						else if(subject.equals("Lowest Value"))
+						{
+							datum.put("main", output + df.format(elem.values.low) + ": " + elem.info.name);
+				    		datum.put("sub", "$" + df.format(elem.values.worth));
+						}
+				    	data.add(marker, datum);
 					}
 					adapter.notifyDataSetChanged();
 				}
@@ -972,11 +1117,17 @@ public class SortHandler
 					Toast.makeText(context, "Hiding the drafted players", Toast.LENGTH_SHORT).show();
 					for(int i = 0; i < adapter.getCount(); i++)
 					{
-						String name = adapter.getItem(i);
+						String name = data.get(i).get("main");
 						if(name.contains("DRAFTED"))
 						{
-							ignore.put(name, i);
-							adapter.remove(name);
+							data.remove(i);
+							for(PlayerObject p : holder.players)
+							{
+								if(name.contains(p.info.name))
+								{
+									ignore.put(p, i);
+								}
+							}
 						}
 					}
 					adapter.notifyDataSetChanged();
@@ -1009,7 +1160,7 @@ public class SortHandler
                              @Override
                              public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                  for (int position : reverseSortedPositions) {
-                                     adapter.remove(adapter.getItem(position));
+                                     data.remove(position);
                                  }
                                  adapter.notifyDataSetChanged();
                                  Toast.makeText(context, "Temporarily hiding this player", Toast.LENGTH_SHORT).show();

@@ -3,13 +3,16 @@ package com.example.fantasyfootballrankings.Pages;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.R.layout;
 import com.example.fantasyfootballrankings.R.menu;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 
@@ -35,6 +38,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -339,15 +343,19 @@ public class News extends Activity {
 			}
 		});
 	    List<String> news = new ArrayList<String>(10000);
+	    final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 	    for(NewsObjects newsObj : result)
 	    {
-	    	StringBuilder newsBuilder = new StringBuilder(1000);
-	    	newsBuilder.append(newsObj.news + "\n\n" + newsObj.impact + "\n\n"
-	    			 + "Date: " + newsObj.date + "\n");
-	    	news.add(newsBuilder.toString());
+	    	Map<String, String> datum = new HashMap<String, String>(2);
+	    	datum.put("news", newsObj.news + "\n\n" + newsObj.impact);
+	    	datum.put("date", "\n" + newsObj.date);
+	    	data.add(datum);
 	    }
-	    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(cont,
-	            android.R.layout.simple_list_item_1, news);
+	    final SimpleAdapter adapter = new SimpleAdapter(cont, data, 
+	    		android.R.layout.simple_list_item_2, 
+	    		new String[] {"news", "date"}, 
+	    		new int[] {android.R.id.text1, 
+	    			android.R.id.text2});
 	    listview.setAdapter(adapter);
 	    listview.setOnItemClickListener(new OnItemClickListener(){
 			@Override
@@ -364,7 +372,8 @@ public class News extends Activity {
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
-                                    adapter.remove(adapter.getItem(position));
+                                	data.remove(position);
+                                    //adapter.remove(adapter.getItem(position));
                                 }
                                 adapter.notifyDataSetChanged();
                                 Toast.makeText(cont, "Temporarily hiding this news piece", Toast.LENGTH_SHORT).show();
