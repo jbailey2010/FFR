@@ -9,7 +9,9 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.concurrent.ExecutionException;
 
@@ -43,7 +45,6 @@ import FileIO.WriteToFile;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
-
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.Dialog;
@@ -71,9 +72,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TwoLineListItem;
 import android.widget.AdapterView.OnItemClickListener;
 /**
  * Handles the rankings part of the java file
@@ -104,7 +107,8 @@ public class Rankings extends Activity {
 	static List<String> teamList = new ArrayList<String>();
 	static List<String> posList = new ArrayList<String>();
 	public static List<String> watchList = new ArrayList<String>();
-	public static ArrayAdapter<String> adapter;
+	public static List<Map<String, String>> data;
+	public static SimpleAdapter adapter;
 	static SwipeDismissListViewTouchListener touchListener;
 	static Scoring scoring = new Scoring();
 	/**
@@ -837,10 +841,36 @@ public class Rankings extends Activity {
 	 */
 	public static void listSetUp(List<String> rankings, Activity cont)
 	{
+		data = new ArrayList<Map<String, String>>();
+		data.clear();
+		for(String iter : rankings)
+		{
+			String name = iter.split(":   ")[1];
+			PlayerObject p = null;
+			for(PlayerObject player : holder.players)
+			{
+				if(player.info.name.equals(name))
+				{
+					p = player;
+					break;
+				}
+			}
+			DecimalFormat df = new DecimalFormat("#.##");
+	        Map<String, String> datum = new HashMap<String, String>(2);
+	        datum.put("main", iter.split(":   ")[0] + ":  " + p.info.name );
+	        datum.put("sub", p.info.position + " - " + p.info.team);
+	        data.add(datum);
+		}
 	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
 	    listview.setAdapter(null);
 	    handleRankingsClick(holder, cont, listview);
-	    adapter = ManageInput.handleArray(rankings, listview, cont);
+	    adapter = new SimpleAdapter(cont, data, 
+	    		android.R.layout.simple_list_item_2, 
+	    		new String[] {"main", "sub"}, 
+	    		new int[] {android.R.id.text1, 
+	    			android.R.id.text2});
+	    listview.setAdapter(adapter);
+	    //adapter = ManageInput.handleArray(rankings, listview, cont);
 	}
 	
 	/**
@@ -852,13 +882,26 @@ public class Rankings extends Activity {
     {
 	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
 	    listview.setAdapter(null);
+	    data = new ArrayList<Map<String, String>>();
 	    handleRankingsClick(holder, cont, listview);
 	    List<String> rankings = new ArrayList<String>(400);
 	    while(!playerList.isEmpty())
 	    {
 	    	PlayerObject elem = playerList.poll();
 	        DecimalFormat df = new DecimalFormat("#.##");
-	    	rankings.add(df.format(elem.values.worth) + ":  " + elem.info.name);
+	        Map<String, String> datum = new HashMap<String, String>(2);
+	        datum.put("main", df.format(elem.values.worth) + ":  " + elem.info.name);
+	        //datum.put("sub", "");
+	        if(elem.info.team.length() > 2 && elem.info.position.length() > 0)
+	        {
+	        	datum.put("sub", elem.info.position + " - " + elem.info.team);
+	        }
+	        else
+	        {
+	        	datum.put("sub", "");
+	        }
+	        data.add(datum);
+	    	rankings.add(df.format(elem.values.worth) + ":   " + elem.info.name);
 	    } 
 	    if(refreshed)
 	    {
@@ -866,7 +909,13 @@ public class Rankings extends Activity {
 	    	refreshed = false;
 	    }
     	WriteToFile.storeListRankings(rankings, cont);
-	    adapter = ManageInput.handleArray(rankings, listview, cont);
+    	adapter = new SimpleAdapter(cont, data, 
+	    		android.R.layout.simple_list_item_2, 
+	    		new String[] {"main", "sub"}, 
+	    		new int[] {android.R.id.text1, 
+	    			android.R.id.text2});
+	    listview.setAdapter(adapter);
+	    //adapter = ManageInput.handleArray(rankings, listview, cont);
 	}
     
     /**
@@ -879,7 +928,7 @@ public class Rankings extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				listview.setSelection(arg2);
-				String selected = ((TextView)arg1).getText().toString();
+				String selected = ((TwoLineListItem)arg1).getText1().getText().toString();
 				selected = selected.split(":  ")[1];
 				PlayerInfo.outputResults(selected, true, (Rankings)context, holder, false, true);
 			}
@@ -889,7 +938,7 @@ public class Rankings extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				String namePlayer = ((TextView)arg1).getText().toString().split(":  ")[1];
+				String namePlayer = ((TwoLineListItem)arg1).getText1().getText().toString().split(":  ")[1];
 				int i = -1;
 				for(String name : watchList)
 				{
@@ -920,25 +969,17 @@ public class Rankings extends Activity {
                              public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                  listview.setOnTouchListener(null);
                                  listview.setOnScrollListener(null);
-                            	 View view = null;
                             	 String name = "";
                                  int index = 0;
+                                 Map<String, String> view = null;
                                  for (int position : reverseSortedPositions) {
-                                	 name = adapter.getItem(position);
-                                	 for(int i = 0; i < adapter.getCount(); i++)
-                                     {
-                                    	 	if(listView.getChildAt(i) != null && 
-                                    	 			((TextView)listView.getChildAt(i)).getText().toString().equals(name))
-                                    	 	{
-                                    	 		view = listView.getChildAt(i);
-                                    	 		index = listView.getPositionForView(view);
-                                    	 		break;
-                                    	 	}
-                                     }
-                                     adapter.remove(adapter.getItem(position));
+                                	 name = data.get(position).get("main").split(":  ")[1];
+                                	 view = data.get(position);
+                                	 data.remove(position);
+                                	 index = position;
                                  }
                                  adapter.notifyDataSetChanged();
-                                 handleDrafted(((TextView)view).getText().toString(), holder, cont, null, index);
+                                 handleDrafted(view, holder, cont, null, index);
                                  
                              }
                          });
@@ -949,7 +990,7 @@ public class Rankings extends Activity {
     /**
      * Handles the drafted dialog
      */
-    public static void handleDrafted(final String nameOrig, final Storage holder, final Activity cont, final Dialog dialog, 
+    public static void handleDrafted(final Map<String, String> view, final Storage holder, final Activity cont, final Dialog dialog, 
     		final int index)
     { 
     	listview.setOnTouchListener(touchListener);
@@ -963,16 +1004,16 @@ public class Rankings extends Activity {
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
 	    popup.getWindow().setAttributes(lp);
     	TextView header = (TextView)popup.findViewById(R.id.name_header);
-    	String name = nameOrig;
+    	String name = view.get("main");
     	final String adapt = name;
-    	if(nameOrig.contains(":"))
+    	if(view.get("main").contains(":"))
     	{
-    		name = nameOrig.split(":  ")[1];
+    		name = view.get("main").split(":  ")[1];
     		header.setText("Who drafted " + name + "?");
     	}
     	else
     	{
-    		name = nameOrig;
+    		name = view.get("main");
     		header.setText("Who drafted " + name + "?");
     	}
     	if(Draft.isDrafted(name, holder.draft))
@@ -986,7 +1027,7 @@ public class Rankings extends Activity {
     	close.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				adapter.insert(adapt, index);
+				data.add(index, view);
 				adapter.notifyDataSetChanged();
 				popup.dismiss();
 				return;
@@ -1011,7 +1052,7 @@ public class Rankings extends Activity {
     	me.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-		    	draftedByMe(d, nameOrig, holder, cont, listview, popup, dialog, index);
+		    	draftedByMe(d, view, holder, cont, listview, popup, dialog, index);
 			}
     	});
     }
@@ -1019,7 +1060,7 @@ public class Rankings extends Activity {
     /**
      * Handles the 'drafted by me' dialog
      */
-    public static void draftedByMe(final String name, final String nameOrig, final Storage holder, final Activity cont,
+    public static void draftedByMe(final String name, final Map<String, String> view, final Storage holder, final Activity cont,
     		final ListView listview, final Dialog popup, final Dialog dialog, final int index)
     {
     	popup.setContentView(R.layout.draft_by_me);
@@ -1031,7 +1072,7 @@ public class Rankings extends Activity {
 			@Override
 			public void onClick(View v) {
 				popup.dismiss();
-				handleDrafted(nameOrig, holder, cont, dialog, index);
+				handleDrafted(view, holder, cont, dialog, index);
 			}
     	});
     	List<String> possResults = new ArrayList<String>();

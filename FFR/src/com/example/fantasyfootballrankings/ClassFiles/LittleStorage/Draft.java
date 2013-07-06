@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 import FileIO.WriteToFile;
@@ -20,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -335,8 +338,32 @@ public class Draft
 			}
 		});
 		ListView listWatch = (ListView)dialog.findViewById(R.id.listview_search);
-	    ArrayAdapter<String> mAdapter = display(dialog, holder.draft.ignore, holder, listWatch, cont);
-	    handleListSelect(holder, cont, listWatch, dialog, mAdapter);
+		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+		DecimalFormat df = new DecimalFormat("#.##");
+		for(String name : holder.draft.ignore)
+		{
+			PlayerObject p = null;
+			for(PlayerObject player : holder.players)
+			{
+				if(player.info.name.equals(name))
+				{
+					p = player;
+					break;
+				}
+			}
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", df.format(p.values.worth) + ":  " + p.info.name);
+			datum.put("sub", p.info.position + " - " + p.info.team);
+			data.add(datum);
+		}
+		final SimpleAdapter adapter = new SimpleAdapter(cont, data, 
+	    		android.R.layout.simple_list_item_2, 
+	    		new String[] {"main", "sub"}, 
+	    		new int[] {android.R.id.text1, 
+	    			android.R.id.text2});
+	    listWatch.setAdapter(adapter);
+	    //ArrayAdapter<String> mAdapter = display(dialog, holder.draft.ignore, holder, listWatch, cont);
+	    handleListSelect(holder, cont, listWatch, dialog, adapter, data);
 	}
 	
 	/**
@@ -356,9 +383,10 @@ public class Draft
 	
 	/**
 	 * Sets the element onclick to show data
+	 * @param data 
 	 */
 	public static void handleListSelect(final Storage holder, final Context cont, ListView listview, 
-			final Dialog dialog, final ArrayAdapter<String> mAdapter)
+			final Dialog dialog, final SimpleAdapter adapter, final List<Map<String, String>> data)
 	{
 	    SwipeDismissListViewTouchListener touchListener =
                 new SwipeDismissListViewTouchListener(
@@ -368,12 +396,13 @@ public class Draft
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                             	String name = "";
                                 for (int position : reverseSortedPositions) {
-                                	name = mAdapter.getItem(position);
+                                	
+                                	name = data.get(position).get("main").split(":  ")[1];//adapter.getItem(position);
                                 	dialog.dismiss();
-                                	undraftPlayer(name, new Dialog(cont, R.style.RoundCornersFull), holder, (Activity)cont, mAdapter, position);
-                                	mAdapter.remove(mAdapter.getItem(position));
+                                	undraftPlayer(name, new Dialog(cont, R.style.RoundCornersFull), holder, (Activity)cont, adapter, position, data);
+                                	data.remove(position);
                                 }
-                                mAdapter.notifyDataSetChanged();
+                                adapter.notifyDataSetChanged();
                             }
                         });
         listview.setOnTouchListener(touchListener);
@@ -382,9 +411,10 @@ public class Draft
 	
 	/**
 	 * Starts the undrafting of the player
+	 * @param data 
 	 */
 	public static void undraftPlayer(final String name, final Dialog dialog, final Storage holder, 
-			final Activity cont, final ArrayAdapter<String> mAdapter, final int position)
+			final Activity cont, final SimpleAdapter adapter, final int position, final List<Map<String, String>> data)
 	{
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.draft_by_who);
@@ -397,8 +427,19 @@ public class Draft
 		close.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				mAdapter.add(name);
-				mAdapter.notifyDataSetChanged();
+				Map<String, String> datum = new HashMap<String, String>();
+				DecimalFormat df = new DecimalFormat("#.##");
+				for(PlayerObject player:holder.players)
+				{
+					if(player.info.name.equals(name))
+					{
+						datum.put("main", df.format(player.values.worth) + ":  " + player.info.name);
+						datum.put("sub", player.info.position + " - " + player.info.team);
+						break;
+					}
+				}
+				data.add(position, datum);
+				adapter.notifyDataSetChanged();
 				dialog.dismiss();
 				undraft(new Dialog(cont), holder, cont);
 			}
@@ -420,7 +461,7 @@ public class Draft
 		me.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				draftedByMe(name, holder,cont, new Dialog(cont, R.style.RoundCornersFull), mAdapter, position, false);
+				draftedByMe(name, holder,cont, new Dialog(cont, R.style.RoundCornersFull), adapter, position, false, data);
 				dialog.dismiss();
 			}
 		});
@@ -428,9 +469,10 @@ public class Draft
 	
 	   /**
      * Handles the 'drafted by me' dialog
+	 * @param data 
      */
     public static void draftedByMe(final String name, final Storage holder, final Activity cont, final Dialog popup,
-    		final ArrayAdapter<String> mAdapter, final int position, final boolean flag)
+    		final SimpleAdapter adapter, final int position, final boolean flag, final List<Map<String, String>> data)
     {
 		popup.requestWindowFeature(Window.FEATURE_NO_TITLE);
     	popup.setContentView(R.layout.draft_by_me);
@@ -446,7 +488,7 @@ public class Draft
 			@Override
 			public void onClick(View v) {
 				popup.dismiss();
-				undraftPlayer(name, new Dialog(cont), holder, cont, mAdapter, position);
+				undraftPlayer(name, new Dialog(cont), holder, cont, adapter, position, data);
 			}
     	});
     	List<String> possResults = new ArrayList<String>();
@@ -467,8 +509,8 @@ public class Draft
 				popup.dismiss();
 				if(flag)
 				{
-					mAdapter.remove(mAdapter.getItem(position));
-					mAdapter.notifyDataSetChanged();
+					data.remove(position);
+					adapter.notifyDataSetChanged();
 				}
 				handleUnDraftingMe(val, holder, name, cont, popup);
 			}

@@ -187,16 +187,20 @@ public class PlayerInfo
 					int index = 0;
 	                for(int i = 0; i < holder.players.size(); i++)
 	                {
-	               	 	if(Rankings.adapter.getItem(i).contains(namePlayer))
+	                	
+	               	 	if(Rankings.data.get(i).get("main").contains(namePlayer))
 	               	 	{
 	               	 		index = i;
 	               	 		break;
 	               	 	}
 	                } 
 	               	DecimalFormat df = new DecimalFormat("#.##");
-	               	Rankings.adapter.remove(Rankings.adapter.getItem(index));
+	               	Rankings.data.remove(index);
 	               	Rankings.adapter.notifyDataSetChanged();
-					Rankings.handleDrafted(df.format(copy.values.worth)+ ":  " + copy.info.name, 
+	               	Map<String, String> datum = new HashMap<String, String>();
+	               	datum.put("main", df.format(copy.values.worth) + ":  " + copy.info.name);
+	               	datum.put("sub", copy.info.position + " - " + copy.info.team);
+					Rankings.handleDrafted(datum, 
 							holder, (Activity)Rankings.context, dialog, index);
 					return true;
 				}
