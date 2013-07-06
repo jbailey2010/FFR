@@ -170,8 +170,8 @@ public class ParsePermanentData
 			if(brokenData[i].contains("PB"))
 			{
 				String[] data = brokenData[i].split(",");
-				String[] pb = data[0].split(" – ");
-				String[] rb = data[1].split(" – ");
+				String[] pb = data[0].split(" - ");
+				String[] rb = data[1].split(" - ");
 				value += "Pass Blocking Ranking: " + pb[1].substring(0, pb[1].length() - 2) + "\n" + "\n";
 				value += "Run Blocking Ranking: " + rb[1].substring(0, rb[1].length() - 2) + "\n\n";
 				teams.put(name, value);

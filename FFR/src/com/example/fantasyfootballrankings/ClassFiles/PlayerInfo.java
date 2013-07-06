@@ -53,8 +53,7 @@ public class PlayerInfo
 	/**
 	 * Abstracted out of the menu handler as this could get ugly
 	 * once the stuff is added to the dropdown
-	 * @param dialog
-	 * @throws IOException 
+	 * @throws IOException
 	 */ public static void searchCalled(final Context oCont) throws IOException
 	{
 		Rankings.matchedPlayers = new ArrayList<String>(15);
@@ -107,7 +106,6 @@ public class PlayerInfo
 	
 	/**
 	 * outputs the results to the search dialog
-	 * @param dialog
 	 * @param namePlayer
 	 */
 	public static void outputResults(final String namePlayer, boolean flag, 
@@ -362,12 +360,12 @@ public class PlayerInfo
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", df.format(searchedPlayer.values.paa) + " PAA");
-			datum.put("sub", "Ranked " + rankPAAPos(searchedPlayer, holder) + " positionally, Ranked" + rankPAAAll(searchedPlayer, holder) + 
+			datum.put("sub", "Ranked " + rankPAAPos(searchedPlayer, holder) + " positionally, " + rankPAAAll(searchedPlayer, holder) +
 						 " overall");
 			data.add(datum);
 			Map<String, String> datum2 = new HashMap<String, String>(2);
 			datum2.put("main", df.format(searchedPlayer.values.paapd) + " PAA per dollar");
-			datum2.put("sub", "Ranked " + rankPAAPDPos(searchedPlayer, holder) + " positionally, Ranked" + rankPAAPDAll(searchedPlayer, holder) + " overall");
+			datum2.put("sub", "Ranked " + rankPAAPDPos(searchedPlayer, holder) + " positionally, " + rankPAAPDAll(searchedPlayer, holder) + " overall");
 			data.add(datum2);
 		} 
 		//Positional SOS
@@ -400,7 +398,7 @@ public class PlayerInfo
 			{
 				result = "+" + result;
 			}
-			datum.put("main", "Rushing oTD: " + searchedPlayer.values.roTD + " (" + result + " relative to last year's numbers");
+			datum.put("main", "Rushing oTD: " + searchedPlayer.values.roTD + "\n(" + result + " relative to last year's numbers)");
 			datum.put("sub", "Carried an average of " + searchedPlayer.values.rADEZ + " yards from the endzone");
 			data.add(datum);
 		}
@@ -464,16 +462,17 @@ public class PlayerInfo
 		//Free agency classes
 		if(searchedPlayer.fa.size() > 1)
 		{
-			Map<String, String> datum = new HashMap<String, String>(2);
 	    	if(searchedPlayer.fa.get(0).contains("\n"))
 	    	{
-	    		datum.put("main", searchedPlayer.fa.get(0));
+                Map<String, String> datum = new HashMap<String, String>(2);
+                datum.put("main", searchedPlayer.fa.get(0));
 	    		datum.put("sub", "");
 	    		data.add(datum);
 	    	}
 	    	if(searchedPlayer.fa.get(1).contains("\n"))
 	    	{
-	    		datum.put("main",  searchedPlayer.fa.get(1));
+                Map<String, String> datum = new HashMap<String, String>(2);
+                datum.put("main",  searchedPlayer.fa.get(1));
 	    		datum.put("sub", "");
 	    		data.add(datum);
 	    	}

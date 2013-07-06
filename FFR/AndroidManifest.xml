@@ -5,20 +5,20 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="17"
+        android:minSdkVersion="10"
         android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
-    
+     
     <application 
         android:allowBackup="true"
         android:icon="@drawable/fb"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
+        <activity 
             android:name="com.example.fantasyfootballrankings.Pages.Home"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name" >

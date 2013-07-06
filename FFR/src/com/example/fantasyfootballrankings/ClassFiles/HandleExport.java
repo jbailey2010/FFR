@@ -1,6 +1,8 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
+
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,10 +17,6 @@ import com.dropbox.client2.android.AndroidAuthSession;
 import com.dropbox.client2.session.AccessTokenPair;
 import com.dropbox.client2.session.AppKeyPair;
 import com.dropbox.client2.session.Session.AccessType;
-import com.dropbox.sync.android.DbxAccountManager;
-import com.dropbox.sync.android.DbxFile;
-import com.dropbox.sync.android.DbxFileSystem;
-import com.dropbox.sync.android.DbxPath;
 import com.example.fantasyfootballrankings.R;
 
 import FileIO.ReadFromFile;

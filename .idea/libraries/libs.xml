@@ -1,0 +1,25 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/FFR/libs/jsoup-1.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/json_simple-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/httpclient-4.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/twitter4j-async-3.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/twitter4j-media-support-3.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/twitter4j-examples-3.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/com.haarman.listviewanimations-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/dropbox-android-sdk-1.5.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/socialauth-android-2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/socialauth-4.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/twitter4j-stream-3.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/httpmime-4.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/httpcore-4.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/twitter4j-core-3.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/android-support-v4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FFR/libs/htmlcleaner-2.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
