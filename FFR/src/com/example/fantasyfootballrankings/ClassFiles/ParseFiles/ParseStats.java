@@ -270,7 +270,7 @@ public class ParseStats
 				continue;
 			}
 			name = player[0].replace(".", " ");
-			team = player[1];
+			team = ParseRankings.fixTeams(player[1]);
 			if(name.split(" ").length == 3)
 			{
 				name = name.split(" ")[0] + " " + name.split(" ")[2];
