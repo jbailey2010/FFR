@@ -520,26 +520,20 @@ public class ParsingAsyncTask
 	 */
 	public class ParsePermanentDataSets extends AsyncTask<Object, Void, Void> 
 	{
-		ProgressDialog pdia;
 		Activity act;
 	    public ParsePermanentDataSets(Activity activity) 
 	    {
-	        pdia = new ProgressDialog(activity);
-	        pdia.setCancelable(false);
 	        act = activity;
 	    }
 	    
 		@Override
 		protected void onPreExecute(){ 
-		   super.onPreExecute();
-		        pdia.setMessage("Please wait, fetching the advanced data...");
-		        pdia.show();    
+		   super.onPreExecute();  
 		}
 
 		@Override
 		protected void onPostExecute(Void result){
 		   super.onPostExecute(result);
-		   pdia.dismiss();
 		}
 		
 	    @Override
