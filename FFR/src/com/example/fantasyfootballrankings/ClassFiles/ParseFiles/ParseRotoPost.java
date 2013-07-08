@@ -21,8 +21,8 @@ public class ParseRotoPost
 	 */
 	public static void parseRotoPostWrapper(Storage holder) throws IOException
 	{
-		parseRotoPostWorker(holder, "http://www.rotopost.com/xml/2013/rankings/top200_standard.xml");
-		parseRotoPostWorker(holder, "http://www.rotopost.com/xml/2013/rankings/top200_ppr.xml");
+		parseRotoPostWorker(holder, "http://www.rotopost.com/fantasy-football/xml/2013/rankings/top200_standard.xml");
+		parseRotoPostWorker(holder, "http://www.rotopost.com/fantasy-football/xml/2013/rankings/top200_ppr.xml");
 	}
 	
 	/**

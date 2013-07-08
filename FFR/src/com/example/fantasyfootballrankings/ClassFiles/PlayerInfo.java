@@ -332,23 +332,27 @@ public class PlayerInfo
 		if(searchedPlayer.info.position.length() > 1 && searchedPlayer.info.position.length() > 1)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", searchedPlayer.info.position);
-			String sub = searchedPlayer.info.team;
+			datum.put("main", searchedPlayer.info.position + " - " + searchedPlayer.info.team);
+			String sub = "";
 			if(searchedPlayer.info.bye != null && !searchedPlayer.info.bye.contains("null") &&  
 					!searchedPlayer.info.bye.equals("Not set"))
 			{
-				sub += " (" + searchedPlayer.info.bye + ")";
+				sub = "Bye: Week " + searchedPlayer.info.bye;
+			}
+			if(!searchedPlayer.info.age.equals("0") && !searchedPlayer.info.position.equals("D/ST") && 
+					!searchedPlayer.info.age.equals("") && searchedPlayer.info.age.length() >= 2)
+			{
+				sub += "\n" + "Age: " + searchedPlayer.info.age;
 			}
 			datum.put("sub", sub);
 			data.add(datum);
-		}
-		//Set age
-		if(!searchedPlayer.info.age.equals("0") && !searchedPlayer.info.position.equals("D/ST") && 
-				!searchedPlayer.info.age.equals("") && searchedPlayer.info.age.length() >= 2)
+		} 
+		//Positional SOS
+		if(searchedPlayer.info.sos > 0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", "Age: " + searchedPlayer.info.age);
-			datum.put("sub", "");
+			datum.put("main", "Positional SOS: " + searchedPlayer.info.sos);
+			datum.put("sub", "1 is Easiest, 32 Hardest");
 			data.add(datum);
 		}
 		//Projections
@@ -372,14 +376,7 @@ public class PlayerInfo
 			datum2.put("sub", "Ranked " + rankPAAPDPos(searchedPlayer, holder) + " positionally, " + rankPAAPDAll(searchedPlayer, holder) + " overall");
 			data.add(datum2);
 		} 
-		//Positional SOS
-		if(searchedPlayer.info.sos > 0)
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", "Positional SOS: " + searchedPlayer.info.sos);
-			datum.put("sub", "1 is Easiest, 32 Hardest");
-			data.add(datum);
-		}
+
 		//Rec oTD stuff
 		if(searchedPlayer.values.oTD != 0.0 && searchedPlayer.values.tADEZ != 0)
 		{
@@ -459,8 +456,10 @@ public class PlayerInfo
 				!searchedPlayer.info.position.equals("K") && searchedPlayer.draftClass.length() > 4)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", searchedPlayer.draftClass);
-			datum.put("sub", "");
+			String draft = searchedPlayer.draftClass.substring(searchedPlayer.draftClass.indexOf('\n'), searchedPlayer.draftClass.length());
+			String gpa = searchedPlayer.draftClass.split("\n")[0];
+			datum.put("main", draft);
+			datum.put("sub", gpa);
 			data.add(datum);
 		}
 		//Free agency classes
@@ -525,18 +524,12 @@ public class PlayerInfo
 		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
 		{ 
 			if(searchedPlayer.info.passRunRatio != null && searchedPlayer.info.passRunRatio.length() > 2 && 
-					searchedPlayer.info.oLineStatus != null && searchedPlayer.info.oLineStatus.length() > 3)
+					searchedPlayer.info.oLineStatus != null && searchedPlayer.info.oLineStatus.length() > 3 && 
+					searchedPlayer.info.oLineAdv != null && searchedPlayer.info.oLineAdv.length() > 3)
 			{
 				Map<String, String> datum = new HashMap<String, String>(2);
-				datum.put("main", searchedPlayer.info.oLineStatus + "\n");
-				datum.put("sub", searchedPlayer.info.passRunRatio);
-				data.add(datum);
-			}
-			if(searchedPlayer.info.oLineAdv != null && searchedPlayer.info.oLineAdv.length() > 3)
-			{
-				Map<String, String> datum = new HashMap<String, String>(2);
-				datum.put("main", searchedPlayer.info.oLineAdv);
-				datum.put("sub", "");
+				datum.put("main", searchedPlayer.info.oLineStatus + "\n" + searchedPlayer.info.oLineAdv + "\n");
+				datum.put("sub", "\n" + searchedPlayer.info.passRunRatio);
 				data.add(datum);
 			}
 		}

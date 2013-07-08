@@ -18,6 +18,8 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.htmlcleaner.XPatherException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
@@ -899,7 +901,7 @@ public class HighLevel
 		String[] td = html.split("\n");
 		int min = 0;
 		for(int i = 0; i < td.length; i++)
-		{
+		{ 
 			if(td[i+1].contains("QB") || td[i+1].contains("RB") || td[i+1].contains("WR") || td[i+1].contains("TE"))
 			{
 				min = i;
@@ -914,5 +916,11 @@ public class HighLevel
 			ecr.put(name, ecrVal);
 			risk.put(name, riskVal);
 		}
+	}
+	
+	public static void parsePFFStats(Storage holder) throws IOException
+	{
+		Document doc = Jsoup.parse("http://heartless-angel.com/Fantasy/FantasyFootball_AuctionValues_2013-07-06.xlsx");
+		System.out.println(doc.toString());
 	}
 }

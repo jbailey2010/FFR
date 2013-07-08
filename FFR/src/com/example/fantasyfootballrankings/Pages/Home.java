@@ -13,16 +13,20 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
+
 import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.HandleExport;
+import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
+
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
 import AsyncTasks.ParsingAsyncTask.ParsePermanentDataSets;
 import FileIO.ReadFromFile;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -72,14 +76,14 @@ public class Home extends Activity{
         handleInitialRefresh();
 		ManageInput.setUpScoring(cont, new Scoring(), false, holder);
 		ManageInput.setUpRoster(cont, holder);
-        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
-			ParseFantasyInfo.parseFIWrapper(new Storage()); 
+			HighLevel.parsePFFStats(new Storage());
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
-		} */
+		}
 	}  
 	 
 	/**

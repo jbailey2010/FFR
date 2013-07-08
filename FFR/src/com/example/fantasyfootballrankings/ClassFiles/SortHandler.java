@@ -96,6 +96,8 @@ public class SortHandler
 	    topics.add("Rush oTD");
 	    topics.add("Rush TD Difference");
 	    topics.add("Average carry location");
+	    topics.add("DYOA");
+	    topics.add("DVOA");
 	    topics.add("Risk");
 	    topics.add("Risk relative to position");
 	    topics.add("Risk relative to everyone");
@@ -215,6 +217,14 @@ public class SortHandler
 		{
 			rtdDiff();
 		}
+		else if(subject.equals("DVOA"))
+		{
+			dvoa();
+		}
+		else if(subject.equals("DYOA"))
+		{
+			dyoa();
+		}
 		else if(subject.equals("Risk"))
 		{
 			risk();
@@ -259,6 +269,70 @@ public class SortHandler
 		{
 			lowVal();
 		}
+	}
+	
+	public static void dvoa()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						String close = a.stats.split("\\(rank\\)")[2].split("\n")[0];
+						String close2 = b.stats.split("\\(rank\\)")[2].split("\n")[0];
+						int r1 = Integer.parseInt(close.split(" ")[2].replaceAll("\\(", "").replaceAll("\\)", ""));
+						int r2 = Integer.parseInt(close2.split(" ")[2].replaceAll("\\(", "").replaceAll("\\)", ""));
+						if(r1 > r2)
+						{
+							return 1;
+						}
+						if(r1 < r2)
+						{
+							return -1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.stats.contains("(rank)"))
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted);
+	}
+	
+	public static void dyoa()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						String close = a.stats.split("\\(rank\\)")[1].split("\n")[0];
+						String close2 = b.stats.split("\\(rank\\)")[1].split("\n")[0];
+						int r1 = Integer.parseInt(close.split(" ")[2].replaceAll("\\(", "").replaceAll("\\)", ""));
+						int r2 = Integer.parseInt(close2.split(" ")[2].replaceAll("\\(", "").replaceAll("\\)", ""));
+						if(r1 > r2)
+						{
+							return 1;
+						}
+						if(r1 < r2)
+						{
+							return -1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.stats.contains("(rank)"))
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted);
 	}
 	
 	/**
@@ -902,6 +976,20 @@ public class SortHandler
 	    	{
 	    		datum.put("main", output + df.format(elem.values.rADEZ) + ": " + elem.info.name);
 	    		datum.put("sub",  elem.values.roTD + " expected rushing TDs, $" + df.format(elem.values.worth));
+	    	}
+	    	else if(subject.equals("DYOA"))
+	    	{
+	    		String close1 = elem.stats.split("\\(rank\\):")[1].split("\n")[0];
+				String r1 = (close1.split("\\(")[0].trim());
+				datum.put("main", output + r1 + ": " + elem.info.name);
+				datum.put("sub", "$" + df.format(elem.values.worth) + ", " + elem.values.points + " projected points");
+	    	}
+	    	else if(subject.equals("DVOA"))
+	    	{
+	    		String close1 = elem.stats.split("\\(rank\\):")[2].split("\n")[0];
+				String r1 = close1.split("\\(")[0].trim();
+				datum.put("main", output + r1 + ": " + elem.info.name);
+				datum.put("sub", "$" + df.format(elem.values.worth) + ", " + elem.values.points + " projected points");
 	    	}
 	    	else if(subject.equals("Average target location"))
 	    	{
