@@ -444,6 +444,8 @@ public class ParsingAsyncTask
 					ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=332995&st=");
 					//2013 sleepers
 					ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=327212&st=");
+					//adp steals
+					ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=354905&st=");
 				}
 				if(rookie)
 		 		{

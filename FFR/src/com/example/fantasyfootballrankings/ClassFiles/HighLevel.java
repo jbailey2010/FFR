@@ -908,7 +908,7 @@ public class HighLevel
 				break;
 			}
 		}
-		for(int i = min; i < td.length; i+=10)
+		for(int i = min; i < td.length; i+=9)
 		{
 			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i].split(" \\(")[0].split(", ")[0]));
 			double ecrVal = Double.parseDouble(td[i+4]);

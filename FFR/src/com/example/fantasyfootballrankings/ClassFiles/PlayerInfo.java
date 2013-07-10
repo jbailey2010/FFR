@@ -528,7 +528,7 @@ public class PlayerInfo
 					searchedPlayer.info.oLineAdv != null && searchedPlayer.info.oLineAdv.length() > 3)
 			{
 				Map<String, String> datum = new HashMap<String, String>(2);
-				datum.put("main", searchedPlayer.info.oLineStatus + "\n" + searchedPlayer.info.oLineAdv + "\n");
+				datum.put("main", searchedPlayer.info.oLineStatus + "\n\n" + searchedPlayer.info.oLineAdv + "\n");
 				datum.put("sub", "\n" + searchedPlayer.info.passRunRatio);
 				data.add(datum);
 			}

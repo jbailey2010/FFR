@@ -731,26 +731,29 @@ public class ComparatorHandling
 		}
 		double left1 = remTalent(holder, player1);
 		double left2 = remTalent(holder, player2);
-		if(left1 > left2)
+		if(!player1.info.position.equals(player2.info.position))
 		{
-			if(left1 - left2 > 15.0)
+			if(left1 > left2)
 			{
-				p2.append("-Much less left just behind \nhim at his position\n");
+				if(left1 - left2 > 15.0)
+				{
+					p2.append("-Much less left just behind \nhim at his position\n");
+				}
+				else
+				{
+					p2.append("-Less left just behind him \nat his position\n");
+				}
 			}
-			else
+			if(left2 > left1)
 			{
-				p2.append("-Less left just behind him \nat his position\n");
-			}
-		}
-		if(left2 > left1)
-		{
-			if(left2 - left1 > 15.0)
-			{
-				p1.append("-Much less left just behind \nhim at his position\n");
-			}
-			else
-			{
-				p1.append("-Less left just behind him \nat his position\n");
+				if(left2 - left1 > 15.0)
+				{
+					p1.append("-Much less left just behind \nhim at his position\n");
+				}
+				else
+				{
+					p1.append("-Less left just behind him \nat his position\n");
+				}
 			}
 		}
 		if(player1.info.additionalStat.contains("%") && player2.info.additionalStat.contains("%"))
@@ -888,9 +891,10 @@ public class ComparatorHandling
 		int counter = 0;
 		for(PlayerObject iter : holder.players)
 		{
-			if(!iter.info.name.equals(player.info.name) && !Draft.isDrafted(iter.info.name, holder.draft) && counter < 4 &&
+			if(!iter.info.name.equals(player.info.name) && !Draft.isDrafted(iter.info.name, holder.draft) && counter < 5 &&
 					iter.info.position.equals(player.info.position) && iter.values.points != 0.0)
 			{
+				System.out.println("Adding for " + iter.info.name + ": " + iter.values.points);
 				left += iter.values.points;
 				counter++;
 			}
