@@ -751,7 +751,7 @@ public class ParsingAsyncTask
 	        query = input;
 	    }
 	    
-		@Override
+		@Override 
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
 		        pdia.setMessage("Please wait, searching the feeds...");

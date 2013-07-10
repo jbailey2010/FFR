@@ -291,8 +291,8 @@ public class ParseTwitter
 			List<Status> statuses = result.getTweets();
 		    for(Status status: statuses)
 		    {
-				String header = status.getUser().getName() + ": " + status.getText();
-				String date = status.getCreatedAt().toString();
+				String header = status.getText();
+				String date = status.getUser().getName() + "\n" +  status.getCreatedAt().toString();
 				StringBuilder replySet = new StringBuilder(1000);
 				int counter = 0;
 				while(status.getInReplyToStatusId() != -1L && counter < 3)
