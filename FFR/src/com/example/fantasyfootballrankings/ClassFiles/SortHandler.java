@@ -98,7 +98,6 @@ public class SortHandler
 	    topics.add("Average carry location");
 	    topics.add("DYOA");
 	    topics.add("DVOA");
-	    topics.add("Risk");
 	    topics.add("Risk relative to position");
 	    topics.add("Risk relative to everyone");
 	    topics.add("ECR");
@@ -224,10 +223,6 @@ public class SortHandler
 		else if(subject.equals("DYOA"))
 		{
 			dyoa();
-		}
-		else if(subject.equals("Risk"))
-		{
-			risk();
 		}
 		else if(subject.equals("Risk relative to position"))
 		{
@@ -648,37 +643,6 @@ public class SortHandler
 	/**
 	 * Sets up the priority queue for risk relative to a position
 	 */
-	public static void risk()
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b)
-			{
-				if(a.risk > b.risk)
-				{
-					return 1;
-				}
-				if(a.risk < b.risk)
-				{
-					return -1;
-				}
-				return 0;
-			}
-		});
-		for(PlayerObject player : players)
-		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.risk != -1.0)
-			{
-				sorted.add(player);
-			}
-		}
-		wrappingUp(sorted);
-	}
-	
-	/**
-	 * Sets up the priority queue for risk relative to a position
-	 */
 	public static void riskPos()
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
@@ -912,6 +876,15 @@ public class SortHandler
 	    watch.setText("Hide/Show Drafted");
 	    TextView header = (TextView)dialog.findViewById(R.id.name);
 	    header.setText(subject);
+	    final ListView results = (ListView)dialog.findViewById(R.id.listview_search);
+	    header.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				results.smoothScrollToPosition(0);
+			}
+	    	
+	    });
 	    Button back = (Button)dialog.findViewById(R.id.search_back);
 	    back.setOnClickListener(new OnClickListener(){
 			@Override
@@ -928,7 +901,6 @@ public class SortHandler
 				return;
 			}
 	    });
-	    final ListView results = (ListView)dialog.findViewById(R.id.listview_search);
 	    results.setAdapter(null);
 	    List<String> rankings = new ArrayList<String>(400);
 	    int counter = 0;
@@ -1128,11 +1100,6 @@ public class SortHandler
 				    		datum.put("main", output + df.format(elem.values.tADEZ) + ": " + elem.info.name);
 				    		datum.put("sub", elem.values.oTD + 
 				    				" expected receiving TDs, $" + df.format(elem.values.worth));
-				    	}
-				    	else if(subject.equals("Risk"))
-				    	{
-				    		datum.put("main", output + df.format(elem.risk)+ ": " + elem.info.name);
-				    		datum.put("sub", "$" + df.format(elem.values.worth));
 				    	}
 				    	else if(subject.equals("Rec TD Difference"))
 				    	{

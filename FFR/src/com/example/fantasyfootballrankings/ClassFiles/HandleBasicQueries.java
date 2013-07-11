@@ -29,7 +29,8 @@ import android.util.Log;
  */  
 public class HandleBasicQueries 
 {
-	
+	public static String ua = "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.2 Safari/537.36"; 
+
 	/**
 	 * This is the query function for a list
 	 * @param url the url to be parsed
@@ -37,6 +38,19 @@ public class HandleBasicQueries
 	 * @throws IOException
 	 */
 	public static String handleLists(String url, String params) throws IOException
+	{
+		StringBuilder result = new StringBuilder(5000);
+		Document doc = Jsoup.connect(url).userAgent(ua).timeout(0).get();
+        Elements links = doc.select(params);
+
+        for (Element element : links) 
+        {
+        	result.append(element.text() + "\n");
+        }
+        return result.toString();
+	}
+	
+	public static String handleListsNoUA(String url, String params) throws IOException
 	{
 		StringBuilder result = new StringBuilder(5000);
 		Document doc = Jsoup.connect(url).timeout(0).get();
@@ -69,14 +83,14 @@ public class HandleBasicQueries
 	/**
 	 * Handles the queries to a table
 	 * @param url the url to be parsed
-	 * @param params the class of the table to be parsed
+	 * @param params the class of the table to be parsed 
 	 * @return the text from the table
 	 * @throws IOException
 	 */
 	public static String handleTables(String url, String params) throws IOException
 	{
 		StringBuilder result = new StringBuilder(5000);
-		Document doc = Jsoup.connect(url).timeout(0).get();
+		Document doc = Jsoup.connect(url).userAgent(ua).timeout(0).get();
 		Elements els = doc.getElementsByClass(params);
 		for (Element el : els) 
 		{
@@ -84,7 +98,7 @@ public class HandleBasicQueries
 		}
 		return result.toString();
 	}
-	
+	 
 	/**
 	 * Handles the queries to a table called multiple times
 	 * by some function
@@ -97,7 +111,7 @@ public class HandleBasicQueries
 	{
 		StringBuilder result = new StringBuilder(5000);
 		Elements els = doc.getElementsByClass(params);
-		for (Element el : els) 
+		for (Element el : els)  
 		{
 			result.append(el.text() + "\n");
 		}

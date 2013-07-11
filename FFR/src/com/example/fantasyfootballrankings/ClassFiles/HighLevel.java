@@ -820,7 +820,7 @@ public class HighLevel
 	 */
 	public static void parseRedZoneStats(Storage holder) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists("http://www.profootballfocus.com/blog/2013/06/28/introduction-to-otd/", "table#wp-table-reloaded-id-11-no-1 td");
+		String html = HandleBasicQueries.handleListsNoUA("http://www.profootballfocus.com/blog/2013/06/28/introduction-to-otd/", "table#wp-table-reloaded-id-11-no-1 td");
 		String[] td = html.split("\n");
 		HashMap<String, List<Double>> redZoneStats = new HashMap<String, List<Double>>();
 		for(int i = 0; i < td.length; i+=6)
@@ -845,7 +845,7 @@ public class HighLevel
 				player.values.tADEZ = data.get(0);
 			}
 		}
-		html = HandleBasicQueries.handleLists("https://www.profootballfocus.com/blog/2013/07/01/adios-redzone-carries-hello-running-back-otd/", "table#wp-table-reloaded-id-14-no-1 td");
+		html = HandleBasicQueries.handleListsNoUA("https://www.profootballfocus.com/blog/2013/07/01/adios-redzone-carries-hello-running-back-otd/", "table#wp-table-reloaded-id-14-no-1 td");
 		td = html.split("\n");
 		redZoneStats = new HashMap<String, List<Double>>();
 		redZoneStats.clear();

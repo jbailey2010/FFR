@@ -858,7 +858,7 @@ public class Rankings extends Activity {
 			DecimalFormat df = new DecimalFormat("#.##");
 	        Map<String, String> datum = new HashMap<String, String>(2);
 	        datum.put("main", iter.split(":   ")[0] + ":  " + p.info.name );
-	        datum.put("sub", p.info.position + " - " + p.info.team);
+	        datum.put("sub", p.info.position + " - " + p.info.team + "\n" + "Bye: " + p.info.bye);
 	        data.add(datum);
 		}
 	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
@@ -894,7 +894,7 @@ public class Rankings extends Activity {
 	        //datum.put("sub", "");
 	        if(elem.info.team.length() > 2 && elem.info.position.length() > 0)
 	        {
-	        	datum.put("sub", elem.info.position + " - " + elem.info.team);
+	        	datum.put("sub", elem.info.position + " - " + elem.info.team + "\n" + "Bye: " + elem.info.bye);
 	        }
 	        else
 	        {

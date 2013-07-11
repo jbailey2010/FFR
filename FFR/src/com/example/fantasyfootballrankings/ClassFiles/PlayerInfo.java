@@ -325,7 +325,8 @@ public class PlayerInfo
 		//Worth
 		Map<String, String> datumWorth = new HashMap<String, String>(2);
 		datumWorth.put("main", "$" + df.format(searchedPlayer.values.worth));
-		datumWorth.put("sub", "High: " + searchedPlayer.values.high + "\nLow: " + searchedPlayer.values.low + 
+		datumWorth.put("sub", "Ranked " + rankCostPos(searchedPlayer, holder) + " positionally, " + rankCostAll(searchedPlayer, holder) + " overall\n"
+				+ "High: " + searchedPlayer.values.high + ", Low: " + searchedPlayer.values.low + 
 				"\nShowed up in " + searchedPlayer.values.count + " rankings");
 		data.add(datumWorth);
 		//Team, position, and bye
@@ -337,7 +338,7 @@ public class PlayerInfo
 			if(searchedPlayer.info.bye != null && !searchedPlayer.info.bye.contains("null") &&  
 					!searchedPlayer.info.bye.equals("Not set"))
 			{
-				sub = "Bye: Week " + searchedPlayer.info.bye;
+				sub = "Bye: " + searchedPlayer.info.bye;
 			}
 			if(!searchedPlayer.info.age.equals("0") && !searchedPlayer.info.position.equals("D/ST") && 
 					!searchedPlayer.info.age.equals("") && searchedPlayer.info.age.length() >= 2)
@@ -727,6 +728,38 @@ public class PlayerInfo
 		for(PlayerObject iter : holder.players)
 		{
 			if(iter.values.paapd != 0.0 && iter.values.paapd > player.values.paapd)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Ranks the worth positionally
+	 */
+	public static int rankCostPos(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.info.position.equals(player.info.position) && iter.values.worth > player.values.worth)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Ranks the worth overall
+	 */
+	public static int rankCostAll(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.values.worth > player.values.worth)
 			{
 				rank++;
 			}
