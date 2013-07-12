@@ -53,6 +53,21 @@ public class ParseNFL
 					filter = j - 1;
 					break;
 				}
+				if(nameSet[j].equals("View"))
+				{
+					filter = j - 1;
+					break;
+				}
+				if(nameSet[j].length() == j)
+				{
+					filter = j;
+					break;
+				}
+				if(nameSet[j].equals("QB") || nameSet[j].equals("RB") || nameSet[j].equals("WR") || nameSet[j].equals("TE") || nameSet[j].equals("K"))
+				{
+					filter = j;
+					break;
+				}
 			}
 			for(int j = 0; j < filter; j++)
 			{
