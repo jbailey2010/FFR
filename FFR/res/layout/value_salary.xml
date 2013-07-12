@@ -59,14 +59,14 @@
 
     <Button
         android:id="@+id/salValDismiss"
-        style="@style/ButtonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/draft_paapd"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="108dp"
-        android:background="@drawable/btn_red"
-        android:text="Cancel" />
+          android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textColor="#CD0000"
+        android:textSize="28sp"
+        style="?android:attr/buttonBarButtonStyle"
+        android:text="X" />
 
     <Button
         android:id="@+id/more_info"
@@ -107,7 +107,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/salValDismiss"
+        android:layout_below="@+id/undraft"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="Wide enough to grab and move"

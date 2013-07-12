@@ -36,28 +36,6 @@
         android:text="All of the players"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/filter_size_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/seekBar_quantity"
-        android:layout_below="@+id/quantity_display"
-        android:layout_marginTop="53dp"
-        android:text="Submit"
-        android:background="@drawable/btn_red"
-        style="@style/ButtonText" />
-
-    <Button
-        android:id="@+id/filter_size_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/filter_size_submit"
-        android:layout_alignBottom="@+id/filter_size_submit"
-        android:layout_alignRight="@+id/seekBar_quantity"
-        android:text="Cancel"
-        android:background="@drawable/btn_red"
-        style="@style/ButtonText" />
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -67,5 +45,27 @@
         android:layout_marginTop="27dp"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/filter_size_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textColor="#CD0000"
+        android:textSize="28sp"
+        style="?android:attr/buttonBarButtonStyle"
+        android:text="X" />
+
+    <Button
+        android:id="@+id/filter_size_submit"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quantity_display"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="49dp"
+        android:background="@drawable/btn_red"
+        android:text="Submit" />
 
 </RelativeLayout>

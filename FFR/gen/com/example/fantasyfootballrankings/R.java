@@ -52,8 +52,8 @@ public final class R {
         public static final int amount_paid=0x7f080021;
         public static final int back=0x7f08002b;
         public static final int back_view=0x7f080065;
-        public static final int button_news_cancel=0x7f080038;
-        public static final int button_news_confirm=0x7f080037;
+        public static final int button_news_cancel=0x7f080037;
+        public static final int button_news_confirm=0x7f080038;
         public static final int calc_header=0x7f080073;
         public static final int cancel_list_refresh=0x7f08004a;
         public static final int cbs_news=0x7f080035;
@@ -81,8 +81,8 @@ public final class R {
         public static final int filter_month=0x7f08000d;
         public static final int filter_quantity_menu=0x7f08009d;
         public static final int filter_rankings_submit=0x7f080044;
-        public static final int filter_size_cancel=0x7f080030;
-        public static final int filter_size_submit=0x7f08002f;
+        public static final int filter_size_cancel=0x7f08002f;
+        public static final int filter_size_submit=0x7f080030;
         public static final int filter_topics_menu=0x7f0800a0;
         public static final int filter_topics_rankings=0x7f08009c;
         public static final int filter_week=0x7f08000c;
@@ -107,7 +107,7 @@ public final class R {
         public static final int player2_input=0x7f08001a;
         public static final int player_comparator=0x7f080007;
         public static final int player_comparator_header=0x7f080019;
-        public static final int player_input=0x7f080069;
+        public static final int player_input=0x7f08006a;
         public static final int position_spinner=0x7f080042;
         public static final int progressBar1=0x7f080088;
         public static final int qb_header=0x7f080025;
@@ -127,7 +127,7 @@ public final class R {
         public static final int refresh_news=0x7f080095;
         public static final int remSalary=0x7f080089;
         public static final int reset_draft=0x7f080047;
-        public static final int rookies=0x7f08007d;
+        public static final int rookies=0x7f08007f;
         public static final int roster_submit=0x7f080050;
         public static final int rotoworld_headlines=0x7f080032;
         public static final int rotoworld_player_news=0x7f080033;
@@ -148,18 +148,18 @@ public final class R {
         public static final int scoring_run_yards=0x7f080060;
         public static final int search=0x7f080006;
         public static final int search_back=0x7f080064;
-        public static final int search_cancel=0x7f08006a;
+        public static final int search_cancel=0x7f080068;
         public static final int search_close=0x7f08003e;
-        public static final int search_submit=0x7f080068;
+        public static final int search_submit=0x7f08006b;
         public static final int second_player_compare=0x7f08001b;
         public static final int seekBar_quantity=0x7f08002d;
         public static final int si_news=0x7f080036;
-        public static final int sort_cancel=0x7f080070;
+        public static final int sort_cancel=0x7f08006f;
         public static final int sort_players=0x7f080009;
         public static final int sort_pos_spinner=0x7f080071;
         public static final int sort_stat_spinner=0x7f08006c;
-        public static final int sort_submit=0x7f08006f;
-        public static final int speakButton=0x7f08006b;
+        public static final int sort_submit=0x7f080070;
+        public static final int speakButton=0x7f080069;
         public static final int spinner_feeds=0x7f080083;
         public static final int start_roster=0x7f080094;
         public static final int start_scoring=0x7f080093;
@@ -180,16 +180,16 @@ public final class R {
         public static final int trade_input=0x7f080075;
         public static final int trade_output=0x7f080076;
         public static final int trending=0x7f080001;
-        public static final int trending_filter_cancel=0x7f08007f;
+        public static final int trending_filter_cancel=0x7f08007d;
         public static final int trending_filter_submit=0x7f08007e;
         public static final int tweet_field=0x7f080081;
         public static final int tweet_popup_close=0x7f080080;
         public static final int twitter_cancel=0x7f080082;
         public static final int twitter_feeds=0x7f080096;
         public static final int twitter_search=0x7f080097;
-        public static final int twitter_search_cancel=0x7f080087;
+        public static final int twitter_search_cancel=0x7f080086;
         public static final int twitter_search_input=0x7f080085;
-        public static final int twitter_search_submit=0x7f080086;
+        public static final int twitter_search_submit=0x7f080087;
         public static final int twitter_submit=0x7f080084;
         public static final int undraft=0x7f08008f;
         public static final int val_left_back=0x7f08003d;
@@ -279,6 +279,8 @@ public final class R {
          */
         public static final int AppTheme=0x7f060002;
         public static final int ButtonText=0x7f060000;
+        public static final int MyActionBar=0x7f060004;
+        public static final int MyTheme_ActionBar_TitleTextStyle=0x7f060005;
         public static final int RoundCornersFull=0x7f060003;
     }
 }

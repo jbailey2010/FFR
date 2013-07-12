@@ -36,24 +36,25 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
+        android:id="@+id/cancel_list_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textColor="#CD0000"
+        android:textSize="28sp"
+        style="?android:attr/buttonBarButtonStyle"
+        android:text="X"/>
+
+    <Button
         android:id="@+id/confirm_list_refresh"
         style="@style/ButtonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="87dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="88dp"
         android:background="@drawable/btn_red"
         android:text="Refresh" />
-
-    <Button
-        android:id="@+id/cancel_list_refresh"
-        style="@style/ButtonText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView3"
-        android:layout_alignRight="@+id/textView1"
-        android:background="@drawable/btn_red"
-        android:text="Cancel" />
 
 </RelativeLayout>

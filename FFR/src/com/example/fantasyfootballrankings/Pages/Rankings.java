@@ -592,7 +592,7 @@ public class Rankings extends Activity {
 			paaView.setVisibility(View.VISIBLE);
 			paaView.setText("PAA total: " + df.format(paa));
 			paapdView.setVisibility(View.VISIBLE);
-			paapdView.setText("PAA per dollar total: " + df.format(paapd));
+			paapdView.setText("PAA per dollar: " + df.format(paapd));
 		}
 		else
 		{

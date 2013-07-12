@@ -48,37 +48,16 @@
         android:button="@drawable/custom_checkbox"
         android:text="Value Picks" />
 
-    <CheckBox
-        android:id="@+id/rookies"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/trending_filter_submit"
-        android:layout_alignLeft="@+id/value_box"
-        android:textColor="#FFFFFF"
-        android:button="@drawable/custom_checkbox"
-        android:text="Rookies" />
-
-    <Button
-        android:id="@+id/trending_filter_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/dont_want"
-        android:layout_below="@+id/dont_want"
-        android:layout_marginTop="129dp"
-        android:text="Submit"
-        android:background="@drawable/btn_red"
-        style="@style/ButtonText" />
-
     <Button
         android:id="@+id/trending_filter_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/trending_filter_submit"
-        android:layout_alignBottom="@+id/trending_filter_submit"
-        android:layout_alignRight="@+id/value_box"
-        android:text="Cancel"
-        android:background="@drawable/btn_red"
-        style="@style/ButtonText" />
+          android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textColor="#CD0000"
+        android:textSize="28sp"
+        style="?android:attr/buttonBarButtonStyle"
+        android:text="X" />
 
     <TextView
         android:id="@+id/textView2"
@@ -88,5 +67,27 @@
         android:layout_centerVertical="true"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/trending_filter_submit"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="27dp"
+        android:background="@drawable/btn_red"
+        android:text="Submit" />
+
+    <CheckBox
+        android:id="@+id/rookies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/dont_want"
+        android:layout_alignBottom="@+id/dont_want"
+        android:layout_alignLeft="@+id/value_box"
+        android:button="@drawable/custom_checkbox"
+        android:text="Rookies"
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>

@@ -50,34 +50,21 @@
     </EditText>
 
     <Button
-        android:id="@+id/sort_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_below="@+id/minVal"
-        android:layout_marginTop="26dp"
-        android:background="@drawable/btn_red"
-        style="@style/ButtonText"
-        android:text="Submit" />
-
-    <Button
         android:id="@+id/sort_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/sort_submit"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="20dp"
-        android:background="@drawable/btn_red"
-        style="@style/ButtonText"
-        android:text="Cancel" />
+         android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textColor="#CD0000"
+        android:textSize="28sp"
+        style="?android:attr/buttonBarButtonStyle"
+        android:text="X"/>
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sort_cancel"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/sort_submit"
         android:layout_marginTop="16dp"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -120,5 +107,16 @@
         android:layout_marginTop="15dp"
         android:text="What stat would you like to search by?"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/sort_submit"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/minVal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:background="@drawable/btn_red"
+        android:text="Submit" />
 
 </RelativeLayout>

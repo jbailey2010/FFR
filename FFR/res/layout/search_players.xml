@@ -4,26 +4,15 @@
     android:layout_height="match_parent" >
 
     <Button
-        android:id="@+id/search_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/player_input"
-        android:layout_marginTop="126dp"
-        android:layout_toLeftOf="@+id/player_input"
-        android:text="Submit"
-        android:background="@drawable/btn_red"
-        style="@style/ButtonText" />
-
-    <Button
         android:id="@+id/search_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/search_submit"
-        android:layout_alignBottom="@+id/search_submit"
-        android:layout_toRightOf="@+id/player_input"
-        android:text="Cancel"
-        android:background="@drawable/btn_red"
-        style="@style/ButtonText" />
+          android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textColor="#CD0000"
+        android:textSize="28sp"
+        style="?android:attr/buttonBarButtonStyle"
+        android:text="X" />
 
 <Button
     android:id="@+id/speakButton"
@@ -71,5 +60,16 @@
     android:layout_marginTop="28dp"
     android:text=" "
     android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<Button
+    android:id="@+id/search_submit"
+    style="@style/ButtonText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/speakButton"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="72dp"
+    android:background="@drawable/btn_red"
+    android:text="Submit" />
 
 </RelativeLayout>

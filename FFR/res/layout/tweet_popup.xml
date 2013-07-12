@@ -5,21 +5,21 @@
 
     <Button
         android:id="@+id/tweet_popup_close"
-        style="@style/ButtonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tweet_field"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="54dp"
-        android:background="@drawable/btn_red"
-        android:text="Close" />
+          android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textColor="#CD0000"
+        android:textSize="28sp"
+        style="?android:attr/buttonBarButtonStyle"
+        android:text="X" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tweet_popup_close"
-        android:layout_below="@+id/tweet_popup_close"
+        android:layout_below="@+id/tweet_field"
         android:layout_marginTop="29dp"
         android:text="  "
         android:textAppearance="?android:attr/textAppearanceSmall" />

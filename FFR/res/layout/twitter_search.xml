@@ -26,27 +26,25 @@
         android:ems="10" />
 
     <Button
-        android:id="@+id/twitter_search_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/twitter_search_input"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="69dp"
-        android:background="@drawable/btn_red"
-        style="@style/ButtonText"
-        android:text="Submit" />
-
-    <Button
         android:id="@+id/twitter_search_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/twitter_search_submit"
-        android:layout_alignBottom="@+id/twitter_search_submit"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="25dp"
-        android:background="@drawable/btn_red"
+          android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textColor="#CD0000"
+        android:textSize="28sp"
+        style="?android:attr/buttonBarButtonStyle"
+        android:text="X" />
+
+    <Button
+        android:id="@+id/twitter_search_submit"
         style="@style/ButtonText"
-        android:text="Cancel" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/twitter_search_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:background="@drawable/btn_red"
+        android:text="Submit" />
 
 </RelativeLayout>
