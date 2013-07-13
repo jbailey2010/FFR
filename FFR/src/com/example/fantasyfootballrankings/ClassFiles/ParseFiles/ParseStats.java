@@ -38,23 +38,23 @@ public class ParseStats
 			{
 				name = name.split(" ")[0] + " " + name.split(" ")[2];
 			}
-			if(player[0].equals("Player") || (!qbPlayers.containsKey(name + "/" + team)
+			if(player[0].equals("Player") || (!qbPlayers.containsKey(name.toLowerCase() + "/" + team)
 					&& player.length < 17))
 			{
 				continue;
 			}
-			if(qbPlayers.containsKey(name + "/" + team))
+			if(qbPlayers.containsKey(name.toLowerCase() + "/" + team))
 			{
 				String dvoa = player[6];
 				String yards = player[10];
 				String effectiveYards = player[11];
 				String tds = player[12];
-				String normal = qbPlayers.get(name + "/" + team);
+				String normal = qbPlayers.get(name.toLowerCase() + "/" + team);
 				normal += "Rushing Yards: " + yards + "\n";
 				normal += "Adjusted Rushing Yards: " + effectiveYards + "\n";
 				normal += "Rushing Touchdowns: " + tds + "\n";
 				normal += "Rushing Defense-Adjusted  Value Over Average: " + dvoa + "\n";
-				qbPlayers.put(name + "/" + team, normal);
+				qbPlayers.put(name.toLowerCase() + "/" + team, normal);
 				continue;
 			}
 			else
@@ -68,7 +68,7 @@ public class ParseStats
 				data.append("Defense-Adjusted Yards Over Average (rank): " + player[2].replace(",", "") + 
 						" (" + player[3] + ")\n");
 				data.append("Defense-Adjusted Value Over Average (rank): " + player[6] + " (" + player[7] + ")\n");
-				qbPlayers.put(name + "/" + team, data.toString());
+				qbPlayers.put(name.toLowerCase() + "/" + team, data.toString());
 			}
 		}
 		return qbPlayers;
@@ -100,7 +100,7 @@ public class ParseStats
 			{
 				name = name.split(" ")[0] + " " + name.split(" ")[2];
 			}
-			if(rbPlayers.containsKey(name + "/" + team))
+			if(rbPlayers.containsKey(name.toLowerCase() + "/" + team))
 			{
 				if(player.length > 12)
 				{
@@ -110,14 +110,14 @@ public class ParseStats
 					String effectiveYards = player[11];
 					String tds = player[12];
 					String catchRate = player[13];
-					String normal = rbPlayers.get(name + "/" + team);
+					String normal = rbPlayers.get(name.toLowerCase() + "/" + team);
 					normal += "Targets: " + catches + "\n";
 					normal += "Catch Rate: " + catchRate + "\n";
 					normal += "Receiving Yards: " + yards + "\n";
 					normal += "Adjusted Receiving Yards: " + effectiveYards + "\n";
 					normal += "Receiving Touchdowns: " + tds + "\n";
 					normal += "Receiving Defense-Adjusted Value Over Average: " + dvoa + "\n";
-					rbPlayers.put(name + "/" + team, normal);
+					rbPlayers.put(name.toLowerCase() + "/" + team, normal);
 					continue;
 				}
 				else
@@ -128,14 +128,14 @@ public class ParseStats
 					String effectiveYards = player[8];
 					String tds = player[9];
 					String catchRate = player[10];
-					String normal = rbPlayers.get(name + "/" + team);
+					String normal = rbPlayers.get(name.toLowerCase() + "/" + team);
 					normal += "Targets: " + catches + "\n";
 					normal += "Catch Rate: " + catchRate + "\n";
 					normal += "Receiving Yards: " + yards + "\n";
 					normal += "Adjusted Receiving Yards: " + effectiveYards + "\n";
 					normal += "Receiving Touchdowns: " + tds + "\n";
 					normal += "Receiving Defense-Adjusted Value Over Average: " + dvoa + "\n";
-					rbPlayers.put(name + "/" + team, normal);
+					rbPlayers.put(name.toLowerCase() + "/" + team, normal);
 					continue;
 				}
 			}
@@ -152,7 +152,7 @@ public class ParseStats
 					data.append("Defense-Adjusted Yards Over Average (rank): " + player[2].replace(",", "") + 
 							" (" + player[3] + ")\n");
 					data.append("Defense-Adjusted Value Over Average (rank): " + player[6] + " (" + player[7] + ")\n");
-					rbPlayers.put(name + "/" + team, data.toString());
+					rbPlayers.put(name.toLowerCase() + "/" + team, data.toString());
 				}
 				else
 				{
@@ -163,7 +163,7 @@ public class ParseStats
 					data.append("Fumbles: " + player[10] + "\n");
 					data.append("Defense-Adjusted Yards Over Average: " + player[2].replace(",", "") + "\n");
 					data.append("Defense-Adjusted Value Over Average: " + player[4] + "\n");
-					rbPlayers.put(name + "/" + team, data.toString());
+					rbPlayers.put(name.toLowerCase() + "/" + team, data.toString());
 				}
 			}
 		}
@@ -196,23 +196,23 @@ public class ParseStats
 			{
 				name = name.split(" ")[0] + " " + name.split(" ")[2];
 			}
-			if(!wrPlayers.containsKey(name + "/" + team) && player[6].contains("%") &&
+			if(!wrPlayers.containsKey(name.toLowerCase() + "/" + team) && player[6].contains("%") &&
 					player[8].contains("%") && player.length < 15)
 			{
 				continue;
 			}
-			if(wrPlayers.containsKey(name + "/" + team))
+			if(wrPlayers.containsKey(name.toLowerCase() + "/" + team))
 			{
 				String dvoa = player[6];
 				String rushes = player[10];
 				String yards = player[11];
-				String tds = player[12];
-				String normal = wrPlayers.get(name + "/" + team);
+				String tds = player[12]; 
+				String normal = wrPlayers.get(name.toLowerCase() + "/" + team);
 				normal += "Rushes: " + rushes + "\n";
 				normal += "Rushing Yards: " + yards + "\n";
 				normal += "Rushing Touchdowns: " + tds + "\n";
 				normal += "Rushing Defense-Adjusted Value Over Average: " + dvoa + "\n";
-				wrPlayers.put(name + "/" + team, normal);
+				wrPlayers.put(name.toLowerCase() + "/" + team, normal);
 				continue;
 			}
 			else
@@ -229,7 +229,7 @@ public class ParseStats
 					data.append("Defense-Adjusted Yards Over Average (rank): " + player[2].replace(",", "") + 
 							" (" + player[3] + ")\n");
 					data.append("Defense-Adjusted Value Over Average (rank): " + player[6] + " (" + player[7] + ")\n");
-					wrPlayers.put(name + "/" + team, data.toString());
+					wrPlayers.put(name.toLowerCase() + "/" + team, data.toString());
 				}
 				else
 				{
@@ -242,7 +242,7 @@ public class ParseStats
 					data.append("Defensive Pass Interference Calls/Yards: " + player[12] + "\n");
 					data.append("Defense-Adjusted Yards Over Average: " + player[2].replace(",", "") + "\n");
 					data.append("Defense-Adjusted Value Over Average: " + player[4] + "\n");
-					wrPlayers.put(name + "/" + team, data.toString());
+					wrPlayers.put(name.toLowerCase() + "/" + team, data.toString());
 				}
 			}
 		}
@@ -275,23 +275,23 @@ public class ParseStats
 			{
 				name = name.split(" ")[0] + " " + name.split(" ")[2];
 			}
-			if(!tePlayers.containsKey(name + "/" + team) && player[6].contains("%") &&
+			if(!tePlayers.containsKey(name.toLowerCase() + "/" + team) && player[6].contains("%") &&
 					player[8].contains("%") && player.length < 15)
 			{
 				continue;
 			}
-			if(tePlayers.containsKey(name + "/" + team))
+			if(tePlayers.containsKey(name.toLowerCase() + "/" + team))
 			{
 				String dvoa = player[6];
 				String rushes = player[10];
 				String yards = player[11];
 				String tds = player[12];
-				String normal = tePlayers.get(name + "/" + team);
+				String normal = tePlayers.get(name.toLowerCase() + "/" + team);
 				normal += "Rushing Defense-Adjusted Value Over Average: " + dvoa + "\n";
 				normal += "Rushes: " + rushes + "\n";
 				normal += "Rushing Yards: " + yards + "\n";
 				normal += "Rushing Touchdowns: " + tds + "\n";
-				tePlayers.put(name + "/" + team, normal);
+				tePlayers.put(name.toLowerCase() + "/" + team, normal);
 				continue;
 			}
 			else
@@ -308,7 +308,7 @@ public class ParseStats
 					data.append("Defense-Adjusted Yards Over Average (rank): " + player[2].replace(",", "") + 
 							" (" + player[3] + ")\n");
 					data.append("Defense-Adjusted Value Over Average (rank): " + player[6] + " (" + player[7] + ")\n");
-					tePlayers.put(name + "/" + team, data.toString());
+					tePlayers.put(name.toLowerCase() + "/" + team, data.toString());
 				}
 				else
 				{
@@ -321,7 +321,7 @@ public class ParseStats
 					data.append("Defensive Pass Interference Calls/Yards: " + player[12] + "\n");
 					data.append("Defense-Adjusted Yards Over Average: " + player[2].replace(",", "") + "\n");
 					data.append("Defense-Adjusted Value Over Average: " + player[4] + "\n");
-					tePlayers.put(name + "/" + team, data.toString());
+					tePlayers.put(name.toLowerCase() + "/" + team, data.toString());
 				}
 			}
 		}

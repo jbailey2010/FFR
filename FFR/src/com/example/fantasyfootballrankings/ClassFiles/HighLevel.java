@@ -215,7 +215,7 @@ public class HighLevel
 				//else if testname in keyset
 				String[] name = player.info.name.split(" ");
 				String testName = name[0].charAt(0) + " " + name[1];
-				
+				testName = testName.toLowerCase();
 				if(player.info.position.equals("QB"))
 				{
 					if(qbs.containsKey(testName + "/" + player.info.team))

@@ -41,8 +41,8 @@ public class ParseCBS
 			if(td[i].equals("Running Backs") || td[i].equals("Wide Receivers") || td[i].equals("Tight Ends") || td[i].equals("Kickers") 
 					|| td[i].equals("Defensive Special Teams"))
 			{
-				i++;
-			}
+				i++; 
+			} 
 			if(td[i].split(" ").length > 8 || td[i+1].split(" ").length > 8)
 			{
 				i += 3;
@@ -56,6 +56,10 @@ public class ParseCBS
 				if(nameSet.contains("("))
 				{
 					limit = nameSet.split(" \\(")[0].split(" ").length - 1;
+				}
+				else if(nameSet.split(" ")[nameSet.split(" ").length - 1].length() > 1)
+				{
+					limit = nameSet.split(" ").length - 1; 
 				}
 				else
 				{
@@ -71,16 +75,17 @@ public class ParseCBS
 						limit = j - 1;
 					}
 				}
-			}
+			} 
 			for(int j = 0; j < limit; j++)
 			{
 				name += valSet[j] + " ";
 			}
 			name = name.substring(0, name.length()-1);
-			if(name.split(" ").length == 1)
+			String nameCopy = ParseRankings.fixTeams(name);
+			if(name.split(" ").length == 1 && ! nameCopy.equals(name))
 			{
 				name += " D/ST";
-			}
+			} 
 			name = ParseRankings.fixNames(name);
 			int val = 0;
 			if(td[i+1].contains("$"))

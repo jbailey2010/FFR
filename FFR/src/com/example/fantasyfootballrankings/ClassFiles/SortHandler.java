@@ -873,7 +873,7 @@ public class SortHandler
 	    dialog.getWindow().setAttributes(lp);
 	    dialog.show(); 
 	    Button watch = (Button)dialog.findViewById(R.id.add_watch);
-	    watch.setText("Hide/Show Drafted");
+	    watch.setText("Hide Drafted");
 	    TextView header = (TextView)dialog.findViewById(R.id.name);
 	    header.setText(subject);
 	    final ListView results = (ListView)dialog.findViewById(R.id.listview_search);
