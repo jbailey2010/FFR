@@ -28,7 +28,7 @@ public class ParseNFL
 		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=151&position=all&sort=draftAveragePosition");
 		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=176&position=all&sort=draftAveragePosition");
 	}
-	
+	 
 	/**
 	 * Does the actual parsing of the NFL AAV
 	 */

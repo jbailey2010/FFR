@@ -591,6 +591,10 @@ public class HighLevel
 		{
 			qbLimit = (6 * x) - 29.33333;
 		}
+		if(qbLimit > 34)
+		{
+			qbLimit = 34.0;
+		}
 		if(roster.tes == 1)
 		{
 			teLimit = (1.75 * x) - 3.33333;
