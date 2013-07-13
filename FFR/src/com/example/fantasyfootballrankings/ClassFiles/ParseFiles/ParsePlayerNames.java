@@ -83,6 +83,23 @@ public class ParsePlayerNames {
 		names.add("David Ruffer");
 		names.add("Kris Brown");
 		names.add("Patrick Edwards");
+		names.add("Willis McGahee");
+		names.add("Brandon Lloyd");
+		names.add("Michael Turner");
+		names.add("Dallas Clark");
+		names.add("Beanie Wells");
+		names.add("Cedric Benson");
+		names.add("Peyton Hillis");
+		names.add("David Thomas");
+		names.add("Jason Hanson");
+		names.add("Lawrence Tynes");
+		names.add("Billy Cundiff");
+		names.add("Olindo Mare");
+		names.add("Ryan Longwell");
+		names.add("Charlie Batch");
+		names.add("Curtis Brinkley");
+		names.add("Byron Leftwich");
+		
 		if(names.size() > 40)
 		{
 			WriteToFile.storePlayerNames(names, cont);

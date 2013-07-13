@@ -10,6 +10,7 @@ import java.io.IOException;
 
 
 
+
 import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
@@ -20,7 +21,9 @@ import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCSC;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFA;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
 
 import AsyncTasks.ParsingAsyncTask;
@@ -81,11 +84,11 @@ public class Home extends Activity{
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
-			ParseCSC.parseCSCWrapper(new Storage());
+        	ParseCBS.cbsRankings(new Storage());
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
-		} */
+		}*/
 	}  
 	 
 	/**

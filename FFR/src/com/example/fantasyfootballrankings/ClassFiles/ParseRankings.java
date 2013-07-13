@@ -107,6 +107,18 @@ public class ParseRankings
 		fixes.put("Ted Ginn Jr.", "Ted Ginn");
 		fixes.put("D.J. Williams Jr.", "D.J. Williams");
 		fixes.put("Greg Jones II", "Greg Jones");
+		fixes.put("Matt Stafford", "Matthew Stafford");
+		fixes.put("Mike Vick", "Michael Vick");
+		fixes.put("Jamal Charles", "Jamaal Charles");
+		fixes.put("CJ Spiller", "C.J. Spiller");
+		fixes.put("Maurice Jones Drew", "Maurice Jones-Drew");
+		fixes.put("Jon Stewart", "Jonathan Stewart");
+		fixes.put("Jonathan Franklin", "Johnathan Franklin");
+		fixes.put("Mikel LeShoure", "Mikel Leshoure");
+		fixes.put("Jaquizz Rodgers", "Jacquizz Rodgers");
+		fixes.put("AJ Green", "A.J. Green");
+		fixes.put("Delaine Walker", "Delanie Walker");
+		fixes.put("Steven Gostkowski", "Stephen Gostkowski");
 		
 		
 		teams.put("cin", "Cincinnati Bengals");

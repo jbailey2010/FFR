@@ -25,75 +25,79 @@ public class ParseCBS
 	public static void cbsRankings(Storage holder) throws IOException
 	{
 		String url = "http://fantasynews.cbssports.com/fantasyfootball/rankings/yearly";
-
-		try {
-			Document doc = Jsoup.connect(url).timeout(0).get();
-			cbsHelper(doc, holder, url, "row1");
-			cbsHelper(doc, holder, url, "row2");
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-	}
-
-	/**
-	 * The same code was present in the cbs function twice,
-	 * so it got abstracted to here. It's pretty obvious what does what
-	 * @param holder the storage used
-	 * @param url the url to be parsed
-	 * @param params the parameters to be fetched
-	 * @throws IOException
-	 */
-	public static void cbsHelper(Document doc, Storage holder, String url, String params) throws IOException
-	{
-		String text = HandleBasicQueries.handleTablesMulti(doc, url, params);
-		String[] textArr = text.split("\n");
-		String[][] words = new String[textArr.length][];
-		for(int i = 0; i < words.length; i++)
+		String html = HandleBasicQueries.handleListsNoUA(url, "table.multiColumn td");
+		String[] td = html.split("\n");
+		int min = 0;
+		for(int i = 0; i < td.length; i++)
 		{
-			words[i] = textArr[i].split(" ");
+			if(td[i].equals("Quarterbacks"))
+			{
+				min = i+1;
+				break;
+			}
+		}
+		for(int i = min; i < td.length; i+=2)
+		{
+			if(td[i].equals("Running Backs") || td[i].equals("Wide Receivers") || td[i].equals("Tight Ends") || td[i].equals("Kickers") 
+					|| td[i].equals("Defensive Special Teams"))
+			{
+				i++;
+			}
+			if(td[i].split(" ").length > 8 || td[i+1].split(" ").length > 8)
+			{
+				i += 3;
+			}
+			String nameSet = td[i+1];
+			String name = "";
+			String[] valSet = td[i+1].split(" ");
+			int limit = 0;
+			if(!td[i+1].contains("$"))
+			{
+				if(nameSet.contains("("))
+				{
+					limit = nameSet.split(" \\(")[0].split(" ").length - 1;
+				}
+				else
+				{
+					limit = nameSet.split(" ").length - 2;
+				}
+			} 
+			else
+			{
+				for(int j = 0; j < valSet.length; j++)
+				{
+					if(valSet[j].contains("$"))
+					{ 
+						limit = j - 1;
+					}
+				}
+			}
+			for(int j = 0; j < limit; j++)
+			{
+				name += valSet[j] + " ";
+			}
+			name = name.substring(0, name.length()-1);
+			if(name.split(" ").length == 1)
+			{
+				name += " D/ST";
+			}
+			name = ParseRankings.fixNames(name);
 			int val = 0;
-			int a = -1; 
-			for(int e = 0; e < words[i].length; e++)
+			if(td[i+1].contains("$"))
 			{
-				if(words[i][e].contains("$"))
+				int valIndex = 0;
+				for(int j = 0; j < td[i+1].length(); j++)
 				{
-					a = e;
-					break;
+					if(td[i+1].split(" ")[j].contains("$"))
+					{
+						valIndex = j;
+						break;
+					}
 				}
+				String valStr = td[i+1].split(" ")[valIndex];
+				val = Integer.parseInt(valStr.substring(1, valStr.length())) * 2;
 			}
-			int valueTeam = a - 1;
-			if(a == -1)
-			{
-				valueTeam = words[i].length - 2;
-				if(words[i][words[i].length - 1].length() > 1)
-				{
-					valueTeam = valueTeam + 1;
-				}
-			}
-			String team = words[i][valueTeam];
-			String playerName = "";
-			for(int v = 1; v < valueTeam; v++)
-			{
-				playerName += words[i][v] + " ";
-			}
-			if(playerName.length() > 0)
-			{
-				playerName = playerName.substring(0, playerName.length() -1);
-			}
-			if(a != -1)
-			{
-				String value = words[i][a];
-				value = value.replace("$", "");
-				val = Integer.parseInt(value) * 2;
-			}
-			String[] check = playerName.split(" ");
-			if(check.length == 1)
-			{
-				playerName += " D/ST";
-			}
-			ParseRankings.finalStretch(holder, playerName, val, team, "");
+			ParseRankings.finalStretch(holder, name, val, "", "");
 		}
 	}
 }
