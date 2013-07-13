@@ -67,7 +67,7 @@ public class HandleWatchList
 		TextView header = (TextView)dialog.findViewById(R.id.name);
 		header.setText("Watch List");
 		Button add = (Button)dialog.findViewById(R.id.add_watch);
-		add.setText("Hide/Show Drafted");
+		add.setText("Hide Drafted");
 		add.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {

@@ -17,18 +17,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
-        android:id="@+id/refresh_confirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginLeft="49dp"
-        android:layout_marginTop="66dp"
-        android:text="Rankings"
-        android:background="@drawable/btn_red"
-        style="@style/ButtonText" />
-
-    <Button
         android:id="@+id/refresh_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,16 +27,6 @@
         style="?android:attr/buttonBarButtonStyle"
         android:text="X" />
 
-    <Button
-        android:id="@+id/reset_draft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/refresh_confirm"
-        android:layout_toRightOf="@+id/textView1"
-        android:text="Draft"
-        android:background="@drawable/btn_red"
-        style="@style/ButtonText" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -58,5 +36,28 @@
         android:layout_marginTop="29dp"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/refresh_confirm"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="75dp"
+        android:background="@drawable/btn_red"
+        android:text="Rankings" />
+
+    <Button
+        android:id="@+id/reset_draft"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/refresh_confirm"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/btn_red"
+        android:text="Draft" />
 
 </RelativeLayout>

@@ -314,7 +314,7 @@ public class ComparatorHandling
 			{
 				if(rtdDiff2 - rtdDiff1 > 2.0)
 				{
-					p1.append("-Made many more rushing TD \nopportunities\n");
+					p1.append("-Made many more rushing TD opportunities\n");
 				}
 				else
 				{
@@ -325,7 +325,7 @@ public class ComparatorHandling
 			{
 				if(rtdDiff1 - rtdDiff2 > 2.0)
 				{
-					p2.append("-Made many more rushing TD \nopportunities\n");
+					p2.append("-Made many more rushing TD opportunities\n");
 				}
 				else
 				{
@@ -475,7 +475,7 @@ public class ComparatorHandling
 			{
 				if(trend1 - trend2 > 10.0)
 				{
-					p1.append("-Value is trending in a much\n better direction\n");
+					p1.append("-Value is trending in a much better direction\n");
 				}
 				else
 				{
@@ -486,7 +486,7 @@ public class ComparatorHandling
 			{
 				if(trend2 - trend1 > 10.0)
 				{
-					p2.append("-Value is trending in a much\n better direction\n");
+					p2.append("-Value is trending in a much better direction\n");
 				}
 				else
 				{
@@ -737,22 +737,22 @@ public class ComparatorHandling
 			{
 				if(left1 - left2 > 15.0)
 				{
-					p2.append("-Much less left just behind \nhim at his position\n");
+					p2.append("-Much less left just behind him at his position\n");
 				}
 				else
 				{
-					p2.append("-Less left just behind him \nat his position\n");
+					p2.append("-Less left just behind him at his position\n");
 				}
 			}
 			if(left2 > left1)
 			{
 				if(left2 - left1 > 15.0)
 				{
-					p1.append("-Much less left just behind \nhim at his position\n");
+					p1.append("-Much less left just behind him at his position\n");
 				}
 				else
 				{
-					p1.append("-Less left just behind him \nat his position\n");
+					p1.append("-Less left just behind him at his position\n");
 				}
 			}
 		}
@@ -764,7 +764,7 @@ public class ComparatorHandling
 			{
 				if(mib1 - mib2 > 10.0)
 				{
-					p2.append("-Faced 8+ in the box much less \noften last year\n");
+					p2.append("-Faced 8+ in the box much less often last year\n");
 				}
 				else
 				{
@@ -775,7 +775,7 @@ public class ComparatorHandling
 			{
 				if(mib2 - mib1 > 10.0)
 				{
-					p1.append("-Faced 8+ in the box much less \noften last year\n");
+					p1.append("-Faced 8+ in the box much less often last year\n");
 				}
 				else
 				{
@@ -787,21 +787,21 @@ public class ComparatorHandling
 		boolean pos2 = samePos(player2, holder);
 		if(!pos1)
 		{
-			p1.append("-You have not yet drafted a player \nof this position\n");
+			p1.append("-You have not yet drafted a player of this position\n");
 		} 
 		if(!pos2)
 		{
-			p2.append("-You have not yet drafted a player \nof this position\n");
+			p2.append("-You have not yet drafted a player of this position\n");
 		}
 		boolean sameBye1 = teamBye(holder, player1);
 		boolean sameBye2 = teamBye(holder, player2);
 		if(sameBye1)
 		{
-			p1.append("-Same bye as a player you've drafted of \nthe same position\n");
+			p1.append("-Same bye as a player you've drafted of the same position\n");
 		}
 		if(sameBye2)
 		{
-			p2.append("-Same bye as a player you've drafted of \nthe same position\n");
+			p2.append("-Same bye as a player you've drafted of the same position\n");
 		}
 		p1.append("\n");
 		p2.append("\n");
@@ -976,7 +976,7 @@ public class ComparatorHandling
 	 * Parses draft rank
 	 */
 	public static int draftRank(PlayerObject player)
-	{
+	{ 
 		String[] split = player.draftClass.split("\n");
 		String average = split[0];
 		String rank = average.split("\\(")[1].substring(0, average.split("\\(")[1].length() - 1);
@@ -992,7 +992,7 @@ public class ComparatorHandling
 		String overall = split[0];
 		String result = overall.split(": ")[1];
 		return Integer.parseInt(result);
-	}
+	} 
 	
 	/**
 	 * Returns the team pass/run ratio

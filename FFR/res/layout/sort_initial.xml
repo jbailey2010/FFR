@@ -3,22 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <Spinner
-        android:id="@+id/sort_stat_spinner"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textView1"
-        android:background="@drawable/spinner_well"
-        android:layout_marginTop="28dp" />
-
     <EditText
         android:id="@+id/maxVal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:text="100"
         android:background="@drawable/spinner_well"
@@ -31,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/maxVal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:text="What is the minimum worth you'd like to see?"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -41,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:text="0"
         android:background="@drawable/spinner_well"
@@ -70,35 +61,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true"
-        android:layout_below="@+id/sort_pos_spinner"
-        android:layout_marginTop="28dp"
-        android:text="What is the maximum worth you&apos;d like to see?"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sort_stat_spinner"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:text="What position(s) would you like to see?"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Spinner
-        android:id="@+id/sort_pos_spinner"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView5"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/spinner_well" />
-
-    <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -115,8 +77,45 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/minVal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/btn_red"
         android:text="Submit" />
+
+    <Spinner
+        android:id="@+id/sort_stat_spinner"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/sort_cancel"
+        android:background="@drawable/spinner_well" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sort_stat_spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="What position(s) would you like to see?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/sort_pos_spinner"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView5"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/spinner_well" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/sort_pos_spinner"
+        android:layout_marginTop="17dp"
+        android:text="What is the maximum worth you&apos;d like to see?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

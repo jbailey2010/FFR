@@ -37,12 +37,12 @@
 
     <AutoCompleteTextView
         android:id="@+id/player2_input"
-        android:layout_width="wrap_content"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/second_player_compare"
         android:layout_alignParentRight="true"
         android:ems="10"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="10dp"
     	android:dropDownSelector="#FF0000"
     	android:background="@drawable/spinner_well"
     	android:textColor="#000000" >
@@ -61,14 +61,14 @@
  
     <AutoCompleteTextView
         android:id="@+id/player1_input" 
-        android:layout_width="wrap_content"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/clear_compare"
         android:layout_marginTop="111dp"
         android:ems="10"
         android:background="@drawable/spinner_well"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
     	android:dropDownSelector="#FF0000"
     	android:textColor="#000000" >
         <requestFocus />

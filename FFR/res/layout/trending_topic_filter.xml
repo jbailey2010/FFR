@@ -4,17 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp"
-        android:text="Select the topics about which you'd like to know the trends"
-        android:textStyle="bold"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <CheckBox
         android:id="@+id/must_haves"
         android:layout_width="wrap_content"
@@ -59,26 +48,6 @@
         style="?android:attr/buttonBarButtonStyle"
         android:text="X" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text=" "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/trending_filter_submit"
-        style="@style/ButtonText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="27dp"
-        android:background="@drawable/btn_red"
-        android:text="Submit" />
-
     <CheckBox
         android:id="@+id/rookies"
         android:layout_width="wrap_content"
@@ -89,5 +58,36 @@
         android:button="@drawable/custom_checkbox"
         android:text="Rookies"
         android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/trending_filter_submit"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/btn_red"
+        android:text="Submit" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dont_want"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="97dp"
+        android:text="              "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/trending_filter_cancel"
+        android:text="Select the topics about which you&apos;d like to know the trends"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
 
 </RelativeLayout>

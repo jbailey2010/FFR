@@ -3,18 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ProgressBar
-        android:id="@+id/progressBar1"
-        android:progressDrawable="@drawable/progress_custom"
-        android:max="200"
-        android:progress="200"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="400dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp" />
-
     <TextView
         android:id="@+id/remSalary"
         android:layout_width="wrap_content"
@@ -68,41 +56,6 @@
         style="?android:attr/buttonBarButtonStyle"
         android:text="X" />
 
-    <Button
-        android:id="@+id/more_info"
-        style="@style/ButtonText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/draft_paapd"
-        android:layout_marginRight="45dp"
-        android:layout_marginTop="26dp"
-        android:layout_toLeftOf="@+id/undraft"
-        android:background="@drawable/btn_red"
-        android:text="Your Team" />
-
-    <Button
-        android:id="@+id/undraft"
-        style="@style/ButtonText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/more_info"
-        android:layout_alignBottom="@+id/more_info"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/btn_red"
-        android:text="Undraft Someone" />
-
-    <Button
-        android:id="@+id/value_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/undraft"
-        android:layout_alignBottom="@+id/undraft"
-        android:layout_marginLeft="45dp"
-        android:layout_toRightOf="@+id/undraft"
-        android:background="@drawable/btn_red"
-        android:text="Pos. PAA Left"
-        style="@style/ButtonText" />
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -113,5 +66,50 @@
         android:text="Wide enough to grab and move"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/undraft"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/more_info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/btn_red"
+        android:text="Undraft Someone" />
+
+    <Button
+        android:id="@+id/value_left"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/draft_paapd"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="19dp"
+        android:background="@drawable/btn_red"
+        android:text="Pos. PAA Left" />
+
+    <Button
+        android:id="@+id/more_info"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/value_left"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/btn_red"
+        android:text="Your Team" />
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/salValDismiss"
+        android:max="200"
+        android:progress="200"
+        android:progressDrawable="@drawable/progress_custom" />
 
 </RelativeLayout>
