@@ -233,6 +233,23 @@ public class HighLevel
 							}
 						}
 					}
+					else
+					{
+						int found = 0;
+						String statHolder = "";
+						for(String key : qbKeys)
+						{
+							if(key.contains(testName))
+							{
+								found++;
+								statHolder = qbs.get(key);
+							}
+						}
+						if(found == 1)
+						{
+							player.stats = statHolder;
+						}
+					}
 				}
 				else if(player.info.position.equals("RB"))
 				{
@@ -249,6 +266,23 @@ public class HighLevel
 								player.stats = rbs.get(key);
 								break;
 							}
+						}
+					}
+					else
+					{
+						int found = 0;
+						String statHolder = "";
+						for(String key : rbKeys)
+						{
+							if(key.contains(testName))
+							{
+								found++;
+								statHolder = rbs.get(key);
+							}
+						}
+						if(found == 1)
+						{
+							player.stats = statHolder;
 						}
 					}
 				}
@@ -269,6 +303,23 @@ public class HighLevel
 							}
 						}
 					}
+					else
+					{
+						int found = 0;
+						String statHolder = "";
+						for(String key : wrKeys)
+						{
+							if(key.contains(testName))
+							{
+								found++;
+								statHolder = wrs.get(key);
+							}
+						}
+						if(found == 1)
+						{
+							player.stats = statHolder;
+						}
+					}
 				}
 				else if(player.info.position.equals("TE"))
 				{
@@ -286,6 +337,23 @@ public class HighLevel
 								player.stats = tes.get(key);
 								break;
 							}
+						}
+					}
+					else
+					{
+						int found = 0;
+						String statHolder = "";
+						for(String key : teKeys)
+						{
+							if(key.contains(testName))
+							{
+								found++;
+								statHolder = tes.get(key);
+							}
+						}
+						if(found == 1)
+						{
+							player.stats = statHolder;
 						}
 					}
 				}
