@@ -470,21 +470,21 @@ public class HighLevel
 	 * Calls the specific parsers and sets the projections
 	 */
 	public static void projPointsWrapper(Storage holder, Context cont) throws IOException
-	{
+	{ 
 		HashMap<String, Double> points = new HashMap<String, Double>();
 		Scoring scoring = ReadFromFile.readScoring(cont);
-		qbProj("http://www.fantasypros.com/nfl/projections/qb.php", points, scoring);
-		rbProj("http://www.fantasypros.com/nfl/projections/rb.php", points, scoring);
-		wrProj("http://www.fantasypros.com/nfl/projections/wr.php", points, scoring);
-		teProj("http://www.fantasypros.com/nfl/projections/te.php", points, scoring);
+		qbProj("http://www.fantasypros.com/nfl/projections/qb.php", points, scoring, "QB");
+		rbProj("http://www.fantasypros.com/nfl/projections/rb.php", points, scoring, "RB");
+		wrProj("http://www.fantasypros.com/nfl/projections/wr.php", points, scoring, "WR");
+		teProj("http://www.fantasypros.com/nfl/projections/te.php", points, scoring, "TE");
 		for(PlayerObject player : holder.players)
 		{
-			if(points.containsKey(player.info.name))
+			if(points.containsKey(player.info.name + "/" + player.info.team + "/" + player.info.position))
 			{
 				if(player.info.position.equals("QB") || player.info.position.equals("RB") ||
 						player.info.position.equals("WR") || player.info.position.equals("TE"))
 				{
-					player.values.points = points.get(player.info.name);
+					player.values.points = points.get(player.info.name + "/" + player.info.team + "/" + player.info.position);
 				}
 			}
 		}
@@ -493,7 +493,7 @@ public class HighLevel
 	/**
 	 * Gets the qb projections
 	 */
-	public static void qbProj(String url, HashMap<String, Double> points, Scoring scoring) throws IOException
+	public static void qbProj(String url, HashMap<String, Double> points, Scoring scoring, String pos) throws IOException
 	{
         DecimalFormat df = new DecimalFormat("#.##");
 		String html = HandleBasicQueries.handleLists(url, "td");
@@ -511,6 +511,13 @@ public class HighLevel
 		{
 			double proj = 0;
 			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
+			String team = "None";
+			if(td[i].contains("("))
+			{
+				String inter = td[i].split(" \\(")[1];
+				inter = inter.split(",")[0];
+				team = ParseRankings.fixTeams(inter);
+			}
 			double yards = Double.parseDouble(td[i+3].replace(",", ""));
 			double tdRush = Double.parseDouble(td[i+4]);
 			double ints = Double.parseDouble(td[i+5]);
@@ -524,14 +531,14 @@ public class HighLevel
 			proj += rushTD * scoring.rushTD;
 			proj -= fumbles * scoring.fumble;
 			proj = Double.parseDouble(df.format(proj));
-			points.put(name, proj);
+			points.put(name + "/" + team + "/" + pos, proj);
 		}
 	}
 	
 	/**
 	 * Gets the running back projections
 	 */
-	public static void rbProj(String url, HashMap<String, Double> points, Scoring scoring) throws IOException
+	public static void rbProj(String url, HashMap<String, Double> points, Scoring scoring, String pos) throws IOException
 	{
         DecimalFormat df = new DecimalFormat("#.##");
 		String html = HandleBasicQueries.handleLists(url, "td");
@@ -549,6 +556,13 @@ public class HighLevel
 		{
 			double proj = 0;
 			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
+			String team = "None";
+			if(td[i].contains("("))
+			{
+				String inter = td[i].split(" \\(")[1];
+				inter = inter.split(",")[0];
+				team = ParseRankings.fixTeams(inter);
+			}
 			double rushYards = Double.parseDouble(td[i+2].replace(",",""));
 			double rushTD = Double.parseDouble(td[i+3]);
 			double catches = Double.parseDouble(td[i+4]);
@@ -562,14 +576,14 @@ public class HighLevel
 			proj += recTD * scoring.recTD;
 			proj -= fumbles * scoring.fumble;
 			proj = Double.parseDouble(df.format(proj));
-			points.put(name, proj);
+			points.put(name + "/" + team + "/" + pos, proj);
 		}
 	}
 	
 	/**
 	 * Gets the wide receiver projections
 	 */
-	public static void wrProj(String url, HashMap<String, Double> points, Scoring scoring) throws IOException
+	public static void wrProj(String url, HashMap<String, Double> points, Scoring scoring, String pos) throws IOException
 	{
 		DecimalFormat df = new DecimalFormat("#.##");
 		String html = HandleBasicQueries.handleLists(url, "td");
@@ -587,6 +601,13 @@ public class HighLevel
 		{
 			double proj = 0;
 			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
+			String team = "None";
+			if(td[i].contains("("))
+			{
+				String inter = td[i].split(" \\(")[1];
+				inter = inter.split(",")[0];
+				team = ParseRankings.fixTeams(inter);
+			}
 			double rushYards = Double.parseDouble(td[i+2].replace(",",""));
 			double rushTD = Double.parseDouble(td[i+3]);
 			double catches = Double.parseDouble(td[i+4]);
@@ -600,14 +621,14 @@ public class HighLevel
 			proj += recTD * scoring.recTD;
 			proj -= fumbles * scoring.fumble;
 			proj = Double.parseDouble(df.format(proj));
-			points.put(name, proj);
+			points.put(name + "/" + team + "/" + pos, proj);
 		}
 	}
 	
 	/**
 	 * Gets the tight end projections
 	 */
-	public static void teProj(String url, HashMap<String, Double> points, Scoring scoring) throws IOException
+	public static void teProj(String url, HashMap<String, Double> points, Scoring scoring, String pos) throws IOException
 	{
 		DecimalFormat df = new DecimalFormat("#.##");
 		String html = HandleBasicQueries.handleLists(url, "td");
@@ -623,8 +644,15 @@ public class HighLevel
 		}
 		for(int i = min; i < td.length; i+=6)
 		{		
+			String team = "None";
 			double proj = 0;
 			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
+			if(td[i].contains("("))
+			{
+				String inter = td[i].split(" \\(")[1];
+				inter = inter.split(",")[0];
+				team = ParseRankings.fixTeams(inter);
+			}
 			double catches = Double.parseDouble(td[i+1].replace(",",""));
 			double recTD = Double.parseDouble(td[i+3]);
 			double recYards = Double.parseDouble(td[i+2].replace(",",""));
@@ -634,7 +662,7 @@ public class HighLevel
 			proj += recTD * scoring.recTD;
 			proj -= fumbles * scoring.fumble;
 			proj = Double.parseDouble(df.format(proj));
-			points.put(name, proj);
+			points.put(name + "/" + team + "/" + pos, proj);
 		}		
 	}
 	
