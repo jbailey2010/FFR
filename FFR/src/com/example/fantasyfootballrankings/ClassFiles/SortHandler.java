@@ -14,6 +14,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 
+import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.app.Activity;
 import android.app.Dialog;
@@ -25,6 +26,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -146,7 +148,8 @@ public class SortHandler
 						else
 						{
 							dialog.dismiss();
-							handleSortingSetUp();
+							handleSortingSec();
+							//handleSortingSetUp();
 						}
 					}
 					else
@@ -163,10 +166,46 @@ public class SortHandler
 	}
 	
 	/**
-	 * Gets only the players who are the right position
+	 * Gets options to limit the output of the sorting
 	 */
-	public static void handleSortingSetUp()
+	public static void handleSortingSec()
 	{
+		final Dialog dialog = new Dialog(context, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.sort_second_dialog); 
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+	    dialog.show();
+	    Button close = (Button)dialog.findViewById(R.id.sort_second_close);
+	    close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+			}
+	    });
+	    final CheckBox age = (CheckBox)dialog.findViewById(R.id.sort_second_under_30);
+	    final CheckBox wl = (CheckBox)dialog.findViewById(R.id.sort_second_watch);
+	    final CheckBox cy = (CheckBox)dialog.findViewById(R.id.sort_second_contract_year);
+	    final CheckBox healthy = (CheckBox)dialog.findViewById(R.id.sort_second_healthy);
+	    final CheckBox run = (CheckBox)dialog.findViewById(R.id.sort_second_run);
+	    final CheckBox pass = (CheckBox)dialog.findViewById(R.id.sort_second_pass);
+	    Button submit = (Button)dialog.findViewById(R.id.sort_second_submit);
+	    submit.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				handleSecSortingOptions(age.isChecked(), wl.isChecked(), cy.isChecked(), healthy.isChecked(), run.isChecked(), pass.isChecked());
+			}
+	    });
+	}
+	
+	/**
+	 * Handles the positions/booleans, using only the real data
+	 */
+	public static void handleSecSortingOptions(boolean young, boolean wl, boolean cy, boolean healthy,
+			boolean run, boolean pass) {
 		List<String> posList = new ArrayList<String>();
 		if(position.equals("All Positions"))
 		{
@@ -183,11 +222,47 @@ public class SortHandler
 		}
 		for(PlayerObject player : holder.players)
 		{
-			if(posList.contains(player.info.position))
+			if(!young || (!player.info.age.equals("0") && ManageInput.isInteger(player.info.age) && Integer.parseInt(player.info.age)<30 && young))
 			{
-				players.add(player);
+				
+				List<String> watchList = ReadFromFile.readWatchList(context);
+				if(!wl || (wl && watchList.contains(player.info.name)))
+				{
+					if(!cy || (cy && !player.info.contractStatus.equals("Under Contract")))
+					{
+						if(!healthy || (healthy && player.injuryStatus.equals("Injury Status: Healthy")))
+						{
+							String oLine = player.info.oLineStatus;
+							int runRank = -1;
+							int passRank = -1;
+							if(!oLine.equals("") && oLine.contains("\n"))
+							{
+								runRank = Integer.parseInt(oLine.split(": ")[2].split("\n")[0]);
+								passRank = Integer.parseInt(oLine.split(": ")[3].split("\n")[0]);
+							}
+							if(!run || (run && runRank > 0 && runRank < 17))
+							{
+								if(!pass || (pass && passRank > 0 && passRank < 17))
+								{
+									if(posList.contains(player.info.position))
+									{
+										players.add(player);
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
+		handleSortingSetUp();
+	}
+	
+	/**
+	 * Gets only the players who are the right position
+	 */
+	public static void handleSortingSetUp()
+	{
 		if(subject.equals("Projections"))
 		{
 			projPoints();

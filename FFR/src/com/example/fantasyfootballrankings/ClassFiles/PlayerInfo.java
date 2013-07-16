@@ -431,6 +431,7 @@ public class PlayerInfo
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", searchedPlayer.info.contractStatus);
 			datum.put("sub", "");
+			data.add(datum);
 		} 
 		//Injury status and stats
 		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST")

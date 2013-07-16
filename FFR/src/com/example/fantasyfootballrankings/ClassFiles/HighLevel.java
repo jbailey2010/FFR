@@ -158,6 +158,7 @@ public class HighLevel
 			player.draftClass = gpas.get(player.info.team) + drafts.get(player.info.team); 
 			if(fa.containsKey(player.info.team))
 			{
+				
 				player.fa = fa.get(player.info.team);
 			}
 		}

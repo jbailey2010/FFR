@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <Button
+        android:id="@+id/sort_second_close"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="100"
+        android:textColor="#CD0000"
+        android:textSize="28sp"
+        android:text="X" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/sort_second_close"
+        android:text="Would you like to further narrow down the search?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <CheckBox
+        android:textColor="#FFFFFF"
+        android:id="@+id/sort_second_contract_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="36dp"
+        android:text="Contract year" />
+
+    <CheckBox
+        android:textColor="#FFFFFF"
+        android:id="@+id/sort_second_under_30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sort_second_contract_year"
+        android:layout_below="@+id/sort_second_contract_year"
+        android:layout_marginTop="49dp"
+        android:text="Under 30" />
+
+    <CheckBox
+        android:textColor="#FFFFFF"
+        android:id="@+id/sort_second_run"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sort_second_contract_year"
+        android:layout_below="@+id/sort_second_contract_year"
+        android:text="Good run blocking" />
+
+    <CheckBox
+        android:textColor="#FFFFFF"
+        android:id="@+id/sort_second_healthy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sort_second_run"
+        android:layout_alignLeft="@+id/sort_second_pass"
+        android:text="Only healthy" />
+
+    <CheckBox
+        android:textColor="#FFFFFF"
+        android:id="@+id/sort_second_watch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/sort_second_under_30"
+        android:layout_alignBottom="@+id/sort_second_under_30"
+        android:layout_alignLeft="@+id/sort_second_pass"
+        android:text="Watch list" />
+
+    <CheckBox
+        android:textColor="#FFFFFF"
+        android:id="@+id/sort_second_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/sort_second_run"
+        android:layout_alignBottom="@+id/sort_second_run"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:text="Good pass blocking" />
+
+    <Button
+        android:id="@+id/sort_second_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sort_second_watch"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText"
+        android:text="Submit" />
+
+</RelativeLayout>
