@@ -113,10 +113,23 @@
         style="@style/ButtonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/min_rankings"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/btn_red"
         android:text="Submit" />
+    
+    <Button
+        android:id="@+id/sort_second_back"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/min_rankings"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/btn_red"
+        android:text="Back" />
 
 </RelativeLayout>

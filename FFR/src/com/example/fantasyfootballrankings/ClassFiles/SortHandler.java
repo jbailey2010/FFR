@@ -185,6 +185,14 @@ public class SortHandler
 				dialog.dismiss();
 			}
 	    });
+	    Button back = (Button)dialog.findViewById(R.id.sort_second_back);
+	    back.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				initialPopUp(context, holder);
+			}
+	    });
 	    final CheckBox age = (CheckBox)dialog.findViewById(R.id.sort_second_under_30);
 	    final CheckBox wl = (CheckBox)dialog.findViewById(R.id.sort_second_watch);
 	    final CheckBox cy = (CheckBox)dialog.findViewById(R.id.sort_second_contract_year);
