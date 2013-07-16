@@ -191,12 +191,39 @@ public class SortHandler
 	    final CheckBox healthy = (CheckBox)dialog.findViewById(R.id.sort_second_healthy);
 	    final CheckBox run = (CheckBox)dialog.findViewById(R.id.sort_second_run);
 	    final CheckBox pass = (CheckBox)dialog.findViewById(R.id.sort_second_pass);
+	    final EditText minRanks = (EditText)dialog.findViewById(R.id.min_rankings);
 	    Button submit = (Button)dialog.findViewById(R.id.sort_second_submit);
 	    submit.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				handleSecSortingOptions(age.isChecked(), wl.isChecked(), cy.isChecked(), healthy.isChecked(), run.isChecked(), pass.isChecked());
+				String min = minRanks.getText().toString();
+				if(ManageInput.isInteger(min))
+				{
+					int minimum = Integer.parseInt(min);
+					if(minimum < 0)
+					{
+						minimum = 1;
+					}
+					int max = 0;
+					for(PlayerObject player : holder.players)
+					{
+						if(player.values.count > max)
+						{
+							max = (int) player.values.count;
+						}
+					}
+					if(minimum > max)
+					{
+						minimum = max;
+					}
+					handleSecSortingOptions(age.isChecked(), wl.isChecked(), cy.isChecked(), healthy.isChecked(),
+							run.isChecked(), pass.isChecked(), minimum);
+				}
+				else
+				{
+					Toast.makeText(context, "Please enter a number", Toast.LENGTH_SHORT).show();
+				}
 			}
 	    });
 	}
@@ -205,7 +232,7 @@ public class SortHandler
 	 * Handles the positions/booleans, using only the real data
 	 */
 	public static void handleSecSortingOptions(boolean young, boolean wl, boolean cy, boolean healthy,
-			boolean run, boolean pass) {
+			boolean run, boolean pass, int minimum) {
 		List<String> posList = new ArrayList<String>();
 		if(position.equals("All Positions"))
 		{
@@ -246,7 +273,10 @@ public class SortHandler
 								{
 									if(posList.contains(player.info.position))
 									{
-										players.add(player);
+										if(player.values.count >= minimum)
+										{
+											players.add(player);
+										}
 									}
 								}
 							}

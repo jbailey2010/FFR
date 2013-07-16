@@ -85,15 +85,38 @@
         android:layout_marginRight="20dp"
         android:text="Good pass blocking" />
 
-    <Button
-        android:id="@+id/sort_second_submit"
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/sort_second_watch"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
-        android:background="@drawable/btn_red"
+        android:layout_marginTop="13dp"
+        android:text="How many rankings minimum should a player have shown up in?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/min_rankings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/spinner_well"
+        android:ems="10"
+        android:textColor="#000000"
+        android:inputType="number"
+        android:text="1" />
+
+    <Button
+        android:id="@+id/sort_second_submit"
         style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/min_rankings"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_red"
         android:text="Submit" />
 
 </RelativeLayout>
