@@ -688,9 +688,9 @@ public class HighLevel
 		{
 			qbLimit = (6 * x) - 29.33333;
 		}
-		if(qbLimit > 32)
+		if(qbLimit > 30)
 		{
-			qbLimit = 32.0;
+			qbLimit = 30.0;
 		}
 		if(roster.tes == 1)
 		{
@@ -970,6 +970,32 @@ public class HighLevel
 				player.values.rtdDiff = data.get(2);
 				player.values.roTD = data.get(1);
 				player.values.rADEZ = data.get(0);
+			}
+		}
+		html = HandleBasicQueries.handleListsNoUA("https://www.profootballfocus.com/blog/2013/07/16/determining-playmaking-otd/", "table#wp-table-reloaded-id-337-no-1 td");
+		td = html.split("\n");
+		redZoneStats = new HashMap<String, List<Double>>();
+		redZoneStats.clear();
+		for(int i = 0; i < td.length; i+=6)
+		{
+			List<Double> data = new ArrayList<Double>(3);
+			String name = ParseRankings.fixNames(td[i]);
+			double cADEZ = Double.parseDouble(td[i+2]);
+			double coTD = Double.parseDouble(td[i+4]);
+			double ctdDiff = Double.parseDouble(td[i+5]);
+			data.add(cADEZ); 
+			data.add(coTD);
+			data.add(ctdDiff);
+			redZoneStats.put(name, data);
+		}
+		for(PlayerObject player : holder.players)
+		{
+			if(redZoneStats.containsKey(player.info.name))
+			{
+				List<Double> data = redZoneStats.get(player.info.name);
+				player.values.ctdDiff = data.get(2);
+				player.values.coTD = data.get(1);
+				player.values.cADEZ = data.get(0);
 			}
 		}
 	}

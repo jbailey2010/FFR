@@ -387,8 +387,21 @@ public class PlayerInfo
 			{
 				result = "+" + result; 
 			}
-			datum.put("main", "Receiving oTD: " + searchedPlayer.values.oTD + " \n(" + result + " relative to last year's numbers)");
+			datum.put("main", "Target-based oTD: " + searchedPlayer.values.oTD + " \n(" + result + " relative to last year's numbers)");
 			datum.put("sub", "Targeted an average of " + searchedPlayer.values.tADEZ + " yards from the endzone");
+			data.add(datum);
+		}
+		//Catch oTD stuff
+		if(searchedPlayer.values.cADEZ != 0)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			String result = String.valueOf(searchedPlayer.values.ctdDiff);
+			if(!result.contains("-"))
+			{
+				result = "+" + result; 
+			}
+			datum.put("main", "Catch-based oTD: " + searchedPlayer.values.coTD + " \n(" + result + " relative to last year's numbers)");
+			datum.put("sub", "Catches were an average of " + searchedPlayer.values.cADEZ + " yards from the endzone");
 			data.add(datum);
 		}
 		//Rush oTD stuff

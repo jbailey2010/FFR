@@ -84,7 +84,7 @@ public class Home extends Activity{
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
-        	ParseCBS.cbsRankings(new Storage());
+        	HighLevel.parseRedZoneStats(new Storage());
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 

@@ -99,7 +99,8 @@ public class StorageAsyncTask
 	    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "&&" + oLineAdv + "&&" + 
 	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
 	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + player.values.roTD + "&&" + player.values.rtdDiff
-	    		+ "&&" + player.values.rADEZ + "~~~~");
+	    		+ "&&" + player.values.rADEZ + "&&" + player.values.coTD + "&&" + player.values.ctdDiff + "&&" + player.values.cADEZ + 
+	    		"~~~~");
 	    	}
 	    	String playerString = players.toString();
 	    	editor.putString("Player Values", playerString).commit();
@@ -224,7 +225,8 @@ public class StorageAsyncTask
 	    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
 	    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + player.values.roTD + "&&" 
 	    	    		+ player.values.rtdDiff
-	    	    		+ "&&" + player.values.rADEZ + "~~~~");
+	    	    		+ "&&" + player.values.rADEZ + "&&" + player.values.coTD + "&&" + player.values.ctdDiff + "&&" + player.values.cADEZ + 
+	    	    		"~~~~");
 
 	    	}
 	    	String playerString = players.toString();
@@ -471,6 +473,9 @@ public class StorageAsyncTask
 	   		for(int i = 0; i < holder.players.size(); i++)
 	   		{  
 	   			PlayerObject player = holder.players.get(i);
+	   			player.values.cADEZ = Double.parseDouble(allData[i][37]);
+	   			player.values.ctdDiff = Double.parseDouble(allData[i][36]);
+	   			player.values.coTD = Double.parseDouble(allData[i][35]);
 	   			player.values.rADEZ = Double.parseDouble(allData[i][34]);
 	   			player.values.rtdDiff = Double.parseDouble(allData[i][33]);
 	   			player.values.roTD = Double.parseDouble(allData[i][32]);

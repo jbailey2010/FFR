@@ -92,16 +92,19 @@ public class SortHandler
 	    topics.add("Projections");
 	    topics.add("PAA");
 	    topics.add("PAA per dollar");
-	    topics.add("Rec oTD");
-	    topics.add("Rec TD Difference");
+	    topics.add("Target Rec oTD");
+	    topics.add("Target Rec TD Difference");
 	    topics.add("Average target location");
+	    topics.add("Catch Rec oTD");
+	    topics.add("Catch Rec TD Difference");
+	    topics.add("Average catch location");
 	    topics.add("Rush oTD");
 	    topics.add("Rush TD Difference");
 	    topics.add("Average carry location");
 	    topics.add("DYOA");
 	    topics.add("DVOA");
 	    topics.add("Risk relative to position");
-	    topics.add("Risk relative to everyone");
+	    topics.add("Risk");
 	    topics.add("ECR");
 	    topics.add("ADP");
 	    topics.add("Positional SOS");
@@ -137,9 +140,9 @@ public class SortHandler
 						position = (String)pos.getSelectedItem();
 						subject = (String)sort.getSelectedItem();
 						if((subject.equals("Projections") || subject.equals("PAA") ||
-								(subject.equals("PAA per dollar")) || subject.equals("Rec TD Difference"))
+								(subject.equals("PAA per dollar")) || subject.equals("Target Rec TD Difference"))
 								&& (position.equals("K") || position.equals("D/ST")) || 
-								((subject.equals("Rec oTD") || subject.equals("Rush oTD") || subject.equals("Rush TD Difference") || 
+								((subject.equals("Target Rec oTD") || subject.equals("Rush oTD") || subject.equals("Rush TD Difference") || 
 										subject.equals("Average target location") || subject.equals("Average carry location"))
 										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))))
 						{
@@ -313,11 +316,23 @@ public class SortHandler
 		{
 			paapd();
 		}
-		else if(subject.equals("Rec oTD"))
+		else if(subject.equals("Target Rec oTD"))
 		{
 			oTD();
 		}
-		else if(subject.equals("Rec TD Difference"))
+		else if(subject.equals("Catch Rec oTD"))
+		{
+			coTD();
+		}
+		else if(subject.equals("Catch Rec TD Difference"))
+		{
+			ctdDiff();
+		}
+		else if(subject.equals("Average catch location"))
+		{
+			cADEZ();
+		}
+		else if(subject.equals("Target Rec TD Difference"))
 		{
 			tdDiff();
 		}
@@ -341,7 +356,7 @@ public class SortHandler
 		{
 			riskPos();
 		}
-		else if(subject.equals("Risk relative to everyone"))
+		else if(subject.equals("Risk"))
 		{
 			riskAll();
 		}
@@ -567,6 +582,34 @@ public class SortHandler
 		wrappingUp(sorted);
 	}
 	
+	public static void coTD()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b)
+			{
+				if(a.values.coTD > b.values.coTD)
+				{
+					return -1;
+				}
+				if(a.values.coTD < b.values.coTD)
+				{
+					return 1;
+				}
+				return 0;
+			}
+		});
+		for(PlayerObject player : players)
+		{
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.cADEZ != 0.0)
+			{
+				sorted.add(player);
+			}
+		}
+		wrappingUp(sorted);
+	}
+	
 	/**
 	 * Sets up the priority queue for risk relative to a position
 	 */
@@ -629,6 +672,34 @@ public class SortHandler
 		wrappingUp(sorted);
 	}
 	
+	public static void ctdDiff()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b)
+			{
+				if(a.values.ctdDiff > b.values.ctdDiff)
+				{
+					return 1;
+				}
+				if(a.values.ctdDiff < b.values.ctdDiff)
+				{
+					return -1;
+				}
+				return 0;
+			}
+		});
+		for(PlayerObject player : players)
+		{
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.cADEZ != 0.0)
+			{
+				sorted.add(player);
+			}
+		}
+		wrappingUp(sorted);
+	}
+	
 	/**
 	 * Sets up the priority queue for risk relative to a position
 	 */
@@ -641,11 +712,11 @@ public class SortHandler
 			{
 				if(a.values.rtdDiff > b.values.rtdDiff)
 				{
-					return -1;
+					return 1;
 				}
 				if(a.values.rtdDiff < b.values.rtdDiff)
 				{
-					return 1;
+					return -1;
 				}
 				return 0;
 			}
@@ -715,6 +786,34 @@ public class SortHandler
 		for(PlayerObject player : players)
 		{
 			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.rADEZ != 0.0)
+			{
+				sorted.add(player);
+			}
+		}
+		wrappingUp(sorted);
+	}
+	
+	public static void cADEZ()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b)
+			{
+				if(a.values.cADEZ > b.values.cADEZ)
+				{
+					return 1;
+				}
+				if(a.values.cADEZ < b.values.cADEZ)
+				{
+					return -1;
+				}
+				return 0;
+			}
+		});
+		for(PlayerObject player : players)
+		{
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.cADEZ != 0.0)
 			{
 				sorted.add(player);
 			}
@@ -1047,10 +1146,15 @@ public class SortHandler
 	    		datum.put("main", output + df.format(elem.values.paapd)+ ": " + elem.info.name);
 	    		datum.put("sub", "$" + df.format(elem.values.worth));
 	    	}
-	    	else if(subject.equals("Rec oTD"))
+	    	else if(subject.equals("Target Rec oTD"))
 	    	{
 	    		datum.put("main", output + df.format(elem.values.oTD) + ": " + elem.info.name);
 	    		datum.put("sub", elem.values.tdDiff + " difference");
+	    	}
+	    	else if(subject.equals("Catch Rec oTD"))
+	    	{
+	    		datum.put("main", output + df.format(elem.values.coTD) + ": " + elem.info.name);
+	    		datum.put("sub", elem.values.ctdDiff + " difference");
 	    	}
 	    	else if(subject.equals("Rush oTD"))
 	    	{
@@ -1080,18 +1184,32 @@ public class SortHandler
 	    	{
 	    		datum.put("main", output + df.format(elem.values.tADEZ) + ": " + elem.info.name);
 	    		datum.put("sub", elem.values.oTD + 
-	    				" expected receiving TDs, $" + df.format(elem.values.worth));
+	    				" expected receiving TDs, " + elem.values.cADEZ + " average catch location, " + 
+	    				"$" + df.format(elem.values.worth));
+	    	}
+	    	else if(subject.equals("Average catch location"))
+	    	{
+	    		datum.put("main", output + df.format(elem.values.cADEZ) + ": " + elem.info.name);
+	    		datum.put("sub", elem.values.coTD + 
+	    				" expected receiving TDs, " + elem.values.tADEZ + " average target location, " + 
+	    				"$" + df.format(elem.values.worth));
 	    	}
 	    	else if(subject.equals("Risk"))
 	    	{
 	    		datum.put("main", output + df.format(elem.risk)+ ": " + elem.info.name);
 	    		datum.put("sub", "$" + df.format(elem.values.worth));
 	    	}
-	    	else if(subject.equals("Rec TD Difference"))
+	    	else if(subject.equals("Target Rec TD Difference"))
 	    	{
 	    		datum.put("main", output + df.format(elem.values.tdDiff) + ": " + elem.info.name);
 	    		datum.put("sub", elem.values.oTD + " expected, had " + 
 	    				df.format(elem.values.oTD - elem.values.tdDiff));
+	    	}
+	    	else if(subject.equals("Catch Rec TD Difference"))
+	    	{
+	    		datum.put("main", output + df.format(elem.values.ctdDiff) + ": " + elem.info.name);
+	    		datum.put("sub", elem.values.coTD + " expected, had " + 
+	    				df.format(elem.values.coTD - elem.values.ctdDiff));
 	    	}
 	    	else if(subject.equals("Rush TD Difference"))
 	    	{
@@ -1104,9 +1222,9 @@ public class SortHandler
 	    		datum.put("main",output + elem.riskPos + ": " + elem.info.name);
 	    		datum.put("sub", "$" + df.format(elem.values.worth));
 			}
-			else if(subject.equals("Risk relative to everyone"))
+			else if(subject.equals("Risk"))
 			{
-				datum.put("main", output + elem.riskAll + ": " + elem.info.name);
+				datum.put("main", output + elem.risk + ": " + elem.info.name);
 	    		datum.put("sub", "$" + df.format(elem.values.worth));
 			}
 			else if(subject.equals("Positional SOS"))
@@ -1193,10 +1311,15 @@ public class SortHandler
 				    		datum.put("main", output + df.format(elem.values.paapd)+ ": " + elem.info.name);
 				    		datum.put("sub", "$" + df.format(elem.values.worth));
 				    	}
-				    	else if(subject.equals("Rec oTD"))
+				    	else if(subject.equals("Target Rec oTD"))
 				    	{
 				    		datum.put("main", output + df.format(elem.values.oTD) + ": " + elem.info.name);
 				    		datum.put("sub", elem.values.tdDiff + " difference");
+				    	}
+				    	else if(subject.equals("Catch Rec oTD"))
+				    	{
+				    		datum.put("main", output + df.format(elem.values.coTD) + ": " + elem.info.name);
+				    		datum.put("sub", elem.values.ctdDiff + " difference");
 				    	}
 				    	else if(subject.equals("Rush oTD"))
 				    	{
@@ -1208,17 +1331,50 @@ public class SortHandler
 				    		datum.put("main", output + df.format(elem.values.rADEZ) + ": " + elem.info.name);
 				    		datum.put("sub",  elem.values.roTD + " expected rushing TDs, $" + df.format(elem.values.worth));
 				    	}
+				    	else if(subject.equals("DYOA"))
+				    	{
+				    		String close1 = elem.stats.split("\\(rank\\):")[1].split("\n")[0];
+							String r1 = (close1.split("\\(")[0].trim());
+							datum.put("main", output + r1 + ": " + elem.info.name);
+							datum.put("sub", "$" + df.format(elem.values.worth) + ", " + elem.values.points + " projected points");
+				    	}
+				    	else if(subject.equals("DVOA"))
+				    	{
+				    		String close1 = elem.stats.split("\\(rank\\):")[2].split("\n")[0];
+							String r1 = close1.split("\\(")[0].trim();
+							datum.put("main", output + r1 + ": " + elem.info.name);
+							datum.put("sub", "$" + df.format(elem.values.worth) + ", " + elem.values.points + " projected points");
+				    	}
 				    	else if(subject.equals("Average target location"))
 				    	{
 				    		datum.put("main", output + df.format(elem.values.tADEZ) + ": " + elem.info.name);
 				    		datum.put("sub", elem.values.oTD + 
-				    				" expected receiving TDs, $" + df.format(elem.values.worth));
+				    				" expected receiving TDs, " + elem.values.cADEZ + " average catch location, " + 
+				    				"$" + df.format(elem.values.worth));
 				    	}
-				    	else if(subject.equals("Rec TD Difference"))
+				    	else if(subject.equals("Average catch location"))
+				    	{
+				    		datum.put("main", output + df.format(elem.values.cADEZ) + ": " + elem.info.name);
+				    		datum.put("sub", elem.values.coTD + 
+				    				" expected receiving TDs, " + elem.values.tADEZ + " average target location, " + 
+				    				"$" + df.format(elem.values.worth));
+				    	}
+				    	else if(subject.equals("Risk"))
+				    	{
+				    		datum.put("main", output + df.format(elem.risk)+ ": " + elem.info.name);
+				    		datum.put("sub", "$" + df.format(elem.values.worth));
+				    	}
+				    	else if(subject.equals("Target Rec TD Difference"))
 				    	{
 				    		datum.put("main", output + df.format(elem.values.tdDiff) + ": " + elem.info.name);
 				    		datum.put("sub", elem.values.oTD + " expected, had " + 
 				    				df.format(elem.values.oTD - elem.values.tdDiff));
+				    	}
+				    	else if(subject.equals("Catch Rec TD Difference"))
+				    	{
+				    		datum.put("main", output + df.format(elem.values.ctdDiff) + ": " + elem.info.name);
+				    		datum.put("sub", elem.values.coTD + " expected, had " + 
+				    				df.format(elem.values.coTD - elem.values.ctdDiff));
 				    	}
 				    	else if(subject.equals("Rush TD Difference"))
 				    	{
@@ -1231,9 +1387,9 @@ public class SortHandler
 				    		datum.put("main",output + elem.riskPos + ": " + elem.info.name);
 				    		datum.put("sub", "$" + df.format(elem.values.worth));
 						}
-						else if(subject.equals("Risk relative to everyone"))
+						else if(subject.equals("Risk"))
 						{
-							datum.put("main", output + elem.riskAll + ": " + elem.info.name);
+							datum.put("main", output + elem.risk + ": " + elem.info.name);
 				    		datum.put("sub", "$" + df.format(elem.values.worth));
 						}
 						else if(subject.equals("Positional SOS"))

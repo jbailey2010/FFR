@@ -306,7 +306,8 @@ public class ParsingAsyncTask
 		    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
 		    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + 
 		    	    		player.values.roTD + "&&" + player.values.rtdDiff
-		    	    		+ "&&" + player.values.rADEZ + "~~~~");
+		    	    		+ "&&" + player.values.rADEZ + 
+		    	    		"&&" + player.values.coTD + "&&" + player.values.ctdDiff + "&&" + player.values.cADEZ + "~~~~");
 
 		    	}
 		    	String playerString = players.toString();
