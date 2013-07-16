@@ -235,7 +235,7 @@ public class SortHandler
 							String oLine = player.info.oLineStatus;
 							int runRank = -1;
 							int passRank = -1;
-							if(!oLine.equals("") && oLine.contains("\n"))
+							if(oLine != null && !oLine.equals("") && oLine.contains("\n"))
 							{
 								runRank = Integer.parseInt(oLine.split(": ")[2].split("\n")[0]);
 								passRank = Integer.parseInt(oLine.split(": ")[3].split("\n")[0]);

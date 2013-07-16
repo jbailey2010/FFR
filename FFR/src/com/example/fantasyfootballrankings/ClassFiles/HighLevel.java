@@ -688,9 +688,9 @@ public class HighLevel
 		{
 			qbLimit = (6 * x) - 29.33333;
 		}
-		if(qbLimit > 34)
+		if(qbLimit > 32)
 		{
-			qbLimit = 34.0;
+			qbLimit = 32.0;
 		}
 		if(roster.tes == 1)
 		{
@@ -1019,9 +1019,5 @@ public class HighLevel
 		}
 	}
 	
-	public static void parsePFFStats(Storage holder) throws IOException
-	{
-		Document doc = Jsoup.parse("http://heartless-angel.com/Fantasy/FantasyFootball_AuctionValues_2013-07-06.xlsx");
-		System.out.println(doc.toString());
-	}
+
 }

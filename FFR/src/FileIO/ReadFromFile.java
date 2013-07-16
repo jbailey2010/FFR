@@ -309,7 +309,7 @@ public class ReadFromFile {
 		scoring.rushTD = prefs.getInt("Rush Touchdowns", 0);
 		scoring.recYards = prefs.getInt("Receiving Yards", 0);
 		scoring.recTD = prefs.getInt("Receiving Touchdowns", 0);
-		scoring.catches = prefs.getInt("Catchces", 0);
+		scoring.catches = prefs.getInt("Catches", 0);
 		scoring.interception = prefs.getInt("Interceptions", 0);
 		scoring.fumble = prefs.getInt("Fumbles", 0);
 		return scoring;
