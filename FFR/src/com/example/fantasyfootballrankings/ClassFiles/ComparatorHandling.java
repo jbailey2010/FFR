@@ -333,6 +333,35 @@ public class ComparatorHandling
 				}
 			}
 		}
+		if(player1.info.position.equals(player2.info.position) && (player1.info.position.equals("RB") || player1.info.position.equals("WR") ||
+				player1.info.position.equals("TE")))
+		{
+			double ctdDiff1 = player1.values.ctdDiff;
+			double ctdDiff2 = player2.values.ctdDiff;
+			if(ctdDiff1 < ctdDiff2)
+			{
+				if(ctdDiff2 - ctdDiff1 > 2.0)
+				{
+					p1.append("-Made many more receiving TD opportunities\n");
+				}
+				else
+				{
+					p1.append("-Made more receiving TD opportunities\n");
+				}
+			}
+			if(ctdDiff2 < ctdDiff1)
+			{
+				if(ctdDiff1 - ctdDiff2 > 2.0)
+				{
+					p2.append("-Made many more receiving TD opportunities\n");
+				}
+				else
+				{
+					p2.append("-Made more receiving TD opportunities\n");
+				}
+			}
+			
+		}
 		try{
 			int age1 = Integer.parseInt(player1.info.age);
 			int age2 = Integer.parseInt(player2.info.age);

@@ -388,7 +388,7 @@ public class PlayerInfo
 				result = "+" + result; 
 			}
 			datum.put("main", "Target-based oTD: " + searchedPlayer.values.oTD + " \n(" + result + " relative to last year's numbers)");
-			datum.put("sub", "Targeted an average of " + searchedPlayer.values.tADEZ + " yards from the endzone");
+			datum.put("sub", "Ranked " + rankoTD(searchedPlayer, holder) + " positionally\nTargeted an average of " + searchedPlayer.values.tADEZ + " yards from the endzone");
 			data.add(datum);
 		}
 		//Catch oTD stuff
@@ -401,7 +401,7 @@ public class PlayerInfo
 				result = "+" + result; 
 			}
 			datum.put("main", "Catch-based oTD: " + searchedPlayer.values.coTD + " \n(" + result + " relative to last year's numbers)");
-			datum.put("sub", "Catches were an average of " + searchedPlayer.values.cADEZ + " yards from the endzone");
+			datum.put("sub", "Ranked " + rankcoTD(searchedPlayer, holder) + " positionally\nCatches were an average of " + searchedPlayer.values.cADEZ + " yards from the endzone");
 			data.add(datum);
 		}
 		//Rush oTD stuff
@@ -414,7 +414,7 @@ public class PlayerInfo
 				result = "+" + result;
 			}
 			datum.put("main", "Rushing oTD: " + searchedPlayer.values.roTD + "\n(" + result + " relative to last year's numbers)");
-			datum.put("sub", "Carried an average of " + searchedPlayer.values.rADEZ + " yards from the endzone");
+			datum.put("sub", "Ranked " + rankroTD(searchedPlayer, holder) + " positionally\nCarried an average of " + searchedPlayer.values.rADEZ + " yards from the endzone");
 			data.add(datum);
 		}
 		//Risk
@@ -559,6 +559,45 @@ public class PlayerInfo
 			datum2.put("sub", "");
 			data.add(datum2);
 		}
+	}
+	
+	public static int rankroTD(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.values.roTD > player.values.roTD && iter.info.position.equals(player.info.position))
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	public static int rankoTD(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.values.oTD > player.values.oTD && iter.info.position.equals(player.info.position))
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	public static int rankcoTD(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.values.coTD > player.values.coTD && iter.info.position.equals(player.info.position))
+			{
+				rank++;
+			}
+		}
+		return rank;
 	}
 	
 	/**

@@ -27,7 +27,7 @@
         <Button
             android:id="@+id/search_close"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -39,7 +39,7 @@
         <Button
             android:id="@+id/add_watch"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="75dp"
+            android:layout_width="65dp"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/search_close"
