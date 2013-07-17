@@ -686,11 +686,11 @@ public class HighLevel
 		}
 		else
 		{
-			qbLimit = (2 * x) + 1;
+			qbLimit = (2 * x);
 		}
 		if(roster.tes == 1)
 		{
-			teLimit = (1.75 * x) - 3.33333;
+			teLimit = (1.75 * x) - 1;
 		}
 		else
 		{
