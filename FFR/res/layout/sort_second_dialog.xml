@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="36dp"
         android:text="Contract year" />
 
@@ -54,36 +54,6 @@
         android:layout_alignLeft="@+id/sort_second_contract_year"
         android:layout_below="@+id/sort_second_contract_year"
         android:text="Good run blocking" />
-
-    <CheckBox
-        android:textColor="#FFFFFF"
-        android:id="@+id/sort_second_healthy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/sort_second_run"
-        android:layout_alignLeft="@+id/sort_second_pass"
-        android:text="Only healthy" />
-
-    <CheckBox
-        android:textColor="#FFFFFF"
-        android:id="@+id/sort_second_watch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/sort_second_under_30"
-        android:layout_alignBottom="@+id/sort_second_under_30"
-        android:layout_alignLeft="@+id/sort_second_pass"
-        android:text="Watch list" />
-
-    <CheckBox
-        android:textColor="#FFFFFF"
-        android:id="@+id/sort_second_pass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/sort_second_run"
-        android:layout_alignBottom="@+id/sort_second_run"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:text="Good pass blocking" />
 
     <TextView
         android:id="@+id/textView2"
@@ -131,5 +101,34 @@
         android:layout_marginLeft="20dp"
         android:background="@drawable/btn_red"
         android:text="Back" />
+
+    <CheckBox
+        android:id="@+id/sort_second_healthy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sort_second_run"
+        android:layout_alignParentRight="true"
+        android:alignParentRight="true"
+        android:text="Only healthy"
+        android:textColor="#FFFFFF" />
+
+    <CheckBox
+        android:id="@+id/sort_second_watch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/sort_second_under_30"
+        android:layout_alignBottom="@+id/sort_second_under_30"
+        android:layout_alignLeft="@+id/sort_second_healthy"
+        android:text="Watch list"
+        android:textColor="#FFFFFF" />
+
+    <CheckBox
+        android:id="@+id/sort_second_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sort_second_healthy"
+        android:layout_alignTop="@+id/sort_second_run"
+        android:text="Good pass \nblocking"
+        android:textColor="#FFFFFF"/>
 
 </RelativeLayout>

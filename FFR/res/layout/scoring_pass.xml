@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="number"
         android:textColor="#000000"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/scoring_pass_td"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="15dp"
         android:text="How many passing yards per fantasy point?"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/scoring_pass_td"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:textColor="#000000"
         android:inputType="number"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/scoring_pass_yards"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="23dp"
         android:text="How many points are lost per interception?"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="19dp"
         android:ems="10"
         android:textColor="#000000"
         android:text="2"
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/scoring_pass_int"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="34dp"
          android:background="@drawable/btn_red"
         style="@style/ButtonText"
         android:text="Continue" />
@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="78dp"
+        android:layout_marginTop="65dp"
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:text="How many points per passing touchdown?"
@@ -94,7 +94,7 @@
         android:layout_alignParentTop="true"
         android:gravity="center"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="10dp"
         android:text="Please enter your league's scoring settings"
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />

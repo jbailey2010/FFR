@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="25dp"
         android:text="Position: 3 back, 5 back, 10 back"
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />

@@ -37,7 +37,7 @@
 
     <AutoCompleteTextView
         android:id="@+id/player2_input"
-        android:layout_width="170dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/second_player_compare"
         android:layout_alignParentRight="true"
@@ -55,13 +55,13 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/player1_input"
         android:layout_marginRight="35dp"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="32dp"
         android:text="Second Player: "
         android:visibility="invisible" />
  
     <AutoCompleteTextView
         android:id="@+id/player1_input" 
-        android:layout_width="170dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/clear_compare"
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/second_player_compare"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="74dp"
+        android:layout_marginTop="54dp"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

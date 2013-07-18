@@ -10,7 +10,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="45dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="25dp"
         android:text="Quarterbacks:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/k_header"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:text="Back" 
         android:background="@drawable/btn_red"
         style="@style/ButtonText"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/qb_header"
         android:layout_below="@+id/qb_header"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="24dp"
         android:text="Running Backs:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/rb_header"
         android:layout_below="@+id/rb_header"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="27dp"
         android:text="Wide Receivers: "
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/wr_header"
         android:layout_below="@+id/wr_header"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="24dp"
         android:text="Tight Ends: "
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/te_header"
         android:layout_below="@+id/te_header"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="27dp"
         android:text="D/ST: "
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/d_header"
         android:layout_below="@+id/d_header"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="22dp"
         android:text="Kickers: "
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

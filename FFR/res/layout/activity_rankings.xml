@@ -8,13 +8,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
         android:background="#000000"
-        android:weightSum="125"> 
+        android:weightSum="150"> 
 
         <Button
             android:id="@+id/draft_info"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-        	android:text="Draft Information"
+        	android:text="Draft Info"
         	android:textSize="13sp"
         	android:textColor="#FFFFFF"
         	android:layout_weight="25"
@@ -29,7 +29,7 @@
             android:id="@+id/search"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:text="Search Players" 
+            android:text="Search" 
             android:textColor="#FFFFFF"
             android:layout_weight="25"
             android:textSize="13sp"
@@ -44,9 +44,9 @@
             android:id="@+id/player_comparator"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:text="Compare Players"
+            android:text="Compare"
             android:textColor="#FFFFFF"
-            android:layout_weight="25" 
+            android:layout_weight="50" 
             android:textSize="13sp"
             android:background="@drawable/menu_btn_black"
             style="?android:attr/buttonBarButtonStyle"/>
@@ -59,12 +59,12 @@
             android:id="@+id/trade_calc"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:text="Trade Calculator" 
+            android:text="Trade Calc" 
             android:textColor="#FFFFFF"
             android:layout_weight="25"
             android:textSize="13sp"
             android:background="@drawable/menu_btn_black"
-            style="?android:attr/buttonBarButtonStyle"/>
+            />
         
         <View android:layout_height="fill_parent"
 		    android:layout_width="2dp"
@@ -76,10 +76,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="25"
-            android:textSize="13sp"
             android:background="@drawable/menu_btn_black"
-            android:text="Sort Players"
-            android:textColor="#FFFFFF" />
+            android:text="Sort"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
 
     </LinearLayout>
     <ListView

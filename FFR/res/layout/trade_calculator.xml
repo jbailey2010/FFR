@@ -5,7 +5,7 @@
 
     <AutoCompleteTextView
         android:id="@+id/your_loss_input"
-        android:layout_width="150dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/your_loss"
@@ -80,7 +80,7 @@
 
     <AutoCompleteTextView
         android:id="@+id/your_gain_input"
-        android:layout_width="150dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/your_loss_input"
         android:layout_alignBottom="@+id/your_loss_input"

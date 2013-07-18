@@ -33,29 +33,6 @@
         android:textColor="#FFFFFF" 
         android:textSize="24sp"/>
 
-    <TextView
-        android:id="@+id/compare_output_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxWidth="175dp"
-        android:layout_alignBaseline="@+id/compare_output_1"
-        android:layout_alignBottom="@+id/compare_output_1"
-        android:layout_alignLeft="@+id/compare_header_2"
-        android:text="Medium Text"
-        android:paddingBottom="35dp"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/compare_header_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/compare_back"
-        android:layout_marginLeft="38dp"
-        android:text="Large Text"
-        android:textStyle="bold"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <Button
         android:id="@+id/add_comparator_1"
         style="@style/ButtonText"
@@ -71,26 +48,15 @@
 
     <TextView
         android:id="@+id/compare_output_1"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/add_comparator_1"
         android:layout_below="@+id/compare_header_1"
         android:layout_marginTop="17dp"
-        android:maxWidth="175dp"
+        android:maxWidth="140dp"
         android:paddingBottom="35dp"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/compare_header_2" 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/compare_output_1"
-        android:layout_marginRight="15dp"
-        android:layout_toLeftOf="@+id/compare_close"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
 
     <Button
         android:id="@+id/add_comparator_2"
@@ -104,8 +70,37 @@
         android:background="@drawable/btn_red"
         android:text="Add to Watch List"
         android:textSize="15sp" />
-    
 
+    <TextView
+        android:id="@+id/compare_header_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/compare_output_1"
+        android:layout_alignLeft="@+id/compare_output_2"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/compare_output_2"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/add_comparator_1"
+        android:layout_alignParentRight="true"
+        android:maxWidth="140dp"
+        android:paddingBottom="35dp"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/compare_header_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/compare_output_1"
+        android:layout_below="@+id/compare_back"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
 </RelativeLayout>
     </ScrollView>

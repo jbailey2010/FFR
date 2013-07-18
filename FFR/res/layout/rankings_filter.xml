@@ -5,7 +5,7 @@
 
     <Spinner
         android:id="@+id/team_spinner"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -14,7 +14,7 @@
 
     <Spinner
         android:id="@+id/position_spinner"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/team_spinner"
         android:layout_centerHorizontal="true"

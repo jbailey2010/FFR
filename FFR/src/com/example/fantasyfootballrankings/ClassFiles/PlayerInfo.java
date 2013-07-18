@@ -348,6 +348,39 @@ public class PlayerInfo
 			datum.put("sub", sub);
 			data.add(datum);
 		} 
+		//Rank ecr
+		if(searchedPlayer.values.ecr != -1)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			if(rankECRPos(searchedPlayer, holder) != -1)
+			{
+				datum.put("main", "Average Expert Ranking: " + searchedPlayer.values.ecr);
+				datum.put("sub", "Ranked " + rankECRPos(searchedPlayer, holder) + " positionally");
+				data.add(datum);
+			}
+			else
+			{
+				datum.put("main", "Average Expert Rankings: " + searchedPlayer.values.ecr);
+				datum.put("sub", "");
+			}
+		}
+		//ADP Rankings
+		if(!searchedPlayer.info.adp.equals("Not set"))
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			if(rankADPPos(searchedPlayer, holder) != -1)
+			{
+				datum.put("main", "Average Draft Position: " + searchedPlayer.info.adp);
+				datum.put("sub", "Ranked " + rankADPPos(searchedPlayer, holder) + " positionally");
+				data.add(datum);
+			}
+			else
+			{
+				datum.put("main", "Average Draft Position: " + searchedPlayer.info.adp);
+				datum.put("sub", "");
+				data.add(datum);
+			}
+		}
 		//Positional SOS
 		if(searchedPlayer.info.sos > 0)
 		{
@@ -494,39 +527,6 @@ public class PlayerInfo
 	    		datum.put("sub", "");
 	    		data.add(datum);
 	    	}
-		}
-		//Rank ecr
-		if(searchedPlayer.values.ecr != -1)
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			if(rankECRPos(searchedPlayer, holder) != -1)
-			{
-				datum.put("main", "Average Expert Ranking: " + searchedPlayer.values.ecr);
-				datum.put("sub", "Ranked " + rankECRPos(searchedPlayer, holder) + " positionally");
-				data.add(datum);
-			}
-			else
-			{
-				datum.put("main", "Average Expert Rankings: " + searchedPlayer.values.ecr);
-				datum.put("sub", "");
-			}
-		}
-		//ADP Rankings
-		if(!searchedPlayer.info.adp.equals("Not set"))
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			if(rankADPPos(searchedPlayer, holder) != -1)
-			{
-				datum.put("main", "Average Draft Position: " + searchedPlayer.info.adp);
-				datum.put("sub", "Ranked " + rankADPPos(searchedPlayer, holder) + " positionally");
-				data.add(datum);
-			}
-			else
-			{
-				datum.put("main", "Average Draft Position: " + searchedPlayer.info.adp);
-				datum.put("sub", "");
-				data.add(datum);
-			}
 		}
 		if(!searchedPlayer.info.trend.equals("0.0"))
 		{

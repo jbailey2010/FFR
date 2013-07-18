@@ -39,7 +39,7 @@
         <Button
             android:id="@+id/add_watch"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="65dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/search_close"
@@ -57,13 +57,14 @@
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
+            android:maxWidth="100dp"
             android:layout_height="fill_parent"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="Name Here"
             android:textStyle="bold"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#FFFFFF" />
 
     </RelativeLayout>

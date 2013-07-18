@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="14dp"
         android:text="How many points per receiving touchdown?"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/scoring_rec_td"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="29dp"
         android:text="How many receiving yards per fantasy point?"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/scoring_rec_td"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="29dp"
         android:ems="10"
         android:textColor="#000000"
         android:inputType="number"
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/scoring_rec_yards"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="30dp"
         android:text="How many points per catch?"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -69,7 +69,7 @@
         android:layout_below="@+id/textView3"
         android:background="@drawable/spinner_well"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="29dp"
         android:ems="10"
         android:textColor="#000000"
         android:text="1"
@@ -83,7 +83,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight = "20dp"
         android:layout_below="@+id/scoring_rec_catch"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="44dp"
         android:background="@drawable/btn_red"
         android:text="Submit" />
 
