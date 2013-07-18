@@ -108,7 +108,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/sort_second_run"
         android:layout_alignParentRight="true"
-        android:alignParentRight="true"
         android:text="Only healthy"
         android:textColor="#FFFFFF" />
 

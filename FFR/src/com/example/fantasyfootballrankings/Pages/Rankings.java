@@ -415,7 +415,7 @@ public class Rankings extends Activity {
 		ReadFromFile.fetchNamesBackEnd(holder, cont);
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	String checkExists = prefs.getString("Player Values", "Not Set");
-    	if(checkExists != "Not Set")
+    	if(!checkExists.equals("Not Set"))
     	{
 			try {
 				ReadFromFile.fetchPlayers(holder,cont, true);
@@ -429,6 +429,18 @@ public class Rankings extends Activity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	else
+    	{
+    		try {
+				ParseRankings.runRankings(holder, cont);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (XPatherException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

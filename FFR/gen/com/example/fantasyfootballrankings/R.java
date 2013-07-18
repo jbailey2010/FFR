@@ -45,8 +45,8 @@ public final class R {
         public static final int unchecked=0x7f020015;
     }
     public static final class id {
-        public static final int add_comparator_1=0x7f080016;
-        public static final int add_comparator_2=0x7f080017;
+        public static final int add_comparator_1=0x7f080012;
+        public static final int add_comparator_2=0x7f080015;
         public static final int add_view=0x7f080067;
         public static final int add_watch=0x7f080066;
         public static final int amount_paid=0x7f080021;
@@ -61,10 +61,10 @@ public final class R {
         public static final int clear_trade=0x7f080081;
         public static final int compare_back=0x7f080011;
         public static final int compare_close=0x7f080010;
-        public static final int compare_header_1=0x7f080015;
-        public static final int compare_header_2=0x7f080014;
+        public static final int compare_header_1=0x7f080014;
+        public static final int compare_header_2=0x7f080016;
         public static final int compare_output_1=0x7f080013;
-        public static final int compare_output_2=0x7f080012;
+        public static final int compare_output_2=0x7f080017;
         public static final int confirm_list_refresh=0x7f080049;
         public static final int d_header=0x7f08002b;
         public static final int dont_want=0x7f080085;
@@ -96,7 +96,7 @@ public final class R {
         public static final int listview_trending=0x7f08000f;
         public static final int maxVal=0x7f08006c;
         public static final int minVal=0x7f08006d;
-        public static final int min_rankings=0x7f080079;
+        public static final int min_rankings=0x7f080077;
         public static final int more_info=0x7f080099;
         public static final int must_haves=0x7f080084;
         public static final int name=0x7f08003f;
@@ -158,15 +158,15 @@ public final class R {
         public static final int sort_cancel=0x7f08006e;
         public static final int sort_players=0x7f080009;
         public static final int sort_pos_spinner=0x7f080071;
-        public static final int sort_second_back=0x7f08007b;
+        public static final int sort_second_back=0x7f080079;
         public static final int sort_second_close=0x7f080072;
         public static final int sort_second_contract_year=0x7f080073;
-        public static final int sort_second_healthy=0x7f080076;
-        public static final int sort_second_pass=0x7f080077;
+        public static final int sort_second_healthy=0x7f08007a;
+        public static final int sort_second_pass=0x7f08007b;
         public static final int sort_second_run=0x7f080075;
-        public static final int sort_second_submit=0x7f08007a;
+        public static final int sort_second_submit=0x7f080078;
         public static final int sort_second_under_30=0x7f080074;
-        public static final int sort_second_watch=0x7f080078;
+        public static final int sort_second_watch=0x7f080076;
         public static final int sort_stat_spinner=0x7f080070;
         public static final int sort_submit=0x7f08006f;
         public static final int speakButton=0x7f080069;

@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
         android:background="#000000"
-        android:weightSum="150"> 
+        android:weightSum="130"> 
 
         <Button
             android:id="@+id/draft_info"
@@ -44,9 +44,9 @@
             android:id="@+id/player_comparator"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:text="Compare"
+            android:text="Compare Players"
             android:textColor="#FFFFFF"
-            android:layout_weight="50" 
+            android:layout_weight="25" 
             android:textSize="13sp"
             android:background="@drawable/menu_btn_black"
             style="?android:attr/buttonBarButtonStyle"/>

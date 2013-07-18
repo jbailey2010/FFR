@@ -44,6 +44,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
  
 /**
  * The home class, sets up the three main buttons to go to 
@@ -110,16 +111,37 @@ public class Home extends Activity{
 		switch (item.getItemId()) 
 		{
 			case R.id.export_names:
-				callExport();
+				if(holder.players.size() > 0)
+				{
+					callExport();
+				}
+				else
+				{
+					Toast.makeText(cont, "Can't export rankings until they are fetched", Toast.LENGTH_SHORT).show(); 
+				}
 				return true;
 			case R.id.refresh_names:
 				nameRefresh(dialog);
 		    	return true;			
 			case R.id.start_scoring:
-				ManageInput.passSettings(cont, new Scoring(), true, holder);
+				if(holder.players.size() > 0)
+				{
+					ManageInput.passSettings(cont, new Scoring(), true, holder);
+				}
+				else
+				{
+					Toast.makeText(cont, "Can't update scoring until the rankings are fetched", Toast.LENGTH_SHORT).show();
+				}
 		    	return true;	
 			case R.id.start_roster:
-				ManageInput.getRoster(cont, true, holder);
+				if(holder.players.size() > 0)
+				{
+					ManageInput.getRoster(cont, true, holder);
+				}
+				else
+				{
+					Toast.makeText(cont, "Can't update roster settings until the rankings are fetched", Toast.LENGTH_SHORT).show();
+				}
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
