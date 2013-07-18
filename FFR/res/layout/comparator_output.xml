@@ -82,17 +82,6 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/compare_output_2"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/add_comparator_1"
-        android:layout_alignParentRight="true"
-        android:maxWidth="140dp"
-        android:paddingBottom="35dp"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
         android:id="@+id/compare_header_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -101,6 +90,18 @@
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/compare_output_2"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/compare_output_1"
+        android:layout_alignBottom="@+id/compare_output_1"
+        android:layout_alignParentRight="true"
+        android:maxWidth="140dp"
+        android:paddingBottom="35dp"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
     </ScrollView>
