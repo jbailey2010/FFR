@@ -25,6 +25,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCSC;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFA;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseRTS;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
@@ -85,7 +86,7 @@ public class Home extends Activity{
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
-        	HighLevel.parseRedZoneStats(new Storage());
+        	ParseRTS.parseRTSWrapper(new Storage());
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
