@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
         android:background="#000000"
-        android:weightSum="130"> 
+        android:weightSum="125"> 
 
         <Button
             android:id="@+id/draft_info"

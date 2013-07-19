@@ -99,8 +99,50 @@ public class ParsePlayerNames {
 		names.add("Charlie Batch");
 		names.add("Curtis Brinkley");
 		names.add("Byron Leftwich");
-		
-		if(names.size() > 40)
+		names.add("Tyler Thigpen");
+		names.add("Matt Leinart");
+		names.add("Trent Edwards");
+		names.add("Max Hall");
+		names.add("Javon Ringer");
+		names.add("Taiwan Jones");
+		names.add("Jamie Harper");
+		names.add("Chris Rainey");
+		names.add("Mewelde Moore");
+		names.add("Danny Ware");
+		names.add("Ryan Grant");
+		names.add("Kahlil Bell");
+		names.add("Jackie Battle");
+		names.add("Early Doucet");
+		names.add("Braylon Edwards");
+		names.add("Josh Cribbs");
+		names.add("Jason Hill");
+		names.add("Michael Spurlock");
+		names.add("Sammie Stroughter");
+		names.add("Chaz Schilens");
+		names.add("Laurent Robinson");
+		names.add("Randy Moss");
+		names.add("Ruvell Martin");
+		names.add("Brandon Stokley");
+		names.add("Legedu Naanee");
+		names.add("Seyi Ajirotutu");
+		names.add("Kevin Boss");
+		names.add("Travis Beckum");
+		names.add("Cameron Morrah");
+		names.add("Chris Cooley");
+		names.add("Leonard Pope");
+		names.add("Todd Heap");
+		names.add("Randy McMichael");
+		names.add("Evan Moore");
+		names.add("Will Heller");
+		names.add("Justin Medlock");
+		names.add("Kevin Smith");
+		names.add("Steve Breaston");
+		names.add("Deion Branch");
+		names.add("Jabar Gaffney");
+		names.add("Roscoe Parrish");
+		names.add("Greg Camarillo");
+		names.add("Brian Robiskie");
+		if(names.size() > 200)
 		{
 			WriteToFile.storePlayerNames(names, cont);
 		}

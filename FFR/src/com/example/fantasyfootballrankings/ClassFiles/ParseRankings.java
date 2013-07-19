@@ -119,6 +119,10 @@ public class ParseRankings
 		fixes.put("AJ Green", "A.J. Green");
 		fixes.put("Delaine Walker", "Delanie Walker");
 		fixes.put("Steven Gostkowski", "Stephen Gostkowski");
+		fixes.put("Cecil Shorts III", "Cecil Shorts");
+		fixes.put("T Y Hilton", "T.Y. Hilton");
+		fixes.put("Joshua Cribbs", "Josh Cribbs");
+		fixes.put("Devier Posey", "DeVier Posey");
 		
 		
 		teams.put("cin", "Cincinnati Bengals");
