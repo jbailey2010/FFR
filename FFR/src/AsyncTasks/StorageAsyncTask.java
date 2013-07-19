@@ -306,52 +306,6 @@ public class StorageAsyncTask
 	    }
 	  }
 	
-	/**
-	 * Reads the list in a back end way 
-	 * from storage
-	 * @author Jeff
-	 *
-	 */
-	public class ReadList extends AsyncTask<Object, Void, List<String>> 
-	{
-		Activity act;
-		boolean flag;
-	    public ReadList(Activity activity, boolean flagCheck) 
-	    {
-	    	act = activity;
-	    	flag = flagCheck;
-	    }
-	    
-		@Override
-		protected void onPreExecute(){ 
-		   super.onPreExecute();
-  
-		}
-	
-		@Override
-		protected void onPostExecute(List<String> result){
-			if(flag)
-			{
-				Rankings.listSetUp(result, act);
-			}
-		}
-		
-	    protected List<String> doInBackground(Object... data) 
-	    {
-	    	Storage holder = (Storage) data[0];
-	    	Context cont = (Context) data[1];
-	    	SharedPreferences prefs = (SharedPreferences)data[2];
-	    	String ranks = prefs.getString("Rankings List", "Not Set");
-    		String[] posts = ranks.split("##");
-    		List<String> postsList = new ArrayList<String>();
-    		for(String post : posts)
-    		{
-    			postsList.add(post);
-    		}
-    		return postsList;
-	    }
-	  }
-	
 
 	
 	/**

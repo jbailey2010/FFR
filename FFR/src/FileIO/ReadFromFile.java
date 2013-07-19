@@ -12,7 +12,6 @@ import org.htmlcleaner.XPatherException;
 
 import AsyncTasks.StorageAsyncTask;
 import AsyncTasks.StorageAsyncTask.ReadDraft;
-import AsyncTasks.StorageAsyncTask.ReadList;
 import AsyncTasks.StorageAsyncTask.ReadNames;
 import AsyncTasks.StorageAsyncTask.ReadNamesList;
 import AsyncTasks.StorageAsyncTask.ReadPosts;
@@ -91,11 +90,6 @@ public class ReadFromFile {
 	{
 	
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-    	if(!prefs.getString("Rankings List", "Not Set").equals("Not Set"))
-    	{
-    		ReadList listRanks = readFromFileAsyncObj.new ReadList((Activity)cont, flag);
-    		listRanks.execute(holder, cont, prefs);
-    	}
     	long start = System.nanoTime();
 	    ReadRanks rankings = readFromFileAsyncObj.new ReadRanks((Activity)cont);
 		String[][] data=rankings.execute(holder, cont).get();

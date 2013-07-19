@@ -123,7 +123,14 @@ public class Trending extends Activity {
 		switch (item.getItemId()) 
 		{
 			case R.id.filter_quantity_menu:
-				filterQuantity();
+				if(holder.players.size() < 10)
+				{
+					Toast.makeText(cont, "Can't limit quantity until the rankings are loaded", Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					filterQuantity();
+				}
 				return true;
 			case R.id.filter_topics_menu:
 				topicalTrending(holder);
@@ -537,9 +544,13 @@ public class Trending extends Activity {
 						index = i;
 					}
 				}
-				if(index == -1)
+				if(index == -1 && holder.players.size() > 10)
 				{
 					Toast.makeText(context, "Information not found, player not parsed. Possibly a defensive player?", Toast.LENGTH_SHORT).show();
+				}
+				else if(index == -1)
+				{
+					Toast.makeText(context, "Can't fetch player information until rankings are fetched", Toast.LENGTH_SHORT).show();
 				}
 				else
 				{

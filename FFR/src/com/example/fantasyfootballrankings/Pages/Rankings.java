@@ -164,10 +164,24 @@ public class Rankings extends Activity {
 				refreshRanks(dialog);
 		    	return true;
 			case R.id.filter_topics_rankings:
-				filterTopics(dialog);
+				if(holder.players.size() > 10)
+				{
+					filterTopics(dialog);
+				}
+				else
+				{
+					Toast.makeText(context, "Can't filter the rankings until they're fetched", Toast.LENGTH_SHORT).show();
+				}
 				return true;
 			case R.id.filter_quantity_menu:
-				filterQuantity();
+				if(holder.players.size() > 10)
+				{
+					filterQuantity();
+				}
+				else
+				{
+					Toast.makeText(context, "Can't filter the quantity of rankings until they're fetched", Toast.LENGTH_SHORT).show();
+				}
 				return true;
 			//New page opens up entirely for going home
 			case R.id.go_home:
@@ -418,6 +432,9 @@ public class Rankings extends Activity {
     	if(!checkExists.equals("Not Set"))
     	{
 			try {
+				/**
+				 * HERE
+				 */
 				ReadFromFile.fetchPlayers(holder,cont, true);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -843,49 +860,6 @@ public class Rankings extends Activity {
 			totalList.add(inter.poll());
 		}
 		rankingsFetched(totalList, cont);
-	}
-	 
-	/**
-	 * A function that takes only a list of rankings and sets it to the 
-	 * adapter, to be called only by the thing reading rankings from file
-	 * @param rankings
-	 * @param cont
-	 */
-	public static void listSetUp(List<String> rankings, Activity cont)
-	{
-		data = new ArrayList<Map<String, String>>();
-		data.clear();
-		for(String iter : rankings)
-		{
-			String name = iter.split(":   ")[1];
-			PlayerObject p = null;
-			for(PlayerObject player : holder.players)
-			{
-				if(player.info.name.equals(name))
-				{
-					p = player;
-					break;
-				}
-			}
-			if(!holder.draft.ignore.contains(name))
-			{
-				DecimalFormat df = new DecimalFormat("#.##");
-		        Map<String, String> datum = new HashMap<String, String>(2);
-		        datum.put("main", iter.split(":   ")[0] + ":  " + p.info.name );
-		        datum.put("sub", p.info.position + " - " + p.info.team + "\n" + "Bye: " + p.info.bye);
-		        data.add(datum);
-			}
-		}
-	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
-	    listview.setAdapter(null);
-	    handleRankingsClick(holder, cont, listview);
-	    adapter = new SimpleAdapter(cont, data, 
-	    		android.R.layout.simple_list_item_2, 
-	    		new String[] {"main", "sub"}, 
-	    		new int[] {android.R.id.text1, 
-	    			android.R.id.text2});
-	    listview.setAdapter(adapter);
-	    //adapter = ManageInput.handleArray(rankings, listview, cont);
 	}
 	
 	/**
