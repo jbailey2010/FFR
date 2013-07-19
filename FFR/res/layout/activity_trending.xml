@@ -63,7 +63,7 @@
 
 
     </LinearLayout>
-    <ListView
+    <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
         android:id="@+id/listview_trending"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -71,5 +71,5 @@
         android:background="#D6D6D6"
         android:dividerHeight="1dp"
         android:layout_width="fill_parent">
-    </ListView>
+    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 </LinearLayout>

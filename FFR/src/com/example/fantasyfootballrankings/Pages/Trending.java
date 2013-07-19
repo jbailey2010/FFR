@@ -27,6 +27,7 @@ import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 
 import FileIO.ReadFromFile;
@@ -71,7 +72,7 @@ public class Trending extends Activity {
 	Button month;
 	Button all;
 	static Storage holder = new Storage();
-	static ListView listview;
+	static BounceListView listview;
 	long start;
 	static boolean refreshed = false;
 	int lastFilter;
@@ -84,7 +85,7 @@ public class Trending extends Activity {
 		setContentView(R.layout.activity_trending);
 		//Fetch the date of the posts, and convert it to a date
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-    	listview = (ListView)findViewById(R.id.listview_trending);
+    	listview = (BounceListView)findViewById(R.id.listview_trending);
 		initialLoad(prefs);
 		context = this;
 		try {
@@ -475,7 +476,7 @@ public class Trending extends Activity {
 			count += e.count;
 		}
 		System.out.println(playersTrending.size() + " " + count);
-	    listview = (ListView) cont.findViewById(R.id.listview_trending);
+	    listview = (BounceListView) cont.findViewById(R.id.listview_trending);
 	    listview.setAdapter(null);
 	    final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 	    setListViewOnClick();

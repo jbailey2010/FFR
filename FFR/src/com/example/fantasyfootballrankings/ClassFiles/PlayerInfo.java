@@ -38,6 +38,7 @@ import com.example.fantasyfootballrankings.R.style;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener.OnDismissCallback;
 import com.example.fantasyfootballrankings.Pages.Rankings;
@@ -219,7 +220,7 @@ public class PlayerInfo
 		setSearchContent(searchedPlayer, data, holder);
 		//Show the dialog, then set the list
 		dialog.show();
-		ListView results = (ListView)dialog.findViewById(R.id.listview_search);
+		BounceListView results = (BounceListView)dialog.findViewById(R.id.listview_search);
 		results.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -872,7 +873,7 @@ public class PlayerInfo
 	    dialog.show();
 	    TextView header = (TextView)dialog.findViewById(R.id.name);
 	    header.setText("Twitter Search: " + name);
-	    ListView tweetResults = (ListView)dialog.findViewById(R.id.listview_search);
+	    BounceListView tweetResults = (BounceListView)dialog.findViewById(R.id.listview_search);
 	    Button close = (Button)dialog.findViewById(R.id.search_close);
 	    close.setOnClickListener(new OnClickListener(){
 			@Override

@@ -11,6 +11,7 @@ import java.util.PriorityQueue;
 import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 
@@ -1089,7 +1090,7 @@ public class SortHandler
 	    watch.setText("Hide Drafted");
 	    TextView header = (TextView)dialog.findViewById(R.id.name);
 	    header.setText(subject);
-	    final ListView results = (ListView)dialog.findViewById(R.id.listview_search);
+	    final BounceListView results = (BounceListView)dialog.findViewById(R.id.listview_search);
 	    header.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -1467,7 +1468,7 @@ public class SortHandler
 	 * Swipte to hide and click for more info
 	 * @param results
 	 */
-	public static void handleOnClicks(final ListView results)
+	public static void handleOnClicks(final BounceListView results)
 	{
 		results.setOnItemClickListener(new OnItemClickListener(){
 			@Override

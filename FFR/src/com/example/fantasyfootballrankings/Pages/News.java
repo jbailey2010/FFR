@@ -14,6 +14,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 
 import FileIO.ReadFromFile;
@@ -335,7 +336,7 @@ public class News extends Activity {
 	 */
 	public static void handleNewsListView(List<NewsObjects> result, final Activity cont) 
 	{
-		final ListView listview = (ListView)cont.findViewById(R.id.listview_news);
+		final BounceListView listview = (BounceListView)cont.findViewById(R.id.listview_news);
 		View v = cont.findViewById(android.R.id.home);
 		v.setOnClickListener(new OnClickListener(){
 			@Override
@@ -370,16 +371,20 @@ public class News extends Activity {
                 new SwipeDismissListViewTouchListener(
                         listview,
                         new SwipeDismissListViewTouchListener.OnDismissCallback() {
-                            @Override
-                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-                                for (int position : reverseSortedPositions) {
+
+							@Override
+							public void onDismiss(ListView listView,
+									int[] reverseSortedPositions) {
+								for (int position : reverseSortedPositions) {
                                 	data.remove(position);
                                     //adapter.remove(adapter.getItem(position));
                                 }
                                 adapter.notifyDataSetChanged();
                                 Toast.makeText(cont, "Temporarily hiding this news piece", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+								
+							}
+						});
+                        
         listview.setOnTouchListener(touchListener);
         listview.setOnScrollListener(touchListener.makeScrollListener());
 
