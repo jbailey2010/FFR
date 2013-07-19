@@ -108,7 +108,7 @@ public class SortHandler
 	    topics.add("ECR");
 	    topics.add("ADP");
 	    topics.add("Positional SOS");
-	    topics.add("Weekly Trend");
+	    topics.add("Weekly Trend (ESPN)");
 	    topics.add("Highest Value");
 	    topics.add("Lowest Value");
 	    //Add the positional options
@@ -143,10 +143,11 @@ public class SortHandler
 								(subject.equals("PAA per dollar")) || subject.equals("Target Rec TD Difference"))
 								&& (position.equals("K") || position.equals("D/ST")) || 
 								((subject.equals("Target Rec oTD") || subject.equals("Rush oTD") || subject.equals("Rush TD Difference") || 
-										subject.equals("Average target location") || subject.equals("Average carry location"))
+										subject.equals("Average target location") || subject.equals("Average carry location") || subject.equals("Average catch location") || 
+										subject.equals("Catch Rec TD Difference") || subject.equals("Catch Rec oTD") || subject.equals("DYOA") || subject.equals("DVOA"))
 										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))))
 						{
-							Toast.makeText(context, "Projections not available for that position", Toast.LENGTH_SHORT).show();
+							Toast.makeText(context, "That subject is not available for that position", Toast.LENGTH_SHORT).show();
 						}
 						else
 						{
@@ -380,7 +381,7 @@ public class SortHandler
 		{
 			radez();
 		}
-		else if(subject.equals("Weekly Trend"))
+		else if(subject.equals("Weekly Trend (ESPN)"))
 		{
 			weeklyTrend();
 		}
@@ -906,7 +907,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.riskAll != -1.0)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.riskAll != -1)
 			{
 				sorted.add(player);
 			}
@@ -977,7 +978,7 @@ public class SortHandler
 	}
 	
 	/**
-	 * Sets up the priority queue based on the weekly trend in values
+	 * Sets up the priority queue based on the Weekly Trend (ESPN) in values
 	 */
 	public static void weeklyTrend()
 	{
@@ -1251,7 +1252,7 @@ public class SortHandler
 				datum.put("main", output + elem.info.adp + ": " + elem.info.name);
 	    		datum.put("sub", "$" + df.format(elem.values.worth));
 			}
-			else if(subject.equals("Weekly Trend"))
+			else if(subject.equals("Weekly Trend (ESPN)"))
 			{
 				datum.put("main", output + elem.info.trend + ": " + elem.info.name);
 	    		datum.put("sub", "$" + df.format(elem.values.worth));
@@ -1416,7 +1417,7 @@ public class SortHandler
 							datum.put("main", output + elem.info.adp + ": " + elem.info.name);
 				    		datum.put("sub", "$" + df.format(elem.values.worth));
 						}
-						else if(subject.equals("Weekly Trend"))
+						else if(subject.equals("Weekly Trend (ESPN)"))
 						{
 							datum.put("main", output + elem.info.trend + ": " + elem.info.name);
 				    		datum.put("sub", "$" + df.format(elem.values.worth));
