@@ -14,6 +14,11 @@
         android:orderInCategory="100"
 		android:showAsAction="ifRoom|withText" 
         android:title="Search Twitter"/>
+  <item
+        android:id="@+id/help"
+        android:orderInCategory="100"
+        android:showAsAction="never" 
+        android:title="News Help"/> 
     <item
         android:id="@+id/go_home"
         android:orderInCategory="100"

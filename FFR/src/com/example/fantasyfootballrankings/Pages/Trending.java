@@ -140,6 +140,9 @@ public class Trending extends Activity {
 		        Intent intent_news = new Intent(cont, News.class);
 		        cont.startActivity(intent_news);		
  		        return true;
+			case R.id.help:
+				helpDialog();
+				return true;
 			case R.id.go_home:
 				Intent home_intent = new Intent(cont, Home.class);
 				cont.startActivity(home_intent);		
@@ -151,6 +154,28 @@ public class Trending extends Activity {
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	
+	/**
+	 * Handles the help dialog
+	 */
+	public void helpDialog() {
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.help_trending);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+	    dialog.show();
+	    Button close = (Button)dialog.findViewById(R.id.help_trending_close);
+	    close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+	    });
 	}
 	
 	/**

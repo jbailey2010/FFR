@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <Button
+        android:id="@+id/help_trending_close"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="X" 
+        android:textSize="28sp"
+        android:textColor="#CD0000"/>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/help_trending_close"
+        android:text="There are four options through which you can get the trending players. By selecting filter topics, you can select any combination of them. Once that is done parsing, select a filter. Upon doing so, it will run through the posts and get how often each player was mentioned. Different filters can be re-run as you please."
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="18dp"
+        android:text="If you want to limit how many players are shown, click Quantity Shown, and adjust as you please."
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="15dp"
+        android:text="If you see someone in the output list that you aren't interested in, slide to the side, and he will disappear. Note that this is temporary, and once you leave and come back that person will be back."
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="14dp"
+        android:text="If you've already fetched your rankings, you can click on a player in the output and get detailed information about him. If you haven't, or it's someone who isn't in the rankings, nothing will appear and you will be notified as such."
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

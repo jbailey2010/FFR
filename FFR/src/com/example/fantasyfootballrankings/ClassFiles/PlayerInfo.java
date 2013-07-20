@@ -399,7 +399,7 @@ public class PlayerInfo
 			data.add(datum);
 		}
 		//PAA and PAAPD
-		if(searchedPlayer.values.paa != 0.0 && searchedPlayer.values.points != 0.0)
+		if(searchedPlayer.values.paa != 0.0 && searchedPlayer.values.points != 0.0 && searchedPlayer.values.worth >= 1.0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", df.format(searchedPlayer.values.paa) + " PAA");

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+   		android:layout_height="fill_parent" >
+     <Button
+        android:id="@+id/help_rankings_close"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="X" 
+        android:textSize="28sp"
+        android:textColor="#CD0000"/>
+
+     <TextView
+         android:id="@+id/textView2"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/textView1"
+         android:layout_marginTop="16dp"
+         android:text="Another way to draft a player is to swipe them to the side in the rankings list, and another way to add them to the watch list is to click and hold on their name."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+     <TextView
+         android:id="@+id/textView3"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/textView2"
+         android:layout_marginTop="16dp"
+         android:text="Draft info will give you detailed information about your draft thus far, including statistics, a list of your players drafted by position thus far, the PAA x players remaining at each position, and the ability to undraft someone."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+     
+     <TextView
+         android:id="@+id/textView4"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/textView3"
+         android:layout_marginTop="16dp"
+         android:text="Search will get you to the same output as clicking on a player's name, through typing in their name or saying it."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+     
+     <TextView
+         android:id="@+id/textView5"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/textView4"
+         android:layout_marginTop="16dp"
+         android:text="Compare players takes two players and outputs an analysis of their stats, and trade calculator a set of inputs, evaluating upon each input. Both accept input by selecting the element from the dropdown."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+     
+     <TextView
+         android:id="@+id/textView6"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/textView5"
+         android:layout_marginTop="16dp"
+         android:text="Sort allows you to take all of the data and display a subset of it, sorted by a different aspect, cutting out whatever part of the list you deem irrelevant. Swipe a player to the side to hide them, and click to get the same information output."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+     
+     <TextView
+         android:id="@+id/textView7"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/textView6"
+         android:layout_marginTop="16dp"
+         android:text="Watch list is the stored set of players you've added through either pressing the watch list button or clicking and holding someone's name. Remove someone by swiping to the side, get more information by clicking on their name."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+     
+     <TextView
+         android:id="@+id/textView8"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/textView7"
+         android:layout_marginTop="16dp"
+         android:text="Through filters, you can only show a combination of a team/all teams and a position/any position."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+     
+     <TextView
+         android:id="@+id/textView9"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/textView8"
+         android:layout_marginTop="16dp"
+         android:text="Through quantity shown, you can limit the normally huge amount of players shown."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+     <TextView
+         android:id="@+id/textView1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/help_rankings_close"
+         android:text="There&apos;s a lot of functionality in the rankings page. The rankings list holds most of the data. When you click on a name, it&apos;ll pop up with details about that player. You can draft this player by holding down on his name. To add him to your watch list, click on the watch list button. To see tweets about a player or highlights, click on the elements of the output at the bottom."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+     <TextView
+         android:id="@+id/textView10"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/textView9"
+         android:layout_marginTop="16dp"
+         android:layout_alignParentLeft="true"
+         android:text="Through refresh or reset, you can clear your draft thus far (which also can be done through undraft), or re-fetch the rankings."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>
+</ScrollView>

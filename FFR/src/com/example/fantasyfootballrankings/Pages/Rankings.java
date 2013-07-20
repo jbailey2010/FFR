@@ -183,6 +183,9 @@ public class Rankings extends Activity {
 					Toast.makeText(context, "Can't filter the quantity of rankings until they're fetched", Toast.LENGTH_SHORT).show();
 				}
 				return true;
+			case R.id.help:
+				helpDialog();
+				return true;
 			//New page opens up entirely for going home
 			case R.id.go_home:
 				Intent home_intent = new Intent(cont, Home.class);
@@ -201,6 +204,27 @@ public class Rankings extends Activity {
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	/**
+	 * Handles the help dialog
+	 */
+	public void helpDialog() {
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.help_rankings);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+	    dialog.show();
+	    Button close = (Button)dialog.findViewById(R.id.help_rankings_close);
+	    close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+	    });
 	}
     
 	/**

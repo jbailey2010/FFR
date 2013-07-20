@@ -1133,6 +1133,10 @@ public class SortHandler
 	    	{
 	    		output = "DRAFTED - ";
 	    	}
+	    	if(isHidden && !output.equals(""))
+	    	{
+	    		continue;
+	    	}
 	    	if(subject.equals("Projections"))
 			{
 				datum.put("main", output + elem.values.points + ": " + elem.info.name);
@@ -1280,185 +1284,17 @@ public class SortHandler
 	    watch.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
+				isHidden = !isHidden;
+				dialog.dismiss();
 				if(isHidden)
 				{
-					isHidden = false;
-					DecimalFormat df = new DecimalFormat("#.##");
-					Toast.makeText(context, "Un-hiding the drafted players", Toast.LENGTH_SHORT).show();
-					for(PlayerObject elem : ignore.keySet())
-					{
-						int marker = ignore.get(elem);
-						Map<String, String> datum = new HashMap<String, String>(2);
-				    	String output = "";
-				    	if(Draft.draftedMe(elem.info.name, holder.draft))
-				    	{
-				    		output = "DRAFTED (YOU) - ";
-				    	}
-				    	else if(Draft.isDrafted(elem.info.name, holder.draft))
-				    	{
-				    		output = "DRAFTED - ";
-				    	}
-				    	if(subject.equals("Projections"))
-						{
-							datum.put("main", output + elem.values.points + ": " + elem.info.name);
-							datum.put("sub", "$" + df.format(elem.values.worth));
-						}
-				    	else if(subject.equals("PAA"))
-				    	{
-				    		datum.put("main", output + df.format(elem.values.paa)+ ": " + elem.info.name);
-				    		datum.put("sub", "$" + df.format(elem.values.worth));
-				    	}
-				    	else if(subject.equals("PAA per dollar"))
-				    	{ 
-				    		datum.put("main", output + df.format(elem.values.paapd)+ ": " + elem.info.name);
-				    		datum.put("sub", "$" + df.format(elem.values.worth));
-				    	}
-				    	else if(subject.equals("Target Rec oTD"))
-				    	{
-				    		datum.put("main", output + df.format(elem.values.oTD) + ": " + elem.info.name);
-				    		datum.put("sub", elem.values.tdDiff + " difference");
-				    	}
-				    	else if(subject.equals("Catch Rec oTD"))
-				    	{
-				    		datum.put("main", output + df.format(elem.values.coTD) + ": " + elem.info.name);
-				    		datum.put("sub", elem.values.ctdDiff + " difference");
-				    	}
-				    	else if(subject.equals("Rush oTD"))
-				    	{
-				    		datum.put("main", output + df.format(elem.values.roTD) + ": " + elem.info.name);
-				    		datum.put("sub", elem.values.rtdDiff + " difference");
-				    	}
-				    	else if(subject.equals("Average carry location"))
-				    	{
-				    		datum.put("main", output + df.format(elem.values.rADEZ) + ": " + elem.info.name);
-				    		datum.put("sub",  elem.values.roTD + " expected rushing TDs, $" + df.format(elem.values.worth));
-				    	}
-				    	else if(subject.equals("DYOA"))
-				    	{
-				    		String close1 = elem.stats.split("\\(rank\\):")[1].split("\n")[0];
-							String r1 = (close1.split("\\(")[0].trim());
-							datum.put("main", output + r1 + ": " + elem.info.name);
-							datum.put("sub", "$" + df.format(elem.values.worth) + ", " + elem.values.points + " projected points");
-				    	}
-				    	else if(subject.equals("DVOA"))
-				    	{
-				    		String close1 = elem.stats.split("\\(rank\\):")[2].split("\n")[0];
-							String r1 = close1.split("\\(")[0].trim();
-							datum.put("main", output + r1 + ": " + elem.info.name);
-							datum.put("sub", "$" + df.format(elem.values.worth) + ", " + elem.values.points + " projected points");
-				    	}
-				    	else if(subject.equals("Average target location"))
-				    	{
-				    		datum.put("main", output + df.format(elem.values.tADEZ) + ": " + elem.info.name);
-				    		datum.put("sub", elem.values.oTD + 
-				    				" expected receiving TDs, " + elem.values.cADEZ + " average catch location, " + 
-				    				"$" + df.format(elem.values.worth));
-				    	}
-				    	else if(subject.equals("Average catch location"))
-				    	{
-				    		datum.put("main", output + df.format(elem.values.cADEZ) + ": " + elem.info.name);
-				    		datum.put("sub", elem.values.coTD + 
-				    				" expected receiving TDs, " + elem.values.tADEZ + " average target location, " + 
-				    				"$" + df.format(elem.values.worth));
-				    	}
-				    	else if(subject.equals("Risk"))
-				    	{
-				    		datum.put("main", output + df.format(elem.risk)+ ": " + elem.info.name);
-				    		datum.put("sub", "$" + df.format(elem.values.worth));
-				    	}
-				    	else if(subject.equals("Target Rec TD Difference"))
-				    	{
-				    		datum.put("main", output + df.format(elem.values.tdDiff) + ": " + elem.info.name);
-				    		datum.put("sub", elem.values.oTD + " expected, had " + 
-				    				df.format(elem.values.oTD - elem.values.tdDiff));
-				    	}
-				    	else if(subject.equals("Catch Rec TD Difference"))
-				    	{
-				    		datum.put("main", output + df.format(elem.values.ctdDiff) + ": " + elem.info.name);
-				    		datum.put("sub", elem.values.coTD + " expected, had " + 
-				    				df.format(elem.values.coTD - elem.values.ctdDiff));
-				    	}
-				    	else if(subject.equals("Rush TD Difference"))
-				    	{
-				    		datum.put("main", output + df.format(elem.values.rtdDiff) + ": " + elem.info.name);
-				    		datum.put("sub", elem.values.roTD + " expected, had " + 
-				    				df.format(elem.values.roTD - elem.values.rtdDiff));
-				    	}
-				    	else if(subject.equals("Risk relative to position"))
-						{
-				    		datum.put("main",output + elem.riskPos + ": " + elem.info.name);
-				    		datum.put("sub", "$" + df.format(elem.values.worth));
-						}
-						else if(subject.equals("Risk"))
-						{
-							datum.put("main", output + elem.risk + ": " + elem.info.name);
-				    		datum.put("sub", "$" + df.format(elem.values.worth));
-						}
-						else if(subject.equals("Positional SOS"))
-						{
-							if(elem.values.points != 0.0)
-							{
-								datum.put("main",output + elem.info.sos + ": " + elem.info.name);
-					    		datum.put("sub", "$" + df.format(elem.values.worth) + ", " + 
-										elem.values.points);
-							}
-							else
-							{
-								datum.put("main",output + elem.info.sos + ": " + elem.info.name);
-					    		datum.put("sub", "$" + df.format(elem.values.worth));
-							}
-						}
-						else if(subject.equals("ECR"))
-						{
-							datum.put("main", output + elem.values.ecr + ": " + elem.info.name);
-				    		datum.put("sub", "$" + df.format(elem.values.worth));
-						}
-						else if(subject.equals("ADP"))
-						{
-							datum.put("main", output + elem.info.adp + ": " + elem.info.name);
-				    		datum.put("sub", "$" + df.format(elem.values.worth));
-						}
-						else if(subject.equals("Weekly Trend (ESPN)"))
-						{
-							datum.put("main", output + elem.info.trend + ": " + elem.info.name);
-				    		datum.put("sub", "$" + df.format(elem.values.worth));
-						}
-						else if(subject.equals("Highest Value"))
-						{
-							datum.put("main", output + df.format(elem.values.high) + ": " + elem.info.name);
-				    		datum.put("sub", "$" + df.format(elem.values.worth));
-						}
-						else if(subject.equals("Lowest Value"))
-						{
-							datum.put("main", output + df.format(elem.values.low) + ": " + elem.info.name);
-				    		datum.put("sub", "$" + df.format(elem.values.worth));
-						}
-				    	data.add(marker, datum);
-					}
-					adapter.notifyDataSetChanged();
+					Toast.makeText(context, "Hiding the drafted players", Toast.LENGTH_SHORT).show();
 				}
 				else
 				{
-					isHidden = true;
-					ignore.clear();
-					Toast.makeText(context, "Hiding the drafted players", Toast.LENGTH_SHORT).show();
-					for(int i = 0; i < adapter.getCount(); i++)
-					{
-						String name = data.get(i).get("main");
-						if(name.contains("DRAFTED"))
-						{
-							data.remove(i);
-							for(PlayerObject p : holder.players)
-							{
-								if(name.contains(p.info.name))
-								{
-									ignore.put(p, i);
-								}
-							}
-						}
-					}
-					adapter.notifyDataSetChanged();
+					Toast.makeText(context, "Showing the drafted players", Toast.LENGTH_SHORT).show();
 				}
+				handleSortingSetUp();
 			}
 	    });
 	    handleOnClicks(results);
