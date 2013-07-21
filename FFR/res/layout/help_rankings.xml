@@ -102,7 +102,7 @@
          android:layout_height="wrap_content"
          android:layout_alignParentLeft="true"
          android:layout_below="@+id/help_rankings_close"
-         android:text="There&apos;s a lot of functionality in the rankings page. The rankings list holds most of the data. When you click on a name, it&apos;ll pop up with details about that player. You can draft this player by holding down on his name. To add him to your watch list, click on the watch list button. To see tweets about a player or highlights, click on the elements of the output at the bottom."
+         android:text="There&apos;s a lot of functionality in the rankings page. The rankings list holds most of the data. When you click on a name, it&apos;ll pop up with details about that player. You can draft this player by holding down on his name. To add him to your watch list, click on the watch list button. To see tweets about a player or highlights, click on the elements of the output at the bottom. Note, projections and paa are based on the roster and scoring settings input at the home screen."
          android:textAppearance="?android:attr/textAppearanceSmall" />
 
      <TextView
