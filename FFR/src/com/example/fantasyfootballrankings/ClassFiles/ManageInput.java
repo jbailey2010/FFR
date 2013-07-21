@@ -308,7 +308,6 @@ public class ManageInput
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
-		dialog.setCancelable(false);
 		final EditText yards = (EditText)dialog.findViewById(R.id.scoring_pass_yards);
 		final EditText tds = (EditText)dialog.findViewById(R.id.scoring_pass_td);
 		final EditText ints = (EditText)dialog.findViewById(R.id.scoring_pass_int);
@@ -350,7 +349,6 @@ public class ManageInput
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
-		dialog.setCancelable(false);
 		final EditText yards = (EditText)dialog.findViewById(R.id.scoring_run_yards);
 		final EditText tds = (EditText)dialog.findViewById(R.id.scoring_run_td);
 		final EditText ints = (EditText)dialog.findViewById(R.id.scoring_run_int);
@@ -400,7 +398,6 @@ public class ManageInput
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
-		dialog.setCancelable(false);
 		final EditText yards = (EditText)dialog.findViewById(R.id.scoring_rec_yards);
 		final EditText tds = (EditText)dialog.findViewById(R.id.scoring_rec_td);
 		final EditText ints = (EditText)dialog.findViewById(R.id.scoring_rec_catch);
@@ -428,6 +425,7 @@ public class ManageInput
 					WriteToFile.writeScoring(cont, dummyScoring);
 					if(doSyncData)
 					{
+					    Toast.makeText(cont, "Updating projections...", Toast.LENGTH_SHORT).show();
 						ParsingAsyncTask stupid = new ParsingAsyncTask();
 					    ParseProjections task = stupid.new ParseProjections((Activity)cont, holder);
 					    task.execute(holderObj, cont);
@@ -467,7 +465,6 @@ public class ManageInput
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
-		dialog.setCancelable(false);
 		List<String>quantitiesQBTE = new ArrayList<String>();
 		quantitiesQBTE.add("1");
 		quantitiesQBTE.add("2");
@@ -518,6 +515,7 @@ public class ManageInput
 				dialog.dismiss();
 				if(doSyncData)
 				{
+					Toast.makeText(cont, "Updating PAA...", Toast.LENGTH_SHORT).show();
 					StorageAsyncTask obj = new StorageAsyncTask();
 				    WriteNewPAA task2 = obj.new WriteNewPAA();
 				    task2.execute(holderObj, cont);

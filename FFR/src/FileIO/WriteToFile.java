@@ -347,6 +347,16 @@ public class WriteToFile {
 	}
 	
 	/**
+	 * Writes that the app had been opened
+	 * @param cont
+	 */
+	public static void writeFirstOpen(Context cont)
+	{
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		editor.putBoolean("First Open", false);
+	}
+	
+	/**
 	 * A helper for writing rankings to file
 	 */
 	public static String writeDraftHelper(List<PlayerObject> list)

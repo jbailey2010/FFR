@@ -297,15 +297,15 @@ public class ReadFromFile {
 	{
 		Scoring scoring = new Scoring();
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		scoring.passYards = prefs.getInt("Pass Yards", 0);
-		scoring.passTD = prefs.getInt("Pass Touchdowns", 0);
-		scoring.rushYards = prefs.getInt("Rush Yards", 0);
-		scoring.rushTD = prefs.getInt("Rush Touchdowns", 0);
-		scoring.recYards = prefs.getInt("Receiving Yards", 0);
-		scoring.recTD = prefs.getInt("Receiving Touchdowns", 0);
-		scoring.catches = prefs.getInt("Catches", 0);
-		scoring.interception = prefs.getInt("Interceptions", 0);
-		scoring.fumble = prefs.getInt("Fumbles", 0);
+		scoring.passYards = prefs.getInt("Pass Yards", 25);
+		scoring.passTD = prefs.getInt("Pass Touchdowns", 4);
+		scoring.rushYards = prefs.getInt("Rush Yards", 10);
+		scoring.rushTD = prefs.getInt("Rush Touchdowns", 6);
+		scoring.recYards = prefs.getInt("Receiving Yards", 10);
+		scoring.recTD = prefs.getInt("Receiving Touchdowns", 6);
+		scoring.catches = prefs.getInt("Catches", 1);
+		scoring.interception = prefs.getInt("Interceptions", 2);
+		scoring.fumble = prefs.getInt("Fumbles", 2);
 		return scoring;
 	}
 	
@@ -316,12 +316,21 @@ public class ReadFromFile {
 	{
 		Roster roster = new Roster();
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		roster.teams = prefs.getInt("Number of teams", 0);
-		roster.qbs = prefs.getInt("Starting QBs", 0);
-		roster.rbs = prefs.getInt("Starting RBs", 0);
-		roster.wrs = prefs.getInt("Starting WRs", 0);
-		roster.tes = prefs.getInt("Starting TEs", 0);
-		roster.flex = prefs.getInt("Starting flexes", 0);
+		roster.teams = prefs.getInt("Number of teams", 10);
+		roster.qbs = prefs.getInt("Starting QBs", 1);
+		roster.rbs = prefs.getInt("Starting RBs", 2);
+		roster.wrs = prefs.getInt("Starting WRs", 2);
+		roster.tes = prefs.getInt("Starting TEs", 1);
+		roster.flex = prefs.getInt("Starting flexes", 1);
 		return roster;
+	}
+	
+	/**
+	 * Reads if it's the first usage of the app, defaulting to true
+	 */
+	public static boolean readFirstOpen(Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		return prefs.getBoolean("First Open", true);
 	}
 }

@@ -8,6 +8,10 @@
         android:orderInCategory="100"
         android:title="Refresh Player Names"/>
     <item
+        android:id="@+id/help_home"
+        android:orderInCategory="100"
+        android:title="Home Help"/>
+    <item
         android:id="@+id/start_scoring"
         android:orderInCategory="100"
         android:showAsAction="ifRoom|withText" 

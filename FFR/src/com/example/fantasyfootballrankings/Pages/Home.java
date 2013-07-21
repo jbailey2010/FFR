@@ -31,6 +31,7 @@ import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
 import AsyncTasks.ParsingAsyncTask.ParsePermanentDataSets;
 import FileIO.ReadFromFile;
+import FileIO.WriteToFile;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
@@ -81,8 +82,13 @@ public class Home extends Activity{
         news.setOnClickListener(newsHandler);
         start = System.nanoTime();
         handleInitialRefresh();
-		ManageInput.setUpScoring(cont, new Scoring(), false, holder);
-		ManageInput.setUpRoster(cont, holder);
+        if(ReadFromFile.readFirstOpen(cont))
+        {
+        	helpPopUp();
+        	WriteToFile.writeFirstOpen(cont);
+        }
+		//ManageInput.setUpScoring(cont, new Scoring(), false, holder);
+		//ManageInput.setUpRoster(cont, holder);
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
@@ -109,10 +115,15 @@ public class Home extends Activity{
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{  
 		dialog = new Dialog(cont, R.style.RoundCornersFull);
+		boolean isStored = false;
+		if(holder.players.size() > 0)
+		{
+			isStored = true;
+		}
 		switch (item.getItemId()) 
 		{
 			case R.id.export_names:
-				if(holder.players.size() > 0)
+				if(isStored)
 				{
 					callExport();
 				}
@@ -125,28 +136,39 @@ public class Home extends Activity{
 				nameRefresh(dialog);
 		    	return true;			
 			case R.id.start_scoring:
-				if(holder.players.size() > 0)
-				{
-					ManageInput.passSettings(cont, new Scoring(), true, holder);
-				}
-				else
-				{
-					Toast.makeText(cont, "Can't update scoring until the rankings are fetched", Toast.LENGTH_SHORT).show();
-				}
+				ManageInput.passSettings(cont, new Scoring(), isStored, holder);
 		    	return true;	
 			case R.id.start_roster:
-				if(holder.players.size() > 0)
-				{
-					ManageInput.getRoster(cont, true, holder);
-				}
-				else
-				{
-					Toast.makeText(cont, "Can't update roster settings until the rankings are fetched", Toast.LENGTH_SHORT).show();
-				}
+				ManageInput.getRoster(cont, isStored, holder);
+				return true;
+			case R.id.help_home:
+				
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	/**
+	 * Handles the help dialog popup
+	 */
+	public void helpPopUp()
+	{
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.help_home);
+		dialog.show();
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+		Button close = (Button)dialog.findViewById(R.id.help_home_close);
+		close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
 	}
 	
 	/**

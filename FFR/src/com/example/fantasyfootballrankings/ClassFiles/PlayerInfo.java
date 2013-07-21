@@ -323,13 +323,6 @@ public class PlayerInfo
 			datum.put("sub", "");
 			data.add(datum);
 		}
-		//Worth
-		Map<String, String> datumWorth = new HashMap<String, String>(2);
-		datumWorth.put("main", "$" + df.format(searchedPlayer.values.worth));
-		datumWorth.put("sub", "Ranked " + rankCostPos(searchedPlayer, holder) + " positionally, " + rankCostAll(searchedPlayer, holder) + " overall\n"
-				+ "High: " + searchedPlayer.values.high + ", Low: " + searchedPlayer.values.low + 
-				"\nShowed up in " + searchedPlayer.values.count + " rankings");
-		data.add(datumWorth);
 		//Team, position, and bye
 		if(searchedPlayer.info.position.length() > 1 && searchedPlayer.info.position.length() > 1)
 		{
@@ -349,6 +342,13 @@ public class PlayerInfo
 			datum.put("sub", sub);
 			data.add(datum);
 		} 
+		//Worth
+		Map<String, String> datumWorth = new HashMap<String, String>(2);
+		datumWorth.put("main", "$" + df.format(searchedPlayer.values.worth));
+		datumWorth.put("sub", "Ranked " + rankCostPos(searchedPlayer, holder) + " positionally, " + rankCostAll(searchedPlayer, holder) + " overall\n"
+				+ "High: " + searchedPlayer.values.high + ", Low: " + searchedPlayer.values.low + 
+				"\nShowed up in " + searchedPlayer.values.count + " rankings");
+		data.add(datumWorth);
 		//Rank ecr
 		if(searchedPlayer.values.ecr != -1)
 		{

@@ -90,6 +90,9 @@ public class SortHandler
 	    List<String> topics = new ArrayList<String>();
 	    List<String> positions = new ArrayList<String>();
 	    //Add the topics which it can sort by
+	    topics.add("ECR");
+	    topics.add("ADP");
+	    topics.add("Auction Values");
 	    topics.add("Projections");
 	    topics.add("PAA");
 	    topics.add("PAA per dollar");
@@ -106,8 +109,6 @@ public class SortHandler
 	    topics.add("DVOA");
 	    topics.add("Risk relative to position");
 	    topics.add("Risk");
-	    topics.add("ECR");
-	    topics.add("ADP");
 	    topics.add("Positional SOS");
 	    topics.add("Weekly Trend (ESPN)");
 	    topics.add("Highest Value");
@@ -310,6 +311,10 @@ public class SortHandler
 		{
 			projPoints();
 		}
+		else if(subject.equals("Auction Values"))
+		{
+			auctionVals();
+		}
 		else if(subject.equals("PAA"))
 		{
 			paa();
@@ -394,6 +399,34 @@ public class SortHandler
 		{
 			lowVal();
 		}
+	}
+	
+	public static void auctionVals()
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						if(a.values.worth > b.values.worth)
+						{
+							return -1;
+						}
+						if(a.values.worth < b.values.worth)
+						{
+							return 1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.worth > minVal && player.values.worth < maxVal)
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted);
 	}
 	
 	public static void dvoa()
@@ -1142,6 +1175,11 @@ public class SortHandler
 				datum.put("main", output + elem.values.points + ": " + elem.info.name);
 				datum.put("sub", "$" + df.format(elem.values.worth));
 			}
+	    	else if(subject.equals("Auction Values"))
+	    	{
+	    		datum.put("main", output + df.format(elem.values.worth)+ ": " + elem.info.name);
+	    		datum.put("sub", df.format(elem.values.paa) + " paa");
+	    	}
 	    	else if(subject.equals("PAA"))
 	    	{
 	    		datum.put("main", output + df.format(elem.values.paa)+ ": " + elem.info.name);
