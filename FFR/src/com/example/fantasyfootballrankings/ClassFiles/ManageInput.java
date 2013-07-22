@@ -532,6 +532,7 @@ public class ManageInput
 	public static void isAuctionOrSnake(final Context cont)
 	{
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		boolean isAuction = ReadFromFile.readIsAuction(cont);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.is_auction);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -546,13 +547,23 @@ public class ManageInput
 				dialog.dismiss();
 			}
 		});
-		final RadioButton auction = (RadioButton)dialog.findViewById(R.id.is_auction);
-		final RadioButton snake = (RadioButton)dialog.findViewById(R.id.is_snake);
+		RadioButton auction = (RadioButton)dialog.findViewById(R.id.is_auction);
+		RadioButton snake = (RadioButton)dialog.findViewById(R.id.is_snake);
+		if(isAuction && !auction.isChecked())
+		{
+			auction.toggle();
+		}
+		else if(!isAuction && !snake.isChecked())
+		{
+			snake.toggle();
+		}
+		final RadioButton a = auction;
+		final RadioButton s = snake;
 		Button submit = (Button)dialog.findViewById(R.id.is_auction_submit);
 		submit.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				if(auction.isChecked())
+				if(a.isChecked())
 				{
 					WriteToFile.writeIsAuction(true, cont);
 				}
