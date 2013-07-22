@@ -285,12 +285,6 @@ public class ParsingAsyncTask
 			    		{
 			    			oLine = player.info.oLineStatus;
 			    		}
-			    		String passRun = " ";
-			    		if(player.info.passRunRatio != null && !player.info.passRunRatio.equals("") 
-			    				&& player.info.passRunRatio.length() >= 3)
-			    		{
-			    			passRun = player.info.passRunRatio;
-			    		}
 			    		String additStat = " ";
 			    		if(player.info.additionalStat != null && !player.info.additionalStat.equals("") 
 			    				&& player.info.additionalStat.length() >= 3)
@@ -309,7 +303,7 @@ public class ParsingAsyncTask
 			    	    		player.info.adp + "&&" + player.info.bye + "&&" 
 			    	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
 			    	    		player.info.age + "&&" + player.stats + "&&" + player.draftClass + "&&" + player.injuryStatus + 
-			    	    		"&&" + fa + "&&" + oLine + "&&" + passRun + "&&" + additStat + "&&" + player.values.ecr + "&&" + 
+			    	    		"&&" + fa + "&&" + oLine + "&&" + additStat + "&&" + player.values.ecr + "&&" + 
 			    	    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "&&" + oLineAdv + "&&" + 
 			    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
 			    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + 
@@ -379,26 +373,47 @@ public class ParsingAsyncTask
 		    	Context cont = (Context) data[1];
 		    	start = System.nanoTime();
 		    	try { 
+		    		System.out.println("Before stats");
 		    		publishProgress("Please wait, fetching player stats...");
 					HighLevel.setStats(holder, cont);
+					
+					System.out.println("Before team info");
 		    		publishProgress("Please wait, fetching team data...");
 					HighLevel.setTeamInfo(holder, cont);
+					
+					System.out.println("Before SOS");
 					publishProgress("Please wait, fetching positional SOS...");
 					HighLevel.getSOS(holder);
+					
+					System.out.println("Before contract status");
 					publishProgress("Please wait, fetching player contract status...");
 		    		HighLevel.setContractStatus(holder);
+		    		
+		    		System.out.println("Before permanent data");
 				    publishProgress("Please wait, setting last year's team data...");
 				    HighLevel.setPermanentData(holder, cont);
+				    
+				    System.out.println("Before specific data");
 				    publishProgress("Please wait, setting specific player info...");
 		    		HighLevel.parseSpecificData(holder, cont);
+		    		
+		    		System.out.println("Before risk");
 		    		publishProgress("Please wait, calculating relative risk...");
 		    		HighLevel.setRisk(holder);
+		    		
+		    		System.out.println("Before advanced line stuff");
 		    		publishProgress("Please wait, getting advanced line stats...");
 		    		ParseOLineAdvanced.parsePFOLineData(holder);
+		    		
+		    		System.out.println("Before projections");
 		    		publishProgress("Please wait, getting projected points...");
 		    		HighLevel.projPointsWrapper(holder, cont);
+		    		
+		    		System.out.println("Before PAA");
 		    		publishProgress("Please wait, normalizing projections...");
 		    		HighLevel.getPAA(holder, cont);
+		    		
+		    		System.out.println("Before redzone stats");
 		    		publishProgress("Please wait, getting advanced redzone stats...");
 		    		HighLevel.parseRedZoneStats(holder);
 		    		System.out.println(System.nanoTime() - start); 
@@ -549,49 +564,7 @@ public class ParsingAsyncTask
 		    }
 		  }
 
-		/**
-		 * Handles the back-end parsing of the permanent data
-		 * @author Jeff
-		 *
-		 */
-		public class ParsePermanentDataSets extends AsyncTask<Object, Void, Void> 
-		{
-			Activity act;
-		    public ParsePermanentDataSets(Activity activity) 
-		    {
-		        act = activity;
-		    }
-
-			@Override
-			protected void onPreExecute(){ 
-			   super.onPreExecute();  
-			}
-
-			@Override
-			protected void onPostExecute(Void result){
-			   super.onPostExecute(result);
-			}
-
-		    @Override
-		    protected Void doInBackground(Object... data) 
-		    {
-		    	Context cont = (Context) data[0];
-		    	Storage holder = (Storage) data[1];
-		    	ReadFromFile.fetchNamesBackEnd(holder, cont);
-		    	try {
-					Map<String, String> menInBox = ParsePermanentData.parseMenInBox(holder, cont);
-					Map<String, String> prRatio = ParsePermanentData.parsePassRunRatio();
-					Map<String, String> oLineRanks = ParsePermanentData.parseOLineRanksWrapper();
-					WriteToFile.writeMenInBox(cont, menInBox);
-					WriteToFile.writePassRun(cont, prRatio);
-					WriteToFile.writeOLineRanks(cont, oLineRanks);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return null;
-		    }
-		  }
+		
 
 		/**
 		 * Handles the back-end parsing of the news

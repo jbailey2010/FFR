@@ -11,6 +11,7 @@ import java.io.IOException;
 
 
 
+
 import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
@@ -29,7 +30,6 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseRTS;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
-import AsyncTasks.ParsingAsyncTask.ParsePermanentDataSets;
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.os.Bundle;
@@ -211,15 +211,12 @@ public class Home extends Activity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String checkExists = prefs.getString("O Line Ranks", "Not Set");
+		String checkExists = prefs.getString("Player Names", "Not Set");
 		if(checkExists.equals("Not Set"))
 		{
 			final ParsingAsyncTask stupid = new ParsingAsyncTask();
 			ParseNames task = stupid.new ParseNames((Activity)cont);
 		    task.execute(cont);
-		    
-		    ParsePermanentDataSets advancedData = stupid.new ParsePermanentDataSets((Activity) cont);
-		    advancedData.execute(cont, new Storage());
 		}
 	}
 	

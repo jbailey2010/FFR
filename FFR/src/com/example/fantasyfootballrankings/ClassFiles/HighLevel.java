@@ -29,6 +29,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraft;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFreeAgents;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseInjuries;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePermanentData;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
 
 import FileIO.ReadFromFile;
@@ -120,17 +121,16 @@ public class HighLevel
 	 * player objects
 	 * @param holder
 	 * @param cont
+	 * @throws IOException 
 	 */
-	public static void setPermanentData(Storage holder, Context cont)
+	public static void setPermanentData(Storage holder, Context cont) throws IOException
 	{
-		Map<String, String> ranks = ReadFromFile.readOLineRanks(cont);
-		Map<String, String> ratios = ReadFromFile.readPassRun(cont);
-		Map<String, String> menInBox = ReadFromFile.readMenInBox(cont);
+		Map<String, String> menInBox = ParsePermanentData.parseMenInBox(holder, cont);
+		Map<String, String> oLineRanks = ParsePermanentData.parseOLineRanksWrapper();
 		Set<String> names = menInBox.keySet();
 		for(PlayerObject elem : holder.players)
 		{
-			elem.info.oLineStatus = ranks.get(elem.info.team);
-			elem.info.passRunRatio = ratios.get(elem.info.team);
+			elem.info.oLineStatus = oLineRanks.get(elem.info.team);
 			if(elem.info.position.equals("RB") && names.contains(elem.info.name))
 			{
 				elem.info.additionalStat = menInBox.get(elem.info.name);
@@ -959,7 +959,7 @@ public class HighLevel
 			redZoneStats.put(name, data);
 		}
 		for(PlayerObject player : holder.players)
-		{
+		{ 
 			if(redZoneStats.containsKey(player.info.name))
 			{
 				List<Double> data = redZoneStats.get(player.info.name);

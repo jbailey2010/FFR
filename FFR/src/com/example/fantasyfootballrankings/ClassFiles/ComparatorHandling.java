@@ -601,26 +601,6 @@ public class ComparatorHandling
 				p2.append("-Better offensive line\n");
 			}	
 		}
-		int pr1 = prRatio(player1);
-		int pr2 = prRatio(player2);
-		if((player1.info.position.equals("QB") || player1.info.position.equals("WR") ||
-				player1.info.position.equals("TE")) && pr1 > pr2)
-		{
-			p1.append("-Team passes more often\n");
-		}
-		if((player2.info.position.equals("QB") || player2.info.position.equals("WR") ||
-				player2.info.position.equals("TE")) && pr2 > pr1)
-		{
-			p2.append("-Team passes more often\n");
-		}
-		if(player1.info.position.equals("RB") && pr1 < pr2)
-		{
-			p1.append("-Team runs more often\n");
-		}
-		if(player2.info.position.equals("RB") && pr2 < pr1)
-		{
-			p2.append("-Team runs more often\n");
-		}
 		int draft1 = draftRank(player1);
 		int draft2 = draftRank(player2);
 		if(draft1 < draft2)
@@ -1079,16 +1059,6 @@ public class ComparatorHandling
 		String result = overall.split(": ")[1];
 		return Integer.parseInt(result);
 	} 
-	
-	/**
-	 * Returns the team pass/run ratio
-	 */
-	public static int prRatio(PlayerObject player)
-	{
-		String ratio = player.info.passRunRatio.replace("%", "");
-		String[] split = ratio.split(": ");
-		return Integer.parseInt(split[1]);
-	}
 	
 	/**
 	 * Parses the adp

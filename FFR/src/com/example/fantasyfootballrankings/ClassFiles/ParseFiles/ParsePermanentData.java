@@ -35,17 +35,15 @@ public class ParsePermanentData
 	public static Map<String, String> parseMenInBox(Storage holder, Context cont) throws IOException
 	{
 		String url = "https://www.profootballfocus.com/blog/2013/05/08/facing-eight-in-the-box/";
-		String text = HandleBasicQueries.handleLists(url, "td");
+		String text = HandleBasicQueries.handleListsNoUA(url, "td");
 		String[] brokenData = text.split("\n");
 		Map<String, String> players = new HashMap<String, String>();
 		String name = "";
 		String value = "";
 		for(int i = 0; i < brokenData.length; i++)
 		{
-			System.out.println(i + ": " + brokenData[i]);
 			if((i-1)%6 == 0)
 			{
-				System.out.println(brokenData[i]);
 				name = brokenData[i];
 				ReadFromFile.fetchNames(holder, cont);
 				String validated = ParseRankings.fixNames(name);
@@ -53,7 +51,6 @@ public class ParsePermanentData
 			}
 			else if((i-5)%6 == 0)
 			{
-				System.out.println(brokenData[i]);
 				value = "Amount of time 8+ men were in the box: " + brokenData[i];
 				players.put(name, value);
 				name = "";
@@ -84,36 +81,6 @@ public class ParsePermanentData
 	}
 	
 	/**
-	 * Parses the run/pass ratios for all teams and
-	 * returns a hashmap that has all that data stored
-	 * @throws IOException
-	 */
-	public static Map<String, String> parsePassRunRatio() throws IOException
-	{
-		String url = "https://www.profootballfocus.com/blog/2013/02/05/2012-passrun-rate-splits/";
-		String text = HandleBasicQueries.handleLists(url, "td");
-		String[] brokenData = text.split("\n");
-		Map<String, String> teams = new HashMap<String, String>();
-		String name = "";
-		String value = "";
-		for(int i = 14; i < brokenData.length; i++)
-		{
-			if((i-14)%9 == 0)
-			{
-				name = ParseRankings.fixTeams(brokenData[i]);
-			}
-			if((i-15)%9 == 0)
-			{
-				value = "Pass/Run Ratio: " + brokenData[i];
-				teams.put(name, value);
-				name = "";
-				value = "";
-			}
-		}
-		return teams;
-	}
-	
-	/**
 	 * A wrapper for the four pages of offensive line data
 	 * @return
 	 * @throws IOException
@@ -141,7 +108,7 @@ public class ParsePermanentData
 	 * @throws IOException
 	 */
 	public static void parseOLineRanks(String url, Map<String, String> teams) throws IOException
-	{
+	{ 
 		Document doc = Jsoup.connect(url).timeout(0).get();
 		String textSub = HandleBasicQueries.handleListsMulti(doc, url, "p strong");
 		String[] brokenData = textSub.split("\n");
@@ -162,18 +129,14 @@ public class ParsePermanentData
 				{
 					name = ParseRankings.fixTeams(testWhole[1] + " " + testWhole[2] + " " + testWhole[3]);
 				}
-				if(name.equals("St Louis Rams"))
-				{
-					name = "St. Louis Rams";
-				}
 			}
 			if(brokenData[i].contains("PB"))
 			{
 				String[] data = brokenData[i].split(",");
-				String[] pb = data[0].split(" - ");
-				String[] rb = data[1].split(" - ");
-				value += "Pass Blocking Ranking: " + pb[1].substring(0, pb[1].length() - 2) + "\n" + "\n";
-				value += "Run Blocking Ranking: " + rb[1].substring(0, rb[1].length() - 2) + "\n\n";
+				String[] pb = data[0].split(" – ");
+				String[] rb = data[1].split(" – ");
+				value += "Pass Blocking Ranking: " + pb[1].substring(0, pb[1].length() - 2) + "\n\n";
+				value += "Run Blocking Ranking: " + rb[1].substring(0, rb[1].length() - 2) + "\n";
 				teams.put(name, value);
 				value = "";
 				name = "";

@@ -500,6 +500,18 @@ public class PlayerInfo
 				data.add(datum2);
 			}
 		}
+		//O line data
+		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
+		{ 
+			if(	searchedPlayer.info.oLineStatus != null && searchedPlayer.info.oLineStatus.length() > 3 && 
+					searchedPlayer.info.oLineAdv != null && searchedPlayer.info.oLineAdv.length() > 3)
+			{
+				Map<String, String> datum = new HashMap<String, String>(2);
+				datum.put("main", searchedPlayer.info.oLineAdv + "\n");
+				datum.put("sub", searchedPlayer.info.oLineStatus);
+				data.add(datum);
+			}
+		}
 		//Draft class
 		if(searchedPlayer.draftClass != null && !searchedPlayer.draftClass.contains("null") &&
 				!searchedPlayer.info.position.equals("K") && searchedPlayer.draftClass.length() > 4)
@@ -535,19 +547,6 @@ public class PlayerInfo
 			datum.put("main", "Weekly Value Trend: " + searchedPlayer.info.trend);
 			datum.put("sub", "Per ESPN's AAV data");
 			data.add(datum);
-		}
-		
-		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
-		{ 
-			if(searchedPlayer.info.passRunRatio != null && searchedPlayer.info.passRunRatio.length() > 2 && 
-					searchedPlayer.info.oLineStatus != null && searchedPlayer.info.oLineStatus.length() > 3 && 
-					searchedPlayer.info.oLineAdv != null && searchedPlayer.info.oLineAdv.length() > 3)
-			{
-				Map<String, String> datum = new HashMap<String, String>(2);
-				datum.put("main", searchedPlayer.info.oLineStatus + "\n\n" + searchedPlayer.info.oLineAdv + "\n");
-				datum.put("sub", "\n" + searchedPlayer.info.passRunRatio);
-				data.add(datum);
-			}
 		}
 		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
 		{

@@ -19,7 +19,6 @@ public class BasicInfo
 	public String age;
 	public String oLineStatus;
 	public String oLineAdv;
-	public String passRunRatio;
 	public String additionalStat;
 	public int sos;
 	/**
@@ -40,7 +39,6 @@ public class BasicInfo
 		age = "0"; 
 		sos = -1;
 		oLineStatus = "";
-		passRunRatio = "";
 		additionalStat = "";
 		oLineAdv = "";
 	}
