@@ -36,15 +36,6 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/home_trending_close"
-        android:text="This is the home page. From here, you can get to the three main aspects of the app: trending, news, and rankings."
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,5 +44,14 @@
         android:layout_marginTop="19dp"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/help_home_close"
+        android:text="This is the home page. From here, you can get to the three main aspects of the app: trending, news, and rankings."
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

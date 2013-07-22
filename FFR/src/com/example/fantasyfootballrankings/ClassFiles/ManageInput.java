@@ -33,6 +33,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -520,6 +521,46 @@ public class ManageInput
 				    WriteNewPAA task2 = obj.new WriteNewPAA();
 				    task2.execute(holderObj, cont);
 				}
+			}
+		});
+	}
+	
+	/**
+	 * Decides if it's an auction or snake
+	 * @param cont
+	 */
+	public static void isAuctionOrSnake(final Context cont)
+	{
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.is_auction);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+		dialog.show();
+		Button close = (Button)dialog.findViewById(R.id.auction_close);
+		close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+		final RadioButton auction = (RadioButton)dialog.findViewById(R.id.is_auction);
+		final RadioButton snake = (RadioButton)dialog.findViewById(R.id.is_snake);
+		Button submit = (Button)dialog.findViewById(R.id.is_auction_submit);
+		submit.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				if(auction.isChecked())
+				{
+					WriteToFile.writeIsAuction(true, cont);
+				}
+				else
+				{
+					WriteToFile.writeIsAuction(false, cont);
+				}
+				dialog.dismiss();
 			}
 		});
 	}

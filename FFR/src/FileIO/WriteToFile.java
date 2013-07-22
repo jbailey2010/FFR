@@ -353,7 +353,16 @@ public class WriteToFile {
 	public static void writeFirstOpen(Context cont)
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		editor.putBoolean("First Open", false);
+		editor.putBoolean("First Open", false).commit();
+	}
+	
+	/**
+	 * Writes to file if it's an auciton
+	 */
+	public static void writeIsAuction(Boolean isAuction, Context cont)
+	{
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		editor.putBoolean("Is Auction", isAuction).commit();
 	}
 	
 	/**
@@ -374,4 +383,6 @@ public class WriteToFile {
 		}
 		return retSet.toString();
 	}
+	
+	
 }

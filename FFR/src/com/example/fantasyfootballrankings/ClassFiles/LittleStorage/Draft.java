@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
+import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.app.Activity;
 import android.app.Dialog;
@@ -63,6 +64,9 @@ public class Draft
 		value = 0.0;
 	}
 	
+	/**
+	 * Calculates the total PAA of the team
+	 */
 	public static double paaTotal(Draft draft)
 	{
 		double total = 0.0;
@@ -340,6 +344,7 @@ public class Draft
 		ListView listWatch = (ListView)dialog.findViewById(R.id.listview_search);
 		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		DecimalFormat df = new DecimalFormat("#.##");
+		boolean isAuction = ReadFromFile.readIsAuction(cont);
 		for(String name : holder.draft.ignore)
 		{
 			PlayerObject p = null;
@@ -352,7 +357,14 @@ public class Draft
 				}
 			}
 			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", df.format(p.values.worth) + ":  " + p.info.name);
+			if(isAuction)
+			{
+				datum.put("main", df.format(p.values.worth) + ":  " + p.info.name);
+			}
+			else
+			{
+				datum.put("main", df.format(p.values.ecr)+ ":  " + p.info.name );
+			}
 			datum.put("sub", p.info.position + " - " + p.info.team);
 			data.add(datum);
 		}
@@ -423,6 +435,7 @@ public class Draft
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
+		final boolean isAuction = ReadFromFile.readIsAuction(cont);
 		Button close = (Button)dialog.findViewById(R.id.draft_who_close);
 		close.setOnClickListener(new OnClickListener(){
 			@Override
@@ -433,7 +446,14 @@ public class Draft
 				{
 					if(player.info.name.equals(name))
 					{
-						datum.put("main", df.format(player.values.worth) + ":  " + player.info.name);
+						if(isAuction)
+						{
+							datum.put("main", df.format(player.values.worth) + ":  " + player.info.name);
+						}
+						else
+						{
+							datum.put("main", df.format(player.values.ecr)+ ":  " + player.info.name );
+						}
 						datum.put("sub", player.info.position + " - " + player.info.team);
 						break;
 					}
@@ -461,7 +481,14 @@ public class Draft
 		me.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				draftedByMe(name, holder,cont, new Dialog(cont, R.style.RoundCornersFull), adapter, position, false, data);
+				if(isAuction)
+				{
+					draftedByMe(name, holder,cont, new Dialog(cont, R.style.RoundCornersFull), adapter, position, false, data);
+				}
+				else
+				{
+					handleUnDraftingMe(1, holder, name, cont, null);
+				}
 				dialog.dismiss();
 			}
 		});

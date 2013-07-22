@@ -111,6 +111,7 @@ public class Rankings extends Activity {
 	public static SimpleAdapter adapter;
 	static SwipeDismissListViewTouchListener touchListener;
 	static Scoring scoring = new Scoring();
+	public static boolean isAuction;
 	/**
 	 * Sets up the view
 	 */
@@ -126,6 +127,7 @@ public class Rankings extends Activity {
 		sort = (Button)findViewById(R.id.sort_players);
     	listview = (ListView)findViewById(R.id.listview_rankings);
     	context = this;
+    	isAuction = ReadFromFile.readIsAuction(cont);
     	setLists();
 		handleRefresh();
 		handleOnClickButtons();
@@ -688,6 +690,13 @@ public class Rankings extends Activity {
 				posValLeft(new Dialog(context, R.style.RoundCornersFull), holder, context);
 			}
 		});
+		if(!isAuction)
+		{
+			remSalary.setVisibility(View.GONE);
+			draftVal.setVisibility(View.GONE);
+			paapdView.setVisibility(View.GONE);
+			salBar.setVisibility(View.GONE);
+		}
     	dialog.show();
     }
 
@@ -819,38 +828,84 @@ public class Rankings extends Activity {
 	public static void intermediateHandleRankings(Activity cont)
 	{ 
 		int maxSize = ReadFromFile.readFilterQuantitySize((Context)cont, "Rankings");
-		PriorityQueue<PlayerObject>inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+		PriorityQueue<PlayerObject>inter = null;
+		if(isAuction)
 		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b) 
+			inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 			{
-				if (a.values.worth > b.values.worth)
-			    {
-			        return -1;
-			    }
-			    if (a.values.worth < b.values.worth)
-			    {
-			    	return 1;
-			    }
-			    return 0;
-			}
-		});
-		PriorityQueue<PlayerObject>totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+				@Override
+				public int compare(PlayerObject a, PlayerObject b) 
+				{
+					if (a.values.worth > b.values.worth)
+				    {
+				        return -1;
+				    }
+				    if (a.values.worth < b.values.worth)
+				    {
+				    	return 1;
+				    }
+				    return 0;
+				}
+			});
+		}
+		else
 		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b) 
+			inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 			{
-				if (a.values.worth > b.values.worth)
-			    {
-			        return -1;
-			    }
-			    if (a.values.worth < b.values.worth)
-			    {
-			    	return 1;
-			    }
-			    return 0;
-			}
-		});
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.ecr > b.values.ecr)
+						    {
+						        return 1;
+						    }
+						    if (a.values.ecr < b.values.ecr)
+						    {
+						    	return -1;
+						    }
+						    return 0;
+						}
+			});
+		}
+		PriorityQueue<PlayerObject> totalList = null;
+		if(isAuction)
+		{
+			totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+			{
+				@Override
+				public int compare(PlayerObject a, PlayerObject b) 
+				{
+					if (a.values.worth > b.values.worth)
+				    {
+				        return -1;
+				    }
+				    if (a.values.worth < b.values.worth)
+				    {
+				    	return 1;
+				    }
+				    return 0;
+				}
+			});
+		}
+		else
+		{
+			totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+			{
+				@Override
+				public int compare(PlayerObject a, PlayerObject b) 
+				{
+					if (a.values.ecr > b.values.ecr)
+				    {
+				        return 1;
+				    }
+				    if (a.values.ecr < b.values.ecr)
+				    {
+				    	return -1;
+				    }
+				    return 0;
+				}
+			});
+		}
 		if(posList.size() > 1)
 		{
 			posFilter = "All Positions";
@@ -873,7 +928,10 @@ public class Rankings extends Activity {
 			if(posList.contains(player.info.position) && teamList.contains(player.info.team)
 					&& !holder.draft.ignore.contains(player.info.name))
 			{
-				inter.add(player);
+				if(isAuction || (!isAuction && player.values.ecr > 0.0))
+				{
+					inter.add(player);
+				}
 			}
 		}
 		int total = inter.size();
@@ -889,7 +947,7 @@ public class Rankings extends Activity {
 	/**
      * The function that handles what happens when
      * the rankings are all fetched
-     * @param holder
+     * @param holder 
      */
     public static void rankingsFetched(PriorityQueue<PlayerObject> playerList, Activity cont)
     {
@@ -903,7 +961,14 @@ public class Rankings extends Activity {
 	    	PlayerObject elem = playerList.poll();
 	        DecimalFormat df = new DecimalFormat("#.##");
 	        Map<String, String> datum = new HashMap<String, String>(2);
-	        datum.put("main", df.format(elem.values.worth) + ":  " + elem.info.name);
+	        if(isAuction)
+	        {
+	        	datum.put("main", df.format(elem.values.worth) + ":  " + elem.info.name);
+	        }
+	        else
+	        {
+	        	datum.put("main", df.format(elem.values.ecr)+ ":  " + elem.info.name );
+	        }
 	        //datum.put("sub", "");
 	        if(elem.info.team.length() > 2 && elem.info.position.length() > 0)
 	        {
@@ -1065,7 +1130,25 @@ public class Rankings extends Activity {
     	me.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-		    	draftedByMe(d, view, holder, cont, listview, popup, dialog, index);
+				if(isAuction)
+				{
+					draftedByMe(d, view, holder, cont, listview, popup, dialog, index);
+				}
+				else
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.name.equals(d))
+						{
+							holder.draft.draftPlayer(player, holder.draft, 1, cont);
+							Toast.makeText(cont, "Drafting " + d, Toast.LENGTH_SHORT).show();
+							holder.draft.ignore.add(d);
+							WriteToFile.writeDraft(holder.draft, cont);
+							
+							popup.dismiss();
+						}
+					}
+				}
 			}
     	});
     }

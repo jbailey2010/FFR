@@ -124,7 +124,7 @@ public class Home extends Activity{
 		{
 			case R.id.export_names:
 				if(isStored)
-				{
+				{ 
 					callExport();
 				}
 				else
@@ -140,6 +140,9 @@ public class Home extends Activity{
 		    	return true;	
 			case R.id.start_roster:
 				ManageInput.getRoster(cont, isStored, holder);
+				return true;
+			case R.id.auction_or_snake:
+				ManageInput.isAuctionOrSnake(cont);
 				return true;
 			case R.id.help_home:
 				

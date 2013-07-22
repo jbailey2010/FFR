@@ -333,4 +333,13 @@ public class ReadFromFile {
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
 		return prefs.getBoolean("First Open", true);
 	}
+	
+	/**
+	 * Reads from file to see if it is an auction draft
+	 */
+	public static boolean readIsAuction(Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		return prefs.getBoolean("Is Auction", true);
+	}
 }

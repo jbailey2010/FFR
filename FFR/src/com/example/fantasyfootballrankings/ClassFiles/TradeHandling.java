@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.fantasyfootballrankings.R;
 
+import FileIO.ReadFromFile;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
@@ -84,9 +85,13 @@ public class TradeHandling
 	public static void setAdapter(final Storage holder, Context cont, final Dialog dialog)
 	{
 		List<String> adapter = new ArrayList<String>(700);
-		for(int i = 1; i < 201; i++)
+		boolean isAuction = ReadFromFile.readIsAuction(cont);
+		if(isAuction)
 		{
-			adapter.add("$" + i);
+			for(int i = 1; i < 201; i++)
+			{
+				adapter.add("$" + i);
+			}
 		}
 		for(String name : holder.parsedPlayers)
 		{
