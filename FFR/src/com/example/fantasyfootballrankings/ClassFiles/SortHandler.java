@@ -92,6 +92,7 @@ public class SortHandler
 	    //Add the topics which it can sort by
 	    topics.add("ECR");
 	    topics.add("ADP");
+	    topics.add("Under Drafted");
 	    topics.add("Auction Values");
 	    topics.add("Projections");
 	    topics.add("PAA");
@@ -319,6 +320,10 @@ public class SortHandler
 		{
 			paa();
 		}
+		else if(subject.equals("Under Drafted"))
+		{
+			underDrafted();
+		}
 		else if(subject.equals("PAA per dollar"))
 		{
 			paapd();
@@ -401,6 +406,41 @@ public class SortHandler
 		}
 	}
 	
+	/**
+	 * Calculates the most underdrafted players
+	 */
+	private static void underDrafted() {
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						double aDiff = 0;
+						double bDiff = 0;
+						aDiff = Integer.parseInt(a.info.adp) - a.values.ecr;
+						bDiff = Integer.parseInt(b.info.adp) - b.values.ecr; 
+						if(aDiff > bDiff)
+						{
+							return -1;
+						}
+						if(bDiff > aDiff)
+						{
+							return 1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.ecr != -1.0 && 
+							!player.info.adp.equals("Not set"))
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted);
+	}
+
 	public static void auctionVals()
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
@@ -1169,7 +1209,7 @@ public class SortHandler
 	    	if(isHidden && !output.equals(""))
 	    	{
 	    		continue;
-	    	}
+	    	}  
 	    	if(subject.equals("Projections"))
 			{
 				datum.put("main", output + elem.values.points + ": " + elem.info.name);
@@ -1179,6 +1219,12 @@ public class SortHandler
 	    	{
 	    		datum.put("main", output + df.format(elem.values.worth)+ ": " + elem.info.name);
 	    		datum.put("sub", df.format(elem.values.paa) + " paa");
+	    	}
+	    	else if(subject.equals("Under Drafted"))
+	    	{
+	    		double diff = Integer.parseInt(elem.info.adp) - elem.values.ecr;
+	    		datum.put("main", output + df.format(diff)+ ": " + elem.info.name);
+	    		datum.put("sub", "$" +df.format(elem.values.worth)+ "\n" + "ADP: " + elem.info.adp + ", " + "ECR: " + elem.values.ecr);
 	    	}
 	    	else if(subject.equals("PAA"))
 	    	{
