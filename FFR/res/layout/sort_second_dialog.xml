@@ -78,30 +78,6 @@
         android:inputType="number"
         android:text="1" />
 
-    <Button
-        android:id="@+id/sort_second_submit"
-        style="@style/ButtonText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/min_rankings"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/btn_red"
-        android:text="Submit" />
-    
-    <Button
-        android:id="@+id/sort_second_back"
-        style="@style/ButtonText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/min_rankings"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:background="@drawable/btn_red"
-        android:text="Back" />
-
     <CheckBox
         android:id="@+id/sort_second_healthy"
         android:layout_width="wrap_content"
@@ -129,5 +105,52 @@
         android:layout_alignTop="@+id/sort_second_run"
         android:text="Good pass \nblocking"
         android:textColor="#FFFFFF"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/min_rankings"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:text="What minimum projection should players have?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/sort_second_min_projection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/spinner_well"
+        android:text="0"
+        android:textColor="#000000"
+        android:ems="10"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/sort_second_submit"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/sort_second_back"
+        android:layout_alignBottom="@+id/sort_second_back"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/btn_red"
+        android:text="Submit" />
+
+    <Button
+        android:id="@+id/sort_second_back"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/sort_second_min_projection"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/btn_red"
+        android:text="Back" />
 
 </RelativeLayout>

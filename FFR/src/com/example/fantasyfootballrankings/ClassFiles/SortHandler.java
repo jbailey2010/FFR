@@ -47,6 +47,7 @@ public class SortHandler
 {
 	public static int minVal;
 	public static int maxVal;
+	public static int minProj;
 	public static String position;
 	public static String subject;
 	public static Storage holder;
@@ -185,6 +186,7 @@ public class SortHandler
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 	    dialog.show();
+	    final EditText minProject = (EditText)dialog.findViewById(R.id.sort_second_min_projection);
 	    Button close = (Button)dialog.findViewById(R.id.sort_second_close);
 	    close.setOnClickListener(new OnClickListener(){
 			@Override
@@ -209,28 +211,43 @@ public class SortHandler
 	    final EditText minRanks = (EditText)dialog.findViewById(R.id.min_rankings);
 	    Button submit = (Button)dialog.findViewById(R.id.sort_second_submit);
 	    submit.setOnClickListener(new OnClickListener(){
-			@Override
+			@Override 
 			public void onClick(View v) {
 				dialog.dismiss();
 				String min = minRanks.getText().toString();
-				if(ManageInput.isInteger(min))
+				String minProjection = minProject.getText().toString();
+				if(ManageInput.isInteger(min) && ManageInput.isInteger(minProjection))
 				{
 					int minimum = Integer.parseInt(min);
+					minProj = Integer.parseInt(minProjection);
 					if(minimum < 0)
 					{
 						minimum = 1;
 					}
+					if(minProj < 0)
+					{
+						minProj = 0;
+					}
 					int max = 0;
+					double maxProj = 0.0;
 					for(PlayerObject player : holder.players)
 					{
 						if(player.values.count > max)
 						{
 							max = (int) player.values.count;
 						}
+						if(player.values.worth > maxProj)
+						{
+							maxProj = player.values.worth;
+						}
 					}
 					if(minimum > max)
 					{
 						minimum = max;
+					}
+					if(minProj > maxProj)
+					{
+						minProj = (int) maxProj;
 					}
 					handleSecSortingOptions(age.isChecked(), wl.isChecked(), cy.isChecked(), healthy.isChecked(),
 							run.isChecked(), pass.isChecked(), minimum);
@@ -432,7 +449,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.ecr != -1.0 && 
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.ecr != -1.0 && 
 							!player.info.adp.equals("Not set"))
 					{
 						sorted.add(player);
@@ -461,7 +478,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal)
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj)
 					{
 						sorted.add(player);
 					}
@@ -493,7 +510,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.stats.contains("(rank)"))
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.stats.contains("(rank)"))
 					{
 						sorted.add(player);
 					}
@@ -525,7 +542,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.stats.contains("(rank)"))
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.stats.contains("(rank)"))
 					{
 						sorted.add(player);
 					}
@@ -556,7 +573,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points != 0.0)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
 			{
 				sorted.add(player);
 			}
@@ -587,7 +604,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points != 0.0)
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
 					{
 						sorted.add(player);
 					}
@@ -618,7 +635,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points != 0.0)
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
 					{
 						sorted.add(player);
 					}
@@ -649,7 +666,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.tADEZ != 0.0)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.tADEZ != 0.0)
 			{
 				sorted.add(player);
 			}
@@ -677,7 +694,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.cADEZ != 0.0)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.cADEZ != 0.0)
 			{
 				sorted.add(player);
 			}
@@ -708,7 +725,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.rADEZ != 0.0)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.rADEZ != 0.0)
 			{
 				sorted.add(player);
 			}
@@ -739,7 +756,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.tADEZ != 0.0)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.tADEZ != 0.0)
 			{
 				sorted.add(player);
 			}
@@ -767,7 +784,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.cADEZ != 0.0)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.cADEZ != 0.0)
 			{
 				sorted.add(player);
 			}
@@ -798,7 +815,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.rADEZ != 0.0)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.rADEZ != 0.0)
 			{
 				sorted.add(player);
 			}
@@ -829,7 +846,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.info.sos != -1.0)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.info.sos != -1.0)
 			{
 				sorted.add(player);
 			}
@@ -860,7 +877,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.rADEZ != 0.0)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.rADEZ != 0.0)
 			{
 				sorted.add(player);
 			}
@@ -888,7 +905,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.cADEZ != 0.0)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.cADEZ != 0.0)
 			{
 				sorted.add(player);
 			}
@@ -919,7 +936,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.tADEZ != 0.0)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.tADEZ != 0.0)
 			{
 				sorted.add(player);
 			}
@@ -950,7 +967,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.riskPos != 1.0)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.riskPos != 1.0)
 			{
 				sorted.add(player);
 			}
@@ -981,7 +998,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.riskAll != -1)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.riskAll != -1)
 			{
 				sorted.add(player);
 			}
@@ -1012,7 +1029,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.ecr != -1)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.ecr != -1)
 			{
 				sorted.add(player);
 			}
@@ -1043,7 +1060,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && !player.info.adp.equals("Not set"))
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && !player.info.adp.equals("Not set"))
 			{
 				sorted.add(player);
 			}
@@ -1074,7 +1091,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && !player.info.trend.equals("0.0"))
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && !player.info.trend.equals("0.0"))
 			{
 				sorted.add(player);
 			}
@@ -1105,7 +1122,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.high != 0)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.high != 0)
 			{
 				sorted.add(player);
 			}
@@ -1136,7 +1153,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.low != 100)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.low != 100)
 			{
 				sorted.add(player);
 			}
@@ -1224,7 +1241,7 @@ public class SortHandler
 	    	{
 	    		double diff = Integer.parseInt(elem.info.adp) - elem.values.ecr;
 	    		datum.put("main", output + df.format(diff)+ ": " + elem.info.name);
-	    		datum.put("sub", "$" +df.format(elem.values.worth)+ "\n" + "ADP: " + elem.info.adp + ", " + "ECR: " + elem.values.ecr);
+	    		datum.put("sub", "$" +df.format(elem.values.worth)+ ", Projection: " + elem.values.points + "\n" + "ADP: " + elem.info.adp + ", " + "ECR: " + elem.values.ecr);
 	    	}
 	    	else if(subject.equals("PAA"))
 	    	{
