@@ -5,11 +5,13 @@ import java.io.IOException;
 
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
+
 
 
 
@@ -30,6 +32,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCSC;
@@ -50,7 +53,6 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerName
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseRTS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseRotoPost;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTwitter;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseYahoo;
 import com.example.fantasyfootballrankings.Pages.News;
@@ -697,80 +699,81 @@ public class ParsingAsyncTask
 		    {
 		    	Context cont = (Context) data[0];
 		    	String selection = (String)data[1];
+		    	TwitterWork obj = (TwitterWork)data[2];
 		    	List<NewsObjects> news = new ArrayList<NewsObjects>(100);
 		    	String url = "adamschefter";
 		    	if(selection.contains("Mortenson"))
 		    	{
 		    		url = "mortreport";
-			    	news = ParseTwitter.parseTwitter4j(url);
+			    	news = TwitterWork.parseTwitter4j(url, obj);
 		    	}
 		    	else if(selection.contains("LaCanfora"))
 		    	{
 		    		url = "jasonlacanfora";
-			    	news = ParseTwitter.parseTwitter4j(url);
+			    	news = TwitterWork.parseTwitter4j(url, obj);
 		    	}
 		    	else if(selection.contains("Brad Evans"))
 		    	{
 		    		url = "yahoonoise";
-			    	news = ParseTwitter.parseTwitter4j(url);
+			    	news = TwitterWork.parseTwitter4j(url, obj);
 		    	}
 		    	else if(selection.contains("Glazer"))
 		    	{
 		    		url = "jayglazer";
-			    	news = ParseTwitter.parseTwitter4j(url);
+			    	news = TwitterWork.parseTwitter4j(url, obj);
 		    	}
 		    	else if(selection.contains("Clay"))
 		    	{
 		    		url = "mikeclaynfl";
-			    	news = ParseTwitter.parseTwitter4j(url);
+			    	news = TwitterWork.parseTwitter4j(url, obj);
 		    	}
 		    	else if(selection.contains("Douche"))
 		    	{
 		    		url = "fantasydouche";
-			    	news = ParseTwitter.parseTwitter4j(url);
+			    	news = TwitterWork.parseTwitter4j(url, obj);
 		    	}
 		    	else if(selection.contains("Eric Mack"))
 		    	{
 		    		url = "ericmackfantasy";
-			    	news = ParseTwitter.parseTwitter4j(url);
+			    	news = TwitterWork.parseTwitter4j(url, obj);
 		    	}
 		    	else if(selection.contains("Late Round"))
 		    	{
 		    		url = "lateroundqb";
-			    	news = ParseTwitter.parseTwitter4j(url);
+			    	news = TwitterWork.parseTwitter4j(url, obj);
 		    	}
 		    	else if(selection.contains("Wesseling"))
 		    	{
 		    		url = "chriswesseling";
-			    	news = ParseTwitter.parseTwitter4j(url);
+			    	news = TwitterWork.parseTwitter4j(url, obj);
 		    	}
 		    	else if(selection.contains("Kay Adams"))
 		    	{
 		    		url = "heykayadams";
-		    		news = ParseTwitter.parseTwitter4j(url);
+		    		news = TwitterWork.parseTwitter4j(url, obj);
 		    	}
 		    	else if(selection.contains("Chet"))
 		    	{
 		    		url = "Chet_G";
-		    		news = ParseTwitter.parseTwitter4j(url);
+		    		news = TwitterWork.parseTwitter4j(url, obj);
 		    	}
 		    	else if(selection.contains("Sigmund"))
 		    	{
 		    		url = "SigmundBloom";
-		    		news = ParseTwitter.parseTwitter4j(url);
+		    		news = TwitterWork.parseTwitter4j(url, obj);
 		    	}
 		    	else if(selection.contains("Aggregate") && selection.contains("Fantasy"))
 		    	{
-		    		news = ParseTwitter.parseTwitter4jList("chriswesseling", "Fantasy Football Writers");
+		    		news = TwitterWork.parseTwitter4jList("chriswesseling", "Fantasy Football Writers", obj);
 		    	}
 		    	else if(selection.contains("Aggregate") && selection.contains("Beat"))
 		    	{
-		    		news = ParseTwitter.parseTwitter4jList("Chet_G", "Beat Reporters");
+		    		news = TwitterWork.parseTwitter4jList("Chet_G", "Beat Reporters", obj);
 		    	}
 		    	else if(selection.contains("Schefter"))
 		    	{
 		    		url = "adamschefter";
-		    		news = ParseTwitter.parseTwitter4j(url);
+		    		news = TwitterWork.parseTwitter4j(url, obj);
 		    	}
 		    	WriteToFile.writeNewsTwitter(cont, news, selection);
 				return news;
@@ -824,8 +827,9 @@ public class ParsingAsyncTask
 		    	Context cont = (Context) data[0];
 		    	String selection = (String)data[1];
 		    	String header = (String)data[2];
+		    	TwitterWork obj = (TwitterWork)data[3];
 		    	List<NewsObjects> news = new ArrayList<NewsObjects>(100);
-		    	news = ParseTwitter.searchTweets(selection);
+		    	news = TwitterWork.searchTweets(selection, obj.userTwitter);
 		    	WriteToFile.writeNewsTwitter(cont, news, header);
 				return news;
 		    }

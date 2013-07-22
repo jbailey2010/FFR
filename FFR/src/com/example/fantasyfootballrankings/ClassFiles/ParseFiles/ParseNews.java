@@ -28,6 +28,7 @@ import AsyncTasks.StorageAsyncTask.ReadRotoNews;
 import android.content.Context;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 /**
  * A library to handle the parsing of news
@@ -135,18 +136,7 @@ public class ParseNews
 		}
 		return newsSet;
 	}
-	
-	/**
-	 *Twitter parsing
-	 * @return
-	 * @throws IOException
-	 * @throws ParserConfigurationException 
-	 * @throws SAXException 
-	 */
-	public static List<NewsObjects> parseTwitter(String url) throws IOException, SAXException, ParserConfigurationException
-	{
-		return ParseTwitter.twitterParse(url);
-	}
+
 
 	/**
 	 * Handles conditionally reading news
@@ -175,23 +165,25 @@ public class ParseNews
 	 * Handles conditionally fetching twitter data
 	 * @param cont
 	 * @param selection
+	 * @param obj 
 	 */
-	public static void startTwitterAsync(Context cont, String selection)
+	public static void startTwitterAsync(Context cont, String selection, TwitterWork obj)
 	{
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
 		ParseTwitterFeeds news = stupid.new ParseTwitterFeeds(cont);
-		news.execute(cont, selection);	
+		news.execute(cont, selection, obj);	
 	}
 	
 	/**
 	 * Calls the actual searching function
 	 * @param cont
 	 * @param search
+	 * @param obj 
 	 */
-	public static void startTwitterSearchAsync(Context cont, String search, String header, boolean flag, String query)
+	public static void startTwitterSearchAsync(Context cont, String search, String header, boolean flag, String query, TwitterWork obj)
 	{
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
 		ParseTwitterSearch news = stupid.new ParseTwitterSearch(cont, flag, query);
-		news.execute(cont, search, header);	
+		news.execute(cont, search, header, obj);	
 	}
 }

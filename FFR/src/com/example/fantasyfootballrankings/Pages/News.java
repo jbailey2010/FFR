@@ -7,10 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import twitter4j.TwitterException;
+
 import com.example.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.R.layout;
 import com.example.fantasyfootballrankings.R.menu;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
+import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
@@ -55,6 +58,7 @@ public class News extends Activity {
 	public static Context cont;
 	public Dialog dialog;
 	public static String selection = "NFL News";
+	static TwitterWork obj = new TwitterWork();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,10 +87,10 @@ public class News extends Activity {
 				refreshNewsDialog();
 				return true;
 			case R.id.twitter_feeds:
-				twitterFeedsDialog();
+				obj.twitterInitial(cont, 1);
 				return true;
 			case R.id.twitter_search:
-				twitterSearchDialog();
+				obj.twitterInitial(cont, 2);
 				return true;
 			case R.id.help:
 				helpDialog();
@@ -275,7 +279,7 @@ public class News extends Activity {
             public void onClick(View v) 
             {
             	String selectionFeed = feeds.getSelectedItem().toString();
-            	ParseNews.startTwitterAsync(cont, selectionFeed);
+            	ParseNews.startTwitterAsync(cont, selectionFeed, obj);
             	String[] brokenUp = selectionFeed.split(" \\(");
             	selection = brokenUp[0] + "'s Twitter Feed";
             	if(selection.contains("Aggregate"))
@@ -333,7 +337,7 @@ public class News extends Activity {
 				}
 				else
 				{
-					ParseNews.startTwitterSearchAsync(cont, queryTerms, "Twitter Search: " + queryTerms, true, " ");
+					ParseNews.startTwitterSearchAsync(cont, queryTerms, "Twitter Search: " + queryTerms, true, " ", obj);
 					WriteToFile.writeNewsSelection(cont, "Twitter Search: " + queryTerms);
 					setHeader("Twitter Search: " + queryTerms);
 					dialog.dismiss();

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import twitter4j.auth.AccessToken;
+
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
@@ -384,5 +386,25 @@ public class WriteToFile {
 		return retSet.toString();
 	}
 	
+	/**
+	 * Writes the use ID to file
+	 */
+	public static void storeID(long l, Context cont)
+	{
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		editor.putLong("Use ID", l);
+		editor.commit();
+	}
+	
+	/**
+	 * Writes the token data to file to be read later
+	 */
+	public static void storeToken(AccessToken token, Context cont)
+	{
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		editor.putString("Token", token.getToken());
+		editor.putString("Token Secret", token.getTokenSecret());
+		editor.commit();
+	}
 	
 }

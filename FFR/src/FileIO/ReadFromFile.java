@@ -342,4 +342,31 @@ public class ReadFromFile {
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
 		return prefs.getBoolean("Is Auction", true);
 	}
+	
+	/**
+	 * Reads the use id from file
+	 */
+	public static long readUseID(Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		return prefs.getLong("Use ID", -1);
+	}
+	
+	/**
+	 * Reads the token from file
+	 */
+	public static String readToken(Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		return prefs.getString("Token", "Not set");
+	}
+	
+	/**
+	 * Reads the token secret from file
+	 */
+	public static String readTokenSecret(Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		return prefs.getString("Token Secret", "Not set");
+	}
 }

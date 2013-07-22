@@ -826,7 +826,9 @@ public class PlayerInfo
 	 */
 	public static void playerTweetSearchInit(String name, Activity act)
 	{
-		ParseNews.startTwitterSearchAsync(act, name, "Twitter Search: " + name, false, name);
+		TwitterWork obj = new TwitterWork();
+		obj.twitterInitial(act, 0);
+		ParseNews.startTwitterSearchAsync(act, name, "Twitter Search: " + name, false, name, obj);
 	}
 
 	/**
