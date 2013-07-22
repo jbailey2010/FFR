@@ -8,8 +8,11 @@ import com.example.fantasyfootballrankings.R;
 import FileIO.ReadFromFile;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Resources;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -56,6 +59,31 @@ public class TradeHandling
 		outputView.setAdapter(null);
 		inputView.setThreshold(1);
 		outputView.setThreshold(1);
+		WindowManager wm = (WindowManager) cont.getSystemService(Context.WINDOW_SERVICE);
+		 Display display = wm.getDefaultDisplay();
+		 @SuppressWarnings("deprecation")
+		 int width = display.getWidth();
+		 Resources r = cont.getResources();
+		 int newWidth = 0;
+		 if(width < 500)
+		 {
+			 newWidth = 140;
+		 }
+		 else if(width < 780)
+		 {
+			 newWidth = 170;
+		 }
+		 else
+		 {
+			 newWidth = 240;
+		 }
+		 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newWidth, r.getDisplayMetrics());
+		 android.view.ViewGroup.LayoutParams params1 = inputView.getLayoutParams();
+		 params1.width = (int) px;
+		 inputView.setLayoutParams(params1);
+		 android.view.ViewGroup.LayoutParams params2 = outputView.getLayoutParams();
+		 params2.width = (int)px;
+		 outputView.setLayoutParams(params2);
 		setAdapter(holder, cont, dialog);
 		Button dismiss = (Button)dialog.findViewById(R.id.search_close);
 		dismiss.setOnClickListener(new OnClickListener() 

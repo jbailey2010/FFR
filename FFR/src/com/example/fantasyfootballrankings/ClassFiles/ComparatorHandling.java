@@ -10,6 +10,10 @@ import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -19,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -96,6 +101,31 @@ public class ComparatorHandling
                 android.R.layout.simple_dropdown_item_1line, adapter);
 		final AutoCompleteTextView player1 = (AutoCompleteTextView)dialog.findViewById(R.id.player1_input);
 		final AutoCompleteTextView player2 = (AutoCompleteTextView)dialog.findViewById(R.id.player2_input);
+		 WindowManager wm = (WindowManager) cont.getSystemService(Context.WINDOW_SERVICE);
+		 Display display = wm.getDefaultDisplay();
+		 @SuppressWarnings("deprecation")
+		 Resources r = cont.getResources();
+		 int width = display.getWidth();
+		 int newWidth = 0;
+		 if(width < 500)
+		 {
+			 newWidth = 140;
+		 }
+		 else if(width < 780)
+		 {
+			 newWidth = 170;
+		 }
+		 else
+		 {
+			 newWidth = 240;
+		 }
+		 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newWidth, r.getDisplayMetrics());
+		 android.view.ViewGroup.LayoutParams params1 = player1.getLayoutParams();
+		 params1.width = (int) px;
+		 player1.setLayoutParams(params1);
+		 android.view.ViewGroup.LayoutParams params2 = player2.getLayoutParams();
+		 params2.width = (int)px;
+		 player2.setLayoutParams(params2);
 		player1.setAdapter(doubleAdapter);
 		player1.setOnItemClickListener(new OnItemClickListener(){
 			@Override
@@ -865,6 +895,31 @@ public class ComparatorHandling
 		});
 		TextView output1 = (TextView)dialog.findViewById(R.id.compare_output_1);
 		TextView output2 = (TextView)dialog.findViewById(R.id.compare_output_2);
+		 WindowManager wm = (WindowManager) cont.getSystemService(Context.WINDOW_SERVICE);
+		 Display display = wm.getDefaultDisplay();
+		 @SuppressWarnings("deprecation")
+		 int width = display.getWidth();
+		 Resources r = cont.getResources();
+		 int newWidth = 0;
+		 if(width < 500)
+		 {
+			 newWidth = 140;
+		 }
+		 else if(width < 780)
+		 {
+			 newWidth = 170;
+		 }
+		 else
+		 {
+			 newWidth = 240;
+		 }
+		 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newWidth, r.getDisplayMetrics());
+		 android.view.ViewGroup.LayoutParams params1 = output1.getLayoutParams();
+		 params1.width = (int) px;
+		 output1.setLayoutParams(params1);
+		 android.view.ViewGroup.LayoutParams params2 = output2.getLayoutParams();
+		 params2.width = (int)px;
+		 output2.setLayoutParams(params2);
 		output1.setText(p1.toString());
 		output2.setText(p2.toString());
 		Button close = (Button)dialog.findViewById(R.id.compare_close);
@@ -909,6 +964,8 @@ public class ComparatorHandling
 	    	}	
 		});
 		dialog.show();
+		
+		
 	}
 	
 	/**

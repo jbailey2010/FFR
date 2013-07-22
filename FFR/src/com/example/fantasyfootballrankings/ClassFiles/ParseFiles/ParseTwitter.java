@@ -214,7 +214,7 @@ public class ParseTwitter
 	 * Handles twitter parsing for a list instead of a user
 	 * @return
 	 */
-	public static List<NewsObjects> parseTwitter4jList()
+	public static List<NewsObjects> parseTwitter4jList(String userName, String listName)
 	{
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
@@ -228,10 +228,10 @@ public class ParseTwitter
         Paging paging = new Paging(1, 25);
         try {
         	int id = -1;
-			ResponseList<UserList> list = twitter.getUserLists("chriswesseling");
+			ResponseList<UserList> list = twitter.getUserLists(userName);
 			for(UserList listIter : list)
 			{
-				if(listIter.getName().equals("Fantasy Football Writers"))
+				if(listIter.getName().equals(listName))
 				{
 					id = listIter.getId();
 					break;

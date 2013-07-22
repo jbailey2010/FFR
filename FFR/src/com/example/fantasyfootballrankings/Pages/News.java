@@ -247,14 +247,17 @@ public class News extends Activity {
 		spinnerList.add("Chris Mortenson (NFL News)");
 		spinnerList.add("Jason LaCanfora (NFL News)");
 		spinnerList.add("Jay Glazer (NFL News)");
+		spinnerList.add("Aggregate Beat Writers (NFL News)");
 		spinnerList.add("Aggregate Feed (Fantasy)");
-		spinnerList.add("Kay Adams (Fantasy)");
 		spinnerList.add("Brad Evans (Fantasy)");
-		spinnerList.add("Mike Clay (Fantasy)");
+		spinnerList.add("Chet Gresham (Fantasy)");
+		spinnerList.add("Chris Wesseling (Fantasy)");
 		spinnerList.add("Eric Mack (Fantasy)");
 		spinnerList.add("Fantasy Douche (Fantasy)");
+		spinnerList.add("Kay Adams (Fantasy)");
 		spinnerList.add("Late Round QB (Fantasy)");
-		spinnerList.add("Chris Wesseling (Fantasy)");
+		spinnerList.add("Mike Clay (Fantasy)");
+		spinnerList.add("Sigmund Bloom (Fantasy)");
 		final Spinner feeds = (Spinner)dialog.findViewById(R.id.spinner_feeds);
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
 				android.R.layout.simple_spinner_dropdown_item, spinnerList);
@@ -277,7 +280,7 @@ public class News extends Activity {
             	selection = brokenUp[0] + "'s Twitter Feed";
             	if(selection.contains("Aggregate"))
             	{
-            		selection = "Aggregate Fantasy Twitter Feed";
+            		selection = "Aggregate Twitter Feed";
             	}
             	WriteToFile.writeNewsSelection(cont, selection);
             	setHeader(selection);
@@ -347,7 +350,7 @@ public class News extends Activity {
 	{
 		if(selection.contains("Aggregate"))
 		{
-			selection = "Aggregate Fantasy Twitter Feed";
+			selection = "Aggregate Twitter Feed";
 		}
 		TextView header = (TextView)((Activity) cont).findViewById(R.id.news_header);
 		header.setText(selection);

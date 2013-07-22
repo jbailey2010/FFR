@@ -749,9 +749,23 @@ public class ParsingAsyncTask
 		    		url = "heykayadams";
 		    		news = ParseTwitter.parseTwitter4j(url);
 		    	}
-		    	else if(selection.contains("Aggregate"))
+		    	else if(selection.contains("Chet"))
 		    	{
-		    		news = ParseTwitter.parseTwitter4jList();
+		    		url = "Chet_G";
+		    		news = ParseTwitter.parseTwitter4j(url);
+		    	}
+		    	else if(selection.contains("Sigmund"))
+		    	{
+		    		url = "SigmundBloom";
+		    		news = ParseTwitter.parseTwitter4j(url);
+		    	}
+		    	else if(selection.contains("Aggregate") && selection.contains("Fantasy"))
+		    	{
+		    		news = ParseTwitter.parseTwitter4jList("chriswesseling", "Fantasy Football Writers");
+		    	}
+		    	else if(selection.contains("Aggregate") && selection.contains("Beat"))
+		    	{
+		    		news = ParseTwitter.parseTwitter4jList("Chet_G", "Beat Reporters");
 		    	}
 		    	else if(selection.contains("Schefter"))
 		    	{

@@ -51,7 +51,7 @@ public final class R {
         public static final int add_watch=0x7f080071;
         public static final int amount_paid=0x7f080021;
         public static final int auction_close=0x7f08003d;
-        public static final int auction_or_snake=0x7f0800a9;
+        public static final int auction_or_snake=0x7f0800a7;
         public static final int back=0x7f080026;
         public static final int back_view=0x7f080070;
         public static final int button_news_cancel=0x7f080047;
@@ -92,7 +92,7 @@ public final class R {
         public static final int flex_quantity=0x7f08005f;
         public static final int go_home=0x7f0800b0;
         public static final int help=0x7f0800af;
-        public static final int help_home=0x7f0800a8;
+        public static final int help_home=0x7f0800a9;
         public static final int help_home_close=0x7f080031;
         public static final int help_news_close=0x7f080034;
         public static final int help_rankings_close=0x7f080037;
@@ -135,7 +135,7 @@ public final class R {
         public static final int refresh=0x7f0800b6;
         public static final int refresh_cancel=0x7f080055;
         public static final int refresh_confirm=0x7f080057;
-        public static final int refresh_names=0x7f0800a7;
+        public static final int refresh_names=0x7f0800a8;
         public static final int refresh_news=0x7f0800ac;
         public static final int remSalary=0x7f08009d;
         public static final int reset_draft=0x7f080056;

@@ -39,6 +39,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -87,6 +89,7 @@ public class Home extends Activity{
         	helpPopUp();
         	WriteToFile.writeFirstOpen(cont);
         }
+       
 		//ManageInput.setUpScoring(cont, new Scoring(), false, holder);
 		//ManageInput.setUpRoster(cont, holder);
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
