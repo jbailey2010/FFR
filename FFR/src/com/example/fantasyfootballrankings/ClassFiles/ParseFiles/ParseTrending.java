@@ -118,7 +118,7 @@ public class ParseTrending
 		@Override
 		protected void onPreExecute(){ 
 			super.onPreExecute();
-		    pdia.setMessage("Please wait, checking the posts...");
+		    pdia.setMessage("Please wait, checking the posts. This could take a few minutes...");
 		    pdia.show();    
 		    setUpFixes();
 		}

@@ -3,11 +3,16 @@ package com.example.fantasyfootballrankings.ClassFiles;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import jeff.isawesome.fantasyfootballrankings.R;
+
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.example.fantasyfootballrankings.Pages.Trending;
@@ -35,6 +40,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -56,12 +62,46 @@ public class ManageInput
 	 * so that it autocompletes suggestions based on players who have
 	 * already been parsed.
 	 */
-	public static void setupAutoCompleteSearch(Storage holder, List<String> playerNames, 
+	public static void setupAutoCompleteSearch(Storage holder, List<PlayerObject> players, 
 			AutoCompleteTextView input, Context cont)
 	{
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(cont,
-                 android.R.layout.simple_dropdown_item_1line, playerNames);
-        input.setAdapter(adapter);
+		/*
+	    while(!playersTrending.isEmpty())
+	    {
+	    	PostedPlayer elem = playersTrending.poll();
+	    	Map<String, String> datum = new HashMap<String, String>(2);
+	    	datum.put("name", elem.name);
+	    	datum.put("count", elem.count + " times");
+	    	data.add(datum);
+	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times");
+	    }
+	    if(refreshed)
+	    {
+	    	WriteToFile.writePostsList(trendingPlayers, cont);
+	    	refreshed = false;
+	    }
+	    //final ArrayAdapter<String> mAdapter = ManageInput.handleArray(trendingPlayers, listview, cont);
+	    final SimpleAdapter mAdapter = new SimpleAdapter(cont, data, 
+	    		android.R.layout.simple_list_item_2, 
+	    		new String[] {"name", "count"}, 
+	    		new int[] {android.R.id.text1, 
+	    			android.R.id.text2});
+	    listview.setAdapter(mAdapter); 
+		 */
+		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+		for(PlayerObject player : players)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", player.info.name);
+			datum.put("sub", player.info.position + " - " + player.info.team);
+			data.add(datum);
+		}
+		 final SimpleAdapter mAdapter = new SimpleAdapter(cont, data, 
+		    		android.R.layout.simple_list_item_2, 
+		    		new String[] {"main", "sub"}, 
+		    		new int[] {android.R.id.text1, 
+		    			android.R.id.text2});
+		   input.setAdapter(mAdapter);
 	}
 
 	/**

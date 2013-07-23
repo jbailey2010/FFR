@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import jeff.isawesome.fantasyfootballrankings.R;
+
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.Pages.News;
 
 import twitter4j.Paging;
@@ -61,7 +63,7 @@ public class TwitterWork
 	 * @param cont
 	 * @param flag 
 	 */
-	public void twitterInitial(Context cont, int flag)
+	public void twitterInitial(Context cont, int flag, String search)
 	{
 		long check = ReadFromFile.readUseID(cont);
 		//Not yet set
@@ -73,14 +75,14 @@ public class TwitterWork
 		}
 		else //it IS set, so call a function to 'log in' the user'
 		{
-			logInUser(cont, flag);
+			logInUser(cont, flag, search);
 		}
 	}
 	
 	/**
 	 * Logs in the user and makes a pop up asking them what they'd like to do
 	 */
-	public void logInUser(final Context cont, int flag)
+	public void logInUser(final Context cont, int flag, String search)
 	{
 		if(userToken == null)
 		{
@@ -88,9 +90,16 @@ public class TwitterWork
 			String tokenSecret = ReadFromFile.readTokenSecret(cont);
 			userToken = new AccessToken(token, tokenSecret);
 			userTwitter = TwitterFactory.getSingleton();
-			userTwitter.setOAuthConsumer("BCARDaoZRV1VhOVh3Nxq4g",
-	        		"u84R7JlzTNtss0Tut61oSRKYpgo4uW8G1moOlrBOgSg");
-			userTwitter.setOAuthAccessToken(userToken);
+			try
+			{
+				userTwitter.setOAuthConsumer("BCARDaoZRV1VhOVh3Nxq4g",
+		        		"u84R7JlzTNtss0Tut61oSRKYpgo4uW8G1moOlrBOgSg");
+				userTwitter.setOAuthAccessToken(userToken);
+			}
+			catch(IllegalStateException e)
+			{
+				
+			}
 		}
 		if(flag == 1)
 		{
@@ -99,6 +108,10 @@ public class TwitterWork
 		if(flag == 2)
 		{
 			News.twitterSearchDialog();
+		}
+		if(flag == 3)
+		{
+			ParseNews.startTwitterSearchAsync(cont, search, "Twitter Search: " + search, false, search, this);
 		}
 	}
 	
@@ -138,6 +151,10 @@ public class TwitterWork
 		   {
 			   handleURL(act, result, flag);
 		   }
+		   else
+		   {
+			   Toast.makeText(act, "Please kill the app and re-open it to re-attempt to connect to twitter", Toast.LENGTH_LONG).show();
+		   }
 		}
 		
 	    @Override
@@ -145,18 +162,18 @@ public class TwitterWork
 	    {
 	    	final Context cont = (Context)data[0];
 	    	Twitter twitter = TwitterFactory.getSingleton();
-	        twitter.setOAuthConsumer("BCARDaoZRV1VhOVh3Nxq4g",
-	        		"u84R7JlzTNtss0Tut61oSRKYpgo4uW8G1moOlrBOgSg");
+	    	try{
+		        twitter.setOAuthConsumer("BCARDaoZRV1VhOVh3Nxq4g",
+		        		"u84R7JlzTNtss0Tut61oSRKYpgo4uW8G1moOlrBOgSg");
+	    	}catch(IllegalStateException ise)
+			{
+	    		return null;
+			}
 	        try {
 				requestToken = twitter.getOAuthRequestToken();
 		        accessToken = null;
 		        validURL = requestToken.getAuthorizationURL();
 			} catch (TwitterException e) {
-				if(e.isCausedByNetworkIssue())
-				{
-					Toast.makeText(act, "No available internet connection", Toast.LENGTH_SHORT).show();
-					return null;
-				}
 				e.printStackTrace();
 			}
 	        return twitter;
@@ -190,14 +207,7 @@ public class TwitterWork
 				handlePin(cont, twitter, flag);
 			}
 	    });
-	    Button cancel = (Button)dialog.findViewById(R.id.twitter_confirm_cancel);
-	    cancel.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
-				return;
-			}
-	    });
+	    dialog.setCancelable(false);
 	}
 	
 	/**
@@ -231,7 +241,7 @@ public class TwitterWork
 					try{
 						pin = Integer.parseInt(text);
 						dialog.dismiss();
-						finalizeValidation(cont, twitter, flag);
+						finalizeValidation(cont, twitter, flag, dialog);
 					}
 					catch (NumberFormatException e){
 						Toast.makeText(cont, "Please Enter a PIN of Only Numbers", Toast.LENGTH_SHORT).show();
@@ -245,11 +255,12 @@ public class TwitterWork
 	 * Calls the authentication asynctask
 	 * @param cont
 	 * @param flag 
+	 * @param dialog 
 	 */
-	public void finalizeValidation(Context cont, Twitter twitter, Integer flag)
+	public void finalizeValidation(Context cont, Twitter twitter, Integer flag, Dialog dialog)
 	{
 		TwitterWork obj = new TwitterWork();
-	    TwitterValidate task = obj.new TwitterValidate((Activity)cont, flag);
+	    TwitterValidate task = obj.new TwitterValidate((Activity)cont, flag, dialog, twitter);
 	    task.execute(cont, twitter, requestToken, Integer.toString(pin));
 	} 
 	
@@ -263,12 +274,16 @@ public class TwitterWork
 		ProgressDialog pdia;
 		Activity act;
 		Integer flag;
-	    public TwitterValidate(Activity activity, int i) 
+		Dialog d;
+		Twitter t;
+	    public TwitterValidate(Activity activity, int i, Dialog dialog, Twitter twitter) 
 	    {
 	        pdia = new ProgressDialog(activity);
 	        pdia.setCancelable(false);
 	        act = activity;
 	        flag = i;
+	        t = twitter;
+	        d = dialog;
 	    }
 	    
 		@Override
@@ -282,7 +297,16 @@ public class TwitterWork
 		protected void onPostExecute(AccessToken result){
 		   super.onPostExecute(result);
 		   pdia.dismiss();
-		   handleAccessToken(act, result, flag);
+		   if(result == null)
+		   {
+			   Toast.makeText(act, "Invalid pin.", Toast.LENGTH_SHORT).show();
+			   d.dismiss();
+		   }
+		   else
+		   {
+			   d.dismiss();
+			   handleAccessToken(act, result, flag);
+		   }
 		}
 		
 	    @Override
@@ -294,14 +318,14 @@ public class TwitterWork
 	    	String pinStr = (String)data[3];
 	    	AccessToken accessToken;
 			try {
-				accessToken = twit.getOAuthAccessToken(rt, pinStr);
-				WriteToFile.storeID(twit.verifyCredentials().getId(), cont);
+				accessToken = t.getOAuthAccessToken(rt, pinStr);
+				WriteToFile.storeID(t.verifyCredentials().getId(), cont);
 			} catch (TwitterException e) {
 		        if(401 == e.getStatusCode()){
-		        	  Toast.makeText(cont, "Unable to get the access token.", Toast.LENGTH_SHORT).show();
+		        	  System.out.println("Error getting token");
 			          return null;
 			    }else{
-			          Toast.makeText(cont, "Error validating token", Toast.LENGTH_SHORT).show();
+			          System.out.println("Error validating token");
 			          return null;
 			    }
 			}
@@ -323,15 +347,7 @@ public class TwitterWork
 			return;
 		}
 		WriteToFile.storeToken(accessToken, cont);
-		Toast.makeText(cont, "Successfully set up your account!", Toast.LENGTH_SHORT).show();
-		if(flag == 1)
-		{
-			News.twitterFeedsDialog();
-		}
-		if(flag == 2)
-		{
-			News.twitterSearchDialog();
-		}
+		Toast.makeText(cont, "Successfully set up your account! Please press the menu option again.", Toast.LENGTH_SHORT).show();
 	}
 
 	/**

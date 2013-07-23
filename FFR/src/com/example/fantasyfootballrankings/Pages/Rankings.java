@@ -482,6 +482,7 @@ public class Rankings extends Activity {
     	{
     		try {
 				ParseRankings.runRankings(holder, cont);
+				refreshed = true;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

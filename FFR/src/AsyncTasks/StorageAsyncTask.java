@@ -388,29 +388,33 @@ public class StorageAsyncTask
 			{
 				individual[j] = perSet[j].split("~");
 			}
-			//Qb fetching
-			ReadFromFile.handleDraftReading(individual[0], holder.draft.qb, holder);
-			//Rb fetching
-			ReadFromFile.handleDraftReading(individual[1], holder.draft.rb, holder);
-			//Wr fetching
-			ReadFromFile.handleDraftReading(individual[2], holder.draft.wr, holder);
-			//Te fetching
-			ReadFromFile.handleDraftReading(individual[3], holder.draft.te, holder);
-			//Def fetching
-			ReadFromFile.handleDraftReading(individual[4], holder.draft.def, holder);
-			//K fetching
-			ReadFromFile.handleDraftReading(individual[5], holder.draft.k, holder);
-			//Ignore fetching
-			for(String name : individual[6])
+			if(!perSet[0].equals("Doesn't matter") && individual.length > 4)
 			{
-				if(name.length() > 3 && !holder.draft.ignore.contains(name))
+				//Qb fetching
+				ReadFromFile.handleDraftReading(individual[0], holder.draft.qb, holder);
+				//Rb fetching
+				ReadFromFile.handleDraftReading(individual[1], holder.draft.rb, holder);
+				//Wr fetching
+				ReadFromFile.handleDraftReading(individual[2], holder.draft.wr, holder);
+				//Te fetching
+				ReadFromFile.handleDraftReading(individual[3], holder.draft.te, holder);
+				//Def fetching
+				ReadFromFile.handleDraftReading(individual[4], holder.draft.def, holder);
+				//K fetching
+				ReadFromFile.handleDraftReading(individual[5], holder.draft.k, holder);
+				//Ignore fetching
+				for(String name : individual[6])
 				{
-					holder.draft.ignore.add(name);
+					if(name.length() > 3 && !holder.draft.ignore.contains(name))
+					{
+						holder.draft.ignore.add(name);
+					}
 				}
+				//Values 
+				holder.draft.remainingSalary = Integer.parseInt(individual[7][0]);
+				holder.draft.value = Double.parseDouble(individual[8][0]);
 			}
-			//Values 
-			holder.draft.remainingSalary = Integer.parseInt(individual[7][0]);
-			holder.draft.value = Double.parseDouble(individual[8][0]);
+
 			return null;
 	    }
 	  }

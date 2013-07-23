@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,8 +30,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TwoLineListItem;
-
 import jeff.isawesome.fantasyfootballrankings.R;
+
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
@@ -80,7 +79,7 @@ public class PlayerInfo
 		});
 	    if(Rankings.matchedPlayers.size() == 0)
 	    {
-	    	ManageInput.setupAutoCompleteSearch(Rankings.holder, Rankings.holder.parsedPlayers, Rankings.textView, Rankings.newCont);
+	    	ManageInput.setupAutoCompleteSearch(Rankings.holder, Rankings.holder.players, Rankings.textView, Rankings.newCont);
 	    }
 	    Button searchDismiss = (Button)dialog.findViewById(R.id.search_cancel);
 		searchDismiss.setOnClickListener(new OnClickListener()
@@ -90,13 +89,28 @@ public class PlayerInfo
 			}
 		});
 		Button searchSubmit = (Button)dialog.findViewById(R.id.search_submit);
+		Rankings.textView.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				String text = ((TwoLineListItem)arg1).getText1().getText().toString();
+				Rankings.textView.setText(text);
+			}
+		});
 		searchSubmit.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(View v) {
+				/**
+				 * On item select, get the name
+				 */
 				if(Rankings.holder.parsedPlayers.contains(Rankings.textView.getText().toString()))
 				{
 					dialog.dismiss();
 					PlayerInfo.outputResults(Rankings.textView.getText().toString(), false, (Rankings)Rankings.newCont, Rankings.holder, false, true);
+				}
+				else
+				{
+					Toast.makeText(oCont, "Not a valid player name", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -824,8 +838,8 @@ public class PlayerInfo
 	public static void playerTweetSearchInit(String name, Activity act)
 	{
 		TwitterWork obj = new TwitterWork();
-		obj.twitterInitial(act, 0);
-		ParseNews.startTwitterSearchAsync(act, name, "Twitter Search: " + name, false, name, obj);
+		obj.twitterInitial(act, 3, name);
+		//ParseNews.startTwitterSearchAsync(act, name, "Twitter Search: " + name, false, name, obj);
 	}
 
 	/** 
