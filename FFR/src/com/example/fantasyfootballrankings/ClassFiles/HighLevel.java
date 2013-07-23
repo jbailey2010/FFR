@@ -482,11 +482,7 @@ public class HighLevel
 		{
 			if(points.containsKey(player.info.name + "/" + player.info.team + "/" + player.info.position))
 			{
-				if(player.info.position.equals("QB") || player.info.position.equals("RB") ||
-						player.info.position.equals("WR") || player.info.position.equals("TE"))
-				{
-					player.values.points = points.get(player.info.name + "/" + player.info.team + "/" + player.info.position);
-				}
+				player.values.points = points.get(player.info.name + "/" + player.info.team + "/" + player.info.position);
 			}
 		}
 	}

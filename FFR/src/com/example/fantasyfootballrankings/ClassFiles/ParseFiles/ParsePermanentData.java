@@ -113,14 +113,14 @@ public class ParsePermanentData
 		String textSub = HandleBasicQueries.handleListsMulti(doc, url, "p strong");
 		String[] brokenData = textSub.split("\n");
 		String name = "";
-		String value = "";
+		StringBuilder value = new StringBuilder(1000);
 		for(int i = 1; i < brokenData.length; i++)
 		{
 			String[] testWhole = brokenData[i].split(" ");
 			String test = testWhole[0];
 			if(test.contains(".") && !test.contains("+") && !test.contains("-"))
 			{
-				value = "Overall Line Ranking: " + test.replace(".", "") + "\n" + "\n";
+				value.append("Overall Line Ranking: " + test.replace(".", "") + "\n" + "\n");
 				if(testWhole[3].contains("("))
 				{
 					name = ParseRankings.fixTeams(testWhole[1] + " " + testWhole[2]);
@@ -135,10 +135,10 @@ public class ParsePermanentData
 				String[] data = brokenData[i].split(",");
 				String[] pb = data[0].split(" – ");
 				String[] rb = data[1].split(" – ");
-				value += "Pass Blocking Ranking: " + pb[1].substring(0, pb[1].length() - 2) + "\n\n";
-				value += "Run Blocking Ranking: " + rb[1].substring(0, rb[1].length() - 2) + "\n";
-				teams.put(name, value);
-				value = "";
+				value.append("Pass Blocking Ranking: " + pb[1].substring(0, pb[1].length() - 2) + "\n\n");
+				value.append("Run Blocking Ranking: " + rb[1].substring(0, rb[1].length() - 2) + "\n");
+				teams.put(name, value.toString());
+				value = new StringBuilder(1000);
 				name = "";
 			}
 		}

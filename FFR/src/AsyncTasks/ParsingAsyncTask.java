@@ -116,15 +116,8 @@ public class ParsingAsyncTask
 		    {
 		    	Storage holder = (Storage) data[0];
 		    	Context cont = (Context) data[1];
-		    	/*
-		    	 * 
-		    	catch (HttpStatusException e2)
-				{
-					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
-				} 
-		    	 */
+
 		    	holder.parsedPlayers.clear();
-	    		start = System.nanoTime();
 	    		all = System.nanoTime();
 
 	    		try {
@@ -137,9 +130,6 @@ public class ParsingAsyncTask
 					e15.printStackTrace();
 				}
 		        publishProgress("Please wait, fetching the rankings...(3/30)");
-				System.out.print((System.nanoTime() - start));
-				System.out.println("    after WF");
-				start = System.nanoTime();
 				
 				try {
 					ParseCBS.cbsRankings(holder);
@@ -151,9 +141,6 @@ public class ParsingAsyncTask
 					e14.printStackTrace();
 				}
 		        publishProgress("Please wait, fetching the rankings...(6/30)");
-				System.out.print(System.nanoTime() - start);
-				System.out.println("    after CBS");
-				start = System.nanoTime();
 				
 				try {
 					ParseESPNadv.parseESPNAggregate(holder);
@@ -168,10 +155,7 @@ public class ParsingAsyncTask
 					e13.printStackTrace();
 				}
 		        publishProgress("Please wait, fetching the rankings...(7/30)");
-				System.out.print(System.nanoTime() - start);
-				System.out.println("    after espn aggr");
-				start = System.nanoTime();
-				
+
 				try {
 					ParseFFTB.parseFFTBRankingsWrapper(holder);
 				} catch (HttpStatusException e2)
@@ -188,10 +172,7 @@ public class ParsingAsyncTask
 					e12.printStackTrace();
 				}
 		        publishProgress("Please wait, fetching the rankings...(8/30)");
-				System.out.print(System.nanoTime() - start);
-				System.out.println("    after fftb");
-				start = System.nanoTime();
-				
+
 				try {
 					ParseESPN.parseESPN300(holder);
 				} catch (HttpStatusException e2)
@@ -202,10 +183,7 @@ public class ParsingAsyncTask
 					e11.printStackTrace();
 				}
 		        publishProgress("Please wait, fetching the rankings...(10/30)");
-				System.out.print(System.nanoTime() - start);
-				System.out.println("    after espn");
-				start = System.nanoTime();
-				
+
 				try {
 					ParseMyFantasyLeague.parseMFLAggregate(holder);
 				} catch (HttpStatusException e2)
@@ -216,10 +194,6 @@ public class ParsingAsyncTask
 					e10.printStackTrace();
 				}
 		        publishProgress("Please wait, fetching the rankings...(11/30)");
-				System.out.print(System.nanoTime() - start);
-				System.out.println("    after mfl aggr");
-				start = System.nanoTime();
-
 
 				try {
 					ParseYahoo.parseYahooWrapper(holder);
@@ -231,10 +205,7 @@ public class ParsingAsyncTask
 					e9.printStackTrace();
 				}
 		        publishProgress("Please wait, fetching the rankings...(13/30)");
-				System.out.print(System.nanoTime() - start);
-				System.out.println("    after yahoo rankings and aggregate data");
-				start = System.nanoTime();
-				
+
 				try {
 					ParseFantasyPros.parseFantasyProsAgg(holder);
 				} catch (HttpStatusException e2)
@@ -245,10 +216,7 @@ public class ParsingAsyncTask
 					e8.printStackTrace();
 				}
 				publishProgress("Please wait, fetching the rankings...(17/30)");
-				System.out.print(System.nanoTime() - start);
-				System.out.println("    after fantasy  pros aggregate data");
-				start = System.nanoTime();
-				
+
 				try {
 					ParsePFF.parsePFFWrapper(holder);
 				} catch (HttpStatusException e2)
@@ -259,10 +227,7 @@ public class ParsingAsyncTask
 					e7.printStackTrace();
 				}
 				publishProgress("Please wait, fetching the rankings...(19/30)");
-				System.out.print(System.nanoTime() - start);
-				System.out.println("    after pff parser");
-				start = System.nanoTime();
-				
+
 				try {
 					ParseFantasySharks.parseFSAverage(holder);
 				} catch (HttpStatusException e2)
@@ -273,10 +238,7 @@ public class ParsingAsyncTask
 					e6.printStackTrace();
 				}
 				publishProgress("Please wait, fetching the rankings...(20/30)");
-				System.out.print(System.nanoTime() - start);
-				System.out.println("    after fantasy sharks parser");
-				start = System.nanoTime(); 
-				
+
 				try {
 					ParseRotoPost.parseRotoPostWrapper(holder);
 				} catch (HttpStatusException e2)
@@ -287,10 +249,7 @@ public class ParsingAsyncTask
 					e5.printStackTrace();
 				}
 				publishProgress("Please wait, fetching the rankings...(22/30)");
-				System.out.print(System.nanoTime() - start);
-				System.out.println("    after rotopost parser");
-				start = System.nanoTime();
-				
+
 				try {
 					ParseFootballGuys.parseFGWrapper(holder);
 				} catch (HttpStatusException e2)
@@ -301,10 +260,7 @@ public class ParsingAsyncTask
 					e4.printStackTrace();
 				}
 				publishProgress("Please wait, fetching the rankings...(26/30)");
-				System.out.print(System.nanoTime() - start);
-				System.out.println("    after football guys parser");
-				start = System.nanoTime();
-				
+
 				try {
 					ParseNFL.parseNFLAAVWrapper(holder);
 				} catch (HttpStatusException e2)
@@ -315,9 +271,6 @@ public class ParsingAsyncTask
 					e3.printStackTrace();
 				}
 				publishProgress("Please wait, fetching the rankings...(27/30)");
-				System.out.print(System.nanoTime() - start);
-				System.out.println("    after NFL AAV parser");
-				start = System.nanoTime();
 				
 				try {
 					ParseCSC.parseCSCWrapper(holder);
@@ -329,9 +282,6 @@ public class ParsingAsyncTask
 					e2.printStackTrace();
 				}
 				publishProgress("Please wait, fetching the rankings...(28/30)");
-				System.out.print(System.nanoTime() - start);
-				System.out.println("    after CSC AAV parser");
-				start = System.nanoTime();
 				
 				try {
 					ParseFFA.parseFFAWrapper(holder);
@@ -343,16 +293,10 @@ public class ParsingAsyncTask
 					e1.printStackTrace();
 				}
 				publishProgress("Please wait, fetching the rankings...(29/30)");
-				System.out.print(System.nanoTime() - start);
-				System.out.println("    after FFA parser");
-				start = System.nanoTime();
 				
 		    	try { 
 					ParseRTS.parseRTSWrapper(holder);
 					publishProgress("Please wait, fetching the rankings...(30/30)");
-					System.out.print(System.nanoTime() - start);
-					System.out.println("    after RTS parser");
-					start = System.nanoTime();
 				} catch (HttpStatusException e2)
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
@@ -513,7 +457,6 @@ public class ParsingAsyncTask
 		    	Storage holder = (Storage) data[0];
 		    	Context cont = (Context) data[1];
 		    	start = System.nanoTime();
-	    		System.out.println("Before stats");
 	    		publishProgress("Please wait, fetching player stats...");
 				try {
 					HighLevel.setStats(holder, cont);
@@ -524,8 +467,7 @@ public class ParsingAsyncTask
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				System.out.println("Before team info");
+
 	    		publishProgress("Please wait, fetching team data...");
 				try {
 					HighLevel.setTeamInfo(holder, cont);
@@ -536,8 +478,7 @@ public class ParsingAsyncTask
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				System.out.println("Before SOS");
+
 				publishProgress("Please wait, fetching positional SOS...");
 				try {
 					HighLevel.getSOS(holder);
@@ -548,8 +489,7 @@ public class ParsingAsyncTask
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				System.out.println("Before contract status");
+
 				publishProgress("Please wait, fetching player contract status...");
 	    		try {
 					HighLevel.setContractStatus(holder);
@@ -560,8 +500,7 @@ public class ParsingAsyncTask
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-	    		
-	    		System.out.println("Before permanent data");
+
 			    publishProgress("Please wait, setting last year's team data...");
 			    try {
 					HighLevel.setPermanentData(holder, cont);
@@ -572,8 +511,7 @@ public class ParsingAsyncTask
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			    
-			    System.out.println("Before specific data");
+
 			    publishProgress("Please wait, setting specific player info...");
 	    		try {
 					HighLevel.parseSpecificData(holder, cont);
@@ -584,8 +522,7 @@ public class ParsingAsyncTask
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-	    		
-	    		System.out.println("Before risk");
+
 	    		publishProgress("Please wait, calculating relative risk...");
 	    		try {
 					HighLevel.setRisk(holder);
@@ -596,8 +533,7 @@ public class ParsingAsyncTask
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-	    		
-	    		System.out.println("Before advanced line stuff");
+
 	    		publishProgress("Please wait, getting advanced line stats...");
 	    		try {
 					ParseOLineAdvanced.parsePFOLineData(holder);
@@ -608,8 +544,7 @@ public class ParsingAsyncTask
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-	    		
-	    		System.out.println("Before projections");
+
 	    		publishProgress("Please wait, getting projected points...");
 	    		try {
 					HighLevel.projPointsWrapper(holder, cont);
@@ -620,19 +555,15 @@ public class ParsingAsyncTask
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-	    		
-	    		System.out.println("Before PAA");
 	    		publishProgress("Please wait, normalizing projections...");
 	    		HighLevel.getPAA(holder, cont);
 		    	try { 
-		    		System.out.println("Before redzone stats");
 		    		publishProgress("Please wait, getting advanced redzone stats...");
 		    		HighLevel.parseRedZoneStats(holder);
 		    	} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
-	    		System.out.println(System.nanoTime() - start); 
 				return null;
 		    }
 		}

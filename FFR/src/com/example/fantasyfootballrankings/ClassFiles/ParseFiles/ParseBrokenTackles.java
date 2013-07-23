@@ -32,16 +32,17 @@ public class ParseBrokenTackles {
 			}
 			
 			String[] individual = rows[i].split(" ");
-			String output = individual[3];
+			StringBuilder output = new StringBuilder(100);
+			output.append(individual[3]);
 			if(individual.length >= 8)
 			{
-				output += ", " + individual[7] + " of touches";
+				output.append(", " + individual[7] + " of touches");
 			}
 			else if(individual.length == 6)
 			{
-				output += ", " + individual[4] + " escaped sacks, and " + individual[5] + " past LOS";
+				output.append(", " + individual[4] + " escaped sacks, and " + individual[5] + " past LOS");
 			}
-			bt.put(individual[0] + " " + individual[1], output);
+			bt.put(individual[0] + " " + individual[1], output.toString());
 		}
 		return bt;
 	}
