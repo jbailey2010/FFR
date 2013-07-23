@@ -3,7 +3,7 @@ package com.example.fantasyfootballrankings.ClassFiles;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.fantasyfootballrankings.R;
+import jeff.isawesome.fantasyfootballrankings.R;
 
 import FileIO.ReadFromFile;
 import android.app.Dialog;

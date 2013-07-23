@@ -4,6 +4,7 @@ import java.io.IOException;
 
 
 
+
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -17,10 +18,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
 
-import com.example.fantasyfootballrankings.R;
-import com.example.fantasyfootballrankings.R.id;
-import com.example.fantasyfootballrankings.R.layout;
-import com.example.fantasyfootballrankings.R.menu;
+import jeff.isawesome.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.ComparatorHandling;
 import com.example.fantasyfootballrankings.ClassFiles.HandleWatchList;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
@@ -45,6 +43,7 @@ import FileIO.WriteToFile;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
+import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.Dialog;
@@ -131,6 +130,9 @@ public class Rankings extends Activity {
     	setLists();
 		handleRefresh();
 		handleOnClickButtons();
+		ActionBar ab = getActionBar();
+		ab.setDisplayShowHomeEnabled(false);
+		ab.setDisplayShowTitleEnabled(false);
 	}
 	
 	/**

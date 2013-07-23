@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,10 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TwoLineListItem;
 
-import com.example.fantasyfootballrankings.R;
-import com.example.fantasyfootballrankings.R.id;
-import com.example.fantasyfootballrankings.R.layout;
-import com.example.fantasyfootballrankings.R.style;
+import jeff.isawesome.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
@@ -819,7 +817,7 @@ public class PlayerInfo
 		}
 		return rank;
 	}
-
+ 
 	/**
 	 * Calls the asynchronous search of tweets about a player
 	 */
@@ -830,7 +828,7 @@ public class PlayerInfo
 		ParseNews.startTwitterSearchAsync(act, name, "Twitter Search: " + name, false, name, obj);
 	}
 
-	/**
+	/** 
 	 * Makes a popup that shows the tweet so it's copyable from a user
 	 */
 	public static void tweetPopUp(View arg1, Activity cont)

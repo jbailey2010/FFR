@@ -36,13 +36,13 @@
 
     </RelativeLayout>
 
-    <ListView
+    <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
         android:id="@+id/listview_search"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:divider="#A1A1A1"
         android:dividerHeight="1dp"
         android:layout_width="fill_parent" >
-    </ListView>
+    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 
 </LinearLayout>

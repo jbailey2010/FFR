@@ -99,9 +99,7 @@ public class ParseNews
 		for(int i = 0; i < data.length; i+=4)
 		{
 			String newsObj = data[i];
-			System.out.println(newsObj);
 			String date = newsObj.split("\\(")[1].split("\\)")[0];
-			System.out.println(date);
 			String news = newsObj.substring(newsObj.indexOf(")") + 2, newsObj.length());
 			String header = newsObj.split("by")[0];
 			news = news.split("Analysis:")[0];

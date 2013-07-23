@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
 
-import com.example.fantasyfootballrankings.R;
+import jeff.isawesome.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.HandleExport;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
@@ -34,6 +34,7 @@ import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -76,6 +77,9 @@ public class Home extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+		ActionBar ab = getActionBar();
+		ab.setDisplayShowHomeEnabled(false);
+		ab.setDisplayShowTitleEnabled(false);
         rankings = (Button)findViewById(R.id.rankings);
         rankings.setOnClickListener(rankHandler);
         trending = (Button)findViewById(R.id.trending);

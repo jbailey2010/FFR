@@ -96,7 +96,6 @@ public class Storage
 		{
 			return name;
 		}
-		System.out.println(name + " wasn't found...");
 		return name + " NO MATCH FOUND";
 	}
 	

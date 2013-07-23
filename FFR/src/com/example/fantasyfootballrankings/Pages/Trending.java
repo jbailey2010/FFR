@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,10 +17,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
 
-import com.example.fantasyfootballrankings.R;
-import com.example.fantasyfootballrankings.R.id;
-import com.example.fantasyfootballrankings.R.layout;
-import com.example.fantasyfootballrankings.R.menu;
+import jeff.isawesome.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
@@ -33,6 +31,7 @@ import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissLi
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -83,6 +82,9 @@ public class Trending extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trending);
+		ActionBar ab = getActionBar();
+		ab.setDisplayShowHomeEnabled(false);
+		ab.setDisplayShowTitleEnabled(false);
 		//Fetch the date of the posts, and convert it to a date
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	listview = (BounceListView)findViewById(R.id.listview_trending);
@@ -196,48 +198,51 @@ public class Trending extends Activity {
 			ReadFromFile.fetchNamesBackEnd(holder, cont);
 		}
 		String storedPosts = prefs.getString("Posted Players", "Not Posted");
-		List<String>postsList = new ArrayList<String>();
-		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-		for(String post : storedPosts.split("##"))
+		if(!storedPosts.equals("Not Posted"))
 		{
-			String[] nameSet = post.split(": mentioned ");
-			Map<String, String> datum = new HashMap<String, String>(2);
-			String name = nameSet[0];
-			String count = (nameSet[1].split(" times")[0]);
-			datum.put("name", name);
-			datum.put("count", count + " times");
-			data.add(datum);
-			postsList.add(post);
-		}
-    	if(storedPosts != "Not Posted")
-    	{
-    		 final SimpleAdapter mAdapter = new SimpleAdapter(cont, data, 
-    		    		android.R.layout.simple_list_item_2, 
-    		    		new String[] {"name", "count"}, 
-    		    		new int[] {android.R.id.text1, 
-    		    			android.R.id.text2});
-    		    listview.setAdapter(mAdapter);
-    		SwipeDismissListViewTouchListener touchListener =
-                    new SwipeDismissListViewTouchListener(
-                            listview,
-                            new SwipeDismissListViewTouchListener.OnDismissCallback() {
-                                @Override
-                                public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-                                	String name = "";
-                                	for (int position : reverseSortedPositions) {
-                                    	Map<String, String> datum = new HashMap<String, String>(2);
-                                    	datum = data.get(position);
-                                    	name = datum.get("name");
-                                        data.remove(mAdapter.getItem(position));
-                                    }
-                                    mAdapter.notifyDataSetChanged();
-                                    Toast.makeText(cont, "Temporarily hiding " + name, Toast.LENGTH_SHORT).show();
-                                }
-                            });
-            listview.setOnTouchListener(touchListener);
-            listview.setOnScrollListener(touchListener.makeScrollListener());
-
-    	    setListViewOnClick();
+			List<String>postsList = new ArrayList<String>();
+			final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+			for(String post : storedPosts.split("##"))
+			{
+				String[] nameSet = post.split(": mentioned ");
+				Map<String, String> datum = new HashMap<String, String>(2);
+				String name = nameSet[0];
+				String count = (nameSet[1].split(" times")[0]);
+				datum.put("name", name);
+				datum.put("count", count + " times");
+				data.add(datum);
+				postsList.add(post);
+			}
+	    	if(storedPosts != "Not Posted")
+	    	{
+	    		 final SimpleAdapter mAdapter = new SimpleAdapter(cont, data, 
+	    		    		android.R.layout.simple_list_item_2, 
+	    		    		new String[] {"name", "count"}, 
+	    		    		new int[] {android.R.id.text1, 
+	    		    			android.R.id.text2});
+	    		    listview.setAdapter(mAdapter); 
+	    		SwipeDismissListViewTouchListener touchListener =
+	                    new SwipeDismissListViewTouchListener(
+	                            listview,
+	                            new SwipeDismissListViewTouchListener.OnDismissCallback() {
+	                                @Override
+	                                public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+	                                	String name = "";
+	                                	for (int position : reverseSortedPositions) {
+	                                    	Map<String, String> datum = new HashMap<String, String>(2);
+	                                    	datum = data.get(position);
+	                                    	name = datum.get("name");
+	                                        data.remove(mAdapter.getItem(position));
+	                                    }
+	                                    mAdapter.notifyDataSetChanged();
+	                                    Toast.makeText(cont, "Temporarily hiding " + name, Toast.LENGTH_SHORT).show();
+	                                }
+	                            });
+	            listview.setOnTouchListener(touchListener);
+	            listview.setOnScrollListener(touchListener.makeScrollListener());
+	
+	    	    setListViewOnClick();
+	    	}
     	}
 	}
 	
@@ -255,7 +260,7 @@ public class Trending extends Activity {
     	String checkExists = prefs.getString("Posts", "Not Set");
     	if(checkExists.equals("Not Set"))
     	{
-    		fetchTrending(holder);
+    		Toast.makeText(context, "Please select Filter Topics from the menu to see trending players", Toast.LENGTH_SHORT).show();
     	}
     	else
     	{
@@ -328,10 +333,10 @@ public class Trending extends Activity {
             @Override
             public void onClick(View v) 
             {
-            	day.setBackground(getResources().getDrawable(R.drawable.menu_btn_black));
-            	week.setBackground(getResources().getDrawable(R.drawable.menu_btn_black));
-            	month.setBackground(getResources().getDrawable(R.drawable.menu_btn_black));
-            	all.setBackground(getResources().getDrawable(R.drawable.menu_btn_black));
+            	day.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+            	week.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+            	month.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+            	all.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
 				Boolean valueChecked = value.isChecked();
 				Boolean rookieChecked = rookie.isChecked();
 				Boolean wantChecked = want.isChecked();
@@ -431,10 +436,10 @@ public class Trending extends Activity {
             @Override
             public void onClick(View v) 
             {
-            	day.setBackground(getResources().getDrawable(R.drawable.menu_btn_black));
-            	week.setBackground(getResources().getDrawable(R.drawable.menu_btn_black));
-            	month.setBackground(getResources().getDrawable(R.drawable.menu_btn_black));
-            	all.setBackground(getResources().getDrawable(R.drawable.menu_btn_black));
+            	day.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+            	week.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+            	month.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+            	all.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
             	button.setBackgroundColor(Color.BLACK);
 				try {
 					WriteToFile.writeLastFilter(cont, filterSize);
@@ -498,12 +503,6 @@ public class Trending extends Activity {
 	 */
 	public void handleParsed(PriorityQueue<PostedPlayer> playersTrending, Storage holder, final Activity cont)
 	{
-		int count = 0; 
-		for(PostedPlayer e:playersTrending)
-		{
-			count += e.count;
-		}
-		System.out.println(playersTrending.size() + " " + count);
 	    listview = (BounceListView) cont.findViewById(R.id.listview_trending);
 	    listview.setAdapter(null);
 	    final List<Map<String, String>> data = new ArrayList<Map<String, String>>();

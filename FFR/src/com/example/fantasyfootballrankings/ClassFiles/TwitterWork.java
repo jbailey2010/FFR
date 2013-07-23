@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.example.fantasyfootballrankings.R;
+import jeff.isawesome.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.Pages.News;
 
@@ -214,6 +214,7 @@ public class TwitterWork
 	    lp.copyFrom(dialog.getWindow().getAttributes());
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
 	    dialog.getWindow().setAttributes(lp);
+	    dialog.setCancelable(false);
 	    dialog.show();	
 	    final EditText input = (EditText)dialog.findViewById(R.id.twitter_pin_field);
 	    Button submit = (Button)dialog.findViewById(R.id.twitter_pin_go);
@@ -236,13 +237,6 @@ public class TwitterWork
 						Toast.makeText(cont, "Please Enter a PIN of Only Numbers", Toast.LENGTH_SHORT).show();
 					}
 				}
-			}
-	    });
-	    Button cancel = (Button)dialog.findViewById(R.id.twitter_pin_cancel);
-	    cancel.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
 			}
 	    });
 	}
@@ -304,7 +298,7 @@ public class TwitterWork
 				WriteToFile.storeID(twit.verifyCredentials().getId(), cont);
 			} catch (TwitterException e) {
 		        if(401 == e.getStatusCode()){
-			          System.out.println("Unable to get the access token.");
+		        	  Toast.makeText(cont, "Unable to get the access token.", Toast.LENGTH_SHORT).show();
 			          return null;
 			    }else{
 			          Toast.makeText(cont, "Error validating token", Toast.LENGTH_SHORT).show();

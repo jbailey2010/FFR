@@ -3,17 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <Button
-        android:id="@+id/twitter_pin_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:textColor="#CD0000"
-        android:textSize="28sp"
-        style="?android:attr/buttonBarButtonStyle"
-        android:text="X" />
-
     <EditText
         android:id="@+id/twitter_pin_field"
         android:layout_width="wrap_content"
@@ -42,16 +31,6 @@
         android:text="Submit" />
 
     <TextView
-        android:id="@+id/twitter_pin_prompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/twitter_pin_cancel"
-        android:layout_centerHorizontal="true"
-        android:text="Enter the PIN you got online here"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
-
-    <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,5 +39,16 @@
         android:layout_marginTop="15dp"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/twitter_pin_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Enter the PIN you got online here"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
 
 </RelativeLayout>

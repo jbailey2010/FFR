@@ -411,7 +411,6 @@ public class StorageAsyncTask
 			//Values 
 			holder.draft.remainingSalary = Integer.parseInt(individual[7][0]);
 			holder.draft.value = Double.parseDouble(individual[8][0]);
-			System.out.println(System.nanoTime() - start + " to load from file");
 			return null;
 	    }
 	  }

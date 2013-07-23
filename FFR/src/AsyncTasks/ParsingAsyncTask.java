@@ -305,8 +305,6 @@ public class ParsingAsyncTask
 				} catch (IllegalArgumentException e) {
 					System.out.println("Error");
 				}
-		    	System.out.println();
-				System.out.println(System.nanoTime() - all);
 				return null;
 		    }
 
@@ -683,7 +681,7 @@ public class ParsingAsyncTask
 			@Override
 			protected void onPreExecute(){ 
 			   super.onPreExecute();
-			        pdia.setMessage("Please wait, refreshing the list...");
+			        pdia.setMessage("Please wait, fetching the player names list...");
 			        pdia.show();    
 			}
 

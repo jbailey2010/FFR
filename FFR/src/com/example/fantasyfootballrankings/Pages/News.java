@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,9 +10,7 @@ import java.util.Map;
 
 import twitter4j.TwitterException;
 
-import com.example.fantasyfootballrankings.R;
-import com.example.fantasyfootballrankings.R.layout;
-import com.example.fantasyfootballrankings.R.menu;
+import jeff.isawesome.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
@@ -23,6 +22,7 @@ import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissLi
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -64,6 +64,9 @@ public class News extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news);
 		cont = this;
+		ActionBar ab = getActionBar();
+		ab.setDisplayShowHomeEnabled(false);
+		ab.setDisplayShowTitleEnabled(false);
 		handleInitialLoading();
 	}
 
@@ -132,7 +135,7 @@ public class News extends Activity {
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-			}
+			} 
 	    });
 	}
 
@@ -145,7 +148,8 @@ public class News extends Activity {
 		String newsWhole = prefs.getString("News RotoWorld", "Not Set");
 		if(newsWhole.equals("Not Set"))
 		{
-			ParseNews.startNewsAsync(cont, true, false, false, false, false);
+			//ParseNews.startNewsAsync(cont, true, false, false, false, false);
+			Toast.makeText(cont, "Select an option above to get your news", Toast.LENGTH_SHORT).show();
 		}
 		else
 		{

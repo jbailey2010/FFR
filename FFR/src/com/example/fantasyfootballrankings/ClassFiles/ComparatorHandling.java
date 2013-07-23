@@ -3,7 +3,7 @@ package com.example.fantasyfootballrankings.ClassFiles;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.fantasyfootballrankings.R;
+import jeff.isawesome.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 
 import FileIO.ReadFromFile;
@@ -960,7 +960,6 @@ public class ComparatorHandling
 			if(!iter.info.name.equals(player.info.name) && !Draft.isDrafted(iter.info.name, holder.draft) && counter < 5 &&
 					iter.info.position.equals(player.info.position) && iter.values.points != 0.0)
 			{
-				System.out.println("Adding for " + iter.info.name + ": " + iter.values.points);
 				left += iter.values.points;
 				counter++;
 			}
