@@ -512,7 +512,7 @@ public class StorageAsyncTask
 			//Ignore fetching
 			for(String name : individual[6])
 			{
-				if(name.length() > 3)
+				if(name.length() > 3 && !holder.draft.ignore.contains(name))
 				{
 					holder.draft.ignore.add(name);
 				}
