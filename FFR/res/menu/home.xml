@@ -1,12 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item
-        android:id="@+id/export_names"
-        android:orderInCategory="100"
-        android:title="Export Rankings"/>   
+ 
     <item 
    	    android:id="@+id/auction_or_snake"
    	    android:orderInCategory="100"
    	    android:title="Auction or Snake?"/>
+    <item
+        android:id="@+id/export_names"
+        android:orderInCategory="100"
+        android:title="Export Rankings"/>  
     <item
         android:id="@+id/refresh_names"
         android:orderInCategory="100"

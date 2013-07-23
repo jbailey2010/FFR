@@ -6,6 +6,7 @@ import java.io.IOException;
 
 
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,11 +21,14 @@ import javax.xml.parsers.ParserConfigurationException;
 
 
 
+
+
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.htmlcleaner.XPatherException;
+import org.jsoup.HttpStatusException;
 import org.xml.sax.SAXException;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
@@ -112,116 +116,253 @@ public class ParsingAsyncTask
 		    {
 		    	Storage holder = (Storage) data[0];
 		    	Context cont = (Context) data[1];
-		    	try { 
-		    		holder.parsedPlayers.clear();
-		    		start = System.nanoTime();
-		    		all = System.nanoTime();
+		    	/*
+		    	 * 
+		    	catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} 
+		    	 */
+		    	holder.parsedPlayers.clear();
+	    		start = System.nanoTime();
+	    		all = System.nanoTime();
 
+	    		try {
 					ParseWF.wfRankings(holder);
-			        publishProgress("Please wait, fetching the rankings...(3/30)");
-					System.out.print((System.nanoTime() - start));
-					System.out.println("    after WF");
-					start = System.nanoTime();
-
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e15) {
+					// TODO Auto-generated catch block
+					e15.printStackTrace();
+				}
+		        publishProgress("Please wait, fetching the rankings...(3/30)");
+				System.out.print((System.nanoTime() - start));
+				System.out.println("    after WF");
+				start = System.nanoTime();
+				
+				try {
 					ParseCBS.cbsRankings(holder);
-			        publishProgress("Please wait, fetching the rankings...(6/30)");
-					System.out.print(System.nanoTime() - start);
-					System.out.println("    after CBS");
-					start = System.nanoTime();
-
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e14) {
+					// TODO Auto-generated catch block
+					e14.printStackTrace();
+				}
+		        publishProgress("Please wait, fetching the rankings...(6/30)");
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after CBS");
+				start = System.nanoTime();
+				
+				try {
 					ParseESPNadv.parseESPNAggregate(holder);
-			        publishProgress("Please wait, fetching the rankings...(7/30)");
-					System.out.print(System.nanoTime() - start);
-					System.out.println("    after espn aggr");
-					start = System.nanoTime();
-
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e13) {
+					// TODO Auto-generated catch block
+					e13.printStackTrace();
+				} catch (XPatherException e13) {
+					// TODO Auto-generated catch block
+					e13.printStackTrace();
+				}
+		        publishProgress("Please wait, fetching the rankings...(7/30)");
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after espn aggr");
+				start = System.nanoTime();
+				
+				try {
 					ParseFFTB.parseFFTBRankingsWrapper(holder);
-			        publishProgress("Please wait, fetching the rankings...(8/30)");
-					System.out.print(System.nanoTime() - start);
-					System.out.println("    after fftb");
-					start = System.nanoTime();
-
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (MalformedURLException e12) {
+					// TODO Auto-generated catch block
+					e12.printStackTrace();
+				} catch (IOException e12) {
+					// TODO Auto-generated catch block
+					e12.printStackTrace();
+				} catch (XPatherException e12) {
+					// TODO Auto-generated catch block
+					e12.printStackTrace();
+				}
+		        publishProgress("Please wait, fetching the rankings...(8/30)");
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after fftb");
+				start = System.nanoTime();
+				
+				try {
 					ParseESPN.parseESPN300(holder);
-			        publishProgress("Please wait, fetching the rankings...(10/30)");
-					System.out.print(System.nanoTime() - start);
-					System.out.println("    after espn");
-					start = System.nanoTime();
-
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e11) {
+					// TODO Auto-generated catch block
+					e11.printStackTrace();
+				}
+		        publishProgress("Please wait, fetching the rankings...(10/30)");
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after espn");
+				start = System.nanoTime();
+				
+				try {
 					ParseMyFantasyLeague.parseMFLAggregate(holder);
-			        publishProgress("Please wait, fetching the rankings...(11/30)");
-					System.out.print(System.nanoTime() - start);
-					System.out.println("    after mfl aggr");
-					start = System.nanoTime();
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e10) {
+					// TODO Auto-generated catch block
+					e10.printStackTrace();
+				}
+		        publishProgress("Please wait, fetching the rankings...(11/30)");
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after mfl aggr");
+				start = System.nanoTime();
 
+
+				try {
 					ParseYahoo.parseYahooWrapper(holder);
-			        publishProgress("Please wait, fetching the rankings...(13/30)");
-					System.out.print(System.nanoTime() - start);
-					System.out.println("    after yahoo rankings and aggregate data");
-					start = System.nanoTime();
-
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e9) {
+					// TODO Auto-generated catch block
+					e9.printStackTrace();
+				}
+		        publishProgress("Please wait, fetching the rankings...(13/30)");
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after yahoo rankings and aggregate data");
+				start = System.nanoTime();
+				
+				try {
 					ParseFantasyPros.parseFantasyProsAgg(holder);
-					publishProgress("Please wait, fetching the rankings...(17/30)");
-					System.out.print(System.nanoTime() - start);
-					System.out.println("    after fantasy  pros aggregate data");
-					start = System.nanoTime();
-
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e8) {
+					// TODO Auto-generated catch block
+					e8.printStackTrace();
+				}
+				publishProgress("Please wait, fetching the rankings...(17/30)");
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after fantasy  pros aggregate data");
+				start = System.nanoTime();
+				
+				try {
 					ParsePFF.parsePFFWrapper(holder);
-					publishProgress("Please wait, fetching the rankings...(19/30)");
-					System.out.print(System.nanoTime() - start);
-					System.out.println("    after pff parser");
-					start = System.nanoTime();
-
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e7) {
+					// TODO Auto-generated catch block
+					e7.printStackTrace();
+				}
+				publishProgress("Please wait, fetching the rankings...(19/30)");
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after pff parser");
+				start = System.nanoTime();
+				
+				try {
 					ParseFantasySharks.parseFSAverage(holder);
-					publishProgress("Please wait, fetching the rankings...(20/30)");
-					System.out.print(System.nanoTime() - start);
-					System.out.println("    after fantasy sharks parser");
-					start = System.nanoTime(); 
-
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e6) {
+					// TODO Auto-generated catch block
+					e6.printStackTrace();
+				}
+				publishProgress("Please wait, fetching the rankings...(20/30)");
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after fantasy sharks parser");
+				start = System.nanoTime(); 
+				
+				try {
 					ParseRotoPost.parseRotoPostWrapper(holder);
-					publishProgress("Please wait, fetching the rankings...(22/30)");
-					System.out.print(System.nanoTime() - start);
-					System.out.println("    after rotopost parser");
-					start = System.nanoTime();
-
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e5) {
+					// TODO Auto-generated catch block
+					e5.printStackTrace();
+				}
+				publishProgress("Please wait, fetching the rankings...(22/30)");
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after rotopost parser");
+				start = System.nanoTime();
+				
+				try {
 					ParseFootballGuys.parseFGWrapper(holder);
-					publishProgress("Please wait, fetching the rankings...(26/30)");
-					System.out.print(System.nanoTime() - start);
-					System.out.println("    after football guys parser");
-					start = System.nanoTime();
-
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e4) {
+					// TODO Auto-generated catch block
+					e4.printStackTrace();
+				}
+				publishProgress("Please wait, fetching the rankings...(26/30)");
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after football guys parser");
+				start = System.nanoTime();
+				
+				try {
 					ParseNFL.parseNFLAAVWrapper(holder);
-					publishProgress("Please wait, fetching the rankings...(27/30)");
-					System.out.print(System.nanoTime() - start);
-					System.out.println("    after NFL AAV parser");
-					start = System.nanoTime();
-
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				}
+				publishProgress("Please wait, fetching the rankings...(27/30)");
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after NFL AAV parser");
+				start = System.nanoTime();
+				
+				try {
 					ParseCSC.parseCSCWrapper(holder);
-					publishProgress("Please wait, fetching the rankings...(28/30)");
-					System.out.print(System.nanoTime() - start);
-					System.out.println("    after CSC AAV parser");
-					start = System.nanoTime();
-
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				publishProgress("Please wait, fetching the rankings...(28/30)");
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after CSC AAV parser");
+				start = System.nanoTime();
+				
+				try {
 					ParseFFA.parseFFAWrapper(holder);
-					publishProgress("Please wait, fetching the rankings...(29/30)");
-					System.out.print(System.nanoTime() - start);
-					System.out.println("    after FFA parser");
-					start = System.nanoTime();
-
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				publishProgress("Please wait, fetching the rankings...(29/30)");
+				System.out.print(System.nanoTime() - start);
+				System.out.println("    after FFA parser");
+				start = System.nanoTime();
+				
+		    	try { 
 					ParseRTS.parseRTSWrapper(holder);
 					publishProgress("Please wait, fetching the rankings...(30/30)");
 					System.out.print(System.nanoTime() - start);
 					System.out.println("    after RTS parser");
 					start = System.nanoTime();
-
-					System.out.println();
-					System.out.println(System.nanoTime() - all);
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e) {
 					System.out.println("Error");
 				} catch (IllegalArgumentException e) {
 					System.out.println("Error");
-				} catch (XPatherException e) {
-					System.out.println("Error");
-				} 
+				}
+		    	System.out.println();
+				System.out.println(System.nanoTime() - all);
 				return null;
 		    }
 
@@ -372,55 +513,126 @@ public class ParsingAsyncTask
 		    	Storage holder = (Storage) data[0];
 		    	Context cont = (Context) data[1];
 		    	start = System.nanoTime();
-		    	try { 
-		    		System.out.println("Before stats");
-		    		publishProgress("Please wait, fetching player stats...");
+	    		System.out.println("Before stats");
+	    		publishProgress("Please wait, fetching player stats...");
+				try {
 					HighLevel.setStats(holder, cont);
-					
-					System.out.println("Before team info");
-		    		publishProgress("Please wait, fetching team data...");
+				}catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				System.out.println("Before team info");
+	    		publishProgress("Please wait, fetching team data...");
+				try {
 					HighLevel.setTeamInfo(holder, cont);
-					
-					System.out.println("Before SOS");
-					publishProgress("Please wait, fetching positional SOS...");
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				System.out.println("Before SOS");
+				publishProgress("Please wait, fetching positional SOS...");
+				try {
 					HighLevel.getSOS(holder);
-					
-					System.out.println("Before contract status");
-					publishProgress("Please wait, fetching player contract status...");
-		    		HighLevel.setContractStatus(holder);
-		    		
-		    		System.out.println("Before permanent data");
-				    publishProgress("Please wait, setting last year's team data...");
-				    HighLevel.setPermanentData(holder, cont);
-				    
-				    System.out.println("Before specific data");
-				    publishProgress("Please wait, setting specific player info...");
-		    		HighLevel.parseSpecificData(holder, cont);
-		    		
-		    		System.out.println("Before risk");
-		    		publishProgress("Please wait, calculating relative risk...");
-		    		HighLevel.setRisk(holder);
-		    		
-		    		System.out.println("Before advanced line stuff");
-		    		publishProgress("Please wait, getting advanced line stats...");
-		    		ParseOLineAdvanced.parsePFOLineData(holder);
-		    		
-		    		System.out.println("Before projections");
-		    		publishProgress("Please wait, getting projected points...");
-		    		HighLevel.projPointsWrapper(holder, cont);
-		    		
-		    		System.out.println("Before PAA");
-		    		publishProgress("Please wait, normalizing projections...");
-		    		HighLevel.getPAA(holder, cont);
-		    		
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				System.out.println("Before contract status");
+				publishProgress("Please wait, fetching player contract status...");
+	    		try {
+					HighLevel.setContractStatus(holder);
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	    		
+	    		System.out.println("Before permanent data");
+			    publishProgress("Please wait, setting last year's team data...");
+			    try {
+					HighLevel.setPermanentData(holder, cont);
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			    
+			    System.out.println("Before specific data");
+			    publishProgress("Please wait, setting specific player info...");
+	    		try {
+					HighLevel.parseSpecificData(holder, cont);
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	    		
+	    		System.out.println("Before risk");
+	    		publishProgress("Please wait, calculating relative risk...");
+	    		try {
+					HighLevel.setRisk(holder);
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	    		
+	    		System.out.println("Before advanced line stuff");
+	    		publishProgress("Please wait, getting advanced line stats...");
+	    		try {
+					ParseOLineAdvanced.parsePFOLineData(holder);
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	    		
+	    		System.out.println("Before projections");
+	    		publishProgress("Please wait, getting projected points...");
+	    		try {
+					HighLevel.projPointsWrapper(holder, cont);
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	    		
+	    		System.out.println("Before PAA");
+	    		publishProgress("Please wait, normalizing projections...");
+	    		HighLevel.getPAA(holder, cont);
+		    	try { 
 		    		System.out.println("Before redzone stats");
 		    		publishProgress("Please wait, getting advanced redzone stats...");
 		    		HighLevel.parseRedZoneStats(holder);
-		    		System.out.println(System.nanoTime() - start); 
 		    	} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
+	    		System.out.println(System.nanoTime() - start); 
 				return null;
 		    }
 		}
