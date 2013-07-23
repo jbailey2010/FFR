@@ -452,16 +452,16 @@ public class Rankings extends Activity {
 				listview.smoothScrollToPosition(0);		
 			}
 		});
-		ReadFromFile.fetchNamesBackEnd(holder, cont);
+		if(holder.playerNames == null || holder.playerNames.size() < 5)
+		{
+			ReadFromFile.fetchNamesBackEnd(holder, cont);
+		}
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	String checkExists = prefs.getString("Player Values", "Not Set");
     	if(!checkExists.equals("Not Set"))
     	{
 			try {
-				/**
-				 * HERE
-				 */
-				ReadFromFile.fetchPlayers(holder,cont, true);
+				ReadFromFile.fetchPlayers(checkExists, holder,cont, true);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -955,7 +955,6 @@ public class Rankings extends Activity {
 	    listview.setAdapter(null);
 	    data = new ArrayList<Map<String, String>>();
 	    handleRankingsClick(holder, cont, listview);
-	    List<String> rankings = new ArrayList<String>(400);
 	    while(!playerList.isEmpty())
 	    {
 	    	PlayerObject elem = playerList.poll();
@@ -979,14 +978,12 @@ public class Rankings extends Activity {
 	        	datum.put("sub", "");
 	        }
 	        data.add(datum);
-	    	rankings.add(df.format(elem.values.worth) + ":   " + elem.info.name);
 	    } 
 	    if(refreshed)
 	    {
 	    	WriteToFile.storeRankingsAsync(holder, (Context)cont);
 	    	refreshed = false;
 	    }
-    	WriteToFile.storeListRankings(rankings, cont);
     	adapter = new SimpleAdapter(cont, data, 
 	    		android.R.layout.simple_list_item_2, 
 	    		new String[] {"main", "sub"}, 

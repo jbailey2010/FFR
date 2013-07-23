@@ -15,8 +15,6 @@ import AsyncTasks.StorageAsyncTask.ReadDraft;
 import AsyncTasks.StorageAsyncTask.ReadNames;
 import AsyncTasks.StorageAsyncTask.ReadNamesList;
 import AsyncTasks.StorageAsyncTask.ReadPosts;
-import AsyncTasks.StorageAsyncTask.ReadRanks;
-import AsyncTasks.StorageAsyncTask.ReadValue;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -79,6 +77,7 @@ public class ReadFromFile {
 	 * re-adds them to the priority queue, but if it isn't, it calls the runRankings
 	 * function, which is the function that calls all the rankings functions and the high 
 	 * level stuff
+	 * @param checkExists 
 	 * @param holder the storage to be added to
 	 * @param cont the context used to read/write to/from file
 	 * @throws IOException
@@ -86,22 +85,13 @@ public class ReadFromFile {
 	 * @throws ExecutionException 
 	 * @throws InterruptedException 
 	 */
-	public static void fetchPlayers(Storage holder, Context cont, boolean flag) throws IOException, XPatherException, InterruptedException, ExecutionException
+	public static void fetchPlayers(String checkExists, Storage holder, Context cont, boolean flag) throws IOException, XPatherException, InterruptedException, ExecutionException
 	{
 	
-    	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	long start = System.nanoTime();
-	    ReadRanks rankings = readFromFileAsyncObj.new ReadRanks((Activity)cont);
-		String[][] data=rankings.execute(holder, cont).get();
-		
-	    ReadValue values = readFromFileAsyncObj.new ReadValue();
-		values.execute(holder, data, cont);
-		
-		ReadNames names = readFromFileAsyncObj.new ReadNames((Activity)cont);
-		names.execute(holder, cont);
 		
 	    ReadDraft draft = readFromFileAsyncObj.new ReadDraft((Activity)cont, flag);
-		draft.execute(holder, cont, start);		
+		draft.execute(holder, cont, start, checkExists);		
 	}
 	
 	

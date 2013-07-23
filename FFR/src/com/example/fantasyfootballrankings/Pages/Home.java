@@ -89,9 +89,6 @@ public class Home extends Activity{
         	helpPopUp();
         	WriteToFile.writeFirstOpen(cont);
         }
-       
-		//ManageInput.setUpScoring(cont, new Scoring(), false, holder);
-		//ManageInput.setUpRoster(cont, holder);
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
@@ -215,9 +212,10 @@ public class Home extends Activity{
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		try {
-			if(holder.players.size() < 5)
+			String checkExists = prefs.getString("Player Values", "Not Set");
+			if(!checkExists.equals("Not Set"))
 			{
-				ReadFromFile.fetchPlayers(holder,cont, false);
+				ReadFromFile.fetchPlayers(checkExists, holder,cont, false);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -232,12 +230,15 @@ public class Home extends Activity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String checkExists = prefs.getString("Player Names", "Not Set");
-		if(checkExists.equals("Not Set"))
+		if(holder.playerNames == null || holder.playerNames.size() < 10)
 		{
-			final ParsingAsyncTask stupid = new ParsingAsyncTask();
-			ParseNames task = stupid.new ParseNames((Activity)cont);
-		    task.execute(cont);
+			String checkExists = prefs.getString("Player Names", "Not Set");
+			if(checkExists.equals("Not Set"))
+			{
+				final ParsingAsyncTask stupid = new ParsingAsyncTask();
+				ParseNames task = stupid.new ParseNames((Activity)cont);
+			    task.execute(cont);
+			}
 		}
 	}
 	

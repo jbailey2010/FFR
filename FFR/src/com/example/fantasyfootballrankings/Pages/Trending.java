@@ -191,7 +191,10 @@ public class Trending extends Activity {
 				listview.smoothScrollToPosition(0);		
 			}
 		});
-		ReadFromFile.fetchNamesBackEnd(holder, cont);
+		if(holder.playerNames == null || holder.playerNames.size() < 5)
+		{
+			ReadFromFile.fetchNamesBackEnd(holder, cont);
+		}
 		String storedPosts = prefs.getString("Posted Players", "Not Posted");
 		List<String>postsList = new ArrayList<String>();
 		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
@@ -269,7 +272,7 @@ public class Trending extends Activity {
 	    	    	if(checkExists2 != "Not Set")
 	    	    	{
 	    				try {
-	    					ReadFromFile.fetchPlayers(holder,cont, false);
+	    					ReadFromFile.fetchPlayers(checkExists2, holder,cont, false);
 	    				} catch (IOException e) {
 	    					// TODO Auto-generated catch block
 	    					e.printStackTrace();

@@ -1,6 +1,7 @@
 package FileIO;
 
 import java.text.DateFormat;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,7 +22,6 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import AsyncTasks.StorageAsyncTask;
 import AsyncTasks.StorageAsyncTask.WriteDraft;
 import AsyncTasks.StorageAsyncTask.WritePostsListAsync;
-import AsyncTasks.StorageAsyncTask.WriteRankListAsync;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -118,19 +118,6 @@ public class WriteToFile {
 	{
 	    WritePostsListAsync draftTask = asyncObject.new WritePostsListAsync();
 	    draftTask.execute(trendingPlayers, cont);
-	}
-	
-
-
-	/**
-	 * Calls the async loader to write the list of rankings tofile
-	 * @param rankings
-	 * @param cont
-	 */
-	public static void storeListRankings(List<String> rankings, Context cont)
-	{
-	    WriteRankListAsync draftTask = asyncObject.new WriteRankListAsync();
-	    draftTask.execute(rankings, cont);
 	}
 	
 	

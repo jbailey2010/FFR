@@ -223,41 +223,6 @@ public class StorageAsyncTask
 	    }
 	}
 	
-	/**
-	 * Writes the rankings to file to save a bit of time later
-	 * @author Jeff
-	 *
-	 */
-	public class WriteRankListAsync extends AsyncTask<Object, Void, Void> 
-	{
-	    public WriteRankListAsync() 
-	    {
-	
-	    }
-	
-	
-		@Override
-		protected void onPostExecute(Void result){
-		   super.onPostExecute(result);
-		}
-		
-	    @Override
-	    protected Void doInBackground(Object... data) 
-	    {
-	    	List<String> rankingsList = (List<String>)data[0];
-	    	Context cont = (Context)data[1];
-	    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-	    	StringBuilder list = new StringBuilder(10000);
-	    	for(int i = 0; i < rankingsList.size(); i++)
-	    	{
-	    		list.append(rankingsList.get(i) + "##");
-	    	}
-	    	editor.putString("Rankings List", list.toString());
-	    	editor.commit();
-			return null;
-	    }
-	}
-	
 	  /**
      * Fetches the names list from file in the background
      * @author Jeff
@@ -291,54 +256,6 @@ public class StorageAsyncTask
 				e.printStackTrace();
 			} 
     		return null;
-	    }
-	  }
-	
-
-	
-	/**
-	 * This handles the running of the rankings in the background
-	 * such that the user can't do anything until they're fetched
-	 * @author Jeff
-	 *
-	 */
-	public class ReadRanks extends AsyncTask<Object, Void, String[][]> 
-	{
-	    public ReadRanks(Activity activity) 
-	    {
-	    }
-	    
-		@Override
-		protected void onPreExecute(){ 
-		   super.onPreExecute();
-  
-		}
-	
-		@Override
-		protected void onPostExecute(String[][] result){
-		}
-		
-	    protected String[][] doInBackground(Object... data) 
-	    {
-	    	Storage holder = (Storage) data[0];
-	    	Context cont = (Context) data[1];
-	   		//Get the aggregate rankings
-	    	if(!holder.players.isEmpty())
-	    	{
-	    		holder.players.clear();
-	    	}
-	    	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-	    	String checkExists = prefs.getString("Player Values", "Not Set");
-	   		String[] perPlayer = checkExists.split("~~~~");
-	   		String[][] allData = new String[perPlayer.length][];
-	   		for(int i = 0; i < perPlayer.length; i++)
-	   		{ 
-	   			allData[i] = perPlayer[i].split("&&");
-	   			PlayerObject newPlayer = new PlayerObject(allData[i][4], allData[i][5], allData[i][6], 0);
-	   			holder.players.add(newPlayer);
-	   			
-	   		}
-			return allData;
 	    }
 	  }
 	
@@ -384,76 +301,6 @@ public class StorageAsyncTask
 			return null;
 	    }
 	  }
-	
-	/**
-	 * This handles the running of the rankings in the background
-	 * such that the user can't do anything until they're fetched
-	 * @author Jeff
-	 *
-	 */
-	public class ReadValue extends AsyncTask<Object, Void, Void> 
-	{
-	    public ReadValue() 
-	    {
-	    }
-	    
-		@Override
-		protected void onPreExecute(){ 
-		   super.onPreExecute();
-	
-		}
-	
-		@Override
-		protected void onPostExecute(Void result){
-		}
-		
-	    protected Void doInBackground(Object... data) 
-	    { 
-	    	Storage holder = (Storage) data[0];
-	    	String[][]allData = (String[][])data[1];
-	    	Context cont = (Context)data[2];
-	   		for(int i = 0; i < holder.players.size(); i++)
-	   		{  
-	   			PlayerObject player = holder.players.get(i);
-	   			player.values.cADEZ = Double.parseDouble(allData[i][36]);
-	   			player.values.ctdDiff = Double.parseDouble(allData[i][35]);
-	   			player.values.coTD = Double.parseDouble(allData[i][34]);
-	   			player.values.rADEZ = Double.parseDouble(allData[i][33]);
-	   			player.values.rtdDiff = Double.parseDouble(allData[i][32]);
-	   			player.values.roTD = Double.parseDouble(allData[i][31]);
-	   			player.values.tADEZ = Double.parseDouble(allData[i][30]);
-	   			player.values.tdDiff = Double.parseDouble(allData[i][29]);
-	   			player.values.oTD = Double.parseDouble(allData[i][28]);
-	   			player.values.paapd = Double.parseDouble(allData[i][27]);
-	   			player.values.paa = Double.parseDouble(allData[i][26]);
-	   			player.values.points = Double.parseDouble(allData[i][25]);
-	   			player.info.oLineAdv = allData[i][24];
-	   			player.riskAll = Double.parseDouble(allData[i][23]);
-	   			player.riskPos = Double.parseDouble(allData[i][22]);
-	   			player.risk = Double.parseDouble(allData[i][21]);
-	   			player.values.ecr = Double.parseDouble(allData[i][20]);
-	   			player.info.additionalStat = allData[i][19];
-	   			player.info.oLineStatus = allData[i][18];
-	   			player.fa = new ArrayList<String>(); 
-	   			player.fa.add(0, allData[i][16]);
-	   			player.fa.add(1, allData[i][17]);
-	   			player.injuryStatus = allData[i][15];
-	   			player.draftClass = allData[i][14];
-	   			player.stats = allData[i][13];
-	   			player.info.age = allData[i][12];
-	   			player.info.sos = Integer.parseInt(allData[i][11]);
-	   			player.info.contractStatus = allData[i][10];
-	   			player.info.trend = allData[i][9];
-	   			player.info.bye = allData[i][8];
-	   			player.info.adp = allData[i][7];
-	   			player.values.low = Double.parseDouble(allData[i][3]);
-	   			player.values.high = Double.parseDouble(allData[i][2]);
-	   			player.values.count = Double.parseDouble(allData[i][1]);
-	   			player.values.worth = Double.parseDouble(allData[i][0]);
-	   		}
-			return null;
-	    }
-	  }
 
 	
 	/**
@@ -488,10 +335,54 @@ public class StorageAsyncTask
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
 	    	long start = (Long)data[2];
-	   		//Get the aggregate rankings
+	    	String checkExists = (String)data[3];
 	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-			String draftSet = prefs.getString("Draft Information", "Doesn't matter");
-			String[] perSet = draftSet.split("@");
+    		holder.players = new ArrayList<PlayerObject>();
+    		holder.parsedPlayers = new ArrayList<String>();
+	   		String[] perPlayer = checkExists.split("~~~~");
+	   		for(int i = 0; i < perPlayer.length; i++)
+	   		{  
+	   			String[] allData = perPlayer[i].split("&&");
+	   			PlayerObject newPlayer = new PlayerObject(allData[4], allData[5], allData[6], 0);
+	   			newPlayer.values.cADEZ = Double.parseDouble(allData[36]);
+	   			newPlayer.values.ctdDiff = Double.parseDouble(allData[35]);
+	   			newPlayer.values.coTD = Double.parseDouble(allData[34]);
+	   			newPlayer.values.rADEZ = Double.parseDouble(allData[33]);
+	   			newPlayer.values.rtdDiff = Double.parseDouble(allData[32]);
+	   			newPlayer.values.roTD = Double.parseDouble(allData[31]);
+	   			newPlayer.values.tADEZ = Double.parseDouble(allData[30]);
+	   			newPlayer.values.tdDiff = Double.parseDouble(allData[29]);
+	   			newPlayer.values.oTD = Double.parseDouble(allData[28]);
+	   			newPlayer.values.paapd = Double.parseDouble(allData[27]);
+	   			newPlayer.values.paa = Double.parseDouble(allData[26]);
+	   			newPlayer.values.points = Double.parseDouble(allData[25]);
+	   			newPlayer.info.oLineAdv = allData[24];
+	   			newPlayer.riskAll = Double.parseDouble(allData[23]);
+	   			newPlayer.riskPos = Double.parseDouble(allData[22]);
+	   			newPlayer.risk = Double.parseDouble(allData[21]);
+	   			newPlayer.values.ecr = Double.parseDouble(allData[20]);
+	   			newPlayer.info.additionalStat = allData[19];
+	   			newPlayer.info.oLineStatus = allData[18];
+	   			newPlayer.fa = new ArrayList<String>(); 
+	   			newPlayer.fa.add(0, allData[16]);
+	   			newPlayer.fa.add(1, allData[17]);
+	   			newPlayer.injuryStatus = allData[15];
+	   			newPlayer.draftClass = allData[14];
+	   			newPlayer.stats = allData[13];
+	   			newPlayer.info.age = allData[12];
+	   			newPlayer.info.sos = Integer.parseInt(allData[11]);
+	   			newPlayer.info.contractStatus = allData[10];
+	   			newPlayer.info.trend = allData[9];
+	   			newPlayer.info.bye = allData[8];
+	   			newPlayer.info.adp = allData[7];
+	   			newPlayer.values.low = Double.parseDouble(allData[3]);
+	   			newPlayer.values.high = Double.parseDouble(allData[2]);
+	   			newPlayer.values.count = Double.parseDouble(allData[1]);
+	   			newPlayer.values.worth = Double.parseDouble(allData[0]);
+	   			holder.parsedPlayers.add(allData[4]);
+	   			holder.players.add(newPlayer);
+	   		}
+			String[] perSet = prefs.getString("Draft Information", "Doesn't matter").split("@");
 			String[][] individual = new String[perSet.length][];
 			for(int j = 0; j < perSet.length; j++)
 			{
