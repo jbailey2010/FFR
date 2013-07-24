@@ -463,7 +463,6 @@ public class HighLevel
 			{
 				player.riskPos = Double.valueOf(twoDForm.format(player.risk - dRisk));
 			}
-			player.riskAll = Double.valueOf(twoDForm.format(player.risk - allRisk));
 		}
 	}
 	

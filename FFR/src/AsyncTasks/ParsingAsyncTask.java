@@ -387,7 +387,7 @@ public class ParsingAsyncTask
 			    	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
 			    	    		player.info.age + "&&" + player.stats + "&&" + player.draftClass + "&&" + player.injuryStatus + 
 			    	    		"&&" + fa + "&&" + oLine + "&&" + additStat + "&&" + player.values.ecr + "&&" + 
-			    	    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "&&" + oLineAdv + "&&" + 
+			    	    		player.risk + "&&" + player.riskPos + "&&" + oLineAdv + "&&" + 
 			    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
 			    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + 
 			    	    		player.values.roTD + "&&" + player.values.rtdDiff

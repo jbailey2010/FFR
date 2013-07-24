@@ -22,7 +22,6 @@ public class PlayerObject
 	public List<String> fa;
 	public double risk;
 	public double riskPos;
-	public double riskAll;
 	 
 	/**
 	 * Sets up the player object
@@ -43,7 +42,6 @@ public class PlayerObject
 		fa = new ArrayList<String>();
 		risk = -1.0;
 		riskPos = -1.0;
-		riskAll = -1.0;
 	}
 	
 

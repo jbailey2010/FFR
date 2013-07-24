@@ -95,6 +95,10 @@ public class ParseFantasyPros
 					newPlayer.info.adp = String.valueOf(adp);
 				}
 				holder.players.add(newPlayer);
+				if(newPlayer.info.name.contains("D/ST"))
+				{
+					System.out.println("ADDING " + newPlayer.info.name);
+				}
 				holder.parsedPlayers.add(newPlayer.info.name);
 			}	
 		}

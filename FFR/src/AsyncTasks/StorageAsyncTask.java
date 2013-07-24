@@ -37,15 +37,15 @@ public class StorageAsyncTask
 	{
 	    public WriteDraft() 
 	    {
-	
+
 	    }
-	
-	
+
+
 		@Override
 		protected void onPostExecute(Void result){
 		   super.onPostExecute(result);
 		}
-		
+
 	    @Override
 	    protected Void doInBackground(Object... data) 
 	    {
@@ -90,7 +90,7 @@ public class StorageAsyncTask
 	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
 	    		player.info.age + "&&" + player.stats + "&&" + player.draftClass + "&&" + player.injuryStatus + 
 	    		"&&" + fa + "&&" + oLine + "&&" + additStat + "&&" + player.values.ecr + "&&" + 
-	    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "&&" + oLineAdv + "&&" + 
+	    		player.risk + "&&" + player.riskPos + "&&" + oLineAdv + "&&" + 
 	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
 	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + player.values.roTD + "&&" + player.values.rtdDiff
 	    		+ "&&" + player.values.rADEZ + "&&" + player.values.coTD + "&&" + player.values.ctdDiff + "&&" + player.values.cADEZ + 
@@ -110,7 +110,7 @@ public class StorageAsyncTask
 			return null;
 	    }
 	}
-	
+
 	/**
 	 * Writes the posts to file 
 	 * @author Jeff
@@ -120,15 +120,15 @@ public class StorageAsyncTask
 	{
 	    public WritePostsListAsync() 
 	    {
-	
+
 	    }
-	
-	
+
+
 		@Override
 		protected void onPostExecute(Void result){
 		   super.onPostExecute(result);
 		}
-		
+
 	    @Override
 	    protected Void doInBackground(Object... data) 
 	    {
@@ -145,7 +145,7 @@ public class StorageAsyncTask
 			return null;
 	    }
 	}
-	
+
 	/**
 	 * Writes new PAA to file after calculating it
 	 * @author Jeff
@@ -155,15 +155,15 @@ public class StorageAsyncTask
 	{
 	    public WriteNewPAA() 
 	    {
-	
+
 	    }
-	
-	
+
+
 		@Override
 		protected void onPostExecute(Void result){
 		   super.onPostExecute(result);
 		}
-		
+
 	    @Override
 	    protected Void doInBackground(Object... data) 
 	    {
@@ -209,7 +209,7 @@ public class StorageAsyncTask
 	    	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
 	    	    		player.info.age + "&&" + player.stats + "&&" + player.draftClass + "&&" + player.injuryStatus + 
 	    	    		"&&" + fa + "&&" + oLine +  "&&" + additStat + "&&" + player.values.ecr + "&&" + 
-	    	    		player.risk + "&&" + player.riskPos + "&&" + player.riskAll + "&&" + oLineAdv + "&&" + 
+	    	    		player.risk + "&&" + player.riskPos + "&&"  + oLineAdv + "&&" + 
 	    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
 	    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + player.values.roTD + "&&" 
 	    	    		+ player.values.rtdDiff
@@ -222,7 +222,7 @@ public class StorageAsyncTask
 			return null;
 	    }
 	}
-	
+
 	  /**
      * Fetches the names list from file in the background
      * @author Jeff
@@ -233,18 +233,18 @@ public class StorageAsyncTask
 	    public ReadNamesList() 
 	    {
 	    }
-	    
+
 		@Override
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
   
 		}
-	
+
 		@Override
 		protected void onPostExecute(Void result){
 
 		}
-		
+
 	    protected Void doInBackground(Object... data) 
 	    {
 	    	Storage holder = (Storage) data[0];
@@ -258,8 +258,8 @@ public class StorageAsyncTask
     		return null;
 	    }
 	  }
-	
-	
+
+
 	/**
 	 * This handles the running of the name readings
 	 * in the background of the main thread
@@ -268,20 +268,20 @@ public class StorageAsyncTask
 	 */
 	public class ReadNames extends AsyncTask<Object, Void, Void> 
 	{
-	    
+
 	    public ReadNames(Activity activity)
 	    {
 	    }
-	    
+
 		@Override
 		protected void onPreExecute(){ 
 	        super.onPreExecute(); 
 		}
-	
+
 		@Override
 		protected void onPostExecute(Void result){
 		}
-		
+
 	    protected Void doInBackground(Object... data) 
 	    {
 	    	Storage holder = (Storage) data[0];
@@ -302,7 +302,7 @@ public class StorageAsyncTask
 	    }
 	  }
 
-	
+
 	/**
 	 * This handles the reading of the draft data
 	 * in the background
@@ -318,7 +318,7 @@ public class StorageAsyncTask
 	        act = activity;
 	        flag = flagCheck;
 	    }
-	    
+
 		@Override
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
@@ -344,26 +344,26 @@ public class StorageAsyncTask
 	   		{  
 	   			String[] allData = perPlayer[i].split("&&");
 	   			PlayerObject newPlayer = new PlayerObject(allData[4], allData[5], allData[6], 0);
-	   			newPlayer.values.cADEZ = Double.parseDouble(allData[36]);
-	   			newPlayer.values.ctdDiff = Double.parseDouble(allData[35]);
-	   			newPlayer.values.coTD = Double.parseDouble(allData[34]);
-	   			newPlayer.values.rADEZ = Double.parseDouble(allData[33]);
-	   			newPlayer.values.rtdDiff = Double.parseDouble(allData[32]);
-	   			newPlayer.values.roTD = Double.parseDouble(allData[31]);
-	   			newPlayer.values.tADEZ = Double.parseDouble(allData[30]);
-	   			newPlayer.values.tdDiff = Double.parseDouble(allData[29]);
-	   			newPlayer.values.oTD = Double.parseDouble(allData[28]);
-	   			newPlayer.values.paapd = Double.parseDouble(allData[27]);
-	   			newPlayer.values.paa = Double.parseDouble(allData[26]);
-	   			newPlayer.values.points = Double.parseDouble(allData[25]);
-	   			newPlayer.info.oLineAdv = allData[24];
-	   			newPlayer.riskAll = Double.parseDouble(allData[23]);
+	   			newPlayer.values.cADEZ = Double.parseDouble(allData[35]);
+	   			newPlayer.values.ctdDiff = Double.parseDouble(allData[34]);
+	   			newPlayer.values.coTD = Double.parseDouble(allData[33]);
+	   			newPlayer.values.rADEZ = Double.parseDouble(allData[32]);
+	   			newPlayer.values.rtdDiff = Double.parseDouble(allData[31]);
+	   			newPlayer.values.roTD = Double.parseDouble(allData[30]);
+	   			newPlayer.values.tADEZ = Double.parseDouble(allData[29]);
+	   			newPlayer.values.tdDiff = Double.parseDouble(allData[28]);
+	   			newPlayer.values.oTD = Double.parseDouble(allData[27]);
+	   			newPlayer.values.paapd = Double.parseDouble(allData[26]);
+	   			newPlayer.values.paa = Double.parseDouble(allData[25]);
+	   			newPlayer.values.points = Double.parseDouble(allData[24]);
+	   			newPlayer.info.oLineAdv = allData[23];
+
 	   			newPlayer.riskPos = Double.parseDouble(allData[22]);
 	   			newPlayer.risk = Double.parseDouble(allData[21]);
 	   			newPlayer.values.ecr = Double.parseDouble(allData[20]);
 	   			newPlayer.info.additionalStat = allData[19];
 	   			newPlayer.info.oLineStatus = allData[18];
-	   			newPlayer.fa = new ArrayList<String>(); 
+	   			newPlayer.fa = new ArrayList<String>();  
 	   			newPlayer.fa.add(0, allData[16]);
 	   			newPlayer.fa.add(1, allData[17]);
 	   			newPlayer.injuryStatus = allData[15];
@@ -418,7 +418,7 @@ public class StorageAsyncTask
 			return null;
 	    }
 	  }
-	
+
 	/**
 	 * In the back-end fetches the posts
 	 * @author Jeff
@@ -429,7 +429,7 @@ public class StorageAsyncTask
 	    public ReadPosts() 
 	    {
 	    }
-	    
+
 		@Override
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
@@ -455,7 +455,7 @@ public class StorageAsyncTask
 			return null;
 	    }
 	  }
-	
+
 	/**
 	 * In the back-end fetches the news
 	 * @author Jeff
@@ -468,7 +468,7 @@ public class StorageAsyncTask
 	    {
 	    	act = (Activity)cont;
 	    }
-	    
+
 		@Override
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
@@ -478,7 +478,7 @@ public class StorageAsyncTask
 		{
 			News.handleNewsListView(result, act);
 		}
-		
+
 	    protected List<NewsObjects> doInBackground(Object... data) 
 	    {
 	    	Context cont = (Context) data[0];

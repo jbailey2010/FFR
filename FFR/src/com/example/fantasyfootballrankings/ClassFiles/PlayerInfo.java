@@ -467,19 +467,16 @@ public class PlayerInfo
 		if(searchedPlayer.risk > 0.0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
-			if(searchedPlayer.values.count > 8 && searchedPlayer.values.worth > 5 && !searchedPlayer.info.position.equals("K") && 
-					!searchedPlayer.info.position.equals("D/ST"))
+			if(searchedPlayer.risk != -1.0)
 			{
-				datum.put("main", searchedPlayer.risk + " Risk");
-				datum.put("sub", searchedPlayer.riskPos + " relative to his position (" + rankRiskPos(searchedPlayer, holder) + ")\n" + 
-						searchedPlayer.riskAll + " relative to everyone (" + rankRiskAll(searchedPlayer, holder) + ")");
+				datum.put("main", searchedPlayer.risk + " Risk (" + rankRiskAll(searchedPlayer, holder) + ")");
+				datum.put("sub", searchedPlayer.riskPos + " relative to his position (" + rankRiskPos(searchedPlayer, holder) + ")");
 				data.add(datum);
 			}
 			else
 			{
 				datum.put("main", searchedPlayer.risk + " Risk");
-				datum.put("sub", searchedPlayer.riskPos + " relative to his position\n" + 
-						searchedPlayer.riskAll + " relative to everyone");
+				datum.put("sub", searchedPlayer.riskPos + " relative to his position");
 				data.add(datum);
 			}
 		}
@@ -659,8 +656,7 @@ public class PlayerInfo
 		int rank = 1;
 		for(PlayerObject iter : holder.players)
 		{
-			if(iter.riskAll < player.riskAll && iter.values.count > 9 && iter.values.worth > 3 && !iter.info.position.equals("K") && 
-					!iter.info.position.equals("D/ST"))
+			if(iter.risk < player.risk && iter.risk >0)
 			{
 				rank++;
 			}

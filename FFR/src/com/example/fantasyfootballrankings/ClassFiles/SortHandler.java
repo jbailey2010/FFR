@@ -387,7 +387,7 @@ public class SortHandler
 		}
 		else if(subject.equals("Risk"))
 		{
-			riskAll();
+			risk();
 		}
 		else if(subject.equals("Positional SOS"))
 		{
@@ -423,6 +423,34 @@ public class SortHandler
 		}
 	}
 	
+	public static void risk() {
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						if(a.risk > b.risk)
+						{
+							return 1;
+						}
+						if(a.risk < b.risk)
+						{
+							return -1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.risk != -1 && 
+							player.risk != -1.0 && player.risk != 0)
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted);
+	}
+
 	/**
 	 * Calculates the most underdrafted players
 	 */
@@ -968,37 +996,6 @@ public class SortHandler
 		for(PlayerObject player : players)
 		{
 			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.riskPos != 1.0)
-			{
-				sorted.add(player);
-			}
-		}
-		wrappingUp(sorted);
-	}
-	
-	/**
-	 * Sets up the priority queue for risk relative to all
-	 */
-	public static void riskAll()
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b)
-			{
-				if(a.riskAll > b.riskAll)
-				{
-					return 1;
-				}
-				if(a.riskAll < b.riskAll)
-				{
-					return -1;
-				}
-				return 0;
-			}
-		});
-		for(PlayerObject player : players)
-		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.riskAll != -1)
 			{
 				sorted.add(player);
 			}
