@@ -70,10 +70,6 @@ public class ParseYahoo
 				Values.isExtreme(newPlayer.values, newPlayer.values.worth);
 				Values.handleNewValue(newPlayer.values, aav);
 				holder.players.add(newPlayer);
-				if(newPlayer.info.name.contains("D/ST"))
-				{
-					System.out.println("ADDING " + newPlayer.info.name);
-				}
 				holder.parsedPlayers.add(newPlayer.info.name);
 			}	
 		}

@@ -65,35 +65,20 @@ public class ManageInput
 	public static void setupAutoCompleteSearch(Storage holder, List<PlayerObject> players, 
 			AutoCompleteTextView input, Context cont)
 	{
-		/*
-	    while(!playersTrending.isEmpty())
-	    {
-	    	PostedPlayer elem = playersTrending.poll();
-	    	Map<String, String> datum = new HashMap<String, String>(2);
-	    	datum.put("name", elem.name);
-	    	datum.put("count", elem.count + " times");
-	    	data.add(datum);
-	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times");
-	    }
-	    if(refreshed)
-	    {
-	    	WriteToFile.writePostsList(trendingPlayers, cont);
-	    	refreshed = false;
-	    }
-	    //final ArrayAdapter<String> mAdapter = ManageInput.handleArray(trendingPlayers, listview, cont);
-	    final SimpleAdapter mAdapter = new SimpleAdapter(cont, data, 
-	    		android.R.layout.simple_list_item_2, 
-	    		new String[] {"name", "count"}, 
-	    		new int[] {android.R.id.text1, 
-	    			android.R.id.text2});
-	    listview.setAdapter(mAdapter); 
-		 */
+
 		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		for(PlayerObject player : players)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", player.info.name);
-			datum.put("sub", player.info.position + " - " + player.info.team);
+			if(!player.info.name.contains("D/ST") && player.info.position.length() >= 1 && player.info.team.length() > 2)
+			{
+				datum.put("sub", player.info.position + " - " + player.info.team);
+			}
+			else
+			{
+				datum.put("sub", "");
+			}
 			data.add(datum);
 		}
 		 final SimpleAdapter mAdapter = new SimpleAdapter(cont, data, 
