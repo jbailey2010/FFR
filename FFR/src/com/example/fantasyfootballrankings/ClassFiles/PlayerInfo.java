@@ -341,10 +341,10 @@ public class PlayerInfo
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", searchedPlayer.info.position + " - " + searchedPlayer.info.team);
 			String sub = "";
-			if(searchedPlayer.info.bye != null && !searchedPlayer.info.bye.contains("null") &&  
-					!searchedPlayer.info.bye.equals("Not set"))
+			if(holder.bye.get(searchedPlayer.info.team) != null && !holder.bye.get(searchedPlayer.info.team).contains("null") &&  
+					!holder.bye.get(searchedPlayer.info.team).equals("Not set"))
 			{
-				sub = "Bye: " + searchedPlayer.info.bye;
+				sub = "Bye: " + holder.bye.get(searchedPlayer.info.team);
 			}
 			if(!searchedPlayer.info.age.equals("0") && !searchedPlayer.info.position.equals("D/ST") && 
 					!searchedPlayer.info.age.equals("") && searchedPlayer.info.age.length() >= 2)
@@ -395,10 +395,11 @@ public class PlayerInfo
 			}
 		}
 		//Positional SOS
-		if(searchedPlayer.info.sos > 0)
+		if(holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position)!= null && 
+				holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position) > 0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", "Positional SOS: " + searchedPlayer.info.sos);
+			datum.put("main", "Positional SOS: " + holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position));
 			datum.put("sub", "1 is Easiest, 32 Hardest");
 			data.add(datum);
 		}
@@ -512,43 +513,47 @@ public class PlayerInfo
 		//O line data
 		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
 		{ 
-			if(	searchedPlayer.info.oLineStatus != null && searchedPlayer.info.oLineStatus.length() > 3 && 
-					searchedPlayer.info.oLineAdv != null && searchedPlayer.info.oLineAdv.length() > 3)
+			if(holder.oLineRanks.get(searchedPlayer.info.team) != null && holder.oLineRanks.get(searchedPlayer.info.team).length() > 3 && 
+					holder.oLineAdv.get(searchedPlayer.info.team)!= null && holder.oLineAdv.get(searchedPlayer.info.team).length() > 3)
 			{
 				Map<String, String> datum = new HashMap<String, String>(2);
-				datum.put("main", searchedPlayer.info.oLineAdv + "\n");
-				datum.put("sub", searchedPlayer.info.oLineStatus);
+				datum.put("main", holder.oLineAdv.get(searchedPlayer.info.team) + "\n");
+				datum.put("sub", holder.oLineRanks.get(searchedPlayer.info.team));
 				data.add(datum);
 			}
 		}
 		//Draft class
-		if(searchedPlayer.draftClass != null && !searchedPlayer.draftClass.contains("null") &&
-				!searchedPlayer.info.position.equals("K") && searchedPlayer.draftClass.length() > 4)
+		if(holder.draftClasses.get(searchedPlayer.info.team) != null && !holder.draftClasses.get(searchedPlayer.info.team).contains("null") &&
+				!searchedPlayer.info.position.equals("K") && holder.draftClasses.get(searchedPlayer.info.team).length() > 4)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
-			String draft = searchedPlayer.draftClass.substring(searchedPlayer.draftClass.indexOf('\n'), searchedPlayer.draftClass.length());
-			String gpa = searchedPlayer.draftClass.split("\n")[0];
+			String draft = holder.draftClasses.get(searchedPlayer.info.team).substring(holder.draftClasses.get(searchedPlayer.info.team).indexOf('\n'), holder.draftClasses.get(searchedPlayer.info.team).length());
+			String gpa = holder.draftClasses.get(searchedPlayer.info.team).split("\n")[0];
 			datum.put("main", draft);
 			datum.put("sub", gpa);
 			data.add(datum);
 		}
 		//Free agency classes
-		if(searchedPlayer.fa.size() > 1)
+		List<String> fa = holder.fa.get(searchedPlayer.info.team);
+		if(fa != null)
 		{
-	    	if(searchedPlayer.fa.get(0).contains("\n"))
-	    	{
-                Map<String, String> datum = new HashMap<String, String>(2);
-                datum.put("main", searchedPlayer.fa.get(0));
-	    		datum.put("sub", "");
-	    		data.add(datum);
-	    	}
-	    	if(searchedPlayer.fa.get(1).contains("\n"))
-	    	{
-                Map<String, String> datum = new HashMap<String, String>(2);
-                datum.put("main",  searchedPlayer.fa.get(1));
-	    		datum.put("sub", "");
-	    		data.add(datum);
-	    	}
+			if(fa.size() > 1)
+			{
+		    	if(fa.get(0).contains("\n"))
+		    	{
+	                Map<String, String> datum = new HashMap<String, String>(2);
+	                datum.put("main", fa.get(0));
+		    		datum.put("sub", "");
+		    		data.add(datum);
+		    	}
+		    	if(fa.get(1).contains("\n"))
+		    	{
+	                Map<String, String> datum = new HashMap<String, String>(2);
+	                datum.put("main",  fa.get(1));
+		    		datum.put("sub", "");
+		    		data.add(datum);
+		    	}
+			}
 		}
 		if(!searchedPlayer.info.trend.equals("0.0"))
 		{

@@ -291,7 +291,8 @@ public class SortHandler
 					{
 						if(!healthy || (healthy && player.injuryStatus.equals("Injury Status: Healthy")))
 						{
-							String oLine = player.info.oLineStatus;
+							String oLine = holder.oLineRanks.get(player.info.team);//player.info.oLineStatus;
+							
 							int runRank = -1;
 							int passRank = -1;
 							if(oLine != null && !oLine.equals("") && oLine.contains("\n"))
@@ -861,11 +862,11 @@ public class SortHandler
 			@Override
 			public int compare(PlayerObject a, PlayerObject b)
 			{
-				if(a.info.sos > b.info.sos)
+				if(holder.sos.get(a.info.team + "," + a.info.position) > holder.sos.get(b.info.team + "," + b.info.position))
 				{
 					return 1;
 				}
-				if(a.info.sos < b.info.sos)
+				if(holder.sos.get(a.info.team + "," + a.info.position) < holder.sos.get(b.info.team + "," + b.info.position))
 				{
 					return -1;
 				}
@@ -874,7 +875,9 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.info.sos != -1.0)
+			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && 
+					holder.sos.get(player.info.team + "," + player.info.position) != null && 
+					holder.sos.get(player.info.team + "," + player.info.position) > 0)
 			{
 				sorted.add(player);
 			}
@@ -1335,13 +1338,13 @@ public class SortHandler
 			{
 				if(elem.values.points != 0.0)
 				{
-					datum.put("main",output + elem.info.sos + ": " + elem.info.name);
+					datum.put("main",output + holder.sos.get(elem.info.team + "," + elem.info.position) + ": " + elem.info.name);
 		    		datum.put("sub", "$" + df.format(elem.values.worth) + ", " + 
 							elem.values.points);
 				}
 				else
 				{
-					datum.put("main",output + elem.info.sos + ": " + elem.info.name);
+					datum.put("main",output + holder.sos.get(elem.info.team + "," + elem.info.position) + ": " + elem.info.name);
 		    		datum.put("sub", "$" + df.format(elem.values.worth));
 				}
 			}

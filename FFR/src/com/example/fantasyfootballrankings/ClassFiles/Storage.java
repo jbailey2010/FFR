@@ -9,10 +9,11 @@ import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
-
 import java.util.Comparator;
 
 import org.jsoup.nodes.Element;
@@ -24,6 +25,8 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 import com.example.fantasyfootballrankings.Pages.Home;
+
+
 
 
 import android.R.integer;
@@ -51,6 +54,12 @@ public class Storage
 	public List<Post> posts;
 	public List<String> parsedPlayers;
 	public PriorityQueue<PostedPlayer> postedPlayers;
+	public Map<String, String> oLineRanks = new HashMap<String, String>();
+	public Map<String, String> oLineAdv = new HashMap<String, String>();
+	public Map<String, String> draftClasses = new HashMap<String, String>();
+	public Map<String, Integer> sos = new HashMap<String, Integer>();
+	public Map<String, String> bye = new HashMap<String, String>();
+	public Map<String, List<String>> fa = new HashMap<String, List<String>>();
 	/**
 	 * This sets up the priority queue and it's subsequent comparator.
 	 * No parameters are necessary, and the playerNames array doesn't need initialization.

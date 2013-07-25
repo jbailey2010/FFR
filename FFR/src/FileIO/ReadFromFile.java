@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
@@ -358,5 +359,64 @@ public class ReadFromFile {
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		return prefs.getString("Token Secret", "Not set");
+	}
+	
+	/**
+	 * Reads the o line ranks from file, setting them to the hash map
+	 * @param holder
+	 * @param cont
+	 */
+	public static void readTeamData(Storage holder, Context cont)
+	{
+		holder.oLineRanks.clear();
+		holder.oLineAdv.clear();
+		holder.draftClasses.clear();
+		holder.sos.clear();
+		holder.bye.clear();
+		holder.fa.clear();
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		String oLineStr = prefs.getString("Team By Team Data", "Not##Set");
+		String[] totalSet = oLineStr.split("@#@#");
+		//OLine
+		String[] perLevel = totalSet[0].split("%%%");
+		for(String team : perLevel)
+		{
+			holder.oLineRanks.put(team.split("##")[0], team.split("##")[1]);
+		}
+		//OLine Advanced
+		perLevel = totalSet[1].split("%%%");
+		for(String team : perLevel)
+		{
+			holder.oLineAdv.put(team.split("##")[0], team.split("##")[1]);
+		}
+		//Drafts
+		perLevel = totalSet[2].split("%%%");
+		for(String team : perLevel)
+		{
+			holder.draftClasses.put(team.split("##")[0], team.split("##")[1]);
+		}
+		//SOS
+		perLevel = totalSet[3].split("%%%");
+		for(String team : perLevel)
+		{
+			holder.sos.put(team.split("##")[0], Integer.parseInt(team.split("##")[1]));
+		}
+		//Bye
+		perLevel = totalSet[4].split("%%%");
+		for(String team : perLevel)
+		{
+			holder.bye.put(team.split("##")[0], team.split("##")[1]);
+		}
+		//FA
+		perLevel = totalSet[5].split("%%%");
+		for(String team : perLevel)
+		{
+			String[] fa = team.split("##")[1].split("&&");
+			List<String> faList = new ArrayList<String>();
+			faList.add(fa[0]);
+			faList.add(fa[1]);
+			holder.fa.put(team.split("##")[0], faList);
+		}
+		return;
 	}
 }

@@ -107,13 +107,7 @@ public class HighLevel
 			sos.put(keyBase + "K", Integer.parseInt(team[i][5]));
 			sos.put(keyBase + "D/ST", Integer.parseInt(team[i][6]));
 		}
-		for(PlayerObject player : holder.players)
-		{
-			if(sos.containsKey(player.info.team + "," + player.info.position))
-			{
-				player.info.sos = sos.get(player.info.team + "," + player.info.position);
-			}
-		}
+		holder.sos = sos;
 	}
 	
 	/**
@@ -128,9 +122,10 @@ public class HighLevel
 		Map<String, String> menInBox = ParsePermanentData.parseMenInBox(holder, cont);
 		Map<String, String> oLineRanks = ParsePermanentData.parseOLineRanksWrapper();
 		Set<String> names = menInBox.keySet();
+		holder.oLineRanks = oLineRanks;
 		for(PlayerObject elem : holder.players)
 		{
-			elem.info.oLineStatus = oLineRanks.get(elem.info.team);
+			//elem.info.oLineStatus = oLineRanks.get(elem.info.team);
 			if(elem.info.position.equals("RB") && names.contains(elem.info.name))
 			{
 				elem.info.additionalStat = menInBox.get(elem.info.name);
@@ -149,19 +144,13 @@ public class HighLevel
 		//Fetch the draft data
 		HashMap<String, String> drafts = ParseDraft.parseTeamDraft();
 		HashMap<String, String> gpas = ParseDraft.parseTeamDraftGPA();
-
-		//Parse free agency data
-		HashMap<String, List<String>> fa = ParseFreeAgents.parseFA();
-		for(PlayerObject player : holder.players)
+		Set<String>teams = drafts.keySet();
+		for(String team : teams)
 		{
-			//Set draft data
-			player.draftClass = gpas.get(player.info.team) + drafts.get(player.info.team); 
-			if(fa.containsKey(player.info.team))
-			{
-				
-				player.fa = fa.get(player.info.team);
-			}
+			holder.draftClasses.put(team, gpas.get(team) + drafts.get(team));
 		}
+		//Parse free agency data
+		holder.fa = ParseFreeAgents.parseFA();
 	}
 	
 	/**
@@ -175,9 +164,9 @@ public class HighLevel
 		Map<String, String> bt = ParseBrokenTackles.parseBrokenTackles();
 		HashMap<String, String> injuries = ParseInjuries.parseRotoInjuries();
 		HashMap<String, String> byes = ParseFFTB.parseByeWeeks();
+		holder.bye = byes;
 		for(PlayerObject player : holder.players)
 		{
-			player.info.bye = byes.get(player.info.team);
 			if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
 			{
 				if(bt.containsKey(player.info.name))

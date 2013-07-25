@@ -51,46 +51,27 @@ public class StorageAsyncTask
 	    {
 	    	Storage holder = (Storage)data[0];
 	    	Context cont = (Context)data[1];
+	    	WriteToFile.writeTeamData(holder, cont);
 	    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 	    	//Rankings work
 	    	StringBuilder players = new StringBuilder(10000);
 	    	for (PlayerObject player : holder.players)
 	    	{
-	    		String fa = "";
-	    		if(player.fa.size() == 0)
-	    		{
-	    			fa = "Signed Free Agents: &&Departing Free Agents: ";
-	    		}
-	    		else
-	    		{
-	    			fa = player.fa.get(0) + "&&" + player.fa.get(1);
-	    		}
-	    		String oLine = " ";
-	    		if(player.info.oLineStatus != null && !player.info.oLineStatus.equals("") 
-	    				&& player.info.oLineStatus.length() >= 3)
-	    		{
-	    			oLine = player.info.oLineStatus;
-	    		}
 	    		String additStat = " ";
 	    		if(player.info.additionalStat != null && !player.info.additionalStat.equals("") 
 	    				&& player.info.additionalStat.length() >= 3)
 	    		{
 	    			additStat = player.info.additionalStat;
 	    		}
-	    		String oLineAdv = " ";
-	    		if(player.info.oLineAdv != null && player.info.oLineAdv.length() > 3)
-	    		{
-	    			oLineAdv = player.info.oLineAdv;
-	    		}
 	    		players.append( 
 	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
 	    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
 	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
-	    		player.info.adp + "&&" + player.info.bye + "&&" 
-	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
-	    		player.info.age + "&&" + player.stats + "&&" + player.draftClass + "&&" + player.injuryStatus + 
-	    		"&&" + fa + "&&" + oLine + "&&" + additStat + "&&" + player.values.ecr + "&&" + 
-	    		player.risk + "&&" + player.riskPos + "&&" + oLineAdv + "&&" + 
+	    		player.info.adp + "&&" 
+	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + 
+	    		player.info.age + "&&" + player.stats + "&&" + player.injuryStatus + 
+	    		"&&"+ additStat + "&&" + player.values.ecr + "&&" + 
+	    		player.risk + "&&" + player.riskPos + "&&" + 
 	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
 	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + player.values.roTD + "&&" + player.values.rtdDiff
 	    		+ "&&" + player.values.rADEZ + "&&" + player.values.coTD + "&&" + player.values.ctdDiff + "&&" + player.values.cADEZ + 
@@ -170,46 +151,27 @@ public class StorageAsyncTask
 	    	Context cont = (Context)data[1];
 	    	Storage holder = (Storage)data[0];
 	    	HighLevel.getPAA(holder, cont);
+	    	WriteToFile.writeTeamData(holder, cont);
 	    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 	    	//Rankings work
 	    	StringBuilder players = new StringBuilder(10000);
 	    	for (PlayerObject player : holder.players)
 	    	{
-	    		String fa = "";
-	    		if(player.fa.size() == 0)
-	    		{
-	    			fa = "Signed Free Agents: &&Departing Free Agents: ";
-	    		}
-	    		else
-	    		{
-	    			fa = player.fa.get(0) + "&&" + player.fa.get(1);
-	    		}
-	    		String oLine = " ";
-	    		if(player.info.oLineStatus != null && !player.info.oLineStatus.equals("") 
-	    				&& player.info.oLineStatus.length() >= 3)
-	    		{
-	    			oLine = player.info.oLineStatus;
-	    		}
 	    		String additStat = " ";
 	    		if(player.info.additionalStat != null && !player.info.additionalStat.equals("") 
 	    				&& player.info.additionalStat.length() >= 3)
 	    		{
 	    			additStat = player.info.additionalStat;
 	    		}
-	    		String oLineAdv = " ";
-	    		if(player.info.oLineAdv != null && player.info.oLineAdv.length() > 3)
-	    		{
-	    			oLineAdv = player.info.oLineAdv;
-	    		}
 	    		players.append( 
 	    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
 	    	    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
 	    	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
-	    	    		player.info.adp + "&&" + player.info.bye + "&&" 
-	    	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
-	    	    		player.info.age + "&&" + player.stats + "&&" + player.draftClass + "&&" + player.injuryStatus + 
-	    	    		"&&" + fa + "&&" + oLine +  "&&" + additStat + "&&" + player.values.ecr + "&&" + 
-	    	    		player.risk + "&&" + player.riskPos + "&&"  + oLineAdv + "&&" + 
+	    	    		player.info.adp + "&&" 
+	    	    		+ player.info.trend + "&&" + player.info.contractStatus +"&&" + 
+	    	    		player.info.age + "&&" + player.stats + "&&" + player.injuryStatus + 
+	    	    		"&&"+ additStat + "&&" + player.values.ecr + "&&" + 
+	    	    		player.risk + "&&" + player.riskPos + "&&"  + 
 	    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
 	    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + player.values.roTD + "&&" 
 	    	    		+ player.values.rtdDiff
@@ -339,41 +301,33 @@ public class StorageAsyncTask
 	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     		holder.players = new ArrayList<PlayerObject>();
     		holder.parsedPlayers = new ArrayList<String>();
+    		ReadFromFile.readTeamData(holder, cont);
 	   		String[] perPlayer = checkExists.split("~~~~");
 	   		for(int i = 0; i < perPlayer.length; i++)
 	   		{  
 	   			String[] allData = perPlayer[i].split("&&");
 	   			PlayerObject newPlayer = new PlayerObject(allData[4], allData[5], allData[6], 0);
-	   			newPlayer.values.cADEZ = Double.parseDouble(allData[35]);
-	   			newPlayer.values.ctdDiff = Double.parseDouble(allData[34]);
-	   			newPlayer.values.coTD = Double.parseDouble(allData[33]);
-	   			newPlayer.values.rADEZ = Double.parseDouble(allData[32]);
-	   			newPlayer.values.rtdDiff = Double.parseDouble(allData[31]);
-	   			newPlayer.values.roTD = Double.parseDouble(allData[30]);
-	   			newPlayer.values.tADEZ = Double.parseDouble(allData[29]);
-	   			newPlayer.values.tdDiff = Double.parseDouble(allData[28]);
-	   			newPlayer.values.oTD = Double.parseDouble(allData[27]);
-	   			newPlayer.values.paapd = Double.parseDouble(allData[26]);
-	   			newPlayer.values.paa = Double.parseDouble(allData[25]);
-	   			newPlayer.values.points = Double.parseDouble(allData[24]);
-	   			newPlayer.info.oLineAdv = allData[23];
-
-	   			newPlayer.riskPos = Double.parseDouble(allData[22]);
-	   			newPlayer.risk = Double.parseDouble(allData[21]);
-	   			newPlayer.values.ecr = Double.parseDouble(allData[20]);
-	   			newPlayer.info.additionalStat = allData[19];
-	   			newPlayer.info.oLineStatus = allData[18];
-	   			newPlayer.fa = new ArrayList<String>();  
-	   			newPlayer.fa.add(0, allData[16]);
-	   			newPlayer.fa.add(1, allData[17]);
-	   			newPlayer.injuryStatus = allData[15];
-	   			newPlayer.draftClass = allData[14];
-	   			newPlayer.stats = allData[13];
-	   			newPlayer.info.age = allData[12];
-	   			newPlayer.info.sos = Integer.parseInt(allData[11]);
-	   			newPlayer.info.contractStatus = allData[10];
-	   			newPlayer.info.trend = allData[9];
-	   			newPlayer.info.bye = allData[8];
+	   			newPlayer.values.cADEZ = Double.parseDouble(allData[28]);
+	   			newPlayer.values.ctdDiff = Double.parseDouble(allData[27]);
+	   			newPlayer.values.coTD = Double.parseDouble(allData[26]);
+	   			newPlayer.values.rADEZ = Double.parseDouble(allData[25]);
+	   			newPlayer.values.rtdDiff = Double.parseDouble(allData[24]);
+	   			newPlayer.values.roTD = Double.parseDouble(allData[23]);
+	   			newPlayer.values.tADEZ = Double.parseDouble(allData[22]);
+	   			newPlayer.values.tdDiff = Double.parseDouble(allData[21]);
+	   			newPlayer.values.oTD = Double.parseDouble(allData[20]);
+	   			newPlayer.values.paapd = Double.parseDouble(allData[19]);
+	   			newPlayer.values.paa = Double.parseDouble(allData[18]);
+	   			newPlayer.values.points = Double.parseDouble(allData[17]);
+	   			newPlayer.riskPos = Double.parseDouble(allData[16]);
+	   			newPlayer.risk = Double.parseDouble(allData[15]);
+	   			newPlayer.values.ecr = Double.parseDouble(allData[14]);
+	   			newPlayer.info.additionalStat = allData[13];
+	   			newPlayer.injuryStatus = allData[12];
+	   			newPlayer.stats = allData[11];
+	   			newPlayer.info.age = allData[10];
+	   			newPlayer.info.contractStatus = allData[9];
+	   			newPlayer.info.trend = allData[8];
 	   			newPlayer.info.adp = allData[7];
 	   			newPlayer.values.low = Double.parseDouble(allData[3]);
 	   			newPlayer.values.high = Double.parseDouble(allData[2]);
@@ -414,7 +368,7 @@ public class StorageAsyncTask
 				holder.draft.remainingSalary = Integer.parseInt(individual[7][0]);
 				holder.draft.value = Double.parseDouble(individual[8][0]);
 			}
-
+			System.out.println(System.nanoTime() - start + " to read from file");
 			return null;
 	    }
 	  }

@@ -1,7 +1,6 @@
 package FileIO;
 
 import java.text.DateFormat;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -394,4 +393,72 @@ public class WriteToFile {
 		editor.commit();
 	}
 	
+	/**
+	 * Writes the o line rankings to file
+	 * @param holder
+	 * @param cont
+	 */
+	public static void writeTeamData(Storage holder, Context cont)
+	{
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		StringBuilder oLineRanks = new StringBuilder(10000);
+		
+		//Oline ranks
+		Set<String> keys = holder.oLineRanks.keySet();
+		for(String key : keys)
+		{
+			oLineRanks.append(key + "##" + holder.oLineRanks.get(key) + "%%%");
+		}
+		oLineRanks.append("@#@#");
+		
+		//Oline advanced
+		Set<String> keysAdv = holder.oLineAdv.keySet();
+		for(String key : keysAdv)
+		{
+			oLineRanks.append(key + "##" + holder.oLineAdv.get(key) + "%%%");
+		}
+		oLineRanks.append("@#@#");
+		
+		//Draft classes
+		Set<String> keysDraft = holder.draftClasses.keySet();
+		for(String key : keysDraft)
+		{
+			oLineRanks.append(key + "##" + holder.draftClasses.get(key) + "%%%");
+		}
+		oLineRanks.append("@#@#");
+		
+		//Sos
+		Set<String> keysSos = holder.sos.keySet();
+		for(String key : keysSos)
+		{
+			oLineRanks.append(key + "##" + holder.sos.get(key) + "%%%");
+		}
+		oLineRanks.append("@#@#");
+		
+		//Bye
+		Set<String> keysBye = holder.bye.keySet();
+		for(String key : keysBye)
+		{
+			oLineRanks.append(key + "##" + holder.bye.get(key) + "%%%");
+		}
+		oLineRanks.append("@#@#");
+		
+		//FA
+		Set<String> keysFA = holder.fa.keySet();
+		for(String key : keysFA)
+		{
+			List<String> fa = holder.fa.get(key);
+			if(fa.size() == 0)
+			{
+				oLineRanks.append("Signed Free Agents: &&Departing Free Agents: ");
+			}
+			else
+			{
+				oLineRanks.append(key + "##" + fa.get(0) + "&&" + fa.get(1) + "%%%");
+			}
+		}
+		
+		editor.putString("Team By Team Data", oLineRanks.toString());
+		editor.commit();
+	}
 }

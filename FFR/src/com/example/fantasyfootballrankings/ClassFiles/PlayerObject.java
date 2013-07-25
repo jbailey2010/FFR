@@ -17,9 +17,7 @@ public class PlayerObject
 	public BasicInfo info;
 	public Values values;
 	public String stats;
-	public String draftClass;
 	public String injuryStatus;
-	public List<String> fa;
 	public double risk;
 	public double riskPos;
 	 
@@ -37,9 +35,7 @@ public class PlayerObject
 		//Holds count, worth, high, and low values
 		values = new Values(value);
 		stats = " ";
-		draftClass = "";
 		injuryStatus = "Injury Status: Healthy";
-		fa = new ArrayList<String>();
 		risk = -1.0;
 		riskPos = -1.0;
 	}

@@ -974,7 +974,7 @@ public class Rankings extends Activity {
 	        //datum.put("sub", "");
 	        if(elem.info.team.length() > 2 && elem.info.position.length() > 0)
 	        {
-	        	datum.put("sub", elem.info.position + " - " + elem.info.team + "\n" + "Bye: " + elem.info.bye);
+	        	datum.put("sub", elem.info.position + " - " + elem.info.team + "\n" + "Bye: "+ holder.bye.get(elem.info.team));
 	        }
 	        else
 	        {

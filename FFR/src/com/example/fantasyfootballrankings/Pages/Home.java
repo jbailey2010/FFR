@@ -204,7 +204,7 @@ public class Home extends Activity{
 	 */
 	public void callExport()
 	{
-		HandleExport.driveInit(HandleExport.orderPlayers(holder), dialog, cont);
+		HandleExport.driveInit(HandleExport.orderPlayers(holder), dialog, cont, holder);
 	}
 	
 	/**

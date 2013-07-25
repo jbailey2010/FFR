@@ -96,7 +96,7 @@ public class HandleExport
 	/**
 	 * Handles google drive initially
 	 */
-	public static void driveInit(PriorityQueue<PlayerObject> players, Dialog dialog, Context cont)
+	public static void driveInit(PriorityQueue<PlayerObject> players, Dialog dialog, Context cont, Storage holder)
 	{
 		FileWriter writer; 
 		File sdCard = Environment.getExternalStorageDirectory();
@@ -110,7 +110,8 @@ public class HandleExport
 			{
 				PlayerObject player = players.poll();
 				writeCsvData(player.values.worth, player.info.name, player.info.position, player.info.team,
-						player.info.age, player.info.bye, player.info.sos, player.info.adp, player.info.trend, player.values.points, 
+						player.info.age, holder.bye.get(player.info.team), holder.sos.get(player.info.team + "," + player.info.position), 
+						player.info.adp, player.info.trend, player.values.points, 
 						player.values.paa, player.values.paapd, player.values.ecr, player.risk, writer);
 			}
 			writer.flush();

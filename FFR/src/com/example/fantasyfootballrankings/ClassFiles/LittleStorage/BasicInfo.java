@@ -13,14 +13,10 @@ public class BasicInfo
 	public String team;
 	public String position;
 	public String adp;
-	public String bye;
 	public String trend;
 	public String contractStatus;
 	public String age;
-	public String oLineStatus;
-	public String oLineAdv;
 	public String additionalStat;
-	public int sos;
 	/**
 	 * Simply establishes the values. Nothing special
 	 * @param playerName the name of the player
@@ -33,14 +29,10 @@ public class BasicInfo
 		team = playerTeam;
 		position = pos;
 		adp = "Not set";
-		bye = "Not set";
 		trend = "0.0";
 		contractStatus = "Under Contract";
 		age = "0"; 
-		sos = -1;
-		oLineStatus = "";
 		additionalStat = "";
-		oLineAdv = "";
 	}
 
 	/**

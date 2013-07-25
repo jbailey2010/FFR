@@ -1,7 +1,10 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
@@ -62,13 +65,19 @@ public class ParseOLineAdvanced
 			runData.append(openField + " YPC earned 10+ yards past LOS (" + openFieldRank + ")");
 			data.put(team1 + "/" + "run", runData.toString());
 		}
-		for(PlayerObject player : holder.players)
+		List<String> teams = new ArrayList<String>();
+		Set<String> keys = data.keySet();
+		for(String key : keys)
 		{
-			if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
+			String team = key.split("/")[0];
+			if(!teams.contains(team))
 			{
-				player.info.oLineAdv = data.get(player.info.team + "/" + "pass") + 
-						data.get(player.info.team + "/" + "run");
+				teams.add(team);
 			}
+		}
+		for(String team : teams)
+		{
+			holder.oLineAdv.put(team, data.get(team + "/pass")+ data.get(team + "/run"));
 		}
 	}
 }

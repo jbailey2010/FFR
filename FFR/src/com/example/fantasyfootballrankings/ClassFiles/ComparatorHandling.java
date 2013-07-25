@@ -577,8 +577,8 @@ public class ComparatorHandling
 				p2.append("-Shows up in more rankings\n");
 			}	
 		}
-		int lineRank1 = lineRank(player1);
-		int lineRank2 = lineRank(player2);
+		int lineRank1 = lineRank(holder, player1);
+		int lineRank2 = lineRank(holder, player2);
 		if(lineRank1 < lineRank2)
 		{
 			if(lineRank2 - lineRank1 > 6)
@@ -601,8 +601,8 @@ public class ComparatorHandling
 				p2.append("-Better offensive line\n");
 			}	
 		}
-		int draft1 = draftRank(player1);
-		int draft2 = draftRank(player2);
+		int draft1 = draftRank(player1, holder);
+		int draft2 = draftRank(player2, holder);
 		if(draft1 < draft2)
 		{
 			if(draft2 - draft1 > 5)
@@ -706,8 +706,8 @@ public class ComparatorHandling
 				}
 			}
 		}
-		int sos1 = player1.info.sos;
-		int sos2 = player2.info.sos;
+		int sos1 = holder.sos.get(player1.info.team + "," + player1.info.position);//player1.info.sos;
+		int sos2 = holder.sos.get(player2.info.team + "," + player2.info.position);//player2.info.sos;
 		if(sos1 > sos2)
 		{
 			if(sos1 - sos2 < 5)
@@ -1040,9 +1040,9 @@ public class ComparatorHandling
 	/**
 	 * Parses draft rank
 	 */
-	public static int draftRank(PlayerObject player)
+	public static int draftRank(PlayerObject player, Storage holder)
 	{ 
-		String[] split = player.draftClass.split("\n");
+		String[] split = holder.draftClasses.get(player.info.team).split("\n");
 		String average = split[0];
 		String rank = average.split("\\(")[1].substring(0, average.split("\\(")[1].length() - 1);
 		return Integer.parseInt(rank);
@@ -1051,9 +1051,9 @@ public class ComparatorHandling
 	/**
 	 * returns the overall line rank
 	 */
-	public static int lineRank(PlayerObject player)
+	public static int lineRank(Storage holder, PlayerObject player)
 	{
-		String[] split = player.info.oLineStatus.split("\n");
+		String[] split = holder.oLineRanks.get(player.info.team).split("\n");
 		String overall = split[0];
 		String result = overall.split(": ")[1];
 		return Integer.parseInt(result);
@@ -1121,7 +1121,7 @@ public class ComparatorHandling
 		boolean sameBye = false;
 		for(PlayerObject iter : draft)
 		{
-			if(iter.info.bye.equals(player.info.bye))
+			if(holder.bye.get(iter.info.team).equals(holder.bye.get(player.info.team)))
 			{
 				return true;
 			}

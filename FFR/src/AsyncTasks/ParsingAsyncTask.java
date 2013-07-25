@@ -346,6 +346,7 @@ public class ParsingAsyncTask
 		    {
 		    	Storage holder = (Storage) data[0];
 		    	Context cont = (Context) data[1];
+		    	WriteToFile.writeTeamData(holder, cont);
 		    	try {
 					HighLevel.projPointsWrapper(holder, cont);
 					SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
@@ -353,41 +354,21 @@ public class ParsingAsyncTask
 			    	StringBuilder players = new StringBuilder(10000);
 			    	for (PlayerObject player : holder.players)
 			    	{
-			    		String fa = "";
-			    		if(player.fa.size() == 0)
-			    		{
-			    			fa = "Signed Free Agents: &&Departing Free Agents: ";
-			    		}
-			    		else
-			    		{
-			    			fa = player.fa.get(0) + "&&" + player.fa.get(1);
-			    		}
-			    		String oLine = " ";
-			    		if(player.info.oLineStatus != null && !player.info.oLineStatus.equals("") 
-			    				&& player.info.oLineStatus.length() >= 3)
-			    		{
-			    			oLine = player.info.oLineStatus;
-			    		}
 			    		String additStat = " ";
 			    		if(player.info.additionalStat != null && !player.info.additionalStat.equals("") 
 			    				&& player.info.additionalStat.length() >= 3)
 			    		{
 			    			additStat = player.info.additionalStat;
 			    		}
-			    		String oLineAdv = " ";
-			    		if(player.info.oLineAdv != null && player.info.oLineAdv.length() > 3)
-			    		{
-			    			oLineAdv = player.info.oLineAdv;
-			    		}
 			    		players.append( 
 			    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
 			    	    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
 			    	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
-			    	    		player.info.adp + "&&" + player.info.bye + "&&" 
-			    	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + player.info.sos + "&&" + 
-			    	    		player.info.age + "&&" + player.stats + "&&" + player.draftClass + "&&" + player.injuryStatus + 
-			    	    		"&&" + fa + "&&" + oLine + "&&" + additStat + "&&" + player.values.ecr + "&&" + 
-			    	    		player.risk + "&&" + player.riskPos + "&&" + oLineAdv + "&&" + 
+			    	    		player.info.adp +  "&&" 
+			    	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + 
+			    	    		player.info.age + "&&" + player.stats + "&&"  + player.injuryStatus + 
+			    	    		"&&" + additStat + "&&" + player.values.ecr + "&&" + 
+			    	    		player.risk + "&&" + player.riskPos + "&&" + 
 			    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
 			    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + 
 			    	    		player.values.roTD + "&&" + player.values.rtdDiff
