@@ -108,7 +108,10 @@ public class ParsingAsyncTask
 			protected void onPostExecute(Void result){
 			   super.onPostExecute(result);
 			   pdia.dismiss();
-			   ParseRankings.highLevel(act, hold);
+			   if(hold.players.size() > 1)
+			   {
+				   ((Rankings) act).intermediateHandleRankings(act);
+			   }
 			}
 
 		    @Override
@@ -305,136 +308,7 @@ public class ParsingAsyncTask
 				} catch (IllegalArgumentException e) {
 					System.out.println("Error");
 				}
-				return null;
-		    }
-
-		    @Override
-		    public void onProgressUpdate(String... values)
-		    {
-		    	super.onProgressUpdate(values);
-		    	pdia.setMessage((String) values[0]);
-		    }
-		  }
-
-		/**
-		 * Re-calls projections, and stores changes.
-		 * @author Jeff
-		 *
-		 */
-		public class ParseProjections extends AsyncTask<Object, String, Void> 
-		{
-			Activity act;
-			Storage hold;
-		    public ParseProjections(Activity activity, Storage holder) 
-		    {
-		        act = activity;
-		        hold = holder;
-		    }
-
-			@Override
-			protected void onPreExecute(){ 
-			   super.onPreExecute();   
-			}
-
-			@Override
-			protected void onPostExecute(Void result){
-			   super.onPostExecute(result);
-			}
-
-		    @Override
-		    protected Void doInBackground(Object... data) 
-		    {
-		    	Storage holder = (Storage) data[0];
-		    	Context cont = (Context) data[1];
-		    	WriteToFile.writeTeamData(holder, cont);
-		    	try {
-					HighLevel.projPointsWrapper(holder, cont);
-					SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-			    	//Rankings work
-			    	StringBuilder players = new StringBuilder(10000);
-			    	for (PlayerObject player : holder.players)
-			    	{
-			    		String additStat = " ";
-			    		if(player.info.additionalStat != null && !player.info.additionalStat.equals("") 
-			    				&& player.info.additionalStat.length() >= 3)
-			    		{
-			    			additStat = player.info.additionalStat;
-			    		}
-			    		players.append( 
-			    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
-			    	    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
-			    	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
-			    	    		player.info.adp +  "&&" 
-			    	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + 
-			    	    		player.info.age + "&&" + player.stats + "&&"  + player.injuryStatus + 
-			    	    		"&&" + additStat + "&&" + player.values.ecr + "&&" + 
-			    	    		player.risk + "&&" + player.riskPos + "&&" + 
-			    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
-			    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + 
-			    	    		player.values.roTD + "&&" + player.values.rtdDiff
-			    	    		+ "&&" + player.values.rADEZ + 
-			    	    		"&&" + player.values.coTD + "&&" + player.values.ctdDiff + "&&" + player.values.cADEZ + "~~~~");
-
-			    	}
-			    	String playerString = players.toString();
-			    	editor.putString("Player Values", playerString).commit();
-				} catch (IOException e) {
-					return null;
-				}
-				return null;
-		    }
-
-		  }
-
-
-
-
-		/**
-		 * Handles the setting of the contract status
-		 * @author Jeff
-		 *
-		 */
-		public class NonStatHighLevel extends AsyncTask<Object, String, Void> 
-		{
-			Activity act;
-			ProgressDialog pdia;
-			Storage hold;
-		    public NonStatHighLevel(Activity activity, Storage holder) 
-		    {
-		        act = activity;
-		        pdia = new ProgressDialog(activity);
-		        pdia.setCancelable(false);
-		        hold = holder;
-		    }
-
-			@Override
-			protected void onPreExecute(){ 
-			   super.onPreExecute();  
-		        pdia.setMessage("Please wait, fetching the rankings...");
-		        pdia.show(); 
-			}
-
-			@Override
-			protected void onPostExecute(Void result){
-			   super.onPostExecute(result);
-			   pdia.dismiss();
-			   if(hold.players.size() > 1)
-			   {
-				   ((Rankings) act).intermediateHandleRankings(act);
-			   }
-			}
-
-			@Override
-			protected void onProgressUpdate(String... values){
-	            super.onProgressUpdate(values);
-				pdia.setMessage(values[0]);
-			}
-
-		    @Override
-		    protected Void doInBackground(Object... data) 
-		    {
-		    	Storage holder = (Storage) data[0];
-		    	Context cont = (Context) data[1];
+		    	
 		    	start = System.nanoTime();
 	    		publishProgress("Please wait, fetching player stats...");
 				try {
@@ -545,7 +419,87 @@ public class ParsingAsyncTask
 				} 
 				return null;
 		    }
-		}
+
+		    @Override
+		    public void onProgressUpdate(String... values)
+		    {
+		    	super.onProgressUpdate(values);
+		    	pdia.setMessage((String) values[0]);
+		    }
+		  }
+
+		/**
+		 * Re-calls projections, and stores changes.
+		 * @author Jeff
+		 *
+		 */
+		public class ParseProjections extends AsyncTask<Object, String, Void> 
+		{
+			Activity act;
+			Storage hold;
+		    public ParseProjections(Activity activity, Storage holder) 
+		    {
+		        act = activity;
+		        hold = holder;
+		    }
+
+			@Override
+			protected void onPreExecute(){ 
+			   super.onPreExecute();   
+			}
+
+			@Override
+			protected void onPostExecute(Void result){
+			   super.onPostExecute(result);
+			}
+
+		    @Override
+		    protected Void doInBackground(Object... data) 
+		    {
+		    	Storage holder = (Storage) data[0];
+		    	Context cont = (Context) data[1];
+		    	WriteToFile.writeTeamData(holder, cont);
+		    	try {
+					HighLevel.projPointsWrapper(holder, cont);
+					SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+			    	//Rankings work
+			    	StringBuilder players = new StringBuilder(10000);
+			    	for (PlayerObject player : holder.players)
+			    	{
+			    		String additStat = " ";
+			    		if(player.info.additionalStat != null && !player.info.additionalStat.equals("") 
+			    				&& player.info.additionalStat.length() >= 3)
+			    		{
+			    			additStat = player.info.additionalStat;
+			    		}
+			    		players.append( 
+			    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
+			    	    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
+			    	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
+			    	    		player.info.adp +  "&&" 
+			    	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + 
+			    	    		player.info.age + "&&" + player.stats + "&&"  + player.injuryStatus + 
+			    	    		"&&" + additStat + "&&" + player.values.ecr + "&&" + 
+			    	    		player.risk + "&&" + player.riskPos + "&&" + 
+			    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
+			    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + 
+			    	    		player.values.roTD + "&&" + player.values.rtdDiff
+			    	    		+ "&&" + player.values.rADEZ + 
+			    	    		"&&" + player.values.coTD + "&&" + player.values.ctdDiff + "&&" + player.values.cADEZ + "~~~~");
+
+			    	}
+			    	String playerString = players.toString();
+			    	editor.putString("Player Values", playerString).commit();
+				} catch (IOException e) {
+					return null;
+				}
+				return null;
+		    }
+
+		  }
+
+
+
 
 		/**
 		 * Parses the posts from the forums

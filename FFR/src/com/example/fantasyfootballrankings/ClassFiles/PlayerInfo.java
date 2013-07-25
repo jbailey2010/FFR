@@ -257,6 +257,106 @@ public class PlayerInfo
 					i.setData(Uri.parse(url));
 					act.startActivity(i);
 				}
+				else if(input.contains("Risk"))
+				{
+					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
+				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+					popUp.setContentView(R.layout.tweet_popup);
+					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+				    lp.copyFrom(popUp.getWindow().getAttributes());
+				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+				    popUp.getWindow().setAttributes(lp);
+				    popUp.show();
+				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
+				    tv.setText("The 'Risk' of a player is the relative variation in the total set of expert rankings. The logic is, the less established the value of the player is (a higher variance), the riskier he is.");
+				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
+				    close.setOnClickListener(new OnClickListener(){
+						@Override
+						public void onClick(View v) {
+							popUp.dismiss();
+						}
+				    });
+				}
+				else if(input.contains("PAA per dollar"))
+				{
+					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
+				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+					popUp.setContentView(R.layout.tweet_popup);
+					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+				    lp.copyFrom(popUp.getWindow().getAttributes());
+				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+				    popUp.getWindow().setAttributes(lp);
+				    popUp.show();
+				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
+				    tv.setText("PAA attempts to quantify the value a player has, cross-positions. This attempts to get an idea of that actual value, taking the price into account. It's simply PAA divided by the auction value.");
+				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
+				    close.setOnClickListener(new OnClickListener(){
+						@Override
+						public void onClick(View v) {
+							popUp.dismiss();
+						}
+				    });
+				}
+				else if(input.contains("PAA"))
+				{
+					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
+				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+					popUp.setContentView(R.layout.tweet_popup);
+					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+				    lp.copyFrom(popUp.getWindow().getAttributes());
+				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+				    popUp.getWindow().setAttributes(lp);
+				    popUp.show();
+				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
+				    tv.setText("PAA attempts to quantify the value has cross-positions. It means points above average. For example, tight ends are generally not highly valued. There are a few, though, that give such a large edge over the alternative that they should be valued highly. Their PAA is high.");
+				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
+				    close.setOnClickListener(new OnClickListener(){
+						@Override
+						public void onClick(View v) {
+							popUp.dismiss();
+						}
+				    });
+				}
+				else if(input.contains("Average Draft Position"))
+				{
+					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
+				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+					popUp.setContentView(R.layout.tweet_popup);
+					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+				    lp.copyFrom(popUp.getWindow().getAttributes());
+				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+				    popUp.getWindow().setAttributes(lp);
+				    popUp.show();
+				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
+				    tv.setText("This is the average draft position of a player over thousands and thousands of mock drafts.");
+				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
+				    close.setOnClickListener(new OnClickListener(){
+						@Override
+						public void onClick(View v) {
+							popUp.dismiss();
+						}
+				    });
+				}
+				else if(input.contains("Average Expert Ranking"))
+				{
+					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
+				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+					popUp.setContentView(R.layout.tweet_popup);
+					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+				    lp.copyFrom(popUp.getWindow().getAttributes());
+				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+				    popUp.getWindow().setAttributes(lp);
+				    popUp.show();
+				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
+				    tv.setText("This is the average ranking of over one hundred different experts.");
+				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
+				    close.setOnClickListener(new OnClickListener(){
+						@Override
+						public void onClick(View v) {
+							popUp.dismiss();
+						}
+				    });
+				}
 			}
 		});
 		//ManageInput.handleArray(output, results, act);

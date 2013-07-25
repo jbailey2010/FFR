@@ -5,6 +5,7 @@ import java.io.IOException;
 
 
 
+
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,7 +23,6 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPN;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 
 import AsyncTasks.ParsingAsyncTask;
-import AsyncTasks.ParsingAsyncTask.NonStatHighLevel;
 import AsyncTasks.ParsingAsyncTask.ParseRanks;
 import FileIO.ReadFromFile;
 import android.R.integer;
@@ -239,20 +239,7 @@ public class ParseRankings
 		teams.put("arizona", "Arizona Cardinals");
 		teams.put("cardinals", "Arizona Cardinals");
 	}
-	
-	/**
-	 * Calls the high level functions
-	 * @param cont
-	 * @param holder
-	 */
-	public static void highLevel(Activity cont, Storage holder)
-	{
-		
-		ParsingAsyncTask stupid = new ParsingAsyncTask();
 
-	    NonStatHighLevel contract = stupid.new NonStatHighLevel(cont, holder);
-	    contract.execute(holder, cont);
-	}
 	
 	/**
 	 * Super basic function. Gets a normalized name, makes a player with it. If
