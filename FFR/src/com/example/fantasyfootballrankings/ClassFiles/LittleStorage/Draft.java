@@ -302,6 +302,25 @@ public class Draft
 	}
 	
 	/**
+	 * Kills the draft remotely (FROM HOME)
+	 * @param draft
+	 * @param cont
+	 */
+	public static void resetDraftRemote(Draft draft, Context cont)
+	{
+		draft.qb.clear();
+		draft.rb.clear();
+		draft.wr.clear();
+		draft.te.clear();
+		draft.def.clear();
+		draft.ignore.clear();
+		draft.k.clear();
+		draft.remainingSalary = 200;
+		draft.value = 0.0;
+		WriteToFile.writeDraft(draft, cont);
+	}
+	
+	/**
 	 * Starts the undrafting process
 	 */
 	public static void undraft(final Dialog dialog, final Storage holder, final Context cont)
@@ -594,5 +613,20 @@ public class Draft
 				Rankings.intermediateHandleRankings((Activity)cont);
 			}
 		}
+    }
+    
+    /**
+     * Finds the quantity drafted at each position
+     * @param set
+     * @return
+     */
+    public static int posDraftedQuantity(List<PlayerObject> set)
+    {
+    	int total = 0;
+    	for(PlayerObject player : set)
+    	{
+    		total++;
+    	}
+    	return total;
     }
 }

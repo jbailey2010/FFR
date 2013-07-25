@@ -317,6 +317,26 @@ public class PlayerInfo
 						}
 				    });
 				}
+				else if(input.contains("oTD"))
+				{
+					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
+				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+					popUp.setContentView(R.layout.tweet_popup);
+					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+				    lp.copyFrom(popUp.getWindow().getAttributes());
+				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+				    popUp.getWindow().setAttributes(lp);
+				    popUp.show();
+				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
+				    tv.setText("oTD means opportunity-adjusted touchdowns, serving as a true replacement for red zone stats. It looks at the probability of a touchdown based on context of usage, and consequently how many touchdowns a player should have scored in that context.");
+				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
+				    close.setOnClickListener(new OnClickListener(){
+						@Override
+						public void onClick(View v) {
+							popUp.dismiss();
+						}
+				    });
+				}
 				else if(input.contains("Average Draft Position"))
 				{
 					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);

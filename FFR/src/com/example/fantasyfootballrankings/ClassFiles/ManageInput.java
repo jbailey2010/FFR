@@ -9,6 +9,7 @@ import java.util.Map;
 
 import jeff.isawesome.fantasyfootballrankings.R;
 
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
@@ -554,7 +555,7 @@ public class ManageInput
 	 * Decides if it's an auction or snake
 	 * @param cont
 	 */
-	public static void isAuctionOrSnake(final Context cont)
+	public static void isAuctionOrSnake(final Context cont, final Storage holder)
 	{
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		boolean isAuction = ReadFromFile.readIsAuction(cont);
@@ -588,6 +589,12 @@ public class ManageInput
 		submit.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
+				boolean isAuction = ReadFromFile.readIsAuction(cont);
+				boolean needReset = false;
+				if((!isAuction && a.isChecked()) || (isAuction && s.isChecked()))
+				{
+					needReset = true;
+				}
 				if(a.isChecked())
 				{
 					WriteToFile.writeIsAuction(true, cont);
@@ -595,6 +602,10 @@ public class ManageInput
 				else
 				{
 					WriteToFile.writeIsAuction(false, cont);
+				}
+				if(needReset)
+				{
+					Draft.resetDraftRemote(holder.draft, cont);
 				}
 				dialog.dismiss();
 			}

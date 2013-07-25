@@ -357,6 +357,7 @@ public class StorageAsyncTask
 				//K fetching
 				ReadFromFile.handleDraftReading(individual[5], holder.draft.k, holder);
 				//Ignore fetching
+				holder.draft.ignore.clear();
 				for(String name : individual[6])
 				{
 					if(name.length() > 3 && !holder.draft.ignore.contains(name))

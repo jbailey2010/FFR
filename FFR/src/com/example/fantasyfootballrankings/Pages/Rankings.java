@@ -19,6 +19,7 @@ import java.util.concurrent.ExecutionException;
 import org.htmlcleaner.XPatherException;
 
 import jeff.isawesome.fantasyfootballrankings.R;
+
 import com.example.fantasyfootballrankings.ClassFiles.ComparatorHandling;
 import com.example.fantasyfootballrankings.ClassFiles.HandleWatchList;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
@@ -51,8 +52,11 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.speech.RecognizerIntent;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
 import android.view.Menu;
@@ -133,8 +137,9 @@ public class Rankings extends Activity {
 		ActionBar ab = getActionBar();
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
+		setUpWidget();
 	}
-	
+
 	/**
 	 * Sets up the menu
 	 */
@@ -229,6 +234,209 @@ public class Rankings extends Activity {
 				dialog.dismiss();
 			}
 	    });
+	}
+	
+	public void setUpWidget()
+	{
+		List<String> pos = new ArrayList<String>();
+		pos.add("Basic Draft Info");
+		pos.add("QB - Drafted by you");
+		pos.add("RB - Drafted by you");
+		pos.add("WR - Drafted by you");
+		pos.add("TE - Drafted by you");
+		pos.add("D/ST - Drafted by you");
+		pos.add("K - Drafted by you");
+		pos.add("QB - PAA left");
+		pos.add("RB - PAA left");
+		pos.add("WR - PAA left");
+		pos.add("TE - PAA left");
+		final Spinner widgSpinner = (Spinner)findViewById(R.id.ranking_pos_spinner);
+		 WindowManager wm = (WindowManager) cont.getSystemService(Context.WINDOW_SERVICE);
+		 Display display = wm.getDefaultDisplay();
+		 @SuppressWarnings("deprecation")
+		 Resources r = cont.getResources();
+		 int width = display.getWidth();
+		 int newWidth = 0;
+		 newWidth = width/3;
+		 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newWidth, r.getDisplayMetrics());
+		 android.view.ViewGroup.LayoutParams params1 = widgSpinner.getLayoutParams();
+		 params1.width = (int) px;
+		 widgSpinner.setLayoutParams(params1);
+		 ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(context, 
+					android.R.layout.simple_spinner_dropdown_item, pos);
+		 widgSpinner.setAdapter(spinnerArrayAdapter);
+		 final TextView widgOutput = (TextView)findViewById(R.id.rankings_widget_output);
+		 final Button widgSubmit = (Button)findViewById(R.id.rankings_widget_submit);
+		 widgSubmit.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				String total = ((TextView)widgSpinner.getSelectedView()).getText().toString();
+				String posStr = total.split(" - ")[0];
+				if(total.contains("PAA left"))
+				{
+					widgOutput.setText(paaDiff(posStr));
+				}
+				else if(total.contains("Drafted by you"))
+				{
+					widgOutput.setText(draftThusFar(posStr));
+				}
+				else if(total.contains("Basic Draft Info"))
+				{
+					widgOutput.setText(basicInfo());
+				}
+			}
+		 });
+	}
+	
+	/**
+	 * Gets general draft info
+	 * @return
+	 */
+	public String basicInfo()
+	{
+		String result = "";
+		int qbTotal = Draft.posDraftedQuantity(holder.draft.qb);
+		int rbTotal = Draft.posDraftedQuantity(holder.draft.rb);
+		int wrTotal = Draft.posDraftedQuantity(holder.draft.wr);
+		int teTotal = Draft.posDraftedQuantity(holder.draft.te);
+		int defTotal = Draft.posDraftedQuantity(holder.draft.def);
+		int kTotal = Draft.posDraftedQuantity(holder.draft.k);
+		DecimalFormat df = new DecimalFormat("#.#");
+		if(qbTotal + rbTotal + wrTotal + teTotal + defTotal + kTotal == 0)
+		{
+			return "No players drafted";
+		}
+		if(qbTotal != 0)
+		{
+			result += qbTotal + " QBs, ";
+		}
+		if(rbTotal != 0)
+		{
+			result += rbTotal + " RBs, ";
+		}
+		if(wrTotal != 0)
+		{
+			result += wrTotal + " WRs, ";
+		}
+		if(teTotal != 0)
+		{
+			result += teTotal + " TEs, ";
+		}
+		if(defTotal != 0)
+		{
+			result += defTotal + " D/STs, ";
+		}
+		if(kTotal != 0)
+		{
+			result += kTotal + " Ks, ";
+		}
+		result +=  df.format(Draft.paaTotal(holder.draft)) + " total PAA";
+		return result;
+	}
+	
+	/**
+	 * Gets the drafted players at a position
+	 * @param pos
+	 * @return
+	 */
+	public String draftThusFar(String pos)
+	{
+		String result = "";
+		double paa = 0.0;
+		DecimalFormat df = new DecimalFormat("#.#");
+		if(pos.equals("QB"))
+		{
+			for(PlayerObject player : holder.draft.qb)
+			{
+				result += player.info.name + ", ";
+				paa += player.values.worth;
+			}
+		}
+		if(pos.equals("RB"))
+		{
+			for(PlayerObject player : holder.draft.rb)
+			{
+				result += player.info.name + ", ";
+				paa += player.values.worth;
+			}
+		}
+		if(pos.equals("WR"))
+		{
+			for(PlayerObject player : holder.draft.wr)
+			{
+				result += player.info.name + ", ";
+				paa += player.values.worth;
+			}
+		}
+		if(pos.equals("TE"))
+		{
+			for(PlayerObject player : holder.draft.te)
+			{
+				result += player.info.name + ", ";
+				paa += player.values.worth;
+			}
+		}
+		if(pos.equals("D/ST"))
+		{
+			for(PlayerObject player : holder.draft.def)
+			{
+				result += player.info.name + ", ";
+				paa += player.values.worth;
+			}
+		}
+		if(pos.equals("K"))
+		{
+			for(PlayerObject player : holder.draft.k)
+			{
+				result += player.info.name + ", ";
+				paa += player.values.worth;
+			}
+		}
+		if(!result.contains(","))
+		{
+			result = "None drafted";
+		}
+		else
+		{
+			result = result.substring(0, result.length()-2);
+			result += " (" + df.format(paa) + ")";
+		}
+		return result;
+	}
+	
+	/**
+	 * Calculates the PAA left at a position
+	 * @param pos
+	 * @return
+	 */
+	public String paaDiff(String pos)
+	{
+		DecimalFormat df = new DecimalFormat("#.#");
+		String result = "3/5/10 back: ";
+		double paaLeft = 0.0;
+		int counter = 0;
+		for(PlayerObject player: holder.players)
+		{
+			if(!Draft.isDrafted(player.info.name, holder.draft) && player.info.position.equals(pos))
+			{
+				paaLeft += player.values.paa;
+				counter++;
+				if(counter > 10)
+				{
+					result += df.format(paaLeft);
+					break;
+				}
+				if(counter == 4)
+				{
+					result += df.format(paaLeft) + "/";
+				}
+				if(counter == 6)
+				{
+					result += df.format(paaLeft) + "/";
+				}
+			}
+		}
+		return result;
 	}
     
 	/**

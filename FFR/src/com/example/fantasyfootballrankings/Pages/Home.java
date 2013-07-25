@@ -149,7 +149,7 @@ public class Home extends Activity{
 				ManageInput.getRoster(cont, isStored, holder);
 				return true;
 			case R.id.auction_or_snake:
-				ManageInput.isAuctionOrSnake(cont);
+				ManageInput.isAuctionOrSnake(cont, holder);
 				return true;
 			case R.id.help_home:
 				
