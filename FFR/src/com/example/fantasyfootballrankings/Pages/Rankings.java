@@ -115,6 +115,8 @@ public class Rankings extends Activity {
 	static SwipeDismissListViewTouchListener touchListener;
 	static Scoring scoring = new Scoring();
 	public static boolean isAuction;
+	public RelativeLayout widgetBase;
+	public boolean hideWidget = false;
 	/**
 	 * Sets up the view
 	 */
@@ -129,6 +131,7 @@ public class Rankings extends Activity {
 		calc = (Button)findViewById(R.id.trade_calc);
 		sort = (Button)findViewById(R.id.sort_players);
     	listview = (ListView)findViewById(R.id.listview_rankings);
+    	widgetBase = (RelativeLayout)findViewById(R.id.rankings_widget_base);
     	context = this;
     	isAuction = ReadFromFile.readIsAuction(cont);
     	setLists();
@@ -209,7 +212,17 @@ public class Rankings extends Activity {
 		        Intent team_intent = new Intent(cont, Trending.class);
 		        cont.startActivity(team_intent);		
 				return true;
-			
+			case R.id.hide_widget:
+				hideWidget = !hideWidget;
+				if(hideWidget)
+				{
+					widgetBase.setVisibility(View.GONE);
+				}
+				else
+				{
+					widgetBase.setVisibility(View.VISIBLE);
+				}
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
@@ -399,7 +412,7 @@ public class Rankings extends Activity {
 		else
 		{
 			result = result.substring(0, result.length()-2);
-			result += " (" + df.format(paa) + ")";
+			result += " (" + df.format(paa) + " PAA)";
 		}
 		return result;
 	}

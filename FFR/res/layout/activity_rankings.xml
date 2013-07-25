@@ -92,16 +92,18 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/rankings_widget_base"
         android:layout_width="match_parent"
         android:layout_height="40dp" 
-        android:background="#797979">
+        android:background="#171717">
 
         <Spinner
             android:id="@+id/ranking_pos_spinner"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true" />
+            android:layout_centerVertical="true"
+            android:background="#797979"
+            android:layout_alignParentLeft="true" />
 
         <Button
             android:id="@+id/rankings_widget_submit"
@@ -111,7 +113,7 @@
             android:layout_toRightOf="@+id/ranking_pos_spinner"
             android:text=">" 
             android:textColor="#ffffff"
-            android:background="@drawable/menu_btn_grey"
+            android:background="@drawable/menu_btn_black"
             style="?android:attr/buttonBarButtonStyle"/>
 
         <HorizontalScrollView
@@ -128,6 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textColor="#FFFFFF"
                 android:text=" "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </HorizontalScrollView>

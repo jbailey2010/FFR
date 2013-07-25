@@ -19,6 +19,11 @@
         android:orderInCategory="100"
 		android:showAsAction="ifRoom|withText" 
         android:title="Refresh or Reset"/>
+    <item
+        android:id="@+id/hide_widget"
+        android:orderInCategory="100"
+        android:showAsAction="never" 
+        android:title="Hide/Show Widget"/> 
 	<item
         android:id="@+id/help"
         android:orderInCategory="100"
