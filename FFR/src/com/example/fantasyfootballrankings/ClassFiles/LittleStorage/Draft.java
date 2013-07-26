@@ -361,6 +361,8 @@ public class Draft
 			}
 		});
 		ListView listWatch = (ListView)dialog.findViewById(R.id.listview_search);
+		listWatch.setOverscrollHeader(cont.getResources().getDrawable(R.drawable.overscroll_header));
+		listWatch.setOverscrollHeader(cont.getResources().getDrawable(R.drawable.overscroll_header));
 		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		DecimalFormat df = new DecimalFormat("#.##");
 		boolean isAuction = ReadFromFile.readIsAuction(cont);

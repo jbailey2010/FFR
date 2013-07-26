@@ -63,7 +63,7 @@ public class SortHandler
 	 * @param cont
 	 * @param hold
 	 */
-	public static void initialPopUp(Context cont, Storage hold)
+	public static void initialPopUp(final Context cont, Storage hold)
 	{
 		players.clear();
 		context = cont;
@@ -156,7 +156,7 @@ public class SortHandler
 						else
 						{
 							dialog.dismiss();
-							handleSortingSec();
+							handleSortingSec(cont);
 							//handleSortingSetUp();
 						}
 					}
@@ -176,7 +176,7 @@ public class SortHandler
 	/**
 	 * Gets options to limit the output of the sorting
 	 */
-	public static void handleSortingSec()
+	public static void handleSortingSec(final Context cont)
 	{
 		final Dialog dialog = new Dialog(context, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -250,7 +250,7 @@ public class SortHandler
 						minProj = (int) maxProj;
 					}
 					handleSecSortingOptions(age.isChecked(), wl.isChecked(), cy.isChecked(), healthy.isChecked(),
-							run.isChecked(), pass.isChecked(), minimum);
+							run.isChecked(), pass.isChecked(), minimum, cont);
 				}
 				else
 				{
@@ -264,7 +264,7 @@ public class SortHandler
 	 * Handles the positions/booleans, using only the real data
 	 */
 	public static void handleSecSortingOptions(boolean young, boolean wl, boolean cy, boolean healthy,
-			boolean run, boolean pass, int minimum) {
+			boolean run, boolean pass, int minimum, Context cont) {
 		List<String> posList = new ArrayList<String>();
 		if(position.equals("All Positions"))
 		{
@@ -318,113 +318,113 @@ public class SortHandler
 				}
 			}
 		}
-		handleSortingSetUp();
+		handleSortingSetUp(cont);
 	}
 	
 	/**
 	 * Gets only the players who are the right position
 	 */
-	public static void handleSortingSetUp()
+	public static void handleSortingSetUp(Context cont)
 	{
 		if(subject.equals("Projections"))
 		{
-			projPoints();
+			projPoints(cont);
 		}
 		else if(subject.equals("Auction Values"))
 		{
-			auctionVals();
+			auctionVals(cont);
 		}
 		else if(subject.equals("PAA"))
 		{
-			paa();
+			paa(cont);
 		}
 		else if(subject.equals("Under Drafted"))
 		{
-			underDrafted();
+			underDrafted(cont);
 		}
 		else if(subject.equals("PAA per dollar"))
 		{
-			paapd();
+			paapd(cont);
 		}
 		else if(subject.equals("Target Rec oTD"))
 		{
-			oTD();
+			oTD(cont);
 		}
 		else if(subject.equals("Catch Rec oTD"))
 		{
-			coTD();
+			coTD(cont);
 		}
 		else if(subject.equals("Catch Rec TD Difference"))
 		{
-			ctdDiff();
+			ctdDiff(cont);
 		}
 		else if(subject.equals("Average catch location"))
 		{
-			cADEZ();
+			cADEZ(cont);
 		}
 		else if(subject.equals("Target Rec TD Difference"))
 		{
-			tdDiff();
+			tdDiff(cont);
 		}
 		else if(subject.equals("Rush oTD"))
 		{
-			roTD();
+			roTD(cont);
 		}
 		else if(subject.equals("Rush TD Difference"))
 		{
-			rtdDiff();
+			rtdDiff(cont);
 		}
 		else if(subject.equals("DVOA"))
 		{
-			dvoa();
+			dvoa(cont);
 		}
 		else if(subject.equals("DYOA"))
 		{
-			dyoa();
+			dyoa(cont);
 		}
 		else if(subject.equals("Risk relative to position"))
 		{
-			riskPos();
+			riskPos(cont);
 		}
 		else if(subject.equals("Risk"))
 		{
-			risk();
+			risk(cont);
 		}
 		else if(subject.equals("Positional SOS"))
 		{
-			pSOS();
+			pSOS(cont);
 		}
 		else if(subject.equals("ECR"))
 		{
-			ecr();
+			ecr(cont);
 		}
 		else if(subject.equals("ADP"))
 		{
-			adp();
+			adp(cont);
 		}
 		else if(subject.equals("Average target location"))
 		{
-			tadez();
+			tadez(cont);
 		}
 		else if(subject.equals("Average carry location"))
 		{
-			radez();
+			radez(cont);
 		}
 		else if(subject.equals("Weekly Trend (ESPN)"))
 		{
-			weeklyTrend();
+			weeklyTrend(cont);
 		}
 		else if(subject.equals("Highest Value"))
 		{
-			highVal();
+			highVal(cont);
 		}
 		else if(subject.equals("Lowest Value"))
 		{
-			lowVal();
+			lowVal(cont);
 		}
 	}
 	
-	public static void risk() {
+	public static void risk(Context cont) {
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 				{
 					@Override
@@ -449,13 +449,13 @@ public class SortHandler
 						sorted.add(player);
 					}
 				}
-				wrappingUp(sorted);
+				wrappingUp(sorted, cont);
 	}
 
 	/**
 	 * Calculates the most underdrafted players
 	 */
-	private static void underDrafted() {
+	private static void underDrafted(Context cont) {
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 				{
 					@Override
@@ -484,10 +484,10 @@ public class SortHandler
 						sorted.add(player);
 					}
 				}
-				wrappingUp(sorted);
+				wrappingUp(sorted, cont);
 	}
 
-	public static void auctionVals()
+	public static void auctionVals(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 				{
@@ -512,10 +512,10 @@ public class SortHandler
 						sorted.add(player);
 					}
 				}
-				wrappingUp(sorted);
+				wrappingUp(sorted, cont);
 	}
 	
-	public static void dvoa()
+	public static void dvoa(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 				{
@@ -544,10 +544,10 @@ public class SortHandler
 						sorted.add(player);
 					}
 				}
-				wrappingUp(sorted);
+				wrappingUp(sorted, cont);
 	}
 	
-	public static void dyoa()
+	public static void dyoa(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 				{
@@ -576,13 +576,13 @@ public class SortHandler
 						sorted.add(player);
 					}
 				}
-				wrappingUp(sorted);
+				wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sets up the priority queue for projected points
 	 */
-	public static void projPoints()
+	public static void projPoints(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -607,13 +607,13 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sorts by paa
 	 */
-	public static void paa()
+	public static void paa(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 				{
@@ -638,13 +638,13 @@ public class SortHandler
 						sorted.add(player);
 					}
 				}
-				wrappingUp(sorted);
+				wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sorts by paapd
 	 */
-	public static void paapd()
+	public static void paapd(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 				{
@@ -669,13 +669,13 @@ public class SortHandler
 						sorted.add(player);
 					}
 				}
-				wrappingUp(sorted);
+				wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sets up the priority queue for risk relative to a position
 	 */
-	public static void oTD()
+	public static void oTD(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -700,10 +700,10 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
-	public static void coTD()
+	public static void coTD(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -728,13 +728,13 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sets up the priority queue for risk relative to a position
 	 */
-	public static void roTD()
+	public static void roTD(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -759,13 +759,13 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sets up the priority queue for risk relative to a position
 	 */
-	public static void tdDiff()
+	public static void tdDiff(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -790,10 +790,10 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
-	public static void ctdDiff()
+	public static void ctdDiff(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -818,13 +818,13 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sets up the priority queue for risk relative to a position
 	 */
-	public static void rtdDiff()
+	public static void rtdDiff(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -849,13 +849,13 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sets up the priority queue for risk relative to a position
 	 */
-	public static void pSOS()
+	public static void pSOS(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -882,13 +882,13 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sets up the priority queue for risk relative to a position
 	 */
-	public static void radez()
+	public static void radez(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -913,10 +913,10 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
-	public static void cADEZ()
+	public static void cADEZ(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -941,13 +941,13 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sets up the priority queue for risk relative to a position
 	 */
-	public static void tadez()
+	public static void tadez(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -972,13 +972,13 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sets up the priority queue for risk relative to a position
 	 */
-	public static void riskPos()
+	public static void riskPos(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -1003,13 +1003,13 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sets up the priority queue for the ecr
 	 */
-	public static void ecr()
+	public static void ecr(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -1034,13 +1034,13 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sets up the priority queue for adp
 	 */
-	public static void adp()
+	public static void adp(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -1065,13 +1065,13 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sets up the priority queue based on the Weekly Trend (ESPN) in values
 	 */
-	public static void weeklyTrend()
+	public static void weeklyTrend(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -1096,13 +1096,13 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sets up the priority queue based on the high value
 	 */
-	public static void highVal()
+	public static void highVal(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -1127,13 +1127,13 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Sets up a priority queue based on the low value
 	 */
-	public static void lowVal()
+	public static void lowVal(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 		{
@@ -1158,14 +1158,14 @@ public class SortHandler
 				sorted.add(player);
 			}
 		}
-		wrappingUp(sorted);
+		wrappingUp(sorted, cont);
 	}
 	
 	/**
 	 * Puts the priority queue into the list, and sets up the dialog
 	 * @param sorted
 	 */
-	public static void wrappingUp(PriorityQueue<PlayerObject> sorted)
+	public static void wrappingUp(PriorityQueue<PlayerObject> sorted, final Context cont)
 	{
 		DecimalFormat df = new DecimalFormat("#.##");
 		final Dialog dialog = new Dialog(context);
@@ -1181,6 +1181,8 @@ public class SortHandler
 	    TextView header = (TextView)dialog.findViewById(R.id.name);
 	    header.setText(subject);
 	    final BounceListView results = (BounceListView)dialog.findViewById(R.id.listview_search);
+	    results.setOverscrollHeader(cont.getResources().getDrawable(R.drawable.overscroll_header));
+	    results.setOverscrollFooter(cont.getResources().getDrawable(R.drawable.overscroll_header));
 	    header.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -1395,7 +1397,7 @@ public class SortHandler
 				{
 					Toast.makeText(context, "Showing the drafted players", Toast.LENGTH_SHORT).show();
 				}
-				handleSortingSetUp();
+				handleSortingSetUp(cont);
 			}
 	    });
 	    handleOnClicks(results);

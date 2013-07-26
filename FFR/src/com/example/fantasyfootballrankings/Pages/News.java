@@ -372,6 +372,8 @@ public class News extends Activity {
 	public static void handleNewsListView(List<NewsObjects> result, final Activity cont) 
 	{
 		final BounceListView listview = (BounceListView)cont.findViewById(R.id.listview_news);
+		listview.setOverscrollHeader(cont.getResources().getDrawable(R.drawable.overscroll_header));
+		listview.setOverscrollFooter(cont.getResources().getDrawable(R.drawable.overscroll_header));
 		View v = cont.findViewById(android.R.id.home);
 		v.setOnClickListener(new OnClickListener(){
 			@Override

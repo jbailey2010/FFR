@@ -88,6 +88,8 @@ public class Trending extends Activity {
 		//Fetch the date of the posts, and convert it to a date
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	listview = (BounceListView)findViewById(R.id.listview_trending);
+    	listview.setOverscrollHeader(getResources().getDrawable(R.drawable.overscroll_header));
+    	listview.setOverscrollFooter(getResources().getDrawable(R.drawable.overscroll_header));
 		initialLoad(prefs);
 		context = this;
 		try {

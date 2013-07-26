@@ -233,6 +233,8 @@ public class PlayerInfo
 		//Show the dialog, then set the list
 		dialog.show();
 		BounceListView results = (BounceListView)dialog.findViewById(R.id.listview_search);
+		results.setOverscrollHeader(act.getResources().getDrawable(R.drawable.overscroll_header));
+		results.setOverscrollFooter(act.getResources().getDrawable(R.drawable.overscroll_header));
 		results.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -1031,6 +1033,8 @@ public class PlayerInfo
 	    		new int[] {android.R.id.text1, 
 	    			android.R.id.text2});
 	    tweetResults.setAdapter(adapter);
+	    tweetResults.setOverscrollHeader(act.getResources().getDrawable(R.drawable.overscroll_header));
+	    tweetResults.setOverscrollHeader(act.getResources().getDrawable(R.drawable.overscroll_header));
 	    tweetResults.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,

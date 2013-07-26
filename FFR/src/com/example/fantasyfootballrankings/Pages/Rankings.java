@@ -321,27 +321,57 @@ public class Rankings extends Activity {
 		}
 		if(qbTotal != 0)
 		{
-			result += qbTotal + " QBs, ";
+			String val = "QBs";
+			if(qbTotal == 1)
+			{
+				val = "QB";
+			}
+			result += qbTotal + " " + val + ", ";
 		}
 		if(rbTotal != 0)
 		{
-			result += rbTotal + " RBs, ";
+			String val = "RBs";
+			if(rbTotal == 1)
+			{
+				val = "RB";
+			}
+			result += rbTotal + " " + val + ", ";
 		}
 		if(wrTotal != 0)
 		{
-			result += wrTotal + " WRs, ";
+			String val = "WRs";
+			if(wrTotal == 1)
+			{
+				val = "WR";
+			}
+			result += wrTotal + " " + val + ", ";
 		}
 		if(teTotal != 0)
 		{
-			result += teTotal + " TEs, ";
+			String val = "TEs";
+			if(teTotal == 1)
+			{
+				val = "TE";
+			}
+			result += teTotal + " " + val + ", ";
 		}
 		if(defTotal != 0)
 		{
-			result += defTotal + " D/STs, ";
+			String val = "D/STs";
+			if(defTotal == 1)
+			{
+				val = "D/ST";
+			}
+			result += defTotal + " " + val + ", ";
 		}
 		if(kTotal != 0)
 		{
-			result += kTotal + " Ks, ";
+			String val = "Ks";
+			if(kTotal == 1)
+			{
+				val = "K";
+			}
+			result += kTotal + " " + val + ", ";
 		}
 		result +=  df.format(Draft.paaTotal(holder.draft)) + " total PAA";
 		return result;
@@ -1220,7 +1250,7 @@ public class Rankings extends Activity {
 	        	datum.put("sub", elem.info.position + " - " + elem.info.team + "\n" + "Bye: "+ holder.bye.get(elem.info.team));
 	        }
 	        else
-	        {
+	        { 
 	        	datum.put("sub", "");
 	        }
 	        data.add(datum);
@@ -1236,6 +1266,8 @@ public class Rankings extends Activity {
 	    		new int[] {android.R.id.text1, 
 	    			android.R.id.text2});
 	    listview.setAdapter(adapter);
+	    listview.setOverscrollHeader(cont.getResources().getDrawable(R.drawable.overscroll_header));
+    	listview.setOverscrollFooter(cont.getResources().getDrawable(R.drawable.overscroll_footer));
 	    //adapter = ManageInput.handleArray(rankings, listview, cont);
 	}
     
