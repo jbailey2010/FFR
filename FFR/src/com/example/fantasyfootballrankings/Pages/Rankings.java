@@ -357,12 +357,13 @@ public class Rankings extends Activity {
 		String result = "";
 		double paa = 0.0;
 		DecimalFormat df = new DecimalFormat("#.#");
+		
 		if(pos.equals("QB"))
 		{
 			for(PlayerObject player : holder.draft.qb)
 			{
 				result += player.info.name + ", ";
-				paa += player.values.worth;
+				paa += player.values.paa;
 			}
 		}
 		if(pos.equals("RB"))
@@ -370,7 +371,7 @@ public class Rankings extends Activity {
 			for(PlayerObject player : holder.draft.rb)
 			{
 				result += player.info.name + ", ";
-				paa += player.values.worth;
+				paa += player.values.paa;
 			}
 		}
 		if(pos.equals("WR"))
@@ -378,7 +379,7 @@ public class Rankings extends Activity {
 			for(PlayerObject player : holder.draft.wr)
 			{
 				result += player.info.name + ", ";
-				paa += player.values.worth;
+				paa += player.values.paa;
 			}
 		}
 		if(pos.equals("TE"))
@@ -386,7 +387,7 @@ public class Rankings extends Activity {
 			for(PlayerObject player : holder.draft.te)
 			{
 				result += player.info.name + ", ";
-				paa += player.values.worth;
+				paa += player.values.paa;
 			}
 		}
 		if(pos.equals("D/ST"))
@@ -394,7 +395,7 @@ public class Rankings extends Activity {
 			for(PlayerObject player : holder.draft.def)
 			{
 				result += player.info.name + ", ";
-				paa += player.values.worth;
+				paa += player.values.paa;
 			}
 		}
 		if(pos.equals("K"))
@@ -402,7 +403,7 @@ public class Rankings extends Activity {
 			for(PlayerObject player : holder.draft.k)
 			{
 				result += player.info.name + ", ";
-				paa += player.values.worth;
+				paa += player.values.paa;
 			}
 		}
 		if(!result.contains(","))
@@ -428,25 +429,46 @@ public class Rankings extends Activity {
 		String result = "3/5/10 back: ";
 		double paaLeft = 0.0;
 		int counter = 0;
+		PriorityQueue<PlayerObject> inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+				{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b) 
+			{
+				if (a.values.worth > b.values.worth)
+			    {
+			        return -1;
+			    }
+			    if (a.values.worth < b.values.worth)
+			    {
+			    	return 1;
+			    } 
+			    return 0;
+			}
+		});
 		for(PlayerObject player: holder.players)
 		{
 			if(!Draft.isDrafted(player.info.name, holder.draft) && player.info.position.equals(pos))
 			{
-				paaLeft += player.values.paa;
-				counter++;
-				if(counter > 10)
-				{
-					result += df.format(paaLeft);
-					break;
-				}
-				if(counter == 4)
-				{
-					result += df.format(paaLeft) + "/";
-				}
-				if(counter == 6)
-				{
-					result += df.format(paaLeft) + "/";
-				}
+				inter.add(player);
+			}
+		}
+		while(!inter.isEmpty())
+		{
+			PlayerObject player = inter.poll();
+			paaLeft += player.values.paa;
+			counter++;
+			if(counter > 10)
+			{
+				result += df.format(paaLeft);
+				break;
+			}
+			if(counter == 4)
+			{
+				result += df.format(paaLeft) + "/";
+			}
+			if(counter == 6)
+			{
+				result += df.format(paaLeft) + "/";
 			}
 		}
 		return result;

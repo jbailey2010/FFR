@@ -43,7 +43,8 @@ public final class R {
         public static final int round_corners_background=0x7f020013;
         public static final int sp_icon=0x7f020014;
         public static final int spinner_well=0x7f020015;
-        public static final int unchecked=0x7f020016;
+        public static final int spinner_well_grey=0x7f020016;
+        public static final int unchecked=0x7f020017;
     }
     public static final class id {
         public static final int add_comparator_1=0x7f080017;

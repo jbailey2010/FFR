@@ -94,24 +94,26 @@
     <RelativeLayout
         android:id="@+id/rankings_widget_base"
         android:layout_width="match_parent"
-        android:layout_height="40dp" 
+        android:layout_height="46dp" 
         android:background="#171717">
 
         <Spinner
             android:id="@+id/ranking_pos_spinner"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:background="#797979"
+            android:background="@drawable/spinner_well_grey"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="2dp"
             android:layout_alignParentLeft="true" />
 
         <Button
             android:id="@+id/rankings_widget_submit"
             android:layout_width="30dp"
-            android:layout_height="40dp"
+            android:layout_height="46dp"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/ranking_pos_spinner"
             android:text=">" 
+            android:layout_marginLeft="2dp"
             android:textColor="#ffffff"
             android:background="@drawable/menu_btn_black"
             style="?android:attr/buttonBarButtonStyle"/>
