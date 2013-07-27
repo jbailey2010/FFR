@@ -700,6 +700,8 @@ public class Rankings extends Activity {
 			public void onClick(View v) {
 				refreshed = true;
 				listview.setAdapter(null);
+				listview.setOverscrollHeader(null);
+				listview.setOverscrollFooter(null);
 				dialog.dismiss();
 				try {
 					ParseRankings.runRankings(holder, cont);

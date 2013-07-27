@@ -299,6 +299,26 @@ public class PlayerInfo
 						}
 				    });
 				}
+				else if(input.contains("projected points"))
+				{
+					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
+				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+					popUp.setContentView(R.layout.tweet_popup);
+					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+				    lp.copyFrom(popUp.getWindow().getAttributes());
+				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+				    popUp.getWindow().setAttributes(lp);
+				    popUp.show();
+				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
+				    tv.setText("This projection is the weighted average of a series of experts.");
+				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
+				    close.setOnClickListener(new OnClickListener(){
+						@Override
+						public void onClick(View v) {
+							popUp.dismiss();
+						}
+				    });
+				}
 				else if(input.contains("PAA"))
 				{
 					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
@@ -476,6 +496,13 @@ public class PlayerInfo
 			datum.put("sub", sub);
 			data.add(datum);
 		} 
+		if(!searchedPlayer.injuryStatus.contains("Healthy"))
+		{
+			Map<String, String> datum2 = new HashMap<String, String>(2);
+			datum2.put("main", searchedPlayer.injuryStatus);
+			datum2.put("sub", "");
+			data.add(datum2);
+		}
 		//Worth
 		Map<String, String> datumWorth = new HashMap<String, String>(2);
 		datumWorth.put("main", "$" + df.format(searchedPlayer.values.worth));
@@ -624,13 +651,7 @@ public class PlayerInfo
 	    		datum.put("sub", searchedPlayer.info.additionalStat);
 	    	}
 			data.add(datum);
-			if(!searchedPlayer.injuryStatus.contains("Healthy"))
-			{
-				Map<String, String> datum2 = new HashMap<String, String>(2);
-				datum2.put("main", searchedPlayer.injuryStatus);
-				datum2.put("sub", "");
-				data.add(datum2);
-			}
+
 		}
 		//O line data
 		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))

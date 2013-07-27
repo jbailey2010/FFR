@@ -17,6 +17,7 @@ import java.util.concurrent.ExecutionException;
 import org.htmlcleaner.XPatherException;
 
 import jeff.isawesome.fantasyfootballrankings.R;
+
 import com.example.fantasyfootballrankings.ClassFiles.HandleExport;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
@@ -27,6 +28,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCSC;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFA;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseRTS;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseSI;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
@@ -96,7 +98,7 @@ public class Home extends Activity{
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
-        	ParseRTS.parseRTSWrapper(new Storage());
+        	ParseSI.parseSIWrapper(new Storage());
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
