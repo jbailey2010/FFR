@@ -625,33 +625,6 @@ public class ComparatorHandling
 				p2.append("-Better graded draft\n");
 			}	
 		}
-		double diff1 = player1.values.high - player1.values.low;
-		double diff2 = player2.values.high - player2.values.low;
-		if(Math.abs(diff1 - diff2) > 5.0)
-		{
-			if(diff1 < diff2)
-			{
-				if(diff2 - diff1 > 15.0)
-				{
-					p1.append("-Much more consistently ranked value\n");
-				}
-				else
-				{
-					p1.append("-More consistent value\n");
-				}
-			}
-			else if(diff2 < diff1)
-			{
-				if(diff1 - diff2 > 15.0)
-				{
-					p2.append("-Much more consistently ranked value\n");
-				}
-				else
-				{
-					p2.append("-More consistent value\n");
-				}
-			}
-		}
 		double adp1 = adp(player1);
 		double adp2 = adp(player2);
 		if(Math.abs(adp1 - adp2) > 2.0)

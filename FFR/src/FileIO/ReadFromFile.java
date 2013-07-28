@@ -78,23 +78,14 @@ public class ReadFromFile {
 	 * re-adds them to the priority queue, but if it isn't, it calls the runRankings
 	 * function, which is the function that calls all the rankings functions and the high 
 	 * level stuff
-	 * @param checkExists 
-	 * @param holder the storage to be added to
-	 * @param cont the context used to read/write to/from file
-	 * @throws IOException
-	 * @throws XPatherException
-	 * @throws ExecutionException 
-	 * @throws InterruptedException 
 	 */
-	public static void fetchPlayers(String checkExists, Storage holder, Context cont, boolean flag) throws IOException, XPatherException, InterruptedException, ExecutionException
+	public static void fetchPlayers(String checkExists, Storage holder, Context cont, boolean flag) 
 	{
-	
     	long start = System.nanoTime();
 		
 	    ReadDraft draft = readFromFileAsyncObj.new ReadDraft((Activity)cont, flag);
 		draft.execute(holder, cont, start, checkExists);		
 	}
-	
 	
 	
 
@@ -418,5 +409,11 @@ public class ReadFromFile {
 			holder.fa.put(team.split("##")[0], faList);
 		}
 		return;
+	}
+
+
+	public static boolean readHideWidget(Context cont) {
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		return prefs.getBoolean("Hide Widget", false);
 	}
 }

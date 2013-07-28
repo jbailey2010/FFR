@@ -50,7 +50,6 @@ public class ParseESPNadv
 			else
 			{
 				newPlayer.info.trend = trend;
-				Values.isExtreme(newPlayer.values, newPlayer.values.worth);
 				newPlayer.info.team = ParseRankings.fixTeams(newPlayer.info.team);
 				holder.players.add(newPlayer);
 				holder.parsedPlayers.add(newPlayer.info.name);

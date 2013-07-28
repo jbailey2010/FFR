@@ -461,4 +461,15 @@ public class WriteToFile {
 		editor.putString("Team By Team Data", oLineRanks.toString());
 		editor.commit();
 	}
+	
+	/**
+	 * Writes hiding the widget to file
+	 * @param hide
+	 * @param cont
+	 */
+	public static void writeHideWidget(boolean hide, Context cont)
+	{
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		editor.putBoolean("Hide Widget", hide).commit();
+	}
 }

@@ -280,7 +280,6 @@ public class ParseRankings
 		}
 		else
 		{
-			Values.isExtreme(newPlayer.values, newPlayer.values.worth);
 			newPlayer.info.team = fixTeams(newPlayer.info.team);
 			holder.players.add(newPlayer);
 			holder.parsedPlayers.add(newPlayer.info.name);

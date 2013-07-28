@@ -132,6 +132,11 @@ public class Rankings extends Activity {
 		sort = (Button)findViewById(R.id.sort_players);
     	listview = (ListView)findViewById(R.id.listview_rankings);
     	widgetBase = (RelativeLayout)findViewById(R.id.rankings_widget_base);
+		hideWidget = ReadFromFile.readHideWidget(cont);
+		if(hideWidget)
+		{
+			widgetBase.setVisibility(View.GONE);
+		}
     	context = this;
     	isAuction = ReadFromFile.readIsAuction(cont);
     	setLists();
@@ -214,6 +219,7 @@ public class Rankings extends Activity {
 				return true;
 			case R.id.hide_widget:
 				hideWidget = !hideWidget;
+				WriteToFile.writeHideWidget(hideWidget, cont);
 				if(hideWidget)
 				{
 					widgetBase.setVisibility(View.GONE);
@@ -737,21 +743,7 @@ public class Rankings extends Activity {
     	String checkExists = prefs.getString("Player Values", "Not Set");
     	if(!checkExists.equals("Not Set"))
     	{
-			try {
-				ReadFromFile.fetchPlayers(checkExists, holder,cont, true);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (XPatherException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			ReadFromFile.fetchPlayers(checkExists, holder,cont, true);
     	}
     	else
     	{
@@ -1232,6 +1224,12 @@ public class Rankings extends Activity {
 	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
 	    listview.setAdapter(null);
 	    data = new ArrayList<Map<String, String>>();
+	    adapter = new SimpleAdapter(cont, data, 
+	    		android.R.layout.simple_list_item_2, 
+	    		new String[] {"main", "sub"}, 
+	    		new int[] {android.R.id.text1, 
+	    			android.R.id.text2});
+	    listview.setAdapter(adapter);
 	    handleRankingsClick(holder, cont, listview);
 	    while(!playerList.isEmpty())
 	    {
@@ -1256,6 +1254,7 @@ public class Rankings extends Activity {
 	        	datum.put("sub", "");
 	        }
 	        data.add(datum);
+	        adapter.notifyDataSetChanged();
 	    } 
 	    if(refreshed)
 	    {

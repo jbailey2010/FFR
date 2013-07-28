@@ -142,6 +142,7 @@ public class ParsePlayerNames {
 		names.add("Roscoe Parrish");
 		names.add("Greg Camarillo");
 		names.add("Brian Robiskie");
+		names.add("Donald Jones");
 		if(names.size() > 200)
 		{
 			WriteToFile.storePlayerNames(names, cont);

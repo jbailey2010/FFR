@@ -67,7 +67,6 @@ public class ParseYahoo
 			}
 			else
 			{
-				Values.isExtreme(newPlayer.values, newPlayer.values.worth);
 				Values.handleNewValue(newPlayer.values, aav);
 				holder.players.add(newPlayer);
 				holder.parsedPlayers.add(newPlayer.info.name);

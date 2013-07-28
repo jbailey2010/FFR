@@ -64,8 +64,7 @@ public class StorageAsyncTask
 	    			additStat = player.info.additionalStat;
 	    		}
 	    		players.append( 
-	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
-	    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
+	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" 
 	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
 	    		player.info.adp + "&&" 
 	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + 
@@ -165,8 +164,7 @@ public class StorageAsyncTask
 	    		}
 	    		players.append( 
 	    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
-	    	    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
-	    	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
+	    	    		 player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
 	    	    		player.info.adp + "&&" 
 	    	    		+ player.info.trend + "&&" + player.info.contractStatus +"&&" + 
 	    	    		player.info.age + "&&" + player.stats + "&&" + player.injuryStatus + 
@@ -306,34 +304,32 @@ public class StorageAsyncTask
 	   		for(int i = 0; i < perPlayer.length; i++)
 	   		{  
 	   			String[] allData = perPlayer[i].split("&&");
-	   			PlayerObject newPlayer = new PlayerObject(allData[4], allData[5], allData[6], 0);
-	   			newPlayer.values.cADEZ = Double.parseDouble(allData[28]);
-	   			newPlayer.values.ctdDiff = Double.parseDouble(allData[27]);
-	   			newPlayer.values.coTD = Double.parseDouble(allData[26]);
-	   			newPlayer.values.rADEZ = Double.parseDouble(allData[25]);
-	   			newPlayer.values.rtdDiff = Double.parseDouble(allData[24]);
-	   			newPlayer.values.roTD = Double.parseDouble(allData[23]);
-	   			newPlayer.values.tADEZ = Double.parseDouble(allData[22]);
-	   			newPlayer.values.tdDiff = Double.parseDouble(allData[21]);
-	   			newPlayer.values.oTD = Double.parseDouble(allData[20]);
-	   			newPlayer.values.paapd = Double.parseDouble(allData[19]);
-	   			newPlayer.values.paa = Double.parseDouble(allData[18]);
-	   			newPlayer.values.points = Double.parseDouble(allData[17]);
-	   			newPlayer.riskPos = Double.parseDouble(allData[16]);
-	   			newPlayer.risk = Double.parseDouble(allData[15]);
-	   			newPlayer.values.ecr = Double.parseDouble(allData[14]);
-	   			newPlayer.info.additionalStat = allData[13];
-	   			newPlayer.injuryStatus = allData[12];
-	   			newPlayer.stats = allData[11];
-	   			newPlayer.info.age = allData[10];
-	   			newPlayer.info.contractStatus = allData[9];
-	   			newPlayer.info.trend = allData[8];
-	   			newPlayer.info.adp = allData[7];
-	   			newPlayer.values.low = Double.parseDouble(allData[3]);
-	   			newPlayer.values.high = Double.parseDouble(allData[2]);
+	   			PlayerObject newPlayer = new PlayerObject(allData[2], allData[3], allData[4], 0);
+	   			newPlayer.values.cADEZ = Double.parseDouble(allData[26]);
+	   			newPlayer.values.ctdDiff = Double.parseDouble(allData[25]);
+	   			newPlayer.values.coTD = Double.parseDouble(allData[24]);
+	   			newPlayer.values.rADEZ = Double.parseDouble(allData[23]);
+	   			newPlayer.values.rtdDiff = Double.parseDouble(allData[22]);
+	   			newPlayer.values.roTD = Double.parseDouble(allData[21]);
+	   			newPlayer.values.tADEZ = Double.parseDouble(allData[20]);
+	   			newPlayer.values.tdDiff = Double.parseDouble(allData[19]);
+	   			newPlayer.values.oTD = Double.parseDouble(allData[18]);
+	   			newPlayer.values.paapd = Double.parseDouble(allData[17]);
+	   			newPlayer.values.paa = Double.parseDouble(allData[16]);
+	   			newPlayer.values.points = Double.parseDouble(allData[15]);
+	   			newPlayer.riskPos = Double.parseDouble(allData[14]);
+	   			newPlayer.risk = Double.parseDouble(allData[13]);
+	   			newPlayer.values.ecr = Double.parseDouble(allData[12]);
+	   			newPlayer.info.additionalStat = allData[11];
+	   			newPlayer.injuryStatus = allData[10];
+	   			newPlayer.stats = allData[9];
+	   			newPlayer.info.age = allData[8];
+	   			newPlayer.info.contractStatus = allData[7];
+	   			newPlayer.info.trend = allData[6];
+	   			newPlayer.info.adp = allData[5];
 	   			newPlayer.values.count = Double.parseDouble(allData[1]);
 	   			newPlayer.values.worth = Double.parseDouble(allData[0]);
-	   			holder.parsedPlayers.add(allData[4]);
+	   			holder.parsedPlayers.add(allData[2]);
 	   			holder.players.add(newPlayer);
 	   		}
 			String[] perSet = prefs.getString("Draft Information", "Doesn't matter").split("@");

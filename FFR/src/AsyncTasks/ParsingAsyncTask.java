@@ -486,8 +486,7 @@ public class ParsingAsyncTask
 			    			additStat = player.info.additionalStat;
 			    		}
 			    		players.append( 
-			    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
-			    	    		Double.toString(player.values.high) + "&&" + Double.toString(player.values.low) + "&&"
+			    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&"
 			    	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
 			    	    		player.info.adp +  "&&" 
 			    	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + 

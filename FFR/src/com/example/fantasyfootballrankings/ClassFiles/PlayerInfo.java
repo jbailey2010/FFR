@@ -450,11 +450,11 @@ public class PlayerInfo
 	public static void setSearchContent(PlayerObject searchedPlayer, List<Map<String, String>> data, Storage holder)
 	{
 	   	DecimalFormat df = new DecimalFormat("#.##");
-		String low = String.valueOf(searchedPlayer.values.low);
+		/*String low = String.valueOf(searchedPlayer.values.low);
 		if(searchedPlayer.values.low == 100)
 		{
 			low = String.valueOf(searchedPlayer.values.high);
-		}
+		}*/
 		//See if they're drafted by me
 		if(Draft.draftedMe(searchedPlayer.info.name, Rankings.holder.draft))
 		{
@@ -506,9 +506,8 @@ public class PlayerInfo
 		//Worth
 		Map<String, String> datumWorth = new HashMap<String, String>(2);
 		datumWorth.put("main", "$" + df.format(searchedPlayer.values.worth));
-		datumWorth.put("sub", "Ranked " + rankCostPos(searchedPlayer, holder) + " positionally, " + rankCostAll(searchedPlayer, holder) + " overall\n"
-				+ "High: " + searchedPlayer.values.high + ", Low: " + searchedPlayer.values.low + 
-				"\nShowed up in " + searchedPlayer.values.count + " rankings");
+		datumWorth.put("sub", "Ranked " + rankCostPos(searchedPlayer, holder) + " positionally, " + rankCostAll(searchedPlayer, holder) + " overall"
+				+ "\nShowed up in " + searchedPlayer.values.count + " rankings");
 		data.add(datumWorth);
 		//Rank ecr
 		if(searchedPlayer.values.ecr != -1)

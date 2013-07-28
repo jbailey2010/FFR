@@ -113,8 +113,6 @@ public class SortHandler
 	    topics.add("Risk");
 	    topics.add("Positional SOS");
 	    topics.add("Weekly Trend (ESPN)");
-	    topics.add("Highest Value");
-	    topics.add("Lowest Value");
 	    //Add the positional options
 	    positions.add("All Positions");
 	    positions.add("QB");
@@ -157,7 +155,6 @@ public class SortHandler
 						{
 							dialog.dismiss();
 							handleSortingSec(cont);
-							//handleSortingSetUp();
 						}
 					}
 					else
@@ -413,14 +410,6 @@ public class SortHandler
 		else if(subject.equals("Weekly Trend (ESPN)"))
 		{
 			weeklyTrend(cont);
-		}
-		else if(subject.equals("Highest Value"))
-		{
-			highVal(cont);
-		}
-		else if(subject.equals("Lowest Value"))
-		{
-			lowVal(cont);
 		}
 	}
 	
@@ -1098,68 +1087,7 @@ public class SortHandler
 		}
 		wrappingUp(sorted, cont);
 	}
-	
-	/**
-	 * Sets up the priority queue based on the high value
-	 */
-	public static void highVal(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b)
-			{
-				if(a.values.high > b.values.high)
-				{
-					return -1;
-				}
-				if(a.values.high < b.values.high)
-				{
-					return 1;
-				}
-				return 0;
-			}
-		});
-		for(PlayerObject player : players)
-		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.high != 0)
-			{
-				sorted.add(player);
-			}
-		}
-		wrappingUp(sorted, cont);
-	}
-	
-	/**
-	 * Sets up a priority queue based on the low value
-	 */
-	public static void lowVal(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b)
-			{
-				if(a.values.low > b.values.low)
-				{
-					return -1;
-				}
-				if(a.values.low < b.values.low)
-				{
-					return 1;
-				}
-				return 0;
-			}
-		});
-		for(PlayerObject player : players)
-		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.low != 100)
-			{
-				sorted.add(player);
-			}
-		}
-		wrappingUp(sorted, cont);
-	}
+
 	
 	/**
 	 * Puts the priority queue into the list, and sets up the dialog
@@ -1363,16 +1291,6 @@ public class SortHandler
 			else if(subject.equals("Weekly Trend (ESPN)"))
 			{
 				datum.put("main", output + elem.info.trend + ": " + elem.info.name);
-	    		datum.put("sub", "$" + df.format(elem.values.worth));
-			}
-			else if(subject.equals("Highest Value"))
-			{
-				datum.put("main", output + df.format(elem.values.high) + ": " + elem.info.name);
-	    		datum.put("sub", "$" + df.format(elem.values.worth));
-			}
-			else if(subject.equals("Lowest Value"))
-			{
-				datum.put("main", output + df.format(elem.values.low) + ": " + elem.info.name);
 	    		datum.put("sub", "$" + df.format(elem.values.worth));
 			}
 	    	data.add(datum);

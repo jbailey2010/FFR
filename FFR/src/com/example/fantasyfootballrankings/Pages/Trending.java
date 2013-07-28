@@ -266,38 +266,21 @@ public class Trending extends Activity {
     	}
     	else
     	{
-    		if(holder.players.size() < 5 && holder.posts.size() < 5)
+    		ReadFromFile.fetchPostsLocal(holder, cont);
+    		if(holder.playerNames.size() < 19)
     		{
-	    		ReadFromFile.fetchPostsLocal(holder, cont);
-	    		if(holder.playerNames.size() < 19)
-	    		{
-	    			ReadFromFile.fetchNamesBackEnd(holder, cont);
-	    		}
-	    		if(holder.players.size() < 10)
-	    		{
-	    	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
-	    	    	if(checkExists2 != "Not Set")
-	    	    	{
-	    				try {
-	    					ReadFromFile.fetchPlayers(checkExists2, holder,cont, false);
-	    				} catch (IOException e) {
-	    					// TODO Auto-generated catch block
-	    					e.printStackTrace();
-	    				} catch (XPatherException e) {
-	    					// TODO Auto-generated catch block
-	    					e.printStackTrace();
-	    				} catch (InterruptedException e) {
-	    					// TODO Auto-generated catch block
-	    					e.printStackTrace();
-	    				} catch (ExecutionException e) {
-	    					// TODO Auto-generated catch block
-	    					e.printStackTrace();
-	    				}
-	    	    	}
-	    		}    		
-	    	}
+    			ReadFromFile.fetchNamesBackEnd(holder, cont);
+    		}
+    		if(holder.players.size() < 10)
+    		{
+    	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
+    	    	if(checkExists2 != "Not Set")
+    	    	{
+    				ReadFromFile.fetchPlayers(checkExists2, holder,cont, false);
+    	    	}
+    		}    		
     	}
-    	getFilterForPosts(holder); 
+   		getFilterForPosts(holder); 
 	}
 	
 	/**

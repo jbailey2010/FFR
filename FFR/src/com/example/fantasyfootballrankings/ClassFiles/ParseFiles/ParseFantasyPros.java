@@ -82,7 +82,6 @@ public class ParseFantasyPros
 			}
 			else
 			{
-				Values.isExtreme(newPlayer.values, newPlayer.values.worth);
 				Values.handleNewValue(newPlayer.values, newPlayer.values.worth);
 				Values.handleNewValue(newPlayer.values, val2);
 				Values.handleNewValue(newPlayer.values, val3);

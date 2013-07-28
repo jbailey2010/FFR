@@ -217,29 +217,15 @@ public class Home extends Activity{
 	public void handleInitialRefresh()
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		try {
-			String checkExists = prefs.getString("Player Values", "Not Set");
-			if(!checkExists.equals("Not Set"))
-			{
-				ReadFromFile.fetchPlayers(checkExists, holder,cont, false);
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (XPatherException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		String checkExists = prefs.getString("Player Values", "Not Set");
+		if(!checkExists.equals("Not Set"))
+		{
+			ReadFromFile.fetchPlayers(checkExists, holder,cont, false);
 		}
 		if(holder.playerNames == null || holder.playerNames.size() < 10)
 		{
-			String checkExists = prefs.getString("Player Names", "Not Set");
-			if(checkExists.equals("Not Set"))
+			String checkExists2 = prefs.getString("Player Names", "Not Set");
+			if(checkExists2.equals("Not Set"))
 			{
 				final ParsingAsyncTask stupid = new ParsingAsyncTask();
 				ParseNames task = stupid.new ParseNames((Activity)cont);
