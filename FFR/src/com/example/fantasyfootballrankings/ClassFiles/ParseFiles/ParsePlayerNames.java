@@ -143,6 +143,30 @@ public class ParsePlayerNames {
 		names.add("Greg Camarillo");
 		names.add("Brian Robiskie");
 		names.add("Donald Jones");
+		names.add("Jahvid Best");
+		names.add("Brett Maher");
+		names.add("Matt McGloin");
+		names.add("John Parker Wilson");
+		names.add("Ryan W. Griffin");
+		names.add("Zac Dysert");
+		names.add("Zachary Brown");
+		names.add("Ryan D'Imperio");
+		names.add("Matt Slater");
+		names.add("Marcus Sales");
+		names.add("Tim Wright");
+		names.add("Garrard Sheppard");
+		names.add("Sederrick Cunningham");
+		names.add("Tyrone Walker");
+		names.add("Cole McKenzie");
+		names.add("Rashod Ross");
+		names.add("Joseph Collins");
+		names.add("Keith Carlos");
+		names.add("Michael Higgins");
+		names.add("Dominique Curry");
+		names.add("DeMarco Cosby");
+		names.add("Bryce Davis");
+		names.add("LeStar Jean");
+		
 		if(names.size() > 200)
 		{
 			WriteToFile.storePlayerNames(names, cont);
