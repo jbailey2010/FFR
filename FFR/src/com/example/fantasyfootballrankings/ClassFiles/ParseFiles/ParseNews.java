@@ -121,15 +121,15 @@ public class ParseNews
 		Document doc = Jsoup.connect(url).timeout(0).get();
 		String report = HandleBasicQueries.handleListsMulti(doc, url, "dt");
 		String impact = HandleBasicQueries.handleListsMulti(doc, url, "dd");
-		String date = HandleBasicQueries.handleListsMulti(doc, url, "li div span");
-		String names = HandleBasicQueries.handleListsMulti(doc, url, "li div strong");
+		String date = HandleBasicQueries.handleListsMulti(doc, url, "ul li div span");
+		String names = HandleBasicQueries.handleListsMulti(doc, url, "ul li div strong a");
 		String[] reportSet = report.split("\n");
 		String[] impactSet = impact.split("\n");
 		String[] dateSet = date.split("\n");
 		String[] namesSet = names.split("\n");
-		for(int i = 0; i < dateSet.length; i++)
+		for(int i = 0; i < reportSet.length; i++)
 		{
-			NewsObjects news = new NewsObjects(namesSet[i].replace(":", "-") + " " + reportSet[i+2], impactSet[i+2], dateSet[i]);
+			NewsObjects news = new NewsObjects(namesSet[i].replace(":", "-") + " " + reportSet[i], impactSet[i], dateSet[i]);
 			newsSet.add(news);
 		}
 		return newsSet;

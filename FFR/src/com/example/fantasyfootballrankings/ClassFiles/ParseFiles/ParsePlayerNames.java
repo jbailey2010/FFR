@@ -148,7 +148,7 @@ public class ParsePlayerNames {
 		names.add("Matt McGloin");
 		names.add("John Parker Wilson");
 		names.add("Ryan W. Griffin");
-		names.add("Zac Dysert");
+		names.add("Zac  Dysert");
 		names.add("Zachary Brown");
 		names.add("Ryan D'Imperio");
 		names.add("Matt Slater");
@@ -166,7 +166,14 @@ public class ParsePlayerNames {
 		names.add("DeMarco Cosby");
 		names.add("Bryce Davis");
 		names.add("LeStar Jean");
-		
+		names.add("Mike Goodson");
+		names.add("Ryan Swope");
+		names.add("Chad Spann");
+		names.add("Alex Silvestro");
+		names.add("Jeff Demps");
+		names.add("Nathan Enderle");
+		names.add("Mardy Gilyard");
+		names.add("David Buehler");
 		if(names.size() > 200)
 		{
 			WriteToFile.storePlayerNames(names, cont);
