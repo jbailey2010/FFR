@@ -51,7 +51,7 @@ public class TwitterWork
 {
 	String validURL = "";
 	int pin = -1;
-	Twitter twitter;
+	public Twitter twitter;
 	public Twitter userTwitter;
 	RequestToken requestToken;
 	AccessToken accessToken = null;
@@ -62,8 +62,9 @@ public class TwitterWork
 	 * Calls the validation URL asynctask
 	 * @param cont
 	 * @param flag 
+	 * @param b 
 	 */
-	public void twitterInitial(Context cont, int flag, String search)
+	public void twitterInitial(Context cont, int flag, String search, boolean b)
 	{
 		long check = ReadFromFile.readUseID(cont);
 		//Not yet set
@@ -75,31 +76,27 @@ public class TwitterWork
 		}
 		else //it IS set, so call a function to 'log in' the user'
 		{
-			logInUser(cont, flag, search);
+			logInUser(cont, flag, search, b);
 		}
 	}
 	
 	/**
 	 * Logs in the user and makes a pop up asking them what they'd like to do
 	 */
-	public void logInUser(final Context cont, int flag, String search)
+	public void logInUser(final Context cont, int flag, String search, boolean saveFlag)
 	{
-		if(userToken == null)
+		String token = ReadFromFile.readToken(cont);
+		String tokenSecret = ReadFromFile.readTokenSecret(cont);
+		userToken = new AccessToken(token, tokenSecret);
+		userTwitter = TwitterFactory.getSingleton();
+		try
 		{
-			String token = ReadFromFile.readToken(cont);
-			String tokenSecret = ReadFromFile.readTokenSecret(cont);
-			userToken = new AccessToken(token, tokenSecret);
-			userTwitter = TwitterFactory.getSingleton();
-			try
-			{
-				userTwitter.setOAuthConsumer("BCARDaoZRV1VhOVh3Nxq4g",
-		        		"u84R7JlzTNtss0Tut61oSRKYpgo4uW8G1moOlrBOgSg");
-				userTwitter.setOAuthAccessToken(userToken);
-			}
-			catch(IllegalStateException e)
-			{
-				
-			}
+			userTwitter.setOAuthConsumer("BCARDaoZRV1VhOVh3Nxq4g",
+	        		"u84R7JlzTNtss0Tut61oSRKYpgo4uW8G1moOlrBOgSg");
+			userTwitter.setOAuthAccessToken(userToken);
+		}
+		catch(IllegalStateException e)
+		{
 		}
 		if(flag == 1)
 		{
@@ -111,7 +108,7 @@ public class TwitterWork
 		}
 		if(flag == 3)
 		{
-			ParseNews.startTwitterSearchAsync(cont, search, "Twitter Search: " + search, false, search, this);
+			ParseNews.startTwitterSearchAsync(cont, search, "Twitter Search: " + search, saveFlag, search, this);
 		}
 	}
 	

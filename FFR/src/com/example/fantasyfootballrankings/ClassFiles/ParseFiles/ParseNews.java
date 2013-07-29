@@ -181,7 +181,7 @@ public class ParseNews
 	public static void startTwitterSearchAsync(Context cont, String search, String header, boolean flag, String query, TwitterWork obj)
 	{
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
-		ParseTwitterSearch news = stupid.new ParseTwitterSearch(cont, flag, query);
+		ParseTwitterSearch news = stupid.new ParseTwitterSearch(cont, flag, query, obj);
 		news.execute(cont, search, header, obj);	
 	}
 }

@@ -90,10 +90,10 @@ public class News extends Activity {
 				refreshNewsDialog();
 				return true;
 			case R.id.twitter_feeds:
-				obj.twitterInitial(cont, 1, "");
+				obj.twitterInitial(cont, 1, "", true);
 				return true; 
 			case R.id.twitter_search:
-				obj.twitterInitial(cont, 2, "");
+				obj.twitterInitial(cont, 2, "", true);
 				return true;
 			case R.id.help:
 				helpDialog();

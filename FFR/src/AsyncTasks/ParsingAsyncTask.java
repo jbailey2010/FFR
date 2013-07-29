@@ -852,13 +852,15 @@ public class ParsingAsyncTask
 			Activity act;
 			boolean flag;
 			String query;
-		    public ParseTwitterSearch(Context cont, boolean news, String input) 
+			TwitterWork tw;
+		    public ParseTwitterSearch(Context cont, boolean news, String input, TwitterWork obj) 
 		    {
 		        pdia = new ProgressDialog(cont);
 		        pdia.setCancelable(false);
 		        act = (Activity)cont;
 		        flag = news;
 		        query = input;
+		        tw = obj;
 		    }
 
 			@Override 
@@ -891,7 +893,10 @@ public class ParsingAsyncTask
 		    	TwitterWork obj = (TwitterWork)data[3];
 		    	List<NewsObjects> news = new ArrayList<NewsObjects>(100);
 		    	news = TwitterWork.searchTweets(selection, obj.userTwitter);
-		    	WriteToFile.writeNewsTwitter(cont, news, header);
+		    	if(flag)
+		    	{
+		    		WriteToFile.writeNewsTwitter(cont, news, header);
+		    	}
 				return news;
 		    }
 		  }
