@@ -612,6 +612,17 @@ public class PlayerInfo
 			datum.put("sub", "Ranked " + rankroTD(searchedPlayer, holder) + " positionally\nCarried an average of " + searchedPlayer.values.rADEZ + " yards from the endzone");
 			data.add(datum);
 		}
+		if(searchedPlayer.values.cADEZ != 0.0 && searchedPlayer.values.tADEZ != 0.0)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			double diff = 0.0;
+			int rank = 0;
+			diff = searchedPlayer.values.tADEZ - searchedPlayer.values.cADEZ;
+			rank = rankCatchDepth(searchedPlayer,holder);
+			datum.put("main", "Average depth of catch relative to tADEZ: " + diff);
+			datum.put("sub", "Ranked " + rank + " positionally");
+			data.add(datum);
+		}
 		//Risk
 		if(searchedPlayer.risk > 0.0)
 		{
@@ -806,6 +817,30 @@ public class PlayerInfo
 			if(iter.risk < player.risk && iter.risk >0)
 			{
 				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Calculates the rank of adoc
+	 * @param player
+	 * @param holder
+	 * @return
+	 */
+	public static int rankCatchDepth(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		double diff = player.values.tADEZ - player.values.cADEZ;
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.values.cADEZ != 0.0 && iter.values.tADEZ != 0.0 && iter.info.position.equals(player.info.position))
+			{
+				double possDiff = iter.values.tADEZ - iter.values.cADEZ;
+				if(possDiff > diff)
+				{
+					rank++;
+				}
 			}
 		}
 		return rank;

@@ -104,6 +104,7 @@ public class SortHandler
 	    topics.add("Catch Rec oTD");
 	    topics.add("Catch Rec TD Difference");
 	    topics.add("Average catch location");
+	    topics.add("Avg catch relative to target");
 	    topics.add("Rush oTD");
 	    topics.add("Rush TD Difference");
 	    topics.add("Average carry location");
@@ -146,7 +147,8 @@ public class SortHandler
 								&& (position.equals("K") || position.equals("D/ST")) || 
 								((subject.equals("Target Rec oTD") || subject.equals("Rush oTD") || subject.equals("Rush TD Difference") || 
 										subject.equals("Average target location") || subject.equals("Average carry location") || subject.equals("Average catch location") || 
-										subject.equals("Catch Rec TD Difference") || subject.equals("Catch Rec oTD") || subject.equals("DYOA") || subject.equals("DVOA"))
+										subject.equals("Catch Rec TD Difference") || subject.equals("Catch Rec oTD") || subject.equals("DYOA") || subject.equals("DVOA")
+										|| subject.equals("Avg catch relative to target"))
 										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))))
 						{
 							Toast.makeText(context, "That subject is not available for that position", Toast.LENGTH_SHORT).show();
@@ -411,8 +413,42 @@ public class SortHandler
 		{
 			weeklyTrend(cont);
 		}
+		else if(subject.equals("Avg catch relative to target"))
+		{
+			avgDepth(cont);
+		}
 	}
 	
+	public static void avgDepth(Context cont) {
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						double diff1 = a.values.tADEZ - a.values.cADEZ;
+						double diff2 = b.values.tADEZ - b.values.cADEZ;
+						if(diff1 > diff2)
+						{
+							return -1;
+						}
+						if(diff1 < diff2)
+						{
+							return 1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.cADEZ != 0.0 && 
+							player.values.tADEZ!= 0.0)
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted, cont);
+	}
+
 	public static void risk(Context cont) {
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 				{
@@ -1292,6 +1328,12 @@ public class SortHandler
 			{
 				datum.put("main", output + elem.info.trend + ": " + elem.info.name);
 	    		datum.put("sub", "$" + df.format(elem.values.worth));
+			}
+			else if(subject.equals("Avg catch relative to target"))
+			{
+				double diff = elem.values.tADEZ - elem.values.cADEZ;
+				datum.put("main", output + df.format(diff) + ": " + elem.info.name);
+				datum.put("sub", elem.values.tADEZ + " tADEZ, " + elem.values.cADEZ + " cADEZ");
 			}
 	    	data.add(datum);
 		} 
