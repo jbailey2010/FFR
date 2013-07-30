@@ -20,6 +20,11 @@
 		android:showAsAction="ifRoom|withText" 
         android:title="Refresh or Reset"/>
     <item
+        android:id="@+id/save_draft"
+        android:orderInCategory="100"
+        android:showAsAction="never" 
+        android:title="Save This Draft"/> 
+    <item
         android:id="@+id/hide_widget"
         android:orderInCategory="100"
         android:showAsAction="never" 
@@ -29,6 +34,11 @@
         android:orderInCategory="100"
         android:showAsAction="never" 
         android:title="Rankings Help"/> 
+    <item
+        android:id="@+id/draft_history"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Your Draft History"/>
     <item
         android:id="@+id/go_home"
         android:orderInCategory="100"

@@ -411,9 +411,66 @@ public class ReadFromFile {
 		return;
 	}
 
-
+	/**
+	 * Reads whether or not hiding the widget should be done
+	 * @param cont
+	 * @return
+	 */
 	public static boolean readHideWidget(Context cont) {
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		return prefs.getBoolean("Hide Widget", false);
+	}
+
+
+	/**
+	 * Reads the current draft
+	 * @param cont
+	 * @return
+	 */
+	public static int readCurrDraft(Context cont) {
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		return prefs.getInt("Current Draft", 0);
+	}
+	
+	/**
+	 * Reads the secondary data from file
+	 * @param cont
+	 * @return
+	 */
+	public static List<String> readSecData(Context cont)
+	{
+		List<String>secData = new ArrayList<String>();
+		int max = readCurrDraft(cont);
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		for(int i = 0; i < max; i++)
+		{
+			secData.add(prefs.getString("Secondary " + i, "Doesn't matter"));
+		}
+		if(secData.size() == 0)
+		{
+			secData.add("Save a draft to see it here.");
+		}
+		return secData;
+	}
+	
+	/**
+	 * Reads the primary data from file
+	 * @param cont
+	 * @return
+	 */
+	public static List<String> readPrimData(Context cont)
+	{
+		List<String>secData = new ArrayList<String>();
+		int max = readCurrDraft(cont);
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		for(int i = 0; i < max; i++)
+		{
+			secData.add(prefs.getString("Primary " + i, "Doesn't matter"));
+		}
+		if(secData.size() == 0)
+		{
+			secData.add("No drafts saved.");
+		}
+		return secData;
 	}
 }

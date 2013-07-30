@@ -67,7 +67,7 @@ public class Home extends Activity{
 	Button rankings;
 	Button trending;
 	Button news;
-	
+	Button drafts;
 	
 	long start; 
 	
@@ -88,6 +88,8 @@ public class Home extends Activity{
         trending.setOnClickListener(trendHandler);
         news = (Button)findViewById(R.id.news_button); 
         news.setOnClickListener(newsHandler);
+        drafts = (Button)findViewById(R.id.draft_history);
+        drafts.setOnClickListener(draftHandler);
         start = System.nanoTime();
         handleInitialRefresh();
         if(ReadFromFile.readFirstOpen(cont))
@@ -154,7 +156,7 @@ public class Home extends Activity{
 				ManageInput.isAuctionOrSnake(cont, holder);
 				return true;
 			case R.id.help_home:
-				
+				helpDialog(cont);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -300,6 +302,15 @@ public class Home extends Activity{
 		public void onClick(View v) 
 		{
 	        Intent intent = new Intent(cont, News.class);
+	        cont.startActivity(intent);		
+		}	
+	};
+	
+	View.OnClickListener draftHandler = new View.OnClickListener() 
+	{
+		public void onClick(View v) 
+		{
+	        Intent intent = new Intent(cont, DraftHistory.class);
 	        cont.startActivity(intent);		
 		}	
 	};

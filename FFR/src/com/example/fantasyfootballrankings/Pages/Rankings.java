@@ -33,6 +33,7 @@ import com.example.fantasyfootballrankings.ClassFiles.TradeHandling;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.*;
@@ -72,6 +73,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -229,11 +231,79 @@ public class Rankings extends Activity {
 					widgetBase.setVisibility(View.VISIBLE);
 				}
 				return true;
+			case R.id.save_draft:
+				saveDraft();
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
 	}
 	
+	public void saveDraft() 
+	{
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.save_draft_confirm);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+	    dialog.show();
+	    Button close = (Button)dialog.findViewById(R.id.draft_save_close);
+	    close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+	    });
+	    Button submit = (Button)dialog.findViewById(R.id.draft_save_confirm);
+	    submit.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				saveDraftConfirmed();
+				dialog.dismiss();
+			}
+	    });
+	}
+	
+	public void saveDraftConfirmed() 
+	{
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.team_name_input);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+	    dialog.show();
+	    Button close = (Button)dialog.findViewById(R.id.draft_save_confirmed_close);
+	    close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+	    });
+	    final EditText teamName = (EditText)dialog.findViewById(R.id.team_name_input);
+	    Button submit = (Button)dialog.findViewById(R.id.draft_save_confirmed_submit);
+	    submit.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				if(teamName.getText().toString().length() > 0)
+				{
+					Roster r = ReadFromFile.readRoster(cont);
+					String teamNameStr = teamName.getText().toString();
+					WriteToFile.writeDraftData(holder, cont, teamNameStr, r.teams);
+					Draft.resetDraft(holder.draft, holder, cont);
+					dialog.dismiss();
+				}
+				else
+				{
+					Toast.makeText(context, "Please enter a team name", Toast.LENGTH_SHORT).show();
+				}
+			}
+	    });
+	}
+
 	/**
 	 * Handles the help dialog
 	 */
@@ -1073,7 +1143,7 @@ public class Rankings extends Activity {
     /**
      * Handles parsing of the draft data
      */
-    private static String handleDraftParsing(List<PlayerObject> nameList) {
+    public static String handleDraftParsing(List<PlayerObject> nameList) {
     	String names = "";
     	for(PlayerObject po: nameList)
     	{

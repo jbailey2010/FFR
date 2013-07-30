@@ -1,6 +1,7 @@
 package FileIO;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import jeff.isawesome.fantasyfootballrankings.R;
 import twitter4j.auth.AccessToken;
 
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
@@ -17,6 +19,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
+import com.example.fantasyfootballrankings.Pages.Rankings;
 
 import AsyncTasks.StorageAsyncTask;
 import AsyncTasks.StorageAsyncTask.WriteDraft;
@@ -26,6 +29,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
+import android.widget.TextView;
 /**
  * A library of all of the functions that will write to  
  * file 
@@ -471,5 +475,60 @@ public class WriteToFile {
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 		editor.putBoolean("Hide Widget", hide).commit();
+	}
+	
+	/**
+	 * Stores a draft's data
+	 * @param holder
+	 * @param cont
+	 * @param teamName
+	 * @param teamCount
+	 */
+	public static void writeDraftData(Storage holder, Context cont, String teamName, int teamCount)
+	{
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		int nextDraft = ReadFromFile.readCurrDraft(cont) + 1;
+		DecimalFormat df = new DecimalFormat("#.##");
+		StringBuilder secondaryData = new StringBuilder(1000);
+		secondaryData.append("PAA: " + df.format(Draft.paaTotal(holder.draft)));
+		if(ReadFromFile.readIsAuction(cont))
+		{
+			secondaryData.append("\nValue: " + df.format(holder.draft.value));
+			secondaryData.append("\nPAA per dollar: " + df.format(Draft.paaTotal(holder.draft)/(200 - holder.draft.remainingSalary)));
+		}
+		String qbs = Rankings.handleDraftParsing(holder.draft.qb);
+    	String rbs = Rankings.handleDraftParsing(holder.draft.rb);
+    	String wrs = Rankings.handleDraftParsing(holder.draft.wr);
+    	String tes = Rankings.handleDraftParsing(holder.draft.te);
+    	String ds = Rankings.handleDraftParsing(holder.draft.def);
+    	String ks = Rankings.handleDraftParsing(holder.draft.k);
+    	StringBuilder team = new StringBuilder(10000);
+    	team.append(teamName + ": " + teamCount + " team league\n\n");
+    	team.append("Quarterbacks: " + qbs + "\n");
+    	team.append("Running Backs: " + rbs + "\n");
+    	team.append("Wide Receivers: " + wrs + "\n");
+    	team.append("Tight Ends: " + tes + "\n");
+    	team.append("D/ST: " + ds + "\n");
+    	team.append("Kickers: " + ks + "\n");
+    	editor.putString("Primary " + ReadFromFile.readCurrDraft(cont), team.toString());
+    	editor.putString("Secondary " + ReadFromFile.readCurrDraft(cont), secondaryData.toString());
+		editor.putInt("Current Draft", nextDraft).commit();
+	}
+	
+	/**
+	 * Clears the draft data
+	 * @param cont
+	 */
+	public static void clearDraftData(Context cont)
+	{
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		int max = ReadFromFile.readCurrDraft(cont);
+		for(int i = 0; i < max; i++)
+		{
+			editor.remove("Primary " + i);
+			editor.remove("Secondary " + i);
+		}
+		editor.remove("Current Draft");
+		editor.commit();
 	}
 }
