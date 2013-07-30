@@ -133,8 +133,6 @@ public class DraftHistory extends Activity {
 	    		new int[] {android.R.id.text1, 
 	    			android.R.id.text2});
 	    drafts.setAdapter(adapter);
-	    drafts.setOverscrollHeader(cont.getResources().getDrawable(R.drawable.overscroll_header));
-	    drafts.setOverscrollFooter(cont.getResources().getDrawable(R.drawable.overscroll_header));
 	}
 
 }

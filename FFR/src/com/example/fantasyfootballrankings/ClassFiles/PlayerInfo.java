@@ -619,7 +619,7 @@ public class PlayerInfo
 			int rank = 0;
 			diff = searchedPlayer.values.tADEZ - searchedPlayer.values.cADEZ;
 			rank = rankCatchDepth(searchedPlayer,holder);
-			datum.put("main", "Average depth of catch relative to tADEZ: " + diff);
+			datum.put("main", "Average depth of catch relative to tADEZ: " + df.format(diff));
 			datum.put("sub", "Ranked " + rank + " positionally");
 			data.add(datum);
 		}
