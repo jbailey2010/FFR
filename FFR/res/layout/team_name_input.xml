@@ -27,18 +27,6 @@
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/draft_save_confirmed_submit"
-        style="@style/ButtonText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/team_name_input"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
-        android:background="@drawable/btn_red"
-        android:paddingBottom="15dp"
-        android:text="Confirm" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -59,5 +47,39 @@
         android:text="X"
         android:textColor="#CD0000"
         android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/team_name_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="Would you like to enter any note about this team?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/draft_save_confirmed_submit"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/btn_red"
+        android:paddingBottom="15dp"
+        android:text="Confirm" />
+
+    <EditText
+        android:id="@+id/draft_save_confirmed_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/spinner_well"
+        android:ems="10"
+        android:text=""
+        android:textColor="#000000" />
 
 </RelativeLayout>

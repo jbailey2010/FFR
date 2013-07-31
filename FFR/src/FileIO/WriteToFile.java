@@ -483,8 +483,9 @@ public class WriteToFile {
 	 * @param cont
 	 * @param teamName
 	 * @param teamCount
+	 * @param noteStr 
 	 */
-	public static void writeDraftData(Storage holder, Context cont, String teamName, int teamCount)
+	public static void writeDraftData(Storage holder, Context cont, String teamName, int teamCount, String noteStr)
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 		int nextDraft = ReadFromFile.readCurrDraft(cont) + 1;
@@ -503,7 +504,11 @@ public class WriteToFile {
     	String ds = Rankings.handleDraftParsing(holder.draft.def);
     	String ks = Rankings.handleDraftParsing(holder.draft.k);
     	StringBuilder team = new StringBuilder(10000);
-    	team.append(teamName + ": " + teamCount + " team league\n\n");
+    	if(noteStr.length() > 1)
+    	{
+    		noteStr += "\n";
+    	}
+    	team.append(teamName + ": " + teamCount + " team league\n" + noteStr + "\n");
     	team.append("Quarterbacks: " + qbs + "\n");
     	team.append("Running Backs: " + rbs + "\n");
     	team.append("Wide Receivers: " + wrs + "\n");

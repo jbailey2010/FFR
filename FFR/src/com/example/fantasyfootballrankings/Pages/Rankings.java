@@ -284,6 +284,7 @@ public class Rankings extends Activity {
 			}
 	    });
 	    final EditText teamName = (EditText)dialog.findViewById(R.id.team_name_input);
+	    final EditText teamNote = (EditText)dialog.findViewById(R.id.draft_save_confirmed_note);
 	    Button submit = (Button)dialog.findViewById(R.id.draft_save_confirmed_submit);
 	    submit.setOnClickListener(new OnClickListener(){
 			@Override
@@ -292,7 +293,8 @@ public class Rankings extends Activity {
 				{
 					Roster r = ReadFromFile.readRoster(cont);
 					String teamNameStr = teamName.getText().toString();
-					WriteToFile.writeDraftData(holder, cont, teamNameStr, r.teams);
+					String noteStr = teamNote.getText().toString();
+					WriteToFile.writeDraftData(holder, cont, teamNameStr, r.teams, noteStr);
 					Draft.resetDraft(holder.draft, holder, cont);
 					dialog.dismiss();
 				}

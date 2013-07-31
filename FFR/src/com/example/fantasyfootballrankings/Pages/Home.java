@@ -26,6 +26,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCSC;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFA;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseRTS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseSI;
@@ -100,10 +101,13 @@ public class Home extends Activity{
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
-        	ParseSI.parseSIWrapper(new Storage());
+        	ParseFFTB.parseFFTBRankingsWrapper(new Storage());
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
+		} catch (XPatherException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}*/
 	}  
 	 

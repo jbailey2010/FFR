@@ -49,6 +49,10 @@ public class ParseFFTB
 		String[] brokenUp = text.split("\n");
 		for(int i = 1; i < brokenUp.length; i+=2)
 		{ 
+			for(int j= i; j < i+8; j++)
+			{
+				System.out.println(j + ": " + brokenUp[j]);
+			}
 			String name = brokenUp[i];
 			String team = brokenUp[++i];
 			String pos = brokenUp[++i];
@@ -56,14 +60,16 @@ public class ParseFFTB
 			String val = brokenUp[i+=2];
 			if(team.split(" ").length <= 2)
 			{
-				if(name.contains("Defense"))
-				{
-					name = ParseRankings.fixDefenses(name.replaceAll("Defense", "D/ST"));
-				}
 				val = val.substring(1, val.length());
 				String validated = ParseRankings.fixNames(name);
 				String newName = Storage.nameExists(holder, validated);
-				PlayerObject newPlayer = new PlayerObject(newName, team, pos, Integer.parseInt(val));
+				PlayerObject newPlayer = new PlayerObject("", "", "", 0);
+				try{
+					newPlayer = new PlayerObject(newName, team, pos, Integer.parseInt(val));
+				} catch(NumberFormatException e)
+				{
+					break;
+				}
 				PlayerObject match =  Storage.pqExists(holder, newName);
 				if(match != null)
 				{
