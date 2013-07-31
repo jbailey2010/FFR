@@ -506,7 +506,7 @@ public class WriteToFile {
     	StringBuilder team = new StringBuilder(10000);
     	if(noteStr.length() > 1)
     	{
-    		noteStr += "\n";
+    		noteStr= "Comment: " + noteStr + "\n";
     	}
     	team.append(teamName + ": " + teamCount + " team league\n" + noteStr + "\n");
     	team.append("Quarterbacks: " + qbs + "\n");

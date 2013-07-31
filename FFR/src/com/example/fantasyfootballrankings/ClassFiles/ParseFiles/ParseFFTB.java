@@ -49,10 +49,6 @@ public class ParseFFTB
 		String[] brokenUp = text.split("\n");
 		for(int i = 1; i < brokenUp.length; i+=2)
 		{ 
-			for(int j= i; j < i+8; j++)
-			{
-				System.out.println(j + ": " + brokenUp[j]);
-			}
 			String name = brokenUp[i];
 			String team = brokenUp[++i];
 			String pos = brokenUp[++i];

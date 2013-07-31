@@ -3,6 +3,7 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 import java.io.IOException;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 
@@ -48,6 +49,11 @@ public class ParseSI
 				break;
 			}
 			String aucVal = td[i+5];
+			if(!ManageInput.isInteger(aucVal.substring(1, aucVal.length())))
+			{
+				i += 14;
+				continue;
+			}
 			int val = Integer.parseInt(aucVal.substring(1, aucVal.length())) * 2;
 			ParseRankings.finalStretch(holder, name, val, "", "");
 		}
@@ -71,6 +77,11 @@ public class ParseSI
 				break;
 			}
 			String aucVal = td[i+5];
+			if(!ManageInput.isInteger(aucVal.substring(1, aucVal.length())))
+			{
+				i += 17;
+				continue;
+			}
 			int val = Integer.parseInt(aucVal.substring(1, aucVal.length())) *2;
 			ParseRankings.finalStretch(holder, name, val, "", "");
 		}
@@ -94,6 +105,11 @@ public class ParseSI
 				break;
 			}
 			String aucVal = td[i+5];
+			if(!ManageInput.isInteger(aucVal.substring(1, aucVal.length())))
+			{
+				i += 15;
+				continue;
+			}
 			int val = Integer.parseInt(aucVal.substring(1, aucVal.length())) * 2;
 			ParseRankings.finalStretch(holder, name, val, "", "");
 		}
@@ -116,6 +132,11 @@ public class ParseSI
 				break;
 			}
 			String aucVal = td[i+5];
+			if(!ManageInput.isInteger(aucVal.substring(1, aucVal.length())))
+			{
+				i += 15;
+				continue;
+			}
 			int val = Integer.parseInt(aucVal.substring(1, aucVal.length())) * 2;
 			ParseRankings.finalStretch(holder, name, val, "", "");
 		}
@@ -138,6 +159,11 @@ public class ParseSI
 				break;
 			}
 			String aucVal = td[i+5];
+			if(!ManageInput.isInteger(aucVal.substring(1, aucVal.length())))
+			{
+				i += 15;
+				continue;
+			}
 			int val = Integer.parseInt(aucVal.substring(1, aucVal.length())) * 2;
 			ParseRankings.finalStretch(holder, name, val, "", "");
 		}

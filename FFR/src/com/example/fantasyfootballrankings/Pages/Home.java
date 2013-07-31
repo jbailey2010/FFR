@@ -101,13 +101,10 @@ public class Home extends Activity{
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
-        	ParseFFTB.parseFFTBRankingsWrapper(new Storage());
+        	ParseSI.parseSIWrapper(new Storage());
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
-		} catch (XPatherException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}*/
 	}  
 	 
