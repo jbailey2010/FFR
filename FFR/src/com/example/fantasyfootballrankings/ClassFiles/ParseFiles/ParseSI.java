@@ -51,7 +51,6 @@ public class ParseSI
 			String aucVal = td[i+5];
 			if(!ManageInput.isInteger(aucVal.substring(1, aucVal.length())))
 			{
-				i += 14;
 				continue;
 			}
 			int val = Integer.parseInt(aucVal.substring(1, aucVal.length())) * 2;
@@ -79,7 +78,6 @@ public class ParseSI
 			String aucVal = td[i+5];
 			if(!ManageInput.isInteger(aucVal.substring(1, aucVal.length())))
 			{
-				i += 17;
 				continue;
 			}
 			int val = Integer.parseInt(aucVal.substring(1, aucVal.length())) *2;
@@ -107,7 +105,6 @@ public class ParseSI
 			String aucVal = td[i+5];
 			if(!ManageInput.isInteger(aucVal.substring(1, aucVal.length())))
 			{
-				i += 15;
 				continue;
 			}
 			int val = Integer.parseInt(aucVal.substring(1, aucVal.length())) * 2;
@@ -134,7 +131,6 @@ public class ParseSI
 			String aucVal = td[i+5];
 			if(!ManageInput.isInteger(aucVal.substring(1, aucVal.length())))
 			{
-				i += 15;
 				continue;
 			}
 			int val = Integer.parseInt(aucVal.substring(1, aucVal.length())) * 2;
@@ -161,7 +157,6 @@ public class ParseSI
 			String aucVal = td[i+5];
 			if(!ManageInput.isInteger(aucVal.substring(1, aucVal.length())))
 			{
-				i += 15;
 				continue;
 			}
 			int val = Integer.parseInt(aucVal.substring(1, aucVal.length())) * 2;
