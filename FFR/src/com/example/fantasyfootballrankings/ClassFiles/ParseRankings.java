@@ -88,6 +88,7 @@ public class ParseRankings
 		fixes.put("Christopher Ivory", "Chris Ivory");
 		fixes.put("R. Mendenhall", "Rashard Mendenhall");
 		fixes.put("B. Green-Ellis", "BenJarvus Green-Ellis");
+		fixes.put("BJGE", "BenJarvus Green-Ellis");
 		fixes.put("Joseph Morgan", "Joe Morgan");
 		fixes.put("E.j. Manuel", "EJ Manuel");
 		fixes.put("TY Hilton", "T.Y. Hilton");
