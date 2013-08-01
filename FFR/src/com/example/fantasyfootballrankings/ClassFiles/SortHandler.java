@@ -45,11 +45,11 @@ import android.widget.AdapterView.OnItemLongClickListener;
  */
 public class SortHandler 
 {
-	public static int minVal;
-	public static int maxVal;
+	public static int minVal = 0;
+	public static int maxVal = 100;
 	public static int minProj;
-	public static String position;
-	public static String subject;
+	public static String position = "All Positions";
+	public static String subject = "ECR";
 	public static Storage holder;
 	public static Context context;
 	public static List<PlayerObject> players = new ArrayList<PlayerObject>();
@@ -130,6 +130,52 @@ public class SortHandler
 				android.R.layout.simple_spinner_dropdown_item, positions);
 		sort.setAdapter(spinnerArrayAdapter);
 		pos.setAdapter(spinnerAdapter);
+		sort.setSelection(topics.indexOf(subject));
+		pos.setSelection(positions.indexOf(position));
+		max.setText(Integer.toString(maxVal));
+		min.setText(Integer.toString(minVal));
+		Button adv = (Button)dialog.findViewById(R.id.sort_advanced);
+		adv.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				String maxStr = max.getText().toString();
+				String minStr = min.getText().toString();
+				if(ManageInput.isInteger(maxStr) && ManageInput.isInteger(minStr))
+				{
+					minVal = Integer.parseInt(minStr);
+					maxVal = Integer.parseInt(maxStr);
+					if(maxVal > minVal)
+					{
+						position = (String)pos.getSelectedItem();
+						subject = (String)sort.getSelectedItem();
+						if((subject.equals("Projections") || subject.equals("PAA") ||
+								(subject.equals("PAA per dollar")) || subject.equals("Target Rec TD Difference"))
+								&& (position.equals("K") || position.equals("D/ST")) || 
+								((subject.equals("Target Rec oTD") || subject.equals("Rush oTD") || subject.equals("Rush TD Difference") || 
+										subject.equals("Average target location") || subject.equals("Average carry location") || subject.equals("Average catch location") || 
+										subject.equals("Catch Rec TD Difference") || subject.equals("Catch Rec oTD") || subject.equals("DYOA") || subject.equals("DVOA")
+										|| subject.equals("Avg catch relative to target"))
+										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))))
+						{
+							Toast.makeText(context, "That subject is not available for that position", Toast.LENGTH_SHORT).show();
+						}
+						else
+						{
+							dialog.dismiss();
+							handleSortingSec(cont);
+						}
+					}
+					else
+					{
+						Toast.makeText(context, "Please enter a number for max that's greater than the min", Toast.LENGTH_SHORT).show();
+					}
+				}
+				else
+				{
+					Toast.makeText(context, "Please enter integer values for the max/min", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
 		Button submit = (Button) dialog.findViewById(R.id.sort_submit);
 		submit.setOnClickListener(new OnClickListener(){
 			@Override
@@ -158,7 +204,7 @@ public class SortHandler
 						else
 						{
 							dialog.dismiss();
-							handleSortingSec(cont);
+							handleSortingBasic(cont);
 						}
 					}
 					else
@@ -317,6 +363,36 @@ public class SortHandler
 						}
 					}
 				}
+			}
+		}
+		handleSortingSetUp(cont);
+	}
+	
+	/**
+	 * Does only the basic stuff
+	 * @param cont
+	 */
+	public static void handleSortingBasic(Context cont)
+	{
+		List<String> posList = new ArrayList<String>();
+		if(position.equals("All Positions"))
+		{
+			posList.add("QB");
+			posList.add("RB");
+			posList.add("WR");
+			posList.add("TE");
+			posList.add("D/ST");
+			posList.add("K");
+		}
+		else
+		{
+			posList.add(position);
+		}
+		for(PlayerObject player : holder.players)
+		{
+			if(posList.contains(player.info.position))
+			{
+				players.add(player);
 			}
 		}
 		handleSortingSetUp(cont);
@@ -1261,6 +1337,10 @@ public class SortHandler
 	    while(!sorted.isEmpty())
 	    {
 	    	PlayerObject elem = sorted.poll();
+	    	if(elem.values.ecr == -1)
+	    	{
+	    		elem.values.ecr = 300.0;
+	    	}
 	    	Map<String, String> datum = new HashMap<String, String>(2);
 	    	String output = "";
 	    	if(Draft.draftedMe(elem.info.name, holder.draft))

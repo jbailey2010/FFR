@@ -70,17 +70,6 @@
         android:text="What stat would you like to search by?"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/sort_submit"
-        style="@style/ButtonText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/minVal"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/btn_red"
-        android:text="Submit" />
-
     <Spinner
         android:id="@+id/sort_stat_spinner"
         android:layout_width="300dp"
@@ -118,5 +107,29 @@
         android:layout_marginTop="7dp"
         android:text="What is the maximum worth you&apos;d like to see?"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/sort_submit"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/minVal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_red"
+        android:text="Submit" />
+
+    <Button
+        android:id="@+id/sort_advanced"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/minVal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_red"
+        android:text="Advanced" />
 
 </RelativeLayout>
