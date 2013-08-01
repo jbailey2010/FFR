@@ -21,7 +21,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="22dp"
-        android:text="Through here, you can set up the roster settings of your league, the scoring settings of your league, export the rankings (once they've been fetched), and refresh the list of player names through which the rankings are oriented."
+        android:text="Through here, you can set up the roster settings of your league, the scoring settings of your league, export the rankings (once they've been fetched), and refresh the list of player names through which the rankings are oriented. You can also export the rankings to a .csv to use on a computer."
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView

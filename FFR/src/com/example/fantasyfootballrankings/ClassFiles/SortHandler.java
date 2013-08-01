@@ -1333,7 +1333,13 @@ public class SortHandler
 	    List<String> rankings = new ArrayList<String>(400);
 	    int counter = 0;
 	    data = new ArrayList<Map<String, String>>();
-
+	    if(sorted.size() == 0)
+	    {
+	    	Map<String, String> datum = new HashMap<String, String>(2);
+	    	datum.put("main", "No results were found with this combination of requests");
+	    	datum.put("sub", "Try broadening your search a bit");
+	    	data.add(datum);
+	    }
 	    while(!sorted.isEmpty())
 	    {
 	    	PlayerObject elem = sorted.poll();

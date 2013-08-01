@@ -121,22 +121,47 @@ public class HandleWatchList
 			Context cont)
 	{
 		listWatch.setAdapter(null);
-		PriorityQueue<PlayerObject>totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+		PriorityQueue<PlayerObject>totalList = null;
+		boolean isAuction = ReadFromFile.readIsAuction(cont);
+		if(isAuction)
 		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b) 
+			totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 			{
-				if (a.values.worth > b.values.worth)
-			    {
-			        return -1;
-			    }
-			    if (a.values.worth < b.values.worth)
-			    {
-			    	return 1;
-			    }
-			    return 0;
-			}
-		});
+				@Override
+				public int compare(PlayerObject a, PlayerObject b) 
+				{
+					if (a.values.worth > b.values.worth)
+				    {
+				        return -1;
+				    }
+				    if (a.values.worth < b.values.worth)
+				    {
+				    	return 1;
+				    }
+				    return 0;
+				}
+			});
+		}
+		else
+		{
+			totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.ecr > b.values.ecr)
+						    {
+						        return 1;
+						    }
+						    if (a.values.ecr < b.values.ecr)
+						    {
+						    	return -1;
+						    }
+						    return 0;
+						}
+					});
+		}
+		
 		dataSet = new ArrayList<Map<String, String>>();
 	    List<String> listAdapter = new ArrayList<String>();
 	    for(String name : watchList)
@@ -155,7 +180,15 @@ public class HandleWatchList
 	    	Map<String, String> datum = new HashMap<String, String>(2);
 	    	PlayerObject iter = totalList.poll();
 			DecimalFormat df = new DecimalFormat("#.##");
-	    	String val = df.format(iter.values.worth);
+			String val = "";
+			if(isAuction)
+			{
+				val = df.format(iter.values.worth);
+			}
+			else
+			{
+				val = df.format(iter.values.ecr);
+			}
 	    	if(selected)
 	    	{
 	    		if(Draft.isDrafted(iter.info.name, holder.draft))
