@@ -506,7 +506,8 @@ public class SortHandler
 			avgDepth(cont);
 		}
 	}
-	
+
+
 	public static void yardAdj(Context cont) {
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 				{
