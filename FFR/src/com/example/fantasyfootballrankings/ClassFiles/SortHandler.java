@@ -111,6 +111,7 @@ public class SortHandler
 	    topics.add("DYOA");
 	    topics.add("DVOA");
 	    topics.add("Success Rate");
+	    topics.add("Yard Adjustment");
 	    topics.add("Risk relative to position");
 	    topics.add("Risk");
 	    topics.add("Positional SOS");
@@ -386,6 +387,10 @@ public class SortHandler
 		{
 			success(cont);
 		}
+		else if(subject.equals("Yard Adjustment"))
+		{
+			yardAdj(cont);
+		}
 		else if(subject.equals("Risk relative to position"))
 		{
 			riskPos(cont);
@@ -424,6 +429,46 @@ public class SortHandler
 		}
 	}
 	
+	public static void yardAdj(Context cont) {
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						String yardsStr = a.stats.split("Yards: ")[1].split("\n")[0];
+						int yards = Integer.parseInt(yardsStr.replaceAll(",", ""));
+						String adjStr = a.stats.split("Adjusted Yards: ")[1].split("\n")[0];
+						int adjYards = Integer.parseInt(adjStr.replaceAll(",", ""));
+						int aDiff = adjYards - yards;
+						String yardsStr2 = b.stats.split("Yards: ")[1].split("\n")[0];
+						int yards2 = Integer.parseInt(yardsStr2.replaceAll(",", ""));
+						int aDiff2 = -1000;
+						String adjStr2 = b.stats.split("Adjusted Yards: ")[1].split("\n")[0];
+						int adjYards2 = Integer.parseInt(adjStr2.replaceAll(",", ""));
+						aDiff2 = adjYards2 - yards2;
+						if(aDiff > aDiff2)
+						{
+							return -1;
+						}
+						if(aDiff < aDiff2)
+						{
+							return 1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && 
+							player.stats.contains("Yards") && player.stats.contains("Adjusted Yards") && 
+							!player.stats.split("Adjusted Yards: ")[1].split("\n")[0].contains("%"))
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted, cont);
+	}
+
 	public static void avgDepth(Context cont) {
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 				{
@@ -1233,12 +1278,12 @@ public class SortHandler
 	    	if(subject.equals("Projections"))
 			{
 				datum.put("main", output + elem.values.points + ": " + elem.info.name);
-				datum.put("sub", "$" + df.format(elem.values.worth));
+				datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth));
 			}
 	    	else if(subject.equals("Auction Values"))
 	    	{
 	    		datum.put("main", output + df.format(elem.values.worth)+ ": " + elem.info.name);
-	    		datum.put("sub", df.format(elem.values.paa) + " PAA");
+	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + df.format(elem.values.paa) + " PAA");
 	    	}
 	    	else if(subject.equals("Under Drafted"))
 	    	{
@@ -1249,12 +1294,12 @@ public class SortHandler
 	    	else if(subject.equals("PAA"))
 	    	{
 	    		datum.put("main", output + df.format(elem.values.paa)+ ": " + elem.info.name);
-	    		datum.put("sub", "$" + df.format(elem.values.worth));
+	    		datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth));
 	    	}
 	    	else if(subject.equals("PAA per dollar"))
 	    	{ 
 	    		datum.put("main", output + df.format(elem.values.paapd)+ ": " + elem.info.name);
-	    		datum.put("sub", "$" + df.format(elem.values.worth));
+	    		datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth));
 	    	}
 	    	else if(subject.equals("Target Rec oTD"))
 	    	{
@@ -1274,40 +1319,40 @@ public class SortHandler
 	    	else if(subject.equals("Average carry location"))
 	    	{
 	    		datum.put("main", output + df.format(elem.values.rADEZ) + ": " + elem.info.name);
-	    		datum.put("sub",  elem.values.roTD + " expected rushing TDs, $" + df.format(elem.values.worth));
+	    		datum.put("sub",  elem.values.roTD + " expected rushing TDs, ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth));
 	    	}
 	    	else if(subject.equals("DYOA"))
 	    	{
 	    		String close1 = elem.stats.split("\\(rank\\):")[1].split("\n")[0];
 				String r1 = (close1.split("\\(")[0].trim());
 				datum.put("main", output + r1 + ": " + elem.info.name);
-				datum.put("sub", "$" + df.format(elem.values.worth) + ", " + elem.values.points + " projected points");
+				datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth) + ", " + elem.values.points + " projected points");
 	    	}
 	    	else if(subject.equals("DVOA"))
 	    	{
 	    		String close1 = elem.stats.split("\\(rank\\):")[2].split("\n")[0];
 				String r1 = close1.split("\\(")[0].trim();
 				datum.put("main", output + r1 + ": " + elem.info.name);
-				datum.put("sub", "$" + df.format(elem.values.worth) + ", " + elem.values.points + " projected points");
+				datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth) + ", " + elem.values.points + " projected points");
 	    	}
 	    	else if(subject.equals("Average target location"))
 	    	{
 	    		datum.put("main", output + df.format(elem.values.tADEZ) + ": " + elem.info.name);
 	    		datum.put("sub", elem.values.oTD + 
 	    				" expected receiving TDs, " + elem.values.cADEZ + " average catch location, " + 
-	    				"$" + df.format(elem.values.worth));
+	    				"ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
 	    	}
 	    	else if(subject.equals("Average catch location"))
 	    	{
 	    		datum.put("main", output + df.format(elem.values.cADEZ) + ": " + elem.info.name);
 	    		datum.put("sub", elem.values.coTD + 
 	    				" expected receiving TDs, " + elem.values.tADEZ + " average target location, " + 
-	    				"$" + df.format(elem.values.worth));
+	    				"ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
 	    	}
 	    	else if(subject.equals("Risk"))
 	    	{
 	    		datum.put("main", output + df.format(elem.risk)+ ": " + elem.info.name);
-	    		datum.put("sub", "$" + df.format(elem.values.worth));
+	    		datum.put("sub", elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
 	    	}
 	    	else if(subject.equals("Target Rec TD Difference"))
 	    	{
@@ -1330,41 +1375,41 @@ public class SortHandler
 	    	else if(subject.equals("Risk relative to position"))
 			{
 	    		datum.put("main",output + elem.riskPos + ": " + elem.info.name);
-	    		datum.put("sub", "$" + df.format(elem.values.worth));
+	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
 			}
 			else if(subject.equals("Risk"))
 			{
 				datum.put("main", output + elem.risk + ": " + elem.info.name);
-	    		datum.put("sub", "$" + df.format(elem.values.worth));
+	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
 			}
 			else if(subject.equals("Positional SOS"))
 			{
 				if(elem.values.points != 0.0)
 				{
 					datum.put("main",output + holder.sos.get(elem.info.team + "," + elem.info.position) + ": " + elem.info.name);
-		    		datum.put("sub", "$" + df.format(elem.values.worth) + ", " + 
+		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth) + ", " + 
 							elem.values.points);
 				}
 				else
 				{
 					datum.put("main",output + holder.sos.get(elem.info.team + "," + elem.info.position) + ": " + elem.info.name);
-		    		datum.put("sub", "$" + df.format(elem.values.worth));
+		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
 				}
 			}
 			else if(subject.equals("ECR"))
 			{
 				datum.put("main", output + elem.values.ecr + ": " + elem.info.name);
-	    		datum.put("sub", "$" + df.format(elem.values.worth));
+	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
 			}
 			else if(subject.equals("ADP"))
 			{
 				datum.put("main", output + elem.info.adp + ": " + elem.info.name);
-	    		datum.put("sub", "$" + df.format(elem.values.worth));
+	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
 			}
 			else if(subject.equals("Weekly Trend (ESPN)"))
 			{
 				datum.put("main", output + elem.info.trend + ": " + elem.info.name);
-	    		datum.put("sub", "$" + df.format(elem.values.worth));
+	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
 			}
 			else if(subject.equals("Avg catch relative to target"))
 			{
@@ -1378,6 +1423,16 @@ public class SortHandler
 				int sr1 = Integer.parseInt(aS.substring(0, aS.length()-1));
 				datum.put("main", output + sr1 + ": " + elem.info.name);
 				datum.put("sub", "ECR: " + elem.values.ecr + ", ADP: " + elem.info.adp + ", $" + df.format(elem.values.worth));
+			}
+			else if(subject.equals("Yard Adjustment"))
+			{
+				String yardsStr = elem.stats.split("Yards: ")[1].split("\n")[0];
+				int yards = Integer.parseInt(yardsStr.replaceAll(",", ""));
+				String adjStr = elem.stats.split("Adjusted Yards: ")[1].split("\n")[0];
+				int adjYards = Integer.parseInt(adjStr.replaceAll(",", ""));
+				int aDiff = adjYards - yards;
+				datum.put("main", output + aDiff + ": " + elem.info.name);
+				datum.put("sub", "Actual: " + yards + ", Adjusted: " + adjYards + ", ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth));
 			}
 	    	data.add(datum);
 		} 
