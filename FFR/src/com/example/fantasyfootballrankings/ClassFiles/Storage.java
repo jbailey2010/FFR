@@ -88,7 +88,7 @@ public class Storage
 		parsedPlayers = new ArrayList<String>(350);
 		draft = new Draft();
 	}
-
+ 
 	/**
 	 * This checks if a name exists in the parsed list. If so, it 
 	 * returns that for the sake of name continuity throughout all.

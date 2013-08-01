@@ -124,6 +124,11 @@ public class ParseRankings
 		fixes.put("T Y Hilton", "T.Y. Hilton");
 		fixes.put("Joshua Cribbs", "Josh Cribbs");
 		fixes.put("Devier Posey", "DeVier Posey");
+		fixes.put("Darren Mcfadden", "Darren McFadden");
+		fixes.put("Robert Griffin, III", "Robert Griffin III");
+		fixes.put("Rashad Mendenhall", "Rashard Mendenhall");
+		fixes.put("Le`Veon Bell", "Le'Veon Bell");
+		fixes.put("Benjarvus Green-Ellis", "BenJarvus Green-Ellis");
 		
 		
 		teams.put("cin", "Cincinnati Bengals");
@@ -309,6 +314,10 @@ public class ParseRankings
 		else if(playerName.toLowerCase().equals("robert griffiniii"))
 		{
 			playerName = "Robert Griffin III";
+		}
+		else if(playerName.contains("Veon") && playerName.contains("Bell"))
+		{
+			playerName = "Le'Veon Bell";
 		}
 		return playerName;
 	}

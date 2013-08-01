@@ -23,7 +23,7 @@ public class ParseTheFakeFootball {
 		String[] td = html.split("\n");
 		for(int i = 20; i < td.length; i+=9)
 		{
-			String name = ParseRankings.fixNames(td[i].split(" - ")[0]);
+			String name = ParseRankings.fixDefenses(ParseRankings.fixNames(td[i].split(" - ")[0]));
 			int val= Integer.parseInt(td[i+1].substring(1, td[i+1].length()));
 			ParseRankings.finalStretch(holder, name, val, "", "");
 		}

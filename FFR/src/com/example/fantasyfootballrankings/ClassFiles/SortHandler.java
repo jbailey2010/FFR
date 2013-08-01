@@ -110,6 +110,7 @@ public class SortHandler
 	    topics.add("Average carry location");
 	    topics.add("DYOA");
 	    topics.add("DVOA");
+	    topics.add("Success Rate");
 	    topics.add("Risk relative to position");
 	    topics.add("Risk");
 	    topics.add("Positional SOS");
@@ -381,6 +382,10 @@ public class SortHandler
 		{
 			dyoa(cont);
 		}
+		else if(subject.equals("Success Rate"))
+		{
+			success(cont);
+		}
 		else if(subject.equals("Risk relative to position"))
 		{
 			riskPos(cont);
@@ -442,6 +447,38 @@ public class SortHandler
 				{
 					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.cADEZ != 0.0 && 
 							player.values.tADEZ!= 0.0)
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted, cont);
+	}
+	
+	public static void success(Context cont) {
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						String aS = a.stats.split("Success Rate: ")[1].split("\n")[0];
+						String bS = b.stats.split("Success Rate: ")[1].split("\n")[0];
+						int sr1 = Integer.parseInt(aS.substring(0, aS.length()-1));
+						int sr2 = Integer.parseInt(bS.substring(0, aS.length()-1));
+						if(sr1 > sr2)
+						{
+							return -1;
+						}
+						if(sr1 < sr2)
+						{
+							return 1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj 
+							&& player.stats.contains("Success Rate"))
 					{
 						sorted.add(player);
 					}
@@ -1201,7 +1238,7 @@ public class SortHandler
 	    	else if(subject.equals("Auction Values"))
 	    	{
 	    		datum.put("main", output + df.format(elem.values.worth)+ ": " + elem.info.name);
-	    		datum.put("sub", df.format(elem.values.paa) + " paa");
+	    		datum.put("sub", df.format(elem.values.paa) + " PAA");
 	    	}
 	    	else if(subject.equals("Under Drafted"))
 	    	{
@@ -1334,6 +1371,13 @@ public class SortHandler
 				double diff = elem.values.tADEZ - elem.values.cADEZ;
 				datum.put("main", output + df.format(diff) + ": " + elem.info.name);
 				datum.put("sub", elem.values.tADEZ + " tADEZ, " + elem.values.cADEZ + " cADEZ");
+			}
+			else if(subject.equals("Success Rate"))
+			{
+				String aS = elem.stats.split("Success Rate: ")[1].split("\n")[0];
+				int sr1 = Integer.parseInt(aS.substring(0, aS.length()-1));
+				datum.put("main", output + sr1 + ": " + elem.info.name);
+				datum.put("sub", "ECR: " + elem.values.ecr + ", ADP: " + elem.info.adp + ", $" + df.format(elem.values.worth));
 			}
 	    	data.add(datum);
 		} 

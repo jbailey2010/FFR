@@ -49,9 +49,13 @@ public class ParseFFTB
 		String[] brokenUp = text.split("\n");
 		for(int i = 1; i < brokenUp.length; i+=2)
 		{ 
-			String name = brokenUp[i];
+			String name = brokenUp[i].replace("Defense", "D/ST");
 			String team = brokenUp[++i];
 			String pos = brokenUp[++i];
+			if(pos.equals("Def"))
+			{
+				pos = "D/ST";
+			}
 			String age = brokenUp[i+=2];
 			String val = brokenUp[i+=2];
 			if(team.split(" ").length <= 2)
