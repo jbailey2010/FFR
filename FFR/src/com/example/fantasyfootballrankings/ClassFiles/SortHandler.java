@@ -197,7 +197,9 @@ public class SortHandler
 										subject.equals("Average target location") || subject.equals("Average carry location") || subject.equals("Average catch location") || 
 										subject.equals("Catch Rec TD Difference") || subject.equals("Catch Rec oTD") || subject.equals("DYOA") || subject.equals("DVOA")
 										|| subject.equals("Avg catch relative to target"))
-										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))))
+										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))) || (subject.equals("Success Rate") && 
+												!(position.equals("RB") || position.equals("All Positions"))) || (subject.equals("Yard Adjustment") && 
+														(position.equals("D/ST") || position.equals("K"))))
 						{
 							Toast.makeText(context, "That subject is not available for that position", Toast.LENGTH_SHORT).show();
 						}
