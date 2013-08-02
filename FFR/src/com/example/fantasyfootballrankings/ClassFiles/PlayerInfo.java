@@ -197,36 +197,45 @@ public class PlayerInfo
 			name.setOnLongClickListener(new OnLongClickListener(){
 				@Override
 				public boolean onLongClick(View v) {
-					int index = 0;
-	                for(int i = 0; i < holder.players.size(); i++)
-	                {
-	                	
-	               	 	if(Rankings.data.get(i).get("main").contains(namePlayer))
-	               	 	{
-	               	 		index = i;
-	               	 		break;
-	               	 	}
-	                } 
-	               	DecimalFormat df = new DecimalFormat("#.##");
-	               	Rankings.data.remove(index);
-	               	Rankings.adapter.notifyDataSetChanged();
-	               	Map<String, String> datum = new HashMap<String, String>();
-	               	boolean isAuction = ReadFromFile.readIsAuction(act);
-	               	if(isAuction)
-	               	{
-	               		datum.put("main", df.format(copy.values.worth) + ":  " + copy.info.name);
-	               	}
-	               	else if(!isAuction && copy.values.ecr != -1)
-	               	{
-	               		datum.put("main", df.format(copy.values.ecr) + ":  " + copy.info.name);
-	               	}
-	               	else if(!isAuction && copy.values.ecr == -1)
-	               	{
-	               		datum.put("main", copy.info.name);
-	               	}
-	               	datum.put("sub", copy.info.position + " - " + copy.info.team + "\n" + "Bye: " + holder.bye.get(copy.info.team));
-					Rankings.handleDrafted(datum, 
-							holder, (Activity)Rankings.context, dialog, index);
+					String nameStr = name.getText().toString();
+					if(!Draft.isDrafted(nameStr, holder.draft))
+					{
+						int index = 0;
+		                for(int i = 0; i < holder.players.size(); i++)
+		                {
+		                	
+		               	 	if(Rankings.data.get(i).get("main").contains(namePlayer))
+		               	 	{
+		               	 		index = i;
+		               	 		break;
+		               	 	}
+		                } 
+		               	DecimalFormat df = new DecimalFormat("#.##");
+		               	Rankings.data.remove(index);
+		               	Rankings.adapter.notifyDataSetChanged();
+		               	Map<String, String> datum = new HashMap<String, String>();
+		               	boolean isAuction = ReadFromFile.readIsAuction(act);
+		               	if(isAuction)
+		               	{
+		               		datum.put("main", df.format(copy.values.worth) + ":  " + copy.info.name);
+		               	}
+		               	else if(!isAuction && copy.values.ecr != -1)
+		               	{
+		               		datum.put("main", df.format(copy.values.ecr) + ":  " + copy.info.name);
+		               	}
+		               	else if(!isAuction && copy.values.ecr == -1)
+		               	{
+		               		datum.put("main", copy.info.name);
+		               	}
+		               	datum.put("sub", copy.info.position + " - " + copy.info.team + "\n" + "Bye: " + holder.bye.get(copy.info.team));
+						Rankings.handleDrafted(datum, 
+								holder, (Activity)Rankings.context, dialog, index);
+						return true;
+					}
+					else
+					{
+						Toast.makeText(act, "That player is already drafted", Toast.LENGTH_SHORT).show();
+					}
 					return true;
 				}
 			});
