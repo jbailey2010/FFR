@@ -211,8 +211,20 @@ public class PlayerInfo
 	               	Rankings.data.remove(index);
 	               	Rankings.adapter.notifyDataSetChanged();
 	               	Map<String, String> datum = new HashMap<String, String>();
-	               	datum.put("main", df.format(copy.values.worth) + ":  " + copy.info.name);
-	               	datum.put("sub", copy.info.position + " - " + copy.info.team);
+	               	boolean isAuction = ReadFromFile.readIsAuction(act);
+	               	if(isAuction)
+	               	{
+	               		datum.put("main", df.format(copy.values.worth) + ":  " + copy.info.name);
+	               	}
+	               	else if(!isAuction && copy.values.ecr != -1)
+	               	{
+	               		datum.put("main", df.format(copy.values.ecr) + ":  " + copy.info.name);
+	               	}
+	               	else if(!isAuction && copy.values.ecr == -1)
+	               	{
+	               		datum.put("main", copy.info.name);
+	               	}
+	               	datum.put("sub", copy.info.position + " - " + copy.info.team + "\n" + "Bye: " + holder.bye.get(copy.info.team));
 					Rankings.handleDrafted(datum, 
 							holder, (Activity)Rankings.context, dialog, index);
 					return true;

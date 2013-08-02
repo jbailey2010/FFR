@@ -1197,6 +1197,26 @@ public class Rankings extends Activity {
 						@Override
 						public int compare(PlayerObject a, PlayerObject b) 
 						{
+							if(a.values.ecr == -1 && b.values.ecr != -1)
+							{
+								return 1;
+							}
+							if(a.values.ecr != -1 && b.values.ecr == -1)
+							{
+								return -1;
+							}
+							if(a.values.ecr == -1 && b.values.ecr == -1)
+							{
+								if(a.values.worth > b.values.worth)
+								{
+									return -1;
+								}
+								if(b.values.worth > a.values.worth)
+								{
+									return 1;
+								}
+								return 0;
+							}
 							if (a.values.ecr > b.values.ecr)
 						    {
 						        return 1;
@@ -1236,6 +1256,26 @@ public class Rankings extends Activity {
 				@Override
 				public int compare(PlayerObject a, PlayerObject b) 
 				{
+					if(a.values.ecr == -1 && b.values.ecr != -1)
+					{
+						return 1;
+					}
+					if(a.values.ecr != -1 && b.values.ecr == -1)
+					{
+						return -1;
+					}
+					if(a.values.ecr == -1 && b.values.ecr == -1)
+					{
+						if(a.values.worth > b.values.worth)
+						{
+							return -1;
+						}
+						if(b.values.worth > a.values.worth)
+						{
+							return 1;
+						}
+						return 0;
+					}
 					if (a.values.ecr > b.values.ecr)
 				    {
 				        return 1;
@@ -1270,7 +1310,7 @@ public class Rankings extends Activity {
 			if(posList.contains(player.info.position) && teamList.contains(player.info.team)
 					&& !holder.draft.ignore.contains(player.info.name))
 			{
-				if(isAuction || (!isAuction && player.values.ecr > 0.0))
+				if(isAuction || (!isAuction))
 				{
 					inter.add(player);
 				}
@@ -1314,7 +1354,14 @@ public class Rankings extends Activity {
 	        }
 	        else
 	        {
-	        	datum.put("main", df.format(elem.values.ecr)+ ":  " + elem.info.name );
+	        	if(elem.values.ecr != -1)
+	        	{
+	        		datum.put("main", df.format(elem.values.ecr)+ ":  " + elem.info.name );
+	        	}
+	        	else
+	        	{
+	        		datum.put("main", elem.info.name);
+	        	}
 	        }
 	        //datum.put("sub", "");
 	        if(elem.info.team.length() > 2 && elem.info.position.length() > 0)
@@ -1355,7 +1402,10 @@ public class Rankings extends Activity {
 					long arg3) {
 				listview.setSelection(arg2);
 				String selected = ((TwoLineListItem)arg1).getText1().getText().toString();
-				selected = selected.split(":  ")[1];
+				if(selected.contains(":"))
+				{
+					selected = selected.split(":  ")[1];
+				}
 				PlayerInfo.outputResults(selected, true, (Rankings)context, holder, false, true);
 			}
     	 });
@@ -1399,7 +1449,14 @@ public class Rankings extends Activity {
                                  int index = 0;
                                  Map<String, String> view = null;
                                  for (int position : reverseSortedPositions) {
-                                	 name = data.get(position).get("main").split(":  ")[1];
+                                	 if(data.get(position).containsKey(":"))
+                                	 {
+                                		 name = data.get(position).get("main").split(":  ")[1];
+                                	 }
+                                	 else
+                                	 {
+                                		 name = data.get(position).get("main");
+                                	 }
                                 	 view = data.get(position);
                                 	 data.remove(position);
                                 	 index = position;
