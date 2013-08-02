@@ -63,6 +63,10 @@ public class BasicInfo
 		{
 			position="D/ST";
 		}
+		if((position.equals("TE") && player2.position.equals("QB")) || (position.equals("QB") && player2.position.equals("TE")))
+		{
+			return returnString + "BAD";
+		}
 		if(position.length() >= player2.position.length())
 		{
 			returnString = position;
@@ -95,9 +99,15 @@ public class BasicInfo
 	 * @param position the parsed position
 	 * @param match the match already found in the priority queue
 	 */
-	public static void standardAll(String team, String position, BasicInfo match)
+	public static int standardAll(String team, String position, BasicInfo match)
 	{
 		match.team = standardTeam(team, match);
 		match.position = standardPos(position, match);
+		if(match.position.contains("BAD"))
+		{
+			match.position = match.position.replace("BAD", "");
+			return -1;
+		}
+		return 0;
 	}
 }

@@ -281,7 +281,21 @@ public class ParseRankings
 	{
 		if(match != null)
 		{
-			BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
+			int flag = 	BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
+			if(flag == -1)
+			{
+				for(PlayerObject iter : holder.players)
+				{
+					if(iter.info.name.equals(newPlayer.info.name) && ! iter.info.position.equals(match.info.position))
+					{
+						handlePlayer(holder, newPlayer, iter);
+						return;
+					}
+				}
+				newPlayer.info.team = fixTeams(newPlayer.info.team);
+				holder.players.add(newPlayer);
+				holder.parsedPlayers.add(newPlayer.info.name);
+			}
 			Values.handleNewValue(match.values, newPlayer.values.worth);
 			match.info.team = fixTeams(match.info.team);
 		}
