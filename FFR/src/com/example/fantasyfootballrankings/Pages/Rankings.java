@@ -1307,10 +1307,11 @@ public class Rankings extends Activity {
 		for(int i = 0; i < holder.players.size(); i++)
 		{
 			PlayerObject player = holder.players.get(i);
-			if(posList.contains(player.info.position) && teamList.contains(player.info.team)
-					&& !holder.draft.ignore.contains(player.info.name))
+			if(!holder.draft.ignore.contains(player.info.name))
 			{
-				if(isAuction || (!isAuction))
+				if((teamFilter.contains("All") && posFilter.contains("All")) || 
+						(teamList.contains(player.info.team) && !teamFilter.contains("All")) || 
+						(posList.contains(player.info.position) && !posFilter.contains("All")))
 				{
 					inter.add(player);
 				}
@@ -1386,8 +1387,16 @@ public class Rankings extends Activity {
 	    		new int[] {android.R.id.text1, 
 	    			android.R.id.text2});
 	    listview.setAdapter(adapter);
-	    listview.setOverscrollHeader(cont.getResources().getDrawable(R.drawable.overscroll_header));
-    	listview.setOverscrollFooter(cont.getResources().getDrawable(R.drawable.overscroll_footer));
+	    if(!posFilter.contains("All") || !teamFilter.contains("All"))
+		{
+			listview.setOverscrollHeader(null);
+			listview.setOverscrollFooter(null);
+		}
+	    else
+	    {
+		    listview.setOverscrollHeader(cont.getResources().getDrawable(R.drawable.overscroll_header));
+	    	listview.setOverscrollFooter(cont.getResources().getDrawable(R.drawable.overscroll_footer));
+	    }
 	    //adapter = ManageInput.handleArray(rankings, listview, cont);
 	}
     

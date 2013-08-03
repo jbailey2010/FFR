@@ -471,12 +471,6 @@ public class PlayerInfo
 	public static void setSearchContent(PlayerObject searchedPlayer, List<Map<String, String>> data, Storage holder)
 	{
 	   	DecimalFormat df = new DecimalFormat("#.##");
-		/*String low = String.valueOf(searchedPlayer.values.low);
-		if(searchedPlayer.values.low == 100)
-		{
-			low = String.valueOf(searchedPlayer.values.high);
-		}*/
-		//See if they're drafted by me
 		if(Draft.draftedMe(searchedPlayer.info.name, Rankings.holder.draft))
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
@@ -499,7 +493,7 @@ public class PlayerInfo
 			data.add(datum);
 		}
 		//Team, position, and bye
-		if(searchedPlayer.info.position.length() > 1 && searchedPlayer.info.position.length() > 1)
+		if(searchedPlayer.info.position.length() >= 1 && searchedPlayer.info.team.length() > 1)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", searchedPlayer.info.position + " - " + searchedPlayer.info.team);
@@ -581,7 +575,7 @@ public class PlayerInfo
 			data.add(datum);
 		}
 		//PAA and PAAPD
-		if(searchedPlayer.values.paa != 0.0 && searchedPlayer.values.points != 0.0 && searchedPlayer.values.worth >= 1.0)
+		if(searchedPlayer.values.paa != 0.0 && searchedPlayer.values.points != 0.0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", df.format(searchedPlayer.values.paa) + " PAA");

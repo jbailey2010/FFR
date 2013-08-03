@@ -172,6 +172,7 @@ public class ParseRankings
 		teams.put("jaguars", "Jacksonville Jaguars");
 		teams.put("hou", "Houston Texans");
 		teams.put("houston", "Houston Texans");
+		teams.put("hst", "Houston Texans");
 		teams.put("texans", "Houston Texans");
 		teams.put("ten", "Tennessee Titans");
 		teams.put("tennessee", "Tennessee Titans");
