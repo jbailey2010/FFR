@@ -521,8 +521,15 @@ public class PlayerInfo
 		//Worth
 		Map<String, String> datumWorth = new HashMap<String, String>(2);
 		datumWorth.put("main", "$" + df.format(searchedPlayer.values.worth));
-		datumWorth.put("sub", "Ranked " + rankCostPos(searchedPlayer, holder) + " positionally, " + rankCostAll(searchedPlayer, holder) + " overall"
-				+ "\nShowed up in " + searchedPlayer.values.count + " rankings");
+		if(searchedPlayer.info.position.length() >= 1)
+		{
+			datumWorth.put("sub", "Ranked " + rankCostPos(searchedPlayer, holder) + " positionally, " + rankCostAll(searchedPlayer, holder) + " overall"
+					+ "\nShowed up in " + searchedPlayer.values.count + " rankings");
+		}
+		else
+		{
+			datumWorth.put("sub", "Ranked " + rankCostAll(searchedPlayer, holder) + " overall\n" + "Showed up in " + searchedPlayer.values.count + " rankings");
+		}
 		data.add(datumWorth);
 		//Rank ecr
 		if(searchedPlayer.values.ecr != -1)
@@ -531,7 +538,14 @@ public class PlayerInfo
 			if(rankECRPos(searchedPlayer, holder) != -1)
 			{
 				datum.put("main", "Average Expert Ranking: " + searchedPlayer.values.ecr);
-				datum.put("sub", "Ranked " + rankECRPos(searchedPlayer, holder) + " positionally");
+				if(searchedPlayer.info.position.length() >= 1)
+				{
+					datum.put("sub", "Ranked " + rankECRPos(searchedPlayer, holder) + " positionally");
+				}
+				else
+				{
+					datum.put("sub", "");
+				}
 				data.add(datum);
 			}
 			else
@@ -571,7 +585,14 @@ public class PlayerInfo
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", searchedPlayer.values.points + " projected points");
-			datum.put("sub", "Ranked " + rankProjPos(searchedPlayer, holder)  + " positionally");
+			if(searchedPlayer.info.position.length() >= 1)
+			{
+				datum.put("sub", "Ranked " + rankProjPos(searchedPlayer, holder)  + " positionally");
+			}
+			else
+			{
+				datum.put("sub", "");
+			}
 			data.add(datum);
 		}
 		//PAA and PAAPD
@@ -579,17 +600,31 @@ public class PlayerInfo
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", df.format(searchedPlayer.values.paa) + " PAA");
-			datum.put("sub", "Ranked " + rankPAAPos(searchedPlayer, holder) + " positionally, " + rankPAAAll(searchedPlayer, holder) +
-						 " overall");
+			if(searchedPlayer.info.position.length() >= 1)
+			{
+				datum.put("sub", "Ranked " + rankPAAPos(searchedPlayer, holder) + " positionally, " + rankPAAAll(searchedPlayer, holder) +
+							 " overall");
+			}
+			else
+			{
+				datum.put("sub", "Ranked " + rankPAAAll(searchedPlayer, holder) + " overall");
+			}
 			data.add(datum);
 			Map<String, String> datum2 = new HashMap<String, String>(2);
 			datum2.put("main", df.format(searchedPlayer.values.paapd) + " PAA per dollar");
-			datum2.put("sub", "Ranked " + rankPAAPDPos(searchedPlayer, holder) + " positionally, " + rankPAAPDAll(searchedPlayer, holder) + " overall");
+			if(searchedPlayer.info.position.length() >= 1)
+			{
+				datum2.put("sub", "Ranked " + rankPAAPDPos(searchedPlayer, holder) + " positionally, " + rankPAAPDAll(searchedPlayer, holder) + " overall");
+			}
+			else
+			{
+				datum2.put("sub", "Ranked " + rankPAAPDAll(searchedPlayer, holder) + " overall");
+			}
 			data.add(datum2);
 		} 
 
 		//Rec oTD stuff
-		if(searchedPlayer.values.oTD != 0.0 && searchedPlayer.values.tADEZ != 0)
+		if(searchedPlayer.values.tADEZ != 0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			String result = String.valueOf(searchedPlayer.values.tdDiff);
@@ -598,7 +633,14 @@ public class PlayerInfo
 				result = "+" + result; 
 			}
 			datum.put("main", "Target-based oTD: " + searchedPlayer.values.oTD + " \n(" + result + " relative to last year's numbers)");
-			datum.put("sub", "Ranked " + rankoTD(searchedPlayer, holder) + " positionally\nTargeted an average of " + searchedPlayer.values.tADEZ + " yards from the endzone");
+			if(searchedPlayer.info.position.length() >= 1)
+			{
+				datum.put("sub", "Ranked " + rankoTD(searchedPlayer, holder) + " positionally\nTargeted an average of " + searchedPlayer.values.tADEZ + " yards from the endzone");
+			}
+			else
+			{
+				datum.put("sub", "Targeted an average of " + searchedPlayer.values.tADEZ + " yards from the endzone");
+			}
 			data.add(datum);
 		}
 		//Catch oTD stuff
@@ -611,7 +653,14 @@ public class PlayerInfo
 				result = "+" + result; 
 			}
 			datum.put("main", "Catch-based oTD: " + searchedPlayer.values.coTD + " \n(" + result + " relative to last year's numbers)");
-			datum.put("sub", "Ranked " + rankcoTD(searchedPlayer, holder) + " positionally\nCatches were an average of " + searchedPlayer.values.cADEZ + " yards from the endzone");
+			if(searchedPlayer.info.position.length() >= 1)
+			{
+				datum.put("sub", "Ranked " + rankcoTD(searchedPlayer, holder) + " positionally\nCatches were an average of " + searchedPlayer.values.cADEZ + " yards from the endzone");
+			}
+			else
+			{
+				datum.put("sub", "Catches were an average of " + searchedPlayer.values.cADEZ + " yards from the endzone");
+			}
 			data.add(datum);
 		}
 		//Rush oTD stuff
@@ -624,7 +673,14 @@ public class PlayerInfo
 				result = "+" + result;
 			}
 			datum.put("main", "Rushing oTD: " + searchedPlayer.values.roTD + "\n(" + result + " relative to last year's numbers)");
-			datum.put("sub", "Ranked " + rankroTD(searchedPlayer, holder) + " positionally\nCarried an average of " + searchedPlayer.values.rADEZ + " yards from the endzone");
+			if(searchedPlayer.info.position.length() >= 1)
+			{
+				datum.put("sub", "Ranked " + rankroTD(searchedPlayer, holder) + " positionally\nCarried an average of " + searchedPlayer.values.rADEZ + " yards from the endzone");
+			}
+			else
+			{
+				datum.put("sub", "Carried an average of " + searchedPlayer.values.rADEZ + " yards from the endzone");
+			}
 			data.add(datum);
 		}
 		if(searchedPlayer.values.cADEZ != 0.0 && searchedPlayer.values.tADEZ != 0.0)
@@ -634,8 +690,15 @@ public class PlayerInfo
 			int rank = 0;
 			diff = searchedPlayer.values.tADEZ - searchedPlayer.values.cADEZ;
 			rank = rankCatchDepth(searchedPlayer,holder);
-			datum.put("main", "Average depth of catch relative to tADEZ: " + df.format(diff));
-			datum.put("sub", "Ranked " + rank + " positionally");
+			datum.put("main", "cADEZ relative to tADEZ: " + df.format(diff));
+			if(searchedPlayer.info.position.length() >= 1)
+			{
+				datum.put("sub", "Ranked " + rank + " positionally");
+			}
+			else
+			{
+				datum.put("sub",  "");
+			}
 			data.add(datum);
 		}
 		//Risk
@@ -645,13 +708,27 @@ public class PlayerInfo
 			if(searchedPlayer.risk != -1.0)
 			{
 				datum.put("main", searchedPlayer.risk + " Risk (" + rankRiskAll(searchedPlayer, holder) + ")");
-				datum.put("sub", searchedPlayer.riskPos + " relative to his position (" + rankRiskPos(searchedPlayer, holder) + ")");
+				if(searchedPlayer.info.position.length() >= 1)
+				{
+					datum.put("sub", searchedPlayer.riskPos + " relative to his position (" + rankRiskPos(searchedPlayer, holder) + ")");
+				}
+				else
+				{
+					datum.put("sub", "");
+				}
 				data.add(datum);
 			}
 			else
 			{
 				datum.put("main", searchedPlayer.risk + " Risk");
-				datum.put("sub", searchedPlayer.riskPos + " relative to his position");
+				if(searchedPlayer.info.position.length() >= 1)
+				{
+					datum.put("sub", searchedPlayer.riskPos + " relative to his position");
+				}
+				else
+				{
+					datum.put("sub", "");
+				}
 				data.add(datum);
 			}
 		}
