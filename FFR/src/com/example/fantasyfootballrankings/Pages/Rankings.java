@@ -395,21 +395,21 @@ public class Rankings extends Activity {
 		String paaBackTE = paaDiff("TE");
 		final double te3 = Double.parseDouble(paaBackTE.split(": ")[1].split("/")[0]);
 		int qbTotal = Draft.posDraftedQuantity(holder.draft.qb);
-		final double qbVal = (3*qbTotal)/100;
-		int rbTotal = Draft.posDraftedQuantity(holder.draft.rb);
-		final double rbVal = (3*rbTotal)/100;
+		final double qbVal = (5.0*qbTotal)/100.0;
+		int rbTotal = Draft.posDraftedQuantity(holder.draft.rb); 
+		final double rbVal = (5.0*rbTotal)/100.0;
 		int wrTotal = Draft.posDraftedQuantity(holder.draft.wr);
-		final double wrVal = (3*wrTotal)/100;
+		final double wrVal = (5.0*wrTotal)/100.0;
 		int teTotal = Draft.posDraftedQuantity(holder.draft.te);
-		final double teVal = (3*teTotal)/100;
+		final double teVal = (5.0*teTotal)/100.0;
 		int defTotal = Draft.posDraftedQuantity(holder.draft.def);
-		final double defVal = (5 * defTotal)/100;
+		final double defVal = (10.0 * defTotal)/100.0;
 		int kTotal = Draft.posDraftedQuantity(holder.draft.k);
-		final double kVal = (10*kTotal)/100;
+		final double kVal = (10.0*kTotal)/100.0;
 		PriorityQueue<PlayerObject> inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 		{
 			@Override
-			public int compare(PlayerObject a, PlayerObject b) 
+			public int compare(PlayerObject a, PlayerObject b)  
 			{
 				double aVal = 0;
 				double bVal = 0;
@@ -418,9 +418,9 @@ public class Rankings extends Activity {
 				if(!a.info.adp.equals("Not set"))
 				{
 					aVal += Integer.parseInt(a.info.adp);
-				}
+				} 
 				else
-				{ 
+				{       
 					aVal += 300;
 				}
 				if(a.values.ecr != -1.0)
@@ -593,7 +593,7 @@ public class Rankings extends Activity {
 		}
 		List<PlayerObject> set = new ArrayList<PlayerObject>();
 		List<Double> vals = new ArrayList<Double>();
-		for(int i = 0; i < 500; i++)
+		for(int i = 0; i < 10; i++)
 		{
 			PlayerObject a = inter.poll();
 			double aVal = 0;
@@ -630,7 +630,7 @@ public class Rankings extends Activity {
 			if(a.info.position.equals("WR"))
 			{
 				aVal += wr3/2;
-			}
+			} 
 			if(a.info.position.equals("TE"))
 			{
 				aVal += te3/2;
@@ -646,7 +646,7 @@ public class Rankings extends Activity {
 			if(a.info.position.equals("D/ST"))
 			{
 				aVal -= 1000;
-			}
+			} 
 			if(a.info.position.equals("K"))
 			{
 				aVal -= 1750;
@@ -655,16 +655,16 @@ public class Rankings extends Activity {
 			{
 				aVal += aVal*qbVal;
 			}
-			if(a.info.position.equals("RB"))
+			if(a.info.position.equals("RB")) 
 			{
 				aVal += aVal * rbVal;
 			}
 			if(a.info.position.equals("WR"))
-			{
+			{  
 				aVal += aVal * wrVal;
 			}
 			if(a.info.position.equals("TE"))
-			{
+			{ 
 				aVal += aVal * teVal;
 			}
 			if(a.info.position.equals("D/ST"))
@@ -676,7 +676,6 @@ public class Rankings extends Activity {
 				aVal += aVal * kVal;
 			}
 			DecimalFormat df = new DecimalFormat("#.##");
-			System.out.println(a.info.name + ": " + aVal);
 			vals.add(Double.parseDouble(df.format(aVal)));
 			set.add(a);
 		}
