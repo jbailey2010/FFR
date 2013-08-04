@@ -330,6 +330,7 @@ public class Rankings extends Activity {
 	public void setUpWidget()
 	{
 		List<String> pos = new ArrayList<String>();
+		pos.add("Suggested Targets");
 		pos.add("Basic Draft Info");
 		pos.add("QB - Drafted by you");
 		pos.add("RB - Drafted by you");
@@ -375,8 +376,345 @@ public class Rankings extends Activity {
 				{
 					widgOutput.setText(basicInfo());
 				}
+				else if(total.contains("Suggested"))
+				{
+					suggestedPicks(widgOutput);
+				}
 			}
 		 });
+	}
+	
+	public static void suggestedPicks(TextView widgOutput)
+	{
+		String paaBackQB = paaDiff("QB");
+		final double qb3 = Double.parseDouble(paaBackQB.split(": ")[1].split("/")[0]);
+		String paaBackRB = paaDiff("RB");
+		final double rb3 = Double.parseDouble(paaBackRB.split(": ")[1].split("/")[0]);
+		String paaBackWR = paaDiff("WR");
+		final double wr3 = Double.parseDouble(paaBackWR.split(": ")[1].split("/")[0]);
+		String paaBackTE = paaDiff("TE");
+		final double te3 = Double.parseDouble(paaBackTE.split(": ")[1].split("/")[0]);
+		int qbTotal = Draft.posDraftedQuantity(holder.draft.qb);
+		final double qbVal = (3*qbTotal)/100;
+		int rbTotal = Draft.posDraftedQuantity(holder.draft.rb);
+		final double rbVal = (3*rbTotal)/100;
+		int wrTotal = Draft.posDraftedQuantity(holder.draft.wr);
+		final double wrVal = (3*wrTotal)/100;
+		int teTotal = Draft.posDraftedQuantity(holder.draft.te);
+		final double teVal = (3*teTotal)/100;
+		int defTotal = Draft.posDraftedQuantity(holder.draft.def);
+		final double defVal = (5 * defTotal)/100;
+		int kTotal = Draft.posDraftedQuantity(holder.draft.k);
+		final double kVal = (10*kTotal)/100;
+		PriorityQueue<PlayerObject> inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b) 
+			{
+				double aVal = 0;
+				double bVal = 0;
+				aVal -= a.values.worth;
+				
+				if(!a.info.adp.equals("Not set"))
+				{
+					aVal += Integer.parseInt(a.info.adp);
+				}
+				else
+				{ 
+					aVal += 300;
+				}
+				if(a.values.ecr != -1.0)
+				{
+					aVal += 50* a.values.ecr;
+				}
+				else
+				{
+					aVal += 15000;
+				}
+				if(a.values.paa > 0)
+				{
+					aVal -= 2.5*a.values.paa;
+				}
+				aVal += 2.5*holder.sos.get(a.info.team + "," + a.info.position);
+				
+				if(a.info.position.equals("QB"))
+				{ 
+					aVal += qb3/2;
+				}
+				if(a.info.position.equals("RB"))
+				{
+					aVal += rb3/2;
+				}
+				if(a.info.position.equals("WR"))
+				{
+					aVal += wr3/2;
+				}
+				if(a.info.position.equals("TE"))
+				{
+					aVal += te3/2;
+				}
+				if(ComparatorHandling.samePos(a, holder))
+				{
+					aVal += 5;
+				}
+				if(ComparatorHandling.teamBye(holder, a))
+				{
+					aVal += 5;
+				}
+				if(ComparatorHandling.samePos(b, holder))
+				{
+					bVal += 5;
+				}
+				if(ComparatorHandling.teamBye(holder, b))
+				{
+					bVal += 5;
+				}
+				if(b.info.position.equals("QB"))
+				{
+					bVal += qb3/2;
+				}
+				if(b.info.position.equals("RB"))
+				{
+					bVal += rb3/2;
+				}
+				if(b.info.position.equals("WR"))
+				{
+					bVal += wr3/2;
+				}
+				if(b.info.position.equals("TE"))
+				{
+					bVal += te3/2;
+				}
+				bVal -= b.values.worth;
+				if(!b.info.adp.equals("Not set"))
+				{
+					bVal += Integer.parseInt(b.info.adp);
+				}
+				else
+				{
+					bVal += 300;
+				}
+				if(b.values.ecr != -1.0)
+				{
+					bVal += 50* b.values.ecr;
+				}
+				else
+				{
+					bVal += 15000;
+				}
+				if(b.values.paa > 0)
+				{
+					bVal -= 2.5*b.values.paa;
+				}
+				bVal += 2.5*holder.sos.get(b.info.team + "," + b.info.position);
+				if(a.info.position.equals("D/ST"))
+				{
+					aVal -= 1000;
+				}
+				if(a.info.position.equals("K"))
+				{
+					aVal -= 1750;
+				}
+				if(b.info.position.equals("D/ST"))
+				{
+					bVal -= 1000;
+				}
+				if(b.info.position.equals("K"))
+				{
+					bVal -= 1750;
+				}
+				if(a.info.position.equals("QB"))
+				{
+					aVal += aVal*qbVal;
+				}
+				if(a.info.position.equals("RB"))
+				{
+					aVal += aVal * rbVal;
+				}
+				if(a.info.position.equals("WR"))
+				{
+					aVal += aVal * wrVal;
+				}
+				if(a.info.position.equals("TE"))
+				{
+					aVal += aVal * teVal;
+				}
+				if(a.info.position.equals("D/ST"))
+				{
+					aVal += aVal * defVal;
+				}
+				if(a.info.position.equals("K"))
+				{
+					aVal += aVal * kVal;
+				}
+				if(b.info.position.equals("QB"))
+				{
+					bVal += bVal*qbVal;
+				}
+				if(b.info.position.equals("RB"))
+				{
+					bVal += bVal * rbVal;
+				}
+				if(b.info.position.equals("WR"))
+				{
+					bVal += bVal * wrVal;
+				}
+				if(b.info.position.equals("TE"))
+				{
+					bVal += bVal * teVal;
+				}
+				if(b.info.position.equals("D/ST"))
+				{
+					bVal += bVal * defVal;
+				}
+				if(b.info.position.equals("K"))
+				{
+					bVal += bVal * kVal;
+				}
+				//X*ECR + ADP - AUCTION
+				if (aVal > bVal)
+			    {
+			        return 1;
+			    }
+			    if (aVal < bVal)
+			    {
+			    	return -1;
+			    }
+			    return 0;
+			}
+		});
+		for(PlayerObject player : holder.players)
+		{
+			if(!Draft.isDrafted(player.info.name, holder.draft)&& player.info.team.length() > 1 && player.info.position.length() > 0
+					&& !player.info.team.equals("None") && !player.info.team.equals("---") && !player.info.team.equals("FA"))
+			{
+				inter.add(player);
+			}
+		}
+		List<PlayerObject> set = new ArrayList<PlayerObject>();
+		List<Double> vals = new ArrayList<Double>();
+		for(int i = 0; i < 500; i++)
+		{
+			PlayerObject a = inter.poll();
+			double aVal = 0;
+			aVal -= a.values.worth;
+			if(!a.info.adp.equals("Not set"))
+			{ 
+				aVal += Integer.parseInt(a.info.adp);
+			} 
+			else 
+			{  
+				aVal += 300; 
+			}
+			if(a.values.ecr != -1.0)
+			{
+				aVal += 50* a.values.ecr; 
+			}
+			else
+			{ 
+				aVal += 15000;
+			}
+			if(a.values.paa > 0)
+			{
+				aVal -= 2.5*a.values.paa;
+			}
+			aVal += 2.5*holder.sos.get(a.info.team + "," + a.info.position);
+			if(a.info.position.equals("QB"))
+			{
+				aVal += qb3/2;
+			}
+			if(a.info.position.equals("RB"))
+			{
+				aVal += rb3/2;
+			}
+			if(a.info.position.equals("WR"))
+			{
+				aVal += wr3/2;
+			}
+			if(a.info.position.equals("TE"))
+			{
+				aVal += te3/2;
+			}
+			if(ComparatorHandling.samePos(a, holder))
+			{
+				aVal += 5;
+			}
+			if(ComparatorHandling.teamBye(holder, a))
+			{
+				aVal += 5;
+			}
+			if(a.info.position.equals("D/ST"))
+			{
+				aVal -= 1000;
+			}
+			if(a.info.position.equals("K"))
+			{
+				aVal -= 1750;
+			}
+			if(a.info.position.equals("QB"))
+			{
+				aVal += aVal*qbVal;
+			}
+			if(a.info.position.equals("RB"))
+			{
+				aVal += aVal * rbVal;
+			}
+			if(a.info.position.equals("WR"))
+			{
+				aVal += aVal * wrVal;
+			}
+			if(a.info.position.equals("TE"))
+			{
+				aVal += aVal * teVal;
+			}
+			if(a.info.position.equals("D/ST"))
+			{
+				aVal += aVal * defVal;
+			}
+			if(a.info.position.equals("K"))
+			{
+				aVal += aVal * kVal;
+			}
+			DecimalFormat df = new DecimalFormat("#.##");
+			System.out.println(a.info.name + ": " + aVal);
+			vals.add(Double.parseDouble(df.format(aVal)));
+			set.add(a);
+		}
+		List<Double> normVals = new ArrayList<Double>();
+		double total = 0;
+		if(vals.get(0) < 0)
+		{
+			for(int i = 0; i < vals.size(); i++)
+			{
+				normVals.add(i, vals.get(i) - vals.get(0) + (i+1)*(i+1));
+			}
+		}
+		else
+		{
+			for(int i = 0; i < vals.size(); i++)
+			{
+				normVals.add(i, vals.get(i) + 1);
+			}
+		}
+		for(int i = 0; i < normVals.size(); i++)
+		{
+			total += normVals.get(i);
+		}
+		StringBuilder output = new StringBuilder(1000);
+		output.append("   ");
+		DecimalFormat df = new DecimalFormat("#.#");
+		double valNorm = normVals.get(0);
+		for(int i = 0; i < normVals.size(); i++)
+		{
+			PlayerObject name = set.get(i);
+			double val = normVals.get(i);
+			double difference = val - valNorm;
+			String setStr = "-" + df.format(difference);
+			output.append((i+1) + ": " + name.info.name + " " + (setStr) + ", ");
+		}
+		String result = output.toString().substring(0, output.toString().length()-2);
+		result = result + "     ";
+		widgOutput.setText(result);
 	}
 	
 	/**
@@ -531,7 +869,7 @@ public class Rankings extends Activity {
 	 * @param pos
 	 * @return
 	 */
-	public String paaDiff(String pos)
+	public static String paaDiff(String pos)
 	{
 		DecimalFormat df = new DecimalFormat("#.#");
 		String result = "3/5/10 back: ";
