@@ -547,6 +547,7 @@ public class ParsingAsyncTask
 			protected void onPreExecute(){ 
 			   super.onPreExecute();
 			        pdia = new ProgressDialog(act);
+			        pdia.setCancelable(false);
 			        pdia.setMessage("Please wait, parsing the forums. This could take a few minutes...");
 			        pdia.show();    
 			}
