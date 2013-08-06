@@ -2,7 +2,6 @@ package com.example.fantasyfootballrankings.ClassFiles;
 
 
 import java.io.File;
-
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,8 +16,8 @@ import com.dropbox.client2.android.AndroidAuthSession;
 import com.dropbox.client2.session.AccessTokenPair;
 import com.dropbox.client2.session.AppKeyPair;
 import com.dropbox.client2.session.Session.AccessType;
-import jeff.isawesome.fantasyfootballrankings.R;
 
+import jeff.isawesome.fantasyfootballrankings.R;
 import FileIO.ReadFromFile;
 import android.app.Activity;
 import android.app.Dialog;
@@ -44,24 +43,68 @@ public class HandleExport
 	 * Gets a priority queue of the players
 	 * @return
 	 */
-	public static PriorityQueue<PlayerObject> orderPlayers(Storage holder)
+	public static PriorityQueue<PlayerObject> orderPlayers(Storage holder, Context cont)
 	{
-		PriorityQueue<PlayerObject>totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+		PriorityQueue<PlayerObject>totalList = null;
+		boolean isAuction = ReadFromFile.readIsAuction(cont);
+		if(isAuction)
 		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b) 
+			totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 			{
-				if (a.values.worth > b.values.worth)
+				@Override
+				public int compare(PlayerObject a, PlayerObject b) 
 				{
-				    return -1;
+					if (a.values.worth > b.values.worth)
+					{
+					    return -1;
+					}
+					if (a.values.worth < b.values.worth)
+					{
+						return 1;
+					}
+				    return 0;
 				}
-				if (a.values.worth < b.values.worth)
+			});
+		}
+		else
+		{ 
+			totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+			{
+				@Override
+				public int compare(PlayerObject a, PlayerObject b) 
 				{
-					return 1;
+					if(a.values.ecr == -1 && b.values.ecr != -1)
+					{
+						return 1;
+					}
+					if(a.values.ecr != -1 && b.values.ecr == -1)
+					{
+						return -1;
+					}
+					if(a.values.ecr == -1 && b.values.ecr == -1)
+					{
+						if(a.values.worth > b.values.worth)
+						{
+							return -1;
+						}
+						if(b.values.worth > a.values.worth)
+						{
+							return 1;
+						}
+						return 0;
+					}
+					if (a.values.ecr > b.values.ecr)
+				    {
+					        return 1;
+				    }
+				    if (a.values.ecr < b.values.ecr)
+				    {
+				    	return -1;
+				    }
+				    return 0;
 				}
-			    return 0;
-			}
-		});
+			});
+		}
 		for(PlayerObject player : holder.players)
 		{
 			totalList.add(player);
@@ -109,10 +152,14 @@ public class HandleExport
 			while(!players.isEmpty())
 			{
 				PlayerObject player = players.poll();
-				writeCsvData(player.values.worth, player.info.name, player.info.position, player.info.team,
-						player.info.age, holder.bye.get(player.info.team), holder.sos.get(player.info.team + "," + player.info.position), 
-						player.info.adp, player.info.trend, player.values.points, 
-						player.values.paa, player.values.paapd, player.values.ecr, player.risk, writer);
+				if(!player.info.team.equals("None") && !player.info.team.equals("---") && !player.info.team.equals("FA") && 
+						player.info.team.length() > 0 && player.info.team.length() > 0)
+				{
+					writeCsvData(player.values.worth, player.info.name, player.info.position, player.info.team,
+							player.info.age, holder.bye.get(player.info.team), holder.sos.get(player.info.team + "," + player.info.position), 
+							player.info.adp, player.info.trend, player.values.points, 
+							player.values.paa, player.values.paapd, player.values.ecr, player.risk, writer);
+				}
 			}
 			writer.flush();
 			writer.close(); 

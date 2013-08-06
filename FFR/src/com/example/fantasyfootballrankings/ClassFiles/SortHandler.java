@@ -112,6 +112,8 @@ public class SortHandler
 	    topics.add("DVOA");
 	    topics.add("Success Rate");
 	    topics.add("Yard Adjustment");
+	    topics.add("Broken Tackles");
+	    topics.add("Completion to Int Ratio");
 	    topics.add("Risk relative to position");
 	    topics.add("Risk");
 	    topics.add("Positional SOS");
@@ -155,7 +157,13 @@ public class SortHandler
 										subject.equals("Average target location") || subject.equals("Average carry location") || subject.equals("Average catch location") || 
 										subject.equals("Catch Rec TD Difference") || subject.equals("Catch Rec oTD") || subject.equals("DYOA") || subject.equals("DVOA")
 										|| subject.equals("Avg catch relative to target"))
-										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))))
+										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))) 
+										|| (subject.equals("Success Rate") && 
+												!(position.equals("RB") || position.equals("All Positions"))) || (subject.equals("Yard Adjustment") && 
+														(position.equals("D/ST") || position.equals("K"))) || 
+										((position.equals("RB") || position.equals("WR") || position.equals("TE") || position.equals("K") || position.equals("D/ST"))
+												&& subject.equals("Completion to Int Ratio")) || ((subject.equals("Broken Tackles")) && 
+														(position.equals("TE") || position.equals("D/ST") || position.equals("K"))))
 						{
 							Toast.makeText(context, "That subject is not available for that position", Toast.LENGTH_SHORT).show();
 						}
@@ -199,7 +207,10 @@ public class SortHandler
 										|| subject.equals("Avg catch relative to target"))
 										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))) || (subject.equals("Success Rate") && 
 												!(position.equals("RB") || position.equals("All Positions"))) || (subject.equals("Yard Adjustment") && 
-														(position.equals("D/ST") || position.equals("K"))))
+														(position.equals("D/ST") || position.equals("K"))) || 
+														((position.equals("RB") || position.equals("WR") || position.equals("TE") || position.equals("K") || position.equals("D/ST"))
+																&& subject.equals("Completion to Int Ratio")) || ((subject.equals("Broken Tackles")) && 
+																		(position.equals("TE") || position.equals("D/ST") || position.equals("K"))))
 						{
 							Toast.makeText(context, "That subject is not available for that position", Toast.LENGTH_SHORT).show();
 						}
@@ -505,8 +516,88 @@ public class SortHandler
 		{
 			avgDepth(cont);
 		}
+		else if(subject.equals("Completion to Int Ratio"))
+		{
+			compInt(cont);
+		}
+		else if(subject.equals("Broken Tackles"))
+		{
+			brokenTackles(cont);
+		}
 	}
 
+
+	private static void brokenTackles(Context cont) {
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						int aDiff = Integer.parseInt(a.stats.split("Broken Tackles: ")[1].split(", ")[0]);
+						int aDiff2 = Integer.parseInt(b.stats.split("Broken Tackles: ")[1].split(", ")[0]);
+						if(aDiff > aDiff2)
+						{
+							return -1;
+						}
+						if(aDiff < aDiff2)
+						{
+							return 1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && 
+							player.stats.contains("Broken Tackles") )
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted, cont);
+	}
+
+	private static void compInt(Context cont) {
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						String intsA = a.stats.split("Interceptions: ")[1].split("\n")[0];
+						int intA = Integer.parseInt(intsA);
+						String compA = a.stats.split("Completion Percentage: ")[1].split("\n")[0].replace("%", "");
+						double compPercent = Double.parseDouble(compA)/100.0;
+						double attempts = Double.parseDouble(a.stats.split("Pass Attempts: ")[1].split("\n")[0]);
+						double completions = attempts * compPercent;
+						double aDiff = (completions)/((double)intA);
+						String intsB = b.stats.split("Interceptions: ")[1].split("\n")[0];
+						int intB = Integer.parseInt(intsB);
+						String compB = b.stats.split("Completion Percentage: ")[1].split("\n")[0].replace("%", "");
+						double compPercentB = Double.parseDouble(compB)/100.0;
+						double attemptsB = Double.parseDouble(b.stats.split("Pass Attempts: ")[1].split("\n")[0]);
+						double completionsB = attemptsB * compPercentB;
+						double aDiff2 = (completionsB)/((double)intB);
+						if(aDiff > aDiff2)
+						{
+							return -1;
+						}
+						if(aDiff < aDiff2)
+						{
+							return 1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && 
+							player.stats.contains("Completion Percentage") && player.stats.contains("Interceptions"))
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted, cont);
+	}
 
 	public static void yardAdj(Context cont) {
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
@@ -1522,6 +1613,24 @@ public class SortHandler
 				int aDiff = adjYards - yards;
 				datum.put("main", output + aDiff + ": " + elem.info.name);
 				datum.put("sub", "Actual: " + yards + ", Adjusted: " + adjYards + ", ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth));
+			}
+			else if(subject.equals("Completion to Int Ratio"))
+			{
+				String intsA = elem.stats.split("Interceptions: ")[1].split("\n")[0];
+				int intA = Integer.parseInt(intsA);
+				String compA = elem.stats.split("Completion Percentage: ")[1].split("\n")[0].replace("%", "");
+				double compPercent = Double.parseDouble(compA)/100.0;
+				double attempts = Double.parseDouble(elem.stats.split("Pass Attempts: ")[1].split("\n")[0]);
+				double completions = attempts * compPercent;
+				double aDiff = (completions)/((double)intA);
+				datum.put("main", output + df.format(aDiff) + ": " + elem.info.name);
+				datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
+			}
+			else if(subject.equals("Broken Tackles"))
+			{
+				int aDiff = Integer.parseInt(elem.stats.split("Broken Tackles: ")[1].split(", ")[0]);
+				datum.put("main", output + aDiff + ": " + elem.info.name);
+				datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
 			}
 	    	data.add(datum);
 		} 

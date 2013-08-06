@@ -752,6 +752,18 @@ public class PlayerInfo
 	    	{
 	    		datum.put("sub", searchedPlayer.info.additionalStat);
 	    	}
+			if(searchedPlayer.stats.contains("Pass Attempts") && searchedPlayer.stats.contains("Interceptions"))
+			{
+				String intsA = searchedPlayer.stats.split("Interceptions: ")[1].split("\n")[0];
+				int intA = Integer.parseInt(intsA);
+				String compA = searchedPlayer.stats.split("Completion Percentage: ")[1].split("\n")[0].replace("%", "");
+				double compPercent = Double.parseDouble(compA)/100.0;
+				double attempts = Double.parseDouble(searchedPlayer.stats.split("Pass Attempts: ")[1].split("\n")[0]);
+				double completions = attempts * compPercent;
+				double aDiff = (completions)/((double)intA);
+				int rank = rankIntComp(holder, aDiff);
+				datum.put("sub", df.format(aDiff) + " completion to interception ratio (" + rank + ")");
+			}
 			data.add(datum);
 
 		}
@@ -1049,6 +1061,30 @@ public class PlayerInfo
 					iter.values.paapd > player.values.paapd)
 			{
 				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	public static int rankIntComp(Storage holder, double aDiff2)
+	{
+		int rank = 1;
+		for(PlayerObject searchedPlayer : holder.players)
+		{
+			if(searchedPlayer.info.position.equals("QB") && 
+					searchedPlayer.stats.contains("Pass Attempts") && searchedPlayer.stats.contains("Interceptions"))
+			{
+				String intsA = searchedPlayer.stats.split("Interceptions: ")[1].split("\n")[0];
+				int intA = Integer.parseInt(intsA);
+				String compA = searchedPlayer.stats.split("Completion Percentage: ")[1].split("\n")[0].replace("%", "");
+				double compPercent = Double.parseDouble(compA)/100.0;
+				double attempts = Double.parseDouble(searchedPlayer.stats.split("Pass Attempts: ")[1].split("\n")[0]);
+				double completions = attempts * compPercent;
+				double aDiff = (completions)/((double)intA);
+				if(aDiff > aDiff2)
+				{
+					rank++;
+				}
 			}
 		}
 		return rank;
