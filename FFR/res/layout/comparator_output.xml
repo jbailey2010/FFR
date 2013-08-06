@@ -5,7 +5,7 @@
 
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="462dp" >
 
 
     
@@ -32,44 +32,6 @@
         android:text="Back"
         android:textColor="#FFFFFF" 
         android:textSize="24sp"/>
-
-    <Button
-        android:id="@+id/add_comparator_1"
-        style="@style/ButtonText"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/compare_output_1"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="101dp"
-        android:background="@drawable/btn_red"
-        android:textSize="15sp"
-        android:text="Add to Watch List" />
-
-    <TextView
-        android:id="@+id/compare_output_1"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/add_comparator_1"
-        android:layout_below="@+id/compare_header_1"
-        android:layout_marginTop="17dp"
-        android:maxWidth="140dp"
-        android:paddingBottom="35dp"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <Button
-        android:id="@+id/add_comparator_2"
-        style="@style/ButtonText"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/add_comparator_1"
-        android:layout_alignBottom="@+id/add_comparator_1"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="22dp"
-        android:background="@drawable/btn_red"
-        android:text="Add to Watch List"
-        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/compare_header_2"
@@ -102,6 +64,41 @@
         android:paddingBottom="35dp"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/compare_output_1"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/add_comparator_1"
+        android:layout_below="@+id/compare_header_1"
+        android:layout_marginTop="72dp"
+        android:maxWidth="140dp"
+        android:paddingBottom="35dp"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/add_comparator_1"
+        style="@style/ButtonText"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/compare_header_1"
+        android:layout_marginLeft="19dp"
+        android:background="@drawable/btn_red"
+        android:text="Add to Watch List"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/add_comparator_2"
+        style="@style/ButtonText"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/compare_header_2"
+        android:layout_below="@+id/compare_header_2"
+        android:background="@drawable/btn_red"
+        android:text="Add to Watch List"
+        android:textSize="15sp" />
 
 </RelativeLayout>
     </ScrollView>

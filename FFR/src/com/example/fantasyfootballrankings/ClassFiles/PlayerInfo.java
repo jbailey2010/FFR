@@ -137,7 +137,7 @@ public class PlayerInfo
 					//Check if the player is in the watchList
 					int i = -1;
 					for(String name : Rankings.watchList)
-					{
+					{ 
 						if(name.equals(namePlayer))
 						{
 							i++;
@@ -148,12 +148,12 @@ public class PlayerInfo
 					if(i == -1)
 					{
 						Rankings.watchList.add(namePlayer);
-						WriteToFile.writeWatchList(Rankings.context, Rankings.watchList);
-						Toast.makeText(Rankings.context, namePlayer + " added to watch list", Toast.LENGTH_SHORT).show();
+						WriteToFile.writeWatchList(act, Rankings.watchList);
+						Toast.makeText(act, namePlayer + " added to watch list", Toast.LENGTH_SHORT).show();
 					}
 					else//if so, ignore the click
 					{
-						Toast.makeText(Rankings.context, namePlayer + " already in watch list", Toast.LENGTH_SHORT).show();
+						Toast.makeText(act, namePlayer + " already in watch list", Toast.LENGTH_SHORT).show();
 					}
 				}
 	    	});

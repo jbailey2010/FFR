@@ -49,8 +49,8 @@ public final class R {
         public static final int unchecked=0x7f020019;
     }
     public static final class id {
-        public static final int add_comparator_1=0x7f08001d;
-        public static final int add_comparator_2=0x7f080020;
+        public static final int add_comparator_1=0x7f080021;
+        public static final int add_comparator_2=0x7f080022;
         public static final int add_view=0x7f08008c;
         public static final int add_watch=0x7f08008b;
         public static final int amount_paid=0x7f08002a;
@@ -68,10 +68,10 @@ public final class R {
         public static final int clear_trade=0x7f0800ac;
         public static final int compare_back=0x7f08001c;
         public static final int compare_close=0x7f08001b;
-        public static final int compare_header_1=0x7f08001f;
-        public static final int compare_header_2=0x7f080021;
+        public static final int compare_header_1=0x7f080020;
+        public static final int compare_header_2=0x7f08001d;
         public static final int compare_output_1=0x7f08001e;
-        public static final int compare_output_2=0x7f080022;
+        public static final int compare_output_2=0x7f08001f;
         public static final int confirm_list_refresh=0x7f080070;
         public static final int credit_close=0x7f080046;
         public static final int credit_home=0x7f0800d4;
