@@ -86,6 +86,7 @@ public class StorageAsyncTask
 	    	}
 	    	String namesString = names.toString();
 	    	editor.putString("Parsed Player Names", namesString).commit();
+	    	WriteToFile.writeLeverage(cont, holder);
 	    	editor.commit();
 			return null;
 	    }
@@ -178,6 +179,7 @@ public class StorageAsyncTask
 
 	    	}
 	    	String playerString = players.toString();
+	    	WriteToFile.writeLeverage(cont, holder);
 	    	editor.putString("Player Values", playerString).commit();
 			return null;
 	    }
@@ -365,6 +367,7 @@ public class StorageAsyncTask
 				holder.draft.remainingSalary = Integer.parseInt(individual[7][0]);
 				holder.draft.value = Double.parseDouble(individual[8][0]);
 			}
+			ReadFromFile.readLeverage(cont, holder);
 			System.out.println(System.nanoTime() - start + " to read from file");
 			return null;
 	    }

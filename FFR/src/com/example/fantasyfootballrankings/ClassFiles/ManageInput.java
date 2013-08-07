@@ -453,6 +453,8 @@ public class ManageInput
 					if(doSyncData)
 					{
 					    Toast.makeText(cont, "Updating projections...", Toast.LENGTH_SHORT).show();
+					    SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+					    ReadFromFile.fetchPlayers(prefs.getString("Player Values", "Not Set"), holder,cont, false);
 						ParsingAsyncTask stupid = new ParsingAsyncTask();
 					    ParseProjections task = stupid.new ParseProjections((Activity)cont, holder);
 					    task.execute(holderObj, cont);

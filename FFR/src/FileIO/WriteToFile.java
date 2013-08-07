@@ -495,6 +495,7 @@ public class WriteToFile {
 		if(ReadFromFile.readIsAuction(cont))
 		{
 			secondaryData.append("\nValue: " + df.format(holder.draft.value));
+			secondaryData.append("\nAverage leverage: " + Draft.averageLev(holder.draft));
 			secondaryData.append("\nPAA per dollar: " + df.format(Draft.paaTotal(holder.draft)/(200 - holder.draft.remainingSalary)));
 		}
 		String qbs = Rankings.handleDraftParsing(holder.draft.qb);
@@ -534,6 +535,23 @@ public class WriteToFile {
 			editor.remove("Secondary " + i);
 		}
 		editor.remove("Current Draft");
+		editor.commit();
+	}
+	
+	/**
+	 * Writes the leverage data to file
+	 * @param cont
+	 * @param holder
+	 */
+	public static void writeLeverage(Context cont, Storage holder)
+	{
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		for(PlayerObject player : holder.players)
+		{
+			editor.putFloat(player.info.name + player.info.team + player.info.position + "Cost", (float) player.values.relPrice);
+			editor.putFloat(player.info.name + player.info.team + player.info.position + "Points", (float) player.values.relPoints);
+			editor.putFloat(player.info.name + player.info.team + player.info.position + "Leverage", (float) player.values.leverage);
+		}
 		editor.commit();
 	}
 }

@@ -413,8 +413,29 @@ public class Rankings extends Activity {
 			{
 				double aVal = 0;
 				double bVal = 0;
+				if(a.values.leverage != 0.0)
+				{
+					if(a.values.worth < 1.0)
+					{
+						aVal -= (a.values.leverage / 2);
+					}
+					else
+					{
+						aVal -= a.values.leverage;
+					}
+				}
+				if(b.values.leverage != 0.0)
+				{
+					if(b.values.worth < 1.0)
+					{
+						bVal -= (b.values.leverage / 2);
+					}
+					else
+					{
+						bVal -= b.values.leverage;
+					}
+				}
 				aVal -= a.values.worth;
-				
 				if(!a.info.adp.equals("Not set"))
 				{
 					aVal += Integer.parseInt(a.info.adp);
@@ -597,6 +618,17 @@ public class Rankings extends Activity {
 		{
 			PlayerObject a = inter.poll();
 			double aVal = 0;
+			if(a.values.leverage != 0.0)
+			{
+				if(a.values.worth < 1.0)
+				{
+					aVal -= (a.values.leverage / 2);
+				}
+				else
+				{
+					aVal -= a.values.leverage;
+				}
+			}
 			aVal -= a.values.worth;
 			if(!a.info.adp.equals("Not set"))
 			{ 
@@ -722,18 +754,20 @@ public class Rankings extends Activity {
 	 */
 	public String basicInfo()
 	{
-		String result = "";
+		String result = "  ";
 		int qbTotal = Draft.posDraftedQuantity(holder.draft.qb);
 		int rbTotal = Draft.posDraftedQuantity(holder.draft.rb);
 		int wrTotal = Draft.posDraftedQuantity(holder.draft.wr);
 		int teTotal = Draft.posDraftedQuantity(holder.draft.te);
 		int defTotal = Draft.posDraftedQuantity(holder.draft.def);
 		int kTotal = Draft.posDraftedQuantity(holder.draft.k);
+		double draftLev = Draft.averageLev(holder.draft);
 		DecimalFormat df = new DecimalFormat("#.#");
 		if(qbTotal + rbTotal + wrTotal + teTotal + defTotal + kTotal == 0)
 		{
 			return "No players drafted";
 		}
+		result = "  ";
 		if(qbTotal != 0)
 		{
 			String val = "QBs";
@@ -789,6 +823,10 @@ public class Rankings extends Activity {
 			result += kTotal + " " + val + ", ";
 		}
 		result +=  df.format(Draft.paaTotal(holder.draft)) + " total PAA";
+		if(!(draftLev == 0.0))
+		{
+			result += ", " + draftLev + " average leverage    ";
+		}
 		return result;
 	}
 	
@@ -1316,6 +1354,7 @@ public class Rankings extends Activity {
 		TextView draftVal = (TextView)dialog.findViewById(R.id.draftValue);
 		TextView paaView = (TextView)dialog.findViewById(R.id.draft_paa);
 		TextView paapdView = (TextView)dialog.findViewById(R.id.draft_paapd);
+		TextView levView = (TextView)dialog.findViewById(R.id.draft_leverage);
 		double paa = 0.0;
 		double paapd = 0.0;
 		if(holder.draft.remainingSalary != 200)
@@ -1327,12 +1366,15 @@ public class Rankings extends Activity {
 			paaView.setText("PAA total: " + df.format(paa));
 			paapdView.setVisibility(View.VISIBLE);
 			paapdView.setText("PAA per dollar: " + df.format(paapd));
+			levView.setVisibility(View.VISIBLE);
+			levView.setText("Average leverage: " + Draft.averageLev(holder.draft));
 		}
 		else
 		{
 			paaView.setVisibility(View.GONE);
 			paapdView.setVisibility(View.GONE);
 			draftVal.setVisibility(View.GONE);
+			levView.setVisibility(View.GONE);
 		}
 		ProgressBar salBar = (ProgressBar)dialog.findViewById(R.id.progressBar1);
 		remSalary.setText("Salary Left: $" + salRem);
@@ -1375,6 +1417,7 @@ public class Rankings extends Activity {
 			draftVal.setVisibility(View.GONE);
 			paapdView.setVisibility(View.GONE);
 			salBar.setVisibility(View.GONE);
+			levView.setVisibility(View.GONE);
 		}
     	dialog.show();
     }

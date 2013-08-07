@@ -95,6 +95,7 @@ public class SortHandler
 	    topics.add("ADP");
 	    topics.add("Under Drafted");
 	    topics.add("Auction Values");
+	    topics.add("Leverage");
 	    topics.add("Projections");
 	    topics.add("PAA");
 	    topics.add("PAA per dollar");
@@ -151,7 +152,7 @@ public class SortHandler
 						position = (String)pos.getSelectedItem();
 						subject = (String)sort.getSelectedItem();
 						if((subject.equals("Projections") || subject.equals("PAA") ||
-								(subject.equals("PAA per dollar")) || subject.equals("Target Rec TD Difference"))
+								(subject.equals("PAA per dollar")) || subject.equals("Target Rec TD Difference") || subject.equals("Leverage"))
 								&& (position.equals("K") || position.equals("D/ST")) || 
 								((subject.equals("Target Rec oTD") || subject.equals("Rush oTD") || subject.equals("Rush TD Difference") || 
 										subject.equals("Average target location") || subject.equals("Average carry location") || subject.equals("Average catch location") || 
@@ -198,7 +199,7 @@ public class SortHandler
 					{
 						position = (String)pos.getSelectedItem();
 						subject = (String)sort.getSelectedItem();
-						if((subject.equals("Projections") || subject.equals("PAA") ||
+						if((subject.equals("Projections") || subject.equals("PAA") ||subject.equals("Leverage") || 
 								(subject.equals("PAA per dollar")) || subject.equals("Target Rec TD Difference"))
 								&& (position.equals("K") || position.equals("D/ST")) || 
 								((subject.equals("Target Rec oTD") || subject.equals("Rush oTD") || subject.equals("Rush TD Difference") || 
@@ -524,6 +525,10 @@ public class SortHandler
 		{
 			brokenTackles(cont);
 		}
+		else if(subject.equals("Leverage"))
+		{
+			leverage(cont);
+		}
 	}
 
 
@@ -785,6 +790,35 @@ public class SortHandler
 				for(PlayerObject player : players)
 				{
 					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj)
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted, cont);
+	}
+	
+	public static void leverage(Context cont)
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						if(a.values.leverage > b.values.leverage)
+						{
+							return -1;
+						}
+						if(a.values.leverage < b.values.leverage)
+						{
+							return 1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && 
+							player.values.leverage != 0.0 && player.values.relPoints != 0.0)
 					{
 						sorted.add(player);
 					}
@@ -1631,6 +1665,12 @@ public class SortHandler
 				int aDiff = Integer.parseInt(elem.stats.split("Broken Tackles: ")[1].split(", ")[0]);
 				datum.put("main", output + aDiff + ": " + elem.info.name);
 				datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
+			}
+			else if(subject.equals("Leverage"))
+			{
+				datum.put("main", output + df.format(elem.values.leverage) + ": " + elem.info.name);
+				datum.put("sub", df.format(elem.values.relPrice) + " relative price, " + df.format(elem.values.relPoints) + " relative points\n" + 
+						"ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth));
 			}
 	    	data.add(datum);
 		} 

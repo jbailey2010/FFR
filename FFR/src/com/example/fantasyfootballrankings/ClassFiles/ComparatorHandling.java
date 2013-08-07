@@ -282,6 +282,33 @@ public class ComparatorHandling
 					p2.append("-Higher PAA\n");
 				}
 			}
+			double lev1 = player1.values.leverage;
+			double lev2 = player2.values.leverage;
+			if(Math.abs(player1.values.worth - player2.values.worth) < 10)
+			{
+				if(lev1 > lev2)
+				{
+					if(lev1 - lev2 > 5.0)
+					{
+						p1.append("-Much higher leverage\n");
+					}
+					else
+					{
+						p1.append("-Higher leverage\n");
+					}
+				}
+				if(lev2 > lev1)
+				{
+					if(lev2 - lev1 > 5.0)
+					{
+						p2.append("-Much higher leverage\n");
+					}
+					else
+					{
+						p2.append("-Higher leverage\n");
+					}
+				}
+			}
 			double paapd1 = player1.values.paapd;
 			double paapd2 = player2.values.paapd;
 			if(paapd1 > paapd2)

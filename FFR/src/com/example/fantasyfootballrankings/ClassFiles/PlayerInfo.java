@@ -420,6 +420,26 @@ public class PlayerInfo
 						}
 				    });
 				}
+				else if(input.contains("Leverage"))
+				{
+					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
+				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+					popUp.setContentView(R.layout.tweet_popup);
+					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+				    lp.copyFrom(popUp.getWindow().getAttributes());
+				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+				    popUp.getWindow().setAttributes(lp);
+				    popUp.show();
+				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
+				    tv.setText("Leverage is the difference in projections between a player and the top of his position divided by the difference in cost between a player and the top of his position. The higher the leverage the better, though as a player's cost goes down, they can become outliers.");
+				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
+				    close.setOnClickListener(new OnClickListener(){
+						@Override
+						public void onClick(View v) {
+							popUp.dismiss();
+						}
+				    });
+				}
 			}
 		});
 		//ManageInput.handleArray(output, results, act);
@@ -593,6 +613,16 @@ public class PlayerInfo
 			{
 				datum.put("sub", "");
 			}
+			data.add(datum);
+		}
+		//Leverage
+		if(searchedPlayer.values.relPrice != 0.0 && searchedPlayer.values.relPoints != 0.0)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", df.format(searchedPlayer.values.leverage) + " Leverage");
+			datum.put("sub", df.format(searchedPlayer.values.relPrice) + " relative price\n" + 
+					df.format(searchedPlayer.values.relPoints) + " relative points\n" + 
+					"Ranked " + rankLeveragePos(searchedPlayer, holder) + " positionally, " + rankLeverage(searchedPlayer, holder) + " overall\n");
 			data.add(datum);
 		}
 		//PAA and PAAPD
@@ -1026,6 +1056,32 @@ public class PlayerInfo
 		{
 			if(iter.values.paa != 0.0 && iter.info.position.equals(player.info.position) && 
 					iter.values.paa > player.values.paa)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	public static int rankLeverage(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.values.leverage != 0.0 && iter.values.leverage > player.values.leverage)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	public static int rankLeveragePos(PlayerObject player, Storage holder)
+	{
+		int rank = 1;
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.values.leverage != 0.0 && iter.values.leverage > player.values.leverage && iter.info.position.equals(player.info.position))
 			{
 				rank++;
 			}

@@ -34,26 +34,16 @@
 	        android:layout_marginTop="10dp"
 	        android:text="Thanks to CBS for providing the list of player names, top free agent transactions, and news feeds."
 	        android:textAppearance="?android:attr/textAppearanceSmall" />
-	    
-	     <TextView
-	        android:id="@+id/textView3"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/textView2"
-	        android:layout_marginTop="10dp"
-	        android:text="Thanks to Cheat Sheet Creator for providing their list of average auction value data."
-	        android:textAppearance="?android:attr/textAppearanceSmall" />
 	     
 	     <TextView
-	        android:id="@+id/textView4"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/textView3"
-	        android:layout_marginTop="10dp"
-	        android:text="Thanks to SBNation for providing the team-by-team draft results."
-	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	         android:id="@+id/textView4"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_alignParentLeft="true"
+	         android:layout_below="@+id/textView2"
+	         android:layout_marginTop="10dp"
+	         android:text="Thanks to SBNation for providing the team-by-team draft results."
+	         android:textAppearance="?android:attr/textAppearanceSmall" />
 	     
 	     <TextView
 	        android:id="@+id/textView5"
@@ -126,24 +116,14 @@
 	        android:textAppearance="?android:attr/textAppearanceSmall" />
 	      
 	      <TextView
-	        android:id="@+id/textView12"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/textView11"
-	        android:layout_marginTop="10dp"
-	        android:text="Thanks to MyFantasyLeague for providing their average auction values."
-	        android:textAppearance="?android:attr/textAppearanceSmall" />
-	      
-	      <TextView
-	        android:id="@+id/textView13"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/textView12"
-	        android:layout_marginTop="10dp"
-	        android:text="Thanks to TheHuddle for providing their news feed."
-	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	          android:id="@+id/textView13"
+	          android:layout_width="wrap_content"
+	          android:layout_height="wrap_content"
+	          android:layout_alignParentLeft="true"
+	          android:layout_below="@+id/textView11"
+	          android:layout_marginTop="10dp"
+	          android:text="Thanks to TheHuddle for providing their news feed."
+	          android:textAppearance="?android:attr/textAppearanceSmall" />
 	      
 	      <TextView
 	        android:id="@+id/textView14"
@@ -186,24 +166,14 @@
 	        android:textAppearance="?android:attr/textAppearanceSmall" />
 	      
 	      <TextView
-	        android:id="@+id/textView18"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/textView17"
-	        android:layout_marginTop="10dp"
-	        android:text="Thanks to RotoPost for their auction values."
-	        android:textAppearance="?android:attr/textAppearanceSmall" />
-	      
-	      <TextView
-	        android:id="@+id/textView19"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/textView18"
-	        android:layout_marginTop="10dp"
-	        android:text="Thanks to WalterFootball for providing their auction values."
-	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	          android:id="@+id/textView19"
+	          android:layout_width="wrap_content"
+	          android:layout_height="wrap_content"
+	          android:layout_alignParentLeft="true"
+	          android:layout_below="@+id/textView17"
+	          android:layout_marginTop="10dp"
+	          android:text="Thanks to WalterFootball for providing their auction values."
+	          android:textAppearance="?android:attr/textAppearanceSmall" />
 	      
 	      <TextView
 	        android:id="@+id/textView20"
@@ -236,24 +206,15 @@
 	        android:textAppearance="?android:attr/textAppearanceSmall" />
 	      
 	      <TextView
-	        android:id="@+id/textView23"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/textView22"
-	        android:layout_marginTop="10dp"
-	        android:text="Thanks to RazzBall for providing their auction values."
-	        android:textAppearance="?android:attr/textAppearanceSmall" />
-	      
-	      <TextView
-	        android:id="@+id/textView50"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/textView23"
-	        android:layout_marginTop="10dp"
-	        android:textStyle="bold"
-	        android:text="All of the aforementioned content is the original content of the listed source and is in no way, shape, or form the original content of myself or associated with myself."
-	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	          android:id="@+id/textView50"
+	          android:layout_width="wrap_content"
+	          android:layout_height="wrap_content"
+	          android:layout_alignParentLeft="true"
+	          android:layout_below="@+id/textView22"
+	          android:layout_marginTop="10dp"
+	          android:text="All of the aforementioned content is the original content of the listed source and is in no way, shape, or form the original content of myself or associated with myself."
+	          android:textAppearance="?android:attr/textAppearanceMedium"
+	          android:textStyle="bold" />
+
 	</RelativeLayout>
 </ScrollView>

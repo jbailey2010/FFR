@@ -3,48 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/remSalary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/progressBar1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
-        android:text="Salary Left: 200"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/draftValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/remSalary"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:text="Value Thus Far: 0"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/draft_paa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/draftValue"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:visibility="invisible" />
-
-    <TextView
-        android:id="@+id/draft_paapd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/draft_paa"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:text="Large Text"
-        android:visibility="invisible"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <Button
         android:id="@+id/salValDismiss"
         android:layout_width="wrap_content"
@@ -79,18 +37,6 @@
         android:text="Undraft Someone" />
 
     <Button
-        android:id="@+id/value_left"
-        style="@style/ButtonText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/draft_paapd"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="19dp"
-        android:background="@drawable/btn_red"
-        android:text="Pos. PAA Left" />
-
-    <Button
         android:id="@+id/more_info"
         style="@style/ButtonText"
         android:layout_width="wrap_content"
@@ -111,5 +57,70 @@
         android:max="200"
         android:progress="200"
         android:progressDrawable="@drawable/progress_custom" />
+
+    <TextView
+        android:id="@+id/remSalary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progressBar1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Salary Left: 200"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/draftValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/remSalary"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="Value Thus Far: 0"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/draft_paa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/draftValue"
+        android:layout_marginTop="14dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/draft_paapd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/draft_paa"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="invisible" />
+    
+   <TextView
+        android:id="@+id/draft_leverage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/draft_paapd"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/value_left"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/draft_leverage"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/btn_red"
+        android:text="Pos. PAA Left" />
 
 </RelativeLayout>

@@ -25,6 +25,9 @@ public class Values
 	public double coTD;
 	public double ctdDiff;
 	public double cADEZ;
+	public double relPrice;
+	public double relPoints;
+	public double leverage;
 	/**
 	 * Just initializes the values stored in the object,
 	 * count to one (obviously)
@@ -47,6 +50,9 @@ public class Values
 		tdDiff = 0.0;
 		rtdDiff = 0.0;
 		ctdDiff = 0.0;
+		relPrice = 0.0;
+		relPoints = 0.0;
+		leverage = 0.0;
 	}
 
 	/**

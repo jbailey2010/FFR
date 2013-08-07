@@ -473,4 +473,21 @@ public class ReadFromFile {
 		}
 		return secData;
 	}
+	
+	/**
+	 * Reads leverage from file
+	 * @param cont
+	 * @param holder
+	 */
+	public static void readLeverage(Context cont, Storage holder)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		for(PlayerObject player : holder.players)
+		{
+			player.values.relPrice = (double)prefs.getFloat(player.info.name + player.info.team + player.info.position + "Cost", (float) 0.0);
+			player.values.relPoints = (double)prefs.getFloat(player.info.name + player.info.team+ player.info.position + "Points", (float)0.0);
+			player.values.leverage = (double)prefs.getFloat(player.info.name + player.info.team + player.info.position + "Leverage", (float)0.0);
+		}
+		
+	}
 }

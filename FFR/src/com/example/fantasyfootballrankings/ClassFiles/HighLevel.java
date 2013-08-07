@@ -33,6 +33,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePermanentD
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
 
 import FileIO.ReadFromFile;
+import FileIO.WriteToFile;
 import android.content.Context;
 import android.os.StrictMode;
 import android.provider.ContactsContract.Data;
@@ -484,6 +485,8 @@ public class HighLevel
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = html.split("\n");
 		int min = 0;
+		ParseRankings.handleHashes();
+
 		for(int i = 0; i < td.length; i++)
 		{
 			if(td[i].contains("MISC"))
@@ -529,6 +532,7 @@ public class HighLevel
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = html.split("\n");
 		int min = 0;
+		ParseRankings.handleHashes();
 		for(int i = 0; i < td.length; i++)
 		{
 			if(td[i].contains("MISC"))
@@ -574,6 +578,7 @@ public class HighLevel
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = html.split("\n");
 		int min = 0;
+		ParseRankings.handleHashes();
 		for(int i = 0; i < td.length; i++)
 		{
 			if(td[i].contains("MISC"))
@@ -619,6 +624,8 @@ public class HighLevel
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = html.split("\n");
 		int min = 0;
+		ParseRankings.handleHashes();
+
 		for(int i = 0; i < td.length; i++)
 		{
 			if(td[i].contains("MISC"))
@@ -1025,5 +1032,89 @@ public class HighLevel
 		}
 	}
 	
-
+	/**
+	 * Sets the leverage of players
+	 * @param holder
+	 * @param cont
+	 */
+	public static void setLeverage(Storage holder, Context cont)
+	{
+		DecimalFormat df = new DecimalFormat("#.##");
+		double qbMaxWorth = 0.0;
+		double rbMaxWorth = 0.0;
+		double wrMaxWorth = 0.0;
+		double teMaxWorth = 0.0;
+		double qbMaxProj = 0.0;
+		double rbMaxProj = 0.0;
+		double wrMaxProj = 0.0;
+		double teMaxProj = 0.0;
+		for(PlayerObject player : holder.players)
+		{
+			if(player.info.position.equals("QB") && player.values.worth > qbMaxWorth)
+			{
+				qbMaxWorth = player.values.worth;
+				qbMaxProj = player.values.points;
+			}
+			if(player.info.position.equals("RB") && player.values.worth > rbMaxWorth)
+			{
+				rbMaxWorth = player.values.worth;
+				rbMaxProj = player.values.points;
+			}
+			if(player.info.position.equals("WR") && player.values.worth > wrMaxWorth)
+			{
+				wrMaxWorth = player.values.worth;
+				wrMaxProj = player.values.points;
+			}
+			if(player.info.position.equals("TE") && player.values.worth > teMaxWorth)
+			{
+				teMaxWorth = player.values.worth;
+				teMaxProj = player.values.points;
+			}
+		}
+		//Now that the max worth/projections are set, time to get the relative data and leverage
+		for(PlayerObject player : holder.players)
+		{
+			if((player.info.position.equals("QB") || player.info.position.equals("RB") || player.info.position.equals("WR") || 
+					player.info.position.equals("TE")) && player.values.worth > 0.0)
+			{
+				if(player.info.position.equals("QB"))
+				{
+					double relWorth = player.values.worth / qbMaxWorth;
+					double relPoints = player.values.points / qbMaxProj;
+					double leverage = relPoints / relWorth;
+					player.values.relPoints = Double.valueOf(df.format(relPoints));
+					player.values.relPrice = Double.valueOf(df.format(relWorth));
+					player.values.leverage = Double.valueOf(df.format(leverage));
+				}
+				if(player.info.position.equals("RB"))
+				{ 
+					double relWorth = player.values.worth / rbMaxWorth;
+					double relPoints = player.values.points / rbMaxProj;
+					double leverage = relPoints / relWorth;
+					player.values.relPoints = Double.valueOf(df.format(relPoints));
+					player.values.relPrice = Double.valueOf(df.format(relWorth));
+					player.values.leverage = Double.valueOf(df.format(leverage));
+				}
+				if(player.info.position.equals("WR"))
+				{
+					double relWorth = player.values.worth / wrMaxWorth;
+					double relPoints = player.values.points / wrMaxProj;
+					double leverage = relPoints / relWorth;
+					player.values.relPoints = Double.valueOf(df.format(relPoints));
+					player.values.relPrice = Double.valueOf(df.format(relWorth));
+					player.values.leverage = Double.valueOf(df.format(leverage));
+				}
+				if(player.info.position.equals("TE"))
+				{
+					double relWorth = player.values.worth / teMaxWorth;
+					double relPoints = player.values.points / teMaxProj;
+					double leverage = relPoints / relWorth;
+					player.values.relPoints = Double.valueOf(df.format(relPoints));
+					player.values.relPrice = Double.valueOf(df.format(relWorth));
+					player.values.leverage = Double.valueOf(df.format(leverage));
+				}
+			}
+		}
+		WriteToFile.writeLeverage(cont, holder);
+	}
 }
