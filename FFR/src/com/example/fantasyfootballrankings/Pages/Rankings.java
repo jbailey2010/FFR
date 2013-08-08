@@ -327,6 +327,9 @@ public class Rankings extends Activity {
 	    });
 	}
 	
+	/**
+	 * Handles the widget work
+	 */
 	public void setUpWidget()
 	{
 		List<String> pos = new ArrayList<String>();
@@ -384,6 +387,10 @@ public class Rankings extends Activity {
 		 });
 	}
 	
+	/**
+	 * Does something of a suggested picks system
+	 * @param widgOutput
+	 */
 	public static void suggestedPicks(TextView widgOutput)
 	{
 		String paaBackQB = paaDiff("QB");
@@ -395,7 +402,7 @@ public class Rankings extends Activity {
 		String paaBackTE = paaDiff("TE");
 		final double te3 = Double.parseDouble(paaBackTE.split(": ")[1].split("/")[0]);
 		int qbTotal = Draft.posDraftedQuantity(holder.draft.qb);
-		final double qbVal = (10.0*qbTotal)/100.0;
+		final double qbVal = (25.0*qbTotal)/100.0;
 		int rbTotal = Draft.posDraftedQuantity(holder.draft.rb); 
 		final double rbVal = (10.0*rbTotal)/100.0;
 		int wrTotal = Draft.posDraftedQuantity(holder.draft.wr);
@@ -434,6 +441,14 @@ public class Rankings extends Activity {
 					{
 						bVal -= b.values.leverage;
 					}
+				}
+				if(watchList.contains(a.info.name))
+				{
+					aVal -= 10;
+				}
+				if(watchList.contains(b.info.name))
+				{
+					bVal -= 10;
 				}
 				aVal -= a.values.worth;
 				if(!a.info.adp.equals("Not set"))
@@ -706,6 +721,10 @@ public class Rankings extends Activity {
 			if(a.info.position.equals("K"))
 			{
 				aVal += aVal * kVal;
+			}
+			if(watchList.contains(a.info.name))
+			{
+				aVal -= 10;
 			}
 			DecimalFormat df = new DecimalFormat("#.##");
 			vals.add(Double.parseDouble(df.format(aVal)));
@@ -1436,22 +1455,10 @@ public class Rankings extends Activity {
 	    TextView wrLeft = (TextView)dialog.findViewById(R.id.wr_paa_left);
 	    TextView teLeft = (TextView)dialog.findViewById(R.id.te_paa_left);
 	    DecimalFormat df = new DecimalFormat("#.##");
-	    double val3 = valLeft(holder, "QB", 3);
-	    double val5 = valLeft(holder, "QB", 5);
-	    double val10 = valLeft(holder, "QB", 10);
-	    qbLeft.setText("QB: " + df.format(val3) + ", " + df.format(val5) + ", " + df.format(val10));
-	    val3 = valLeft(holder, "RB", 3);
-	    val5 = valLeft(holder, "RB", 5);
-	    val10 = valLeft(holder, "RB", 10);
-	    rbLeft.setText("RB: " + df.format(val3) + ", " + df.format(val5) + ", " + df.format(val10));
-	    val3 = valLeft(holder, "WR", 3);
-	    val5 = valLeft(holder, "WR", 5);
-	    val10 = valLeft(holder, "WR", 10);
-	    wrLeft.setText("WR: " + df.format(val3) + ", " + df.format(val5) + ", " + df.format(val10));
-	    val3 = valLeft(holder, "TE", 3);
-	    val5 = valLeft(holder, "TE", 5);
-	    val10 = valLeft(holder, "TE", 10);
-	    teLeft.setText("TE: " + df.format(val3) + ", " + df.format(val5) + ", " + df.format(val10));
+	    qbLeft.setText("QB: " + paaDiff("QB").split(": ")[1]);
+	    rbLeft.setText("RB: " + paaDiff("RB").split(": ")[1]);
+	    wrLeft.setText("WR: " + paaDiff("WR").split(": ")[1]);
+	    teLeft.setText("TE: " + paaDiff("TE").split(": ")[1]);
 	    Button back = (Button)dialog.findViewById(R.id.val_left_back);
 	    back.setOnClickListener(new OnClickListener(){
 			@Override
@@ -1459,13 +1466,13 @@ public class Rankings extends Activity {
 				dialog.dismiss();
 				moreInfo(new Dialog(context, R.style.RoundCornersFull));
 			}
-	    });
+	    }); 
 	}
 	
 	/**
 	 * Calculates the paa left of the top x players at position y
 	 */
-	public static double valLeft(Storage holder, String pos, int max)
+	public static double valLeft(Storage holder, String pos, int max) 
 	{
 		double total = 0.0;
 		int counter = 0;
@@ -1745,7 +1752,8 @@ public class Rankings extends Activity {
 	        	}
 	        }
 	        //datum.put("sub", "");
-	        if(elem.info.team.length() > 2 && elem.info.position.length() > 0)
+	        if((elem.info.team.length() > 2 && elem.info.position.length() > 0) &&
+	        		!elem.info.team.equals("---") && !elem.info.team.equals("FA"))
 	        {
 	        	datum.put("sub", elem.info.position + " - " + elem.info.team + "\n" + "Bye: "+ holder.bye.get(elem.info.team));
 	        }

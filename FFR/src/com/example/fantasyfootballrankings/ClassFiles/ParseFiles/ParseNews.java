@@ -127,9 +127,12 @@ public class ParseNews
 		String[] impactSet = impact.split("\n");
 		String[] dateSet = date.split("\n");
 		String[] namesSet = names.split("\n");
-		for(int i = 0; i < reportSet.length; i++)
+		int min = Math.min(reportSet.length, impactSet.length);
+		min = Math.min(min, dateSet.length);
+		min = Math.min(min, namesSet.length);
+		for(int i = 0; i < min; i++)
 		{
-			NewsObjects news = new NewsObjects(namesSet[i].replace(":", "-") + " " + reportSet[i], impactSet[i], dateSet[i]);
+			NewsObjects news = new NewsObjects(namesSet[i].replace(":", "-") + "\n\n" + reportSet[i], impactSet[i], dateSet[i]);
 			newsSet.add(news);
 		}
 		return newsSet;

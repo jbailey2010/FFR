@@ -997,14 +997,14 @@ public class HighLevel
 		parseECRWorker("http://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php", holder, ecr, risk);
 		for(PlayerObject player : holder.players)
 		{
-			if(ecr.containsKey(player.info.name))
+			if(ecr.containsKey(player.info.name) && !(player.info.name.equals("Alex Smith") && player.info.team.equals("Cincinnati Bengals")))
 			{
 				player.values.ecr = ecr.get(player.info.name);
 				player.risk = risk.get(player.info.name);
 			}
-		}
+		} 
 	}
-	
+	 
 	/**
 	 * Gets the ECR Data for players
 	 */

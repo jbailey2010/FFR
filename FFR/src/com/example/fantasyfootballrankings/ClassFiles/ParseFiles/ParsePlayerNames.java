@@ -176,6 +176,7 @@ public class ParsePlayerNames {
 		names.add("David Buehler");
 		names.add("Vonta Leach");
 		names.add("Austin Collie");
+		names.add("Patrick Peterson");
 		if(names.size() > 200)
 		{
 			WriteToFile.storePlayerNames(names, cont);
