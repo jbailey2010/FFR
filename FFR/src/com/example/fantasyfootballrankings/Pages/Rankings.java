@@ -402,17 +402,17 @@ public class Rankings extends Activity {
 		String paaBackTE = paaDiff("TE");
 		final double te3 = Double.parseDouble(paaBackTE.split(": ")[1].split("/")[0]);
 		int qbTotal = Draft.posDraftedQuantity(holder.draft.qb);
-		final double qbVal = (25.0*qbTotal)/100.0;
+		final double qbVal = (50.0*qbTotal)/100.0;
 		int rbTotal = Draft.posDraftedQuantity(holder.draft.rb); 
-		final double rbVal = (10.0*rbTotal)/100.0;
+		final double rbVal = (15.0*rbTotal)/100.0;
 		int wrTotal = Draft.posDraftedQuantity(holder.draft.wr);
-		final double wrVal = (10.0*wrTotal)/100.0;
+		final double wrVal = (15.0*wrTotal)/100.0;
 		int teTotal = Draft.posDraftedQuantity(holder.draft.te);
-		final double teVal = (25.0*teTotal)/100.0;
+		final double teVal = (50.0*teTotal)/100.0;
 		int defTotal = Draft.posDraftedQuantity(holder.draft.def);
-		final double defVal = (50.0 * defTotal)/100.0;
+		final double defVal = (75.0 * defTotal)/100.0;
 		int kTotal = Draft.posDraftedQuantity(holder.draft.k);
-		final double kVal = (50.0*kTotal)/100.0;
+		final double kVal = (75.0*kTotal)/100.0;
 		PriorityQueue<PlayerObject> inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 		{
 			@Override
