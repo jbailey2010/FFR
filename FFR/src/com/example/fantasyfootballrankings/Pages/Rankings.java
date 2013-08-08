@@ -37,6 +37,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.*;
+import com.socialize.Socialize;
 
 import AsyncTasks.StorageAsyncTask;
 import AsyncTasks.StorageAsyncTask.ReadDraft;
@@ -148,7 +149,32 @@ public class Rankings extends Activity {
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
 		setUpWidget();
+		
 	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		
+		// Call Socialize in onPause
+		Socialize.onPause(this);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		// Call Socialize in onResume
+		Socialize.onResume(this);
+	}
+
+	@Override
+	protected void onDestroy() {
+		// Call Socialize in onDestroy before the activity is destroyed
+		Socialize.onDestroy(this);
+		
+		super.onDestroy();
+	}	
 
 	/**
 	 * Sets up the menu

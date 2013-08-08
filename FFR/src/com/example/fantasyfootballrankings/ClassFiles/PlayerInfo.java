@@ -39,6 +39,8 @@ import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener.OnDismissCallback;
 import com.example.fantasyfootballrankings.Pages.Rankings;
+import com.socialize.ActionBarUtils;
+import com.socialize.entity.Entity;
 
 /**
  * Handles the player info function
@@ -52,7 +54,8 @@ public class PlayerInfo
 	 * Abstracted out of the menu handler as this could get ugly
 	 * once the stuff is added to the dropdown
 	 * @throws IOException
-	 */ public static void searchCalled(final Context oCont) throws IOException
+	 */ 
+	public static void searchCalled(final Context oCont) throws IOException
 	{
 		Rankings.matchedPlayers = new ArrayList<String>(15);
 		Rankings.newCont = oCont;
@@ -127,6 +130,19 @@ public class PlayerInfo
 		final Dialog dialog = new Dialog(act);
 	    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		dialog.setContentView(R.layout.search_output);
+		// Your entity key. May be passed as a Bundle parameter to your activity
+		String entityKey = "http://www.fantasyfootballdraftmanager.com/" + namePlayer + "/player_info";
+						
+						// Create an entity object including a name
+						// The Entity object is Serializable, so you could also store the whole object in the Intent
+		Entity entity = Entity.newInstance(entityKey, namePlayer);
+						
+						// Wrap your existing view with the action bar.
+						// your_layout refers to the resource ID of your current layout.
+		View actionBarWrapped = ActionBarUtils.showActionBar(act, R.layout.search_output, entity);
+						
+						// Now set the view for your activity to be the wrapped view.
+		dialog.setContentView(actionBarWrapped);
 		Button addWatch = (Button)dialog.findViewById(R.id.add_watch);
 		//If the add to list boolean exists
 		if(!watchFlag)

@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +17,7 @@ import java.util.concurrent.ExecutionException;
 import org.htmlcleaner.XPatherException;
 
 import jeff.isawesome.fantasyfootballrankings.R;
+
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
@@ -27,6 +27,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
+import com.socialize.Socialize;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
@@ -107,8 +108,34 @@ public class Trending extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 	}
 
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		
+		// Call Socialize in onPause
+		Socialize.onPause(this);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		// Call Socialize in onResume
+		Socialize.onResume(this);
+	}
+
+	@Override
+	protected void onDestroy() {
+		// Call Socialize in onDestroy before the activity is destroyed
+		Socialize.onDestroy(this);
+		
+		super.onDestroy();
+	}	
 	/**
 	 * Sets up the menu
 	 */
