@@ -1,54 +1,81 @@
-<LinearLayout
-  	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:orientation="vertical"
-	android:weightSum="4">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="#222222">
 
-    <Button
-        android:id="@+id/rankings"
-        style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="View Rankings" />
-    
-    <View android:layout_width="fill_parent"
-		   android:layout_height="1dp"
-		   android:background="#90909090"/>
-    
-    <Button
-        android:id="@+id/draft_history"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        style="?android:attr/buttonBarButtonStyle"
-        android:text="Previous Drafts" />
-    
-   	<View android:layout_width="fill_parent"
-		   android:layout_height="1dp"
-		   android:background="#90909090"/>
-    
-    <Button
-        android:id="@+id/trending"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        style="?android:attr/buttonBarButtonStyle"
-        android:text="Trending Players" />
+   <RelativeLayout
+       android:id="@+id/home_well"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_below="@+id/textView1"
+       android:layout_marginBottom="20dp"
+       android:layout_marginLeft="20dp"
+       android:layout_marginRight="20dp"
+       android:background="@drawable/spinner_well" >
+         
+        <Button
+            android:id="@+id/news_button"
+            style="@style/ButtonText"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/trending"
+            android:layout_alignParentBottom="true"
+            android:layout_alignTop="@+id/draft_history"
+            android:background="@drawable/btn_red"
+            android:text="NFL News" />
 
-   	<View android:layout_width="fill_parent"
-		   android:layout_height="1dp"
-		   android:background="#90909090"/>
-   	
-    <Button
-        android:id="@+id/news_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        style="?android:attr/buttonBarButtonStyle"
-        android:text="NFL News" />
+        <Button
+            android:id="@+id/trending"
+            style="@style/ButtonText"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/news_button"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="102dp"
+            android:background="@drawable/btn_red"
+            android:text="Trending Players" />
 
-    
+        <Button
+            android:id="@+id/rankings"
+            style="@style/ButtonText"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/trending"
+            android:layout_alignTop="@+id/trending"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_red"
+            android:text="View Rankings" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/draft_history"
+            style="@style/ButtonText"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/btn_red"
+            android:text="Previous Drafts" />
+
+        <ImageView
+            android:id="@+id/football_icon_home"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignTop="@+id/trending"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/fb" />
+
+    </RelativeLayout>
+
+   <TextView
+       android:id="@+id/textView1"
+       android:paddingTop="10dp"
+       android:paddingBottom="10dp"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentTop="true"
+       android:layout_centerHorizontal="true"
+       android:text="2013 Fantasy Football Draft Manager"
+       style="@style/ButtonText" />
+
+</RelativeLayout>

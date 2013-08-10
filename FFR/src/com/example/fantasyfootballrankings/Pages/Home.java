@@ -14,6 +14,7 @@ import java.io.IOException;
 
 
 
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
@@ -44,7 +45,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,6 +56,8 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
  
 /**
@@ -92,6 +97,51 @@ public class Home extends Activity{
         news.setOnClickListener(newsHandler);
         drafts = (Button)findViewById(R.id.draft_history);
         drafts.setOnClickListener(draftHandler);
+        WindowManager wm = (WindowManager) cont.getSystemService(Context.WINDOW_SERVICE);
+		 Display display = wm.getDefaultDisplay();
+		 Resources r = cont.getResources();
+		 int width = display.getWidth(); 
+		 int height = display.getHeight();
+		 int newWidth = 0;
+		 newWidth = width/5;
+		 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newWidth, r.getDisplayMetrics());
+		 		 
+		ImageView pic = (ImageView)findViewById(R.id.football_icon_home);
+		android.view.ViewGroup.LayoutParams picParams = pic.getLayoutParams();
+		picParams.width = (width * 2)/5;
+		picParams.height = (height * 2) / 5;
+		pic.setLayoutParams(picParams);
+		final Random message = new Random();
+		pic.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				int random = message.nextInt();
+				if(random%2 == 0)
+				{
+					Toast.makeText(cont, "Thanks for downloading the app!", Toast.LENGTH_SHORT).show();
+				}
+				else if(random%3 == 0)
+				{
+					Toast.makeText(cont, "Stop clicking the image.", Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					Toast.makeText(cont, "Clicking this image does nothing.", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+		 android.view.ViewGroup.LayoutParams params1 = rankings.getLayoutParams();
+		 params1.width = (int) px;
+		 rankings.setLayoutParams(params1);
+		 android.view.ViewGroup.LayoutParams params2 = trending.getLayoutParams();
+		 params2.width = (int) px;
+		 trending.setLayoutParams(params2);
+		 android.view.ViewGroup.LayoutParams params3 = news.getLayoutParams();
+		 params3.width = (int) px;
+		 news.setLayoutParams(params3);
+		 android.view.ViewGroup.LayoutParams params4 = drafts.getLayoutParams();
+		 params4.width = (int) px;
+		 drafts.setLayoutParams(params4);
         start = System.nanoTime();
         handleInitialRefresh();
         if(ReadFromFile.readFirstOpen(cont))
