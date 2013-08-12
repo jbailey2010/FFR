@@ -177,7 +177,7 @@ public class PlayerInfo
 		//Otherwise, the call is from the watch list, so it gives the option to remove it
 		else
 		{
-			addWatch.setText("Remove");
+			addWatch.setText("Oust");
 			addWatch.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v) {

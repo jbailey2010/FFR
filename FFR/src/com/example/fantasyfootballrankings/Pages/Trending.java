@@ -233,14 +233,20 @@ public class Trending extends Activity {
 			final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 			for(String post : storedPosts.split("##"))
 			{
-				String[] nameSet = post.split(": mentioned ");
-				Map<String, String> datum = new HashMap<String, String>(2);
-				String name = nameSet[0];
-				String count = (nameSet[1].split(" times")[0]);
-				datum.put("name", name);
-				datum.put("count", count + " times");
-				data.add(datum);
-				postsList.add(post);
+				try{
+					System.out.println(post);
+					String[] nameSet = post.split(": mentioned ");
+					Map<String, String> datum = new HashMap<String, String>(2);
+					String name = nameSet[0];
+					String count = (nameSet[1].split(" times")[0]);
+					datum.put("name", name);
+					datum.put("count", count + " times");
+					data.add(datum);
+					postsList.add(post);
+				} catch(ArrayIndexOutOfBoundsException e)
+				{
+					continue;
+				}
 			}
 	    	if(storedPosts != "Not Posted")
 	    	{

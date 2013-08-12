@@ -23,7 +23,7 @@ public class ParseFantasyPros
 	 */
 	public static void parseFantasyProsAgg(Storage holder) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists("http://www.fantasypros.com/nfl/auction-values/overall.php", "td");
+		String html = HandleBasicQueries.handleLists("http://www.fantasypros.com/nfl/auction-values/overall.php?teams=12", "td");
 		String[] td = html.split("\n");
 		int min = 0;
 		for(int i = 0; i < td.length; i++)

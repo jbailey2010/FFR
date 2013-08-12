@@ -103,7 +103,7 @@ public class Home extends Activity{
 		 int width = display.getWidth(); 
 		 int height = display.getHeight();
 		 int newWidth = 0;
-		 newWidth = width/5;
+		 newWidth = (width*2)/13;
 		 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newWidth, r.getDisplayMetrics());
 		 		 
 		ImageView pic = (ImageView)findViewById(R.id.football_icon_home);

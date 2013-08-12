@@ -503,7 +503,7 @@ public class HighLevel
 			if(td[i].contains("("))
 			{
 				String inter = td[i].split(" \\(")[1];
-				inter = inter.split(",")[0];
+				inter = inter.split(",")[0].split("\\)")[0];
 				team = ParseRankings.fixTeams(inter);
 			}
 			double yards = Double.parseDouble(td[i+3].replace(",", ""));
@@ -549,7 +549,7 @@ public class HighLevel
 			if(td[i].contains("("))
 			{
 				String inter = td[i].split(" \\(")[1];
-				inter = inter.split(",")[0];
+				inter = inter.split(",")[0].split("\\)")[0];
 				team = ParseRankings.fixTeams(inter);
 			}
 			double rushYards = Double.parseDouble(td[i+2].replace(",",""));
@@ -595,7 +595,7 @@ public class HighLevel
 			if(td[i].contains("("))
 			{
 				String inter = td[i].split(" \\(")[1];
-				inter = inter.split(",")[0];
+				inter = inter.split(",")[0].split("\\)")[0];
 				team = ParseRankings.fixTeams(inter);
 			}
 			double rushYards = Double.parseDouble(td[i+2].replace(",",""));
@@ -642,7 +642,7 @@ public class HighLevel
 			if(td[i].contains("("))
 			{
 				String inter = td[i].split(" \\(")[1];
-				inter = inter.split(",")[0];
+				inter = inter.split(",")[0].split("\\)")[0];
 				team = ParseRankings.fixTeams(inter);
 			}
 			double catches = Double.parseDouble(td[i+1].replace(",",""));
@@ -1055,6 +1055,10 @@ public class HighLevel
 				qbMaxWorth = player.values.worth;
 				qbMaxProj = player.values.points;
 			}
+			if(player.info.position.equals("RB"))
+			{
+				System.out.println("Iterating on " + player.info.name + " - " + player.values.worth);
+			}
 			if(player.info.position.equals("RB") && player.values.worth > rbMaxWorth)
 			{
 				rbMaxWorth = player.values.worth;
@@ -1075,7 +1079,7 @@ public class HighLevel
 		for(PlayerObject player : holder.players)
 		{
 			if((player.info.position.equals("QB") || player.info.position.equals("RB") || player.info.position.equals("WR") || 
-					player.info.position.equals("TE")) && player.values.worth > 0.0)
+					player.info.position.equals("TE")) && player.values.worth > 0.0 && player.values.points > 0.0)
 			{
 				if(player.info.position.equals("QB"))
 				{
@@ -1088,6 +1092,7 @@ public class HighLevel
 				}
 				if(player.info.position.equals("RB"))
 				{ 
+					System.out.println(player.info.name + "-" + player.values.worth + "-" + player.values.points);
 					double relWorth = player.values.worth / rbMaxWorth;
 					double relPoints = player.values.points / rbMaxProj;
 					double leverage = relPoints / relWorth;
