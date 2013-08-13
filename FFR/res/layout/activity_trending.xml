@@ -69,13 +69,22 @@
 
 
     </LinearLayout>
-    <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
-        android:id="@+id/listview_trending"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:divider="#707070"
-        android:background="#D6D6D6"
-        android:dividerHeight="1dp"
-        android:layout_width="fill_parent">
-    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp"
+	    android:paddingRight="10dp"
+	    android:paddingBottom="10dp"
+	    android:paddingLeft="10dp"
+	    android:background="#555555">
+	    <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
+	        android:id="@+id/listview_trending"
+	        android:layout_height="match_parent"
+	        android:clickable="true"
+	        android:divider="#707070"
+	        android:background="@drawable/spinner_well"
+	        android:dividerHeight="1dp"
+	        android:layout_width="fill_parent">
+	    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
+	</RelativeLayout>
 </LinearLayout>

@@ -95,7 +95,7 @@
         android:id="@+id/rankings_widget_base"
         android:layout_width="match_parent"
         android:layout_height="46dp" 
-        android:background="#171717">
+        android:background="#555555">
 
         <Spinner
             android:id="@+id/ranking_pos_spinner"
@@ -138,17 +138,26 @@
         </HorizontalScrollView>
 
     </RelativeLayout>
-
-    <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
-        android:id="@+id/listview_rankings"
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#A3A3A3"
-        android:clickable="true"
-        android:divider="#707070"
-        android:dividerHeight="1dp" >
-    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
+        android:paddingTop="10dp"
+	    android:paddingRight="10dp"
+	    android:paddingBottom="10dp"
+	    android:paddingLeft="10dp"
+	    android:background="#555555">
 
+	    <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
+	        
+	        android:id="@+id/listview_rankings"
+	        android:layout_width="fill_parent"
+	        android:layout_height="match_parent"
+	        android:background="@drawable/spinner_well"
+	        android:clickable="true"
+	        android:divider="#707070"
+	        android:dividerHeight="1dp" >
+	    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
+	</RelativeLayout>
 
 
 </LinearLayout>
