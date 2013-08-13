@@ -12,12 +12,14 @@
     <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
         android:id="@+id/draft_history_listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" 
+        android:layout_alignParentTop="true"
         android:background="@drawable/spinner_well"
         android:footerDividersEnabled="false">
 
     </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
+
+    
 
 </RelativeLayout>

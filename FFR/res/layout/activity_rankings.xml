@@ -115,7 +115,7 @@
             android:text=">" 
             android:layout_marginLeft="2dp"
             android:textColor="#ffffff"
-            android:background="@drawable/menu_btn_black"
+            android:background="#333333"
             style="?android:attr/buttonBarButtonStyle"/>
 
         <HorizontalScrollView
