@@ -133,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textColor="#FFFFFF"
-                android:text=" "
+                android:text="  Draft a player by swiping to the side, click on them to get more information, and click and hold to add to your watch list.  "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </HorizontalScrollView>
 
