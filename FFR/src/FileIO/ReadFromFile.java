@@ -79,11 +79,11 @@ public class ReadFromFile {
 	 * function, which is the function that calls all the rankings functions and the high 
 	 * level stuff
 	 */
-	public static void fetchPlayers(String checkExists, Storage holder, Context cont, boolean flag) 
+	public static void fetchPlayers(String checkExists, Storage holder, Context cont, int i) 
 	{
     	long start = System.nanoTime();
 		
-	    ReadDraft draft = readFromFileAsyncObj.new ReadDraft((Activity)cont, flag);
+	    ReadDraft draft = readFromFileAsyncObj.new ReadDraft((Activity)cont, i);
 		draft.execute(holder, cont, start, checkExists);		
 	}
 	

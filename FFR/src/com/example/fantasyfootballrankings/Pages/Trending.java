@@ -76,6 +76,8 @@ public class Trending extends Activity {
 	long start;
 	static boolean refreshed = false;
 	int lastFilter;
+	public static SimpleAdapter mAdapter;
+	public static List<Map<String, String>> data;
 	/**
 	 * Sets up the dialog to show up immediately
 	 */
@@ -91,7 +93,6 @@ public class Trending extends Activity {
     	listview = (BounceListView)findViewById(R.id.listview_trending);
     	listview.setOverscrollHeader(getResources().getDrawable(R.drawable.overscroll_header));
     	listview.setOverscrollFooter(getResources().getDrawable(R.drawable.overscroll_header));
-		initialLoad(prefs);
 		context = this;
 		try {
 			handleDates(prefs);
@@ -108,8 +109,7 @@ public class Trending extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+		initialLoad(prefs);		
 	}
 
 	
@@ -230,17 +230,17 @@ public class Trending extends Activity {
 		if(!storedPosts.equals("Not Posted"))
 		{
 			List<String>postsList = new ArrayList<String>();
-			final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+			data = new ArrayList<Map<String, String>>();
 			for(String post : storedPosts.split("##"))
 			{
 				try{
-					System.out.println(post);
 					String[] nameSet = post.split(": mentioned ");
 					Map<String, String> datum = new HashMap<String, String>(2);
 					String name = nameSet[0];
 					String count = (nameSet[1].split(" times")[0]);
 					datum.put("name", name);
-					datum.put("count", count + " times");
+					String countStr = count + " times";
+					datum.put("count", countStr); 
 					data.add(datum);
 					postsList.add(post);
 				} catch(ArrayIndexOutOfBoundsException e)
@@ -250,7 +250,7 @@ public class Trending extends Activity {
 			}
 	    	if(storedPosts != "Not Posted")
 	    	{
-	    		 final SimpleAdapter mAdapter = new SimpleAdapter(cont, data, 
+	    		 mAdapter = new SimpleAdapter(cont, data, 
 	    		    		android.R.layout.simple_list_item_2, 
 	    		    		new String[] {"name", "count"}, 
 	    		    		new int[] {android.R.id.text1, 
@@ -309,8 +309,9 @@ public class Trending extends Activity {
     	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
     	    	if(checkExists2 != "Not Set")
     	    	{
-    				ReadFromFile.fetchPlayers(checkExists2, holder,cont, false);
+    				ReadFromFile.fetchPlayers(checkExists2, holder,cont, 2);
     	    	}
+
     		}    		
     	}
    		getFilterForPosts(holder); 
@@ -366,6 +367,8 @@ public class Trending extends Activity {
 				editor.commit();
 				dialog.dismiss();
 				holder.posts.clear();
+				listview.setOverscrollHeader(null);
+				listview.setOverscrollFooter(null);
 				fetchTrending(holder);
 				listview.setAdapter(null);
             }
@@ -379,7 +382,6 @@ public class Trending extends Activity {
 				dialog.dismiss();
             }
 		});
-		
 	} 
 	
 	/**
@@ -537,6 +539,9 @@ public class Trending extends Activity {
 	    }
 	    if(refreshed)
 	    {
+	    	listview.setOverscrollHeader(getResources().getDrawable(R.drawable.overscroll_header));
+	    	listview.setOverscrollFooter(getResources().getDrawable(R.drawable.overscroll_header));
+	    	setNoInfo(cont);
 	    	WriteToFile.writePostsList(trendingPlayers, cont);
 	    	refreshed = false;
 	    }
@@ -604,6 +609,18 @@ public class Trending extends Activity {
 				}
 			}
 	    });
-	    
+	}
+
+
+	public static void setNoInfo(Activity act) {
+		for(Map<String, String> datum : data)
+		{ 
+			if(!holder.parsedPlayers.contains(datum.get("name")))
+			{
+				datum.put("count", datum.get("count") + "\nPlayer Information Unavailable");
+				System.out.println("Setting for " + datum.get("name"));
+				mAdapter.notifyDataSetChanged();
+			}
+		}
 	}
 }

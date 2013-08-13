@@ -20,6 +20,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFreeAgents;
 import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
+import com.example.fantasyfootballrankings.Pages.Trending;
 /**
  * A library to hold all the asynctasks relevant to storing/reading to/from file
  * @author Jeff
@@ -274,11 +275,11 @@ public class StorageAsyncTask
 	public class ReadDraft extends AsyncTask<Object, Void, Void> 
 	{
 		Activity act;
-		boolean flag;
-	    public ReadDraft(Activity activity, boolean flagCheck) 
+		int flag;
+	    public ReadDraft(Activity activity, int i) 
 	    {
 	        act = activity;
-	        flag = flagCheck;
+	        flag = i;
 	    }
 
 		@Override
@@ -287,9 +288,13 @@ public class StorageAsyncTask
 		}
 		@Override
 		protected void onPostExecute(Void result){
-			if(flag)
+			if(flag == 0)
 			{
 				Rankings.intermediateHandleRankings(act);
+			}
+			else if(flag == 2)
+			{
+				Trending.setNoInfo(act);
 			}
 		}
 	    protected Void doInBackground(Object... data) 

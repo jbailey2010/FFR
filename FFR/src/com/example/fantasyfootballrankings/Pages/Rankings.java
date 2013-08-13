@@ -1240,7 +1240,7 @@ public class Rankings extends Activity {
     	String checkExists = prefs.getString("Player Values", "Not Set");
     	if(!checkExists.equals("Not Set"))
     	{
-			ReadFromFile.fetchPlayers(checkExists, holder,cont, true);
+			ReadFromFile.fetchPlayers(checkExists, holder,cont, 0);
     	}
     	else
     	{
@@ -1782,16 +1782,20 @@ public class Rankings extends Activity {
 	        		datum.put("main", elem.info.name);
 	        	}
 	        }
-	        //datum.put("sub", "");
-	        if((elem.info.team.length() > 2 && elem.info.position.length() > 0) &&
-	        		!elem.info.team.equals("---") && !elem.info.team.equals("FA"))
+	        String sub = "";
+	        if(elem.info.position.length() > 0)
 	        {
-	        	datum.put("sub", elem.info.position + " - " + elem.info.team + "\n" + "Bye: "+ holder.bye.get(elem.info.team));
+	        	sub += elem.info.position;
 	        }
-	        else
-	        { 
-	        	datum.put("sub", "");
+	        if((elem.info.team.length() > 2 &&	!elem.info.team.equals("---") && !elem.info.team.equals("FA")))
+	        {
+	        	sub += " - " + elem.info.team + "\n" + "Bye: "+ holder.bye.get(elem.info.team);
 	        }
+	        if(elem.values.points > 0.0)
+	        {
+	        	sub += "\nProjection: " + df.format(elem.values.points);
+	        }
+	        datum.put("sub", sub);
 	        data.add(datum);
 	        adapter.notifyDataSetChanged();
 	    } 

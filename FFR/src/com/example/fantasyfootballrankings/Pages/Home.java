@@ -274,7 +274,7 @@ public class Home extends Activity{
 		String checkExists = prefs.getString("Player Values", "Not Set");
 		if(!checkExists.equals("Not Set"))
 		{
-			ReadFromFile.fetchPlayers(checkExists, holder,cont, false);
+			ReadFromFile.fetchPlayers(checkExists, holder,cont, 1);
 		}
 		if(holder.playerNames == null || holder.playerNames.size() < 10)
 		{
