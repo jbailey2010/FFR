@@ -530,7 +530,7 @@ public class Trending extends Activity {
 	{
 	    listview = (BounceListView) cont.findViewById(R.id.listview_trending);
 	    listview.setAdapter(null);
-	    final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+	    data = new ArrayList<Map<String, String>>();
 	    setListViewOnClick();
 	    List<String> trendingPlayers = new ArrayList<String>(350);
 	    while(!playersTrending.isEmpty())
@@ -552,7 +552,6 @@ public class Trending extends Activity {
 	    }
 	    if(refreshed)
 	    {
-	    	setNoInfo(cont);
 	    	WriteToFile.writePostsList(trendingPlayers, cont);
 	    	refreshed = false;
 	    } 
@@ -582,7 +581,7 @@ public class Trending extends Activity {
                         });
         listview.setOnTouchListener(touchListener);
         listview.setOnScrollListener(touchListener.makeScrollListener());
-
+    	setNoInfo(cont);
 	}
 	
 	/**
@@ -633,7 +632,6 @@ public class Trending extends Activity {
 			if(!holder.parsedPlayers.contains(datum.get("name")))
 			{
 				datum.put("count", datum.get("count") + "\nPlayer Information Unavailable");
-				System.out.println("Adding for " + datum.get("name") + " with " + datum.get("count"));
 				mAdapter.notifyDataSetChanged();
 			}
 		}
