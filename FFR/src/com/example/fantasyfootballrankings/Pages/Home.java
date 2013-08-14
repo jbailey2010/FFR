@@ -208,7 +208,7 @@ public class Home extends Activity{
 				ManageInput.isAuctionOrSnake(cont, holder);
 				return true;
 			case R.id.help_home:
-				helpDialog(cont);
+				helpPopUp();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

@@ -112,7 +112,7 @@ public final class R {
         public static final int help=0x7f0800da;
         public static final int help_home=0x7f0800d3;
         public static final int help_home_close=0x7f08003c;
-        public static final int help_news_close=0x7f08003f;
+        public static final int help_news_close=0x7f080040;
         public static final int help_rankings_close=0x7f080042;
         public static final int help_trending_close=0x7f080047;
         public static final int hide_widget=0x7f0800e0;
@@ -233,9 +233,9 @@ public final class R {
         public static final int textView22=0x7f080052;
         public static final int textView3=0x7f08003d;
         public static final int textView4=0x7f08003e;
-        public static final int textView5=0x7f080041;
+        public static final int textView5=0x7f08003f;
         public static final int textView50=0x7f080053;
-        public static final int textView6=0x7f080040;
+        public static final int textView6=0x7f080041;
         public static final int textView7=0x7f080043;
         public static final int textView8=0x7f080044;
         public static final int textView9=0x7f080045;

@@ -1,57 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-    	android:id="@+id/help_home_close"
-        style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="X" 
-        android:textSize="28sp"
-        android:textColor="#CD0000" />
+	    <Button
+	    	android:id="@+id/help_home_close"
+	        style="?android:attr/buttonBarButtonStyle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentTop="true"
+	        android:text="X" 
+	        android:textSize="28sp"
+	        android:textColor="#CD0000" />
+	
+	    <TextView
+	        android:id="@+id/textView2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/textView1"
+	        android:layout_marginTop="22dp"
+	        android:text="Through here, you can set up the roster settings of your league, the scoring settings of your league, export the rankings (once they've been fetched), and refresh the list of player names through which the rankings are oriented. You can also export the rankings to a .csv to use on a computer."
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	
+	    <TextView
+	        android:id="@+id/textView3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/textView2"
+	        android:layout_marginTop="20dp"
+	        android:text="The first time you open the app, upon closing this pop up, a names list will be downloaded. This is used later to normalize names in rankings and to know what to look for in trending. This can also be refreshed through the menu."
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	
+	    <TextView
+	        android:id="@+id/textView4"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/textView3"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="19dp"
+	         android:textStyle="bold"
+	        android:text="NOTE: I HIGHLY recommend you enter your scoring settings and league settings early -- the roster settings affect points above average, and the scoring settings projections."
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	    
+	    <TextView
+	        android:id="@+id/textView5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/textView4"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="19dp"
+	         android:textStyle="bold"
+	        android:text=" "
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/help_home_close"
+	        android:text="This is the home page. From here, you can get to the three main aspects of the app: trending, news, and rankings."
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="22dp"
-        android:text="Through here, you can set up the roster settings of your league, the scoring settings of your league, export the rankings (once they've been fetched), and refresh the list of player names through which the rankings are oriented. You can also export the rankings to a .csv to use on a computer."
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:text="NOTE: I HIGHLY recommend you enter your scoring settings and league settings early -- the roster settings affect points above average, and the scoring settings projections."
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
-        android:text=" "
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/help_home_close"
-        android:text="This is the home page. From here, you can get to the three main aspects of the app: trending, news, and rankings."
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-</RelativeLayout>
+	</RelativeLayout>
+</ScrollView>
