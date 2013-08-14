@@ -91,9 +91,8 @@ public class Trending extends Activity {
 		//Fetch the date of the posts, and convert it to a date
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	listview = (BounceListView)findViewById(R.id.listview_trending);
-    	listview.setOverscrollHeader(getResources().getDrawable(R.drawable.overscroll_header));
-    	listview.setOverscrollFooter(getResources().getDrawable(R.drawable.overscroll_header));
 		context = this;
+		initialLoad(prefs);		 
 		try {
 			handleDates(prefs);
 		} catch (IOException e) {
@@ -109,7 +108,6 @@ public class Trending extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		initialLoad(prefs);		
 	}
 
 	
@@ -367,8 +365,7 @@ public class Trending extends Activity {
 				editor.commit();
 				dialog.dismiss();
 				holder.posts.clear();
-				listview.setOverscrollHeader(null);
-				listview.setOverscrollFooter(null);
+				data.clear();
 				fetchTrending(holder);
 				listview.setAdapter(null);
             }
@@ -475,9 +472,17 @@ public class Trending extends Activity {
 		});
 	}
 	
+	/**
+	 * Refreshes the list based on the selected timeframe
+	 * @param filterSize
+	 * @param cont
+	 * @throws ParseException
+	 * @throws IOException
+	 */
 	public static void resetTrendingList(int filterSize, Context cont) throws ParseException, IOException
 	{
 		refreshed = true;
+		data.clear();
 		ParseTrending.setUpLists(holder, filterSize, cont);
 	}
 	
@@ -537,14 +542,20 @@ public class Trending extends Activity {
 	    	data.add(datum);
 	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times");
 	    }
+	    if(data.size() == 0)
+	    {
+	    	Map<String, String> datum = new HashMap<String, String>(2);
+	    	datum.put("name", "No players mentioned in this timeframe");
+	    	datum.put("count", "Please try something else");
+	    	trendingPlayers.add("No players mentioned in this timeframe" + ": mentioned " + "Please try something else" + " times");
+	    	data.add(datum);
+	    }
 	    if(refreshed)
 	    {
-	    	listview.setOverscrollHeader(getResources().getDrawable(R.drawable.overscroll_header));
-	    	listview.setOverscrollFooter(getResources().getDrawable(R.drawable.overscroll_header));
 	    	setNoInfo(cont);
 	    	WriteToFile.writePostsList(trendingPlayers, cont);
 	    	refreshed = false;
-	    }
+	    } 
 	    //final ArrayAdapter<String> mAdapter = ManageInput.handleArray(trendingPlayers, listview, cont);
 	    final SimpleAdapter mAdapter = new SimpleAdapter(cont, data, 
 	    		android.R.layout.simple_list_item_2, 
@@ -612,15 +623,38 @@ public class Trending extends Activity {
 	}
 
 
+	/**
+	 * Adds to the adapter if the player isn't available in the storage object
+	 * @param act
+	 */
 	public static void setNoInfo(Activity act) {
 		for(Map<String, String> datum : data)
 		{ 
 			if(!holder.parsedPlayers.contains(datum.get("name")))
 			{
 				datum.put("count", datum.get("count") + "\nPlayer Information Unavailable");
-				System.out.println("Setting for " + datum.get("name"));
+				System.out.println("Adding for " + datum.get("name") + " with " + datum.get("count"));
 				mAdapter.notifyDataSetChanged();
 			}
 		}
+	}
+
+
+	/**
+	 * Sets the listview to say the posts are fetched
+	 * @param act
+	 */
+	public static void setContent(Activity act) {
+		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+    	Map<String, String> datum = new HashMap<String, String>(2);
+    	datum.put("name", "The posts are fetched");
+    	datum.put("count", "Select a timeframe from above");
+    	data.add(datum);
+    	final SimpleAdapter mAdapter = new SimpleAdapter(act, data, 
+	    		android.R.layout.simple_list_item_2, 
+	    		new String[] {"name", "count"}, 
+	    		new int[] {android.R.id.text1, 
+	    			android.R.id.text2});
+	    listview.setAdapter(mAdapter);
 	}
 }

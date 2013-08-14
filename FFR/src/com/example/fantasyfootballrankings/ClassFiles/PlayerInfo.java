@@ -656,17 +656,20 @@ public class PlayerInfo
 				datum.put("sub", "Ranked " + rankPAAAll(searchedPlayer, holder) + " overall");
 			}
 			data.add(datum);
-			Map<String, String> datum2 = new HashMap<String, String>(2);
-			datum2.put("main", df.format(searchedPlayer.values.paapd) + " PAA per dollar");
-			if(searchedPlayer.info.position.length() >= 1)
+			if(searchedPlayer.values.worth > 0.0)
 			{
-				datum2.put("sub", "Ranked " + rankPAAPDPos(searchedPlayer, holder) + " positionally, " + rankPAAPDAll(searchedPlayer, holder) + " overall");
+				Map<String, String> datum2 = new HashMap<String, String>(2);
+				datum2.put("main", df.format(searchedPlayer.values.paapd) + " PAA per dollar");
+				if(searchedPlayer.info.position.length() >= 1)
+				{
+					datum2.put("sub", "Ranked " + rankPAAPDPos(searchedPlayer, holder) + " positionally, " + rankPAAPDAll(searchedPlayer, holder) + " overall");
+				}
+				else
+				{
+					datum2.put("sub", "Ranked " + rankPAAPDAll(searchedPlayer, holder) + " overall");
+				}
+				data.add(datum2);
 			}
-			else
-			{
-				datum2.put("sub", "Ranked " + rankPAAPDAll(searchedPlayer, holder) + " overall");
-			}
-			data.add(datum2);
 		} 
 
 		//Rec oTD stuff

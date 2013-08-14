@@ -26,6 +26,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 
 
+
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
@@ -61,6 +62,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseYahoo;
 import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
+import com.example.fantasyfootballrankings.Pages.Trending;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile; 
@@ -505,6 +507,7 @@ public class ParsingAsyncTask
 			   {
 				   WriteToFile.writePosts(holder, act);
 			   }
+			   Trending.setContent(act);
 			}
 	    	
 		    @Override

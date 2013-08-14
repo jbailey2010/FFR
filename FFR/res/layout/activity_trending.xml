@@ -84,6 +84,7 @@
 	        android:divider="#707070"
 	        android:background="@drawable/spinner_well"
 	        android:dividerHeight="1dp"
+	        android:footerDividersEnabled="false"
 	        android:layout_width="fill_parent">
 	    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 	</RelativeLayout>
