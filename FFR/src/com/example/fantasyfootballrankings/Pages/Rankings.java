@@ -359,6 +359,7 @@ public class Rankings extends Activity {
 	public void setUpWidget()
 	{
 		List<String> pos = new ArrayList<String>();
+		pos.add("Scroll To The Top");
 		pos.add("A Brief How-To");
 		pos.add("Suggested Targets");
 		pos.add("Basic Draft Info");
@@ -412,6 +413,11 @@ public class Rankings extends Activity {
 				}
 				else if(total.contains("A Brief"))
 				{
+					widgOutput.setText("  Draft a player by swiping to the side, click on them to get more information, and click and hold to add to your watch list.  ");
+				}
+				else if(total.contains("Scroll To The Top"))
+				{
+					listview.smoothScrollToPosition(0);
 					widgOutput.setText("  Draft a player by swiping to the side, click on them to get more information, and click and hold to add to your watch list.  ");
 				}
 			}
