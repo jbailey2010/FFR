@@ -66,6 +66,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
@@ -418,7 +419,6 @@ public class Rankings extends Activity {
 				else if(total.contains("Scroll To The Top"))
 				{
 					listview.smoothScrollToPosition(0);
-					widgOutput.setText("  Draft a player by swiping to the side, click on them to get more information, and click and hold to add to your watch list.  ");
 				}
 			}
 		 });

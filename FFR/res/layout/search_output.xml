@@ -41,13 +41,13 @@
         <Button
             android:id="@+id/add_watch"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/search_close"
             android:textColor="#FFFFFF"
             android:background="@drawable/menu_btn_black"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:text="Watch List" />
         
         <View android:id="@+id/add_view"
@@ -61,7 +61,7 @@
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
-            android:maxWidth="100dp"
+            android:maxWidth="105dp"
             android:layout_height="fill_parent"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
