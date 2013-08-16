@@ -122,8 +122,8 @@
         android:id="@+id/listview_search"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_width="fill_parent" >
     </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 
