@@ -15,8 +15,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/spinner_well"
-        android:footerDividersEnabled="false">
+        android:background="@drawable/content_well">
 
     </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 

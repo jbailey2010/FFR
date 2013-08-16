@@ -8,10 +8,10 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:layout_below="@+id/textView1"
-       android:layout_marginBottom="20dp"
-       android:layout_marginLeft="20dp"
-       android:layout_marginRight="20dp"
-       android:background="@drawable/spinner_well" >
+       android:layout_marginBottom="15dp"
+       android:layout_marginLeft="15dp"
+       android:layout_marginRight="15dp"
+       android:background="@+drawable/content_well_home" >
          
         <Button
             android:id="@+id/news_button"
@@ -21,7 +21,7 @@
             android:layout_alignLeft="@+id/trending"
             android:layout_alignParentBottom="true"
             android:layout_alignTop="@+id/draft_history"
-            android:background="@drawable/btn_red"
+            android:background="@drawable/btn_red_home"
             android:text="NFL News" />
 
         <Button
@@ -32,7 +32,7 @@
             android:layout_above="@+id/news_button"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="102dp"
-            android:background="@drawable/btn_red"
+            android:background="@drawable/btn_red_home"
             android:text="Trending Players" />
 
         <Button
@@ -43,7 +43,7 @@
             android:layout_alignBottom="@+id/trending"
             android:layout_alignTop="@+id/trending"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/btn_red"
+            android:background="@drawable/btn_red_home"
             android:text="View Rankings" />
 
         <Button
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/btn_red"
+            android:background="@drawable/btn_red_home"
             android:text="Previous Drafts" />
 
         <ImageView

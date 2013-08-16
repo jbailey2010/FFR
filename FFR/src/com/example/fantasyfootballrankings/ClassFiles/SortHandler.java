@@ -1431,8 +1431,6 @@ public class SortHandler
 	    TextView header = (TextView)dialog.findViewById(R.id.name);
 	    header.setText(subject);
 	    final BounceListView results = (BounceListView)dialog.findViewById(R.id.listview_search);
-	    results.setOverscrollHeader(cont.getResources().getDrawable(R.drawable.overscroll_header));
-	    results.setOverscrollFooter(cont.getResources().getDrawable(R.drawable.overscroll_header));
 	    header.setOnClickListener(new OnClickListener(){
 
 			@Override

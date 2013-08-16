@@ -1209,8 +1209,6 @@ public class Rankings extends Activity {
 			public void onClick(View v) {
 				refreshed = true;
 				listview.setAdapter(null);
-				listview.setOverscrollHeader(null);
-				listview.setOverscrollFooter(null);
 				dialog.dismiss();
 				try {
 					ParseRankings.runRankings(holder, cont);
@@ -1816,16 +1814,6 @@ public class Rankings extends Activity {
 	    		new int[] {android.R.id.text1, 
 	    			android.R.id.text2});
 	    listview.setAdapter(adapter);
-	    if(!posFilter.contains("All") || !teamFilter.contains("All"))
-		{
-			listview.setOverscrollHeader(null);
-			listview.setOverscrollFooter(null);
-		}
-	    else
-	    {
-		    listview.setOverscrollHeader(cont.getResources().getDrawable(R.drawable.overscroll_header));
-	    	listview.setOverscrollFooter(cont.getResources().getDrawable(R.drawable.overscroll_footer));
-	    }
 	    //adapter = ManageInput.handleArray(rankings, listview, cont);
 	}
     

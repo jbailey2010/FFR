@@ -26,15 +26,15 @@
 	<RelativeLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
-	        android:paddingTop="10dp"
-		    android:paddingRight="10dp"
-		    android:paddingBottom="10dp"
-		    android:paddingLeft="10dp"
+	        android:paddingTop="7dp"
+		    android:paddingRight="7dp"
+		    android:paddingBottom="7dp"
+		    android:paddingLeft="7dp"
 		    android:background="#555555">
 	    <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
 	        android:id="@+id/listview_news"
 	        android:layout_width="fill_parent"
-	        android:background="@drawable/spinner_well"
+	        android:background="@drawable/content_well"
 	        android:divider="#707070"
 	        android:dividerHeight="1dp"
 	        android:layout_height="match_parent"

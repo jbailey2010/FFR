@@ -56,8 +56,6 @@ public class HandleWatchList
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.search_output);
 		final ListView listWatch = (ListView)dialog.findViewById(R.id.listview_search);
-		listWatch.setOverscrollHeader(cont.getResources().getDrawable(R.drawable.overscroll_header));
-		listWatch.setOverscrollFooter(cont.getResources().getDrawable(R.drawable.overscroll_header));
 		dialog.show();
 		if(watchList.size() == 0 || (watchList.size() > 0 && !holder.parsedPlayers.contains(watchList.get(0))))
 		{
