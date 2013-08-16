@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 import jeff.isawesome.fantasyfootballrankings.R;
+
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
@@ -30,6 +31,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -1426,6 +1428,8 @@ public class SortHandler
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 	    dialog.show(); 
+	    RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header);
+		base.setVisibility(View.GONE);
 	    Button watch = (Button)dialog.findViewById(R.id.add_watch);
 	    watch.setText("Hide Drafted");
 	    TextView header = (TextView)dialog.findViewById(R.id.name);

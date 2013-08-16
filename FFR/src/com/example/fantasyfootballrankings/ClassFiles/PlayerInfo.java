@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -266,6 +267,20 @@ public class PlayerInfo
 		}
 		//Set the data in the list
 		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+		RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header);
+		if(searchedPlayer.info.position.length() >= 1 && searchedPlayer.info.team.length() > 1)
+		{
+			Button leftPos = (Button)dialog.findViewById(R.id.dummy_btn_left);
+			leftPos.setText("Age: " + searchedPlayer.info.age);
+			Button rightPos = (Button)dialog.findViewById(R.id.dummy_btn_right);
+			rightPos.setText("Bye: " + holder.bye.get(searchedPlayer.info.team));
+			Button centerPos = (Button)dialog.findViewById(R.id.dummy_btn_center);
+			centerPos.setText(searchedPlayer.info.team + "\n" + searchedPlayer.info.position);
+		} 
+		else
+		{
+			base.setVisibility(View.GONE);
+		}
 		setSearchContent(searchedPlayer, data, holder);
 		//Show the dialog, then set the list
 		dialog.show();
@@ -526,25 +541,6 @@ public class PlayerInfo
 			datum.put("sub", "");
 			data.add(datum);
 		}
-		//Team, position, and bye
-		if(searchedPlayer.info.position.length() >= 1 && searchedPlayer.info.team.length() > 1)
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", searchedPlayer.info.position + " - " + searchedPlayer.info.team);
-			String sub = "";
-			if(holder.bye.get(searchedPlayer.info.team) != null && !holder.bye.get(searchedPlayer.info.team).contains("null") &&  
-					!holder.bye.get(searchedPlayer.info.team).equals("Not set"))
-			{
-				sub = "Bye: " + holder.bye.get(searchedPlayer.info.team);
-			}
-			if(!searchedPlayer.info.age.equals("0") && !searchedPlayer.info.position.equals("D/ST") && 
-					!searchedPlayer.info.age.equals("") && searchedPlayer.info.age.length() >= 2)
-			{
-				sub += "\n" + "Age: " + searchedPlayer.info.age;
-			}
-			datum.put("sub", sub);
-			data.add(datum);
-		} 
 		if(!searchedPlayer.injuryStatus.contains("Healthy"))
 		{
 			Map<String, String> datum2 = new HashMap<String, String>(2);

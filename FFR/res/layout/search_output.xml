@@ -72,13 +72,58 @@
             android:textColor="#FFFFFF" />
 
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/info_sub_header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:background="@drawable/info_sub_background"> 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#EEEEEE"
+            android:layout_alignBottom="@+id/dummy_btn_center"
+            />
+        <Button 
+            android:id="@+id/dummy_btn_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#FFFFFF" 
+            android:background="@drawable/player_info_center"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="San Francisco 49ers\nRB" />
+        <Button 
+            android:id="@+id/dummy_btn_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/player_info_left"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:text="Age: 30" />
+        <Button 
+            android:id="@+id/dummy_btn_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/player_info_center"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:text="Bye: Week 5" />
+        
+
+    </RelativeLayout>
 
     <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
         android:id="@+id/listview_search"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:divider="#A1A1A1"
-        android:dividerHeight="1dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
         android:layout_width="fill_parent" >
     </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 
