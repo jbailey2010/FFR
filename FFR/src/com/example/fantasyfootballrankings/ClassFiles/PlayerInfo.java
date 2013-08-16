@@ -276,6 +276,10 @@ public class PlayerInfo
 			rightPos.setText("Bye: " + holder.bye.get(searchedPlayer.info.team));
 			Button centerPos = (Button)dialog.findViewById(R.id.dummy_btn_center);
 			centerPos.setText(searchedPlayer.info.team + "\n" + searchedPlayer.info.position);
+			if(searchedPlayer.info.position.equals("D/ST"))
+			{
+				leftPos.setText("Age: N/A");
+			}
 		} 
 		else
 		{

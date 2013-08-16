@@ -79,7 +79,7 @@
         android:background="@drawable/info_sub_background"> 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="3dp"
             android:background="#EEEEEE"
             android:layout_alignBottom="@+id/dummy_btn_center"
             />
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:textColor="#FFFFFF"
-            android:background="@drawable/player_info_center"
+            android:background="@drawable/player_info_right"
             android:textSize="13sp"
             android:textStyle="bold"
             android:text="Bye: Week 5" />
