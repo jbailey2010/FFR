@@ -272,7 +272,7 @@ public class StorageAsyncTask
 	 * @author Jeff
 	 *
 	 */
-	public class ReadDraft extends AsyncTask<Object, Void, Void> 
+	public class ReadDraft extends AsyncTask<Object, Void, Storage> 
 	{
 		Activity act;
 		int flag;
@@ -287,17 +287,17 @@ public class StorageAsyncTask
 		   super.onPreExecute();
 		}
 		@Override
-		protected void onPostExecute(Void result){
+		protected void onPostExecute(Storage result){
 			if(flag == 0)
 			{
 				Rankings.intermediateHandleRankings(act);
 			}
 			else if(flag == 2)
 			{
-				Trending.setNoInfo(act);
+				Trending.setNoInfo(act, result);
 			}
 		}
-	    protected Void doInBackground(Object... data) 
+	    protected Storage doInBackground(Object... data) 
 	    {
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
@@ -374,7 +374,7 @@ public class StorageAsyncTask
 			}
 			ReadFromFile.readLeverage(cont, holder);
 			System.out.println(System.nanoTime() - start + " to read from file");
-			return null;
+			return holder;
 	    }
 	  }
 

@@ -441,11 +441,11 @@ public class Rankings extends Activity {
 		int qbTotal = Draft.posDraftedQuantity(holder.draft.qb);
 		final double qbVal = (50.0*qbTotal)/100.0;
 		int rbTotal = Draft.posDraftedQuantity(holder.draft.rb); 
-		final double rbVal = (15.0*rbTotal)/100.0;
+		final double rbVal = (20.0*rbTotal)/100.0;
 		int wrTotal = Draft.posDraftedQuantity(holder.draft.wr);
-		final double wrVal = (15.0*wrTotal)/100.0;
+		final double wrVal = (20.0*wrTotal)/100.0;
 		int teTotal = Draft.posDraftedQuantity(holder.draft.te);
-		final double teVal = (50.0*teTotal)/100.0;
+		final double teVal = (60.0*teTotal)/100.0;
 		int defTotal = Draft.posDraftedQuantity(holder.draft.def);
 		final double defVal = (75.0 * defTotal)/100.0;
 		int kTotal = Draft.posDraftedQuantity(holder.draft.k);
@@ -761,7 +761,7 @@ public class Rankings extends Activity {
 			}
 			if(watchList.contains(a.info.name))
 			{
-				aVal -= 10;
+				aVal -= 15;
 			}
 			DecimalFormat df = new DecimalFormat("#.##");
 			vals.add(Double.parseDouble(df.format(aVal)));

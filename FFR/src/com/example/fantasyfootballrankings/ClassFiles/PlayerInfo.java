@@ -276,9 +276,21 @@ public class PlayerInfo
 			rightPos.setText("Bye: " + holder.bye.get(searchedPlayer.info.team));
 			Button centerPos = (Button)dialog.findViewById(R.id.dummy_btn_center);
 			centerPos.setText(searchedPlayer.info.team + "\n" + searchedPlayer.info.position);
-			if(searchedPlayer.info.position.equals("D/ST"))
+			if(searchedPlayer.info.position.equals("D/ST") || searchedPlayer.info.age == null || searchedPlayer.info.age.length() <= 1)
 			{
 				leftPos.setText("Age: N/A");
+			}
+			if(searchedPlayer.info.team.equals("None") || searchedPlayer.info.team.equals("---") || searchedPlayer.info.team.equals("FA"))
+			{
+				if(searchedPlayer.info.position.length() >= 1)
+				{
+					centerPos.setText(searchedPlayer.info.position);
+					rightPos.setText("Bye: N/A");
+				}
+				else
+				{
+					base.setVisibility(View.GONE);
+				}
 			}
 		} 
 		else

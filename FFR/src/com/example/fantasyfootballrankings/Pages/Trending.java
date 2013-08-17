@@ -226,7 +226,7 @@ public class Trending extends Activity {
 		}
 		String storedPosts = prefs.getString("Posted Players", "Not Posted");
 		if(!storedPosts.equals("Not Posted"))
-		{
+		{ 
 			List<String>postsList = new ArrayList<String>();
 			data = new ArrayList<Map<String, String>>();
 			for(String post : storedPosts.split("##"))
@@ -246,37 +246,33 @@ public class Trending extends Activity {
 					continue;
 				}
 			}
-	    	if(storedPosts != "Not Posted")
-	    	{
-	    		 mAdapter = new SimpleAdapter(cont, data, 
-	    		    		android.R.layout.simple_list_item_2, 
-	    		    		new String[] {"name", "count"}, 
-	    		    		new int[] {android.R.id.text1, 
-	    		    			android.R.id.text2});
-	    		    listview.setAdapter(mAdapter); 
-	    		SwipeDismissListViewTouchListener touchListener =
-	                    new SwipeDismissListViewTouchListener(
-	                            listview,
-	                            new SwipeDismissListViewTouchListener.OnDismissCallback() {
-	                                @Override
-	                                public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-	                                	String name = "";
-	                                	for (int position : reverseSortedPositions) {
-	                                    	Map<String, String> datum = new HashMap<String, String>(2);
-	                                    	datum = data.get(position);
-	                                    	name = datum.get("name");
-	                                        data.remove(mAdapter.getItem(position));
-	                                    }
-	                                    mAdapter.notifyDataSetChanged();
-	                                    Toast.makeText(cont, "Temporarily hiding " + name, Toast.LENGTH_SHORT).show();
+    		 mAdapter = new SimpleAdapter(cont, data, 
+    		    		android.R.layout.simple_list_item_2, 
+    		    		new String[] {"name", "count"}, 
+    		    		new int[] {android.R.id.text1, 
+    		    			android.R.id.text2});
+   		    listview.setAdapter(mAdapter); 
+    		SwipeDismissListViewTouchListener touchListener =
+    				new SwipeDismissListViewTouchListener(
+    						listview,
+	                        new SwipeDismissListViewTouchListener.OnDismissCallback() {
+    							@Override
+	                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+    								String name = "";
+	                                for (int position : reverseSortedPositions) {
+	                                   	Map<String, String> datum = new HashMap<String, String>(2);
+	                                   	datum = data.get(position);
+	                                   	name = datum.get("name");
+	                                    data.remove(mAdapter.getItem(position));
 	                                }
-	                            });
-	            listview.setOnTouchListener(touchListener);
-	            listview.setOnScrollListener(touchListener.makeScrollListener());
-	
-	    	    setListViewOnClick();
-	    	}
-    	}
+	                                mAdapter.notifyDataSetChanged();
+	                                Toast.makeText(cont, "Temporarily hiding " + name, Toast.LENGTH_SHORT).show();
+	                            }
+	                        });
+	        listview.setOnTouchListener(touchListener);
+	        listview.setOnScrollListener(touchListener.makeScrollListener());
+	    	setListViewOnClick();
+	    }
 	}
 	
 	/**
@@ -310,7 +306,11 @@ public class Trending extends Activity {
     				ReadFromFile.fetchPlayers(checkExists2, holder,cont, 2);
     	    	}
 
-    		}    		
+    		}  
+    		else
+    		{
+    			setNoInfo(this, holder);
+    		}
     	}
    		getFilterForPosts(holder); 
 	}
@@ -364,8 +364,15 @@ public class Trending extends Activity {
 				editor.putBoolean("Bad Topic", dontWantChecked);
 				editor.commit();
 				dialog.dismiss();
+				if(data == null)
+				{
+					data = new ArrayList<Map<String, String>>();
+				}
+				else
+				{
+					data.clear();
+				}
 				holder.posts.clear();
-				data.clear();
 				fetchTrending(holder);
 				listview.setAdapter(null);
             }
@@ -453,21 +460,28 @@ public class Trending extends Activity {
             @Override
             public void onClick(View v) 
             {
-            	day.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
-            	week.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
-            	month.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
-            	all.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
-            	button.setBackgroundColor(Color.BLACK);
-				try {
-					WriteToFile.writeLastFilter(cont, filterSize);
-					resetTrendingList(filterSize, cont);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+            	if(holder.posts.size() > 0)
+            	{
+	            	day.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+	            	week.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+	            	month.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+	            	all.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+	            	button.setBackgroundColor(Color.BLACK);
+					try {
+						WriteToFile.writeLastFilter(cont, filterSize);
+						resetTrendingList(filterSize, cont);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+            	}
+            	else
+            	{
+            		Toast.makeText(cont, "Select filter topics to get the posts before you can do this", Toast.LENGTH_SHORT).show();
+            	}
             }
 		});
 	}
@@ -483,6 +497,7 @@ public class Trending extends Activity {
 	{
 		refreshed = true;
 		data.clear();
+		holder.postedPlayers.clear();
 		ParseTrending.setUpLists(holder, filterSize, cont);
 	}
 	
@@ -556,7 +571,7 @@ public class Trending extends Activity {
 	    	refreshed = false;
 	    } 
 	    //final ArrayAdapter<String> mAdapter = ManageInput.handleArray(trendingPlayers, listview, cont);
-	    final SimpleAdapter mAdapter = new SimpleAdapter(cont, data, 
+	    mAdapter = new SimpleAdapter(cont, data, 
 	    		android.R.layout.simple_list_item_2, 
 	    		new String[] {"name", "count"}, 
 	    		new int[] {android.R.id.text1, 
@@ -581,7 +596,7 @@ public class Trending extends Activity {
                         });
         listview.setOnTouchListener(touchListener);
         listview.setOnScrollListener(touchListener.makeScrollListener());
-    	setNoInfo(cont);
+    	setNoInfo(cont, holder);
 	}
 	
 	/**
@@ -626,15 +641,15 @@ public class Trending extends Activity {
 	 * Adds to the adapter if the player isn't available in the storage object
 	 * @param act
 	 */
-	public static void setNoInfo(Activity act) {
+	public static void setNoInfo(Activity act, Storage hold) {
 		for(Map<String, String> datum : data)
 		{ 
-			if(!holder.parsedPlayers.contains(datum.get("name")))
+			if(!hold.parsedPlayers.contains(datum.get("name")))
 			{
 				datum.put("count", datum.get("count") + "\nPlayer Information Unavailable");
 				mAdapter.notifyDataSetChanged();
 			}
-		}
+		} 
 	}
 
 
@@ -648,7 +663,7 @@ public class Trending extends Activity {
     	datum.put("name", "The posts are fetched");
     	datum.put("count", "Select a timeframe from above");
     	data.add(datum);
-    	final SimpleAdapter mAdapter = new SimpleAdapter(act, data, 
+    	mAdapter = new SimpleAdapter(act, data, 
 	    		android.R.layout.simple_list_item_2, 
 	    		new String[] {"name", "count"}, 
 	    		new int[] {android.R.id.text1, 
