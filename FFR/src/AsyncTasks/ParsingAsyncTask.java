@@ -348,7 +348,7 @@ public class ParsingAsyncTask
 
 	    		publishProgress("Please wait, calculating relative risk...");
 	    		try {
-					HighLevel.setRisk(holder);
+					HighLevel.setRisk(holder, cont);
 				} catch (HttpStatusException e2)
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());

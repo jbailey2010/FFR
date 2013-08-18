@@ -357,7 +357,7 @@ public class HighLevel
 	 * @param holder
 	 * @throws IOException 
 	 */
-	public static void setRisk(Storage holder) throws IOException
+	public static void setRisk(Storage holder, Context cont) throws IOException
 	{
 		double qbRisk = 0.0;
 		int qbCount = 0;
@@ -373,7 +373,7 @@ public class HighLevel
 		int kCount = 0;
 		double allRisk = 0.0;
 		int allCount = 0;
-		parseECRWrapper(holder);
+		parseECRWrapper(holder, cont);
 		for(PlayerObject player : holder.players)
 		{
 			if(player.values.count > 2.0 && player.values.ecr != -1.0)
@@ -989,12 +989,18 @@ public class HighLevel
 	
 	/**
 	 * Calls the parser and gets the functionsn
+	 * @param cont 
 	 */
-	public static void parseECRWrapper(Storage holder) throws IOException
+	public static void parseECRWrapper(Storage holder, Context cont) throws IOException
 	{
 		HashMap<String, Double> ecr = new HashMap<String, Double>();
 		HashMap<String, Double> risk = new HashMap<String, Double>();
-		parseECRWorker("http://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php", holder, ecr, risk);
+		String url = "http://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php";
+		if(ReadFromFile.readScoring(cont).catches == 1)
+		{
+			url = "http://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php";
+		}
+		parseECRWorker(url, holder, ecr, risk);
 		for(PlayerObject player : holder.players)
 		{
 			if(ecr.containsKey(player.info.name) && !(player.info.name.equals("Alex Smith") && player.info.team.equals("Cincinnati Bengals")))
