@@ -174,9 +174,9 @@ public class HighLevel
 				{
 					player.stats += "Broken Tackles: " + bt.get(player.info.name) + "\n";
 				}
-				if(injuries.containsKey(player.info.name))
+				if(injuries.containsKey(player.info.name + "/" + player.info.position))
 				{
-					player.injuryStatus = injuries.get(player.info.name);
+					player.injuryStatus = injuries.get(player.info.name + "/" + player.info.position);
 				}
 			}
 		}

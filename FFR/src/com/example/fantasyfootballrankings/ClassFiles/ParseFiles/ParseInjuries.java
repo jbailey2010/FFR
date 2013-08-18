@@ -25,6 +25,7 @@ public class ParseInjuries
 		String[] perRow = html.split("\n");
 		for(int i = 7; i < perRow.length; i++)
 		{
+			String pos = perRow[i+2];
 			String name = ParseRankings.fixNames(perRow[i]);
 			String status = perRow[i+=3];
 			String injuryType = perRow[i+=2];
@@ -36,7 +37,8 @@ public class ParseInjuries
 			String output = "Injury Status: " + status + "\n" + 
 							"Type of Injury: " + injuryType + "\n" + 
 							"Expected Return: " + returnDate + "\n";
-			injuries.put(name, output);
+			System.out.println(name + "/" + pos);
+			injuries.put(name + "/" + pos, output);
 		}
 		return injuries;
 	}
