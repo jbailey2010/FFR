@@ -995,18 +995,23 @@ public class HighLevel
 	{
 		HashMap<String, Double> ecr = new HashMap<String, Double>();
 		HashMap<String, Double> risk = new HashMap<String, Double>();
+		HashMap<String, Double> adp = new HashMap<String, Double>();
 		String url = "http://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php";
 		if(ReadFromFile.readScoring(cont).catches == 1)
 		{
 			url = "http://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php";
 		}
-		parseECRWorker(url, holder, ecr, risk);
+		parseECRWorker(url, holder, ecr, risk, adp);
 		for(PlayerObject player : holder.players)
 		{
 			if(ecr.containsKey(player.info.name) && !(player.info.name.equals("Alex Smith") && player.info.team.equals("Cincinnati Bengals")))
 			{
 				player.values.ecr = ecr.get(player.info.name);
 				player.risk = risk.get(player.info.name);
+				if(adp.containsKey(player.info.name))
+				{
+					player.info.adp = String.valueOf(adp.get(player.info.name));
+				}
 			}
 		} 
 	}
@@ -1015,7 +1020,7 @@ public class HighLevel
 	 * Gets the ECR Data for players
 	 */
 	public static void parseECRWorker(String url, Storage holder, HashMap<String, Double> ecr, 
-			HashMap<String, Double> risk) throws IOException
+			HashMap<String, Double> risk, HashMap<String, Double> adp) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = html.split("\n");
@@ -1033,6 +1038,13 @@ public class HighLevel
 			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i].split(" \\(")[0].split(", ")[0]));
 			double ecrVal = Double.parseDouble(td[i+4]);
 			double riskVal = Double.parseDouble(td[i+5]);
+			try{
+				double adpVal = Double.parseDouble(td[i+6]);
+				adp.put(name, adpVal);
+			} catch(NumberFormatException e)
+			{
+				
+			}
 			ecr.put(name, ecrVal);
 			risk.put(name, riskVal);
 		}
