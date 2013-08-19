@@ -477,6 +477,10 @@ public class Trending extends Activity {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					day.setClickable(false);
+					month.setClickable(false);
+					week.setClickable(false);
+					all.setClickable(false);
             	}
             	else
             	{
@@ -509,6 +513,10 @@ public class Trending extends Activity {
 	 */
 	public void intermediateHandleTrending(Storage holder, Activity cont)
 	{
+		day.setClickable(true);
+		week.setClickable(true);
+		month.setClickable(true);
+		all.setClickable(true);
 		int maxSize = ReadFromFile.readFilterQuantitySize((Context)cont, "Trending");
 		PriorityQueue<PostedPlayer>finalList = new PriorityQueue<PostedPlayer>(300, new Comparator<PostedPlayer>() 
 		{
