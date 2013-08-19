@@ -707,11 +707,11 @@ public class HighLevel
 			}
 			else if(roster.wrs == 2)
 			{
-				wrLimit = (2.75 * x) - 1.66667;
+				wrLimit = (2.75 * x);
 			}
 			else
 			{
-				wrLimit = (4.5 * x) - 5;
+				wrLimit = (4.5 * x) - 4;
 			}
 		}
 		else
@@ -719,7 +719,7 @@ public class HighLevel
 			if(roster.rbs == 2 && roster.wrs == 2)
 			{
 				rbLimit = (3.25*x) - 2.33333;
-				wrLimit = (4.25*x) - 4.88888;
+				wrLimit = (4.25*x) - 6;
 			}
 			else if(roster.rbs == 1 && roster.wrs == 3)
 			{
@@ -729,36 +729,36 @@ public class HighLevel
 			else if(roster.rbs == 2 && roster.wrs == 3)
 			{
 				rbLimit = (4.75*x) - 10.88888889;
-				wrLimit = (5.5*x) - 8.66666667;
+				wrLimit = (5.5*x) - 9.66666667;
 			}
 			else if(roster.rbs == 3 && roster.wrs == 3)
 			{
 				rbLimit = (5.9*x) - 11;
-				wrLimit = (5.7*x) - 8.333333;
+				wrLimit = (5.7*x) - 9.333333;
 			}
 			else if(roster.rbs == 1 && roster.wrs == 1)
 			{
 				rbLimit = (2.9 * x) - 2;
-				wrLimit = (2.25 * x) + 1.33333;
+				wrLimit = (2 * x) + 1.33333;
 			}
 			else if(roster.rbs == 3 && roster.wrs == 2)
 			{
 				rbLimit = (6.25 * x) - 10.33333;
-				wrLimit = (4.25 * x) - 1.333333;
+				wrLimit = (4.25 * x) - 4.333333;
 			}
 			else if(roster.rbs == 3 && roster.wrs == 1)
 			{
-				wrLimit = (3.25 * x) + 2.33333;
+				wrLimit = (2.25 * x) + 2.33333;
 				rbLimit = (6 * x) - 10.33333;
 			}
 			else if(roster.rbs == 1 && roster.wrs == 2)
 			{
 				rbLimit = (3 * x) - 2.333333;
-				wrLimit = (4 * x) - 1.5;
+				wrLimit = (3 * x) - 1.5;
 			}
 			else if(roster.rbs == 2 && roster.wrs == 1)
 			{
-				wrLimit = (3 * x) + 1.33333;
+				wrLimit = (2 * x) + 4.33333;
 				rbLimit = (4.2 * x) - 4.33333;
 			}
 		}
