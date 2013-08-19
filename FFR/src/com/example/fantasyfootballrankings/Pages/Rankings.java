@@ -490,11 +490,18 @@ public class Rankings extends Activity {
 				aVal -= a.values.worth;
 				if(!a.info.adp.equals("Not set"))
 				{
-					aVal += Integer.parseInt(a.info.adp);
+					if(ManageInput.isInteger(a.info.adp))
+					{
+						aVal += Integer.parseInt(a.info.adp)*25;
+					}
+					else
+					{
+						aVal += Double.parseDouble(a.info.adp)*25;
+					}
 				} 
 				else
 				{       
-					aVal += 300;
+					aVal += 7500;
 				}
 				if(a.values.ecr != -1.0)
 				{
@@ -506,7 +513,7 @@ public class Rankings extends Activity {
 				}
 				if(a.values.paa > 0)
 				{
-					aVal -= 2.5*a.values.paa;
+					aVal -= 1.5*a.values.paa;
 				}
 				aVal += 2.5*holder.sos.get(a.info.team + "," + a.info.position);
 				
@@ -561,11 +568,18 @@ public class Rankings extends Activity {
 				bVal -= b.values.worth;
 				if(!b.info.adp.equals("Not set"))
 				{
-					bVal += Integer.parseInt(b.info.adp);
+					if(ManageInput.isInteger(b.info.adp))
+					{
+						bVal += Integer.parseInt(b.info.adp)*25;
+					}
+					else
+					{
+						bVal += Double.parseDouble(b.info.adp)*25;
+					}
 				}
 				else
 				{
-					bVal += 300;
+					bVal += 7500;
 				}
 				if(b.values.ecr != -1.0)
 				{
@@ -577,7 +591,7 @@ public class Rankings extends Activity {
 				}
 				if(b.values.paa > 0)
 				{
-					bVal -= 2.5*b.values.paa;
+					bVal -= 1.5*b.values.paa;
 				}
 				bVal += 2.5*holder.sos.get(b.info.team + "," + b.info.position);
 				if(a.info.position.equals("D/ST"))
@@ -684,11 +698,18 @@ public class Rankings extends Activity {
 			aVal -= a.values.worth;
 			if(!a.info.adp.equals("Not set"))
 			{ 
-				aVal += Integer.parseInt(a.info.adp);
+				if(ManageInput.isInteger(a.info.adp))
+				{
+					aVal += Integer.parseInt(a.info.adp)*25;
+				}
+				else
+				{
+					aVal += Double.parseDouble(a.info.adp)*25;
+				}
 			} 
 			else 
 			{  
-				aVal += 300; 
+				aVal += 7500; 
 			}
 			if(a.values.ecr != -1.0)
 			{
@@ -700,7 +721,7 @@ public class Rankings extends Activity {
 			}
 			if(a.values.paa > 0)
 			{
-				aVal -= 2.5*a.values.paa;
+				aVal -= 1.5*a.values.paa;
 			}
 			aVal += 2.5*holder.sos.get(a.info.team + "," + a.info.position);
 			if(a.info.position.equals("QB"))

@@ -202,7 +202,7 @@ public class TradeHandling
 			output = "This looks bad. Unless there's a player you must have, don't do it.";
 		}
 		else if(total < -7)
-		{
+		{ 
 			output = "Not in your favor, but not terrible. If there's a player you want, pull the trigger, but be wary.";
 		}
 		else if(total < -3)
