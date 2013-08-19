@@ -106,7 +106,7 @@ public class TradeHandling
 	    	}	
 		});
 	}
-	
+
 	/**
 	 * Sets the adapters of both inputs
 	 */
@@ -150,7 +150,7 @@ public class TradeHandling
 		inputView.setThreshold(1);
 		outputView.setThreshold(1);
 	}
-	
+
 	/**
 	 * Handles the input once it's been selected
 	 * @param holder
@@ -184,7 +184,7 @@ public class TradeHandling
 			fairness.setText(findRelativeValue(holder));
 		}
 	}
-	
+
 	/**
 	 * Returns the string to set the bottom textview to
 	 * based on the input texts
@@ -197,29 +197,37 @@ public class TradeHandling
 		String inputText = tradeInput.getText().toString();
 		String outputText = tradeOutput.getText().toString();
 		double total = totalValue(inputText, outputText, holder);
-		if(total < - 25)
+		if(total < - 30)
 		{
 			output = "This looks bad. Unless there's a player you must have, don't do it.";
 		}
-		else if(total < -5)
+		else if(total < -8)
 		{
 			output = "Not in your favor, but not terrible. If there's a player you want, pull the trigger, but be wary.";
 		}
-		else if(total < -2)
+		else if(total < -3)
 		{
 			output = "Against your favor, but barely.";
 		}
-		else if(total > 25)
+		else if(total < -1.5)
+		{
+			output = "Marginally against your favor.";
+		}
+		else if(total > 30)
 		{
 			output = "Pull the trigger. This in very much in your favor.";
 		}
-		else if(total > 5)
+		else if(total > 8)
 		{
 			output = "In your favor, though not by a huge amount.";
 		}
-		else if(total > 2)
+		else if(total > 3)
 		{
 			output = "In your favor, but barely";
+		}
+		else if(total > 1.5)
+		{
+			output = "Marginally in your favor.";
 		}
 		else
 		{
@@ -227,7 +235,7 @@ public class TradeHandling
 		}
 		return output;
 	}
-	
+
 	/**
 	 * Returns the aggregate worth of the players in the output
 	 * minus that of those in the input
@@ -253,7 +261,7 @@ public class TradeHandling
 		}
 		return total;
 	}
-	
+
 	/**
 	 * Finds the value of the player input or value input, and returns it
 	 * @param input
@@ -274,6 +282,24 @@ public class TradeHandling
 				if(player.info.name.equals(input))
 				{
 					value = player.values.worth;
+					if(player.values.paa > 0)
+					{
+						value += (player.values.paa/3);
+					}
+					else
+					{
+						double maxProj = 0.0;
+						double maxAA = 0.0;
+						for(PlayerObject iter : holder.players)
+						{
+							if(iter.info.position.equals(player.info.position) && iter.values.points > maxProj)
+							{
+								maxProj = iter.values.points;
+								maxAA = iter.values.paa;
+							}
+						}
+						value -= (((maxProj - maxAA)*0.9)/3);
+					}
 					break;
 				}
 			}
