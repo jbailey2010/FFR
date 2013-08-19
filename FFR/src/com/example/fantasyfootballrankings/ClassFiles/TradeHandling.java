@@ -197,11 +197,11 @@ public class TradeHandling
 		String inputText = tradeInput.getText().toString();
 		String outputText = tradeOutput.getText().toString();
 		double total = totalValue(inputText, outputText, holder);
-		if(total < - 30)
+		if(total < - 25)
 		{
 			output = "This looks bad. Unless there's a player you must have, don't do it.";
 		}
-		else if(total < -8)
+		else if(total < -7)
 		{
 			output = "Not in your favor, but not terrible. If there's a player you want, pull the trigger, but be wary.";
 		}
@@ -213,11 +213,11 @@ public class TradeHandling
 		{
 			output = "Marginally against your favor.";
 		}
-		else if(total > 30)
+		else if(total > 25)
 		{
 			output = "Pull the trigger. This in very much in your favor.";
 		}
-		else if(total > 8)
+		else if(total > 7)
 		{
 			output = "In your favor, though not by a huge amount.";
 		}
