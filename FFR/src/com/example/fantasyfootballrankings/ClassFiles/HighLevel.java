@@ -1073,10 +1073,6 @@ public class HighLevel
 				qbMaxWorth = player.values.worth;
 				qbMaxProj = player.values.points;
 			}
-			if(player.info.position.equals("RB"))
-			{
-				System.out.println("Iterating on " + player.info.name + " - " + player.values.worth);
-			}
 			if(player.info.position.equals("RB") && player.values.worth > rbMaxWorth)
 			{
 				rbMaxWorth = player.values.worth;
@@ -1110,14 +1106,13 @@ public class HighLevel
 				}
 				if(player.info.position.equals("RB"))
 				{ 
-					System.out.println(player.info.name + "-" + player.values.worth + "-" + player.values.points);
 					double relWorth = player.values.worth / rbMaxWorth;
 					double relPoints = player.values.points / rbMaxProj;
 					double leverage = relPoints / relWorth;
 					player.values.relPoints = Double.valueOf(df.format(relPoints));
 					player.values.relPrice = Double.valueOf(df.format(relWorth));
 					player.values.leverage = Double.valueOf(df.format(leverage));
-				}
+				} 
 				if(player.info.position.equals("WR"))
 				{
 					double relWorth = player.values.worth / wrMaxWorth;

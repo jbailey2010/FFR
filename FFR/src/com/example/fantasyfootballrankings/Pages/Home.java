@@ -120,7 +120,7 @@ public class Home extends Activity{
 				{
 					Toast.makeText(cont, "Thanks for downloading the app!", Toast.LENGTH_SHORT).show();
 				}
-				else if(random%3 == 0)
+				else if(random%3 == 0 || random%7 == 0)
 				{
 					Toast.makeText(cont, "Stop clicking the image.", Toast.LENGTH_SHORT).show();
 				}

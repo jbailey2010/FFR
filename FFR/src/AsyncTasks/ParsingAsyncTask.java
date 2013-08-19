@@ -433,6 +433,7 @@ public class ParsingAsyncTask
 		    	WriteToFile.writeTeamData(holder, cont);
 		    	try {
 					HighLevel.projPointsWrapper(holder, cont);
+					HighLevel.parseECRWrapper(holder, cont);
 					HighLevel.setLeverage(holder, cont);
 					SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 			    	//Rankings work
