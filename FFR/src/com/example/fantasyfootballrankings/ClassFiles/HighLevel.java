@@ -677,7 +677,7 @@ public class HighLevel
 		}
 		else
 		{
-			qbLimit = (2.5 * x + 2);
+			qbLimit = (2.5 * x + 4);
 		}
 		if(roster.tes == 1)
 		{
@@ -691,7 +691,7 @@ public class HighLevel
 		{
 			if(roster.rbs == 1)
 			{
-				rbLimit = (1.5 * x) - 2;
+				rbLimit = (1.5 * x) - 1;
 			}
 			else if(roster.rbs == 2)
 			{
@@ -718,8 +718,8 @@ public class HighLevel
 		{
 			if(roster.rbs == 2 && roster.wrs == 2)
 			{
-				rbLimit = (3.25*x) - 2.33333;
-				wrLimit = (4.25*x) - 6;
+				rbLimit = (3.25*x);
+				wrLimit = (4*x) - 6;
 			}
 			else if(roster.rbs == 1 && roster.wrs == 3)
 			{
@@ -728,12 +728,12 @@ public class HighLevel
 			}
 			else if(roster.rbs == 2 && roster.wrs == 3)
 			{
-				rbLimit = (4.75*x) - 10.88888889;
+				rbLimit = (4.75*x) - 7.88888889;
 				wrLimit = (5.5*x) - 9.66666667;
 			}
 			else if(roster.rbs == 3 && roster.wrs == 3)
 			{
-				rbLimit = (5.9*x) - 11;
+				rbLimit = (5.9*x) - 9;
 				wrLimit = (5.7*x) - 9.333333;
 			}
 			else if(roster.rbs == 1 && roster.wrs == 1)
@@ -749,7 +749,7 @@ public class HighLevel
 			else if(roster.rbs == 3 && roster.wrs == 1)
 			{
 				wrLimit = (2.25 * x) + 2.33333;
-				rbLimit = (6 * x) - 10.33333;
+				rbLimit = (6 * x) - 9.33333;
 			}
 			else if(roster.rbs == 1 && roster.wrs == 2)
 			{
@@ -759,7 +759,7 @@ public class HighLevel
 			else if(roster.rbs == 2 && roster.wrs == 1)
 			{
 				wrLimit = (2 * x) + 4.33333;
-				rbLimit = (4.2 * x) - 4.33333;
+				rbLimit = (4.2 * x) - 5;
 			}
 		}
 		double qbCounter = 0.0;
@@ -903,89 +903,6 @@ public class HighLevel
 		}
 	}
 	
-	/**
-	 * Gets the adjusted touchdown numbers
-	 */
-	public static void parseRedZoneStats(Storage holder) throws IOException
-	{
-		String html = HandleBasicQueries.handleListsNoUA("http://www.profootballfocus.com/blog/2013/06/28/introduction-to-otd/", "table#wp-table-reloaded-id-11-no-1 td");
-		String[] td = html.split("\n");
-		HashMap<String, List<Double>> redZoneStats = new HashMap<String, List<Double>>();
-		for(int i = 0; i < td.length; i+=6)
-		{
-			List<Double> data = new ArrayList<Double>(3);
-			String name = ParseRankings.fixNames(td[i]);
-			double tADEZ = Double.parseDouble(td[i+2]);
-			double oTD = Double.parseDouble(td[i+4]);
-			double diff = Double.parseDouble(td[i+5]);
-			data.add(tADEZ);
-			data.add(oTD);
-			data.add(diff);
-			redZoneStats.put(name, data);
-		}
-		for(PlayerObject player : holder.players)
-		{
-			if(redZoneStats.containsKey(player.info.name))
-			{
-				List<Double> data = redZoneStats.get(player.info.name);
-				player.values.tdDiff = data.get(2);
-				player.values.oTD = data.get(1);
-				player.values.tADEZ = data.get(0);
-			}
-		}
-		html = HandleBasicQueries.handleListsNoUA("https://www.profootballfocus.com/blog/2013/07/01/adios-redzone-carries-hello-running-back-otd/", "table#wp-table-reloaded-id-14-no-1 td");
-		td = html.split("\n");
-		redZoneStats = new HashMap<String, List<Double>>();
-		redZoneStats.clear();
-		for(int i = 0; i < td.length; i+=6)
-		{
-			List<Double> data = new ArrayList<Double>(3);
-			String name = ParseRankings.fixNames(td[i]);
-			double rADEZ = Double.parseDouble(td[i+2]);
-			double roTD = Double.parseDouble(td[i+4]);
-			double rtdDiff = Double.parseDouble(td[i+5]);
-			data.add(rADEZ); 
-			data.add(roTD);
-			data.add(rtdDiff);
-			redZoneStats.put(name, data);
-		}
-		for(PlayerObject player : holder.players)
-		{ 
-			if(redZoneStats.containsKey(player.info.name))
-			{
-				List<Double> data = redZoneStats.get(player.info.name);
-				player.values.rtdDiff = data.get(2);
-				player.values.roTD = data.get(1);
-				player.values.rADEZ = data.get(0);
-			}
-		}
-		html = HandleBasicQueries.handleListsNoUA("https://www.profootballfocus.com/blog/2013/07/16/determining-playmaking-otd/", "table#wp-table-reloaded-id-337-no-1 td");
-		td = html.split("\n");
-		redZoneStats = new HashMap<String, List<Double>>();
-		redZoneStats.clear();
-		for(int i = 0; i < td.length; i+=6)
-		{
-			List<Double> data = new ArrayList<Double>(3);
-			String name = ParseRankings.fixNames(td[i]);
-			double cADEZ = Double.parseDouble(td[i+2]);
-			double coTD = Double.parseDouble(td[i+4]);
-			double ctdDiff = Double.parseDouble(td[i+5]);
-			data.add(cADEZ); 
-			data.add(coTD);
-			data.add(ctdDiff);
-			redZoneStats.put(name, data);
-		}
-		for(PlayerObject player : holder.players)
-		{
-			if(redZoneStats.containsKey(player.info.name))
-			{
-				List<Double> data = redZoneStats.get(player.info.name);
-				player.values.ctdDiff = data.get(2);
-				player.values.coTD = data.get(1);
-				player.values.cADEZ = data.get(0);
-			}
-		}
-	}
 	
 	/**
 	 * Calls the parser and gets the functionsn

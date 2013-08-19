@@ -681,85 +681,6 @@ public class PlayerInfo
 				data.add(datum2);
 			}
 		} 
-
-		//Rec oTD stuff
-		if(searchedPlayer.values.tADEZ != 0)
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			String result = String.valueOf(searchedPlayer.values.tdDiff);
-			if(!result.contains("-"))
-			{
-				result = "+" + result; 
-			}
-			datum.put("main", "Target-based oTD: " + searchedPlayer.values.oTD + " \n(" + result + " relative to last year's numbers)");
-			if(searchedPlayer.info.position.length() >= 1)
-			{
-				datum.put("sub", "Ranked " + rankoTD(searchedPlayer, holder) + " positionally\nTargeted an average of " + searchedPlayer.values.tADEZ + " yards from the endzone");
-			}
-			else
-			{
-				datum.put("sub", "Targeted an average of " + searchedPlayer.values.tADEZ + " yards from the endzone");
-			}
-			data.add(datum);
-		}
-		//Catch oTD stuff
-		if(searchedPlayer.values.cADEZ != 0)
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			String result = String.valueOf(searchedPlayer.values.ctdDiff);
-			if(!result.contains("-"))
-			{
-				result = "+" + result; 
-			}
-			datum.put("main", "Catch-based oTD: " + searchedPlayer.values.coTD + " \n(" + result + " relative to last year's numbers)");
-			if(searchedPlayer.info.position.length() >= 1)
-			{
-				datum.put("sub", "Ranked " + rankcoTD(searchedPlayer, holder) + " positionally\nCatches were an average of " + searchedPlayer.values.cADEZ + " yards from the endzone");
-			}
-			else
-			{
-				datum.put("sub", "Catches were an average of " + searchedPlayer.values.cADEZ + " yards from the endzone");
-			}
-			data.add(datum);
-		}
-		//Rush oTD stuff
-		if(searchedPlayer.values.rADEZ != 0)
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			String result = String.valueOf(searchedPlayer.values.rtdDiff);
-			if(!result.contains("-"))
-			{
-				result = "+" + result;
-			}
-			datum.put("main", "Rushing oTD: " + searchedPlayer.values.roTD + "\n(" + result + " relative to last year's numbers)");
-			if(searchedPlayer.info.position.length() >= 1)
-			{
-				datum.put("sub", "Ranked " + rankroTD(searchedPlayer, holder) + " positionally\nCarried an average of " + searchedPlayer.values.rADEZ + " yards from the endzone");
-			}
-			else
-			{
-				datum.put("sub", "Carried an average of " + searchedPlayer.values.rADEZ + " yards from the endzone");
-			}
-			data.add(datum);
-		}
-		if(searchedPlayer.values.cADEZ != 0.0 && searchedPlayer.values.tADEZ != 0.0)
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			double diff = 0.0;
-			int rank = 0;
-			diff = searchedPlayer.values.tADEZ - searchedPlayer.values.cADEZ;
-			rank = rankCatchDepth(searchedPlayer,holder);
-			datum.put("main", "cADEZ relative to tADEZ: " + df.format(diff));
-			if(searchedPlayer.info.position.length() >= 1)
-			{
-				datum.put("sub", "Ranked " + rank + " positionally");
-			}
-			else
-			{
-				datum.put("sub",  "");
-			}
-			data.add(datum);
-		}
 		//Risk
 		if(searchedPlayer.risk > 0.0)
 		{
@@ -890,45 +811,7 @@ public class PlayerInfo
 			data.add(datum2);
 		}
 	}
-	
-	public static int rankroTD(PlayerObject player, Storage holder)
-	{
-		int rank = 1;
-		for(PlayerObject iter : holder.players)
-		{
-			if(iter.values.roTD > player.values.roTD && iter.info.position.equals(player.info.position))
-			{
-				rank++;
-			}
-		}
-		return rank;
-	}
-	
-	public static int rankoTD(PlayerObject player, Storage holder)
-	{
-		int rank = 1;
-		for(PlayerObject iter : holder.players)
-		{
-			if(iter.values.oTD > player.values.oTD && iter.info.position.equals(player.info.position))
-			{
-				rank++;
-			}
-		}
-		return rank;
-	}
-	
-	public static int rankcoTD(PlayerObject player, Storage holder)
-	{
-		int rank = 1;
-		for(PlayerObject iter : holder.players)
-		{
-			if(iter.values.coTD > player.values.coTD && iter.info.position.equals(player.info.position))
-			{
-				rank++;
-			}
-		}
-		return rank;
-	}
+
 	
 	/**
 	 * Ranks risk relative to position
@@ -980,30 +863,6 @@ public class PlayerInfo
 			if(iter.risk < player.risk && iter.risk >0)
 			{
 				rank++;
-			}
-		}
-		return rank;
-	}
-	
-	/**
-	 * Calculates the rank of adoc
-	 * @param player
-	 * @param holder
-	 * @return
-	 */
-	public static int rankCatchDepth(PlayerObject player, Storage holder)
-	{
-		int rank = 1;
-		double diff = player.values.tADEZ - player.values.cADEZ;
-		for(PlayerObject iter : holder.players)
-		{
-			if(iter.values.cADEZ != 0.0 && iter.values.tADEZ != 0.0 && iter.info.position.equals(player.info.position))
-			{
-				double possDiff = iter.values.tADEZ - iter.values.cADEZ;
-				if(possDiff > diff)
-				{
-					rank++;
-				}
 			}
 		}
 		return rank;

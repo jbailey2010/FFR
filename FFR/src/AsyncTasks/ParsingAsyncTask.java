@@ -380,13 +380,6 @@ public class ParsingAsyncTask
 				}
 	    		publishProgress("Please wait, normalizing projections...");
 	    		HighLevel.getPAA(holder, cont);
-		    	try { 
-		    		publishProgress("Please wait, getting advanced redzone stats...");
-		    		HighLevel.parseRedZoneStats(holder);
-		    	} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
 		    	publishProgress("Please wait, getting player leverage...");
 		    	HighLevel.setLeverage(holder, cont);
 				return null;
@@ -439,7 +432,7 @@ public class ParsingAsyncTask
 			    	//Rankings work
 			    	StringBuilder players = new StringBuilder(10000);
 			    	for (PlayerObject player : holder.players)
-			    	{
+			    	{ 
 			    		String additStat = " ";
 			    		if(player.info.additionalStat != null && !player.info.additionalStat.equals("") 
 			    				&& player.info.additionalStat.length() >= 3)
@@ -454,13 +447,9 @@ public class ParsingAsyncTask
 			    	    		player.info.age + "&&" + player.stats + "&&"  + player.injuryStatus + 
 			    	    		"&&" + additStat + "&&" + player.values.ecr + "&&" + 
 			    	    		player.risk + "&&" + player.riskPos + "&&" + 
-			    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
-			    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + 
-			    	    		player.values.roTD + "&&" + player.values.rtdDiff
-			    	    		+ "&&" + player.values.rADEZ + 
-			    	    		"&&" + player.values.coTD + "&&" + player.values.ctdDiff + "&&" + player.values.cADEZ + "~~~~");
+			    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&& && && && && && && && && ~~~~");
 
-			    	}
+			    	} 
 			    	String playerString = players.toString();
 			    	editor.putString("Player Values", playerString).commit();
 				} catch (IOException e) {

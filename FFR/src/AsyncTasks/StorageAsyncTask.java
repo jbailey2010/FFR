@@ -72,10 +72,7 @@ public class StorageAsyncTask
 	    		player.info.age + "&&" + player.stats + "&&" + player.injuryStatus + 
 	    		"&&"+ additStat + "&&" + player.values.ecr + "&&" + 
 	    		player.risk + "&&" + player.riskPos + "&&" + 
-	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
-	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + player.values.roTD + "&&" + player.values.rtdDiff
-	    		+ "&&" + player.values.rADEZ + "&&" + player.values.coTD + "&&" + player.values.ctdDiff + "&&" + player.values.cADEZ + 
-	    		"~~~~");
+	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&& && && && && && && && && ~~~~");
 	    	}
 	    	String playerString = players.toString();
 	    	editor.putString("Player Values", playerString).commit();
@@ -172,11 +169,7 @@ public class StorageAsyncTask
 	    	    		player.info.age + "&&" + player.stats + "&&" + player.injuryStatus + 
 	    	    		"&&"+ additStat + "&&" + player.values.ecr + "&&" + 
 	    	    		player.risk + "&&" + player.riskPos + "&&"  + 
-	    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&&" + player.values.oTD + 
-	    	    		"&&" + player.values.tdDiff + "&&" + player.values.tADEZ + "&&" + player.values.roTD + "&&" 
-	    	    		+ player.values.rtdDiff
-	    	    		+ "&&" + player.values.rADEZ + "&&" + player.values.coTD + "&&" + player.values.ctdDiff + "&&" + player.values.cADEZ + 
-	    	    		"~~~~");
+	    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "&& && && && && && && && && ~~~~");
 
 	    	}
 	    	String playerString = players.toString();
@@ -312,15 +305,6 @@ public class StorageAsyncTask
 	   		{  
 	   			String[] allData = perPlayer[i].split("&&");
 	   			PlayerObject newPlayer = new PlayerObject(allData[2], allData[3], allData[4], 0);
-	   			newPlayer.values.cADEZ = Double.parseDouble(allData[26]);
-	   			newPlayer.values.ctdDiff = Double.parseDouble(allData[25]);
-	   			newPlayer.values.coTD = Double.parseDouble(allData[24]);
-	   			newPlayer.values.rADEZ = Double.parseDouble(allData[23]);
-	   			newPlayer.values.rtdDiff = Double.parseDouble(allData[22]);
-	   			newPlayer.values.roTD = Double.parseDouble(allData[21]);
-	   			newPlayer.values.tADEZ = Double.parseDouble(allData[20]);
-	   			newPlayer.values.tdDiff = Double.parseDouble(allData[19]);
-	   			newPlayer.values.oTD = Double.parseDouble(allData[18]);
 	   			newPlayer.values.paapd = Double.parseDouble(allData[17]);
 	   			newPlayer.values.paa = Double.parseDouble(allData[16]);
 	   			newPlayer.values.points = Double.parseDouble(allData[15]);

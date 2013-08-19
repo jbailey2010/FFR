@@ -101,16 +101,6 @@ public class SortHandler
 	    topics.add("Projections");
 	    topics.add("PAA");
 	    topics.add("PAA per dollar");
-	    topics.add("Target Rec oTD");
-	    topics.add("Target Rec TD Difference");
-	    topics.add("Average target location");
-	    topics.add("Catch Rec oTD");
-	    topics.add("Catch Rec TD Difference");
-	    topics.add("Average catch location");
-	    topics.add("Avg catch relative to target");
-	    topics.add("Rush oTD");
-	    topics.add("Rush TD Difference");
-	    topics.add("Average carry location");
 	    topics.add("DYOA");
 	    topics.add("DVOA");
 	    topics.add("Success Rate");
@@ -439,34 +429,6 @@ public class SortHandler
 		{
 			paapd(cont);
 		}
-		else if(subject.equals("Target Rec oTD"))
-		{
-			oTD(cont);
-		}
-		else if(subject.equals("Catch Rec oTD"))
-		{
-			coTD(cont);
-		}
-		else if(subject.equals("Catch Rec TD Difference"))
-		{
-			ctdDiff(cont);
-		}
-		else if(subject.equals("Average catch location"))
-		{
-			cADEZ(cont);
-		}
-		else if(subject.equals("Target Rec TD Difference"))
-		{
-			tdDiff(cont);
-		}
-		else if(subject.equals("Rush oTD"))
-		{
-			roTD(cont);
-		}
-		else if(subject.equals("Rush TD Difference"))
-		{
-			rtdDiff(cont);
-		}
 		else if(subject.equals("DVOA"))
 		{
 			dvoa(cont);
@@ -503,21 +465,9 @@ public class SortHandler
 		{
 			adp(cont);
 		}
-		else if(subject.equals("Average target location"))
-		{
-			tadez(cont);
-		}
-		else if(subject.equals("Average carry location"))
-		{
-			radez(cont);
-		}
 		else if(subject.equals("Weekly Trend (ESPN)"))
 		{
 			weeklyTrend(cont);
-		}
-		else if(subject.equals("Avg catch relative to target"))
-		{
-			avgDepth(cont);
 		}
 		else if(subject.equals("Completion to Int Ratio"))
 		{
@@ -646,35 +596,6 @@ public class SortHandler
 				wrappingUp(sorted, cont);
 	}
 
-	public static void avgDepth(Context cont) {
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-				{
-					@Override
-					public int compare(PlayerObject a, PlayerObject b)
-					{
-						double diff1 = a.values.tADEZ - a.values.cADEZ;
-						double diff2 = b.values.tADEZ - b.values.cADEZ;
-						if(diff1 > diff2)
-						{
-							return -1;
-						}
-						if(diff1 < diff2)
-						{
-							return 1;
-						}
-						return 0;
-					}
-				});
-				for(PlayerObject player : players)
-				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.cADEZ != 0.0 && 
-							player.values.tADEZ!= 0.0)
-					{
-						sorted.add(player);
-					}
-				}
-				wrappingUp(sorted, cont);
-	}
 	
 	public static void success(Context cont) {
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
@@ -985,185 +906,7 @@ public class SortHandler
 				wrappingUp(sorted, cont);
 	}
 	
-	/**
-	 * Sets up the priority queue for risk relative to a position
-	 */
-	public static void oTD(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b)
-			{
-				if(a.values.oTD > b.values.oTD)
-				{
-					return -1;
-				}
-				if(a.values.oTD < b.values.oTD)
-				{
-					return 1;
-				}
-				return 0;
-			}
-		});
-		for(PlayerObject player : players)
-		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.tADEZ != 0.0)
-			{
-				sorted.add(player);
-			}
-		}
-		wrappingUp(sorted, cont);
-	}
-	
-	public static void coTD(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b)
-			{
-				if(a.values.coTD > b.values.coTD)
-				{
-					return -1;
-				}
-				if(a.values.coTD < b.values.coTD)
-				{
-					return 1;
-				}
-				return 0;
-			}
-		});
-		for(PlayerObject player : players)
-		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.cADEZ != 0.0)
-			{
-				sorted.add(player);
-			}
-		}
-		wrappingUp(sorted, cont);
-	}
-	
-	/**
-	 * Sets up the priority queue for risk relative to a position
-	 */
-	public static void roTD(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b)
-			{
-				if(a.values.roTD > b.values.roTD)
-				{
-					return -1;
-				}
-				if(a.values.roTD < b.values.roTD)
-				{
-					return 1;
-				}
-				return 0;
-			}
-		});
-		for(PlayerObject player : players)
-		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.rADEZ != 0.0)
-			{
-				sorted.add(player);
-			}
-		}
-		wrappingUp(sorted, cont);
-	}
-	
-	/**
-	 * Sets up the priority queue for risk relative to a position
-	 */
-	public static void tdDiff(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b)
-			{
-				if(a.values.tdDiff > b.values.tdDiff)
-				{
-					return -1;
-				}
-				if(a.values.tdDiff < b.values.tdDiff)
-				{
-					return 1;
-				}
-				return 0;
-			}
-		});
-		for(PlayerObject player : players)
-		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.tADEZ != 0.0)
-			{
-				sorted.add(player);
-			}
-		}
-		wrappingUp(sorted, cont);
-	}
-	
-	public static void ctdDiff(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b)
-			{
-				if(a.values.ctdDiff > b.values.ctdDiff)
-				{
-					return 1;
-				}
-				if(a.values.ctdDiff < b.values.ctdDiff)
-				{
-					return -1;
-				}
-				return 0;
-			}
-		});
-		for(PlayerObject player : players)
-		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.cADEZ != 0.0)
-			{
-				sorted.add(player);
-			}
-		}
-		wrappingUp(sorted, cont);
-	}
-	
-	/**
-	 * Sets up the priority queue for risk relative to a position
-	 */
-	public static void rtdDiff(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b)
-			{
-				if(a.values.rtdDiff > b.values.rtdDiff)
-				{
-					return 1;
-				}
-				if(a.values.rtdDiff < b.values.rtdDiff)
-				{
-					return -1;
-				}
-				return 0;
-			}
-		});
-		for(PlayerObject player : players)
-		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.rADEZ != 0.0)
-			{
-				sorted.add(player);
-			}
-		}
-		wrappingUp(sorted, cont);
-	}
+
 	
 	/**
 	 * Sets up the priority queue for risk relative to a position
@@ -1198,95 +941,6 @@ public class SortHandler
 		wrappingUp(sorted, cont);
 	}
 	
-	/**
-	 * Sets up the priority queue for risk relative to a position
-	 */
-	public static void radez(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b)
-			{
-				if(a.values.rADEZ > b.values.rADEZ)
-				{
-					return 1;
-				}
-				if(a.values.rADEZ < b.values.rADEZ)
-				{
-					return -1;
-				}
-				return 0;
-			}
-		});
-		for(PlayerObject player : players)
-		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.rADEZ != 0.0)
-			{
-				sorted.add(player);
-			}
-		}
-		wrappingUp(sorted, cont);
-	}
-	
-	public static void cADEZ(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b)
-			{
-				if(a.values.cADEZ > b.values.cADEZ)
-				{
-					return 1;
-				}
-				if(a.values.cADEZ < b.values.cADEZ)
-				{
-					return -1;
-				}
-				return 0;
-			}
-		});
-		for(PlayerObject player : players)
-		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.cADEZ != 0.0)
-			{
-				sorted.add(player);
-			}
-		}
-		wrappingUp(sorted, cont);
-	}
-	
-	/**
-	 * Sets up the priority queue for risk relative to a position
-	 */
-	public static void tadez(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b)
-			{
-				if(a.values.tADEZ > b.values.tADEZ)
-				{
-					return 1;
-				}
-				if(a.values.tADEZ < b.values.tADEZ)
-				{
-					return -1;
-				}
-				return 0;
-			}
-		});
-		for(PlayerObject player : players)
-		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.tADEZ != 0.0)
-			{
-				sorted.add(player);
-			}
-		}
-		wrappingUp(sorted, cont);
-	}
 	
 	/**
 	 * Sets up the priority queue for risk relative to a position
@@ -1517,26 +1171,6 @@ public class SortHandler
 	    		datum.put("main", output + df.format(elem.values.paapd)+ ": " + elem.info.name);
 	    		datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth));
 	    	}
-	    	else if(subject.equals("Target Rec oTD"))
-	    	{
-	    		datum.put("main", output + df.format(elem.values.oTD) + ": " + elem.info.name);
-	    		datum.put("sub", elem.values.tdDiff + " difference");
-	    	}
-	    	else if(subject.equals("Catch Rec oTD"))
-	    	{
-	    		datum.put("main", output + df.format(elem.values.coTD) + ": " + elem.info.name);
-	    		datum.put("sub", elem.values.ctdDiff + " difference");
-	    	}
-	    	else if(subject.equals("Rush oTD"))
-	    	{
-	    		datum.put("main", output + df.format(elem.values.roTD) + ": " + elem.info.name);
-	    		datum.put("sub", elem.values.rtdDiff + " difference");
-	    	}
-	    	else if(subject.equals("Average carry location"))
-	    	{
-	    		datum.put("main", output + df.format(elem.values.rADEZ) + ": " + elem.info.name);
-	    		datum.put("sub",  elem.values.roTD + " expected rushing TDs, ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth));
-	    	}
 	    	else if(subject.equals("DYOA"))
 	    	{
 	    		String close1 = elem.stats.split("\\(rank\\):")[1].split("\n")[0];
@@ -1551,42 +1185,10 @@ public class SortHandler
 				datum.put("main", output + r1 + ": " + elem.info.name);
 				datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth) + ", " + elem.values.points + " projected points");
 	    	}
-	    	else if(subject.equals("Average target location"))
-	    	{
-	    		datum.put("main", output + df.format(elem.values.tADEZ) + ": " + elem.info.name);
-	    		datum.put("sub", elem.values.oTD + 
-	    				" expected receiving TDs, " + elem.values.cADEZ + " average catch location, " + 
-	    				"ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
-	    	}
-	    	else if(subject.equals("Average catch location"))
-	    	{
-	    		datum.put("main", output + df.format(elem.values.cADEZ) + ": " + elem.info.name);
-	    		datum.put("sub", elem.values.coTD + 
-	    				" expected receiving TDs, " + elem.values.tADEZ + " average target location, " + 
-	    				"ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
-	    	}
 	    	else if(subject.equals("Risk"))
 	    	{
 	    		datum.put("main", output + df.format(elem.risk)+ ": " + elem.info.name);
 	    		datum.put("sub", elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
-	    	}
-	    	else if(subject.equals("Target Rec TD Difference"))
-	    	{
-	    		datum.put("main", output + df.format(elem.values.tdDiff) + ": " + elem.info.name);
-	    		datum.put("sub", elem.values.oTD + " expected, had " + 
-	    				df.format(elem.values.oTD - elem.values.tdDiff));
-	    	}
-	    	else if(subject.equals("Catch Rec TD Difference"))
-	    	{
-	    		datum.put("main", output + df.format(elem.values.ctdDiff) + ": " + elem.info.name);
-	    		datum.put("sub", elem.values.coTD + " expected, had " + 
-	    				df.format(elem.values.coTD - elem.values.ctdDiff));
-	    	}
-	    	else if(subject.equals("Rush TD Difference"))
-	    	{
-	    		datum.put("main", output + df.format(elem.values.rtdDiff) + ": " + elem.info.name);
-	    		datum.put("sub", elem.values.roTD + " expected, had " + 
-	    				df.format(elem.values.roTD - elem.values.rtdDiff));
 	    	}
 	    	else if(subject.equals("Risk relative to position"))
 			{
@@ -1626,12 +1228,6 @@ public class SortHandler
 			{
 				datum.put("main", output + elem.info.trend + ": " + elem.info.name);
 	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
-			}
-			else if(subject.equals("Avg catch relative to target"))
-			{
-				double diff = elem.values.tADEZ - elem.values.cADEZ;
-				datum.put("main", output + df.format(diff) + ": " + elem.info.name);
-				datum.put("sub", elem.values.tADEZ + " tADEZ, " + elem.values.cADEZ + " cADEZ");
 			}
 			else if(subject.equals("Success Rate"))
 			{
