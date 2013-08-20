@@ -458,6 +458,9 @@ public class ManageInput
 						ParsingAsyncTask stupid = new ParsingAsyncTask();
 					    ParseProjections task = stupid.new ParseProjections((Activity)cont, holder);
 					    task.execute(holderObj, cont);
+					    StorageAsyncTask obj = new StorageAsyncTask();
+					    WriteNewPAA task2 = obj.new WriteNewPAA();
+					    task2.execute(holderObj, cont);
 					}
 				}
 				else
