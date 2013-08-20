@@ -87,13 +87,34 @@ public class News extends Activity {
 		switch (item.getItemId()) 
 		{
 			case R.id.refresh_news:
-				refreshNewsDialog();
+				if(ManageInput.confirmInternet(cont))
+				{
+					refreshNewsDialog();
+				}
+				else
+				{
+					Toast.makeText(cont, "No Internet Connection Available", Toast.LENGTH_SHORT).show();
+				}
 				return true;
 			case R.id.twitter_feeds:
-				obj.twitterInitial(cont, 1, "", true);
+				if(ManageInput.confirmInternet(cont))
+				{
+					obj.twitterInitial(cont, 1, "", true);
+				}
+				else
+				{
+					Toast.makeText(cont, "No Internet Connection Available", Toast.LENGTH_SHORT).show();
+				}
 				return true; 
 			case R.id.twitter_search:
-				obj.twitterInitial(cont, 2, "", true);
+				if(ManageInput.confirmInternet(cont))
+				{
+					obj.twitterInitial(cont, 2, "", true);
+				}
+				else
+				{
+					Toast.makeText(cont, "No Internet Connection Available", Toast.LENGTH_SHORT).show();
+				}
 				return true;
 			case R.id.help:
 				helpDialog();

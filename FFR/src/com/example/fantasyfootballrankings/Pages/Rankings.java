@@ -1232,7 +1232,14 @@ public class Rankings extends Activity {
 				listview.setAdapter(null);
 				dialog.dismiss();
 				try {
-					ParseRankings.runRankings(holder, cont);
+					if(ManageInput.confirmInternet(cont))
+					{
+						ParseRankings.runRankings(holder, cont);
+					}
+					else
+					{
+						Toast.makeText(cont, "No Internet Connection Available", Toast.LENGTH_SHORT).show();
+					}
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -1270,8 +1277,15 @@ public class Rankings extends Activity {
     	else
     	{
     		try {
-				ParseRankings.runRankings(holder, cont);
-				refreshed = true;
+    			if(ManageInput.confirmInternet(cont))
+				{
+					ParseRankings.runRankings(holder, cont);
+					refreshed = true;
+				}
+				else
+				{
+					Toast.makeText(cont, "No Internet Connection Available, The Initial Load of the Rankings Can't Be Done. Connect and Try Again.", Toast.LENGTH_LONG).show();
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

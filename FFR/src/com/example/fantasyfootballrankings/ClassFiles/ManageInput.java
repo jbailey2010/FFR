@@ -28,6 +28,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -452,15 +454,22 @@ public class ManageInput
 					WriteToFile.writeScoring(cont, dummyScoring);
 					if(doSyncData)
 					{
-					    Toast.makeText(cont, "Updating projections...", Toast.LENGTH_SHORT).show();
-					    SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-					    ReadFromFile.fetchPlayers(prefs.getString("Player Values", "Not Set"), holder,cont, 1);
-						ParsingAsyncTask stupid = new ParsingAsyncTask();
-					    ParseProjections task = stupid.new ParseProjections((Activity)cont, holder);
-					    task.execute(holderObj, cont);
-					    StorageAsyncTask obj = new StorageAsyncTask();
-					    WriteNewPAA task2 = obj.new WriteNewPAA();
-					    task2.execute(holderObj, cont);
+						if(ManageInput.confirmInternet(cont))
+						{
+						    Toast.makeText(cont, "Updating projections...", Toast.LENGTH_SHORT).show();
+						    SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+						    ReadFromFile.fetchPlayers(prefs.getString("Player Values", "Not Set"), holder,cont, 1);
+							ParsingAsyncTask stupid = new ParsingAsyncTask();
+						    ParseProjections task = stupid.new ParseProjections((Activity)cont, holder);
+						    task.execute(holderObj, cont);
+						    StorageAsyncTask obj = new StorageAsyncTask();
+						    WriteNewPAA task2 = obj.new WriteNewPAA();
+						    task2.execute(holderObj, cont);
+						}
+						else
+						{
+							Toast.makeText(cont, "No Internet Connection,  Can't Update Projections. Connect and Try Again, or Connect and Update Rankings", Toast.LENGTH_LONG).show();
+						}
 					}
 				}
 				else
@@ -629,5 +638,18 @@ public class ManageInput
 	        return false; 
 	    }
 	    return true;
+	}
+	
+	/**
+	 * Sees if there is an internet connection, true if yes, false if no
+	 * @param cont
+	 * @return
+	 */
+	public static boolean confirmInternet(Context cont)
+	{
+		ConnectivityManager connectivityManager 
+	        = (ConnectivityManager)cont.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 }

@@ -281,9 +281,16 @@ public class Home extends Activity{
 			String checkExists2 = prefs.getString("Player Names", "Not Set");
 			if(checkExists2.equals("Not Set"))
 			{
-				final ParsingAsyncTask stupid = new ParsingAsyncTask();
-				ParseNames task = stupid.new ParseNames((Activity)cont);
-			    task.execute(cont);
+				if(ManageInput.confirmInternet(cont))
+				{
+					final ParsingAsyncTask stupid = new ParsingAsyncTask();
+					ParseNames task = stupid.new ParseNames((Activity)cont);
+				    task.execute(cont);
+				}
+				else
+				{
+					Toast.makeText(cont, "No Internet Connection Available. The Names List Must Be Fetched, So Please Connect and Refresh it Manually to Avoid Problems With The Rankings", Toast.LENGTH_LONG).show();
+				}
 			}
 		}
 	}
@@ -313,9 +320,16 @@ public class Home extends Activity{
 		submit.setOnClickListener(new OnClickListener() 
 		{
 			public void onClick(View v) {
-				dialog.dismiss();
-				ParseNames task = stupid.new ParseNames((Activity)cont);
-			    task.execute(cont);	
+				if(ManageInput.confirmInternet(cont))
+				{
+					dialog.dismiss();
+					ParseNames task = stupid.new ParseNames((Activity)cont);
+				    task.execute(cont);	
+				}
+				else
+				{
+					Toast.makeText(cont, "No Internet Connection", Toast.LENGTH_SHORT).show();
+				}
 	    	}	
 		});	
 	}

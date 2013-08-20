@@ -131,19 +131,22 @@ public class PlayerInfo
 		final Dialog dialog = new Dialog(act);
 	    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		dialog.setContentView(R.layout.search_output);
-		// Your entity key. May be passed as a Bundle parameter to your activity
-		String entityKey = "http://www.fantasyfootballdraftmanager.com/" + namePlayer + "/player_info";
-						
-						// Create an entity object including a name
-						// The Entity object is Serializable, so you could also store the whole object in the Intent
-		Entity entity = Entity.newInstance(entityKey, namePlayer);
-						
-						// Wrap your existing view with the action bar.
-						// your_layout refers to the resource ID of your current layout.
-		View actionBarWrapped = ActionBarUtils.showActionBar(act, R.layout.search_output, entity);
-						
-						// Now set the view for your activity to be the wrapped view.
-		dialog.setContentView(actionBarWrapped);
+		if(ManageInput.confirmInternet(act))
+		{
+			// Your entity key. May be passed as a Bundle parameter to your activity
+			String entityKey = "http://www.fantasyfootballdraftmanager.com/" + namePlayer + "/player_info";
+							
+							// Create an entity object including a name
+							// The Entity object is Serializable, so you could also store the whole object in the Intent
+			Entity entity = Entity.newInstance(entityKey, namePlayer);
+							
+							// Wrap your existing view with the action bar.
+							// your_layout refers to the resource ID of your current layout.
+			View actionBarWrapped = ActionBarUtils.showActionBar(act, R.layout.search_output, entity);
+							
+							// Now set the view for your activity to be the wrapped view.
+			dialog.setContentView(actionBarWrapped);
+		}
 		Button addWatch = (Button)dialog.findViewById(R.id.add_watch);
 		//If the add to list boolean exists
 		if(!watchFlag)

@@ -373,7 +373,14 @@ public class Trending extends Activity {
 					data.clear();
 				}
 				holder.posts.clear();
-				fetchTrending(holder);
+				if(ManageInput.confirmInternet(cont))
+				{
+					fetchTrending(holder);
+				}
+				else
+				{
+					Toast.makeText(cont, "No Internet Connection", Toast.LENGTH_SHORT).show();
+				}
 				listview.setAdapter(null);
             }
 		});
@@ -391,7 +398,7 @@ public class Trending extends Activity {
 	/**
 	 * Just because this has to be called twice, abstracted.
 	 * Makes the loading dialog, and in a side thread calls the back
-	 * function so both could happen. Yay, hackiness.
+	 * function so both could happen. 
 	 * @param holder
 	 */
 	public void fetchTrending(final Storage holder)
