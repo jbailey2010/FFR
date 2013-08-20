@@ -868,7 +868,7 @@ public class HighLevel
 		for(teCounter = 0; teCounter < teLimit; teCounter++)
 		{
 			teTotal += te.poll().values.points;
-		}
+		} 
 		qbTotal /= qbCounter;
 		rbTotal /= rbCounter;
 		wrTotal /= wrCounter;
@@ -885,7 +885,7 @@ public class HighLevel
 					player.values.paapd = player.values.paa / player.values.worth;
 				}
 				else if(player.info.position.equals("RB"))
-				{
+				{ 
 					player.values.paa = player.values.points - rbTotal;
 					player.values.paapd = player.values.paa / player.values.worth;
 				}

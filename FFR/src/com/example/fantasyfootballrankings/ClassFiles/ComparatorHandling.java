@@ -246,7 +246,7 @@ public class ComparatorHandling
 			}
 			else
 			{
-				val1 += 1.0;
+				val1 += 0.5;
 				p2.append("-Costs less" + "\n");
 			}
 		}
@@ -259,7 +259,7 @@ public class ComparatorHandling
 			}
 			else
 			{
-				val1 += 1.0;
+				val1 += 0.5;
 				p1.append("-Costs less" + "\n");
 			}
 		}
@@ -271,7 +271,7 @@ public class ComparatorHandling
 			{
 				if(paa1 - paa2 > 15.0)
 				{
-					val1 += 7.0;
+					val1 += 9.0;
 					p1.append("-Much higher PAA\n");
 				}
 				else
@@ -284,7 +284,7 @@ public class ComparatorHandling
 			{
 				if(paa2 - paa1 > 15.0)
 				{
-					val2 += 7.0;
+					val2 += 9.0;
 					p2.append("-Much higher PAA\n");
 				}
 				else
@@ -444,12 +444,12 @@ public class ComparatorHandling
 			{
 				if(risk1 - risk2 > 3.0)
 				{
-					val2 += 1;
+					val2 += 0.5;
 					p2.append("-Much lower risk\n");
 				}
 				else
 				{
-					val2 += 0.5;
+					val2 += 0.1;
 					p2.append("-Lower risk\n");
 				}
 			}
@@ -457,12 +457,12 @@ public class ComparatorHandling
 			{
 				if(risk2 - risk1 > 3.0)
 				{
-					val1 += 1;
+					val1 += 0.5;
 					p1.append("-Much lower risk\n");
 				}
 				else
 				{
-					val1 += 0.5;
+					val1 += 0.1;
 					p1.append("-Lower risk\n");
 				}
 			}
@@ -608,12 +608,12 @@ public class ComparatorHandling
 		{
 			if(adp2 - adp1 > 15.0)
 			{
-				val1 += 6;
-				p1.append("-Much higher ADP\n");
+				val1 += 7;
+				p1.append("-Much higher ADP\n"); 
 			}
 			else
-			{
-				val1 += 3;
+			{ 
+				val1 += 4;
 				p1.append("-Higher ADP\n");
 			}
 		}
@@ -621,12 +621,12 @@ public class ComparatorHandling
 		{
 			if(adp1 - adp2 > 15.0)
 			{
-				val2 += 6;
+				val2 += 7;
 				p2.append("-Much higher ADP\n");
 			}
 			else
 			{
-				val2 += 3;
+				val2 += 4;
 				p2.append("-Higher ADP\n");
 			}		
 		}
