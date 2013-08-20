@@ -202,6 +202,8 @@ public class ComparatorHandling
 	{
 		StringBuilder p1 = new StringBuilder(10000);
 		StringBuilder p2 = new StringBuilder(10000);
+		double val1 = 0.0;
+		double val2 = 0.0;
 		int rank1 = posRank(player1, firstPos);
 		int rank2 = posRank(player2, secPos);
 		if(rank1 != rank2)
@@ -210,10 +212,12 @@ public class ComparatorHandling
 			{
 				if(rank2 - rank1 > 10)
 				{
+					val1 += 0.5;
 					p1.append("-Positionally much higher ranked" + "\n");
 				}
 				else
 				{
+					val1 += 0.1;
 					p1.append("-Positionally higher ranked\n");
 				}
 			}
@@ -221,39 +225,42 @@ public class ComparatorHandling
 			{
 				if(rank1 - rank2 > 10)
 				{
+					val2 += 0.5;
 					p2.append("-Positionally much higher ranked" + "\n");
 				}
 				else
 				{
+					val2 += 0.1;
 					p2.append("-Positionally higher ranked\n");
 				}		
 			}
 		}
 		double worth1 = player1.values.worth;
 		double worth2 = player2.values.worth;
-		if(Math.abs(worth1 - worth2) > 3.0)
+		if(worth1 > worth2)
 		{
-			if(worth1 > worth2)
+			if(worth1 - worth2 > 10)
 			{
-				if(worth1 - worth2 > 10)
-				{
-					p2.append("-Costs much less\n");
-				}
-				else
-				{
-					p2.append("-Costs less" + "\n");
-				}
+				val1 += 2.0;
+				p2.append("-Costs much less\n");
 			}
 			else
 			{
-				if(worth2 - worth1 > 10)
-				{
-					p1.append("-Costs much less\n");
-				}
-				else
-				{
-					p1.append("-Costs less" + "\n");
-				}
+				val1 += 1.0;
+				p2.append("-Costs less" + "\n");
+			}
+		}
+		else
+		{
+			if(worth2 - worth1 > 10)
+			{
+				val2 += 2.0;
+				p1.append("-Costs much less\n");
+			}
+			else
+			{
+				val1 += 1.0;
+				p1.append("-Costs less" + "\n");
 			}
 		}
 		double paa1 = player1.values.paa;
@@ -264,10 +271,12 @@ public class ComparatorHandling
 			{
 				if(paa1 - paa2 > 15.0)
 				{
+					val1 += 7.0;
 					p1.append("-Much higher PAA\n");
 				}
 				else
 				{
+					val1 += 4.0;
 					p1.append("-Higher PAA\n");
 				}
 			}
@@ -275,38 +284,41 @@ public class ComparatorHandling
 			{
 				if(paa2 - paa1 > 15.0)
 				{
+					val2 += 7.0;
 					p2.append("-Much higher PAA\n");
 				}
 				else
 				{
+					val2 += 4.0;
 					p2.append("-Higher PAA\n");
 				}
 			}
 			double lev1 = player1.values.leverage;
 			double lev2 = player2.values.leverage;
-			if(Math.abs(player1.values.worth - player2.values.worth) < 10)
+			if(lev1 > lev2)
 			{
-				if(lev1 > lev2)
+				if(lev1 - lev2 > 5.0)
 				{
-					if(lev1 - lev2 > 5.0)
-					{
-						p1.append("-Much higher leverage\n");
-					}
-					else
-					{
-						p1.append("-Higher leverage\n");
-					}
+					val1 += 0.2;
+					p1.append("-Much higher leverage\n");
 				}
-				if(lev2 > lev1)
+				else
 				{
-					if(lev2 - lev1 > 5.0)
-					{
-						p2.append("-Much higher leverage\n");
-					}
-					else
-					{
-						p2.append("-Higher leverage\n");
-					}
+					val1 += 0.1;
+					p1.append("-Higher leverage\n");
+				}
+			}
+			if(lev2 > lev1)
+			{
+				if(lev2 - lev1 > 5.0)
+				{
+					val2 += 0.2;
+					p2.append("-Much higher leverage\n");
+				}
+				else
+				{
+					val2 += 0.1;
+					p2.append("-Higher leverage\n");
 				}
 			}
 			double paapd1 = player1.values.paapd;
@@ -315,10 +327,12 @@ public class ComparatorHandling
 			{
 				if(paapd1 - paapd2 > 1.0)
 				{
+					val1 += 1;
 					p1.append("-Much higher PAAPD\n");
 				}
 				else
 				{
+					val1 += 0.5;
 					p1.append("-Higher PAAPD\n");
 				}
 			}
@@ -326,10 +340,12 @@ public class ComparatorHandling
 			{
 				if(paapd2 - paapd1 > 1.0)
 				{
+					val2 += 1;
 					p2.append("-Much higher PAAPD\n");
 				}
 				else
 				{
+					val2 += 0.5;
 					p2.append("-Higher PAAPD\n");
 				}
 			}
@@ -382,39 +398,42 @@ public class ComparatorHandling
 		}
 		double cast1 = teamWorth(firstTeam);
 		double cast2 = teamWorth(secTeam);
-		if(Math.abs(cast1 - cast2) > 4.0)
+		if(cast1 > cast2)
 		{
-			if(cast1 > cast2)
+			if(cast1 - cast2 > 20.0)
 			{
-				if(cast1 - cast2 > 20.0)
-				{
-					p1.append("-Much better supporting cast\n");
-				}
-				else
-				{
-					p1.append("-Better supporting cast\n");
-				}
+				val1 += 0.5;
+				p1.append("-Much better supporting cast\n");
 			}
 			else
 			{
-				if(cast2 - cast1 > 20.0)
-				{
-					p2.append("-Much better supporting cast\n");
-				}
-				else
-				{
-					p2.append("-Better supporting cast\n");
-				}
+				val1 += 0.2;
+				p1.append("-Better supporting cast\n");
+			}
+		}
+		else
+		{
+			if(cast2 - cast1 > 20.0)
+			{
+				val2 += 0.5;
+				p2.append("-Much better supporting cast\n");
+			}
+			else
+			{
+				val2 += 0.2;
+				p2.append("-Better supporting cast\n");
 			}
 		}
 		String cy1 = player1.info.contractStatus;
 		String cy2 = player2.info.contractStatus;
 		if(!cy1.contains("Under"))
 		{
+			val1 += 1;
 			p1.append("-In a contract year\n");
 		}
 		if(!cy2.contains("Under"))
 		{
+			val2 += 1;
 			p2.append("-In a contract year\n");
 		}
 		double risk1 = player1.risk;
@@ -425,10 +444,12 @@ public class ComparatorHandling
 			{
 				if(risk1 - risk2 > 3.0)
 				{
+					val2 += 1;
 					p2.append("-Much lower risk\n");
 				}
 				else
 				{
+					val2 += 0.5;
 					p2.append("-Lower risk\n");
 				}
 			}
@@ -436,10 +457,12 @@ public class ComparatorHandling
 			{
 				if(risk2 - risk1 > 3.0)
 				{
+					val1 += 1;
 					p1.append("-Much lower risk\n");
 				}
 				else
 				{
+					val1 += 0.5;
 					p1.append("-Lower risk\n");
 				}
 			}
@@ -501,10 +524,12 @@ public class ComparatorHandling
 		{
 			if(quantity1 - quantity2 > 3)
 			{
+				val1 += 0.2;
 				p1.append("-Shows up in a lot more rankings\n");
 			}
 			else
 			{
+				val1 += 0.1;
 				p1.append("-Shows up in more rankings\n");
 			}
 		}
@@ -512,10 +537,12 @@ public class ComparatorHandling
 		{
 			if(quantity2 - quantity1 > 3)
 			{
+				val2 += 0.2;
 				p2.append("-Shows up in a lot more rankings\n");
 			}
 			else
 			{
+				val2 += 0.1;
 				p2.append("-Shows up in more rankings\n");
 			}	
 		}
@@ -525,10 +552,12 @@ public class ComparatorHandling
 		{
 			if(lineRank2 - lineRank1 > 6)
 			{
+				val1 += 0.5;
 				p1.append("-Much better offensive line\n");
 			}
 			else
 			{
+				val1 += 0.1;
 				p1.append("-Better offensive line\n");
 			}
 		}
@@ -536,10 +565,12 @@ public class ComparatorHandling
 		{
 			if(lineRank1 - lineRank2 > 6)
 			{
+				val2 += 0.5;
 				p2.append("-Much better offensive line\n");
 			}
 			else
 			{
+				val2 += 0.1;
 				p2.append("-Better offensive line\n");
 			}	
 		}
@@ -549,10 +580,12 @@ public class ComparatorHandling
 		{
 			if(draft2 - draft1 > 5)
 			{
+				val1 += 0.5;
 				p1.append("-Much better graded draft\n");
 			}
 			else
 			{
+				val1 += 0.1;
 				p1.append("-Better graded draft\n");
 			}
 		}
@@ -560,65 +593,69 @@ public class ComparatorHandling
 		{
 			if(draft1 - draft2 > 5)
 			{
+				val2 += 0.5;
 				p2.append("-Much better graded draft\n");
 			}
 			else
 			{
+				val2 += 0.1;
 				p2.append("-Better graded draft\n");
 			}	
 		}
 		double adp1 = adp(player1);
 		double adp2 = adp(player2);
-		if(Math.abs(adp1 - adp2) > 2.0)
+		if(adp1 < adp2)
 		{
-			if(adp1 < adp2)
+			if(adp2 - adp1 > 15.0)
 			{
-				if(adp2 - adp1 > 15.0)
-				{
-					p1.append("-Much higher ADP\n");
-				}
-				else
-				{
-					p1.append("-Higher ADP\n");
-				}
+				val1 += 6;
+				p1.append("-Much higher ADP\n");
 			}
 			else
 			{
-				if(adp1 - adp2 > 15.0)
-				{
-					p2.append("-Much higher ADP\n");
-				}
-				else
-				{
-					p2.append("-Higher ADP\n");
-				}		
+				val1 += 3;
+				p1.append("-Higher ADP\n");
 			}
+		}
+		else
+		{
+			if(adp1 - adp2 > 15.0)
+			{
+				val2 += 6;
+				p2.append("-Much higher ADP\n");
+			}
+			else
+			{
+				val2 += 3;
+				p2.append("-Higher ADP\n");
+			}		
 		}
 		double ecr1 = player1.values.ecr;
 		double ecr2 = player2.values.ecr;
-		if(Math.abs(ecr1 - ecr2) > 2)
+		if(ecr1 < ecr2)
 		{
-			if(ecr1 < ecr2)
+			if(ecr2 - ecr1 > 10)
 			{
-				if(ecr2 - ecr1 > 10)
-				{
-					p1.append("-Much higher ECR\n");
-				}
-				else
-				{
-					p1.append("-Higher ECR\n");
-				}
+				val1 += 10.0;
+				p1.append("-Much higher ECR\n");
 			}
-			if(ecr2 < ecr1)
+			else
 			{
-				if(ecr1 - ecr2 > 10)
-				{
-					p2.append("-Much higher ECR\n");
-				}
-				else
-				{
-					p2.append("-Higher ECR\n");
-				}
+				val1 += 5.5;
+				p1.append("-Higher ECR\n");
+			}
+		}
+		if(ecr2 < ecr1)
+		{
+			if(ecr1 - ecr2 > 10)
+			{
+				val2 += 10.0;
+				p2.append("-Much higher ECR\n");
+			}
+			else
+			{
+				val2 += 5.5;
+				p2.append("-Higher ECR\n");
 			}
 		}
 		int sos1 = holder.sos.get(player1.info.team + "," + player1.info.position);//player1.info.sos;
@@ -627,10 +664,12 @@ public class ComparatorHandling
 		{
 			if(sos1 - sos2 < 5)
 			{
+				val2 += 0.1;
 				p2.append("-Easier positional SOS\n");
 			}
 			else
 			{
+				val2 += 0.5;
 				p2.append("-Much easier positional SOS\n");
 			}
 		}
@@ -638,10 +677,12 @@ public class ComparatorHandling
 		{
 			if(sos2 - sos1 < 5)
 			{
+				val1 += 0.1;
 				p1.append("-Easier positional SOS\n");
 			}
 			else
 			{
+				val1 += 0.5;
 				p1.append("-Much easier positional SOS\n");
 			}
 		}
@@ -742,24 +783,28 @@ public class ComparatorHandling
 		if(!pos1)
 		{
 			p1.append("-You have not yet drafted a player of this position\n");
+			val1 += 1;
 		} 
 		if(!pos2)
 		{
 			p2.append("-You have not yet drafted a player of this position\n");
+			val2 += 1;
 		}
 		boolean sameBye1 = teamBye(holder, player1);
 		boolean sameBye2 = teamBye(holder, player2);
 		if(sameBye1)
 		{
 			p1.append("-Same bye as a player you've drafted of the same position\n");
+			val1 -= 1;
 		}
 		if(sameBye2)
 		{
 			p2.append("-Same bye as a player you've drafted of the same position\n");
+			val2 -= 1;
 		}
 		p1.append("\n");
 		p2.append("\n");
-		fixOutput(new Dialog(cont, R.style.RoundCornersFull), cont, holder, player1, player2, p1, p2);
+		fixOutput(new Dialog(cont, R.style.RoundCornersFull), cont, holder, player1, player2, p1, p2, val1, val2);
 	}
 	
 	/**
@@ -767,7 +812,7 @@ public class ComparatorHandling
 	 */
 	public static void fixOutput(final Dialog dialog, final Context cont, final Storage holder,
 			final PlayerObject player1, final PlayerObject player2, StringBuilder p1,
-			StringBuilder p2) 
+			StringBuilder p2, double val1, double val2) 
 	{
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); 
 		dialog.setContentView(R.layout.comparator_output);
@@ -780,6 +825,29 @@ public class ComparatorHandling
 		header1.setText(player1.info.name);
 		TextView header2 = (TextView)dialog.findViewById(R.id.compare_header_2);
 		header2.setText(player2.info.name);
+		TextView result = (TextView)dialog.findViewById(R.id.comparator_result);
+		if(val1 > val2)
+		{
+			if(val1 - val2 < 4.0)
+			{
+				result.setText(player1.info.name + " looks a bit better");
+			}
+			else
+			{
+				result.setText(player1.info.name + " looks better");
+			}
+		}
+		if(val2 > val1)
+		{
+			if(val2 - val1 < 4.0)
+			{
+				result.setText(player2.info.name + " looks a bit better");
+			}
+			else
+			{
+				result.setText(player2.info.name + " looks better");
+			}
+		}
 		Button back = (Button)dialog.findViewById(R.id.compare_back);
 		back.setOnClickListener(new OnClickListener() 
 		{
