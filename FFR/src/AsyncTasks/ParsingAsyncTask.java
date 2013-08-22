@@ -254,7 +254,6 @@ public class ParsingAsyncTask
 					e3.printStackTrace();
 				}
 				publishProgress("Please wait, fetching the rankings...(23/25)");
-				
 				try {
 					ParseJuanElway.parseJuanElwayVals(holder);
 				} catch (HttpStatusException e2)
@@ -266,7 +265,6 @@ public class ParsingAsyncTask
 				}
 				publishProgress("Please wait, fetching the rankings...(24/25)");
 				
-		
 		    	try {
 					ParseSI.parseSIWrapper(holder);
 					publishProgress("Please wait, fetching the rankings...(25/25)");

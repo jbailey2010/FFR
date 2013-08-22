@@ -25,7 +25,6 @@ public class ParseSI
 		parseSIRB(holder, "http://sportsillustrated.cnn.com/fantasy/news/20130725/fantasy-football-running-back-rankings-projections-preview/");
 		parseSIWR(holder, "http://sportsillustrated.cnn.com/fantasy/news/20130724/fantasy-football-wide-receiver-rankings-projections-preview/");
 		parseSITE(holder, "http://sportsillustrated.cnn.com/fantasy/news/20130726/fantasy-football-tight-end-rankings-projections-preview/");
-		//parseSIDef(holder, "");
 		parseSIK(holder, "http://sportsillustrated.cnn.com/fantasy/news/20130726/fantasy-football-kicker-rankings-projections-preview/");
 	}
 	
@@ -41,7 +40,7 @@ public class ParseSI
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[]td = html.split("\n");
-		for(int i = 3; i < td.length; i+=14)
+		for(int i = 3; i < td.length; i+=16)
 		{
 			String name = ParseRankings.fixNames(td[i+1]);
 			if(i+5 >= td.length)

@@ -24,17 +24,22 @@ public class ParseJuanElway
 		String[] td= html.split("\n");
 		for(int i = 6; i < td.length; i+=3)
 		{
-			if(td[i].equals("RK") || td[i].equals("K"))
-			{
-				continue;  
-			}
 			if(td[i].length() > 20)
 			{
 				break;
 			}
-			int val = Integer.parseInt(td[i+2].substring(1, td[i+2].length()));
-			String name = ParseRankings.fixNames(td[i+1]); 
-			ParseRankings.finalStretch(holder, name, val, "", "");
+			int val = 0; 
+			try{
+				val = Integer.parseInt(td[i+2].replace("$", ""));
+			} catch(NumberFormatException e)
+			{
+				
+			}
+			String name = ParseRankings.fixNames(td[i+1]);
+			if(!name.equals("Running Back") && !name.equals("Wide Receiver") && !name.equals("Tight End"))
+			{
+				ParseRankings.finalStretch(holder, name, val, "", "");
+			}
 		}
 	}
 }

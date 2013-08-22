@@ -37,7 +37,6 @@ public class ParseInjuries
 			String output = "Injury Status: " + status + "\n" + 
 							"Type of Injury: " + injuryType + "\n" + 
 							"Expected Return: " + returnDate + "\n";
-			System.out.println(name + "/" + pos);
 			injuries.put(name + "/" + pos, output);
 		}
 		return injuries;

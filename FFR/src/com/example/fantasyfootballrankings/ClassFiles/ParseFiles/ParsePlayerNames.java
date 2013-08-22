@@ -177,6 +177,15 @@ public class ParsePlayerNames {
 		names.add("Vonta Leach");
 		names.add("Austin Collie");
 		names.add("Patrick Peterson");
+		names.add("Dan Carpenter");
+		names.add("Rian Lindell");
+		names.add("Kenbrell Tompkins");
+		names.add("Jose Maltos");
+		names.add("Austin Signor");
+		names.add("Mike Thomas");
+		names.add("Michael Jenkins");
+		names.add("Zach Brown");
+		names.add("Mohamed Massaquoi");
 		if(names.size() > 200)
 		{
 			WriteToFile.storePlayerNames(names, cont);

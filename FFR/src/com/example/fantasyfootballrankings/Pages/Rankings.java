@@ -1284,7 +1284,7 @@ public class Rankings extends Activity {
 				}
 				else
 				{
-					Toast.makeText(cont, "No Internet Connection Available, The Initial Load of the Rankings Can't Be Done. Connect and Try Again.", Toast.LENGTH_LONG).show();
+					Toast.makeText(cont, "No Internet Connection Available, The Initial Load of the Rankings Can't Be Done. Connect and Try Again.", Toast.LENGTH_LONG ).show();
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

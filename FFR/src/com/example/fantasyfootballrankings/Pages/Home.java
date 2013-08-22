@@ -149,10 +149,10 @@ public class Home extends Activity{
         	helpPopUp();
         	WriteToFile.writeFirstOpen(cont);
         }
-        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+       /* StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
-        	ParseRazzball.parseRazzballWrapper(new Storage());
+        	ParseJuanElway.parseJuanElwayVals(new Storage());
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 

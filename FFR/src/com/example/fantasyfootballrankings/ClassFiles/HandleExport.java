@@ -134,7 +134,7 @@ public class HandleExport
 		writer.write(line);
 	}
 
-	
+	 
 	
 	/**
 	 * Handles google drive initially
@@ -153,7 +153,7 @@ public class HandleExport
 			{
 				PlayerObject player = players.poll();
 				if(!player.info.team.equals("None") && !player.info.team.equals("---") && !player.info.team.equals("FA") && 
-						player.info.team.length() > 0 && player.info.team.length() > 0)
+						player.info.team.length() > 0 && player.info.team.length() > 0 && !player.info.name.contains("NO MATCH FOUND"))
 				{
 					writeCsvData(player.values.worth, player.info.name, player.info.position, player.info.team,
 							player.info.age, holder.bye.get(player.info.team), holder.sos.get(player.info.team + "," + player.info.position), 

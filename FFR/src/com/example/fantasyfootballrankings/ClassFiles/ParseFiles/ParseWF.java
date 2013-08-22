@@ -37,30 +37,38 @@ public class ParseWF
 	 */
 	public static void wfRankingsHelper(Storage holder, String url) throws IOException
 	{
-		String text = HandleBasicQueries.handleLists(url, "ol li");
+		String text = HandleBasicQueries.handleLists(url, "span");
 		String[] perPlayer = text.split("\n");
 		String[][] all = new String[perPlayer.length][];
 		for(int i = 0; i < perPlayer.length; i++)
 		{
+			if(i+5 < perPlayer.length && perPlayer[i+5].contains("total posts"))
+			{
+				break;
+			}
 			perPlayer[i] = perPlayer[i].replace(". -- ", ", ");
 			all[i] = perPlayer[i].split(", ");
 			String playerName = all[i][0];
-			playerName = ParseRankings.fixNames(playerName);
+			if(!playerName.contains(String.valueOf(i+1)))
+			{
+				break;
+			}
+			playerName = ParseRankings.fixNames(playerName.split(String.valueOf(i + 1) + "\\. ")[1]);
 			String team = "";
 			String pos="";
 			int val = 0;
 			if(!perPlayer[i].contains("DEF"))
 			{
-				team = all[i][2].split(". ")[0];
+				team = ParseRankings.fixTeams(all[i][2].split(". ")[0]);
 				pos = all[i][1];
 				val = Integer.parseInt(all[i][3].substring(1, all[i][3].length()));
 			}
 			else
 			{
-				team = playerName;
+				team = ParseRankings.fixTeams(playerName);
 				playerName += " D/ST";
 				pos = "D/ST";
-				val = Integer.parseInt(all[i][2].substring(1, all[i][2].length()));
+				val = Integer.parseInt(all[i][3].substring(1, all[i][3].length()));
 			}
 			ParseRankings.finalStretch(holder, playerName, val, team, pos);
 		}

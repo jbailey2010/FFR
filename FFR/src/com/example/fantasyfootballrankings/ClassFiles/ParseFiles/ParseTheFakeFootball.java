@@ -21,10 +21,33 @@ public class ParseTheFakeFootball {
 	{
 		String html = HandleBasicQueries.handleLists("https://docs.google.com/spreadsheet/pub?key=0AopbSwnRivj7dGJUWkI3OWNad2xoTmN6OEhqaTdnZ2c&amp;output=html&amp;widget=true", "td");
 		String[] td = html.split("\n");
-		for(int i = 20; i < td.length; i+=9)
+		int min = 0;
+		for(int i = 0; i < td.length; i++)
 		{
+			if(td[i].contains("-") && i > 0)
+			{
+				min = i;
+				break;
+			}
+		}
+		for(int i = min; i < td.length; i+=15)
+		{
+			if(td[i].contains(".") && !td[i].contains("-"))
+			{
+				i++;
+			}
+			while(!td[i].contains("-") && !ManageInput.isInteger(td[i].trim()) && !td[i].contains("$"))
+			{
+				i++;
+			}
 			String name = ParseRankings.fixDefenses(ParseRankings.fixNames(td[i].split(" - ")[0]));
-			int val= Integer.parseInt(td[i+1].substring(1, td[i+1].length()));
+			int val = 0;
+			try{
+				val = Integer.parseInt(td[i+1].replaceAll("\\$", ""));
+			} catch(NumberFormatException e)
+			{
+				
+			}
 			ParseRankings.finalStretch(holder, name, val, "", "");
 		}
 	}
