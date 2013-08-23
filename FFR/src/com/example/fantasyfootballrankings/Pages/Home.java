@@ -152,7 +152,7 @@ public class Home extends Activity{
        /* StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
-        	ParseJuanElway.parseJuanElwayVals(new Storage());
+        	HighLevel.parseECRWrapper(new Storage(), cont);
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 

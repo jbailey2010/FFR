@@ -30,16 +30,9 @@ public class ParseTheFakeFootball {
 				break;
 			}
 		}
-		for(int i = min; i < td.length; i+=15)
+		int i = min;
+		while(i < td.length)
 		{
-			if(td[i].contains(".") && !td[i].contains("-"))
-			{
-				i++;
-			}
-			while(!td[i].contains("-") && !ManageInput.isInteger(td[i].trim()) && !td[i].contains("$"))
-			{
-				i++;
-			}
 			String name = ParseRankings.fixDefenses(ParseRankings.fixNames(td[i].split(" - ")[0]));
 			int val = 0;
 			try{
@@ -49,6 +42,17 @@ public class ParseTheFakeFootball {
 				
 			}
 			ParseRankings.finalStretch(holder, name, val, "", "");
+			try
+			{
+				while(!td[i+1].contains("-"))
+				{
+					i++;
+				}
+				i++;
+			}catch(ArrayIndexOutOfBoundsException e)
+			{
+				break;
+			}
 		}
 	}
 }

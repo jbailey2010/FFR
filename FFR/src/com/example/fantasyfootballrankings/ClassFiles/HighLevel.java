@@ -961,6 +961,9 @@ public class HighLevel
 			} catch(NumberFormatException e)
 			{
 				
+			} catch(ArrayIndexOutOfBoundsException e1)
+			{
+				
 			}
 			ecr.put(name, ecrVal);
 			risk.put(name, riskVal);

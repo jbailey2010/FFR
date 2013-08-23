@@ -21,9 +21,19 @@ public class ParseFantasyPros
 	 * @param holder
 	 * @throws IOException
 	 */
+	
 	public static void parseFantasyProsAgg(Storage holder) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists("http://www.fantasypros.com/nfl/auction-values/overall.php?teams=12", "td");
+		parseFantasyProsWorker(holder, "http://www.fantasypros.com/nfl/auction-values/overall.php?teams=12", 5);
+		parseFantasyProsWorker(holder, "http://www.fantasypros.com/nfl/auction-values/overall.php?teams=10", 3);
+	}
+	
+	/**
+	 * Does the fantasy pros parsing
+	 */
+	public static void parseFantasyProsWorker(Storage holder, String url, int count) throws IOException
+	{
+		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = html.split("\n");
 		int min = 0;
 		for(int i = 0; i < td.length; i++)
@@ -67,10 +77,10 @@ public class ParseFantasyPros
 			if(match != null)
 			{    
 				BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
-				Values.handleNewValue(match.values, newPlayer.values.worth);
-				Values.handleNewValue(match.values, newPlayer.values.worth);
-				Values.handleNewValue(match.values, val2);
-				Values.handleNewValue(match.values, val3);
+				for(int j = 0; j < count; j++)
+				{
+					Values.handleNewValue(match.values, newPlayer.values.worth);
+				}
 				if(ecr != -1)
 				{
 					match.values.ecr = (double) ecr;
@@ -82,9 +92,10 @@ public class ParseFantasyPros
 			}
 			else
 			{
-				Values.handleNewValue(newPlayer.values, newPlayer.values.worth);
-				Values.handleNewValue(newPlayer.values, val2);
-				Values.handleNewValue(newPlayer.values, val3);
+				for(int j = 0; j < count - 1; j++)
+				{
+					Values.handleNewValue(newPlayer.values, newPlayer.values.worth);
+				}
 				if(ecr != -1)
 				{
 					newPlayer.values.ecr = (double) ecr;
