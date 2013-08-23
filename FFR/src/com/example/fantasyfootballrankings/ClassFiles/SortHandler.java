@@ -1124,6 +1124,7 @@ public class SortHandler
 	    	datum.put("sub", "Try broadening your search a bit");
 	    	data.add(datum);
 	    }
+	    int count = 0;
 	    while(!sorted.isEmpty())
 	    {
 	    	PlayerObject elem = sorted.poll();
@@ -1133,13 +1134,15 @@ public class SortHandler
 	    	}
 	    	Map<String, String> datum = new HashMap<String, String>(2);
 	    	String output = "";
+	    	count++;
+	    	output = String.valueOf(count) + ") ";
 	    	if(Draft.draftedMe(elem.info.name, holder.draft))
 	    	{
-	    		output = "DRAFTED (YOU) - ";
+	    		output += "DRAFTED (YOU) - ";
 	    	}
 	    	else if(Draft.isDrafted(elem.info.name, holder.draft))
 	    	{
-	    		output = "DRAFTED - ";
+	    		output += "DRAFTED - ";
 	    	}
 	    	if(isHidden && !output.equals(""))
 	    	{
