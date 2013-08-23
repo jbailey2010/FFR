@@ -14,12 +14,17 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
+import android.webkit.URLUtil;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -1098,7 +1103,7 @@ public class PlayerInfo
 	/** 
 	 * Makes a popup that shows the tweet so it's copyable from a user
 	 */
-	public static void tweetPopUp(View arg1, Activity cont)
+	public static void tweetPopUp(View arg1, final Activity cont)
 	{
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -1117,9 +1122,27 @@ public class PlayerInfo
 			}
 	    });
 	    TextView showTweet = (TextView)dialog.findViewById(R.id.tweet_field);
-	    String tweet = ((TwoLineListItem)arg1).getText1().getText().toString();
-		tweet += "\n\n" + ((TwoLineListItem)arg1).getText2().getText().toString();
-	    showTweet.setText(tweet);
+	    String text = ((TwoLineListItem)arg1).getText1().getText().toString();
+		text += "\n\n" + ((TwoLineListItem)arg1).getText2().getText().toString();
+		String[] words = text.split(" ");
+		SpannableString ss = new SpannableString(text);
+		for(final String word : words)
+		{
+			if(URLUtil.isValidUrl(word))
+			{
+				ClickableSpan clickableSpan = new ClickableSpan() {
+		            @Override
+		            public void onClick(View textView) {
+		            	Intent i = new Intent(Intent.ACTION_VIEW);
+		            	i.setData(Uri.parse(word));
+		            	cont.startActivity(i);
+		            }
+		        };
+		        ss.setSpan(clickableSpan, text.indexOf(word), text.indexOf(word) + word.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+			}
+		}
+	    showTweet.setText(ss);
+	    showTweet.setMovementMethod(LinkMovementMethod.getInstance());
 	}
 
 	/**

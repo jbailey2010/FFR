@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import twitter4j.TwitterException;
-
 import jeff.isawesome.fantasyfootballrankings.R;
+
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
@@ -21,6 +20,7 @@ import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissLi
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -29,12 +29,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.SpannedString;
+import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.webkit.URLUtil;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -449,7 +456,7 @@ public class News extends Activity {
 	/**
 	 * Makes a popup that shows the tweet so it's copyable from a user
 	 */
-	public static void tweetPopUp(View arg1, Activity cont)
+	public static void tweetPopUp(View arg1, final Activity cont)
 	{
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -457,7 +464,7 @@ public class News extends Activity {
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-	    dialog.getWindow().setAttributes(lp);
+	    dialog.getWindow().setAttributes(lp); 
 	    dialog.show();
 	    Button cancel = (Button)dialog.findViewById(R.id.tweet_popup_close);
 	    cancel.setOnClickListener(new OnClickListener(){
@@ -470,7 +477,26 @@ public class News extends Activity {
 	    TextView showTweet = (TextView)dialog.findViewById(R.id.tweet_field);
 	    String text = ((TwoLineListItem)arg1).getText1().getText().toString();
 		text += "\n\n" + ((TwoLineListItem)arg1).getText2().getText().toString();
-	    showTweet.setText(text);
+		//Below
+		String[] words = text.split(" ");
+		SpannableString ss = new SpannableString(text);
+		for(final String word : words)
+		{
+			if(URLUtil.isValidUrl(word))
+			{
+				ClickableSpan clickableSpan = new ClickableSpan() {
+		            @Override
+		            public void onClick(View textView) {
+		            	Intent i = new Intent(Intent.ACTION_VIEW);
+		            	i.setData(Uri.parse(word));
+		            	cont.startActivity(i);
+		            }
+		        };
+		        ss.setSpan(clickableSpan, text.indexOf(word), text.indexOf(word) + word.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+			}
+		}
+	    showTweet.setText(ss);
+	    showTweet.setMovementMethod(LinkMovementMethod.getInstance());
 	}
 
 }
