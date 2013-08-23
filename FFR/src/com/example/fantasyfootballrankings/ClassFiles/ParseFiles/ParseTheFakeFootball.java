@@ -12,14 +12,21 @@ import com.example.fantasyfootballrankings.ClassFiles.Storage;
  *
  */
 public class ParseTheFakeFootball {
+	
+	public static void parseTheFakeFootballVals(Storage holder) throws IOException
+	{
+		parseTheFakeFootballValsWorker(holder, "https://docs.google.com/spreadsheet/pub?key=0AopbSwnRivj7dGJUWkI3OWNad2xoTmN6OEhqaTdnZ2c&amp;output=html&amp;widget=true");
+		parseTheFakeFootballValsWorker(holder, "https://docs.google.com/spreadsheet/pub?key=0AopbSwnRivj7dDctOVFhdU5SMlA3UUdTejFlR2U0Zmc&amp;output=html&amp;widget=true");
+	}
+	
 	/**
 	 * Does the actual parsing
 	 * @param holder
 	 * @throws IOException
 	 */
-	public static void parseTheFakeFootballVals(Storage holder) throws IOException
+	public static void parseTheFakeFootballValsWorker(Storage holder, String url) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists("https://docs.google.com/spreadsheet/pub?key=0AopbSwnRivj7dGJUWkI3OWNad2xoTmN6OEhqaTdnZ2c&amp;output=html&amp;widget=true", "td");
+		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = html.split("\n");
 		int min = 0;
 		for(int i = 0; i < td.length; i++)

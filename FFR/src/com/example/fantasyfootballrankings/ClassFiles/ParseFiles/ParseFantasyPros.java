@@ -24,8 +24,8 @@ public class ParseFantasyPros
 	
 	public static void parseFantasyProsAgg(Storage holder) throws IOException
 	{
-		parseFantasyProsWorker(holder, "http://www.fantasypros.com/nfl/auction-values/overall.php?teams=12", 5);
-		parseFantasyProsWorker(holder, "http://www.fantasypros.com/nfl/auction-values/overall.php?teams=10", 3);
+		parseFantasyProsWorker(holder, "http://www.fantasypros.com/nfl/auction-values/overall.php?teams=12", 4);
+		parseFantasyProsWorker(holder, "http://www.fantasypros.com/nfl/auction-values/overall.php?teams=10", 2);
 	}
 	
 	/**
