@@ -668,8 +668,8 @@ public class SortHandler
 					{
 						double aDiff = 0;
 						double bDiff = 0;
-						aDiff = Integer.parseInt(a.info.adp) - a.values.ecr;
-						bDiff = Integer.parseInt(b.info.adp) - b.values.ecr; 
+						aDiff = Double.parseDouble(a.info.adp) - a.values.ecr;
+						bDiff = Double.parseDouble(b.info.adp) - b.values.ecr; 
 						if(aDiff > bDiff)
 						{
 							return -1;
@@ -1160,7 +1160,7 @@ public class SortHandler
 	    	}
 	    	else if(subject.equals("Under Drafted"))
 	    	{
-	    		double diff = Integer.parseInt(elem.info.adp) - elem.values.ecr;
+	    		double diff = Double.parseDouble(elem.info.adp) - elem.values.ecr;
 	    		datum.put("main", output + df.format(diff)+ ": " + elem.info.name);
 	    		datum.put("sub", "$" +df.format(elem.values.worth)+ ", Projection: " + elem.values.points + "\n" + "ADP: " + elem.info.adp + ", " + "ECR: " + elem.values.ecr);
 	    	}
