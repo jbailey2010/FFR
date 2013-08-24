@@ -201,15 +201,15 @@ public class TradeHandling
 		{
 			output = "This looks bad. Unless there's a player you must have, don't do it.";
 		}
-		else if(total < -7)
+		else if(total < -9)
 		{ 
 			output = "Not in your favor, but not terrible. If there's a player you want, pull the trigger, but be wary.";
 		}
-		else if(total < -3)
+		else if(total < -4)
 		{
-			output = "Against your favor, but barely.";
+			output = "Against your favor, but not by a lot.";
 		}
-		else if(total < -1.5)
+		else if(total < -2)
 		{
 			output = "Marginally against your favor.";
 		}
@@ -217,15 +217,15 @@ public class TradeHandling
 		{
 			output = "Pull the trigger. This in very much in your favor.";
 		}
-		else if(total > 7)
+		else if(total > 9)
 		{
 			output = "In your favor, though not by a huge amount.";
 		}
-		else if(total > 3)
+		else if(total > 4)
 		{
-			output = "In your favor, but barely";
+			output = "In your favor, but not by a lot.";
 		}
-		else if(total > 1.5)
+		else if(total > 2)
 		{
 			output = "Marginally in your favor.";
 		}
@@ -281,25 +281,7 @@ public class TradeHandling
 			{
 				if(player.info.name.equals(input))
 				{
-					value = player.values.worth;
-					if(player.values.paa > 0)
-					{
-						value += (player.values.paa/3);
-					}
-					else
-					{
-						double maxProj = 0.0;
-						double maxAA = 0.0;
-						for(PlayerObject iter : holder.players)
-						{
-							if(iter.info.position.equals(player.info.position) && iter.values.points > maxProj)
-							{
-								maxProj = iter.values.points;
-								maxAA = iter.values.paa;
-							}
-						}
-						value -= (((maxProj - maxAA)*0.9)/3);
-					}
+					value = player.values.worth * 3.5;
 					break;
 				}
 			}

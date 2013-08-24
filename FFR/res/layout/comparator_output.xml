@@ -62,6 +62,7 @@
         android:layout_alignBottom="@+id/compare_output_1"
         android:layout_alignParentRight="true"
         android:maxWidth="140dp"
+        android:paddingBottom="35dp"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -73,6 +74,7 @@
         android:layout_below="@+id/compare_header_1"
         android:layout_marginTop="72dp"
         android:maxWidth="140dp"
+        android:paddingBottom="35dp"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -107,25 +109,6 @@
         android:layout_centerHorizontal="true"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/compare_output_1"
-        android:layout_below="@id/compare_output_1"
-        android:layout_marginTop="30dp"
-        android:text=" "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/compare_output_2"
-        android:layout_below="@id/compare_output_2"
-        android:layout_marginTop="30dp"
-        android:text=" "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
     </ScrollView>
