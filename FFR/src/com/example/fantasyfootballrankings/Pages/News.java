@@ -140,7 +140,10 @@ public class News extends Activity {
 		        Intent team_intent = new Intent(cont, Trending.class);
 		        cont.startActivity(team_intent);		
 				return true;
-			
+			case R.id.draft_history:
+				Intent draft_intent = new Intent(cont, DraftHistory.class);
+		        cont.startActivity(draft_intent);		
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}

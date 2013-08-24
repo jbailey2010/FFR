@@ -261,6 +261,10 @@ public class Rankings extends Activity {
 			case R.id.save_draft:
 				saveDraft();
 				return true;
+			case R.id.draft_history:
+				Intent draft_intent = new Intent(cont, DraftHistory.class);
+		        cont.startActivity(draft_intent);		
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}

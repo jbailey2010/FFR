@@ -3,13 +3,13 @@
     <item android:state_pressed="true" >
         <shape>
             <solid
-                android:color="#343434" />
+                android:color="#242424" />
         </shape>
     </item>
     <item>
         <shape>
             <gradient
-                android:startColor="#343434"
+                android:startColor="#242424"
                 android:endColor="#171717"
                 android:angle="270" />
         </shape>

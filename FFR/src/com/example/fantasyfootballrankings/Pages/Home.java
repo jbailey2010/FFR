@@ -71,7 +71,7 @@ public class Home extends Activity{
 	Storage holder = new Storage();
 	final Context cont = this;
 	Dialog dialog;
-	Button rankings;
+	Button rankings; 
 	Button trending;
 	Button news;
 	Button drafts;
@@ -100,17 +100,11 @@ public class Home extends Activity{
         WindowManager wm = (WindowManager) cont.getSystemService(Context.WINDOW_SERVICE);
 		 Display display = wm.getDefaultDisplay();
 		 Resources r = cont.getResources();
-		 int width = display.getWidth(); 
 		 int height = display.getHeight();
-		 int newWidth = 0;
-		 newWidth = (width*2)/13;
-		 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newWidth, r.getDisplayMetrics());
+		 int newHeight = height / 13;
+		 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newHeight, r.getDisplayMetrics());
 		 		 
 		ImageView pic = (ImageView)findViewById(R.id.football_icon_home);
-		android.view.ViewGroup.LayoutParams picParams = pic.getLayoutParams();
-		picParams.width = (width * 2)/5;
-		picParams.height = (height * 2) / 5;
-		pic.setLayoutParams(picParams);
 		final Random message = new Random();
 		pic.setOnClickListener(new OnClickListener(){
 			@Override
@@ -128,19 +122,19 @@ public class Home extends Activity{
 				{
 					Toast.makeText(cont, "Clicking this image does nothing.", Toast.LENGTH_SHORT).show();
 				}
-			}
+			} 
 		});
 		 android.view.ViewGroup.LayoutParams params1 = rankings.getLayoutParams();
-		 params1.width = (int) px;
+		 params1.height = (int) px;
 		 rankings.setLayoutParams(params1);
 		 android.view.ViewGroup.LayoutParams params2 = trending.getLayoutParams();
-		 params2.width = (int) px;
+		 params2.height = (int) px;
 		 trending.setLayoutParams(params2);
 		 android.view.ViewGroup.LayoutParams params3 = news.getLayoutParams();
-		 params3.width = (int) px;
+		 params3.height = (int) px;
 		 news.setLayoutParams(params3);
 		 android.view.ViewGroup.LayoutParams params4 = drafts.getLayoutParams();
-		 params4.width = (int) px;
+		 params4.height = (int) px;
 		 drafts.setLayoutParams(params4);
         start = System.nanoTime();
         handleInitialRefresh();

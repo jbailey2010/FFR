@@ -180,6 +180,10 @@ public class Trending extends Activity {
 		        Intent intent = new Intent(cont, Rankings.class);
 		        cont.startActivity(intent);		
  		        return true;
+			case R.id.draft_history:
+				Intent draft_intent = new Intent(cont, DraftHistory.class);
+		        cont.startActivity(draft_intent);		
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}

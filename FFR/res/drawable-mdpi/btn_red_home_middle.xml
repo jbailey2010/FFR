@@ -4,7 +4,7 @@
         <shape>
             <solid
                 android:color="#ef4444" />
-            <corners android:bottomRightRadius="7dp" android:bottomLeftRadius="7dp" 
+            <corners android:bottomRightRadius="0dp" android:bottomLeftRadius="0dp" 
     			 android:topLeftRadius="0dp" android:topRightRadius="0dp"/> 
         </shape>
     </item>
@@ -14,7 +14,7 @@
                 android:startColor="#ef4444"
                 android:endColor="#992f2f"
                 android:angle="270" />
-            <corners android:bottomRightRadius="7dp" android:bottomLeftRadius="7dp" 
+            <corners android:bottomRightRadius="0dp" android:bottomLeftRadius="0dp" 
     			 android:topLeftRadius="0dp" android:topRightRadius="0dp"/> 
         </shape>
     </item>

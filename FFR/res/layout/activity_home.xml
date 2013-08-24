@@ -11,57 +11,59 @@
        android:layout_marginBottom="15dp"
        android:layout_marginLeft="15dp"
        android:layout_marginRight="15dp"
-       android:background="@+drawable/content_well_home" >
-         
-        <Button
-            android:id="@+id/news_button"
-            style="@style/ButtonText"
-            android:layout_width="115dp"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/trending"
-            android:layout_alignParentBottom="true"
-            android:layout_alignTop="@+id/draft_history"
-            android:background="@drawable/btn_red_home"
-            android:text="NFL News" />
-
-        <Button
-            android:id="@+id/trending"
-            style="@style/ButtonText"
-            android:layout_width="115dp"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/news_button"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="102dp"
-            android:background="@drawable/btn_red_home"
-            android:text="Trending Players" />
-
-        <Button
-            android:id="@+id/rankings"
-            style="@style/ButtonText"
-            android:layout_width="115dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/trending"
-            android:layout_alignTop="@+id/trending"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/btn_red_home"
-            android:text="View Rankings" />
+       android:background="@drawable/content_well_home" >
 
         <Button
             android:id="@+id/draft_history"
             style="@style/ButtonText"
-            android:layout_width="115dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="45dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:background="@drawable/btn_red_home"
             android:text="Previous Drafts" />
 
+        <Button
+            android:id="@+id/news_button"
+            style="@style/ButtonText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="45dp"
+            android:layout_above="@+id/draft_history"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_red_home_middle"
+            android:text="NFL News" />
+
+        <Button
+            android:id="@+id/trending"
+            style="@style/ButtonText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/news_button"
+            android:minHeight="45dp"
+            android:layout_alignLeft="@+id/news_button"
+            android:background="@drawable/btn_red_home_middle"
+            android:text="Trending Players" />
+
+        <Button
+            android:id="@+id/rankings"
+            style="@style/ButtonText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="45dp"
+            android:layout_above="@+id/trending"
+            android:layout_alignLeft="@+id/trending"
+            android:background="@drawable/btn_red_home_top"
+            android:text="View Rankings" />
+
         <ImageView
             android:id="@+id/football_icon_home"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignTop="@+id/trending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/rankings"
             android:layout_alignParentTop="true"
+            android:layout_alignTop="@+id/rankings"
             android:layout_centerHorizontal="true"
             android:src="@drawable/fb" />
 
