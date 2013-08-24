@@ -143,10 +143,7 @@ public class SortHandler
 					{
 						position = (String)pos.getSelectedItem();
 						subject = (String)sort.getSelectedItem();
-						if((subject.equals("Projections") || subject.equals("PAA") ||
-								(subject.equals("PAA per dollar")) || subject.equals("Leverage"))
-								&& (position.equals("D/ST")) || 
-								((subject.equals("DYOA") || subject.equals("DVOA"))
+						if(	((subject.equals("DYOA") || subject.equals("DVOA"))
 										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))) 
 										|| (subject.equals("Success Rate") && 
 												!(position.equals("RB") || position.equals("All Positions"))) || (subject.equals("Yard Adjustment") && 
@@ -188,10 +185,7 @@ public class SortHandler
 					{
 						position = (String)pos.getSelectedItem();
 						subject = (String)sort.getSelectedItem();
-						if((subject.equals("Projections") || subject.equals("PAA") ||subject.equals("Leverage") || 
-								(subject.equals("PAA per dollar")))
-								&& (position.equals("D/ST")) || 
-								((subject.equals("DYOA") || subject.equals("DVOA"))
+						if(	((subject.equals("DYOA") || subject.equals("DVOA"))
 										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))) || (subject.equals("Success Rate") && 
 												!(position.equals("RB") || position.equals("All Positions"))) || (subject.equals("Yard Adjustment") && 
 														(position.equals("D/ST") || position.equals("K"))) || 
@@ -499,7 +493,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && 
+					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && 
 							player.stats.contains("Broken Tackles") )
 					{
 						sorted.add(player);
@@ -541,7 +535,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && 
+					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && 
 							player.stats.contains("Completion Percentage") && player.stats.contains("Interceptions"))
 					{
 						sorted.add(player);
@@ -580,7 +574,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && 
+					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && 
 							player.stats.contains("Yards") && player.stats.contains("Adjusted Yards") && 
 							!player.stats.split("Adjusted Yards: ")[1].split("\n")[0].contains("%"))
 					{
@@ -614,7 +608,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj 
+					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj 
 							&& player.stats.contains("Success Rate"))
 					{
 						sorted.add(player);
@@ -642,7 +636,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.risk != -1 && 
+					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.risk != -1 && 
 							player.risk != -1.0 && player.risk != 0)
 					{
 						sorted.add(player);
@@ -677,7 +671,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.ecr != -1.0 && 
+					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.ecr != -1.0 && 
 							!player.info.adp.equals("Not set"))
 					{
 						sorted.add(player);
@@ -706,7 +700,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj)
+					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj)
 					{
 						sorted.add(player);
 					}
@@ -734,7 +728,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && 
+					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && 
 							player.values.leverage != 0.0 && player.values.relPoints != 0.0)
 					{
 						sorted.add(player);
@@ -767,7 +761,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.stats.contains("(rank)"))
+					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.stats.contains("(rank)"))
 					{
 						sorted.add(player);
 					}
@@ -799,7 +793,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.stats.contains("(rank)"))
+					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.stats.contains("(rank)"))
 					{
 						sorted.add(player);
 					}
@@ -830,7 +824,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
+			if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
 			{
 				sorted.add(player);
 			}
@@ -861,7 +855,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
+					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
 					{
 						sorted.add(player);
 					}
@@ -892,7 +886,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
+					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
 					{
 						sorted.add(player);
 					}
@@ -925,7 +919,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && 
+			if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && 
 					holder.sos.get(player.info.team + "," + player.info.position) != null && 
 					holder.sos.get(player.info.team + "," + player.info.position) > 0)
 			{
@@ -959,7 +953,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.riskPos != 1.0)
+			if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.riskPos != 1.0)
 			{
 				sorted.add(player);
 			}
@@ -990,7 +984,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.ecr != -1)
+			if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.ecr != -1)
 			{
 				sorted.add(player);
 			}
@@ -1021,7 +1015,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && !player.info.adp.equals("Not set"))
+			if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && !player.info.adp.equals("Not set"))
 			{
 				sorted.add(player);
 			}
@@ -1052,7 +1046,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth > minVal && player.values.worth < maxVal && player.values.points >= minProj && !player.info.trend.equals("0.0"))
+			if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && !player.info.trend.equals("0.0"))
 			{
 				sorted.add(player);
 			}

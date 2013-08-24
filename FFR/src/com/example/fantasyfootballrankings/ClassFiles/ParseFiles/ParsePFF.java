@@ -11,7 +11,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 /**
  * A library to parse a page loaded by javascript
  * @author Jeff
@@ -67,13 +70,40 @@ public class ParsePFF {
 	    	String[] data = players[i].split(",");
 	    	String name = data[1];
 	    	String team = ParseRankings.fixTeams(data[2]);
+	    	int proj = 0;
 	    	if(name.contains("Def"))
 	    	{
 	    		team = name.split(" ")[0];
 	    		name = name.replace("Def", "D/ST");
+	    		proj = Integer.parseInt(data[data.length - 2]);
 	    	}
 	    	int val = Integer.parseInt(data[data.length - 1]);
-	    	ParseRankings.finalStretch(holder, name, val, team, position);
+	    	
+	    	String validated = ParseRankings.fixNames(name);
+			String newName = Storage.nameExists(holder, validated);
+			PlayerObject newPlayer = new PlayerObject(newName, team, position, val);
+			PlayerObject match =  Storage.pqExists(holder, newName);
+			if(match != null)
+			{
+				BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
+				Values.handleNewValue(match.values, newPlayer.values.worth);
+				match.info.team = ParseRankings.fixTeams(match.info.team);
+				if(match.info.position.equals("D/ST") && proj != 0)
+				{
+					match.values.points = proj;
+				}
+			}
+			else
+			{
+				newPlayer.info.team = ParseRankings.fixTeams(newPlayer.info.team);
+				holder.players.add(newPlayer);
+				holder.parsedPlayers.add(newPlayer.info.name);
+				if(proj != 0)
+				{
+					newPlayer.info.position = "D/ST";
+					newPlayer.values.points = proj;
+				}
+			}		
 	    }
 	}
 }

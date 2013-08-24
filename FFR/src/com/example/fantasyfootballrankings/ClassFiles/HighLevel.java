@@ -706,9 +706,11 @@ public class HighLevel
 		double rbLimit = 0.0;
 		double wrLimit = 0.0;
 		double teLimit = 0.0;
+		double dLimit = 0.0;
 		double kLimit = 0.0;
 		int x = roster.teams;
-		kLimit = 1.5 * x;
+		kLimit = 1.4 * x;
+		dLimit = 1.4 * x;
 		if(roster.qbs == 1)
 		{
 			qbLimit = (1.25 * x) + 1.33333;
@@ -804,11 +806,13 @@ public class HighLevel
 		double rbCounter = 0.0;
 		double wrCounter = 0.0;
 		double teCounter = 0.0;
+		double dCounter = 0.0;
 		double kCounter = 0.0;
 		double qbTotal = 0.0;
 		double rbTotal = 0.0;
 		double wrTotal = 0.0;
 		double teTotal = 0.0;
+		double dTotal = 0.0;
 		double kTotal = 0.0;
 		PriorityQueue<PlayerObject>qb = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 		{
@@ -890,6 +894,22 @@ public class HighLevel
 					    return 0;
 					}
 				});
+		PriorityQueue<PlayerObject>def = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b) 
+					{
+						if (a.values.worth > b.values.worth)
+					    {
+					        return -1;
+					    }
+					    if (a.values.worth < b.values.worth)
+					    {
+					    	return 1;
+					    }
+					    return 0;
+					}
+				});
 		for(PlayerObject player : holder.players)
 		{
 			if(player.info.position.equals("QB"))
@@ -907,6 +927,10 @@ public class HighLevel
 			else if(player.info.position.equals("TE"))
 			{
 				te.add(player);
+			}
+			else if(player.info.position.equals("D/ST"))
+			{
+				def.add(player);
 			}
 			else if(player.info.position.equals("K"))
 			{
@@ -929,6 +953,10 @@ public class HighLevel
 		{
 			teTotal += te.poll().values.points;
 		} 
+		for(dCounter = 0; dCounter < dLimit; dCounter++)
+		{
+			dTotal += def.poll().values.points;
+		}
 		for(kCounter = 0; kCounter < kLimit; kCounter++)
 		{
 			kTotal += k.poll().values.points;
@@ -937,11 +965,13 @@ public class HighLevel
 		rbTotal /= rbCounter;
 		wrTotal /= wrCounter;
 		teTotal /= teCounter;
+		dTotal /= dCounter;
 		kTotal /= kCounter;
 		for(PlayerObject player : holder.players)
 		{
 			if(player.info.position.equals("QB") || player.info.position.equals("RB") || 
-					player.info.position.equals("WR") || player.info.position.equals("TE") || player.info.position.equals("K")&& 
+					player.info.position.equals("WR") || player.info.position.equals("TE") || player.info.position.equals("K")
+					|| player.info.position.equals("D/ST")&& 
 					player.values.points != 0.0)
 			{
 				if(player.info.position.equals("QB"))
@@ -962,6 +992,11 @@ public class HighLevel
 				else if(player.info.position.equals("TE"))
 				{
 					player.values.paa = player.values.points - teTotal;
+					player.values.paapd = player.values.paa / player.values.worth;
+				}
+				else if(player.info.position.equals("D/ST"))
+				{
+					player.values.paa = player.values.points - dTotal;
 					player.values.paapd = player.values.paa / player.values.worth;
 				}
 				else if(player.info.position.equals("K"))
