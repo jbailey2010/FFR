@@ -641,6 +641,20 @@ public class ManageInput
 	}
 	
 	/**
+	 * Makes sure a string is a double
+	 * @param s
+	 * @return
+	 */
+	public static boolean isDouble(String s){
+		try { 
+	        Double.parseDouble(s); 
+	    } catch(NumberFormatException e) { 
+	        return false; 
+	    }
+	    return true;
+	}
+	
+	/**
 	 * Sees if there is an internet connection, true if yes, false if no
 	 * @param cont
 	 * @return

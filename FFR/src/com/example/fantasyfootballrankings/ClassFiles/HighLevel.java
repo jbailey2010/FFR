@@ -467,6 +467,7 @@ public class HighLevel
 		rbProj("http://www.fantasypros.com/nfl/projections/rb.php", points, scoring, "RB");
 		wrProj("http://www.fantasypros.com/nfl/projections/wr.php", points, scoring, "WR");
 		teProj("http://www.fantasypros.com/nfl/projections/te.php", points, scoring, "TE");
+		kProj("http://www.fantasypros.com/nfl/projections/k.php", points, "K");
 		for(PlayerObject player : holder.players)
 		{
 			if(points.containsKey(player.info.name + "/" + player.info.team + "/" + player.info.position))
@@ -659,6 +660,41 @@ public class HighLevel
 	}
 	
 	/**
+	 * Gets the kicker projections
+	 */
+	public static void kProj(String url, HashMap<String, Double> points, String pos) throws IOException
+	{
+		DecimalFormat df = new DecimalFormat("#.##");
+		String html = HandleBasicQueries.handleLists(url, "td");
+		String[] td = html.split("\n");
+		int min = 0;
+		ParseRankings.handleHashes();
+
+		for(int i = 0; i < td.length; i++)
+		{
+			if(ManageInput.isDouble(td[i+1]))
+			{
+				min=i;
+				break;
+			}
+		}
+		for(int i = min; i < td.length; i+=5)
+		{		
+			String team = "None";
+			double proj = 0;
+			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
+			if(td[i].contains("("))
+			{
+				String inter = td[i].split(" \\(")[1];
+				inter = inter.split(",")[0].split("\\)")[0];
+				team = ParseRankings.fixTeams(inter);
+			}
+			proj = Double.parseDouble(td[i+4]);
+			points.put(name + "/" + team + "/" + pos, proj);
+		}		
+	}
+	
+	/**
 	 * Calculates the points above average per player per position
 	 * @param holder
 	 * @param cont
@@ -670,7 +706,9 @@ public class HighLevel
 		double rbLimit = 0.0;
 		double wrLimit = 0.0;
 		double teLimit = 0.0;
+		double kLimit = 0.0;
 		int x = roster.teams;
+		kLimit = 1.5 * x;
 		if(roster.qbs == 1)
 		{
 			qbLimit = (1.25 * x) + 1.33333;
@@ -766,10 +804,12 @@ public class HighLevel
 		double rbCounter = 0.0;
 		double wrCounter = 0.0;
 		double teCounter = 0.0;
+		double kCounter = 0.0;
 		double qbTotal = 0.0;
 		double rbTotal = 0.0;
 		double wrTotal = 0.0;
 		double teTotal = 0.0;
+		double kTotal = 0.0;
 		PriorityQueue<PlayerObject>qb = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 		{
 			@Override
@@ -834,6 +874,22 @@ public class HighLevel
 					    return 0;
 					}
 				});
+		PriorityQueue<PlayerObject>k = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b) 
+					{
+						if (a.values.worth > b.values.worth)
+					    {
+					        return -1;
+					    }
+					    if (a.values.worth < b.values.worth)
+					    {
+					    	return 1;
+					    }
+					    return 0;
+					}
+				});
 		for(PlayerObject player : holder.players)
 		{
 			if(player.info.position.equals("QB"))
@@ -852,6 +908,10 @@ public class HighLevel
 			{
 				te.add(player);
 			}
+			else if(player.info.position.equals("K"))
+			{
+				k.add(player);
+			}
 		}
 		for(qbCounter = 0; qbCounter < qbLimit; qbCounter++)
 		{
@@ -869,14 +929,19 @@ public class HighLevel
 		{
 			teTotal += te.poll().values.points;
 		} 
+		for(kCounter = 0; kCounter < kLimit; kCounter++)
+		{
+			kTotal += k.poll().values.points;
+		}
 		qbTotal /= qbCounter;
 		rbTotal /= rbCounter;
 		wrTotal /= wrCounter;
 		teTotal /= teCounter;
+		kTotal /= kCounter;
 		for(PlayerObject player : holder.players)
 		{
 			if(player.info.position.equals("QB") || player.info.position.equals("RB") || 
-					player.info.position.equals("WR") || player.info.position.equals("TE") && 
+					player.info.position.equals("WR") || player.info.position.equals("TE") || player.info.position.equals("K")&& 
 					player.values.points != 0.0)
 			{
 				if(player.info.position.equals("QB"))
@@ -897,6 +962,11 @@ public class HighLevel
 				else if(player.info.position.equals("TE"))
 				{
 					player.values.paa = player.values.points - teTotal;
+					player.values.paapd = player.values.paa / player.values.worth;
+				}
+				else if(player.info.position.equals("K"))
+				{
+					player.values.paa = player.values.points - kTotal;
 					player.values.paapd = player.values.paa / player.values.worth;
 				}
 			}

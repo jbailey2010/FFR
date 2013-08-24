@@ -144,12 +144,9 @@ public class SortHandler
 						position = (String)pos.getSelectedItem();
 						subject = (String)sort.getSelectedItem();
 						if((subject.equals("Projections") || subject.equals("PAA") ||
-								(subject.equals("PAA per dollar")) || subject.equals("Target Rec TD Difference") || subject.equals("Leverage"))
-								&& (position.equals("K") || position.equals("D/ST")) || 
-								((subject.equals("Target Rec oTD") || subject.equals("Rush oTD") || subject.equals("Rush TD Difference") || 
-										subject.equals("Average target location") || subject.equals("Average carry location") || subject.equals("Average catch location") || 
-										subject.equals("Catch Rec TD Difference") || subject.equals("Catch Rec oTD") || subject.equals("DYOA") || subject.equals("DVOA")
-										|| subject.equals("Avg catch relative to target"))
+								(subject.equals("PAA per dollar")) || subject.equals("Leverage"))
+								&& (position.equals("D/ST")) || 
+								((subject.equals("DYOA") || subject.equals("DVOA"))
 										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))) 
 										|| (subject.equals("Success Rate") && 
 												!(position.equals("RB") || position.equals("All Positions"))) || (subject.equals("Yard Adjustment") && 
@@ -192,12 +189,9 @@ public class SortHandler
 						position = (String)pos.getSelectedItem();
 						subject = (String)sort.getSelectedItem();
 						if((subject.equals("Projections") || subject.equals("PAA") ||subject.equals("Leverage") || 
-								(subject.equals("PAA per dollar")) || subject.equals("Target Rec TD Difference"))
-								&& (position.equals("K") || position.equals("D/ST")) || 
-								((subject.equals("Target Rec oTD") || subject.equals("Rush oTD") || subject.equals("Rush TD Difference") || 
-										subject.equals("Average target location") || subject.equals("Average carry location") || subject.equals("Average catch location") || 
-										subject.equals("Catch Rec TD Difference") || subject.equals("Catch Rec oTD") || subject.equals("DYOA") || subject.equals("DVOA")
-										|| subject.equals("Avg catch relative to target"))
+								(subject.equals("PAA per dollar")))
+								&& (position.equals("D/ST")) || 
+								((subject.equals("DYOA") || subject.equals("DVOA"))
 										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))) || (subject.equals("Success Rate") && 
 												!(position.equals("RB") || position.equals("All Positions"))) || (subject.equals("Yard Adjustment") && 
 														(position.equals("D/ST") || position.equals("K"))) || 
