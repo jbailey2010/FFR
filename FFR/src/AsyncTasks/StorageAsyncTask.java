@@ -361,6 +361,7 @@ public class StorageAsyncTask
 			return holder;
 	    }
 	  }
+	
 
 	/**
 	 * In the back-end fetches the posts

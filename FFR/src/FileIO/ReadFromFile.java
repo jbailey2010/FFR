@@ -49,6 +49,49 @@ public class ReadFromFile {
 	    ReadNamesList values = readFromFileAsyncObj.new ReadNamesList();
 		values.execute(holder, cont);
     }
+    
+    /**
+     * Only reads the draft from file
+     * @param holder
+     * @param cont
+     */
+    public static void readDraft(Storage holder, Context cont)
+    {
+    	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+    	String[] perSet = prefs.getString("Draft Information", "Doesn't matter").split("@");
+		String[][] individual = new String[perSet.length][];
+		for(int j = 0; j < perSet.length; j++)
+		{
+			individual[j] = perSet[j].split("~");
+		}
+		if(!perSet[0].equals("Doesn't matter") && individual.length > 4)
+		{
+			//Qb fetching
+			ReadFromFile.handleDraftReading(individual[0], holder.draft.qb, holder);
+			//Rb fetching
+			ReadFromFile.handleDraftReading(individual[1], holder.draft.rb, holder);
+			//Wr fetching
+			ReadFromFile.handleDraftReading(individual[2], holder.draft.wr, holder);
+			//Te fetching
+			ReadFromFile.handleDraftReading(individual[3], holder.draft.te, holder);
+			//Def fetching
+			ReadFromFile.handleDraftReading(individual[4], holder.draft.def, holder);
+			//K fetching
+			ReadFromFile.handleDraftReading(individual[5], holder.draft.k, holder);
+			//Ignore fetching
+			holder.draft.ignore.clear();
+			for(String name : individual[6])
+			{
+				if(name.length() > 3 && !holder.draft.ignore.contains(name))
+				{
+					holder.draft.ignore.add(name);
+				}
+			}
+			//Values 
+			holder.draft.remainingSalary = Integer.parseInt(individual[7][0]);
+			holder.draft.value = Double.parseDouble(individual[8][0]);
+		}
+    }
 	
   
 	/** 

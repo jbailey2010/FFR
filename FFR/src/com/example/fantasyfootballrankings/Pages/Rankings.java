@@ -1274,9 +1274,14 @@ public class Rankings extends Activity {
 		}
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	String checkExists = prefs.getString("Player Values", "Not Set");
-    	if(!checkExists.equals("Not Set"))
+    	if(!checkExists.equals("Not Set") && holder.players.size() == 0)
     	{
 			ReadFromFile.fetchPlayers(checkExists, holder,cont, 0);
+    	}
+    	else if(holder.players.size() != 0)
+    	{
+    		ReadFromFile.readDraft(holder, cont);
+    		intermediateHandleRankings(this);
     	}
     	else
     	{
