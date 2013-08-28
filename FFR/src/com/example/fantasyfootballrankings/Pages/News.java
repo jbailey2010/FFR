@@ -35,6 +35,7 @@ import android.text.SpannedString;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -415,25 +416,17 @@ public class News extends Activity {
 	    for(NewsObjects newsObj : result)
 	    {
 	    	Map<String, String> datum = new HashMap<String, String>(2);
-	    	datum.put("news", newsObj.news + "\n\n" + newsObj.impact);
-	    	datum.put("date", "\n" + newsObj.date);
+	    	datum.put("news", newsObj.news + " \n\n" + newsObj.impact);
+	    	datum.put("date", (" \n" + newsObj.date));
 	    	data.add(datum);
 	    }
 	    final SimpleAdapter adapter = new SimpleAdapter(cont, data, 
-	    		android.R.layout.simple_list_item_2, 
+	    		R.layout.web_listview_item, 
 	    		new String[] {"news", "date"}, 
-	    		new int[] {android.R.id.text1, 
-	    			android.R.id.text2});
+	    		new int[] {R.id.text1, 
+	    			R.id.text2});
 	    listview.setAdapter(adapter);
-	    listview.setOnItemClickListener(new OnItemClickListener(){
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				listview.setSelection(arg2);
-				tweetPopUp(arg1, cont);
-			}
-	    });
-	    SwipeDismissListViewTouchListener touchListener =
+	    SwipeDismissListViewTouchListener touchListener = 
                 new SwipeDismissListViewTouchListener(
                         listview,
                         new SwipeDismissListViewTouchListener.OnDismissCallback() {
@@ -454,52 +447,6 @@ public class News extends Activity {
         listview.setOnTouchListener(touchListener);
         listview.setOnScrollListener(touchListener.makeScrollListener());
 
-	}
-	
-	/**
-	 * Makes a popup that shows the tweet so it's copyable from a user
-	 */
-	public static void tweetPopUp(View arg1, final Activity cont)
-	{
-		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(R.layout.tweet_popup);
-		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-	    dialog.getWindow().setAttributes(lp); 
-	    dialog.show();
-	    Button cancel = (Button)dialog.findViewById(R.id.tweet_popup_close);
-	    cancel.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
-				return;
-			}
-	    });
-	    TextView showTweet = (TextView)dialog.findViewById(R.id.tweet_field);
-	    String text = ((TwoLineListItem)arg1).getText1().getText().toString();
-		text += "\n\n" + ((TwoLineListItem)arg1).getText2().getText().toString();
-		//Below
-		String[] words = text.split(" ");
-		SpannableString ss = new SpannableString(text);
-		for(final String word : words)
-		{
-			if(URLUtil.isValidUrl(word))
-			{
-				ClickableSpan clickableSpan = new ClickableSpan() {
-		            @Override
-		            public void onClick(View textView) {
-		            	Intent i = new Intent(Intent.ACTION_VIEW);
-		            	i.setData(Uri.parse(word));
-		            	cont.startActivity(i);
-		            }
-		        };
-		        ss.setSpan(clickableSpan, text.indexOf(word), text.indexOf(word) + word.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-			}
-		}
-	    showTweet.setText(ss);
-	    showTweet.setMovementMethod(LinkMovementMethod.getInstance());
 	}
 
 }

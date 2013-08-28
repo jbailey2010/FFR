@@ -91,7 +91,7 @@
             android:layout_centerHorizontal="true"
             android:textColor="#FFFFFF" 
             android:background="@drawable/player_info_center"
-            android:textSize="14sp"
+            android:textSize="13sp"
             android:textStyle="bold"
             android:text="San Francisco 49ers\nRB" />
         <Button 

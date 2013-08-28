@@ -33,10 +33,11 @@
 		    android:background="#454545">
 	    <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
 	        android:id="@+id/listview_news"
+	        android:autoLink="web"
 	        android:layout_width="fill_parent"
 	        android:background="@drawable/content_well"
 	        android:layout_height="match_parent"
-	        android:clickable="true" >
+	        android:clickable="false" >
 	    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 	</RelativeLayout>
 </LinearLayout>
