@@ -28,6 +28,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 
 
+
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
@@ -70,6 +71,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 /**
  * A library of all the asynctasks involving parsing
@@ -576,6 +578,7 @@ public class ParsingAsyncTask
 			@Override
 			protected void onPostExecute(Void result){
 			   super.onPostExecute(result);
+			   act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 			   pdia.dismiss();
 			}
 

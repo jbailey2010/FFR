@@ -45,6 +45,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -277,6 +278,7 @@ public class Home extends Activity{
 			{
 				if(ManageInput.confirmInternet(cont))
 				{
+					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 					final ParsingAsyncTask stupid = new ParsingAsyncTask();
 					ParseNames task = stupid.new ParseNames((Activity)cont);
 				    task.execute(cont);
@@ -316,6 +318,7 @@ public class Home extends Activity{
 			public void onClick(View v) {
 				if(ManageInput.confirmInternet(cont))
 				{
+					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 					dialog.dismiss();
 					ParseNames task = stupid.new ParseNames((Activity)cont);
 				    task.execute(cont);	

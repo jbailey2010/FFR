@@ -54,6 +54,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -390,6 +391,10 @@ public class Rankings extends Activity {
 		 newWidth = width/3;
 		 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newWidth, r.getDisplayMetrics());
 		 android.view.ViewGroup.LayoutParams params1 = widgSpinner.getLayoutParams();
+		 if(px > 250.0)
+		 {
+			 px = 250;
+		 }
 		 params1.width = (int) px;
 		 widgSpinner.setLayoutParams(params1);
 		 ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(context, 
@@ -1241,6 +1246,7 @@ public class Rankings extends Activity {
 					if(ManageInput.confirmInternet(cont))
 					{
 						isAsync=true;
+						setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 						ParseRankings.runRankings(holder, cont);
 					}
 					else
@@ -1292,6 +1298,7 @@ public class Rankings extends Activity {
     			if(ManageInput.confirmInternet(cont))
 				{
     				isAsync = true;
+    				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 					ParseRankings.runRankings(holder, cont);
 					refreshed = true;
 				}
@@ -1640,6 +1647,7 @@ public class Rankings extends Activity {
 	public static void intermediateHandleRankings(Activity cont)
 	{ 
 		isAsync = false;
+		cont.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		int maxSize = ReadFromFile.readFilterQuantitySize((Context)cont, "Rankings");
 		PriorityQueue<PlayerObject>inter = null;
 		if(isAuction)

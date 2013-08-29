@@ -28,6 +28,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -230,6 +231,7 @@ public class News extends Activity {
             @Override
             public void onClick(View v) 
             {
+            	((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             	ParseNews.startNewsAsync(cont, rh.isChecked(), rp.isChecked(), th.isChecked(),
             			cbs.isChecked(), si.isChecked());
             	if(rh.isChecked())
@@ -315,6 +317,7 @@ public class News extends Activity {
             @Override
             public void onClick(View v) 
             {
+            	((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             	String selectionFeed = feeds.getSelectedItem().toString();
             	ParseNews.startTwitterAsync(cont, selectionFeed, obj);
             	String[] brokenUp = selectionFeed.split(" \\(");
@@ -374,6 +377,7 @@ public class News extends Activity {
 				}
 				else
 				{
+					((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 					ParseNews.startTwitterSearchAsync(cont, queryTerms, "Twitter Search: " + queryTerms, true, " ", obj);
 					WriteToFile.writeNewsSelection(cont, "Twitter Search: " + queryTerms);
 					setHeader("Twitter Search: " + queryTerms);
@@ -406,6 +410,7 @@ public class News extends Activity {
 	{
 		final BounceListView listview = (BounceListView)cont.findViewById(R.id.listview_news);
 		View v = cont.findViewById(android.R.id.home);
+		cont.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		v.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
