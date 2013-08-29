@@ -306,7 +306,7 @@ public class Trending extends Activity {
     		if(holder.players.size() < 10)
     		{
     	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
-    	    	if(checkExists2 != "Not Set")
+    	    	if(!checkExists2.equals("Not Set"))
     	    	{
     				ReadFromFile.fetchPlayers(checkExists2, holder,cont, 2);
     	    	}
@@ -324,7 +324,7 @@ public class Trending extends Activity {
 	 * Handles the topical trending, once it's done it 
 	 * refreshes the rankings based on the input here
 	 * @param holder
-	 */
+	 */ 
 	public void topicalTrending(final Storage holder)
 	{
 		dialog = new Dialog(cont, R.style.RoundCornersFull);
@@ -666,7 +666,7 @@ public class Trending extends Activity {
 	public static void setNoInfo(Activity act, Storage hold) {
 		for(Map<String, String> datum : data)
 		{ 
-			if(!hold.parsedPlayers.contains(datum.get("name")))
+			if(!hold.parsedPlayers.contains(datum.get("name")) && datum.containsKey("count"))
 			{
 				datum.put("count", datum.get("count") + "\nPlayer Information Unavailable");
 				mAdapter.notifyDataSetChanged();

@@ -101,7 +101,6 @@
             android:id="@+id/ranking_pos_spinner"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:maxWidth="225dp"
             android:background="@drawable/spinner_well_grey"
             android:layout_marginTop="3dp"
             android:layout_marginLeft="2dp"

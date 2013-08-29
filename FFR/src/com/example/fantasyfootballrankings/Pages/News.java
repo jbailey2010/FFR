@@ -11,6 +11,7 @@ import twitter4j.TwitterException;
 import jeff.isawesome.fantasyfootballrankings.R;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
+import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
@@ -30,16 +31,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.text.Html;
+import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.SpannedString;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
@@ -69,6 +76,7 @@ public class News extends Activity {
 	public Dialog dialog;
 	public static String selection = "NFL News";
 	static TwitterWork obj = new TwitterWork();
+	public static Storage holder = new Storage();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -77,6 +85,16 @@ public class News extends Activity {
 		ActionBar ab = getActionBar();
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		if(holder.players.size() < 10)
+		{
+	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
+	    	if(checkExists2 != "Not Set")
+	    	{
+				ReadFromFile.fetchPlayers(checkExists2, holder,cont, 5);
+	    	}
+
+		} 
 		handleInitialLoading();
 	}
 
@@ -190,6 +208,7 @@ public class News extends Activity {
 			ParseNews.startNewsReading(cont);
 			selection = ReadFromFile.readNewsTitle(cont);
 			setHeader(selection);
+
 		}
 	}
 
@@ -422,10 +441,32 @@ public class News extends Activity {
 	    for(NewsObjects newsObj : result)
 	    {
 	    	Map<String, String> datum = new HashMap<String, String>(2);
+	    	String[] words = newsObj.news.split(" ");
+	    	for(int i = 0; i < words.length - 1; i++)
+	    	{
+	    		String first = words[i];
+	    		String last = words[i+1];
+	    		if(holder.parsedPlayers.contains(first + " " + last))
+	    		{
+	    			System.out.println(first + " " + last + " was found!");
+	    			//Do something here!!!
+	    		}
+	    	}
 	    	datum.put("news", newsObj.news + " \n\n" + newsObj.impact);
-	    	datum.put("date", (" \n" + newsObj.date));
+	    	datum.put("date", " \n" + newsObj.date);
 	    	data.add(datum);
 	    }
+
+	    listview.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				int[] coords = new int[2];
+				arg1.getLocationOnScreen(coords);
+				System.out.println(coords[0] + ", " + coords[1]);
+				
+			}
+	    });
 	    final SimpleAdapter adapter = new SimpleAdapter(cont, data, 
 	    		R.layout.web_listview_item, 
 	    		new String[] {"news", "date"}, 
