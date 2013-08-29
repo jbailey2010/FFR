@@ -54,6 +54,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.speech.RecognizerIntent;
@@ -121,6 +122,7 @@ public class Rankings extends Activity {
 	public static boolean isAuction;
 	public RelativeLayout widgetBase;
 	public boolean hideWidget = false;
+	public static boolean isAsync = false;
 	/**
 	 * Sets up the view
 	 */
@@ -1238,6 +1240,7 @@ public class Rankings extends Activity {
 				try {
 					if(ManageInput.confirmInternet(cont))
 					{
+						isAsync=true;
 						ParseRankings.runRankings(holder, cont);
 					}
 					else
@@ -1288,6 +1291,7 @@ public class Rankings extends Activity {
     		try {
     			if(ManageInput.confirmInternet(cont))
 				{
+    				isAsync = true;
 					ParseRankings.runRankings(holder, cont);
 					refreshed = true;
 				}
@@ -1635,6 +1639,7 @@ public class Rankings extends Activity {
 	 */
 	public static void intermediateHandleRankings(Activity cont)
 	{ 
+		isAsync = false;
 		int maxSize = ReadFromFile.readFilterQuantitySize((Context)cont, "Rankings");
 		PriorityQueue<PlayerObject>inter = null;
 		if(isAuction)
