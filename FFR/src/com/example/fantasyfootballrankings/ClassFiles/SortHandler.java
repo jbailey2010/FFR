@@ -1132,7 +1132,7 @@ public class SortHandler
 	    	{
 	    		output += "DRAFTED - ";
 	    	}
-	    	if(isHidden && !output.equals(""))
+	    	if(isHidden && !output.equals(String.valueOf(count) + ") "))
 	    	{
 	    		continue;
 	    	}  

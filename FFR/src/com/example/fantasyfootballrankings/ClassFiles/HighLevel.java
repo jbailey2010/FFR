@@ -709,8 +709,8 @@ public class HighLevel
 		double dLimit = 0.0;
 		double kLimit = 0.0;
 		int x = roster.teams;
-		kLimit = 1.4 * x;
-		dLimit = 1.4 * x;
+		kLimit = 1.25 * x;
+		dLimit = 1.25 * x;
 		if(roster.qbs == 1)
 		{
 			qbLimit = (1.25 * x) + 1.33333;
