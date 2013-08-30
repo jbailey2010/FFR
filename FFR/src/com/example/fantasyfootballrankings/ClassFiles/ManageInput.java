@@ -28,6 +28,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.DragEvent;
@@ -456,15 +457,14 @@ public class ManageInput
 					{
 						if(ManageInput.confirmInternet(cont))
 						{
+							((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 						    Toast.makeText(cont, "Updating projections...", Toast.LENGTH_SHORT).show();
 						    SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-						    ReadFromFile.fetchPlayers(prefs.getString("Player Values", "Not Set"), holder,cont, 1);
 							ParsingAsyncTask stupid = new ParsingAsyncTask();
-						    ParseProjections task = stupid.new ParseProjections((Activity)cont, holder);
+						    ParseProjections task = stupid.new ParseProjections((Activity)cont, ((Home)cont).holder);
 						    task.execute(holderObj, cont);
-						    StorageAsyncTask obj = new StorageAsyncTask();
-						    WriteNewPAA task2 = obj.new WriteNewPAA();
-						    task2.execute(holderObj, cont);
+						    SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+						    editor.putBoolean("Home Update", true).commit();
 						}
 						else
 						{
@@ -556,10 +556,13 @@ public class ManageInput
 				dialog.dismiss();
 				if(doSyncData)
 				{
+					((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 					Toast.makeText(cont, "Updating PAA...", Toast.LENGTH_SHORT).show();
 					StorageAsyncTask obj = new StorageAsyncTask();
-				    WriteNewPAA task2 = obj.new WriteNewPAA();
+				    WriteNewPAA task2 = obj.new WriteNewPAA(cont);
 				    task2.execute(holderObj, cont);
+				    SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+				    editor.putBoolean("Home Update", true).commit();
 				}
 			}
 		});

@@ -69,8 +69,8 @@ import android.widget.Toast;
  */ 
 public class Home extends Activity{
 	//Some global variables, context and a few buttons
-	Storage holder = new Storage();
-	final Context cont = this;
+	public Storage holder = new Storage();
+	Context cont = this;
 	Dialog dialog;
 	Button rankings; 
 	Button trending;
@@ -90,6 +90,7 @@ public class Home extends Activity{
 		ActionBar ab = getActionBar();
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
+		cont = this;
         rankings = (Button)findViewById(R.id.rankings);
         rankings.setOnClickListener(rankHandler);
         trending = (Button)findViewById(R.id.trending);

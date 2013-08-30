@@ -10,6 +10,7 @@ import FileIO.WriteToFile;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
@@ -132,14 +133,16 @@ public class StorageAsyncTask
 	 */
 	public class WriteNewPAA extends AsyncTask<Object, Void, Void> 
 	{
-	    public WriteNewPAA() 
+		Context cont;
+	    public WriteNewPAA(Context c) 
 	    {
-
+	    	cont = c;
 	    }
 
 
 		@Override
 		protected void onPostExecute(Void result){
+			((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		   super.onPostExecute(result);
 		}
 
@@ -161,6 +164,7 @@ public class StorageAsyncTask
 	    		{
 	    			additStat = player.info.additionalStat;
 	    		}
+	    		System.out.println(player.info.name + " - " + player.values.worth);
 	    		players.append( 
 	    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
 	    	    		 player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 

@@ -406,6 +406,7 @@ public class ParsingAsyncTask
 
 			@Override
 			protected void onPostExecute(Void result){
+				act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 			   super.onPostExecute(result);
 			}
 
@@ -419,6 +420,7 @@ public class ParsingAsyncTask
 					HighLevel.projPointsWrapper(holder, cont);
 					HighLevel.parseECRWrapper(holder, cont);
 					HighLevel.setLeverage(holder, cont);
+					HighLevel.getPAA(holder, cont);
 					SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 			    	//Rankings work
 			    	StringBuilder players = new StringBuilder(10000);

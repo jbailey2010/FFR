@@ -94,7 +94,7 @@ import android.widget.AdapterView.OnItemClickListener;
  *
  */
 public class Rankings extends Activity {
-	final Context cont = this;
+	Context cont;
 	public static Context newCont;
 	public static Context context;
 	public static Storage holder = new Storage();
@@ -130,6 +130,7 @@ public class Rankings extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		cont = this;
 		watchList.clear();
 		setContentView(R.layout.activity_rankings);
 		search = (Button)findViewById(R.id.search);
@@ -1283,9 +1284,11 @@ public class Rankings extends Activity {
 		}
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	String checkExists = prefs.getString("Player Values", "Not Set");
-    	if(!checkExists.equals("Not Set") && holder.players.size() == 0)
+    	if((!checkExists.equals("Not Set") && holder.players.size() == 0) || prefs.getBoolean("Home Update", false))
     	{
 			ReadFromFile.fetchPlayers(checkExists, holder,cont, 0);
+			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+			editor.putBoolean("Home Update", false).commit();
     	}
     	else if(holder.players.size() != 0)
     	{

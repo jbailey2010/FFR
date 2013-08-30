@@ -66,7 +66,7 @@ import android.widget.TwoLineListItem;
 public class Trending extends Activity {
 	//Some globals, the dialog and the context
 	Dialog dialog;
-	final Context cont = this;
+	Context cont;
 	static Context context;
 	Button day;
 	Button week;
@@ -87,6 +87,7 @@ public class Trending extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trending);
 		ActionBar ab = getActionBar();
+		cont = this;
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
 		//Fetch the date of the posts, and convert it to a date
