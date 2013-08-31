@@ -11,6 +11,8 @@ public class Roster
 	public int rbs;
 	public int wrs;
 	public int tes;
+	public int def;
+	public int k;
 	public int flex;
 	
 	/**
@@ -24,6 +26,8 @@ public class Roster
 		wrs = wrCt;
 		tes = teCt;
 		flex = flexCt;
+		def = 1;
+		k = 1;
 	}
 	
 	/**

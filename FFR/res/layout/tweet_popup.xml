@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <Button
-        android:id="@+id/tweet_popup_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-          android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:textColor="#CD0000"
-        android:textSize="28sp"
-        style="?android:attr/buttonBarButtonStyle"
-        android:text="X" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tweet_popup_close"
-        android:layout_below="@+id/tweet_field"
-        android:layout_marginTop="10dp"
-        android:text="  "
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/tweet_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="65dp"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textIsSelectable="true" />
-
-</RelativeLayout>
+    android:layout_height="match_parent">
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" >
+	
+	    <Button
+	        android:id="@+id/tweet_popup_close"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	          android:layout_alignParentRight="true"
+	        android:layout_alignParentTop="true"
+	        android:textColor="#CD0000"
+	        android:textSize="28sp"
+	        style="?android:attr/buttonBarButtonStyle"
+	        android:text="X" />
+	
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/tweet_popup_close"
+	        android:layout_below="@+id/tweet_field"
+	        android:layout_marginTop="10dp"
+	        android:text="  "
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	
+	    <TextView
+	        android:id="@+id/tweet_field"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="55dp"
+	        android:text="Medium Text"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:textIsSelectable="true" />
+	
+	</RelativeLayout>
+</ScrollView>
