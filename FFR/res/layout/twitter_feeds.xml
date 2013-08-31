@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/spinner_feeds"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="45dp"
         android:text="Submit"
         android:background="@drawable/btn_red"
         style="@style/ButtonText" />
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/twitter_submit"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="10dp"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

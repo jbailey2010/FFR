@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/reset_draft"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="10dp"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -45,7 +45,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:layout_marginLeft="19dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/btn_red"
         android:text="Rankings" />
 

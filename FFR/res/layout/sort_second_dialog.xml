@@ -32,7 +32,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="15dp"
         android:text="Contract year" />
 
     <CheckBox
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/sort_second_watch"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="10dp"
         android:text="How many rankings minimum should a player have shown up in?"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/spinner_well"
         android:ems="10"
         android:textColor="#000000"
@@ -122,7 +122,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/textView3"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/spinner_well"
         android:text="0"
         android:textColor="#000000"

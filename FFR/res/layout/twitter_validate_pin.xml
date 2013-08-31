@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/twitter_pin_prompt"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="number"
         android:textColor="#000000"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/twitter_pin_field"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btn_red"
         android:text="Submit" />
 

@@ -77,14 +77,6 @@ public class StorageAsyncTask
 	    	}
 	    	String playerString = players.toString();
 	    	editor.putString("Player Values", playerString).commit();
-	    	//Player names work
-	    	StringBuilder names = new StringBuilder(10000);
-	    	for(String name: holder.parsedPlayers)
-	    	{
-	    		names.append(name + ",");
-	    	}
-	    	String namesString = names.toString();
-	    	editor.putString("Parsed Player Names", namesString).commit();
 	    	WriteToFile.writeLeverage(cont, holder);
 	    	editor.commit();
 			return null;
@@ -219,48 +211,6 @@ public class StorageAsyncTask
 	    }
 	  }
 
-
-	/**
-	 * This handles the running of the name readings
-	 * in the background of the main thread
-	 * @author Jeff
-	 *
-	 */
-	public class ReadNames extends AsyncTask<Object, Void, Void> 
-	{
-
-	    public ReadNames(Activity activity)
-	    {
-	    }
-
-		@Override
-		protected void onPreExecute(){ 
-	        super.onPreExecute(); 
-		}
-
-		@Override
-		protected void onPostExecute(Void result){
-		}
-
-	    protected Void doInBackground(Object... data) 
-	    {
-	    	Storage holder = (Storage) data[0];
-	    	Context cont = (Context) data[1];
-	   		//Get the aggregate rankings
-	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-			String parsedNames = prefs.getString("Parsed Player Names", "Doesn't matter");
-			String[] namesSplit = parsedNames.split(",");
-			if(!holder.parsedPlayers.isEmpty())
-			{
-				holder.parsedPlayers.clear();
-			}
-			for(String names: namesSplit)
-			{
-				holder.parsedPlayers.add(names);
-			}
-			return null;
-	    }
-	  }
 
 
 	/**

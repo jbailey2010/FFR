@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/name_header"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="142dp"
+        android:layout_marginTop="85dp"
         android:text="Drafted by Me"
         android:background="@drawable/btn_red"
         style="@style/ButtonText"
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/drafted_by_me"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="83dp"
+        android:layout_marginBottom="53dp"
         android:background="@drawable/btn_red"
         style="@style/ButtonText"
         android:text="Drafted by Someone" />

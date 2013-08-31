@@ -4,23 +4,12 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:text="Position: 3 back, 5 back, 10 back"
-        android:textStyle="bold"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
         android:id="@+id/qb_paa_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="15dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
@@ -30,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/qb_paa_left"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="15dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
@@ -40,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/rb_paa_left"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="15dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
@@ -50,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/wr_paa_left"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="15dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -60,20 +49,20 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/te_paa_left"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="17dp"
         android:text="Back" 
         android:background="@drawable/btn_red"
         style="@style/ButtonText"/>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/te_paa_left"
-        android:layout_below="@+id/val_left_back"
-        android:layout_marginTop="20dp"
-        android:text="Large Text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:text="Position: 3 back, 5 back, 10 back"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:visibility="invisible" />
+        android:textStyle="bold" />
 
 </RelativeLayout>

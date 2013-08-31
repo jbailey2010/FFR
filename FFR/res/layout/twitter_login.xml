@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/twitter_confirm_prompt"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/btn_red"
         android:text="Open" />
 
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:text="Press the button below to open a webpage to allow the use of twitter"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold" />

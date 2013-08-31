@@ -665,14 +665,17 @@ public class Trending extends Activity {
 	 * @param act
 	 */
 	public static void setNoInfo(Activity act, Storage hold) {
-		for(Map<String, String> datum : data)
-		{ 
-			if(!hold.parsedPlayers.contains(datum.get("name")) && datum.containsKey("count"))
-			{
-				datum.put("count", datum.get("count") + "\nPlayer Information Unavailable");
-				mAdapter.notifyDataSetChanged();
-			}
-		} 
+		if(hold.parsedPlayers.size() > 10)
+		{
+			for(Map<String, String> datum : data)
+			{ 
+				if(!hold.parsedPlayers.contains(datum.get("name")) && datum.containsKey("count"))
+				{
+					datum.put("count", datum.get("count") + "\nPlayer Information Unavailable");
+					mAdapter.notifyDataSetChanged();
+				}
+			} 
+		}
 	}
 
 

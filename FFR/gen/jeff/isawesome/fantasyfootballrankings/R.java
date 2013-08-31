@@ -89,7 +89,7 @@ public final class R {
         public static final int dont_want=0x7f0800b4;
         public static final int draftValue=0x7f0800cc;
         public static final int draft_history=0x7f080003;
-        public static final int draft_history_clear_close=0x7f08001c;
+        public static final int draft_history_clear_close=0x7f08001b;
         public static final int draft_history_clear_submit=0x7f08001a;
         public static final int draft_history_listview=0x7f080000;
         public static final int draft_info=0x7f08000a;
@@ -243,7 +243,7 @@ public final class R {
         public static final int textView16=0x7f08004e;
         public static final int textView17=0x7f08004f;
         public static final int textView19=0x7f080050;
-        public static final int textView2=0x7f08001b;
+        public static final int textView2=0x7f08001c;
         public static final int textView20=0x7f080051;
         public static final int textView21=0x7f080052;
         public static final int textView22=0x7f080053;

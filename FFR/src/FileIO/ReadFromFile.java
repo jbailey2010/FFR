@@ -1,6 +1,7 @@
 package FileIO;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,7 +14,6 @@ import org.htmlcleaner.XPatherException;
 
 import AsyncTasks.StorageAsyncTask;
 import AsyncTasks.StorageAsyncTask.ReadDraft;
-import AsyncTasks.StorageAsyncTask.ReadNames;
 import AsyncTasks.StorageAsyncTask.ReadNamesList;
 import AsyncTasks.StorageAsyncTask.ReadPosts;
 import android.app.Activity;

@@ -73,7 +73,7 @@
     <Spinner
         android:id="@+id/sort_stat_spinner"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/sort_cancel"
         android:layout_marginTop="7dp"
@@ -92,7 +92,7 @@
     <Spinner
         android:id="@+id/sort_pos_spinner"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/textView5"
         android:layout_marginTop="7dp"

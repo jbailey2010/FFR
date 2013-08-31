@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/draft_save_confirmed_submit"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="10dp"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceSmall" />
 

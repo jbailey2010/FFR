@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="25dp"
         android:text="This should be done if a player was traded/cut/drafted...etc"
         android:paddingBottom="25dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/confirm_list_refresh"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/btn_red"
         android:text="Refresh" />
 

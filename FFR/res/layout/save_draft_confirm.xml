@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="87dp"
+        android:layout_marginTop="80dp"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/btn_red"
         android:paddingBottom="15dp"
         android:text="Confirm" />

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="30dp"
         android:button="@drawable/custom_checkbox"
         android:textColor="#FFFFFF"
         android:text="Must Have Players" />
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/must_haves"
         android:layout_below="@+id/must_haves"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="20dp"
         android:textColor="#FFFFFF"
        	android:button="@drawable/custom_checkbox"
         android:text="Don&apos;t Want/Overvalued" />
@@ -59,26 +59,6 @@
         android:text="Rookies"
         android:textColor="#FFFFFF" />
 
-    <Button
-        android:id="@+id/trending_filter_submit"
-        style="@style/ButtonText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/btn_red"
-        android:text="Submit" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dont_want"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="97dp"
-        android:text="              "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/textView1"
@@ -89,5 +69,16 @@
         android:text="Select the topics about which you&apos;d like to know the trends"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/trending_filter_submit"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dont_want"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_red"
+        android:text="Submit" />
 
 </RelativeLayout>
