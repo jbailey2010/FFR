@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import jeff.isawesome.fantasyfootballrankings.R;
 
@@ -668,5 +671,35 @@ public class ManageInput
 	        = (ConnectivityManager)cont.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+	}
+	
+	public static String[] tokenize(String s, char key, int keyLen)
+	{
+		char[] c = s.toCharArray();
+		LinkedList<String> ll = new LinkedList<String>();
+		int index = 0;
+		for(int i = 0; i < c.length; i++)
+		{
+			if(c[i] == key || i+1 == c.length)
+			{
+				if(i+1 == c.length)
+				{
+					ll.add(s.substring(index, i+1));
+				}
+				else
+					{
+					ll.add(s.substring(index, i));
+				}
+				index = i + keyLen;
+				i += keyLen - 1;
+			}
+		}
+		String[] allData = new String[ll.size()];
+		Iterator<String> iter = ll.iterator();
+		for(index = 0; iter.hasNext(); index++)
+		{
+			allData[index] = iter.next();
+		}
+		return allData;
 	}
 }

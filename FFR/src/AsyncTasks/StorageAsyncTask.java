@@ -3,7 +3,10 @@ package AsyncTasks;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
@@ -14,6 +17,7 @@ import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
@@ -242,10 +246,10 @@ public class StorageAsyncTask
     		holder.players = new ArrayList<PlayerObject>();
     		holder.parsedPlayers = new ArrayList<String>();
     		ReadFromFile.readTeamData(holder, cont);
-	   		String[] perPlayer = checkExists.split("~~~~");
-	   		for(int i = 0; i < perPlayer.length; i++)
+    		String[] st = ManageInput.tokenize(checkExists, '~', 4);
+	   		for(int i = 0; i < st.length; i++)
 	   		{  
-	   			String[] allData = perPlayer[i].split("&&");
+	   			String[] allData = ManageInput.tokenize(st[i], '&', 2);
 	   			PlayerObject newPlayer = new PlayerObject(allData[2], allData[3], allData[4], 0);
 	   			newPlayer.values.paapd = Double.parseDouble(allData[16]);
 	   			newPlayer.values.paa = Double.parseDouble(allData[15]);
