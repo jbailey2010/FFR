@@ -16,7 +16,6 @@ public class BasicInfo
 	public String trend;
 	public String contractStatus;
 	public String age;
-	public String additionalStat;
 	/**
 	 * Simply establishes the values. Nothing special
 	 * @param playerName the name of the player
@@ -32,7 +31,6 @@ public class BasicInfo
 		trend = "0.0";
 		contractStatus = "Under Contract";
 		age = "0"; 
-		additionalStat = "";
 	}
 
 	/**

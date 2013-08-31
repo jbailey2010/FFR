@@ -59,19 +59,13 @@ public class StorageAsyncTask
 	    	StringBuilder players = new StringBuilder(10000);
 	    	for (PlayerObject player : holder.players)
 	    	{
-	    		String additStat = " ";
-	    		if(player.info.additionalStat != null && !player.info.additionalStat.equals("") 
-	    				&& player.info.additionalStat.length() >= 3)
-	    		{
-	    			additStat = player.info.additionalStat;
-	    		}
 	    		players.append( 
 	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" 
 	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
 	    		player.info.adp + "&&" 
 	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + 
 	    		player.info.age + "&&" + player.stats + "&&" + player.injuryStatus + 
-	    		"&&"+ additStat + "&&" + player.values.ecr + "&&" + 
+	    		"&&"+ player.values.ecr + "&&" + 
 	    		player.risk + "&&" + player.riskPos + "&&" + 
 	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "~~~~");
 	    	}
@@ -150,12 +144,6 @@ public class StorageAsyncTask
 	    	StringBuilder players = new StringBuilder(10000);
 	    	for (PlayerObject player : holder.players)
 	    	{
-	    		String additStat = " ";
-	    		if(player.info.additionalStat != null && !player.info.additionalStat.equals("") 
-	    				&& player.info.additionalStat.length() >= 3)
-	    		{
-	    			additStat = player.info.additionalStat;
-	    		}
 	    		System.out.println(player.info.name + " - " + player.values.worth);
 	    		players.append( 
 	    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
@@ -163,7 +151,7 @@ public class StorageAsyncTask
 	    	    		player.info.adp + "&&" 
 	    	    		+ player.info.trend + "&&" + player.info.contractStatus +"&&" + 
 	    	    		player.info.age + "&&" + player.stats + "&&" + player.injuryStatus + 
-	    	    		"&&"+ additStat + "&&" + player.values.ecr + "&&" + 
+	    	    		"&&" + player.values.ecr + "&&" + 
 	    	    		player.risk + "&&" + player.riskPos + "&&"  + 
 	    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "~~~~");
 
@@ -259,13 +247,12 @@ public class StorageAsyncTask
 	   		{  
 	   			String[] allData = perPlayer[i].split("&&");
 	   			PlayerObject newPlayer = new PlayerObject(allData[2], allData[3], allData[4], 0);
-	   			newPlayer.values.paapd = Double.parseDouble(allData[17]);
-	   			newPlayer.values.paa = Double.parseDouble(allData[16]);
-	   			newPlayer.values.points = Double.parseDouble(allData[15]);
-	   			newPlayer.riskPos = Double.parseDouble(allData[14]);
-	   			newPlayer.risk = Double.parseDouble(allData[13]);
-	   			newPlayer.values.ecr = Double.parseDouble(allData[12]);
-	   			newPlayer.info.additionalStat = allData[11];
+	   			newPlayer.values.paapd = Double.parseDouble(allData[16]);
+	   			newPlayer.values.paa = Double.parseDouble(allData[15]);
+	   			newPlayer.values.points = Double.parseDouble(allData[14]);
+	   			newPlayer.riskPos = Double.parseDouble(allData[13]);
+	   			newPlayer.risk = Double.parseDouble(allData[12]);
+	   			newPlayer.values.ecr = Double.parseDouble(allData[11]);
 	   			newPlayer.injuryStatus = allData[10];
 	   			newPlayer.stats = allData[9];
 	   			newPlayer.info.age = allData[8];

@@ -8,6 +8,7 @@ import java.io.IOException;
 
 
 
+
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,6 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseOLineAdvanced;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePFF;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePermanentData;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseSI;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
@@ -315,17 +315,6 @@ public class ParsingAsyncTask
 					e1.printStackTrace();
 				}
 
-			    publishProgress("Please wait, setting last year's team data...");
-			    try {
-					HighLevel.setPermanentData(holder, cont);
-				} catch (HttpStatusException e2)
-				{
-					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
 			    publishProgress("Please wait, setting specific player info...");
 	    		try {
 					HighLevel.parseSpecificData(holder, cont);
@@ -426,19 +415,13 @@ public class ParsingAsyncTask
 			    	StringBuilder players = new StringBuilder(10000);
 			    	for (PlayerObject player : holder.players)
 			    	{ 
-			    		String additStat = " ";
-			    		if(player.info.additionalStat != null && !player.info.additionalStat.equals("") 
-			    				&& player.info.additionalStat.length() >= 3)
-			    		{
-			    			additStat = player.info.additionalStat;
-			    		}
 			    		players.append( 
 			    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&"
 			    	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
 			    	    		player.info.adp +  "&&" 
 			    	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + 
 			    	    		player.info.age + "&&" + player.stats + "&&"  + player.injuryStatus + 
-			    	    		"&&" + additStat + "&&" + player.values.ecr + "&&" + 
+			    	    		"&&" + player.values.ecr + "&&" + 
 			    	    		player.risk + "&&" + player.riskPos + "&&" + 
 			    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "~~~~");
 

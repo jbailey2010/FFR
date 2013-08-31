@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
+
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraft;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFreeAgents;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseInjuries;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePermanentData;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
 
 import FileIO.ReadFromFile;
@@ -109,29 +109,6 @@ public class HighLevel
 			sos.put(keyBase + "D/ST", Integer.parseInt(team[i][6]));
 		}
 		holder.sos = sos;
-	}
-	
-	/**
-	 * A high level function that sets the permanent data in the
-	 * player objects
-	 * @param holder
-	 * @param cont
-	 * @throws IOException 
-	 */
-	public static void setPermanentData(Storage holder, Context cont) throws IOException
-	{
-		Map<String, String> menInBox = ParsePermanentData.parseMenInBox(holder, cont);
-		Map<String, String> oLineRanks = ParsePermanentData.parseOLineRanksWrapper();
-		Set<String> names = menInBox.keySet();
-		holder.oLineRanks = oLineRanks;
-		for(PlayerObject elem : holder.players)
-		{
-			//elem.info.oLineStatus = oLineRanks.get(elem.info.team);
-			if(elem.info.position.equals("RB") && names.contains(elem.info.name))
-			{
-				elem.info.additionalStat = menInBox.get(elem.info.name);
-			}
-		}
 	}
 	
 	/**

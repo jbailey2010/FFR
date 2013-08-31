@@ -751,33 +751,6 @@ public class ComparatorHandling
 				}
 			}
 		}
-		if(player1.info.additionalStat.contains("%") && player2.info.additionalStat.contains("%"))
-		{
-			double mib1 = mib(player1);
-			double mib2 = mib(player2);
-			if(mib1 > mib2)
-			{
-				if(mib1 - mib2 > 10.0)
-				{
-					p2.append("-Faced 8+ in the box much less often last year\n");
-				}
-				else
-				{
-					p2.append("-Faced 8+ in the box less often last year\n");
-				}
-			}
-			else if(mib2 > mib1)
-			{
-				if(mib2 - mib1 > 10.0)
-				{
-					p1.append("-Faced 8+ in the box much less often last year\n");
-				}
-				else
-				{
-					p1.append("-Faced 8+ in the box less often last year\n");
-				}
-			}
-		}
 		boolean pos1 = samePos(player1, holder);
 		boolean pos2 = samePos(player2, holder);
 		if(!pos1)
@@ -958,17 +931,6 @@ public class ComparatorHandling
 		String btStr = player.stats.split("Broken Tackles: ")[1];
 		String total = btStr.split(", ")[0];
 		return Integer.parseInt(total);
-	}
-	
-	/**
-	 * Gets the 8+ men in box percentage
-	 */
-	public static double mib(PlayerObject player)
-	{
-		String statWhole = player.info.additionalStat;
-		String percentOn = statWhole.split(": ")[1];
-		String relativeLeft = percentOn.split(", ")[0];
-		return Double.parseDouble(relativeLeft.substring(0, relativeLeft.length()-1));
 	}
 	
 	/**

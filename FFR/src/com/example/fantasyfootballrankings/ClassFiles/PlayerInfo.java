@@ -735,11 +735,7 @@ public class PlayerInfo
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", searchedPlayer.stats);
-			if(searchedPlayer.info.additionalStat != null && !searchedPlayer.info.additionalStat.equals("")
-					&& searchedPlayer.info.additionalStat.length() > 2)
-	    	{
-	    		datum.put("sub", searchedPlayer.info.additionalStat);
-	    	}
+			datum.put("sub", "");
 			if(searchedPlayer.stats.contains("Pass Attempts") && searchedPlayer.stats.contains("Interceptions"))
 			{
 				String intsA = searchedPlayer.stats.split("Interceptions: ")[1].split("\n")[0];
