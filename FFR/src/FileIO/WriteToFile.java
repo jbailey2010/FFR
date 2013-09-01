@@ -1,6 +1,7 @@
 package FileIO;
 
 import java.text.DateFormat;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -350,11 +351,13 @@ public class WriteToFile {
 	
 	/**
 	 * Writes to file if it's an auciton
+	 * @param aucFactor, Storage holder 
 	 */
-	public static void writeIsAuction(Boolean isAuction, Context cont)
+	public static void writeIsAuction(Boolean isAuction, Context cont, double aucFactor, Storage holder)
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 		editor.putBoolean("Is Auction", isAuction).commit();
+		editor.putFloat("Auction Factor", (float) aucFactor).commit();
 	}
 	
 	/**
@@ -496,7 +499,8 @@ public class WriteToFile {
 		{
 			secondaryData.append("\nValue: " + df.format(holder.draft.value));
 			secondaryData.append("\nAverage leverage: " + Draft.averageLev(holder.draft));
-			secondaryData.append("\nPAA per dollar: " + df.format(Draft.paaTotal(holder.draft)/(200 - holder.draft.remainingSalary)));
+			secondaryData.append("\nPAA per dollar: " + df.format(Draft.paaTotal(holder.draft)/((200.0/ReadFromFile.readAucFactor(cont))
+					- holder.draft.remainingSalary)));
 		}
 		String qbs = Rankings.handleDraftParsing(holder.draft.qb);
     	String rbs = Rankings.handleDraftParsing(holder.draft.rb);
@@ -550,7 +554,6 @@ public class WriteToFile {
 		{
 			editor.putFloat(player.info.name + player.info.team + player.info.position + "Cost", (float) player.values.relPrice);
 			editor.putFloat(player.info.name + player.info.team + player.info.position + "Points", (float) player.values.relPoints);
-			editor.putFloat(player.info.name + player.info.team + player.info.position + "Leverage", (float) player.values.leverage);
 		}
 		editor.commit();
 	}

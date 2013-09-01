@@ -97,7 +97,7 @@ public class Rankings extends Activity {
 	Context cont;
 	public static Context newCont;
 	public static Context context;
-	public static Storage holder = new Storage();
+	public static Storage holder = new Storage(null);
 	public static Button voice;
 	public static AutoCompleteTextView textView;
 	private static final int REQUEST_CODE = 1234;
@@ -124,6 +124,7 @@ public class Rankings extends Activity {
 	public RelativeLayout widgetBase;
 	public boolean hideWidget = false;
 	public static boolean isAsync = false;
+	public static double aucFactor;
 	/**
 	 * Sets up the view
 	 */
@@ -131,6 +132,11 @@ public class Rankings extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		cont = this;
+		if(holder.draft.playersDrafted(holder.draft) == 0)
+		{
+			holder.draft.fixRemSalaryInit(cont);
+		}
+		aucFactor = ReadFromFile.readAucFactor(cont);
 		watchList.clear();
 		setContentView(R.layout.activity_rankings);
 		search = (Button)findViewById(R.id.search);
@@ -440,7 +446,7 @@ public class Rankings extends Activity {
 	 * Does something of a suggested picks system
 	 * @param widgOutput
 	 */
-	public static void suggestedPicks(TextView widgOutput)
+	public void suggestedPicks(TextView widgOutput)
 	{
 		String paaBackQB = paaDiff("QB");
 		final double qb3 = Double.parseDouble(paaBackQB.split(": ")[1].split("/")[0]);
@@ -469,26 +475,28 @@ public class Rankings extends Activity {
 			{
 				double aVal = 0;
 				double bVal = 0;
-				if(a.values.leverage != 0.0)
+				double leverage = a.values.relPoints / a.values.relPrice;
+				if(leverage != 0.0)
 				{
 					if(a.values.worth < 1.0)
 					{
-						aVal -= (a.values.leverage / 2);
+						aVal -= (leverage / 2);
 					}
 					else
 					{
-						aVal -= a.values.leverage;
+						aVal -= leverage;
 					}
 				}
-				if(b.values.leverage != 0.0)
+				leverage = a.values.relPoints / a.values.relPrice;
+				if(leverage != 0.0)
 				{
 					if(b.values.worth < 1.0)
 					{
-						bVal -= (b.values.leverage / 2);
+						bVal -= (leverage / 2);
 					}
 					else
 					{
-						bVal -= b.values.leverage;
+						bVal -= leverage;
 					}
 				}
 				if(watchList.contains(a.info.name))
@@ -696,15 +704,16 @@ public class Rankings extends Activity {
 		{
 			PlayerObject a = inter.poll();
 			double aVal = 0;
-			if(a.values.leverage != 0.0)
+			double leverage = a.values.relPoints / a.values.relPrice;
+			if(leverage != 0.0)
 			{
 				if(a.values.worth < 1.0)
 				{
-					aVal -= (a.values.leverage / 2);
+					aVal -= (leverage / 2);
 				}
 				else
 				{
-					aVal -= a.values.leverage;
+					aVal -= leverage;
 				}
 			}
 			aVal -= a.values.worth;
@@ -995,7 +1004,7 @@ public class Rankings extends Activity {
 	 * @param pos
 	 * @return
 	 */
-	public static String paaDiff(String pos)
+	public String paaDiff(String pos)
 	{
 		DecimalFormat df = new DecimalFormat("#.#");
 		String result = "3/5/10 back: ";
@@ -1107,7 +1116,7 @@ public class Rankings extends Activity {
 	 * handles relavent filter dialog
 	 * @param dialog2
 	 */
-	public static void filterTopics(final Dialog dialog2) 
+	public void filterTopics(final Dialog dialog2) 
 	{
 		final Dialog dialog = new Dialog(context, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -1342,7 +1351,8 @@ public class Rankings extends Activity {
 	          public void onClick(View v) 
 	          {
 	        	  try {
-	        		  PlayerInfo.searchCalled(cont);
+	        		  PlayerInfo obj = new PlayerInfo();
+	        		  obj.searchCalled(cont);
 	        	  } catch (IOException e) {
 						// TODO Auto-generated catch block
 	        		  e.printStackTrace();
@@ -1451,7 +1461,7 @@ public class Rankings extends Activity {
      * Sets the dialog to handle the salary/value information
      * @param dialog
      */
-    public static void moreInfo(final Dialog dialog)
+    public void moreInfo(final Dialog dialog)
     {
     	DecimalFormat df = new DecimalFormat("#.##");
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -1460,7 +1470,7 @@ public class Rankings extends Activity {
 	    lp.copyFrom(dialog.getWindow().getAttributes());
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
 	    dialog.getWindow().setAttributes(lp);
-		String salRem = Integer.toString(holder.draft.remainingSalary);
+		String salRem = Integer.toString((int)(holder.draft.remainingSalary));
 		String value = Integer.toString((int)holder.draft.value); 
 		TextView remSalary = (TextView)dialog.findViewById(R.id.remSalary);
 		TextView draftVal = (TextView)dialog.findViewById(R.id.draftValue);
@@ -1469,11 +1479,11 @@ public class Rankings extends Activity {
 		TextView levView = (TextView)dialog.findViewById(R.id.draft_leverage);
 		double paa = 0.0;
 		double paapd = 0.0;
-		if(holder.draft.remainingSalary != 200)
+		if(holder.draft.playersDrafted(holder.draft) != 0)
 		{
 			draftVal.setVisibility(View.VISIBLE);
 			paa = Draft.paaTotal(holder.draft);
-			paapd = paa / (200 - holder.draft.remainingSalary);
+			paapd = paa / ((200.0/aucFactor) - holder.draft.remainingSalary);
 			paaView.setVisibility(View.VISIBLE);
 			paaView.setText("PAA total: " + df.format(paa));
 			paapdView.setVisibility(View.VISIBLE);
@@ -1489,6 +1499,7 @@ public class Rankings extends Activity {
 			levView.setVisibility(View.GONE);
 		}
 		ProgressBar salBar = (ProgressBar)dialog.findViewById(R.id.progressBar1);
+		salBar.setMax((int) (200 / aucFactor));
 		remSalary.setText("Salary Left: $" + salRem);
 		draftVal.setText("Value Thus Far: $" + value);
 		salBar.setProgress(Integer.parseInt(salRem));		
@@ -1534,7 +1545,7 @@ public class Rankings extends Activity {
     	dialog.show();
     }
 
-	public static void posValLeft(final Dialog dialog, Storage holder, final Context context) 
+	public void posValLeft(final Dialog dialog, Storage holder, final Context context) 
 	{
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.paa_pos_left); 
@@ -1585,7 +1596,7 @@ public class Rankings extends Activity {
      * then shows it.
      * @param dialog
      */
-    public static void handleInfo(final Dialog dialog)
+    public void handleInfo(final Dialog dialog)
     {
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.draft_team_status);
@@ -1647,7 +1658,7 @@ public class Rankings extends Activity {
 	 * @param holder
 	 * @param cont
 	 */
-	public static void intermediateHandleRankings(Activity cont)
+	public void intermediateHandleRankings(Activity cont)
 	{ 
 		isAsync = false;
 		cont.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
@@ -1814,7 +1825,7 @@ public class Rankings extends Activity {
      * the rankings are all fetched
      * @param holder 
      */
-    public static void rankingsFetched(PriorityQueue<PlayerObject> playerList, Activity cont)
+    public void rankingsFetched(PriorityQueue<PlayerObject> playerList, Activity cont)
     {
 	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
 	    listview.setAdapter(null);
@@ -1833,7 +1844,7 @@ public class Rankings extends Activity {
 	        Map<String, String> datum = new HashMap<String, String>(2);
 	        if(isAuction)
 	        {
-	        	datum.put("main", df.format(elem.values.worth) + ":  " + elem.info.name);
+	        	datum.put("main", df.format(elem.values.secWorth) + ":  " + elem.info.name);
 	        }
 	        else
 	        {
@@ -1892,7 +1903,8 @@ public class Rankings extends Activity {
 				{
 					selected = selected.split(":  ")[1];
 				}
-				PlayerInfo.outputResults(selected, true, (Rankings)context, holder, false, true);
+				PlayerInfo obj = new PlayerInfo();
+				obj.outputResults(selected, true, (Rankings)context, holder, false, true);
 			}
     	 });
     	 listview.setOnItemLongClickListener(new OnItemLongClickListener(){

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import org.htmlcleaner.XPatherException;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
@@ -46,7 +47,7 @@ public class ParseFFTB
 	public static void parseFFTBPage(Storage holder, String url) throws MalformedURLException, IOException, XPatherException
 	{
 		String text = HandleBasicQueries.handleLists(url, "td");
-		String[] brokenUp = text.split("\n");
+		String[] brokenUp = ManageInput.tokenize(text, '\n', 1);
 		for(int i = 1; i < brokenUp.length; i+=2)
 		{ 
 			String name = brokenUp[i].replace("Defense", "D/ST");
@@ -90,7 +91,7 @@ public class ParseFFTB
 	{
 		HashMap<String, String> byes = new HashMap<String, String>();
 		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/byeweeks.cfm", "td");
-		String[] brokenUp = html.split("\n");
+		String[] brokenUp = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 0; i < brokenUp.length; i+=2)
 		{
 			String week = brokenUp[i];

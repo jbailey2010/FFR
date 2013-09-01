@@ -43,6 +43,8 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -63,7 +65,6 @@ public class ManageInput
 	static Scoring dummyScoring = new Scoring();
 	static Roster dummyRoster = new Roster();
 	static boolean doSyncData = false;
-	static Storage holderObj = new Storage();
 	/**
 	 * This sets up the auto complete search with the given arraylist
 	 * so that it autocompletes suggestions based on players who have
@@ -224,7 +225,7 @@ public class ManageInput
 				WriteToFile.writeFilterSize(cont, selector.getProgress(), flag);
 				dialog.dismiss();
 				try {
-					Trending.resetTrendingList(ReadFromFile.readLastFilter(cont), cont);
+					((Trending)cont).resetTrendingList(ReadFromFile.readLastFilter(cont), cont);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -308,7 +309,7 @@ public class ManageInput
 			public void onClick(View v) {
 				WriteToFile.writeFilterSize(cont, selector.getProgress(), flag);
 				dialog.dismiss();
-				Rankings.intermediateHandleRankings((Activity)cont);
+				((Rankings)cont).intermediateHandleRankings((Activity)cont);
 	    	}	
 		});
 	}
@@ -332,7 +333,6 @@ public class ManageInput
 	public static void passSettings(final Context cont, final Scoring scoring, final boolean doSync, final Storage holder)
 	{
 		doSyncData = doSync;
-		holderObj = holder;
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.scoring_pass);
@@ -465,7 +465,7 @@ public class ManageInput
 						    SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 							ParsingAsyncTask stupid = new ParsingAsyncTask();
 						    ParseProjections task = stupid.new ParseProjections((Activity)cont, ((Home)cont).holder);
-						    task.execute(holderObj, cont);
+						    task.execute(holder, cont);
 						    SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 						    editor.putBoolean("Home Update", true).commit();
 						}
@@ -501,7 +501,6 @@ public class ManageInput
 	{
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		doSyncData = doSync;
-		holderObj = holder;
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.roster_selections);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -563,7 +562,7 @@ public class ManageInput
 					Toast.makeText(cont, "Updating PAA...", Toast.LENGTH_SHORT).show();
 					StorageAsyncTask obj = new StorageAsyncTask();
 				    WriteNewPAA task2 = obj.new WriteNewPAA(cont);
-				    task2.execute(holderObj, cont);
+				    task2.execute(holder, cont);
 				    SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 				    editor.putBoolean("Home Update", true).commit();
 				}
@@ -602,7 +601,29 @@ public class ManageInput
 		else if(!isAuction && !snake.isChecked())
 		{
 			snake.toggle();
+		} 
+		final EditText salary = (EditText)dialog.findViewById(R.id.auction_salary_input);
+		final TextView prompt = (TextView)dialog.findViewById(R.id.auction_salary_prompt);
+		if(snake.isChecked())
+		{
+			salary.setVisibility(View.GONE);
+			prompt.setVisibility(View.GONE);
 		}
+		snake.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+			@Override 
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				if(arg1)
+				{
+					salary.setVisibility(View.GONE);
+					prompt.setVisibility(View.GONE);
+				}
+				else
+				{
+					salary.setVisibility(View.VISIBLE);
+					prompt.setVisibility(View.VISIBLE);
+				}
+			}
+		});
 		final RadioButton a = auction;
 		final RadioButton s = snake;
 		Button submit = (Button)dialog.findViewById(R.id.is_auction_submit);
@@ -611,23 +632,37 @@ public class ManageInput
 			public void onClick(View v) {
 				boolean isAuction = ReadFromFile.readIsAuction(cont);
 				boolean needReset = false;
-				if((!isAuction && a.isChecked()) || (isAuction && s.isChecked()))
+				String input = salary.getText().toString();
+				System.out.println("String is " + input);
+				if(s.isChecked() || (ManageInput.isInteger(input) && a.isChecked() && Integer.parseInt(input) > 0))
 				{
-					needReset = true;
-				}
-				if(a.isChecked())
-				{
-					WriteToFile.writeIsAuction(true, cont);
+					SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+				    editor.putBoolean("Home Update", true).commit();
+				    if((!isAuction && a.isChecked()) || (isAuction && s.isChecked()))
+					{
+						needReset = true;
+					}
+					if(a.isChecked())
+					{
+						double aucFactor = 200.0 / Integer.parseInt(input);
+						System.out.println("Int is " + Integer.parseInt(input));
+						System.out.println("Double is " + aucFactor);
+						WriteToFile.writeIsAuction(true, cont, aucFactor, holder);
+					}
+					else
+					{
+						WriteToFile.writeIsAuction(false, cont, 1.0, holder);
+					}
+					if(needReset)
+					{
+						Draft.resetDraftRemote(holder.draft, cont);
+					}
+					dialog.dismiss();
 				}
 				else
 				{
-					WriteToFile.writeIsAuction(false, cont);
+					Toast.makeText(cont, "Please enter a number greater than 0 for the salary", Toast.LENGTH_SHORT).show();
 				}
-				if(needReset)
-				{
-					Draft.resetDraftRemote(holder.draft, cont);
-				}
-				dialog.dismiss();
 			}
 		});
 	}

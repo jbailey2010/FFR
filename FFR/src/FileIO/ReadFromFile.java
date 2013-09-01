@@ -109,7 +109,7 @@ public class ReadFromFile {
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		String checkExists = prefs.getString("Player Names", "Not Set");
 		holder.playerNames.clear();
-		String[] j = checkExists.split(",");
+		String[] j = ManageInput.tokenize(checkExists, ',', 1);
 		for(int i = 0; i < j.length; i++)
 		{
 			holder.playerNames.add(j[i]);
@@ -185,67 +185,6 @@ public class ReadFromFile {
 	}
 	
 	/**
-	 * Reads a hashmap of men in box from file
-	 * @param cont
-	 * @return
-	 */
-	public static Map<String, String> readMenInBox(Context cont)
-	{
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		String checkExists = prefs.getString("Men In Box", "Not Set");
-		Map<String,String> players = new HashMap<String, String>();
-		String[] perPlayer = checkExists.split("@@#");
-		for(int i = 0; i < perPlayer.length; i++)
-		{
-			String[] individualData = perPlayer[i].split("~~");
-			players.put(individualData[0], individualData[1]);
-		}
-		return players;
-	}
-	
-	/**
-	 * handles the reading of the pass run ratios per team
-	 * from file
-	 * @param cont
-	 * @return
-	 */
-	public static Map<String, String> readPassRun(Context cont)
-	{
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		String checkExists = prefs.getString("Run Pass Ratio", "Not Set");
-		Map<String,String> teams = new HashMap<String, String>();
-		String[] perPlayer = checkExists.split("@@#");
-		for(int i = 0; i < perPlayer.length; i++)
-		{
-			String[] individualData = perPlayer[i].split("~~");
-			teams.put(individualData[0], individualData[1]);
-		}
-		return teams;
-	}
-	
-	/**
-	 * Handles reading of o line rankings from file
-	 * @param cont
-	 * @return
-	 */
-	public static Map<String, String> readOLineRanks(Context cont)
-	{
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		String checkExists = prefs.getString("O Line Ranks", "Not Set");
-		Map<String,String> teams = new HashMap<String, String>();
-		String[] perPlayer = checkExists.split("@@#");
-		for(int i = 0; i < perPlayer.length; i++)
-		{
-			String[] individualData = perPlayer[i].split("~~");
-			if(individualData.length > 1)
-			{
-				teams.put(individualData[0], individualData[1]);
-			}
-		}
-		return teams;
-	}
-	
-	/**
 	 * Handles reading the last filter used from
 	 * file (for trending)
 	 * @param cont
@@ -267,10 +206,10 @@ public class ReadFromFile {
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		String newsWhole = prefs.getString("News RotoWorld", "Not Set");
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
-		String[] perHeadline = newsWhole.split("@@@");
+		String[] perHeadline = ManageInput.tokenize(newsWhole, '@', 3);
 		for(int i = 0; i < perHeadline.length; i++)
 		{
-			String[] newsData = perHeadline[i].split("~~");
+			String[] newsData = ManageInput.tokenize(perHeadline[i], '~', 2);
 			NewsObjects newsObj = new NewsObjects(newsData[0], newsData[1], 
 					newsData[2]);
 			if(newsData.length == 4)
@@ -304,7 +243,7 @@ public class ReadFromFile {
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		List<String> watchList = new ArrayList<String>();
 		String watch = prefs.getString("Watch List", "");
-		String[] watchSet = watch.split("----");
+		String[] watchSet = ManageInput.tokenize(watch, '-', 4);
 		for(String player : watchSet)
 		{
 			if(player.length() > 3)
@@ -531,8 +470,18 @@ public class ReadFromFile {
 		{
 			player.values.relPrice = (double)prefs.getFloat(player.info.name + player.info.team + player.info.position + "Cost", (float) 0.0);
 			player.values.relPoints = (double)prefs.getFloat(player.info.name + player.info.team+ player.info.position + "Points", (float)0.0);
-			player.values.leverage = (double)prefs.getFloat(player.info.name + player.info.team + player.info.position + "Leverage", (float)0.0);
 		}
 		
+	}
+	
+	/**
+	 * Returns the auction factor as input by the user, defaulting to 1
+	 * @param cont
+	 * @return
+	 */
+	public static double readAucFactor(Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		return (double)prefs.getFloat("Auction Factor", (float)1.0);
 	}
 }

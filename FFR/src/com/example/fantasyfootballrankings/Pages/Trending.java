@@ -72,7 +72,7 @@ public class Trending extends Activity {
 	Button week;
 	Button month;
 	Button all;
-	static Storage holder = new Storage();
+	static Storage holder = new Storage(null);
 	static BounceListView listview;
 	long start;
 	static boolean refreshed = false;
@@ -235,7 +235,8 @@ public class Trending extends Activity {
 		{ 
 			List<String>postsList = new ArrayList<String>();
 			data = new ArrayList<Map<String, String>>();
-			for(String post : storedPosts.split("##"))
+			String[] posts = ManageInput.tokenize(storedPosts, '#', 2);
+			for(String post : posts)
 			{
 				try{
 					String[] nameSet = post.split(": mentioned ");
@@ -511,7 +512,7 @@ public class Trending extends Activity {
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	public static void resetTrendingList(int filterSize, Context cont) throws ParseException, IOException
+	public void resetTrendingList(int filterSize, Context cont) throws ParseException, IOException
 	{
 		refreshed = true;
 		data.clear();
@@ -625,7 +626,7 @@ public class Trending extends Activity {
 	/**
 	 * handles what happens on click of the item in the list
 	 */
-	public static void setListViewOnClick()
+	public void setListViewOnClick()
 	{
 	    listview.setOnItemClickListener(new OnItemClickListener(){
 			@Override
@@ -653,7 +654,8 @@ public class Trending extends Activity {
 				}
 				else
 				{
-					PlayerInfo.outputResults(selected, true, (Trending)context, holder, false, false);
+					PlayerInfo obj = new PlayerInfo();
+					obj.outputResults(selected, true, (Trending)context, holder, false, false);
 				}
 			}
 	    });

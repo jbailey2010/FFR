@@ -277,9 +277,9 @@ public class SortHandler
 						{
 							max = (int) player.values.count;
 						}
-						if(player.values.worth > maxProj)
+						if(player.values.secWorth > maxProj)
 						{
-							maxProj = player.values.worth;
+							maxProj = player.values.secWorth;
 						}
 					}
 					if(minimum > max)
@@ -493,7 +493,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && 
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && 
 							player.stats.contains("Broken Tackles") )
 					{
 						sorted.add(player);
@@ -535,7 +535,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && 
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && 
 							player.stats.contains("Completion Percentage") && player.stats.contains("Interceptions"))
 					{
 						sorted.add(player);
@@ -574,7 +574,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && 
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && 
 							player.stats.contains("Yards") && player.stats.contains("Adjusted Yards") && 
 							!player.stats.split("Adjusted Yards: ")[1].split("\n")[0].contains("%"))
 					{
@@ -608,7 +608,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj 
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj 
 							&& player.stats.contains("Success Rate"))
 					{
 						sorted.add(player);
@@ -636,7 +636,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.risk != -1 && 
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && player.risk != -1 && 
 							player.risk != -1.0 && player.risk != 0)
 					{
 						sorted.add(player);
@@ -671,7 +671,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.ecr != -1.0 && 
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && player.values.ecr != -1.0 && 
 							!player.info.adp.equals("Not set"))
 					{
 						sorted.add(player);
@@ -700,7 +700,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj)
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj)
 					{
 						sorted.add(player);
 					}
@@ -715,11 +715,13 @@ public class SortHandler
 					@Override
 					public int compare(PlayerObject a, PlayerObject b)
 					{
-						if(a.values.leverage > b.values.leverage)
+						double leva = a.values.relPoints / a.values.relPrice;
+						double levb = a.values.relPoints / a.values.relPrice;
+						if(leva > levb)
 						{
 							return -1;
 						}
-						if(a.values.leverage < b.values.leverage)
+						if(leva < levb)
 						{
 							return 1;
 						}
@@ -728,8 +730,8 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && 
-							player.values.leverage != 0.0 && player.values.relPoints != 0.0)
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && 
+							player.values.relPrice != 0.0  && player.values.relPoints != 0.0 && player.values.relPoints != 0.0)
 					{
 						sorted.add(player);
 					}
@@ -761,7 +763,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.stats.contains("(rank)"))
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && player.stats.contains("(rank)"))
 					{
 						sorted.add(player);
 					}
@@ -793,7 +795,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.stats.contains("(rank)"))
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && player.stats.contains("(rank)"))
 					{
 						sorted.add(player);
 					}
@@ -824,7 +826,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
+			if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
 			{
 				sorted.add(player);
 			}
@@ -855,7 +857,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
 					{
 						sorted.add(player);
 					}
@@ -886,7 +888,7 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
 					{
 						sorted.add(player);
 					}
@@ -919,7 +921,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && 
+			if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && 
 					holder.sos.get(player.info.team + "," + player.info.position) != null && 
 					holder.sos.get(player.info.team + "," + player.info.position) > 0)
 			{
@@ -953,7 +955,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.riskPos != 1.0)
+			if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && player.riskPos != 1.0)
 			{
 				sorted.add(player);
 			}
@@ -984,7 +986,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && player.values.ecr != -1)
+			if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && player.values.ecr != -1)
 			{
 				sorted.add(player);
 			}
@@ -1015,7 +1017,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && !player.info.adp.equals("Not set"))
+			if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && !player.info.adp.equals("Not set"))
 			{
 				sorted.add(player);
 			}
@@ -1046,7 +1048,7 @@ public class SortHandler
 		});
 		for(PlayerObject player : players)
 		{
-			if(player.values.worth >= minVal && player.values.worth < maxVal && player.values.points >= minProj && !player.info.trend.equals("0.0"))
+			if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && !player.info.trend.equals("0.0"))
 			{
 				sorted.add(player);
 			}
@@ -1139,93 +1141,93 @@ public class SortHandler
 	    	if(subject.equals("Projections"))
 			{
 				datum.put("main", output + elem.values.points + ": " + elem.info.name);
-				datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth));
+				datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
 			}
 	    	else if(subject.equals("Auction Values"))
 	    	{
-	    		datum.put("main", output + df.format(elem.values.worth)+ ": " + elem.info.name);
+	    		datum.put("main", output + df.format(elem.values.secWorth)+ ": " + elem.info.name);
 	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + df.format(elem.values.paa) + " PAA");
 	    	}
 	    	else if(subject.equals("Under Drafted"))
 	    	{
 	    		double diff = Double.parseDouble(elem.info.adp) - elem.values.ecr;
 	    		datum.put("main", output + df.format(diff)+ ": " + elem.info.name);
-	    		datum.put("sub", "$" +df.format(elem.values.worth)+ ", Projection: " + elem.values.points + "\n" + "ADP: " + elem.info.adp + ", " + "ECR: " + elem.values.ecr);
+	    		datum.put("sub", "$" +df.format(elem.values.secWorth)+ ", Projection: " + elem.values.points + "\n" + "ADP: " + elem.info.adp + ", " + "ECR: " + elem.values.ecr);
 	    	}
 	    	else if(subject.equals("PAA"))
 	    	{
 	    		datum.put("main", output + df.format(elem.values.paa)+ ": " + elem.info.name);
-	    		datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth));
+	    		datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
 	    	}
 	    	else if(subject.equals("PAA per dollar"))
 	    	{ 
 	    		datum.put("main", output + df.format(elem.values.paapd)+ ": " + elem.info.name);
-	    		datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth));
+	    		datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
 	    	}
 	    	else if(subject.equals("DYOA"))
 	    	{
 	    		String close1 = elem.stats.split("\\(rank\\):")[1].split("\n")[0];
 				String r1 = (close1.split("\\(")[0].trim());
 				datum.put("main", output + r1 + ": " + elem.info.name);
-				datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth) + ", " + elem.values.points + " projected points");
+				datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth) + ", " + elem.values.points + " projected points");
 	    	}
 	    	else if(subject.equals("DVOA"))
 	    	{
 	    		String close1 = elem.stats.split("\\(rank\\):")[2].split("\n")[0];
 				String r1 = close1.split("\\(")[0].trim();
 				datum.put("main", output + r1 + ": " + elem.info.name);
-				datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth) + ", " + elem.values.points + " projected points");
+				datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth) + ", " + elem.values.points + " projected points");
 	    	}
 	    	else if(subject.equals("Risk"))
 	    	{
 	    		datum.put("main", output + df.format(elem.risk)+ ": " + elem.info.name);
-	    		datum.put("sub", elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
+	    		datum.put("sub", elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
 	    	}
 	    	else if(subject.equals("Risk relative to position"))
 			{
 	    		datum.put("main",output + elem.riskPos + ": " + elem.info.name);
-	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
+	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
 			}
 			else if(subject.equals("Risk"))
 			{
 				datum.put("main", output + elem.risk + ": " + elem.info.name);
-	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
+	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
 			}
 			else if(subject.equals("Positional SOS"))
 			{
 				if(elem.values.points != 0.0)
 				{
 					datum.put("main",output + holder.sos.get(elem.info.team + "," + elem.info.position) + ": " + elem.info.name);
-		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth) + ", " + 
+		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth) + ", " + 
 							elem.values.points);
 				}
 				else
 				{
 					datum.put("main",output + holder.sos.get(elem.info.team + "," + elem.info.position) + ": " + elem.info.name);
-		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
+		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
 				}
 			}
 			else if(subject.equals("ECR"))
 			{
 				datum.put("main", output + elem.values.ecr + ": " + elem.info.name);
-	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
+	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
 			}
 			else if(subject.equals("ADP"))
 			{
 				datum.put("main", output + elem.info.adp + ": " + elem.info.name);
-	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
+	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
 			}
 			else if(subject.equals("Weekly Trend (ESPN)"))
 			{
 				datum.put("main", output + elem.info.trend + ": " + elem.info.name);
-	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
+	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
 			}
 			else if(subject.equals("Success Rate"))
 			{
 				String aS = elem.stats.split("Success Rate: ")[1].split("\n")[0];
 				int sr1 = Integer.parseInt(aS.substring(0, aS.length()-1));
 				datum.put("main", output + sr1 + ": " + elem.info.name);
-				datum.put("sub", "ECR: " + elem.values.ecr + ", ADP: " + elem.info.adp + ", $" + df.format(elem.values.worth));
+				datum.put("sub", "ECR: " + elem.values.ecr + ", ADP: " + elem.info.adp + ", $" + df.format(elem.values.secWorth));
 			}
 			else if(subject.equals("Yard Adjustment"))
 			{
@@ -1235,7 +1237,7 @@ public class SortHandler
 				int adjYards = Integer.parseInt(adjStr.replaceAll(",", ""));
 				int aDiff = adjYards - yards;
 				datum.put("main", output + aDiff + ": " + elem.info.name);
-				datum.put("sub", "Actual: " + yards + ", Adjusted: " + adjYards + ", ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth));
+				datum.put("sub", "Actual: " + yards + ", Adjusted: " + adjYards + ", ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
 			}
 			else if(subject.equals("Completion to Int Ratio"))
 			{
@@ -1247,19 +1249,19 @@ public class SortHandler
 				double completions = attempts * compPercent;
 				double aDiff = (completions)/((double)intA);
 				datum.put("main", output + df.format(aDiff) + ": " + elem.info.name);
-				datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
+				datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
 			}
 			else if(subject.equals("Broken Tackles"))
 			{
 				int aDiff = Integer.parseInt(elem.stats.split("Broken Tackles: ")[1].split(", ")[0]);
 				datum.put("main", output + aDiff + ": " + elem.info.name);
-				datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.worth));
+				datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
 			}
 			else if(subject.equals("Leverage"))
 			{
-				datum.put("main", output + df.format(elem.values.leverage) + ": " + elem.info.name);
+				datum.put("main", output + df.format(elem.values.relPoints / elem.values.relPrice) + ": " + elem.info.name);
 				datum.put("sub", df.format(elem.values.relPrice) + " relative price, " + df.format(elem.values.relPoints) + " relative points\n" + 
-						"ECR: " + elem.values.ecr + ", $" + df.format(elem.values.worth));
+						"ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
 			}
 	    	data.add(datum);
 		} 
@@ -1302,7 +1304,8 @@ public class SortHandler
 				results.setSelection(arg2);
 				String tv1 = ((TwoLineListItem)arg1).getText1().getText().toString();
 				String selected = tv1.split(": ")[1];
-				PlayerInfo.outputResults(selected, true, (Rankings)context, holder, false, false);
+				PlayerInfo obj = new PlayerInfo();
+				obj.outputResults(selected, true, (Rankings)context, holder, false, false);
 			}
     	 });
 		SwipeDismissListViewTouchListener touchListener =

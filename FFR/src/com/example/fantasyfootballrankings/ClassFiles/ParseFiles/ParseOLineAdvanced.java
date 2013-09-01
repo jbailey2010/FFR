@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
@@ -25,7 +26,7 @@ public class ParseOLineAdvanced
 	public static void parsePFOLineData(Storage holder) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/ol", "td");
-		String[] td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		HashMap<String, String> data = new HashMap<String, String>();
 		for(int i = 18; i < td.length; i+=16)
 		{

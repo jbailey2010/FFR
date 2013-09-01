@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
-
 import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.text.ParseException;
@@ -31,6 +30,7 @@ import android.os.StrictMode;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
@@ -170,7 +170,7 @@ public class ParseTrending
 		{
 			String text = posts.get(i).text;
 			text = text.replaceAll("[.,/?]", " ");
-			String[] postWords = text.split(" ");
+			String[] postWords = ManageInput.tokenize(text, ' ', 1);
 			for(int j = 0; j < postWords.length-1; j++)
 			{
 				String firstName = postWords[j].replaceAll("\\s", "");
@@ -415,8 +415,9 @@ public class ParseTrending
 			parsedText.append(HandleBasicQueries.handleListsMulti(doc, newUrl, "div.post.entry-content"));
 			parsedDates.append(HandleBasicQueries.handleListsMulti(doc, newUrl, "abbr.published"));
 		}
-		String[] perPost = parsedText.toString().split("\n");
-		String[] datesPost = parsedDates.toString().split("\n");
+		
+		String[] perPost = ManageInput.tokenize(parsedText.toString(), '\n', 1);
+		String[] datesPost = ManageInput.tokenize(parsedDates.toString(), '\n', 1);
 		Post[] posts = new Post[perPost.length];
 		for(int i =0; i < posts.length; i++)
 		{

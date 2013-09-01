@@ -11,6 +11,7 @@ import FileIO.WriteToFile;
 import android.content.Context;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 
 /**
  * A small library to help manage parsing of player
@@ -203,7 +204,7 @@ public class ParsePlayerNames {
 	public static void fetchPlayersHelp(Document doc, List<String> names, Context cont, String full, String params) throws IOException
 	{
 		String playerText = HandleBasicQueries.handleTablesMulti(doc, full, params);
-		String[] perRow = playerText.split("\n");
+		String[] perRow = ManageInput.tokenize(playerText, '\n', 1);
 		for(int j = 0; j < perRow.length; j++)
 		{
 			String[][] all = new String[perRow.length][];

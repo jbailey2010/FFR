@@ -6,6 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
@@ -26,7 +27,7 @@ public class ParseCBS
 	{
 		String url = "http://fantasynews.cbssports.com/fantasyfootball/rankings/yearly";
 		String html = HandleBasicQueries.handleListsNoUA(url, "table.multiColumn td");
-		String[] td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		int min = 0;
 		for(int i = 0; i < td.length; i++)
 		{

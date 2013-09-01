@@ -29,8 +29,10 @@ import com.example.fantasyfootballrankings.Pages.Home;
 
 
 
+
 import android.R.integer;
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.widget.CheckBox;
@@ -64,7 +66,7 @@ public class Storage
 	 * This sets up the priority queue and it's subsequent comparator.
 	 * No parameters are necessary, and the playerNames array doesn't need initialization.
 	 */
-	public Storage()
+	public Storage(Context cont)
 	{
 		players = new ArrayList<PlayerObject>(350);
 		postedPlayers = new PriorityQueue<PostedPlayer>(100, new Comparator<PostedPlayer>()
@@ -86,7 +88,7 @@ public class Storage
 		playerNames = new ArrayList<String>(400);
 		posts = new ArrayList<Post>(500);
 		parsedPlayers = new ArrayList<String>(350);
-		draft = new Draft();
+		draft = new Draft(cont);
 	}
  
 	/**

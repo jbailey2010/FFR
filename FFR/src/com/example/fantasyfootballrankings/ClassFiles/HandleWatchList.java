@@ -185,7 +185,7 @@ public class HandleWatchList
 			String val = "";
 			if(isAuction)
 			{
-				val = df.format(iter.values.worth);
+				val = df.format(iter.values.secWorth);
 			}
 			else
 			{
@@ -247,7 +247,8 @@ public class HandleWatchList
 				String nameText = ((TwoLineListItem)arg1).getText1().getText().toString();
 				String selected = nameText.split(": ")[1];
 				dialog.dismiss();
-				PlayerInfo.outputResults(selected, true,(Activity)cont, holder, true, true);
+				PlayerInfo obj = new PlayerInfo();
+				obj.outputResults(selected, true,(Activity)cont, holder, true, true);
 			}
 	    });	
 	    SwipeDismissListViewTouchListener touchListener =

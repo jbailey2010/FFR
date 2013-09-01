@@ -3,6 +3,7 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 import java.io.IOException;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
@@ -38,7 +39,7 @@ public class ParseWF
 	public static void wfRankingsHelper(Storage holder, String url) throws IOException
 	{
 		String text = HandleBasicQueries.handleLists(url, "span");
-		String[] perPlayer = text.split("\n");
+		String[] perPlayer = ManageInput.tokenize(text, '\n', 1);
 		String[][] all = new String[perPlayer.length][];
 		for(int i = 0; i < perPlayer.length; i++)
 		{

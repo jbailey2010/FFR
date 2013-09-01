@@ -59,10 +59,26 @@ public class Draft
 	 * Just initializes the integer variables to be the standard, starting
 	 * numbers. The array lists don't matter at this point.
 	 */
-	public Draft()
+	public Draft(Context cont)
 	{
-		remainingSalary = 200;
+		if(cont != null)
+		{
+			remainingSalary = (int)(200 / ReadFromFile.readAucFactor(cont));
+		}
+		else
+		{
+			remainingSalary = 200;
+		}
 		value = 0.0;
+	}
+	
+	/**
+	 * Fixes the remaining salary given a context
+	 * @param cont
+	 */
+	public void fixRemSalaryInit(Context cont)
+	{
+		remainingSalary = (int)(200 / ReadFromFile.readAucFactor(cont));
 	}
 	
 	/**
@@ -134,32 +150,32 @@ public class Draft
 		if(player.info.position.equals("QB"))
 		{
 			draft.qb.add(player);
-			newPick(player.values.worth, paid);
+			newPick(player.values.secWorth, paid);
 		}
 		else if(player.info.position.equals("RB"))
 		{
 			draft.rb.add(player);
-			newPick(player.values.worth, paid);
+			newPick(player.values.secWorth, paid);
 		}
 		else if(player.info.position.equals("WR"))
 		{
 			draft.wr.add(player);
-			newPick(player.values.worth, paid);
+			newPick(player.values.secWorth, paid);
 		}
 		else if(player.info.position.equals("TE"))
 		{
 			draft.te.add(player);
-			newPick(player.values.worth, paid);
+			newPick(player.values.secWorth, paid);
 		}
 		else if(player.info.position.equals("D/ST"))
 		{
 			draft.def.add(player);
-			newPick(player.values.worth, paid);
+			newPick(player.values.secWorth, paid);
 		}
 		else
 		{
 			draft.k.add(player);
-			newPick(player.values.worth, paid);
+			newPick(player.values.secWorth, paid);
 		}
 		WriteToFile.writeDraft(draft, cont);
 	}
@@ -296,10 +312,10 @@ public class Draft
 		draft.def.clear();
 		draft.ignore.clear();
 		draft.k.clear();
-		draft.remainingSalary = 200;
+		draft.remainingSalary = (int) (200 / ReadFromFile.readAucFactor(cont));
 		draft.value = 0.0;
 		WriteToFile.writeDraft(draft, cont);
-		Rankings.intermediateHandleRankings((Activity)cont);
+		((Rankings)cont).intermediateHandleRankings((Activity)cont);
 	}
 	
 	/**
@@ -316,7 +332,7 @@ public class Draft
 		draft.def.clear();
 		draft.ignore.clear();
 		draft.k.clear();
-		draft.remainingSalary = 200;
+		draft.remainingSalary = (int) (200/ReadFromFile.readAucFactor(cont));
 		draft.value = 0.0;
 		WriteToFile.writeDraft(draft, cont);
 	}
@@ -364,8 +380,6 @@ public class Draft
 			}
 		});
 		ListView listWatch = (ListView)dialog.findViewById(R.id.listview_search);
-		listWatch.setOverscrollHeader(cont.getResources().getDrawable(R.drawable.overscroll_header));
-		listWatch.setOverscrollHeader(cont.getResources().getDrawable(R.drawable.overscroll_header));
 		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		DecimalFormat df = new DecimalFormat("#.##");
 		boolean isAuction = ReadFromFile.readIsAuction(cont);
@@ -383,7 +397,7 @@ public class Draft
 			Map<String, String> datum = new HashMap<String, String>(2);
 			if(isAuction)
 			{
-				datum.put("main", df.format(p.values.worth) + ":  " + p.info.name);
+				datum.put("main", df.format(p.values.secWorth) + ":  " + p.info.name);
 			}
 			else
 			{
@@ -472,7 +486,7 @@ public class Draft
 					{
 						if(isAuction)
 						{
-							datum.put("main", df.format(player.values.worth) + ":  " + player.info.name);
+							datum.put("main", df.format(player.values.secWorth) + ":  " + player.info.name);
 						}
 						else
 						{
@@ -498,7 +512,7 @@ public class Draft
 				holder.draft.ignore.remove(name);
 				WriteToFile.writeDraft(holder.draft, cont);
 				Toast.makeText(cont, "Undrafting " + name, Toast.LENGTH_SHORT).show();
-				Rankings.intermediateHandleRankings(cont);
+				((Rankings)cont).intermediateHandleRankings(cont);
 			}
 		});
 		Button me = (Button)dialog.findViewById(R.id.drafted_by_me);
@@ -607,7 +621,7 @@ public class Draft
 				{
 					holder.draft.remainingSalary = 200;
 				}
-				holder.draft.value -= (player.values.worth - val);
+				holder.draft.value -= (player.values.secWorth - val);
 				if(playersDrafted(holder.draft) == 0)
 				{
 					holder.draft.remainingSalary = 200;
@@ -615,7 +629,7 @@ public class Draft
 				}
 				Toast.makeText(cont, "Undrafting " + name, Toast.LENGTH_SHORT).show();
 				WriteToFile.writeDraft(holder.draft, cont);
-				Rankings.intermediateHandleRankings((Activity)cont);
+				((Rankings)cont).intermediateHandleRankings((Activity)cont);
 			}
 		}
     }
@@ -645,9 +659,9 @@ public class Draft
     	double total = 0.0;
     	for(PlayerObject player : set)
     	{
-    		if(player.values.leverage != 0.0)
+    		if(player.values.relPrice != 0.0 && player.values.relPoints != 0.0)
     		{
-    			total += player.values.leverage;
+    			total += (player.values.relPoints / player.values.relPrice);
     		}
     	}
     	return total;

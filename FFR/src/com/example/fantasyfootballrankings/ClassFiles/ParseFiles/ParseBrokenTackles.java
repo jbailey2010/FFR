@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 /**
  * Parses the broken tackle data to a hash map
  * to be used later
@@ -22,7 +23,7 @@ public class ParseBrokenTackles {
 	{
 		String data = HandleBasicQueries.handleLists(
 				"http://www.footballoutsiders.com/stat-analysis/2013/broken-tackles-2012", "tr");
-		String[] rows = data.split("\n");
+		String[] rows = ManageInput.tokenize(data, '\n', 1);
 		HashMap<String, String> bt = new HashMap<String, String>();
 		for(int i = 0; i < rows.length; i++)
 		{

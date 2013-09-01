@@ -27,7 +27,7 @@ public class ParseTheFakeFootball {
 	public static void parseTheFakeFootballValsWorker(Storage holder, String url) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		int min = 0;
 		for(int i = 0; i < td.length; i++)
 		{

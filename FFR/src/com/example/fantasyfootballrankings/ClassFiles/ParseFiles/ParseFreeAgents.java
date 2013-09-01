@@ -9,6 +9,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 
 /**
@@ -30,8 +31,8 @@ public class ParseFreeAgents
 		Document doc = Jsoup.connect(url).timeout(0).get();
 		String html1 = HandleBasicQueries.handleListsMulti(doc, url, "tr.row1 td");
 		String html2 = HandleBasicQueries.handleListsMulti(doc, url, "tr.row2 td");
-		String[] perRow1 = html1.split("\n");
-		String[] perRow2 = html2.split("\n");
+		String[] perRow1 = ManageInput.tokenize(html1, '\n', 1);
+		String[] perRow2 = ManageInput.tokenize(html2, '\n', 1);
 		for(int i = 7; i < perRow1.length; i+=3)
 		{
 			String name = perRow1[i];

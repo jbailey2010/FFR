@@ -245,7 +245,7 @@ public class TradeHandling
 		double total = 0.0;
 		if(input.contains("\n") && !input.equals("Enter what you'd give above"))
 		{
-			String[] inputSet = input.split("\n");
+			String[] inputSet = ManageInput.tokenize(input, '\n', 1);
 			for(int i = 0; i < inputSet.length; i++)
 			{
 				total -= findValue(inputSet[i], holder);
@@ -253,7 +253,7 @@ public class TradeHandling
 		}
 		if(output.contains("\n") && !output.equals("Enter what you'd get above"))
 		{
-			String[] outputSet = output.split("\n");
+			String[] outputSet = ManageInput.tokenize(output, '\n', 1);
 			for(int i = 0; i < outputSet.length; i++)
 			{
 				total += findValue(outputSet[i], holder);

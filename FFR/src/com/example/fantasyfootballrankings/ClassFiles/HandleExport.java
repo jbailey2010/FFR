@@ -155,7 +155,7 @@ public class HandleExport
 				if(!player.info.team.equals("None") && !player.info.team.equals("---") && !player.info.team.equals("FA") && 
 						player.info.team.length() > 0 && player.info.team.length() > 0 && !player.info.name.contains("NO MATCH FOUND"))
 				{
-					writeCsvData(player.values.worth, player.info.name, player.info.position, player.info.team,
+					writeCsvData(player.values.secWorth, player.info.name, player.info.position, player.info.team,
 							player.info.age, holder.bye.get(player.info.team), holder.sos.get(player.info.team + "," + player.info.position), 
 							player.info.adp, player.info.trend, player.values.points, 
 							player.values.paa, player.values.paapd, player.values.ecr, player.risk, writer);

@@ -3,6 +3,7 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 import java.io.IOException;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 
@@ -21,7 +22,7 @@ public class ParseJuanElway
 	public static void parseJuanElwayVals(Storage holder) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists("http://www.juanelway.com/auction-values/", "td");
-		String[] td= html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 6; i < td.length; i+=3)
 		{
 			if(td[i].length() > 20)

@@ -57,7 +57,7 @@ public class HighLevel
 	{
 		HashMap<String, String> cs = new HashMap<String, String>();
 		String html = HandleBasicQueries.handleLists("http://www.kffl.com/static/nfl/features/freeagents/fa.php?option=All&y=2014", "td");
-		String[] td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 20; i < td.length; i+=5)
 		{
 			String pos = td[i];
@@ -94,12 +94,12 @@ public class HighLevel
 	{
 		String data = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/strength_of_schedule.cfm", "tr.c");
 		data = data.replaceAll("st", "").replaceAll("nd", "").replaceAll("rd", "").replaceAll("th", "");
-		String[] allArr = data.split("\n");
+		String[] allArr = ManageInput.tokenize(data, '\n', 1);
 		String[][] team = new String[allArr.length][];
         HashMap<String, Integer>sos = new HashMap<String, Integer>();
 		for(int i = 0; i  < allArr.length; i++)
 		{  
-			team[i] = allArr[i].split(" ");
+			team[i] = ManageInput.tokenize(allArr[i], ' ', 1);
 			String keyBase = ParseRankings.fixTeams(team[i][0]) + ",";
 			sos.put(keyBase + "QB", Integer.parseInt(team[i][1]));
 			sos.put(keyBase + "RB", Integer.parseInt(team[i][2]));
@@ -461,7 +461,8 @@ public class HighLevel
 	{
         DecimalFormat df = new DecimalFormat("#.##");
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = html.split("\n");
+		
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		int min = 0;
 		ParseRankings.handleHashes();
 
@@ -508,7 +509,7 @@ public class HighLevel
 	{
         DecimalFormat df = new DecimalFormat("#.##");
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		int min = 0;
 		ParseRankings.handleHashes();
 		for(int i = 0; i < td.length; i++)
@@ -554,7 +555,7 @@ public class HighLevel
 	{
 		DecimalFormat df = new DecimalFormat("#.##");
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		int min = 0;
 		ParseRankings.handleHashes();
 		for(int i = 0; i < td.length; i++)
@@ -600,7 +601,7 @@ public class HighLevel
 	{
 		DecimalFormat df = new DecimalFormat("#.##");
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		int min = 0;
 		ParseRankings.handleHashes();
 
@@ -643,7 +644,7 @@ public class HighLevel
 	{
 		DecimalFormat df = new DecimalFormat("#.##");
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		int min = 0;
 		ParseRankings.handleHashes();
 
@@ -1010,32 +1011,32 @@ public class HighLevel
 				if(player.info.position.equals("QB"))
 				{
 					player.values.paa = player.values.points - qbTotal;
-					player.values.paapd = player.values.paa / player.values.worth;
+					player.values.paapd = player.values.paa / player.values.secWorth;
 				}
 				else if(player.info.position.equals("RB"))
 				{ 
 					player.values.paa = player.values.points - rbTotal;
-					player.values.paapd = player.values.paa / player.values.worth;
+					player.values.paapd = player.values.paa / player.values.secWorth;
 				}
 				else if(player.info.position.equals("WR"))
 				{
 					player.values.paa = player.values.points - wrTotal;
-					player.values.paapd = player.values.paa / player.values.worth;
+					player.values.paapd = player.values.paa / player.values.secWorth;
 				}
 				else if(player.info.position.equals("TE"))
 				{
 					player.values.paa = player.values.points - teTotal;
-					player.values.paapd = player.values.paa / player.values.worth;
+					player.values.paapd = player.values.paa / player.values.secWorth;
 				}
 				else if(player.info.position.equals("D/ST"))
 				{
 					player.values.paa = player.values.points - dTotal;
-					player.values.paapd = player.values.paa / player.values.worth;
+					player.values.paapd = player.values.paa / player.values.secWorth;
 				}
 				else if(player.info.position.equals("K"))
 				{
 					player.values.paa = player.values.points - kTotal;
-					player.values.paapd = player.values.paa / player.values.worth;
+					player.values.paapd = player.values.paa / player.values.secWorth;
 				}
 			}
 		}
@@ -1078,7 +1079,7 @@ public class HighLevel
 			HashMap<String, Double> risk, HashMap<String, Double> adp) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		int min = 0;
 		for(int i = 0; i < td.length; i++)
 		{ 
@@ -1147,6 +1148,7 @@ public class HighLevel
 				teMaxProj = player.values.points;
 			}
 		}
+		System.out.println(rbMaxWorth + ", " + rbMaxProj);
 		//Now that the max worth/projections are set, time to get the relative data and leverage
 		for(PlayerObject player : holder.players)
 		{
@@ -1157,39 +1159,36 @@ public class HighLevel
 				{
 					double relWorth = player.values.worth / qbMaxWorth;
 					double relPoints = player.values.points / qbMaxProj;
-					double leverage = relPoints / relWorth;
 					player.values.relPoints = Double.valueOf(df.format(relPoints));
 					player.values.relPrice = Double.valueOf(df.format(relWorth));
-					player.values.leverage = Double.valueOf(df.format(leverage));
 				}
 				if(player.info.position.equals("RB"))
 				{ 
 					double relWorth = player.values.worth / rbMaxWorth;
 					double relPoints = player.values.points / rbMaxProj;
-					double leverage = relPoints / relWorth;
 					player.values.relPoints = Double.valueOf(df.format(relPoints));
 					player.values.relPrice = Double.valueOf(df.format(relWorth));
-					player.values.leverage = Double.valueOf(df.format(leverage));
 				} 
 				if(player.info.position.equals("WR"))
 				{
 					double relWorth = player.values.worth / wrMaxWorth;
 					double relPoints = player.values.points / wrMaxProj;
-					double leverage = relPoints / relWorth;
 					player.values.relPoints = Double.valueOf(df.format(relPoints));
 					player.values.relPrice = Double.valueOf(df.format(relWorth));
-					player.values.leverage = Double.valueOf(df.format(leverage));
 				}
 				if(player.info.position.equals("TE"))
 				{
 					double relWorth = player.values.worth / teMaxWorth;
 					double relPoints = player.values.points / teMaxProj;
-					double leverage = relPoints / relWorth;
 					player.values.relPoints = Double.valueOf(df.format(relPoints));
 					player.values.relPrice = Double.valueOf(df.format(relWorth));
-					player.values.leverage = Double.valueOf(df.format(leverage));
 				}
 			}
+		}
+		double aucFactor = ReadFromFile.readAucFactor(cont);
+		for(PlayerObject player : holder.players)
+		{
+			player.values.secWorth = player.values.worth / aucFactor;
 		}
 		WriteToFile.writeLeverage(cont, holder);
 	}

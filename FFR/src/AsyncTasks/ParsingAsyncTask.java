@@ -610,7 +610,7 @@ public class ParsingAsyncTask
 			protected void onPostExecute(List<NewsObjects> result){
 			   super.onPostExecute(result);
 			   pdia.dismiss();
-			   News.handleNewsListView(result, act);
+			   ((News) act).handleNewsListView(result, act);
 			}
 
 		    @Override
@@ -681,7 +681,7 @@ public class ParsingAsyncTask
 			protected void onPostExecute(List<NewsObjects> result){
 			   super.onPostExecute(result);
 			   pdia.dismiss();
-			   News.handleNewsListView(result, act);
+			   ((News)act).handleNewsListView(result, act);
 			}
 
 		    @Override
@@ -805,7 +805,7 @@ public class ParsingAsyncTask
 				pdia.dismiss();
 				if(flag)
 				{
-				    News.handleNewsListView(result, act);
+				    ((News)act).handleNewsListView(result, act);
 				}
 				else
 				{

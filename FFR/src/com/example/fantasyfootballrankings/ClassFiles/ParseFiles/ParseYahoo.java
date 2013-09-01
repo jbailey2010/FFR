@@ -5,6 +5,7 @@ import java.io.IOException;
 import android.content.Context;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
@@ -26,7 +27,7 @@ public class ParseYahoo
 	public static void parseYahoo(Storage holder, String url) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 2; i < td.length; i+=4)
 		{
 			if(td[i].contains("AdChoices"))

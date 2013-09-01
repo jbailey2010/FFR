@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 
 /**
@@ -22,7 +23,7 @@ public class ParseInjuries
 	{
 		HashMap<String, String> injuries = new HashMap<String, String>();
 		String html = HandleBasicQueries.handleLists("http://www.rotoworld.com/teams/injuries/nfl/all/", "td");
-		String[] perRow = html.split("\n");
+		String[] perRow = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 7; i < perRow.length; i++)
 		{
 			String pos = perRow[i+2];

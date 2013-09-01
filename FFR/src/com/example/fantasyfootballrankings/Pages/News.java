@@ -76,7 +76,7 @@ public class News extends Activity {
 	public Dialog dialog;
 	public static String selection = "NFL News";
 	static TwitterWork obj = new TwitterWork();
-	public static Storage holder = new Storage();
+	public static Storage holder = new Storage(null);
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -425,7 +425,7 @@ public class News extends Activity {
 	 * @param result
 	 * @param cont
 	 */
-	public static void handleNewsListView(List<NewsObjects> result, final Activity cont) 
+	public void handleNewsListView(List<NewsObjects> result, final Activity cont) 
 	{
 		final BounceListView listview = (BounceListView)cont.findViewById(R.id.listview_news);
 		View v = cont.findViewById(android.R.id.home);
@@ -441,7 +441,7 @@ public class News extends Activity {
 	    for(NewsObjects newsObj : result)
 	    {
 	    	Map<String, String> datum = new HashMap<String, String>(2);
-	    	String[] words = newsObj.news.split(" ");
+	    	String[] words = ManageInput.tokenize(newsObj.news, ' ', 1);
 	    	for(int i = 0; i < words.length - 1; i++)
 	    	{
 	    		String first = words[i];

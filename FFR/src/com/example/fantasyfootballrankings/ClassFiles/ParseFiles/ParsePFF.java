@@ -10,6 +10,7 @@ import java.net.URL;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
@@ -64,7 +65,7 @@ public class ParsePFF {
 	        }
 	    }
 	    String html = htmlBuilder.toString().replaceAll("\"", "").replaceAll("\\]", "").replaceAll("\\}", "");
-	    String[] players = html.split("\\[");
+	    String[] players = ManageInput.tokenize(html, '[', 1);
 	    for(int i = 2; i < players.length; i++)
 	    {
 	    	String[] data = players[i].split(",");

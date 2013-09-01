@@ -69,7 +69,7 @@ import android.widget.Toast;
  */ 
 public class Home extends Activity{
 	//Some global variables, context and a few buttons
-	public Storage holder = new Storage();
+	public static Storage holder = new Storage(null);
 	Context cont = this;
 	Dialog dialog;
 	Button rankings; 
@@ -333,7 +333,6 @@ public class Home extends Activity{
 	}
 	
 
-	
 	/**
 	 * Sends the rank button to the ranking page
 	 */

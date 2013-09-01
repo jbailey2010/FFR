@@ -33,6 +33,7 @@ import com.example.fantasyfootballrankings.Pages.Trending;
  */
 public class StorageAsyncTask
 {
+	
 	/**
 	 * This handles the running of the rankings in the background
 	 * such that the user can't do anything until they're fetched
@@ -229,7 +230,7 @@ public class StorageAsyncTask
 		protected void onPostExecute(Storage result){
 			if(flag == 0)
 			{
-				Rankings.intermediateHandleRankings(act);
+				((Rankings)act).intermediateHandleRankings(act);
 			}
 			else if(flag == 2)
 			{
@@ -246,6 +247,7 @@ public class StorageAsyncTask
     		holder.players = new ArrayList<PlayerObject>();
     		holder.parsedPlayers = new ArrayList<String>();
     		ReadFromFile.readTeamData(holder, cont);
+    		double aucFactor = ReadFromFile.readAucFactor(cont);
     		String[] st = ManageInput.tokenize(checkExists, '~', 4);
 	   		for(int i = 0; i < st.length; i++)
 	   		{  
@@ -265,14 +267,16 @@ public class StorageAsyncTask
 	   			newPlayer.info.adp = allData[5];
 	   			newPlayer.values.count = Double.parseDouble(allData[1]);
 	   			newPlayer.values.worth = Double.parseDouble(allData[0]);
+	   			newPlayer.values.secWorth = newPlayer.values.worth / aucFactor;
 	   			holder.parsedPlayers.add(allData[2]);
 	   			holder.players.add(newPlayer);
 	   		}
-			String[] perSet = prefs.getString("Draft Information", "Doesn't matter").split("@");
+	   		String set = prefs.getString("Draft Information", "Doesn't matter");
+			String[] perSet = ManageInput.tokenize(set, '@', 1);
 			String[][] individual = new String[perSet.length][];
 			for(int j = 0; j < perSet.length; j++)
 			{
-				individual[j] = perSet[j].split("~");
+				individual[j] = ManageInput.tokenize(perSet[j], '~', 1);
 			}
 			if(!perSet[0].equals("Doesn't matter") && individual.length > 4)
 			{
@@ -333,11 +337,11 @@ public class StorageAsyncTask
 	   		//Get the aggregate rankings
 	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 			String checkExists = prefs.getString("Posts", "Not Set");
-			String[] perPost = checkExists.split("@@@");
+			String[] perPost = checkExists.split("@@@");//ManageInput.tokenize(checkExists, '@', 3);
 			String[][] split = new String[perPost.length][];
 			for(int i = 0; i < perPost.length; i++)
 			{
-				split[i] = perPost[i].split("~~~");
+				split[i] = ManageInput.tokenize(perPost[i], '~', 3);
 				Post newPost = new Post(split[i][0], split[i][1]);
 				holder.posts.add(newPost);
 			}
@@ -365,7 +369,7 @@ public class StorageAsyncTask
 		@Override
 		protected void onPostExecute(List<NewsObjects> result)
 		{
-			News.handleNewsListView(result, act);
+			((News)act).handleNewsListView(result, act);
 		}
 
 	    protected List<NewsObjects> doInBackground(Object... data) 

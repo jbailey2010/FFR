@@ -55,17 +55,17 @@ import com.socialize.entity.Entity;
  */
 public class PlayerInfo 
 {
-
+	Rankings obj = new Rankings();
 	/**
 	 * Abstracted out of the menu handler as this could get ugly
 	 * once the stuff is added to the dropdown
 	 * @throws IOException
 	 */ 
-	public static void searchCalled(final Context oCont) throws IOException
+	public void searchCalled(final Context oCont) throws IOException
 	{
 		Rankings.matchedPlayers = new ArrayList<String>(15);
 		Rankings.newCont = oCont;
-		ReadFromFile.fetchNames(Rankings.holder, Rankings.newCont);
+		ReadFromFile.fetchNames(obj.holder, Rankings.newCont);
 		final Dialog dialog = new Dialog(Rankings.newCont, R.style.RoundCornersFull);
 	    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 	
@@ -88,7 +88,7 @@ public class PlayerInfo
 		});
 	    if(Rankings.matchedPlayers.size() == 0)
 	    {
-	    	ManageInput.setupAutoCompleteSearch(Rankings.holder, Rankings.holder.players, Rankings.textView, Rankings.newCont);
+	    	ManageInput.setupAutoCompleteSearch(obj.holder, obj.holder.players, Rankings.textView, Rankings.newCont);
 	    }
 	    Button searchDismiss = (Button)dialog.findViewById(R.id.search_cancel);
 		searchDismiss.setOnClickListener(new OnClickListener()
@@ -112,10 +112,10 @@ public class PlayerInfo
 				/**
 				 * On item select, get the name
 				 */
-				if(Rankings.holder.parsedPlayers.contains(Rankings.textView.getText().toString()))
+				if(obj.holder.parsedPlayers.contains(Rankings.textView.getText().toString()))
 				{
 					dialog.dismiss();
-					PlayerInfo.outputResults(Rankings.textView.getText().toString(), false, (Rankings)Rankings.newCont, Rankings.holder, false, true);
+					outputResults(Rankings.textView.getText().toString(), false, (Rankings)Rankings.newCont, obj.holder, false, true);
 				}
 				else
 				{
@@ -130,7 +130,7 @@ public class PlayerInfo
 	 * outputs the results to the search dialog
 	 * @param namePlayer
 	 */
-	public static void outputResults(final String namePlayer, boolean flag, 
+	public void outputResults(final String namePlayer, boolean flag, 
 			final Activity act, final Storage holder, final boolean watchFlag, boolean draftable)
 	{
 		final Dialog dialog = new Dialog(act);
@@ -242,7 +242,7 @@ public class PlayerInfo
 		               	boolean isAuction = ReadFromFile.readIsAuction(act);
 		               	if(isAuction)
 		               	{
-		               		datum.put("main", df.format(copy.values.worth) + ":  " + copy.info.name);
+		               		datum.put("main", df.format(copy.values.secWorth) + ":  " + copy.info.name);
 		               	}
 		               	else if(!isAuction && copy.values.ecr != -1)
 		               	{
@@ -541,17 +541,17 @@ public class PlayerInfo
 	 * @param data
 	 * @param holder 
 	 */
-	public static void setSearchContent(PlayerObject searchedPlayer, List<Map<String, String>> data, Storage holder)
+	public void setSearchContent(PlayerObject searchedPlayer, List<Map<String, String>> data, Storage holder)
 	{
 	   	DecimalFormat df = new DecimalFormat("#.##");
-		if(Draft.draftedMe(searchedPlayer.info.name, Rankings.holder.draft))
+		if(Draft.draftedMe(searchedPlayer.info.name, obj.holder.draft))
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", "DRAFTED BY YOU");
 			data.add(datum);
 		}
 		//See if they're drafted by someone else
-		else if(Draft.isDrafted(searchedPlayer.info.name, Rankings.holder.draft))
+		else if(Draft.isDrafted(searchedPlayer.info.name, obj.holder.draft))
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", "DRAFTED");
@@ -574,7 +574,7 @@ public class PlayerInfo
 		}
 		//Worth
 		Map<String, String> datumWorth = new HashMap<String, String>(2);
-		datumWorth.put("main", "$" + df.format(searchedPlayer.values.worth));
+		datumWorth.put("main", "$" + df.format(searchedPlayer.values.secWorth));
 		if(searchedPlayer.info.position.length() >= 1)
 		{
 			datumWorth.put("sub", "Ranked " + rankCostPos(searchedPlayer, holder) + " positionally, " + rankCostAll(searchedPlayer, holder) + " overall"
@@ -653,7 +653,7 @@ public class PlayerInfo
 		if(searchedPlayer.values.relPrice != 0.0 && searchedPlayer.values.relPoints != 0.0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", df.format(searchedPlayer.values.leverage) + " Leverage");
+			datum.put("main", df.format(searchedPlayer.values.relPoints / searchedPlayer.values.relPrice) + " Leverage");
 			datum.put("sub", df.format(searchedPlayer.values.relPrice) + " relative price\n" + 
 					df.format(searchedPlayer.values.relPoints) + " relative points\n" + 
 					"Ranked " + rankLeveragePos(searchedPlayer, holder) + " positionally, " + rankLeverage(searchedPlayer, holder) + " overall\n");
@@ -960,7 +960,8 @@ public class PlayerInfo
 		int rank = 1;
 		for(PlayerObject iter : holder.players)
 		{
-			if(iter.values.leverage != 0.0 && iter.values.leverage > player.values.leverage)
+			if(iter.values.relPrice != 0.0 && iter.values.relPoints != 0.0 && (iter.values.relPoints / iter.values.relPrice) >
+				(player.values.relPoints / player.values.relPrice))
 			{
 				rank++;
 			}
@@ -973,7 +974,8 @@ public class PlayerInfo
 		int rank = 1;
 		for(PlayerObject iter : holder.players)
 		{
-			if(iter.values.leverage != 0.0 && iter.values.leverage > player.values.leverage && iter.info.position.equals(player.info.position))
+			if(iter.values.relPrice != 0.0 && iter.values.relPoints != 0.0 && (iter.values.relPoints / iter.values.relPrice) >
+				(player.values.relPoints / player.values.relPrice) && iter.info.position.equals(player.info.position))
 			{
 				rank++;
 			}

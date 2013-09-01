@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 
 /**
@@ -24,7 +25,7 @@ public class ParseDraft
 		String html = HandleBasicQueries.handleLists(
 				"http://www.sbnation.com/nfl/2013/4/27/4276432/2013-nfl-draft-full-7-round-results", "td");
 		HashMap<String, String> picks = new HashMap<String, String>();
-		String[] perPick = html.split("\n");
+		String[] perPick = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 0; i < perPick.length; i+=2)
 		{
 			String round = perPick[i];
@@ -55,7 +56,7 @@ public class ParseDraft
 		String url = "http://www.footballoutsiders.com/nfl-draft/2013/2013-nfl-draft-report-card-report";
 		HashMap<String, String> gpa = new HashMap<String, String>();
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] brokenUp = html.split("\n");
+		String[] brokenUp = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 1; i < brokenUp.length; i+=2)
 		{ 
 			if(!brokenUp[i].contains("2013"))

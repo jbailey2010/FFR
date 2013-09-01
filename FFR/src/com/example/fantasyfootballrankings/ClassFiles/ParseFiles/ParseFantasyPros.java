@@ -3,6 +3,7 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 import java.io.IOException;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
@@ -34,7 +35,7 @@ public class ParseFantasyPros
 	public static void parseFantasyProsWorker(Storage holder, String url, int count) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		int min = 0;
 		for(int i = 0; i < td.length; i++)
 		{

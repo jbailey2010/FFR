@@ -3,6 +3,7 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 import java.io.IOException;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 
@@ -31,7 +32,7 @@ public class ParseESPN
 	 */
 	public static void parseESPN300Worker(String text, Storage holder)
 	{
-		String[] brokenUp=text.split("\n");
+		String[] brokenUp = ManageInput.tokenize(text, '\n', 1);
 		for(int i = 1; i < brokenUp.length; i+=5)
 		{
 			String namePos = brokenUp[i];

@@ -235,11 +235,12 @@ public class ComparatorHandling
 				}		
 			}
 		}
-		double worth1 = player1.values.worth;
-		double worth2 = player2.values.worth;
+		double worth1 = player1.values.secWorth;
+		double worth2 = player2.values.secWorth;
+		double aucFactor = ReadFromFile.readAucFactor(cont);
 		if(worth1 > worth2)
 		{
-			if(worth1 - worth2 > 10)
+			if(worth1 - worth2 > 10.0/aucFactor)
 			{
 				val1 += 2.0;
 				p2.append("-Costs much less\n");
@@ -252,7 +253,7 @@ public class ComparatorHandling
 		}
 		else
 		{
-			if(worth2 - worth1 > 10)
+			if(worth2 - worth1 > 10.0/aucFactor)
 			{
 				val2 += 2.0;
 				p1.append("-Costs much less\n");
@@ -293,8 +294,8 @@ public class ComparatorHandling
 					p2.append("-Higher PAA\n");
 				}
 			}
-			double lev1 = player1.values.leverage;
-			double lev2 = player2.values.leverage;
+			double lev1 = player1.values.relPoints / player1.values.relPrice;
+			double lev2 = player2.values.relPoints / player1.values.relPrice;
 			if(lev1 > lev2)
 			{
 				if(lev1 - lev2 > 5.0)

@@ -11,6 +11,11 @@ public class Post
 	public String text;
 	public String date;
 	
+	/**
+	 * Creates the very simple post object
+	 * @param post
+	 * @param datePosted
+	 */
 	public Post(String post, String datePosted)
 	{
 		text = post;

@@ -39,7 +39,7 @@ public class ParseSI
 	public static void parseSIQB(Storage holder, String url) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[]td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 3; i < td.length; i+=16)
 		{
 			String name = ParseRankings.fixNames(td[i+1]);
@@ -66,7 +66,7 @@ public class ParseSI
 	public static void parseSIRB(Storage holder, String url) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 3; i < td.length; i+=17)
 		{
 			String name = ParseRankings.fixNames(td[i+1]);
@@ -93,7 +93,7 @@ public class ParseSI
 	public static void parseSIWR(Storage holder, String url) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[]td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 3; i < td.length; i+=15)
 		{
 			String name = ParseRankings.fixNames(td[i+1]);
@@ -119,7 +119,7 @@ public class ParseSI
 	 */
 	public static void parseSITE(Storage holder, String url) throws IOException {
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[]td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 3; i < td.length; i+=15)
 		{
 			String name = ParseRankings.fixNames(td[i+1]);
@@ -145,7 +145,7 @@ public class ParseSI
 	 */
 	public static void parseSIK(Storage holder, String url) throws IOException {
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[]td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 3; i < td.length; i+=15)
 		{
 			String name = ParseRankings.fixNames(td[i+1]);

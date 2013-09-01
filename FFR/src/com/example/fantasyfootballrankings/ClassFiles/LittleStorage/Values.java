@@ -18,7 +18,7 @@ public class Values
 	public double paapd;
 	public double relPrice;
 	public double relPoints;
-	public double leverage;
+	public double secWorth;
 	/**
 	 * Just initializes the values stored in the object,
 	 * count to one (obviously)
@@ -34,7 +34,6 @@ public class Values
 		paapd = 0.0;
 		relPrice = 0.0;
 		relPoints = 0.0;
-		leverage = 0.0;
 	}
 
 	/**
