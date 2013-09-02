@@ -279,21 +279,21 @@ public class PlayerInfo
 		if(searchedPlayer.info.position.length() >= 1 && searchedPlayer.info.team.length() > 1)
 		{
 			Button leftPos = (Button)dialog.findViewById(R.id.dummy_btn_left);
-			leftPos.setText("Age: " + searchedPlayer.info.age);
+			leftPos.setText("Age:\n" + searchedPlayer.info.age);
 			Button rightPos = (Button)dialog.findViewById(R.id.dummy_btn_right);
-			rightPos.setText("Bye: " + holder.bye.get(searchedPlayer.info.team));
+			rightPos.setText("Bye:\n" + holder.bye.get(searchedPlayer.info.team));
 			Button centerPos = (Button)dialog.findViewById(R.id.dummy_btn_center);
 			centerPos.setText(searchedPlayer.info.team + "\n" + searchedPlayer.info.position);
 			if(searchedPlayer.info.position.equals("D/ST") || searchedPlayer.info.age == null || searchedPlayer.info.age.length() <= 1)
 			{
-				leftPos.setText("Age: N/A");
+				leftPos.setText("Age:\nN/A");
 			}
 			if(searchedPlayer.info.team.equals("None") || searchedPlayer.info.team.equals("---") || searchedPlayer.info.team.equals("FA"))
 			{
 				if(searchedPlayer.info.position.length() >= 1)
 				{
 					centerPos.setText(searchedPlayer.info.position);
-					rightPos.setText("Bye: N/A");
+					rightPos.setText("Bye:\nN/A");
 				}
 				else
 				{

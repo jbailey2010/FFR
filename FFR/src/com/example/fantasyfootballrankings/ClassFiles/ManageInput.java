@@ -715,7 +715,7 @@ public class ManageInput
 		int index = 0;
 		for(int i = 0; i < c.length; i++)
 		{
-			if(c[i] == key || i+1 == c.length)
+			if(c[i] == key && ((keyLen > 1 && c[i+1] == key) || keyLen == 1) || i+1 == c.length)
 			{
 				if(i+1 == c.length)
 				{

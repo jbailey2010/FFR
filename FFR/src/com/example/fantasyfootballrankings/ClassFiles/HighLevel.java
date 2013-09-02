@@ -1011,32 +1011,32 @@ public class HighLevel
 				if(player.info.position.equals("QB"))
 				{
 					player.values.paa = player.values.points - qbTotal;
-					player.values.paapd = player.values.paa / player.values.secWorth;
+					player.values.paapd = player.values.paa / player.values.worth;
 				}
 				else if(player.info.position.equals("RB"))
 				{ 
 					player.values.paa = player.values.points - rbTotal;
-					player.values.paapd = player.values.paa / player.values.secWorth;
+					player.values.paapd = player.values.paa / player.values.worth;
 				}
 				else if(player.info.position.equals("WR"))
 				{
 					player.values.paa = player.values.points - wrTotal;
-					player.values.paapd = player.values.paa / player.values.secWorth;
+					player.values.paapd = player.values.paa / player.values.worth;
 				}
 				else if(player.info.position.equals("TE"))
 				{
 					player.values.paa = player.values.points - teTotal;
-					player.values.paapd = player.values.paa / player.values.secWorth;
+					player.values.paapd = player.values.paa / player.values.worth;
 				}
 				else if(player.info.position.equals("D/ST"))
 				{
 					player.values.paa = player.values.points - dTotal;
-					player.values.paapd = player.values.paa / player.values.secWorth;
+					player.values.paapd = player.values.paa / player.values.worth;
 				}
 				else if(player.info.position.equals("K"))
 				{
 					player.values.paa = player.values.points - kTotal;
-					player.values.paapd = player.values.paa / player.values.secWorth;
+					player.values.paapd = player.values.paa / player.values.worth;
 				}
 			}
 		}
