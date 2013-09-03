@@ -212,7 +212,7 @@ public class ComparatorHandling
 			{
 				if(rank2 - rank1 > 10)
 				{
-					val1 += 0.5;
+					val1 += 0.2;
 					p1.append("-Positionally much higher ranked" + "\n");
 				}
 				else
@@ -225,7 +225,7 @@ public class ComparatorHandling
 			{
 				if(rank1 - rank2 > 10)
 				{
-					val2 += 0.5;
+					val2 += 0.2;
 					p2.append("-Positionally much higher ranked" + "\n");
 				}
 				else
@@ -247,7 +247,7 @@ public class ComparatorHandling
 			}
 			else
 			{
-				val1 += 0.5;
+				val1 += 1;
 				p2.append("-Costs less" + "\n");
 			}
 		}
@@ -260,7 +260,7 @@ public class ComparatorHandling
 			}
 			else
 			{
-				val1 += 0.5;
+				val2 += 1;
 				p1.append("-Costs less" + "\n");
 			}
 		}
@@ -328,12 +328,10 @@ public class ComparatorHandling
 			{
 				if(paapd1 - paapd2 > 1.0)
 				{
-					val1 += 1;
 					p1.append("-Much higher PAAPD\n");
 				}
 				else
 				{
-					val1 += 0.5;
 					p1.append("-Higher PAAPD\n");
 				}
 			}
@@ -341,12 +339,10 @@ public class ComparatorHandling
 			{
 				if(paapd2 - paapd1 > 1.0)
 				{
-					val2 += 1;
 					p2.append("-Much higher PAAPD\n");
 				}
 				else
 				{
-					val2 += 0.5;
 					p2.append("-Higher PAAPD\n");
 				}
 			}
@@ -403,12 +399,12 @@ public class ComparatorHandling
 		{
 			if(cast1 - cast2 > 20.0)
 			{
-				val1 += 0.5;
+				val1 += 0.2;
 				p1.append("-Much better supporting cast\n");
 			}
 			else
 			{
-				val1 += 0.2;
+				val1 += 0.1;
 				p1.append("-Better supporting cast\n");
 			}
 		}
@@ -416,12 +412,12 @@ public class ComparatorHandling
 		{
 			if(cast2 - cast1 > 20.0)
 			{
-				val2 += 0.5;
+				val2 += 0.2;
 				p2.append("-Much better supporting cast\n");
 			}
 			else
 			{
-				val2 += 0.2;
+				val2 += 0.1;
 				p2.append("-Better supporting cast\n");
 			}
 		}
@@ -529,7 +525,7 @@ public class ComparatorHandling
 		{
 			if(draft2 - draft1 > 5)
 			{
-				val1 += 0.5;
+				val1 += 0.2;
 				p1.append("-Much better graded draft\n");
 			}
 			else
@@ -542,7 +538,7 @@ public class ComparatorHandling
 		{
 			if(draft1 - draft2 > 5)
 			{
-				val2 += 0.5;
+				val2 += 0.2;
 				p2.append("-Much better graded draft\n");
 			}
 			else
@@ -557,7 +553,7 @@ public class ComparatorHandling
 		{
 			if(adp2 - adp1 > 15.0)
 			{
-				val1 += 7;
+				val1 += 8;
 				p1.append("-Much higher ADP\n"); 
 			}
 			else
@@ -570,7 +566,7 @@ public class ComparatorHandling
 		{
 			if(adp1 - adp2 > 15.0)
 			{
-				val2 += 7;
+				val2 += 8;
 				p2.append("-Much higher ADP\n");
 			}
 			else
@@ -590,7 +586,7 @@ public class ComparatorHandling
 			}
 			else
 			{
-				val1 += 5.5;
+				val1 += 5;
 				p1.append("-Higher ECR\n");
 			}
 		}
@@ -603,7 +599,7 @@ public class ComparatorHandling
 			}
 			else
 			{
-				val2 += 5.5;
+				val2 += 5;
 				p2.append("-Higher ECR\n");
 			}
 		}
@@ -613,12 +609,12 @@ public class ComparatorHandling
 		{
 			if(sos1 - sos2 < 5)
 			{
-				val2 += 0.1;
+				val2 += 0.2;
 				p2.append("-Easier positional SOS\n");
 			}
 			else
 			{
-				val2 += 0.5;
+				val2 += 0.4;
 				p2.append("-Much easier positional SOS\n");
 			}
 		}
@@ -626,12 +622,12 @@ public class ComparatorHandling
 		{
 			if(sos2 - sos1 < 5)
 			{
-				val1 += 0.1;
+				val1 += 0.2;
 				p1.append("-Easier positional SOS\n");
 			}
 			else
 			{
-				val1 += 0.5;
+				val1 += 0.4;
 				p1.append("-Much easier positional SOS\n");
 			}
 		}
@@ -705,24 +701,20 @@ public class ComparatorHandling
 		if(!pos1)
 		{
 			p1.append("-You have not yet drafted a player of this position\n");
-			val1 += 1;
 		} 
 		if(!pos2)
 		{
 			p2.append("-You have not yet drafted a player of this position\n");
-			val2 += 1;
 		}
 		boolean sameBye1 = teamBye(holder, player1);
 		boolean sameBye2 = teamBye(holder, player2);
 		if(sameBye1)
 		{
 			p1.append("-Same bye as a player you've drafted of the same position\n");
-			val1 -= 1;
 		}
 		if(sameBye2)
 		{
 			p2.append("-Same bye as a player you've drafted of the same position\n");
-			val2 -= 1;
 		}
 		p1.append("\n");
 		p2.append("\n");
@@ -748,6 +740,7 @@ public class ComparatorHandling
 		TextView header2 = (TextView)dialog.findViewById(R.id.compare_header_2);
 		header2.setText(player2.info.name);
 		TextView result = (TextView)dialog.findViewById(R.id.comparator_result);
+		System.out.println(val1 + ", " + val2);
 		if(val1 > val2)
 		{
 			if(val1 - val2 < 4.0)
