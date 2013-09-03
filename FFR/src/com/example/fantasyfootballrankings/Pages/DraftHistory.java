@@ -314,6 +314,10 @@ public class DraftHistory extends Activity {
 				}
 			}
 		} 
+		if(limit > inter.size())
+		{
+			limit = inter.size();
+		}
 		for(int i = 0; i < limit; i++)
 		{ 
 			PlayerObject player = inter.poll();
