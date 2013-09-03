@@ -32,9 +32,13 @@ public class ParseESPNadv
 		String values = HandleBasicQueries.handleLists("http://games.espn.go.com/ffl/livedraftresults",
 				"div div div div table tbody tr td");
 		
-		String[] brokenValues = values.split("\n");//ManageInput.tokenize(values, '\n', 1);
+		String[] brokenValues = ManageInput.tokenize(values, '\n', 1);
 		for(int i = 13; i < brokenValues.length; i+=8)
 		{ 
+			if(i+1 >= brokenValues.length)
+			{
+				break;
+			}
 			String name = ParseRankings.fixNames(brokenValues[i+1].split(", ")[0]).replace("*", "");
 			name = Storage.nameExists(holder, name);
 			String val = brokenValues[i+5];

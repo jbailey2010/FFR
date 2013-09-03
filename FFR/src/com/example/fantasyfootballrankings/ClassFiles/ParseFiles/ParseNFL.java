@@ -36,7 +36,7 @@ public class ParseNFL
 	public static void parseNFLAAVWorker(Storage holder, String url) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = html.split("\n");
+		String[] td = ManageInput.tokenize(html, '\n', 1);//html.split("\n");
 		for(int i = 0; i < td.length; i+=4)
 		{
 			String nameSet[] = td[i].split(" ");
@@ -75,7 +75,12 @@ public class ParseNFL
 				name += nameSet[j] + " ";
 			}
 			name = ParseRankings.fixDefenses(ParseRankings.fixNames(name.substring(0, name.length()-1)));
-			int val = Integer.parseInt(td[i+3]);
+			String worth = td[i+3];
+			if(i+3 == td.length - 1)
+			{
+				worth = worth.substring(0, worth.length() - 1);
+			}
+			int val = Integer.parseInt(worth);
 			ParseRankings.finalStretch(holder, name, val, "", "");
 		}
 	}

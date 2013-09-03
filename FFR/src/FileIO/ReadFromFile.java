@@ -207,10 +207,8 @@ public class ReadFromFile {
 		String newsWhole = prefs.getString("News RotoWorld", "Not Set");
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
 		String[] perHeadline = ManageInput.tokenize(newsWhole, '@', 3);
-		System.out.println(newsWhole);
 		for(int i = 0; i < perHeadline.length; i++)
 		{
-			System.out.println(perHeadline[i]);
 			String[] newsData = ManageInput.tokenize(perHeadline[i], '~', 2);
 			NewsObjects newsObj = new NewsObjects(newsData[0], newsData[1], 
 					newsData[2]);

@@ -27,6 +27,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseJuanElway;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
@@ -145,13 +146,16 @@ public class Home extends Activity{
         	helpPopUp();
         	WriteToFile.writeFirstOpen(cont);
         }
-       /* StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+      /*  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
-        	HighLevel.parseECRWrapper(new Storage(), cont);
+        	ParseESPNadv.parseESPNAggregate(new Storage(this));
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
+		} catch (XPatherException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}*/
 	}  
 	 

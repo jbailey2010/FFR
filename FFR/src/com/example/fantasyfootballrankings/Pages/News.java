@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,11 +43,13 @@ import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.text.util.Linkify;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
@@ -441,39 +444,18 @@ public class News extends Activity {
 	    for(NewsObjects newsObj : result)
 	    {
 	    	Map<String, String> datum = new HashMap<String, String>(2);
-	    	String[] words = ManageInput.tokenize(newsObj.news, ' ', 1);
-	    	for(int i = 0; i < words.length - 1; i++)
-	    	{
-	    		String first = words[i];
-	    		String last = words[i+1];
-	    		if(holder.parsedPlayers.contains(first + " " + last))
-	    		{
-	    			System.out.println(first + " " + last + " was found!");
-	    			//Do something here!!!
-	    		}
-	    	}
 	    	datum.put("news", newsObj.news + " \n\n" + newsObj.impact);
 	    	datum.put("date", " \n" + newsObj.date);
 	    	data.add(datum);
 	    }
-
-	    listview.setOnItemClickListener(new OnItemClickListener(){
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				int[] coords = new int[2];
-				arg1.getLocationOnScreen(coords);
-				System.out.println(coords[0] + ", " + coords[1]);
-				
-			}
-	    });
 	    final SimpleAdapter adapter = new SimpleAdapter(cont, data, 
 	    		R.layout.web_listview_item, 
 	    		new String[] {"news", "date"}, 
 	    		new int[] {R.id.text1, 
 	    			R.id.text2});
+
 	    listview.setAdapter(adapter);
-	    SwipeDismissListViewTouchListener touchListener = 
+	    final SwipeDismissListViewTouchListener touchListener = 
                 new SwipeDismissListViewTouchListener(
                         listview,
                         new SwipeDismissListViewTouchListener.OnDismissCallback() {
@@ -493,7 +475,6 @@ public class News extends Activity {
                         
         listview.setOnTouchListener(touchListener);
         listview.setOnScrollListener(touchListener.makeScrollListener());
-
 	}
 
 }
