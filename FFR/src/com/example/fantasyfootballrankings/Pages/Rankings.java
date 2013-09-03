@@ -402,6 +402,10 @@ public class Rankings extends Activity {
 		 {
 			 px = 250;
 		 }
+		 if(px < 110.0)
+		 {
+			 px = 110;
+		 }
 		 params1.width = (int) px;
 		 widgSpinner.setLayoutParams(params1);
 		 ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(context, 
