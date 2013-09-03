@@ -422,7 +422,7 @@ public class ParsingAsyncTask
 			    	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + 
 			    	    		player.info.age + "&&" + player.stats + "&&"  + player.injuryStatus + 
 			    	    		"&&" + player.values.ecr + "&&" + 
-			    	    		player.risk + "&&" + player.riskPos + "&&" + 
+			    	    		player.risk +  "&&" + 
 			    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "~~~~");
 
 			    	} 

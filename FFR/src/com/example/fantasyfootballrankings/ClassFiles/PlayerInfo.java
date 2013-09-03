@@ -693,32 +693,17 @@ public class PlayerInfo
 		if(searchedPlayer.risk > 0.0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
-			if(searchedPlayer.risk != -1.0)
+			double riskVal = posRiskVal(searchedPlayer, holder);
+			datum.put("main", searchedPlayer.risk + " Risk (" + rankRiskAll(searchedPlayer, holder) + ")");
+			if(searchedPlayer.info.position.length() >= 1)
 			{
-				datum.put("main", searchedPlayer.risk + " Risk (" + rankRiskAll(searchedPlayer, holder) + ")");
-				if(searchedPlayer.info.position.length() >= 1)
-				{
-					datum.put("sub", searchedPlayer.riskPos + " relative to his position (" + rankRiskPos(searchedPlayer, holder) + ")");
-				}
-				else
-				{
-					datum.put("sub", "");
-				}
-				data.add(datum);
+				datum.put("sub", df.format(riskVal) + " relative to his position (" + rankRiskPos(searchedPlayer, holder, riskVal) + ")");
 			}
-			else
+			else 
 			{
-				datum.put("main", searchedPlayer.risk + " Risk");
-				if(searchedPlayer.info.position.length() >= 1)
-				{
-					datum.put("sub", searchedPlayer.riskPos + " relative to his position");
-				}
-				else
-				{
-					datum.put("sub", "");
-				}
-				data.add(datum);
+				datum.put("sub", "");
 			}
+			data.add(datum);
 		}
 		//Contract status
 		if(!searchedPlayer.info.position.equals("D/ST") && 
@@ -817,40 +802,42 @@ public class PlayerInfo
 			data.add(datum2);
 		}
 	}
+	
+	/**
+	 * Gets the risk relative to a position
+	 * @param player
+	 * @param holder
+	 * @return
+	 */
+	public static double posRiskVal(PlayerObject player, Storage holder)
+	{
+		double riskPos = 0.0;
+		double posCounter = 0.0;
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.info.position.equals(player.info.position))
+			{
+				if(iter.risk > 0.0)
+				{
+					riskPos += iter.risk;
+					posCounter++;
+				}
+			}
+		}
+		return player.risk - riskPos/posCounter;
+	}
 
 	
 	/**
 	 * Ranks risk relative to position
+	 * @param riskVal 
 	 */
-	public static int rankRiskPos(PlayerObject player, Storage holder)
+	public static int rankRiskPos(PlayerObject player, Storage holder, double riskVal)
 	{
 		int rank = 1;
 		for(PlayerObject iter : holder.players)
 		{
-			if(player.info.position.equals("QB"))
-			{
-				if(iter.riskPos < player.riskPos && iter.values.count > 9 && iter.values.worth > 3 && player.info.position.equals(iter.info.position))
-				{
-					rank++;
-				}
-			}
-			else if(player.info.position.equals("RB"))
-			{
-				if(iter.riskPos < player.riskPos && iter.values.count > 9 && iter.values.worth > 5 && player.info.position.equals(iter.info.position))
-				{
-					rank++;
-				}
-			}
-			else if(player.info.position.equals("WR"))
-			{
-				if(iter.riskPos < player.riskPos && iter.values.count > 9 && iter.values.worth > 4 && player.info.position.equals(iter.info.position))
-				{
-					rank++;
-				}
-			}
-			else if( player.info.position.equals("TE") && iter.riskPos < player.riskPos 
-					&& iter.values.count > 9 && iter.values.worth > 1 && 
-					iter.info.position.equals(player.info.position))
+			if(iter.info.position.equals(player.info.position) && iter.risk < player.risk && iter.risk > 0)
 			{
 				rank++;
 			}

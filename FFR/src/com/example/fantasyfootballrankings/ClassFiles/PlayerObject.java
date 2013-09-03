@@ -19,7 +19,6 @@ public class PlayerObject
 	public String stats;
 	public String injuryStatus;
 	public double risk;
-	public double riskPos;
 	 
 	/**
 	 * Sets up the player object
@@ -37,7 +36,6 @@ public class PlayerObject
 		stats = " ";
 		injuryStatus = "Injury Status: Healthy";
 		risk = -1.0;
-		riskPos = -1.0;
 	}
 	
 

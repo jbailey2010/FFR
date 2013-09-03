@@ -71,7 +71,7 @@ public class StorageAsyncTask
 	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + 
 	    		player.info.age + "&&" + player.stats + "&&" + player.injuryStatus + 
 	    		"&&"+ player.values.ecr + "&&" + 
-	    		player.risk + "&&" + player.riskPos + "&&" + 
+	    		player.risk + "&&" + 
 	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "~~~~");
 	    	}
 	    	String playerString = players.toString();
@@ -157,7 +157,7 @@ public class StorageAsyncTask
 	    	    		+ player.info.trend + "&&" + player.info.contractStatus +"&&" + 
 	    	    		player.info.age + "&&" + player.stats + "&&" + player.injuryStatus + 
 	    	    		"&&" + player.values.ecr + "&&" + 
-	    	    		player.risk + "&&" + player.riskPos + "&&"  + 
+	    	    		player.risk + "&&"  + 
 	    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "~~~~");
 
 	    	}
@@ -253,10 +253,9 @@ public class StorageAsyncTask
 	   		{  
 	   			String[] allData = ManageInput.tokenize(st[i], '&', 2);
 	   			PlayerObject newPlayer = new PlayerObject(allData[2], allData[3], allData[4], 0);
-	   			newPlayer.values.paapd = Double.parseDouble(allData[16]);
-	   			newPlayer.values.paa = Double.parseDouble(allData[15]);
-	   			newPlayer.values.points = Double.parseDouble(allData[14]);
-	   			newPlayer.riskPos = Double.parseDouble(allData[13]);
+	   			newPlayer.values.paapd = Double.parseDouble(allData[15]);
+	   			newPlayer.values.paa = Double.parseDouble(allData[14]);
+	   			newPlayer.values.points = Double.parseDouble(allData[13]);
 	   			newPlayer.risk = Double.parseDouble(allData[12]);
 	   			newPlayer.values.ecr = Double.parseDouble(allData[11]);
 	   			newPlayer.injuryStatus = allData[10];

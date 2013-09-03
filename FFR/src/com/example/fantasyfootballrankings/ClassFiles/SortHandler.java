@@ -107,7 +107,6 @@ public class SortHandler
 	    topics.add("Yard Adjustment");
 	    topics.add("Broken Tackles");
 	    topics.add("Completion to Int Ratio");
-	    topics.add("Risk relative to position");
 	    topics.add("Risk");
 	    topics.add("Positional SOS");
 	    topics.add("Weekly Trend (ESPN)");
@@ -436,10 +435,6 @@ public class SortHandler
 		else if(subject.equals("Yard Adjustment"))
 		{
 			yardAdj(cont);
-		}
-		else if(subject.equals("Risk relative to position"))
-		{
-			riskPos(cont);
 		}
 		else if(subject.equals("Risk"))
 		{
@@ -935,38 +930,6 @@ public class SortHandler
 		wrappingUp(sorted, cont);
 	}
 	
-	
-	/**
-	 * Sets up the priority queue for risk relative to a position
-	 */
-	public static void riskPos(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b)
-			{
-				if(a.riskPos > b.riskPos)
-				{
-					return 1;
-				}
-				if(a.riskPos < b.riskPos)
-				{
-					return -1;
-				}
-				return 0;
-			}
-		});
-		for(PlayerObject player : players)
-		{
-			if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && player.riskPos != 1.0)
-			{
-				sorted.add(player);
-			}
-		}
-		wrappingUp(sorted, cont);
-	}
-	
 	/**
 	 * Sets up the priority queue for the ecr
 	 */
@@ -1187,11 +1150,6 @@ public class SortHandler
 	    		datum.put("main", output + df.format(elem.risk)+ ": " + elem.info.name);
 	    		datum.put("sub", elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
 	    	}
-	    	else if(subject.equals("Risk relative to position"))
-			{
-	    		datum.put("main",output + elem.riskPos + ": " + elem.info.name);
-	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
-			}
 			else if(subject.equals("Risk"))
 			{
 				datum.put("main", output + elem.risk + ": " + elem.info.name);
