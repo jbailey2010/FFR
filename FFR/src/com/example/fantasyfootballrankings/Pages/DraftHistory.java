@@ -57,8 +57,10 @@ public class DraftHistory extends Activity {
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		if(holder.players.size() < 10)
+		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Draft", false))
 		{
+			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+			editor.putBoolean("Home Update Draft", false).commit();
 	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
 	    	if(checkExists2 != "Not Set")
 	    	{
@@ -201,6 +203,7 @@ public class DraftHistory extends Activity {
 			double teStart = paaStarters(te, "TE");
 			double dStart = paaStarters(d, "D/ST");
 			double kStart = paaStarters(k, "K");
+			DecimalFormat df = new DecimalFormat("#.##");
 			StringBuilder info = new StringBuilder(2000);
 			info.append("Note: this is based on the currently calculated projections/PAA\n");
 			info.append("Set the scoring/roster settings on the home screen to this draft's settings to see accurate versions of these numbers\n\n");
@@ -211,6 +214,11 @@ public class DraftHistory extends Activity {
 			info.append("\n\nTE: " + teStart + " (" + teTotal + ")");
 			info.append("\n\nD/ST: "+dStart +  " (" +  dTotal + ")");
 			info.append("\n\nK: " + kStart + " (" + kTotal + ")");
+			double paaStart = qbStart + rbStart + wrStart + teStart + dStart + kStart;
+			double paaBench = (qbTotal + wrTotal + teTotal + rbTotal + dTotal + kTotal) - paaStart;
+			info.append("\n\nPAA from starters: " + df.format(paaStart));
+			info.append("\nPAA from bench: " + df.format(paaBench));
+			info.append("\nPAA total: " + df.format(paaStart + paaBench) + "\n");	
 			final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
 		    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 			popUp.setContentView(R.layout.tweet_popup);
@@ -218,7 +226,7 @@ public class DraftHistory extends Activity {
 		    lp.copyFrom(popUp.getWindow().getAttributes());
 		    lp.width = WindowManager.LayoutParams.FILL_PARENT;
 		    popUp.getWindow().setAttributes(lp);
-		    popUp.show();
+		    popUp.show(); 
 		    TextView textView = (TextView)popUp.findViewById(R.id.tweet_field);
 		    textView.setText(info.toString());
 		    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
@@ -309,7 +317,10 @@ public class DraftHistory extends Activity {
 		for(int i = 0; i < limit; i++)
 		{ 
 			PlayerObject player = inter.poll();
-			total += player.values.paa;
+			if(player != null)
+			{
+				total += player.values.paa;
+			}
 		}
 		return Double.valueOf(df.format(total));
 	}

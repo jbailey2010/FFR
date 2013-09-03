@@ -79,7 +79,6 @@ public class News extends Activity {
 	public Dialog dialog;
 	public static String selection = "NFL News";
 	static TwitterWork obj = new TwitterWork();
-	public static Storage holder = new Storage(null);
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -89,15 +88,6 @@ public class News extends Activity {
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		if(holder.players.size() < 10)
-		{
-	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
-	    	if(checkExists2 != "Not Set")
-	    	{
-				ReadFromFile.fetchPlayers(checkExists2, holder,cont, 5);
-	    	}
-
-		} 
 		handleInitialLoading();
 	}
 

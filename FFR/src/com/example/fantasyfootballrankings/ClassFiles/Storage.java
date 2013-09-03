@@ -56,7 +56,6 @@ public class Storage
 	public List<Post> posts;
 	public List<String> parsedPlayers;
 	public PriorityQueue<PostedPlayer> postedPlayers;
-	public Map<String, String> oLineRanks = new HashMap<String, String>();
 	public Map<String, String> oLineAdv = new HashMap<String, String>();
 	public Map<String, String> draftClasses = new HashMap<String, String>();
 	public Map<String, Integer> sos = new HashMap<String, Integer>();

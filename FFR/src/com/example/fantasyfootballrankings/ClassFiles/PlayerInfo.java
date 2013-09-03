@@ -754,12 +754,14 @@ public class PlayerInfo
 		//O line data
 		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
 		{ 
-			if(holder.oLineRanks.get(searchedPlayer.info.team) != null && holder.oLineRanks.get(searchedPlayer.info.team).length() > 3 && 
-					holder.oLineAdv.get(searchedPlayer.info.team)!= null && holder.oLineAdv.get(searchedPlayer.info.team).length() > 3)
+			if(holder.oLineAdv.get(searchedPlayer.info.team)!= null && holder.oLineAdv.get(searchedPlayer.info.team).length() > 3)
 			{
 				Map<String, String> datum = new HashMap<String, String>(2);
-				datum.put("main", holder.oLineAdv.get(searchedPlayer.info.team) + "\n");
-				datum.put("sub", holder.oLineRanks.get(searchedPlayer.info.team));
+				String oLineAdv = holder.oLineAdv.get(searchedPlayer.info.team);
+				String oLinePrimary = oLineAdv.split("~~~~")[0];
+				String oLineRanks = oLineAdv.split("~~~~")[1];
+				datum.put("main", oLinePrimary + "\n");
+				datum.put("sub", oLineRanks);
 				data.add(datum);
 			}
 		}

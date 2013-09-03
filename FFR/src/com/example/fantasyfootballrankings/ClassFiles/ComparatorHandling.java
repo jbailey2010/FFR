@@ -547,34 +547,6 @@ public class ComparatorHandling
 				p2.append("-Shows up in more rankings\n");
 			}	
 		}
-		int lineRank1 = lineRank(holder, player1);
-		int lineRank2 = lineRank(holder, player2);
-		if(lineRank1 < lineRank2)
-		{
-			if(lineRank2 - lineRank1 > 6)
-			{
-				val1 += 0.5;
-				p1.append("-Much better offensive line\n");
-			}
-			else
-			{
-				val1 += 0.1;
-				p1.append("-Better offensive line\n");
-			}
-		}
-		else if(lineRank2 < lineRank1)
-		{
-			if(lineRank1 - lineRank2 > 6)
-			{
-				val2 += 0.5;
-				p2.append("-Much better offensive line\n");
-			}
-			else
-			{
-				val2 += 0.1;
-				p2.append("-Better offensive line\n");
-			}	
-		}
 		int draft1 = draftRank(player1, holder);
 		int draft2 = draftRank(player2, holder);
 		if(draft1 < draft2)
@@ -993,17 +965,7 @@ public class ComparatorHandling
 		String rank = average.split("\\(")[1].substring(0, average.split("\\(")[1].length() - 1);
 		return Integer.parseInt(rank);
 	}
-	
-	/**
-	 * returns the overall line rank
-	 */
-	public static int lineRank(Storage holder, PlayerObject player)
-	{
-		String[] split = holder.oLineRanks.get(player.info.team).split("\n");
-		String overall = split[0];
-		String result = overall.split(": ")[1];
-		return Integer.parseInt(result);
-	} 
+
 	
 	/**
 	 * Parses the adp

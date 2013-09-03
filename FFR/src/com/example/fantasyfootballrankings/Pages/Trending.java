@@ -305,8 +305,10 @@ public class Trending extends Activity {
     		{
     			ReadFromFile.fetchNamesBackEnd(holder, cont);
     		}
-    		if(holder.players.size() < 10)
+    		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Trending", false))
     		{
+    			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+    			editor.putBoolean("Home Update Trending", false).commit();
     	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
     	    	if(!checkExists2.equals("Not Set"))
     	    	{

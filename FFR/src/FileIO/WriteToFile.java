@@ -410,14 +410,6 @@ public class WriteToFile {
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 		StringBuilder oLineRanks = new StringBuilder(10000);
 		
-		//Oline ranks
-		Set<String> keys = holder.oLineRanks.keySet();
-		for(String key : keys)
-		{
-			oLineRanks.append(key + "##" + holder.oLineRanks.get(key) + "%%%");
-		}
-		oLineRanks.append("@#@#");
-		
 		//Oline advanced
 		Set<String> keysAdv = holder.oLineAdv.keySet();
 		for(String key : keysAdv)

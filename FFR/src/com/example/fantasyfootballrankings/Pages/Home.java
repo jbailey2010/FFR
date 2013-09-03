@@ -261,7 +261,7 @@ public class Home extends Activity{
 	public void callExport()
 	{
 		HandleExport.driveInit(HandleExport.orderPlayers(holder, cont), dialog, cont, holder);
-	}
+	} 
 	
 	/**
 	 * Handles the initial fetching of player names

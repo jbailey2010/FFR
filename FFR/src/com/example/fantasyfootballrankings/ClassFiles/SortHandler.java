@@ -332,14 +332,18 @@ public class SortHandler
 					{
 						if(!healthy || (healthy && player.injuryStatus.equals("Injury Status: Healthy")))
 						{
-							String oLine = holder.oLineRanks.get(player.info.team);//player.info.oLineStatus;
+							if((run || pass) && !holder.oLineAdv.containsKey(player.info.team))
+							{
+								continue;
+							}
+							String oLine = holder.oLineAdv.get(player.info.team).split("~~~~")[1];
 							
 							int runRank = -1;
 							int passRank = -1;
 							if(oLine != null && !oLine.equals("") && oLine.contains("\n"))
 							{
 								runRank = Integer.parseInt(oLine.split(": ")[2].split("\n")[0]);
-								passRank = Integer.parseInt(oLine.split(": ")[3].split("\n")[0]);
+								passRank = Integer.parseInt(oLine.split(": ")[1].split("\n")[0]);
 							}
 							if(!run || (run && runRank > 0 && runRank < 17))
 							{
