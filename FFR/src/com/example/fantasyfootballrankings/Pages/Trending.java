@@ -301,26 +301,27 @@ public class Trending extends Activity {
     	else
     	{
     		ReadFromFile.fetchPostsLocal(holder, cont);
-    		if(holder.playerNames.size() < 19)
-    		{
-    			ReadFromFile.fetchNamesBackEnd(holder, cont);
-    		}
-    		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Trending", false))
-    		{
-    			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-    			editor.putBoolean("Home Update Trending", false).commit();
-    	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
-    	    	if(!checkExists2.equals("Not Set"))
-    	    	{
-    				ReadFromFile.fetchPlayers(checkExists2, holder,cont, 2);
-    	    	}
 
-    		}  
-    		else
-    		{
-    			setNoInfo(this, holder);
-    		}
     	}
+		if(holder.playerNames.size() < 19)
+		{
+			ReadFromFile.fetchNamesBackEnd(holder, cont);
+		}
+		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Trending", false))
+		{
+			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+			editor.putBoolean("Home Update Trending", false).commit();
+	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
+	    	if(!checkExists2.equals("Not Set"))
+	    	{
+				ReadFromFile.fetchPlayers(checkExists2, holder,cont, 2);
+	    	}
+
+		}  
+		else
+		{
+			setNoInfo(this, holder);
+		}
    		getFilterForPosts(holder); 
 	}
 	
