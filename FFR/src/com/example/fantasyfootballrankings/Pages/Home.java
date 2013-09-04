@@ -33,6 +33,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseSI;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTheFakeFootball;
+import com.example.fantasyfootballrankings.LeagueImports.ESPNImport;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
@@ -146,17 +147,15 @@ public class Home extends Activity{
         	helpPopUp();
         	WriteToFile.writeFirstOpen(cont);
         }
-      /*  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
-        	ParseESPNadv.parseESPNAggregate(new Storage(this));
+        	ESPNImport obj = new ESPNImport();
+        	obj.parseESPNHome("http://games.espn.go.com/ffl/tools/draftrecap?leagueId=147574");
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
-		} catch (XPatherException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+		}
 	}  
 	 
 	/**

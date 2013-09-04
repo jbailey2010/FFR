@@ -10,6 +10,7 @@ import java.util.PriorityQueue;
 
 import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.TeamAnalysis;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
@@ -179,43 +180,20 @@ public class DraftHistory extends Activity {
 		if(tv.getText2().getText().toString().contains("PAA"))
 		{
 			String team = tv.getText1().getText().toString();
-			String qbs = team.split("Quarterbacks: ")[1].split("\n")[0];
-			String rbs = team.split("Running Backs: ")[1].split("\n")[0];
-			String wrs = team.split("Wide Receivers: ")[1].split("\n")[0];
-			String tes = team.split("Tight Ends: ")[1].split("\n")[0];
-			String def = team.split("D/ST: ")[1].split("\n")[0];
-			String ks = team.split("Kickers: ")[1].split("\n")[0];
-			String[] qb = qbs.split(", ");
-			String[] rb = rbs.split(", ");
-			String[] wr = wrs.split(", ");
-			String[] te = tes.split(", ");
-			String[] d  = def.split(", ");
-			String[] k  = ks.split(", ");
-			double qbTotal = paaPos(qb);
-			double rbTotal = paaPos(rb);
-			double wrTotal = paaPos(wr);
-			double teTotal = paaPos(te);
-			double dTotal = paaPos(d);
-			double kTotal = paaPos(k);
-			double qbStart = paaStarters(qb, "QB");
-			double rbStart = paaStarters(rb, "RB");
-			double wrStart = paaStarters(wr, "WR");
-			double teStart = paaStarters(te, "TE");
-			double dStart = paaStarters(d, "D/ST");
-			double kStart = paaStarters(k, "K");
+			TeamAnalysis ta = new TeamAnalysis(team, holder, cont);
 			DecimalFormat df = new DecimalFormat("#.##");
 			StringBuilder info = new StringBuilder(2000);
 			info.append("Note: this is based on the currently calculated projections/PAA\n");
 			info.append("Set the scoring/roster settings on the home screen to this draft's settings to see accurate versions of these numbers\n\n");
 			info.append("Pos: PAA from starters (PAA total)\n\n");
-			info.append("QB: " + qbStart + " (" + qbTotal + ")");
-			info.append("\n\nRB: " + rbStart + " (" + rbTotal + ")");
-			info.append("\n\nWR: " + wrStart + " (" + wrTotal + ")");
-			info.append("\n\nTE: " + teStart + " (" + teTotal + ")");
-			info.append("\n\nD/ST: "+dStart +  " (" +  dTotal + ")");
-			info.append("\n\nK: " + kStart + " (" + kTotal + ")");
-			double paaStart = qbStart + rbStart + wrStart + teStart + dStart + kStart;
-			double paaBench = (qbTotal + wrTotal + teTotal + rbTotal + dTotal + kTotal) - paaStart;
+			info.append("QB: " + ta.qbStart + " (" + ta.qbTotal + ")");
+			info.append("\n\nRB: " + ta.rbStart + " (" + ta.rbTotal + ")");
+			info.append("\n\nWR: " + ta.wrStart + " (" + ta.wrTotal + ")");
+			info.append("\n\nTE: " + ta.teStart + " (" + ta.teTotal + ")");
+			info.append("\n\nD/ST: "+ta.dStart +  " (" +  ta.dTotal + ")");
+			info.append("\n\nK: " + ta.kStart + " (" + ta.kTotal + ")");
+			double paaStart = ta.qbStart + ta.rbStart + ta.wrStart + ta.teStart + ta.dStart + ta.kStart;
+			double paaBench = (ta.qbTotal + ta.wrTotal + ta.teTotal + ta.rbTotal + ta.dTotal + ta.kTotal) - paaStart;
 			info.append("\n\nPAA from starters: " + df.format(paaStart));
 			info.append("\nPAA from bench: " + df.format(paaBench));
 			info.append("\nPAA total: " + df.format(paaStart + paaBench) + "\n");	
@@ -239,122 +217,5 @@ public class DraftHistory extends Activity {
 		}
 	}
 	
-	/**
-	 * Gets the PAA of starters
-	 * @param pos
-	 * @param posStr
-	 * @return
-	 */
-	public double paaStarters(String[] pos, String posStr)
-	{
-		double total = 0.0;
-		DecimalFormat df = new DecimalFormat("#.##");
-		Roster r = ReadFromFile.readRoster(cont);
-		int limit = 0;
-		if(posStr.equals("QB"))
-		{
-			limit = r.qbs;
-		}
-		else if(posStr.equals("RB"))
-		{
-			limit = r.rbs;
-		}
-		else if(posStr.equals("WR"))
-		{
-			limit = r.wrs;
-		}
-		else if(posStr.equals("TE"))
-		{
-			limit = r.tes;
-		}
-		else if(posStr.equals("D/ST"))
-		{
-			limit = r.def;
-		}
-		else if(posStr.equals("K"))
-		{
-			limit = r.k;
-		}
-		Scoring s = ReadFromFile.readScoring(cont);
-		if(s.catches > 0 && posStr.equals("WR"))
-		{
-			limit++;
-		}
-		else if(s.catches == 0 && posStr.equals("RB"))
-		{
-			limit++;
-		}
-		PriorityQueue<PlayerObject> inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b) 
-			{
-				if (a.values.paa > b.values.paa)
-			    {
-			        return -1;
-			    }
-			    if (a.values.paa < b.values.paa)
-			    {
-			    	return 1;
-			    }
-			    return 0;
-			}
-		});
-		for(int i = 0; i < pos.length; i++)
-		{
-			if(holder.parsedPlayers.contains(pos[i]))
-			{
-				for(PlayerObject player : holder.players)
-				{
-					if(player.info.position.equals(posStr) && player.info.name.equals(pos[i]))
-					{
-						inter.add(player);
-						break;
-					}
-				}
-			}
-		} 
-		if(limit > inter.size())
-		{
-			limit = inter.size();
-		}
-		for(int i = 0; i < limit; i++)
-		{ 
-			PlayerObject player = inter.poll();
-			if(player != null)
-			{
-				total += player.values.paa;
-			}
-		}
-		return Double.valueOf(df.format(total));
-	}
 	
-	/**
-	 * Gets the paa of all of the players at each position (given)
-	 * @param pos
-	 * @return
-	 */
-	public double paaPos(String[] pos)
-	{
-		double total = 0.0;
-		DecimalFormat df = new DecimalFormat("#.##");
-		for(int i = 0; i < pos.length; i++)
-		{
-			if(holder.parsedPlayers.contains(pos[i]))
-			{
-				for(PlayerObject player : holder.players)
-				{
-					if(player.info.name.equals(pos[i]))
-					{
-						if(player.values.paa > 0 || player.values.paa < 0)
-						{
-							total += player.values.paa;
-							break;
-						}
-					}
-				}
-			}
-		}
-		return Double.valueOf(df.format(total));
-	}
 }
