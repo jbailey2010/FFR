@@ -7,10 +7,10 @@ import android.content.Context;
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
-import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
-import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 
 public class ParseYahoo 
 {

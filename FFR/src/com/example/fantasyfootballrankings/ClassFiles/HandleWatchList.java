@@ -11,6 +11,8 @@ import java.util.PriorityQueue;
 import jeff.isawesome.fantasyfootballrankings.R;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.Pages.Trending;
 

@@ -21,6 +21,8 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPN;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseRanks;

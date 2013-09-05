@@ -24,7 +24,6 @@ import jeff.isawesome.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.HandleExport;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
-import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
@@ -33,6 +32,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseSI;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTheFakeFootball;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.LeagueImports.ESPNImport;
 
 import AsyncTasks.ParsingAsyncTask;
@@ -147,15 +147,16 @@ public class Home extends Activity{
         	helpPopUp();
         	WriteToFile.writeFirstOpen(cont);
         }
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+       /* StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
         	ESPNImport obj = new ESPNImport();
-        	obj.parseESPNHome("http://games.espn.go.com/ffl/tools/draftrecap?leagueId=147574");
+        	obj.parseESPNPassWord("http://games.espn.go.com/ffl/tools/draftrecap?leagueId=147574", 
+        			"jbailey2010", "vcq2010");
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
-		}
+		}*/
 	}  
 	 
 	/**

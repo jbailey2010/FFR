@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
-import com.example.fantasyfootballrankings.ClassFiles.Storage;
-import com.example.fantasyfootballrankings.ClassFiles.TeamAnalysis;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 
 import jeff.isawesome.fantasyfootballrankings.R;
@@ -100,6 +100,10 @@ public class DraftHistory extends Activity {
 			case R.id.view_trending:
 		        Intent team_intent = new Intent(cont, Trending.class);
 		        cont.startActivity(team_intent);		
+				return true;
+			case R.id.import_league:
+				Intent import_intent = new Intent(cont, ImportLeague.class);
+				cont.startActivity(import_intent);
 				return true;
 			case R.id.news:
 		        Intent news_intent = new Intent(cont, News.class);

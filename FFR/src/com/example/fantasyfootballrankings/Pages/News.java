@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,11 +11,11 @@ import twitter4j.TwitterException;
 import jeff.isawesome.fantasyfootballrankings.R;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
-import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 
@@ -157,6 +156,10 @@ public class News extends Activity {
 			case R.id.draft_history:
 				Intent draft_intent = new Intent(cont, DraftHistory.class);
 		        cont.startActivity(draft_intent);		
+				return true;
+			case R.id.import_league:
+				Intent import_intent = new Intent(cont, ImportLeague.class);
+				cont.startActivity(import_intent);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

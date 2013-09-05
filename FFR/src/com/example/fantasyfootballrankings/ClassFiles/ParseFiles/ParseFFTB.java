@@ -9,8 +9,8 @@ import org.htmlcleaner.XPatherException;
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
-import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
-import com.example.fantasyfootballrankings.ClassFiles.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 
 /**
  * Handles parsing from fantasy football toolbox's rankings

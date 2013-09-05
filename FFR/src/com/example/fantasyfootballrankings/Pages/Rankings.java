@@ -26,9 +26,7 @@ import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
-import com.example.fantasyfootballrankings.ClassFiles.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.SortHandler;
-import com.example.fantasyfootballrankings.ClassFiles.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.TradeHandling;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
@@ -36,6 +34,8 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.*;
 import com.socialize.Socialize;
 
@@ -274,6 +274,10 @@ public class Rankings extends Activity {
 			case R.id.draft_history:
 				Intent draft_intent = new Intent(cont, DraftHistory.class);
 		        cont.startActivity(draft_intent);		
+				return true;
+			case R.id.import_league:
+				Intent import_intent = new Intent(cont, ImportLeague.class);
+				cont.startActivity(import_intent);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

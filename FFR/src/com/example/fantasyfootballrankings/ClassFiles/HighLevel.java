@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
-
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -31,6 +30,8 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFreeAgents;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseInjuries;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
