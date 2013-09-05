@@ -38,6 +38,7 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysi
 import FileIO.WriteToFile;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -84,21 +85,25 @@ public class ESPNImport
 	{
 		Activity act;
 		ESPNImport obj;
+		ProgressDialog pda;
 	    public GetTestDoc(Activity activity, ESPNImport espnImport) 
 	    {
 	        act = activity;
 	        obj = espnImport;
+	        pda = new ProgressDialog(act);
 	    }
 
 		@Override
 		protected void onPreExecute(){ 
-		   super.onPreExecute();   
+		   super.onPreExecute(); 
+		   pda.setMessage("Please wait, querying the league...");
 		}
 
 		@Override
 		protected void onPostExecute(Document result){
 			act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		   super.onPostExecute(result);
+		   pda.dismiss();
 		   obj.handleTest(result);
 		}
 
@@ -183,8 +188,10 @@ public class ESPNImport
 	{
 		Activity act;
 		ESPNImport obj;
+		ProgressDialog pda;
 	    public GetLogInFirst(Activity activity, ESPNImport espnImport) 
 	    {
+	    	pda = new ProgressDialog(activity);
 	        act = activity;
 	        obj = espnImport;
 	    }
@@ -192,12 +199,14 @@ public class ESPNImport
 		@Override
 		protected void onPreExecute(){ 
 		   super.onPreExecute();   
+		   pda.setMessage("Please wait, making a first attempt with your credentials...");
 		}
 
 		@Override
 		protected void onPostExecute(Document result){
 			act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		   super.onPostExecute(result);
+		   pda.dismiss();
 		   obj.handleFirstLogIn(result);
 		}
 
@@ -287,22 +296,26 @@ public class ESPNImport
 		Activity act;
 		ESPNImport obj;
 		Dialog dialog;
+		ProgressDialog pda;
 	    public HandleLogIn(Activity activity, ESPNImport espnImport, Dialog popUp) 
 	    {
 	        act = activity;
 	        obj = espnImport;
 	        dialog = popUp;
+	        pda = new ProgressDialog(act);
 	    }
 
 		@Override
 		protected void onPreExecute(){ 
-		   super.onPreExecute();   
+		   super.onPreExecute();  
+		   pda.setMessage("Please wait, trying to log in...");
 		}
 
 		@Override
 		protected void onPostExecute(Document result){
 			act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		   super.onPostExecute(result);
+		   pda.dismiss();
 		   if(result == null)
 		   {
 			   Toast.makeText(cont, "Invalid username/password", Toast.LENGTH_SHORT).show();
