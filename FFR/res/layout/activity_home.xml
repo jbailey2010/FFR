@@ -34,6 +34,17 @@
             android:layout_alignParentLeft="true"
             android:background="@drawable/btn_red_home_middle"
             android:text="NFL News" />
+        
+        <Button
+            android:id="@+id/import_league_btn"
+            style="@style/ButtonText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/trending"
+            android:minHeight="45dp"
+            android:layout_alignLeft="@+id/news_button"
+            android:background="@drawable/btn_red_home_middle"
+            android:text="Import a League" />
 
         <Button
             android:id="@+id/trending"
@@ -52,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="45dp"
-            android:layout_above="@+id/trending"
+            android:layout_above="@+id/import_league_btn"
             android:layout_alignLeft="@+id/trending"
             android:background="@drawable/btn_red_home_top"
             android:text="View Rankings" />

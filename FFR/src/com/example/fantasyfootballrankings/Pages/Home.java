@@ -78,7 +78,7 @@ public class Home extends Activity{
 	Button trending;
 	Button news;
 	Button drafts;
-	
+	Button importLeague;
 	long start; 
 	
 	  
@@ -101,11 +101,13 @@ public class Home extends Activity{
         news.setOnClickListener(newsHandler);
         drafts = (Button)findViewById(R.id.draft_history);
         drafts.setOnClickListener(draftHandler);
+        importLeague = (Button)findViewById(R.id.import_league_btn); 
+        importLeague.setOnClickListener(importHandler);
         WindowManager wm = (WindowManager) cont.getSystemService(Context.WINDOW_SERVICE);
 		 Display display = wm.getDefaultDisplay();
 		 Resources r = cont.getResources();
 		 int height = display.getHeight();
-		 int newHeight = height / 13;
+		 int newHeight = height / 16;
 		 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newHeight, r.getDisplayMetrics());
 		 		 
 		ImageView pic = (ImageView)findViewById(R.id.football_icon_home);
@@ -140,6 +142,9 @@ public class Home extends Activity{
 		 android.view.ViewGroup.LayoutParams params4 = drafts.getLayoutParams();
 		 params4.height = (int) px;
 		 drafts.setLayoutParams(params4);
+		 android.view.ViewGroup.LayoutParams params5 = importLeague.getLayoutParams();
+		 params5.height = (int)px;
+		 importLeague.setLayoutParams(params5);
         start = System.nanoTime();
         handleInitialRefresh();
         if(ReadFromFile.readFirstOpen(cont))
@@ -373,6 +378,9 @@ public class Home extends Activity{
 		}	
 	};
 	
+	/**
+	 * Sends the user to the draft saved page
+	 */
 	View.OnClickListener draftHandler = new View.OnClickListener() 
 	{
 		public void onClick(View v) 
@@ -380,5 +388,17 @@ public class Home extends Activity{
 	        Intent intent = new Intent(cont, DraftHistory.class);
 	        cont.startActivity(intent);		
 		}	
+	};
+	
+	/**
+	 * Sends the user to the import league page
+	 */
+	View.OnClickListener importHandler = new View.OnClickListener()
+	{
+		public void onClick(View v)
+		{
+			Intent intent = new Intent(cont, ImportLeague.class);
+			cont.startActivity(intent);
+		}
 	};
 }

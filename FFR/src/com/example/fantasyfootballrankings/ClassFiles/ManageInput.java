@@ -472,6 +472,7 @@ public class ManageInput
 						    editor.putBoolean("Home Update", true).commit();
 						    editor.putBoolean("Home Update Draft", true).commit();
 						    editor.putBoolean("Home Update Trending", true).commit();
+						    editor.putBoolean("Home Update Import", true).commit();
 						}
 						else
 						{
@@ -571,6 +572,8 @@ public class ManageInput
 				    editor.putBoolean("Home Update", true).commit();
 				    editor.putBoolean("Home Update Draft", true).commit();
 				    editor.putBoolean("Home Update Trending", true).commit();
+				    editor.putBoolean("Home Update Import", true).commit();
+
 				}
 			}
 		});
