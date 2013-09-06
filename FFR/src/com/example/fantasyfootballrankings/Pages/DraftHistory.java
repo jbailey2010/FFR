@@ -58,10 +58,11 @@ public class DraftHistory extends Activity {
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Draft", false))
+		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Draft", false) || prefs.getBoolean("Rankings Update Draft", false))
 		{
 			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 			editor.putBoolean("Home Update Draft", false).commit();
+			editor.putBoolean("Rankings Update Draft", false).commit();
 	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
 	    	if(checkExists2 != "Not Set")
 	    	{

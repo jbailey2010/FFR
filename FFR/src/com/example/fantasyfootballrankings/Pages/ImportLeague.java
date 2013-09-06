@@ -52,10 +52,11 @@ public class ImportLeague extends Activity {
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
 		prefs = cont.getSharedPreferences("FFR", 0); 
-		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Import", false))
+		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Import", false) || prefs.getBoolean("Rankings Update Import", false))
 		{
 			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 			editor.putBoolean("Home Update Import", false).commit();
+			editor.putBoolean("Rankings Update Import", false).commit();
 	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
 	    	if(checkExists2 != "Not Set")
 	    	{

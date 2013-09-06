@@ -1885,6 +1885,11 @@ public class Rankings extends Activity {
 	    if(refreshed)
 	    {
 	    	WriteToFile.storeRankingsAsync(holder, (Context)cont);
+			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+			editor.putBoolean("Rankings Update Home", true).commit();
+			editor.putBoolean("Rankings Update Trending", true).commit();
+			editor.putBoolean("Rankings Update Draft", true).commit();
+			editor.putBoolean("Rankings Update Import", true).commit();
 	    	refreshed = false;
 	    }
     	adapter = new SimpleAdapter(cont, data, 

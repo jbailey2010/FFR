@@ -277,9 +277,11 @@ public class Home extends Activity{
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		String checkExists = prefs.getString("Player Values", "Not Set");
-		if(!checkExists.equals("Not Set"))
+		if(!checkExists.equals("Not Set") || prefs.getBoolean("Rankings Update Home", false))
 		{
 			ReadFromFile.fetchPlayers(checkExists, holder,cont, 1);
+			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+			editor.putBoolean("Rankings Update Home", false).commit();
 		}
 		if(holder.playerNames == null || holder.playerNames.size() < 10)
 		{
