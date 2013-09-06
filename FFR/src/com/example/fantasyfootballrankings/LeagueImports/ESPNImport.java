@@ -354,7 +354,7 @@ public class ESPNImport
 	{
 
 	}
-	
+	 
 	/**
 	 * Returns the html of the document when it for sure needs a password.
 	 * Note: this does NOT validate that the url input is what it should be
@@ -369,9 +369,6 @@ public class ESPNImport
 			    .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
 			    .method(Method.POST)
 			    .execute();
-		System.out.println(url);
-		System.out.println(username);
-		System.out.println(password);
 			Document doc2 = Jsoup.connect(url)
 			    .cookies(res.cookies()) 
 			    .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")

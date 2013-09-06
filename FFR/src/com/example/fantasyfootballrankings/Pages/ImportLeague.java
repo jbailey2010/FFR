@@ -106,7 +106,14 @@ public class ImportLeague extends Activity {
 		        cont.startActivity(news_intent);		
 				return true;
 			case R.id.importa_league:
-				handleImportInit();
+				if(ManageInput.confirmInternet(cont))
+				{
+					handleImportInit();
+				}
+				else
+				{
+					Toast.makeText(cont, "No Internet Available", Toast.LENGTH_SHORT).show();
+				}
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
