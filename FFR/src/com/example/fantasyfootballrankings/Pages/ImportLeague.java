@@ -54,20 +54,21 @@ public class ImportLeague extends Activity {
 		prefs = cont.getSharedPreferences("FFR", 0); 
 		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Import", false) || prefs.getBoolean("Rankings Update Import", false))
 		{
-			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+			holder = Home.holder; 
+			/*SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 			editor.putBoolean("Home Update Import", false).commit();
 			editor.putBoolean("Rankings Update Import", false).commit();
 	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
 	    	if(checkExists2 != "Not Set")
 	    	{
 				ReadFromFile.fetchPlayers(checkExists2, holder,cont, 5);
-	    	}
+	    	}*/
 
 		} 
 		ll = (LinearLayout)findViewById(R.id.import_base);
 		handleLayoutInit();
 	}
-
+ 
 	/**
 	 * Makes the menu appear
 	 */
@@ -75,7 +76,7 @@ public class ImportLeague extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.import_league, menu);
-		return true;
+		return true; 
 	}
 	
 	/**

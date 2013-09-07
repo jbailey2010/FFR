@@ -226,7 +226,6 @@ public class ParseStats
 					data.append("Touchdowns: " + player[12] + "\n");
 					data.append("Catch Rate: " + player[13] + "\n");
 					data.append("Fumbles: " + player[14] + "\n");
-					data.append("Defensive Pass Interference Calls/Yards: " + player[15] + "\n");
 					data.append("Defense-Adjusted Yards Over Average (rank): " + player[2].replace(",", "") + 
 							" (" + player[3] + ")\n");
 					data.append("Defense-Adjusted Value Over Average (rank): " + player[6] + " (" + player[7] + ")\n");
@@ -240,7 +239,6 @@ public class ParseStats
 					data.append("Touchdowns: " + player[9] + "\n");
 					data.append("Catch Rate: " + player[10] + "\n");
 					data.append("Fumbles: " + player[11] + "\n");
-					data.append("Defensive Pass Interference Calls/Yards: " + player[12] + "\n");
 					data.append("Defense-Adjusted Yards Over Average: " + player[2].replace(",", "") + "\n");
 					data.append("Defense-Adjusted Value Over Average: " + player[4] + "\n");
 					wrPlayers.put(name.toLowerCase() + "/" + team, data.toString());
@@ -305,7 +303,6 @@ public class ParseStats
 					data.append("Touchdowns: " + player[12] + "\n");
 					data.append("Catch Rate: " + player[13] + "\n");
 					data.append("Fumbles: " + player[14] + "\n");
-					data.append("Defensive Pass Interference Calls/Yards: " + player[15] + "\n");
 					data.append("Defense-Adjusted Yards Over Average (rank): " + player[2].replace(",", "") + 
 							" (" + player[3] + ")\n");
 					data.append("Defense-Adjusted Value Over Average (rank): " + player[6] + " (" + player[7] + ")\n");
@@ -319,7 +316,6 @@ public class ParseStats
 					data.append("Touchdowns: " + player[9] + "\n");
 					data.append("Catch Rate: " + player[10] + "\n");
 					data.append("Fumbles: " + player[11] + "\n");
-					data.append("Defensive Pass Interference Calls/Yards: " + player[12] + "\n");
 					data.append("Defense-Adjusted Yards Over Average: " + player[2].replace(",", "") + "\n");
 					data.append("Defense-Adjusted Value Over Average: " + player[4] + "\n");
 					tePlayers.put(name.toLowerCase() + "/" + team, data.toString());

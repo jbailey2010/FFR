@@ -313,14 +313,15 @@ public class Trending extends Activity {
 		}
 		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Trending", false) || prefs.getBoolean("Rankings Update Trending", false))
 		{
-			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+			holder = Home.holder;
+			/*SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 			editor.putBoolean("Home Update Trending", false).commit();
 			editor.putBoolean("Rankings Update Trending", false).commit();
 	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
 	    	if(!checkExists2.equals("Not Set"))
 	    	{
 				ReadFromFile.fetchPlayers(checkExists2, holder,cont, 2);
-	    	}
+	    	}*/
 
 		}  
 		else
