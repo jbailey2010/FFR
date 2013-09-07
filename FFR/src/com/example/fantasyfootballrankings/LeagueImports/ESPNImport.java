@@ -2,6 +2,7 @@ package com.example.fantasyfootballrankings.LeagueImports;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -97,6 +98,7 @@ public class ESPNImport
 		protected void onPreExecute(){ 
 		   super.onPreExecute(); 
 		   pda.setMessage("Please wait, querying the league...");
+		   pda.show();
 		}
 
 		@Override
@@ -200,6 +202,7 @@ public class ESPNImport
 		protected void onPreExecute(){ 
 		   super.onPreExecute();   
 		   pda.setMessage("Please wait, making a first attempt with your credentials...");
+		   pda.show();
 		}
 
 		@Override
@@ -309,6 +312,7 @@ public class ESPNImport
 		protected void onPreExecute(){ 
 		   super.onPreExecute();  
 		   pda.setMessage("Please wait, trying to log in...");
+		   pda.show();
 		}
 
 		@Override
@@ -352,10 +356,53 @@ public class ESPNImport
 	
 	public void handleParsing()
 	{
-
+		Elements elements = doc.select("td.playertablePlayerName");
+		Map<String, List<String>>players = new HashMap<String, List<String>>();
+		for(Element elem : elements)
+		{
+			if(!elem.html().contains("img") && !elem.html().contains("Compare Players"))
+			{
+				String playerName = elem.child(0).text();
+				String pos = elem.text().replace(playerName, "");
+				String[] set = pos.split(" ");
+				pos = set[set.length-1];
+				String team = "";
+				Elements parent = elem.parent().parent().parent().children();
+				for(Element children : parent)
+				{
+					if(children.children().size() > 0)
+					{
+						Element child = children.child(0);
+						if(child.children().size() > 0)
+						{
+							team = child.child(0).text();
+						}
+					}
+				}
+				if(players.containsKey(team))
+				{
+					List<String> tempList = players.get(team);
+					tempList.add(playerName + "~~~~" + pos + ",");
+					players.put(team, tempList);
+				}
+				else
+				{
+					List<String> newList = new ArrayList<String>();
+					newList.add(playerName + "~~~~" + pos + ",");
+					players.put(team, newList);
+				}
+			}
+		}
+		//At this point: have team names, and a list of players for each with position. Need to map into lists per team 
+		//Could easily iterate on key set and handle this, then add teamanalysis objects to a list
+		for(String key : players.keySet())
+		{
+			System.out.println(key);
+			System.out.println(players.get(key).toString());
+		}
 	}
 	 
-	/**
+	/** 
 	 * Returns the html of the document when it for sure needs a password.
 	 * Note: this does NOT validate that the url input is what it should be
 	 */

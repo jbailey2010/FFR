@@ -186,7 +186,7 @@ public class DraftHistory extends Activity {
 		if(tv.getText2().getText().toString().contains("PAA"))
 		{
 			String team = tv.getText1().getText().toString();
-			TeamAnalysis ta = new TeamAnalysis(team, holder, cont);
+			TeamAnalysis ta = new TeamAnalysis("", team, holder, cont);
 			DecimalFormat df = new DecimalFormat("#.##");
 			StringBuilder info = new StringBuilder(2000);
 			info.append("Note: this is based on the currently calculated projections/PAA\n");

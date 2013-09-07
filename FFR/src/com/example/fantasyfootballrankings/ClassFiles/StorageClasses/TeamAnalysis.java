@@ -24,6 +24,7 @@ public class TeamAnalysis
 	String[] te;
 	String[] d;
 	String[] k;
+	String teamName;
 	Storage holder;
 	Context cont;
 	public double qbTotal;
@@ -44,8 +45,9 @@ public class TeamAnalysis
 	 * @param hold
 	 * @param c
 	 */
-	public TeamAnalysis(String teamStr, Storage hold, Context c)
+	public TeamAnalysis(String name, String teamStr, Storage hold, Context c)
 	{
+		teamName = name;
 		team = teamStr;
 		String qbs = teamStr.split("Quarterbacks: ")[1].split("\n")[0];
 		String rbs = teamStr.split("Running Backs: ")[1].split("\n")[0];
