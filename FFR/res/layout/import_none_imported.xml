@@ -13,7 +13,7 @@
         android:textStyle="bold"
         android:textColor="#660000"
         android:text="No leagues have yet been imported"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/none_imported_sub"
@@ -22,7 +22,8 @@
         android:layout_below="@+id/none_imported_header"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="23dp"
+        android:textStyle="bold"
         android:text="To see league data, import one above"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textSize="20sp"/>
 
 </RelativeLayout>

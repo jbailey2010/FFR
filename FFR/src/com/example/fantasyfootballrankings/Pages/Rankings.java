@@ -1843,10 +1843,10 @@ public class Rankings extends Activity {
 	    listview.setAdapter(null);
 	    data = new ArrayList<Map<String, String>>();
 	    adapter = new SimpleAdapter(cont, data, 
-	    		android.R.layout.simple_list_item_2, 
+	    		R.layout.web_listview_item, 
 	    		new String[] {"main", "sub"}, 
-	    		new int[] {android.R.id.text1, 
-	    			android.R.id.text2});
+	    		new int[] {R.id.text1, 
+	    			R.id.text2});
 	    listview.setAdapter(adapter);
 	    handleRankingsClick(holder, cont, listview);
 	    while(!playerList.isEmpty())
@@ -1862,7 +1862,7 @@ public class Rankings extends Activity {
 	        {
 	        	if(elem.values.ecr != -1)
 	        	{
-	        		datum.put("main", df.format(elem.values.ecr)+ ":  " + elem.info.name );
+	        		datum.put("main", df.format(elem.values.ecr)+ ":  " + elem.info.name);
 	        	}
 	        	else
 	        	{
@@ -1896,12 +1896,6 @@ public class Rankings extends Activity {
 			editor.putBoolean("Rankings Update Import", true).commit();
 	    	refreshed = false;
 	    }
-    	adapter = new SimpleAdapter(cont, data, 
-	    		android.R.layout.simple_list_item_2, 
-	    		new String[] {"main", "sub"}, 
-	    		new int[] {android.R.id.text1, 
-	    			android.R.id.text2});
-	    listview.setAdapter(adapter);
 	    //adapter = ManageInput.handleArray(rankings, listview, cont);
 	}
     

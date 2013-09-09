@@ -162,10 +162,10 @@ public class DraftHistory extends Activity {
 	    	data.add(datum);
 	    }
 	    SimpleAdapter adapter = new SimpleAdapter(cont, data, 
-	    		android.R.layout.simple_list_item_2, 
+	    		R.layout.web_listview_item, 
 	    		new String[] {"main", "sub"}, 
-	    		new int[] {android.R.id.text1, 
-	    			android.R.id.text2});
+	    		new int[] {R.id.text1, 
+	    			R.id.text2});
 	    drafts.setAdapter(adapter);
 	    drafts.setOnItemClickListener(new OnItemClickListener(){
 			@Override

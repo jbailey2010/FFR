@@ -223,13 +223,6 @@ public class Trending extends Activity {
 	 */
 	public void initialLoad(SharedPreferences prefs)
 	{
-		View v = findViewById(android.R.id.home);
-		v.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				listview.smoothScrollToPosition(0);		
-			}
-		});
 		if(holder.playerNames == null || holder.playerNames.size() < 5)
 		{
 			ReadFromFile.fetchNamesBackEnd(holder, cont);
@@ -247,7 +240,7 @@ public class Trending extends Activity {
 					Map<String, String> datum = new HashMap<String, String>(2);
 					String name = nameSet[0];
 					String count = (nameSet[1].split(" times")[0]);
-					datum.put("name", name);
+					datum.put("name", name + "");
 					String countStr = count + " times";
 					datum.put("count", countStr); 
 					data.add(datum);
@@ -258,10 +251,10 @@ public class Trending extends Activity {
 				}
 			}
     		 mAdapter = new SimpleAdapter(cont, data, 
-    		    		android.R.layout.simple_list_item_2, 
+    		    		R.layout.web_listview_item, 
     		    		new String[] {"name", "count"}, 
-    		    		new int[] {android.R.id.text1, 
-    		    			android.R.id.text2});
+    		    		new int[] {R.id.text1, 
+    		    			R.id.text2});
    		    listview.setAdapter(mAdapter); 
     		SwipeDismissListViewTouchListener touchListener =
     				new SwipeDismissListViewTouchListener(
@@ -585,7 +578,7 @@ public class Trending extends Activity {
 	    {
 	    	PostedPlayer elem = playersTrending.poll();
 	    	Map<String, String> datum = new HashMap<String, String>(2);
-	    	datum.put("name", elem.name);
+	    	datum.put("name", elem.name + "");
 	    	datum.put("count", elem.count + " times");
 	    	data.add(datum);
 	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times");
@@ -593,7 +586,7 @@ public class Trending extends Activity {
 	    if(data.size() == 0)
 	    {
 	    	Map<String, String> datum = new HashMap<String, String>(2);
-	    	datum.put("name", "No players mentioned in this timeframe");
+	    	datum.put("name", "No players mentioned in this timeframe\n");
 	    	datum.put("count", "Please try something else");
 	    	trendingPlayers.add("No players mentioned in this timeframe" + ": mentioned " + "Please try something else" + " times");
 	    	data.add(datum);
@@ -605,10 +598,10 @@ public class Trending extends Activity {
 	    } 
 	    //final ArrayAdapter<String> mAdapter = ManageInput.handleArray(trendingPlayers, listview, cont);
 	    mAdapter = new SimpleAdapter(cont, data, 
-	    		android.R.layout.simple_list_item_2, 
+	    		R.layout.web_listview_item, 
 	    		new String[] {"name", "count"}, 
-	    		new int[] {android.R.id.text1, 
-	    			android.R.id.text2});
+	    		new int[] {R.id.text1, 
+	    			R.id.text2});
 	    listview.setAdapter(mAdapter);
 	    SwipeDismissListViewTouchListener touchListener =
                 new SwipeDismissListViewTouchListener(
@@ -697,14 +690,14 @@ public class Trending extends Activity {
 	public static void setContent(Activity act) {
 		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
     	Map<String, String> datum = new HashMap<String, String>(2);
-    	datum.put("name", "The posts are fetched");
+    	datum.put("name", "The posts are fetched\n");
     	datum.put("count", "Select a timeframe from above");
     	data.add(datum);
     	mAdapter = new SimpleAdapter(act, data, 
-	    		android.R.layout.simple_list_item_2, 
+	    		R.layout.web_listview_item, 
 	    		new String[] {"name", "count"}, 
-	    		new int[] {android.R.id.text1, 
-	    			android.R.id.text2});
+	    		new int[] {R.id.text1, 
+	    			R.id.text2});
 	    listview.setAdapter(mAdapter);
 	}
 }
