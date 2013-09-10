@@ -36,6 +36,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -182,10 +183,10 @@ public class DraftHistory extends Activity {
 	 */
 	public void handleDraftInformation(View v)
 	{
-		TwoLineListItem tv = (TwoLineListItem)v;
-		if(tv.getText2().getText().toString().contains("PAA"))
+		String team = ((TextView)((RelativeLayout)v).findViewById(R.id.text1)).getText().toString();
+		String sub = ((TextView)((RelativeLayout)v).findViewById(R.id.text2)).getText().toString();
+		if(sub.contains("PAA"))
 		{
-			String team = tv.getText1().getText().toString();
 			TeamAnalysis ta = new TeamAnalysis("", team, holder, cont);
 			DecimalFormat df = new DecimalFormat("#.##");
 			StringBuilder info = new StringBuilder(2000);

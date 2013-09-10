@@ -246,7 +246,7 @@ public class HandleWatchList
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				String nameText = ((TwoLineListItem)arg1).getText1().getText().toString();
+				String nameText = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
 				String selected = nameText.split(": ")[1];
 				dialog.dismiss();
 				PlayerInfo obj = new PlayerInfo();

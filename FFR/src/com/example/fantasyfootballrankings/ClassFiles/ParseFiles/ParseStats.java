@@ -54,7 +54,7 @@ public class ParseStats
 				normal += "Rushing Yards: " + yards + "\n";
 				normal += "Adjusted Rushing Yards: " + effectiveYards + "\n";
 				normal += "Rushing Touchdowns: " + tds + "\n";
-				normal += "Rushing Defense-Adjusted  Value Over Average: " + dvoa + "\n";
+				normal += "Rushing Defense-Adjusted  VOA: " + dvoa + "\n";
 				qbPlayers.put(name.toLowerCase() + "/" + team, normal);
 				continue;
 			}
@@ -66,9 +66,9 @@ public class ParseStats
 				data.append("Touchdowns: " + player[14] + "\n");
 				data.append("Completion Percentage: " + player[18] + "\n");
 				data.append("Interceptions: " + player[17] + "\n");
-				data.append("Defense-Adjusted Yards Over Average (rank): " + player[2].replace(",", "") + 
+				data.append("Defense-Adjusted YOA (rank): " + player[2].replace(",", "") + 
 						" (" + player[3] + ")\n");
-				data.append("Defense-Adjusted Value Over Average (rank): " + player[6] + " (" + player[7] + ")\n");
+				data.append("Defense-Adjusted VOA (rank): " + player[6] + " (" + player[7] + ")\n");
 				qbPlayers.put(name.toLowerCase() + "/" + team, data.toString());
 			}
 		}
@@ -117,7 +117,7 @@ public class ParseStats
 					normal += "Receiving Yards: " + yards + "\n";
 					normal += "Adjusted Receiving Yards: " + effectiveYards + "\n";
 					normal += "Receiving Touchdowns: " + tds + "\n";
-					normal += "Receiving Defense-Adjusted Value Over Average: " + dvoa + "\n";
+					normal += "Receiving Defense-Adjusted VOA: " + dvoa + "\n";
 					rbPlayers.put(name.toLowerCase() + "/" + team, normal);
 					continue;
 				}
@@ -135,7 +135,7 @@ public class ParseStats
 					normal += "Receiving Yards: " + yards + "\n";
 					normal += "Adjusted Receiving Yards: " + effectiveYards + "\n";
 					normal += "Receiving Touchdowns: " + tds + "\n";
-					normal += "Receiving Defense-Adjusted Value Over Average: " + dvoa + "\n";
+					normal += "Receiving Defense-Adjusted VOA: " + dvoa + "\n";
 					rbPlayers.put(name.toLowerCase() + "/" + team, normal);
 					continue;
 				}
@@ -150,9 +150,9 @@ public class ParseStats
 					data.append("Touchdowns: " + player[12] + "\n");
 					data.append("Fumbles: " + player[13] + "\n");
 					data.append("Success Rate: " + player[14] + "\n");
-					data.append("Defense-Adjusted Yards Over Average (rank): " + player[2].replace(",", "") + 
+					data.append("Defense-Adjusted YOA (rank): " + player[2].replace(",", "") + 
 							" (" + player[3] + ")\n");
-					data.append("Defense-Adjusted Value Over Average (rank): " + player[6] + " (" + player[7] + ")\n");
+					data.append("Defense-Adjusted VOA (rank): " + player[6] + " (" + player[7] + ")\n");
 					rbPlayers.put(name.toLowerCase() + "/" + team, data.toString());
 				}
 				else
@@ -162,8 +162,8 @@ public class ParseStats
 					data.append("Adjusted Yards: " + player[8].replace(",", "") + "\n");
 					data.append("Touchdowns: " + player[9] + "\n");
 					data.append("Fumbles: " + player[10] + "\n");
-					data.append("Defense-Adjusted Yards Over Average: " + player[2].replace(",", "") + "\n");
-					data.append("Defense-Adjusted Value Over Average: " + player[4] + "\n");
+					data.append("Defense-Adjusted YOA: " + player[2].replace(",", "") + "\n");
+					data.append("Defense-Adjusted VOA: " + player[4] + "\n");
 					rbPlayers.put(name.toLowerCase() + "/" + team, data.toString());
 				}
 			}
@@ -212,7 +212,7 @@ public class ParseStats
 				normal += "Rushes: " + rushes + "\n";
 				normal += "Rushing Yards: " + yards + "\n";
 				normal += "Rushing Touchdowns: " + tds + "\n";
-				normal += "Rushing Defense-Adjusted Value Over Average: " + dvoa + "\n";
+				normal += "Rushing Defense-Adjusted VOA: " + dvoa + "\n";
 				wrPlayers.put(name.toLowerCase() + "/" + team, normal);
 				continue;
 			}
@@ -226,9 +226,9 @@ public class ParseStats
 					data.append("Touchdowns: " + player[12] + "\n");
 					data.append("Catch Rate: " + player[13] + "\n");
 					data.append("Fumbles: " + player[14] + "\n");
-					data.append("Defense-Adjusted Yards Over Average (rank): " + player[2].replace(",", "") + 
+					data.append("Defense-Adjusted YOA (rank): " + player[2].replace(",", "") + 
 							" (" + player[3] + ")\n");
-					data.append("Defense-Adjusted Value Over Average (rank): " + player[6] + " (" + player[7] + ")\n");
+					data.append("Defense-Adjusted VOA (rank): " + player[6] + " (" + player[7] + ")\n");
 					wrPlayers.put(name.toLowerCase() + "/" + team, data.toString());
 				}
 				else
@@ -239,8 +239,8 @@ public class ParseStats
 					data.append("Touchdowns: " + player[9] + "\n");
 					data.append("Catch Rate: " + player[10] + "\n");
 					data.append("Fumbles: " + player[11] + "\n");
-					data.append("Defense-Adjusted Yards Over Average: " + player[2].replace(",", "") + "\n");
-					data.append("Defense-Adjusted Value Over Average: " + player[4] + "\n");
+					data.append("Defense-Adjusted YOA: " + player[2].replace(",", "") + "\n");
+					data.append("Defense-Adjusted VOA: " + player[4] + "\n");
 					wrPlayers.put(name.toLowerCase() + "/" + team, data.toString());
 				}
 			}
@@ -286,7 +286,7 @@ public class ParseStats
 				String yards = player[11];
 				String tds = player[12];
 				String normal = tePlayers.get(name.toLowerCase() + "/" + team);
-				normal += "Rushing Defense-Adjusted Value Over Average: " + dvoa + "\n";
+				normal += "Rushing Defense-Adjusted VOA: " + dvoa + "\n";
 				normal += "Rushes: " + rushes + "\n";
 				normal += "Rushing Yards: " + yards + "\n";
 				normal += "Rushing Touchdowns: " + tds + "\n";
@@ -303,9 +303,9 @@ public class ParseStats
 					data.append("Touchdowns: " + player[12] + "\n");
 					data.append("Catch Rate: " + player[13] + "\n");
 					data.append("Fumbles: " + player[14] + "\n");
-					data.append("Defense-Adjusted Yards Over Average (rank): " + player[2].replace(",", "") + 
+					data.append("Defense-Adjusted YOA (rank): " + player[2].replace(",", "") + 
 							" (" + player[3] + ")\n");
-					data.append("Defense-Adjusted Value Over Average (rank): " + player[6] + " (" + player[7] + ")\n");
+					data.append("Defense-Adjusted VOA (rank): " + player[6] + " (" + player[7] + ")\n");
 					tePlayers.put(name.toLowerCase() + "/" + team, data.toString());
 				}
 				else
@@ -316,8 +316,8 @@ public class ParseStats
 					data.append("Touchdowns: " + player[9] + "\n");
 					data.append("Catch Rate: " + player[10] + "\n");
 					data.append("Fumbles: " + player[11] + "\n");
-					data.append("Defense-Adjusted Yards Over Average: " + player[2].replace(",", "") + "\n");
-					data.append("Defense-Adjusted Value Over Average: " + player[4] + "\n");
+					data.append("Defense-Adjusted YOA: " + player[2].replace(",", "") + "\n");
+					data.append("Defense-Adjusted VOA: " + player[4] + "\n");
 					tePlayers.put(name.toLowerCase() + "/" + team, data.toString());
 				}
 			}

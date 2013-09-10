@@ -53,6 +53,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -640,7 +641,7 @@ public class Trending extends Activity {
 					long arg3) {
 				// TODO Auto-generated method stub
 				listview.setSelection(arg2);
-				String selected = ((TwoLineListItem)arg1).getText1().getText().toString();
+				String selected = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
 				int index = -1;
 				for(int i = 0; i < holder.players.size(); i++)
 				{

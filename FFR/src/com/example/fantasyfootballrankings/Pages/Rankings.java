@@ -1912,7 +1912,7 @@ public class Rankings extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				listview.setSelection(arg2);
-				String selected = ((TwoLineListItem)arg1).getText1().getText().toString();
+				String selected = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
 				if(selected.contains(":"))
 				{
 					selected = selected.split(":  ")[1];
@@ -1926,7 +1926,11 @@ public class Rankings extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				String namePlayer = ((TwoLineListItem)arg1).getText1().getText().toString().split(":  ")[1];
+				String namePlayer = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
+				if(namePlayer.contains(":"))
+				{
+					namePlayer = namePlayer.split(":  ")[1];
+				}
 				int i = -1;
 				for(String name : watchList)
 				{

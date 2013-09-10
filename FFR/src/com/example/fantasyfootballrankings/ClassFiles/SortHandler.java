@@ -1230,10 +1230,10 @@ public class SortHandler
 	    	data.add(datum);
 		} 
 	    adapter = new SimpleAdapter(context, data, 
-	    		android.R.layout.simple_list_item_2, 
+	    		R.layout.web_listview_item, 
 	    		new String[] {"main", "sub"}, 
-	    		new int[] {android.R.id.text1, 
-	    			android.R.id.text2});
+	    		new int[] {R.id.text1, 
+	    			R.id.text2});
 	    results.setAdapter(adapter);
 	    //adapter = ManageInput.handleArray(rankings, results, (Activity) context);
 	    watch.setOnClickListener(new OnClickListener(){
@@ -1266,7 +1266,7 @@ public class SortHandler
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				results.setSelection(arg2);
-				String tv1 = ((TwoLineListItem)arg1).getText1().getText().toString();
+				String tv1 = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
 				String selected = tv1.split(": ")[1];
 				PlayerInfo obj = new PlayerInfo();
 				obj.outputResults(selected, true, (Rankings)context, holder, false, false);

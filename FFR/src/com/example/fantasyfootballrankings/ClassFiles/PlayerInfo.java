@@ -315,7 +315,7 @@ public class PlayerInfo
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				String input = ((TwoLineListItem)arg1).getText1().getText().toString();
+				String input = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
 				//Show tweets about the player
 				if(input.contains("See tweets about"))
 				{
@@ -346,7 +346,7 @@ public class PlayerInfo
 				    popUp.getWindow().setAttributes(lp);
 				    popUp.show();
 				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("The 'Risk' of a player is the relative variation in the total set of expert rankings. The logic is, the less established the value of the player is (a higher variance), the riskier he is.");
+				    tv.setText("The 'Risk' of a player is the relative variation in the total set of expert rankings. The logic is, the less established the value of the player is (a higher variance), the riskier he is.\n\n");
 				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
 				    close.setOnClickListener(new OnClickListener(){
 						@Override
@@ -366,7 +366,7 @@ public class PlayerInfo
 				    popUp.getWindow().setAttributes(lp);
 				    popUp.show();
 				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("PAA attempts to quantify the value a player has, cross-positions. This attempts to get an idea of that actual value, taking the price into account. It's simply PAA divided by the auction value.");
+				    tv.setText("PAA attempts to quantify the value a player has, cross-positions. This attempts to get an idea of that actual value, taking the price into account. It's simply PAA divided by the auction value.\n\n");
 				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
 				    close.setOnClickListener(new OnClickListener(){
 						@Override
@@ -386,7 +386,7 @@ public class PlayerInfo
 				    popUp.getWindow().setAttributes(lp);
 				    popUp.show();
 				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("This projection is the weighted average of a series of experts.");
+				    tv.setText("This projection is the weighted average of a series of experts.\n\n");
 				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
 				    close.setOnClickListener(new OnClickListener(){
 						@Override
@@ -406,27 +406,7 @@ public class PlayerInfo
 				    popUp.getWindow().setAttributes(lp);
 				    popUp.show();
 				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("PAA attempts to quantify the value has cross-positions. It means points above average. For example, tight ends are generally not highly valued. There are a few, though, that give such a large edge over the alternative that they should be valued highly. Their PAA is high.");
-				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
-				    close.setOnClickListener(new OnClickListener(){
-						@Override
-						public void onClick(View v) {
-							popUp.dismiss();
-						}
-				    });
-				}
-				else if(input.contains("oTD"))
-				{
-					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
-				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
-					popUp.setContentView(R.layout.tweet_popup);
-					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-				    lp.copyFrom(popUp.getWindow().getAttributes());
-				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-				    popUp.getWindow().setAttributes(lp);
-				    popUp.show();
-				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("oTD means opportunity-adjusted touchdowns, serving as a true replacement for red zone stats. It looks at the probability of a touchdown based on context of usage, and consequently how many touchdowns a player should have scored in that context.");
+				    tv.setText("PAA attempts to quantify the value has cross-positions. It means points above average. For example, tight ends are generally not highly valued. There are a few, though, that give such a large edge over the alternative that they should be valued highly. Their PAA is high.\n\n");
 				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
 				    close.setOnClickListener(new OnClickListener(){
 						@Override
@@ -446,7 +426,7 @@ public class PlayerInfo
 				    popUp.getWindow().setAttributes(lp);
 				    popUp.show();
 				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("This is the average draft position of a player over thousands and thousands of mock drafts.");
+				    tv.setText("This is the average draft position of a player over thousands and thousands of mock drafts.\n\n");
 				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
 				    close.setOnClickListener(new OnClickListener(){
 						@Override
@@ -466,7 +446,7 @@ public class PlayerInfo
 				    popUp.getWindow().setAttributes(lp);
 				    popUp.show();
 				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("This is the average ranking of over one hundred different experts.");
+				    tv.setText("This is the weighted average ranking (ECR) of many different experts.\n\n");
 				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
 				    close.setOnClickListener(new OnClickListener(){
 						@Override
@@ -486,7 +466,7 @@ public class PlayerInfo
 				    popUp.getWindow().setAttributes(lp);
 				    popUp.show();
 				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("Leverage is the difference in projections between a player and the top of his position divided by the difference in cost between a player and the top of his position. The higher the leverage the better, though as a player's cost goes down, they can become outliers.");
+				    tv.setText("Leverage is the difference in projections between a player and the top of his position divided by the difference in cost between a player and the top of his position. The higher the leverage the better, though as a player's cost goes down, they can become outliers.\n\n");
 				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
 				    close.setOnClickListener(new OnClickListener(){
 						@Override
@@ -658,7 +638,7 @@ public class PlayerInfo
 			datum.put("main", df.format(searchedPlayer.values.relPoints / searchedPlayer.values.relPrice) + " Leverage");
 			datum.put("sub", df.format(searchedPlayer.values.relPrice) + " relative price\n" + 
 					df.format(searchedPlayer.values.relPoints) + " relative points\n" + 
-					"Ranked " + rankLeveragePos(searchedPlayer, holder) + " positionally, " + rankLeverage(searchedPlayer, holder) + " overall\n");
+					"Ranked " + rankLeveragePos(searchedPlayer, holder) + " positionally, " + rankLeverage(searchedPlayer, holder) + " overall");
 			data.add(datum);
 		}
 		//PAA and PAAPD
@@ -747,7 +727,7 @@ public class PlayerInfo
 				String oLineAdv = holder.oLineAdv.get(searchedPlayer.info.team);
 				String oLinePrimary = oLineAdv.split("~~~~")[0];
 				String oLineRanks = oLineAdv.split("~~~~")[1];
-				datum.put("main", oLinePrimary + "\n");
+				datum.put("main", oLinePrimary);
 				datum.put("sub", oLineRanks);
 				data.add(datum);
 			}
@@ -1120,7 +1100,7 @@ public class PlayerInfo
 	    for(NewsObjects newsObj : result)
 	    {
 	    	Map<String, String> datum = new HashMap<String, String>();
-	    	datum.put("news", newsObj.news + "\n\n" + newsObj.impact + "\n");
+	    	datum.put("news", newsObj.news + "\n\n" + newsObj.impact);
 	    	datum.put("date", newsObj.date);
 	    	data.add(datum);
 	    }

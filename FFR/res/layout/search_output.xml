@@ -124,8 +124,6 @@
         android:clickable="true"
         android:background="@drawable/content_well_popup"
         android:divider="#999999"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:layout_width="fill_parent" >
     </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 
