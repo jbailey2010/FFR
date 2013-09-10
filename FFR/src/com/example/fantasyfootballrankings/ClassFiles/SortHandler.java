@@ -717,7 +717,7 @@ public class SortHandler
 					public int compare(PlayerObject a, PlayerObject b)
 					{
 						double leva = a.values.relPoints / a.values.relPrice;
-						double levb = a.values.relPoints / a.values.relPrice;
+						double levb = b.values.relPoints / b.values.relPrice;
 						if(leva > levb)
 						{
 							return -1;
@@ -1223,7 +1223,8 @@ public class SortHandler
 			}
 			else if(subject.equals("Leverage"))
 			{
-				datum.put("main", output + df.format(elem.values.relPoints / elem.values.relPrice) + ": " + elem.info.name);
+				double leverage = elem.values.relPoints / elem.values.relPrice;
+				datum.put("main", output + df.format(leverage) + ": " + elem.info.name);
 				datum.put("sub", df.format(elem.values.relPrice) + " relative price, " + df.format(elem.values.relPoints) + " relative points\n" + 
 						"ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
 			}
