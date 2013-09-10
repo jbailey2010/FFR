@@ -54,16 +54,21 @@ public class ImportLeague extends Activity {
 		prefs = cont.getSharedPreferences("FFR", 0); 
 		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Import", false) || prefs.getBoolean("Rankings Update Import", false))
 		{
-			holder = Home.holder; 
-			/*SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-			editor.putBoolean("Home Update Import", false).commit();
-			editor.putBoolean("Rankings Update Import", false).commit();
-	    	String checkExists2 = prefs.getString("Player Values", "Not Set");
-	    	if(checkExists2 != "Not Set")
-	    	{
-				ReadFromFile.fetchPlayers(checkExists2, holder,cont, 5);
-	    	}*/
-
+			if(Home.holder.players != null && Home.holder.players.size() > 5)
+			{
+				holder = Home.holder; 
+			}
+			else
+			{
+				SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+				editor.putBoolean("Home Update Import", false).commit();
+				editor.putBoolean("Rankings Update Import", false).commit();
+		    	String checkExists2 = prefs.getString("Player Values", "Not Set");
+		    	if(!checkExists2.equals("Not Set"))
+		    	{
+					ReadFromFile.fetchPlayers(checkExists2, holder,cont, 5);
+		    	}
+			}
 		} 
 		ll = (LinearLayout)findViewById(R.id.import_base);
 		handleLayoutInit();

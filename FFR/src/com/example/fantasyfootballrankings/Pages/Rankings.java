@@ -1290,16 +1290,20 @@ public class Rankings extends Activity {
 	{
 		
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-    	//String checkExists = prefs.getString("Player Values", "Not Set");
-    	if((/*!checkExists.equals("Not Set") &&*/ holder.players.size() == 0) || prefs.getBoolean("Home Update", false))
+    	String checkExists = prefs.getString("Player Values", "Not Set");
+    	if((!checkExists.equals("Not Set") && holder.players.size() == 0) || prefs.getBoolean("Home Update", false))
     	{
-    		holder = Home.holder;
-    		intermediateHandleRankings((Activity) cont);
-    		/*
-			ReadFromFile.fetchPlayers(checkExists, holder,cont, 0);
-			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-			editor.putBoolean("Home Update", false).commit();
-			*/
+    		if(Home.holder.players != null && Home.holder.players.size() > 5)
+    		{
+	    		holder = Home.holder;
+	    		intermediateHandleRankings((Activity) cont);
+    		}
+    		else
+    		{
+				ReadFromFile.fetchPlayers(checkExists, holder,cont, 0);
+				SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+				editor.putBoolean("Home Update", false).commit();
+			}
     		if(holder.playerNames == null || holder.playerNames.size() < 5)
     		{
     			ReadFromFile.fetchNamesBackEnd(holder, cont);
