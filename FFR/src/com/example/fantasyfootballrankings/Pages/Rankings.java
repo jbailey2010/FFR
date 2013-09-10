@@ -1288,10 +1288,7 @@ public class Rankings extends Activity {
 	 */
 	public void handleRefresh()
 	{
-		if(holder.playerNames == null || holder.playerNames.size() < 5)
-		{
-			ReadFromFile.fetchNamesBackEnd(holder, cont);
-		}
+		
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	//String checkExists = prefs.getString("Player Values", "Not Set");
     	if((/*!checkExists.equals("Not Set") &&*/ holder.players.size() == 0) || prefs.getBoolean("Home Update", false))
@@ -1303,7 +1300,12 @@ public class Rankings extends Activity {
 			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 			editor.putBoolean("Home Update", false).commit();
 			*/
+    		if(holder.playerNames == null || holder.playerNames.size() < 5)
+    		{
+    			ReadFromFile.fetchNamesBackEnd(holder, cont);
+    		}
     	}
+    	
     	else if(holder.players.size() != 0)
     	{
     		ReadFromFile.readDraft(holder, cont);
@@ -1831,7 +1833,7 @@ public class Rankings extends Activity {
 			rankingsFetched(inter, cont);
 		}
 	}
-	
+
 	/**
      * The function that handles what happens when
      * the rankings are all fetched
@@ -1904,6 +1906,7 @@ public class Rankings extends Activity {
      */
     public static void handleRankingsClick(final Storage holder, final Activity cont, final ListView listview)
     {
+
     	 listview.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,

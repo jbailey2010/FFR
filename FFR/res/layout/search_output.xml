@@ -80,7 +80,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="3dp"
-            android:background="#EEEEEE"
+            android:background="#999999"
             android:layout_alignBottom="@+id/dummy_btn_center"
             />
         <Button 
@@ -122,6 +122,8 @@
         android:id="@+id/listview_search"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:background="@drawable/content_well_popup"
+        android:divider="#999999"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:layout_width="fill_parent" >

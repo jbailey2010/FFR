@@ -499,10 +499,10 @@ public class PlayerInfo
 		});
 		//ManageInput.handleArray(output, results, act);
 		final SimpleAdapter adapter = new SimpleAdapter(act, data, 
-	    		android.R.layout.simple_list_item_2, 
+	    		R.layout.web_listview_item, 
 	    		new String[] {"main", "sub"}, 
-	    		new int[] {android.R.id.text1, 
-	    			android.R.id.text2});
+	    		new int[] {R.id.text1, 
+	    			R.id.text2});
 	    results.setAdapter(adapter);
 		Button back = (Button)dialog.findViewById(R.id.search_back);
 		//If it isn't gone, set that it goes back

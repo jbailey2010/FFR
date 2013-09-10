@@ -40,8 +40,8 @@
         android:id="@+id/listview_search"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:divider="#A1A1A1"
-        android:dividerHeight="1dp"
+        android:divider="#999999"
+        android:background="@drawable/spinner_well"
         android:layout_width="fill_parent" >
     </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 

@@ -315,6 +315,10 @@ public class Trending extends Activity {
 	    	{
 				ReadFromFile.fetchPlayers(checkExists2, holder,cont, 2);
 	    	}*/
+			if(holder.playerNames == null || holder.playerNames.size() < 5)
+			{
+				ReadFromFile.fetchNamesBackEnd(holder, cont);
+			}
 
 		}  
 		else

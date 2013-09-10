@@ -227,10 +227,10 @@ public class HandleWatchList
 	    	dataSet.add(datum);
 	    }
 	    final SimpleAdapter adapter = new SimpleAdapter(cont, dataSet, 
-	    		android.R.layout.simple_list_item_2, 
+	    		R.layout.web_listview_item, 
 	    		new String[] {"name", "info"}, 
-	    		new int[] {android.R.id.text1, 
-	    			android.R.id.text2});
+	    		new int[] {R.id.text1, 
+	    			R.id.text2});
 	    listWatch.setAdapter(adapter);
 	    return adapter;
 	}
