@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import jeff.isawesome.fantasyfootballrankings.R;
+import com.ffr.fantasyfootballrankings.R;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

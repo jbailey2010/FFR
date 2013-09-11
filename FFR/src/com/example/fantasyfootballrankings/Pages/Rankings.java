@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
 
-import jeff.isawesome.fantasyfootballrankings.R;
+import com.ffr.fantasyfootballrankings.R;
 
 import com.example.fantasyfootballrankings.ClassFiles.ComparatorHandling;
 import com.example.fantasyfootballrankings.ClassFiles.HandleWatchList;
@@ -1317,6 +1317,10 @@ public class Rankings extends Activity {
     	}
     	else
     	{
+    		if(holder.playerNames == null || holder.playerNames.size() < 5)
+    		{
+    			ReadFromFile.fetchNamesBackEnd(holder, cont);
+    		}
     		try {
     			if(ManageInput.confirmInternet(cont))
 				{
@@ -1900,6 +1904,10 @@ public class Rankings extends Activity {
 			editor.putBoolean("Rankings Update Trending", true).commit();
 			editor.putBoolean("Rankings Update Draft", true).commit();
 			editor.putBoolean("Rankings Update Import", true).commit();
+			if(Home.holder.players == null || Home.holder.players.size() < 5)
+			{
+				Home.holder = holder;
+			}
 	    	refreshed = false;
 	    }
 	    //adapter = ManageInput.handleArray(rankings, listview, cont);

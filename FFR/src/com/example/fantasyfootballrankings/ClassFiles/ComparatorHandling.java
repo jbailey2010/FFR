@@ -3,7 +3,7 @@ package com.example.fantasyfootballrankings.ClassFiles;
 import java.util.ArrayList;
 import java.util.List;
 
-import jeff.isawesome.fantasyfootballrankings.R;
+import com.ffr.fantasyfootballrankings.R;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;

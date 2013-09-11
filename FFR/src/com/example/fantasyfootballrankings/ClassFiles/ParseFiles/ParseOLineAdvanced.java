@@ -109,11 +109,14 @@ public class ParseOLineAdvanced
 				math.add(input);
 			}
 		}
-		for(int i = 1; i < 33; i++)
+		if(math.size() > 0)
 		{
-			String full = math.poll();
-			String team = full.split("~~~~")[2];
-			data.put(team + "/overallranks", String.valueOf(i));
+			for(int i = 1; i < 33; i++)
+			{
+				String full = math.poll();
+				String team = full.split("~~~~")[2];
+				data.put(team + "/overallranks", String.valueOf(i));
+			}
 		}
 		for(String team : teams)
 		{

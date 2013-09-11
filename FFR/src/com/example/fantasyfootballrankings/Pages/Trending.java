@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
 
-import jeff.isawesome.fantasyfootballrankings.R;
+import com.ffr.fantasyfootballrankings.R;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;

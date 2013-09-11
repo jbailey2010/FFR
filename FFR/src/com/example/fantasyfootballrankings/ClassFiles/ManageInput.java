@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import jeff.isawesome.fantasyfootballrankings.R;
+import com.ffr.fantasyfootballrankings.R;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;

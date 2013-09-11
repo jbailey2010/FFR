@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.text.DecimalFormat;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -15,9 +16,9 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 
-import jeff.isawesome.fantasyfootballrankings.R;
-import jeff.isawesome.fantasyfootballrankings.R.layout;
-import jeff.isawesome.fantasyfootballrankings.R.menu;
+import com.ffr.fantasyfootballrankings.R;
+import com.ffr.fantasyfootballrankings.R.layout;
+import com.ffr.fantasyfootballrankings.R.menu;
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.os.Bundle;

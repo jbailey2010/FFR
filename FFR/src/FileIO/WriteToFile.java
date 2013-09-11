@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import jeff.isawesome.fantasyfootballrankings.R;
+import com.ffr.fantasyfootballrankings.R;
 import twitter4j.auth.AccessToken;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;

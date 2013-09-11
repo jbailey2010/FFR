@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,9 +17,9 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.LeagueImports.ESPNImport;
 
-import jeff.isawesome.fantasyfootballrankings.R;
-import jeff.isawesome.fantasyfootballrankings.R.layout;
-import jeff.isawesome.fantasyfootballrankings.R.menu;
+import com.ffr.fantasyfootballrankings.R;
+import com.ffr.fantasyfootballrankings.R.layout;
+import com.ffr.fantasyfootballrankings.R.menu;
 import FileIO.ReadFromFile;
 import android.os.Bundle;
 import android.app.ActionBar;
@@ -130,7 +131,14 @@ public class ImportLeague extends Activity {
 			case R.id.importa_league:
 				if(ManageInput.confirmInternet(cont))
 				{
-					handleImportInit();
+					if(holder.players != null && holder.players.size() > 4)
+					{
+						handleImportInit();
+					}
+					else
+					{
+						Toast.makeText(cont, "Can't import a league before fetching the rankings", Toast.LENGTH_SHORT).show();
+					}
 				}
 				else
 				{

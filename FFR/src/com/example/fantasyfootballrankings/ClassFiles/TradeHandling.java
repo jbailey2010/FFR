@@ -6,7 +6,7 @@ import java.util.List;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 
-import jeff.isawesome.fantasyfootballrankings.R;
+import com.ffr.fantasyfootballrankings.R;
 import FileIO.ReadFromFile;
 import android.app.Dialog;
 import android.content.Context;
