@@ -70,12 +70,16 @@ public class ImportLeague extends Activity {
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Import", false) || prefs.getBoolean("Rankings Update Import", false))
 		{
-			if(Home.holder.players != null && Home.holder.players.size() > 5)
+			if(Home.holder.players != null && Home.holder.players.size() > 5 && !prefs.getBoolean("Home Update Import",  false) 
+					&& !prefs.getBoolean("Rankings Update Import",false))
 			{
+				System.out.println("Getting from home");
 				holder = Home.holder; 
 			}
-			else
+			else if(Home.holder.players == null || Home.holder.players.size() < 5 || 
+					prefs.getBoolean("Home Update Import", false) || prefs.getBoolean("Rankings Update Import", false))
 			{
+				System.out.println("Re-loading");
 				SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 				editor.putBoolean("Home Update Import", false).commit();
 				editor.putBoolean("Rankings Update Import", false).commit();
@@ -160,22 +164,14 @@ public class ImportLeague extends Activity {
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		System.out.println(prefs.getString("ESPN Username", "default"));
 		editor.remove("ESPN Username");
-		System.out.println(prefs.getString("ESPN Password", "default"));
 		editor.remove("ESPN Password");
-		System.out.println(prefs.getBoolean("ESPN Credentials Stored", false));
-
 		editor.remove("ESPN Credentials Stored");
-		System.out.println(prefs.getInt("Number of Leagues Imported", -1));
 		editor.remove("Number of Leagues Imported");
-		System.out.println(prefs.getString("Imported League Keys", "nada"));
 		String oldKeys = prefs.getString("Imported League Keys", "");
 		String[]oldKeysSplit = oldKeys.split("~~~");
 		for(String key : oldKeysSplit)
 		{
-			System.out.println(key);
-			System.out.println(prefs.getString(key, "zilch"));
 			editor.remove(key);
 		}
 		editor.remove("Imported League Keys");
@@ -325,7 +321,6 @@ public class ImportLeague extends Activity {
 	    list.setAdapter(adapter);
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		String usedKeys = prefs.getString("Imported League Keys", "");
-		System.out.println(usedKeys);
 		String[] keySet = ManageInput.tokenize(usedKeys, '~', 3);
 		for(String key : keySet)
 		{
@@ -336,17 +331,14 @@ public class ImportLeague extends Activity {
 			data.add(datum);
 			adapter.notifyDataSetChanged();
 		}
-		ll.addView(list);
+		ll.addView(res);
 		list.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				String keyPart1 = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
 				String keyPart2 = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text2)).getText().toString();
-				System.out.println(keyPart1);
-				System.out.println(keyPart2);
 				String key = keyPart2 + "@@@" + keyPart1;
-				System.out.println(key);
 				handleLeaguePopulation(key);
 			}
 		});

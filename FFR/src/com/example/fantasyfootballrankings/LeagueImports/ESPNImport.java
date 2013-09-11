@@ -243,7 +243,7 @@ public class ESPNImport
 	 */
 	public void handleFirstLogIn(Document test)
 	{
-		if(isSignIn(test))
+		if(isSignIn(test) || test.html().contains("We're Sorry"))
 		{
 			Toast.makeText(cont, "Log in failed with the stored information", Toast.LENGTH_SHORT).show();
 			setLogIn();
@@ -348,6 +348,10 @@ public class ESPNImport
 	    	String pw = (String)data[1];
 			try {
 				Document testSignIn = parseESPNPassWord(url, un, pw);
+				if(testSignIn.html().contains("We're Sorry"))
+				{
+					return null;
+				}
 				if(isRosters(testSignIn))
 				{
 					obj.doc = testSignIn;
@@ -371,7 +375,6 @@ public class ESPNImport
 	public void handleParsing()
 	{
 		Elements elements = doc.select("td.playertablePlayerName");
-		System.out.println(elements.size());
 		Map<String, List<String>>players = new HashMap<String, List<String>>();
 		for(Element elem : elements)
 		{
@@ -387,9 +390,10 @@ public class ESPNImport
 						Element child = children.child(0);
 						if(child.children().size() > 0)
 						{
-							team = child.child(0).text().split(" (")[0];
+							team = child.child(0).text();
+							team = team.split("\\(")[0];
 						}
-					}
+					}  
 				}
 				if(players.containsKey(team))
 				{
@@ -620,7 +624,6 @@ public class ESPNImport
 			wholeSet.append(team.teamName + "~~" + team.team + "@@@");
 		}
 		editor.putString(leagueKey, wholeSet.toString());
-		System.out.println("Committing to key " + leagueKey);
 		editor.commit();
 		dummy.handleLayoutInit();
 	}

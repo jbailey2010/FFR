@@ -350,39 +350,71 @@ public class ReadFromFile {
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		String oLineStr = prefs.getString("Team By Team Data", "Not##Set");
 		String[] totalSet = oLineStr.split("@#@#");
-		//OLine Advanced
-		String[] perLevel = totalSet[0].split("%%%");
-		for(String team : perLevel)
+		try{
+			//OLine Advanced
+			String[] perLevel = totalSet[0].split("%%%");
+			for(String team : perLevel)
+			{
+				holder.oLineAdv.put(team.split("##")[0], team.split("##")[1]);
+			}
+			//Drafts
+			perLevel = totalSet[1].split("%%%");
+			for(String team : perLevel)
+			{
+				holder.draftClasses.put(team.split("##")[0], team.split("##")[1]);
+			}
+			//SOS
+			perLevel = totalSet[2].split("%%%");
+			for(String team : perLevel)
+			{
+				holder.sos.put(team.split("##")[0], Integer.parseInt(team.split("##")[1]));
+			}
+			//Bye
+			perLevel = totalSet[3].split("%%%");
+			for(String team : perLevel)
+			{
+				holder.bye.put(team.split("##")[0], team.split("##")[1]);
+			}
+			//FA
+			perLevel = totalSet[4].split("%%%");
+			for(String team : perLevel)
+			{
+				String[] fa = team.split("##")[1].split("&&");
+				List<String> faList = new ArrayList<String>();
+				faList.add(fa[0]);
+				faList.add(fa[1]);
+				holder.fa.put(team.split("##")[0], faList);
+			}
+		}catch(ArrayIndexOutOfBoundsException e)
 		{
-			holder.oLineAdv.put(team.split("##")[0], team.split("##")[1]);
-		}
-		//Drafts
-		perLevel = totalSet[1].split("%%%");
-		for(String team : perLevel)
-		{
-			holder.draftClasses.put(team.split("##")[0], team.split("##")[1]);
-		}
-		//SOS
-		perLevel = totalSet[2].split("%%%");
-		for(String team : perLevel)
-		{
-			holder.sos.put(team.split("##")[0], Integer.parseInt(team.split("##")[1]));
-		}
-		//Bye
-		perLevel = totalSet[3].split("%%%");
-		for(String team : perLevel)
-		{
-			holder.bye.put(team.split("##")[0], team.split("##")[1]);
-		}
-		//FA
-		perLevel = totalSet[4].split("%%%");
-		for(String team : perLevel)
-		{
-			String[] fa = team.split("##")[1].split("&&");
-			List<String> faList = new ArrayList<String>();
-			faList.add(fa[0]);
-			faList.add(fa[1]);
-			holder.fa.put(team.split("##")[0], faList);
+			//OLine Advanced
+			String[] perLevel = totalSet[1].split("%%%");
+			for(String team : perLevel)
+			{
+				holder.draftClasses.put(team.split("##")[0], team.split("##")[1]);
+			}
+			//SOS
+			perLevel = totalSet[2].split("%%%");
+			for(String team : perLevel)
+			{
+				holder.sos.put(team.split("##")[0], Integer.parseInt(team.split("##")[1]));
+			}
+			//Bye
+			perLevel = totalSet[3].split("%%%");
+			for(String team : perLevel)
+			{
+				holder.bye.put(team.split("##")[0], team.split("##")[1]);
+			}
+			//FA
+			perLevel = totalSet[4].split("%%%");
+			for(String team : perLevel)
+			{
+				String[] fa = team.split("##")[1].split("&&");
+				List<String> faList = new ArrayList<String>();
+				faList.add(fa[0]);
+				faList.add(fa[1]);
+				holder.fa.put(team.split("##")[0], faList);
+			}			
 		}
 		return;
 	}
