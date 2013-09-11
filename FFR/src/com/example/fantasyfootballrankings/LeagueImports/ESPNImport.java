@@ -364,6 +364,10 @@ public class ESPNImport
 
 	  }
 	
+	/**
+	 * Takes the document and converts it into the relevant data structures
+	 * to keep track of everything
+	 */
 	public void handleParsing()
 	{
 		Elements elements = doc.select("td.playertablePlayerName");
@@ -383,7 +387,7 @@ public class ESPNImport
 						Element child = children.child(0);
 						if(child.children().size() > 0)
 						{
-							team = child.child(0).text();
+							team = child.child(0).text().split(" (")[0];
 						}
 					}
 				}

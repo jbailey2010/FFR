@@ -281,7 +281,6 @@ public class ImportLeague extends Activity {
 	public void handleLayoutInit()
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		System.out.println(prefs.getInt("Number of Leagues Imported", -1));
 		ll.removeAllViews();
 		if(prefs.getInt("Number of Leagues Imported", 0) == 0)
 		{
@@ -362,7 +361,7 @@ public class ImportLeague extends Activity {
 			teamList.add(teamData);
 		}
 		String[] keySet = key.split("@@@");
-		ImportedTeam newImport = new ImportedTeam(teamList, keySet[1], keySet[0]);
+		final ImportedTeam newImport = new ImportedTeam(teamList, keySet[1], keySet[0]);
 		View res = ((Activity)cont).getLayoutInflater().inflate(R.layout.league_stats_output, ll, false);
 		//Below sets the team information
 	    List<Map<String, String>>data = new ArrayList<Map<String, String>>();
@@ -385,7 +384,7 @@ public class ImportLeague extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				teamSpecPopUp(arg1);
+				teamSpecPopUp(arg1, newImport);
 			}
 	    });
 	    //Handles the back button
@@ -771,24 +770,25 @@ public class ImportLeague extends Activity {
 	/**
 	 * Gives the team specific information pop up
 	 * @param v
+	 * @param newImport 
 	 */
-	public void teamSpecPopUp(View v)
+	public void teamSpecPopUp(View v, ImportedTeam newImport)
 	{
 		String team = ((TextView)((RelativeLayout)v).findViewById(R.id.text1)).getText().toString();
-		String sub = ((TextView)((RelativeLayout)v).findViewById(R.id.text2)).getText().toString();
-		TeamAnalysis ta = new TeamAnalysis(sub, team, holder, cont);
+		String[] allData = team.split("\n\n");
+		TeamAnalysis ta = new TeamAnalysis("", team, holder, cont);
 		DecimalFormat df = new DecimalFormat("#.##");
 		StringBuilder info = new StringBuilder(2000);
-		info.append(sub + "\n\n");
+		info.append(allData[0] + "\n\n");
 		info.append("Note: this is based on the currently calculated projections/PAA\n");
 		info.append("Set the scoring/roster settings on the home screen to this draft's settings to see accurate versions of these numbers\n\n");
-		info.append("Pos: PAA from starters (PAA total)\n\n");
-		info.append("QB: " + ta.qbStart + " (" + ta.qbTotal + ")");
-		info.append("\n\nRB: " + ta.rbStart + " (" + ta.rbTotal + ")");
-		info.append("\n\nWR: " + ta.wrStart + " (" + ta.wrTotal + ")");
-		info.append("\n\nTE: " + ta.teStart + " (" + ta.teTotal + ")");
-		info.append("\n\nD/ST: "+ta.dStart +  " (" +  ta.dTotal + ")");
-		info.append("\n\nK: " + ta.kStart + " (" + ta.kTotal + ")");
+		info.append("Pos: PAA from starters (PAA total) - League Rank\n\n");
+		info.append("QB: " + ta.qbStart + " (" + ta.qbTotal + ") - Ranked " + rankQBs(newImport, ta));
+		info.append("\n\nRB: " + ta.rbStart + " (" + ta.rbTotal + ") - Ranked " + rankRBs(newImport, ta));
+		info.append("\n\nWR: " + ta.wrStart + " (" + ta.wrTotal + ") - Ranked " + rankWRs(newImport, ta));
+		info.append("\n\nTE: " + ta.teStart + " (" + ta.teTotal + ") - Ranked " + rankTEs(newImport, ta));
+		info.append("\n\nD/ST: "+ta.dStart +  " (" +  ta.dTotal + ") - Ranked " + rankDs(newImport, ta));
+		info.append("\n\nK: " + ta.kStart + " (" + ta.kTotal + ") - Ranked " + rankKs(newImport, ta));
 		double paaStart = ta.qbStart + ta.rbStart + ta.wrStart + ta.teStart + ta.dStart + ta.kStart;
 		double paaBench = (ta.qbTotal + ta.wrTotal + ta.teTotal + ta.rbTotal + ta.dTotal + ta.kTotal) - paaStart;
 		info.append("\n\nPAA from starters: " + df.format(paaStart));
@@ -811,5 +811,119 @@ public class ImportLeague extends Activity {
 				popUp.dismiss();
 			}
 	    });
+	}
+	
+	/**
+	 * Ranks the qb data
+	 * @param leagueSet
+	 * @param team
+	 * @return
+	 */
+	public int rankQBs(ImportedTeam leagueSet, TeamAnalysis team)
+	{
+		int rank = 1;
+		for(TeamAnalysis iter : leagueSet.teams)
+		{
+			if(iter.qbTotal > team.qbTotal)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Ranks the rb data
+	 * @param leagueSet
+	 * @param team
+	 * @return
+	 */
+	public int rankRBs(ImportedTeam leagueSet, TeamAnalysis team)
+	{
+		int rank = 1;
+		for(TeamAnalysis iter : leagueSet.teams)
+		{
+			if(iter.rbTotal > team.rbTotal)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Ranks the WR data
+	 * @param leagueSet
+	 * @param team
+	 * @return
+	 */
+	public int rankWRs(ImportedTeam leagueSet, TeamAnalysis team)
+	{
+		int rank = 1;
+		for(TeamAnalysis iter : leagueSet.teams)
+		{
+			if(iter.wrTotal > team.wrTotal)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Ranks the te data
+	 * @param leagueSet
+	 * @param team
+	 * @return
+	 */
+	public int rankTEs(ImportedTeam leagueSet, TeamAnalysis team)
+	{
+		int rank = 1;
+		for(TeamAnalysis iter : leagueSet.teams)
+		{
+			if(iter.teTotal > team.teTotal)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Ranks the defense data
+	 * @param leagueSet
+	 * @param team
+	 * @return
+	 */
+	public int rankDs(ImportedTeam leagueSet, TeamAnalysis team)
+	{
+		int rank = 1;
+		for(TeamAnalysis iter : leagueSet.teams)
+		{
+			if(iter.dTotal > team.dTotal)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	/**
+	 * Ranks the kicker data
+	 * @param leagueSet
+	 * @param team
+	 * @return
+	 */
+	public int rankKs(ImportedTeam leagueSet, TeamAnalysis team)
+	{
+		int rank = 1;
+		for(TeamAnalysis iter : leagueSet.teams)
+		{
+			if(iter.kTotal > team.kTotal)
+			{
+				rank++;
+			}
+		}
+		return rank;
 	}
 }
