@@ -6,6 +6,11 @@
         android:showAsAction="ifRoom|withText"
         android:title="Import" />
     <item
+        android:id="@+id/clear_imports"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom|withText"
+        android:title="Clear"/>
+    <item
         android:id="@+id/go_home"
         android:orderInCategory="100"
         android:showAsAction="never"

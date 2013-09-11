@@ -17,14 +17,14 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
  */
 public class TeamAnalysis 
 {
-	String team;
+	public String team;
 	String[] qb;
 	String[] rb;
 	String[] wr;
 	String[] te;
 	String[] d;
 	String[] k;
-	String teamName;
+	public String teamName;
 	Storage holder;
 	Context cont;
 	public double qbTotal;

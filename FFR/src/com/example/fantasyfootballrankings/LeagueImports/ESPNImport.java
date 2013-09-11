@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import jeff.isawesome.fantasyfootballrankings.R;
 
@@ -32,9 +33,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.Pages.ImportLeague;
 
 import FileIO.WriteToFile;
 import android.app.Activity;
@@ -61,7 +64,14 @@ public class ESPNImport
 	public String password;
 	public Document doc;
 	public Context cont;
+	public Storage holder;
+	public ImportLeague dummy;
 	
+	public ESPNImport(Storage hold, ImportLeague obj) {
+		holder = hold;
+		dummy = obj;
+	}
+
 	/**
 	 * Gets the process started with a trial query
 	 * @param urlOrig
@@ -357,15 +367,13 @@ public class ESPNImport
 	public void handleParsing()
 	{
 		Elements elements = doc.select("td.playertablePlayerName");
+		System.out.println(elements.size());
 		Map<String, List<String>>players = new HashMap<String, List<String>>();
 		for(Element elem : elements)
 		{
-			if(!elem.html().contains("img") && !elem.html().contains("Compare Players"))
+			if(!elem.html().contains("Compare Players"))
 			{
 				String playerName = elem.child(0).text();
-				String pos = elem.text().replace(playerName, "");
-				String[] set = pos.split(" ");
-				pos = set[set.length-1];
 				String team = "";
 				Elements parent = elem.parent().parent().parent().children();
 				for(Element children : parent)
@@ -382,26 +390,237 @@ public class ESPNImport
 				if(players.containsKey(team))
 				{
 					List<String> tempList = players.get(team);
-					tempList.add(playerName + "~~~~" + pos + ",");
+					tempList.add(playerName);
 					players.put(team, tempList);
 				}
 				else
 				{
 					List<String> newList = new ArrayList<String>();
-					newList.add(playerName + "~~~~" + pos + ",");
+					newList.add(playerName);
 					players.put(team, newList);
 				}
-			}
+			} 
 		}
-		//At this point: have team names, and a list of players for each with position. Need to map into lists per team 
-		//Could easily iterate on key set and handle this, then add teamanalysis objects to a list
-		for(String key : players.keySet())
+		Set<String> teamNames = players.keySet();
+		List<TeamAnalysis> teamSet = new ArrayList<TeamAnalysis>();
+		for(String team : teamNames)
 		{
-			System.out.println(key);
-			System.out.println(players.get(key).toString());
+			List<String> onTeam = players.get(team);
+			List<String> qbs = new ArrayList<String>();
+			List<String> rbs = new ArrayList<String>();
+			List<String> wrs = new ArrayList<String>();
+			List<String> tes = new ArrayList<String>();
+			List<String> def = new ArrayList<String>();
+			List<String> ks = new ArrayList<String>();
+			StringBuilder qb = new StringBuilder(1000);
+			StringBuilder rb = new StringBuilder(1000);
+			StringBuilder wr = new StringBuilder(1000);
+			StringBuilder te = new StringBuilder(1000);
+			StringBuilder d = new StringBuilder(1000);
+			StringBuilder k = new StringBuilder(1000);
+			qb.append("Quarterbacks: ");
+			rb.append("Running Backs: ");
+			wr.append("Wide Receivers: ");
+			te.append("Tight Ends: ");
+			d.append("D/ST: ");
+			k.append("Kickers: ");
+			for(String member : onTeam)
+			{
+				for(PlayerObject player : holder.players)
+				{
+					if(player.info.name.equals(member))
+					{
+						if(player.info.position.equals("QB"))
+						{
+							qbs.add(member);
+						}
+						if(player.info.position.equals("RB"))
+						{
+							rbs.add(member);
+						}
+						if(player.info.position.equals("WR"))
+						{
+							wrs.add(member);
+						}
+						if(player.info.position.equals("TE"))
+						{
+							tes.add(member);
+						}
+						if(player.info.position.equals("D/ST"))
+						{
+							def.add(member);
+						}
+						if(player.info.position.equals("K"))
+						{
+							ks.add(member);
+						}
+						break;
+					}
+				}
+				
+				
+
+			}
+			
+			if(qbs.size() == 0)
+			{
+				qb.append("None Selected\n");
+			}
+			else
+			{
+				for(String name : qbs)
+				{
+					qb.append(name + ", ");
+				}
+			}
+			if(rbs.size() == 0)
+			{
+				rb.append("None Selected\n");
+			}
+			else
+			{
+				for(String name : rbs)
+				{
+					rb.append(name + ", ");
+				}
+			}
+			if(wrs.size() == 0)
+			{
+				wr.append("None Selected\n");
+			}
+			else
+			{
+				for(String name : wrs)
+				{
+					wr.append(name + ", ");
+				}
+			}
+			if(tes.size() == 0)
+			{
+				te.append("None Selected\n");
+			}
+			else
+			{
+				for(String name : tes)
+				{
+					te.append(name + ", ");
+				}
+			}
+			if(def.size() == 0)
+			{
+				d.append("None Selected\n");
+			}
+			else
+			{
+				for(String name : def)
+				{
+					d.append(name + ", ");
+				}
+			}
+			if(ks.size() == 0)
+			{
+				k.append("None Selected\n");
+			}
+			else
+			{
+				for(String name : ks)
+				{
+					k.append(name + ", ");
+				}
+			}
+			String qbStr = qb.toString();
+			if(!qbStr.contains("None Selected"))
+			{
+				qbStr = qbStr.substring(0, qbStr.length()-2) + "\n";
+			}
+			String rbStr = rb.toString();
+			if(!rbStr.contains("None Selected"))
+			{
+				rbStr = rbStr.substring(0, rbStr.length()-2) + "\n";
+			}
+			String wrStr = wr.toString();
+			if(!wrStr.contains("None Selected"))
+			{
+				wrStr = wrStr.substring(0, wrStr.length()-2) + "\n";
+			}
+			String teStr = te.toString();
+			if(!teStr.contains("None Selected"))
+			{
+				teStr = teStr.substring(0, teStr.length()-2) + "\n";
+			}
+			String dStr = d.toString();
+			if(!dStr.contains("None Selected"))
+			{
+				dStr = dStr.substring(0, dStr.length()-2) + "\n";
+			}
+			String kStr = k.toString();
+			if(!kStr.contains("None Selected"))
+			{
+				kStr = kStr.substring(0, kStr.length()-2) + "\n";
+			}
+			TeamAnalysis teamObj = new TeamAnalysis(team, qbStr + rbStr + wrStr + teStr + dStr + kStr, holder, cont);
+			teamSet.add(teamObj);
 		}
+		getLeagueName(teamSet);
 	}
 	 
+	/**
+	 * Gets the league name from the user
+	 * @param teamSet
+	 */
+	public void getLeagueName(final List<TeamAnalysis> teamSet) 
+	{
+		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
+	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+		popUp.setContentView(R.layout.import_get_league_name);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(popUp.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    popUp.getWindow().setAttributes(lp);
+	    popUp.show(); 
+	    popUp.setCancelable(false);
+	    final EditText input = (EditText)popUp.findViewById(R.id.league_name_input);
+	    final Button submit = (Button)popUp.findViewById(R.id.import_league_name_submit);
+	    submit.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				String namePossible = input.getText().toString();
+				if(namePossible.length() > 0)
+				{
+					writeToFile(namePossible, "ESPN", teamSet);
+					popUp.dismiss();
+				}
+				else
+				{
+					Toast.makeText(cont, "Please input a name", Toast.LENGTH_SHORT).show();
+				}
+			}
+	    });
+	}
+	
+	/**
+	 * Writes all of the new league data to file
+	 */
+	public void writeToFile(String namePossible, String string, List<TeamAnalysis> teamSet) {
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		int oldCount = prefs.getInt("Number of Leagues Imported", 0);
+		editor.putInt("Number of Leagues Imported", oldCount + 1);
+		ImportedTeam newImport = new ImportedTeam(teamSet, namePossible, string);
+		String leagueKey = newImport.leagueHost + "@@@" + newImport.leagueName;
+		StringBuilder wholeSet = new StringBuilder(100000);
+		String oldKeys = prefs.getString("Imported League Keys", "");
+		editor.putString("Imported League Keys", leagueKey + "~~~" + oldKeys);
+		for(TeamAnalysis team : newImport.teams)
+		{
+			wholeSet.append(team.teamName + "~~" + team.team + "@@@");
+		}
+		editor.putString(leagueKey, wholeSet.toString());
+		System.out.println("Committing to key " + leagueKey);
+		editor.commit();
+		dummy.handleLayoutInit();
+	}
+
 	/** 
 	 * Returns the html of the document when it for sure needs a password.
 	 * Note: this does NOT validate that the url input is what it should be
