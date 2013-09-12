@@ -1,8 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:id="@+id/plot_base_layout"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+    <Button
+        android:id="@+id/plot_close"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="100"
+        android:textColor="#CD0000"
+        android:textSize="32sp"
+        android:text="X" />
 
-</LinearLayout>
+	<TextView
+	    android:id="@+id/plot_popup_header"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBaseline="@+id/plot_close"
+	    android:layout_alignBottom="@+id/plot_close"
+	    android:layout_centerHorizontal="true"
+	    android:text="Header"
+	    android:textColor="#FFFFFF"
+	    android:textSize="24sp"
+	    android:textStyle="bold" />
+
+	<LinearLayout
+	    android:id="@+id/plot_base_layout"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/plot_close"
+	    android:layout_marginTop="12dp"
+	    android:orientation="horizontal" >
+	</LinearLayout>
+
+</RelativeLayout>

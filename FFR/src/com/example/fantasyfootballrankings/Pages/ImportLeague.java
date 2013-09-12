@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Random;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
@@ -793,21 +794,12 @@ public class ImportLeague extends Activity {
 		int counter = 0;
 		double maxFirst = -10000000.0;
 		double minFirst = 1000000000.0;
-		GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();  
-		seriesStyle.setValueDependentColor(new ValueDependentColor() {  
-		  @Override  
-		  public int get(GraphViewDataInterface data) {  
-		    // the higher the more red  
-		    return Color.rgb((int)(150+((data.getY()/3)*100)), (int)(150-((data.getY()/3)*150)), (int)(150-((data.getY()/3)*150)));  
-		  }  
-		  
-		});  
-		GraphView graphView = new BarGraphView(this, header);
-
+		final Random numGenerator = new Random();
+		GraphView graphView = new LineGraphView(this, "");
+		
 		for(String teamIter : teamSet)
 		{
 			String val = teamIter.split(": ")[1];
-			valSet[counter] = val;
 			teams[counter] = teamIter.split(": ")[0];
 			double value = Double.valueOf(val);
 			if(value > maxFirst)
@@ -819,7 +811,16 @@ public class ImportLeague extends Activity {
 				minFirst = value;
 			}
 			dataSet[counter] = new GraphViewData(++counter, value);
-			GraphViewSeries exampleSeries = new GraphViewSeries(teams[counter-1], seriesStyle, dataSet);
+			GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();  
+			seriesStyle.setValueDependentColor(new ValueDependentColor() {  
+			  @Override  
+			  public int get(GraphViewDataInterface data) {  
+			    // the higher the more red  
+			    return Color.rgb(numGenerator.nextInt(255), numGenerator.nextInt(255), numGenerator.nextInt(255));  
+			  }  
+			  
+			}); 
+			GraphViewSeries exampleSeries = new GraphViewSeries(teams[counter-1].replace(')', ' '), seriesStyle, dataSet);  
 			graphView.addSeries(exampleSeries);
 		}
 		final double max = maxFirst;
@@ -833,21 +834,30 @@ public class ImportLeague extends Activity {
 		lp.height = WindowManager.LayoutParams.MATCH_PARENT;
 		popUp.getWindow().setAttributes(lp);
 		popUp.show(); 
+		TextView headerView = (TextView)popUp.findViewById(R.id.plot_popup_header);
+		headerView.setText(header);
+		Button close = (Button)popUp.findViewById(R.id.plot_close);
+		close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				popUp.dismiss();
+			}
+		});
 		graphView.setScrollable(true); 
 		double space = max - min;
 		DecimalFormat df = new DecimalFormat("#.#");
 		String[] valSpaced = {df.format(max), df.format(min + (space*4.0)/5.0), df.format(min + (space*3.0)/5.0),
 				df.format(min + (space*2.0)/5.0), df.format(min + (space*1.0)/5.0),df.format(min)};
 		graphView.setManualYAxisBounds(max, min - 1);
-
-
-		
-				//graphView.setHorizontalLabels(teams);
+		for(int i = 1; i < 13; i++)
+		{
+			valSet[i-1] = String.valueOf(i);
+		}
+		graphView.setHorizontalLabels(valSet);
+		graphView.setShowLegend(true); 	
+		graphView.setLegendAlign(LegendAlign.TOP);
 				
-				
-				graphView.setShowLegend(true); 	
-				graphView.setLegendAlign(LegendAlign.MIDDLE);
-				graphView.setLegendWidth(350); 
+			graphView.setLegendWidth(350); 
 				
 		graphView.setVerticalLabels(valSpaced);
 		
