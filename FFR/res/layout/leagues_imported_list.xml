@@ -2,35 +2,70 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#333333">
-	<RelativeLayout
-	    android:id="@+id/league_import_select_top"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentTop="true"
-	    android:background="@drawable/menu_black"
-	    >
+    android:background="#171717" >
 
-	    <TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:paddingTop="8dp"
-	        android:paddingBottom="8dp"
-	        android:layout_centerHorizontal="true"
-	        android:text="Select an Imported League Below"
-	        android:textColor="#FFFFFF"
-	        android:textSize="20sp"
-	        android:textStyle="bold" />
+    <RelativeLayout
+        android:id="@+id/league_import_select_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/menu_black" >
 
-	</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:text="Select an Imported League Below"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
-    <ListView
+    <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
         android:id="@+id/leagues_imported_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/league_import_select_top"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/relativeLayout1"
+        android:layout_below="@+id/textView2"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
         android:background="@drawable/content_well"
         android:divider="#999999" >
 
-	</ListView>
+    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/info_sub_background"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:text=""
+            android:textColor="#FFFFFF"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:paddingBottom="5dp"
+        android:layout_alignLeft="@+id/leagues_imported_list"
+        android:layout_below="@+id/league_import_select_top"
+        android:text="Once you do so, there will be analytics done on your whole team, your starting lineup, and each positional slot. \n\nNote, this will be by the currently calculated PAA/scoring/roster settings."
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 </RelativeLayout>
