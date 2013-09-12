@@ -717,6 +717,13 @@ public class ManageInput
 		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 	
+	/**
+	 * Just to eek out tiny bits of performance improvements
+	 * @param s
+	 * @param key
+	 * @param keyLen
+	 * @return
+	 */
 	public static String[] tokenize(String s, char key, int keyLen)
 	{
 		char[] c = s.toCharArray();
@@ -745,5 +752,15 @@ public class ManageInput
 			allData[index] = iter.next();
 		}
 		return allData;
+	}
+	
+	/**
+	 * Takes a string and fixes it's case to be normal
+	 * @param line
+	 * @return
+	 */
+	public static String capitalize(String line)
+	{
+		return Character.toUpperCase(line.charAt(0)) + line.substring(1).toLowerCase();
 	}
 }

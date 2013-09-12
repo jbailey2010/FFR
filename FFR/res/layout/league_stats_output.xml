@@ -8,17 +8,6 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/league_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="Large Text"
-            android:layout_marginTop="25dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/hostName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,7 +16,7 @@
             android:text="Small Text"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <ListView
+        <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
             android:id="@+id/imported_league_rankings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,8 +24,8 @@
             android:layout_below="@+id/hostName"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/content_well_popup" >
-        </ListView>
+            android:background="@drawable/content_well" >
+        </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 
         <TextView
             android:id="@+id/textView1"
@@ -48,7 +37,7 @@
             android:text="Individual Team Information Below"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <ListView
+        <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
             android:id="@+id/imported_teams_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,8 +46,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="19dp"
-            android:background="@drawable/content_well_popup" >
-        </ListView>
+            android:background="@drawable/content_well" >
+        </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 
         <TextView
             android:id="@+id/back_button_league_stats"
@@ -66,8 +55,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="Back"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textStyle="bold" 
+            android:textColor="#990000"
+            android:text="  &lt;  "
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/league_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/back_button_league_stats"
+            android:layout_centerHorizontal="true"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
         
     </RelativeLayout>
 </ScrollView>

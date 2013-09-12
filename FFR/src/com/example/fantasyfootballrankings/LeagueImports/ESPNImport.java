@@ -33,6 +33,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
@@ -392,6 +393,14 @@ public class ESPNImport
 						{
 							team = child.child(0).text();
 							team = team.split("\\(")[0];
+							String[] teamSet = team.split(" ");
+							StringBuilder teamBuilder = new StringBuilder(40);
+							for(String teamIter : teamSet)
+							{
+								teamBuilder.append(ManageInput.capitalize(teamIter) + " ");
+							}
+							String intermediate = teamBuilder.toString();
+							team = intermediate.substring(0, intermediate.length() - 1);
 						}
 					}  
 				}

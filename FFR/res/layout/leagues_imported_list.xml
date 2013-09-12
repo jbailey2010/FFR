@@ -65,7 +65,7 @@
         android:paddingBottom="5dp"
         android:layout_alignLeft="@+id/leagues_imported_list"
         android:layout_below="@+id/league_import_select_top"
-        android:text="Once you do so, there will be analytics done on your whole team, your starting lineup, and each positional slot. \n\nNote, this will be by the currently calculated PAA/scoring/roster settings."
+        android:text="Once you do so, there will be analytics done on each entire team, each starting lineup, each bench, and each positional slot. \n\nNote, this will be by the currently calculated PAA/scoring/roster settings."
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

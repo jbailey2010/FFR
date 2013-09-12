@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
     <issue id="DefaultLocale">
-        <ignore path="src\com\example\fantasyfootballrankings\ClassFiles\ParseFiles\ParseTrending.java" />
+        <ignore path="src/com/example/fantasyfootballrankings/ClassFiles/ManageInput.java" />
+        <ignore path="src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseTrending.java" />
     </issue>
 </lint>
