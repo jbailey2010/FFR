@@ -792,11 +792,13 @@ public class ImportLeague extends Activity {
 		String[] valSet = new String[newImport.teams.size()];
 		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[newImport.teams.size()];
 		int counter = 0;
+		Random generator = new Random();
 		double maxFirst = -10000000.0;
 		double minFirst = 1000000000.0;
-		final Random numGenerator = new Random();
+		GraphViewStyle gvs = new GraphViewStyle();
+		gvs.setTextSize(16);
 		GraphView graphView = new LineGraphView(this, "");
-		
+		graphView.setGraphViewStyle(gvs);
 		for(String teamIter : teamSet)
 		{
 			String val = teamIter.split(": ")[1];
@@ -812,14 +814,7 @@ public class ImportLeague extends Activity {
 			}
 			dataSet[counter] = new GraphViewData(++counter, value);
 			GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();  
-			seriesStyle.setValueDependentColor(new ValueDependentColor() {  
-			  @Override  
-			  public int get(GraphViewDataInterface data) {  
-			    // the higher the more red  
-			    return Color.rgb(numGenerator.nextInt(255), numGenerator.nextInt(255), numGenerator.nextInt(255));  
-			  }  
-			  
-			}); 
+			seriesStyle.thickness = 5;
 			GraphViewSeries exampleSeries = new GraphViewSeries(teams[counter-1].replace(')', ' '), seriesStyle, dataSet);  
 			graphView.addSeries(exampleSeries);
 		}
@@ -856,14 +851,13 @@ public class ImportLeague extends Activity {
 		graphView.setHorizontalLabels(valSet);
 		graphView.setShowLegend(true); 	
 		graphView.setLegendAlign(LegendAlign.TOP);
-				
-			graphView.setLegendWidth(350); 
-				
+		graphView.setLegendWidth(275); 
 		graphView.setVerticalLabels(valSpaced);
-		
+		((LineGraphView)graphView).setDrawBackground(true);
+		((LineGraphView) graphView).setBackgroundColor(Color.rgb(131,155,243));
 		LinearLayout layout = (LinearLayout) popUp.findViewById(R.id.plot_base_layout);
 		layout.addView(graphView);
-		
+		 
 	}
 
 	/**
