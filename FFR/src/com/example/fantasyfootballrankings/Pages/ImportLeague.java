@@ -824,9 +824,6 @@ public class ImportLeague extends Activity {
 		}
 		final double max = maxFirst;
 		final double min = minFirst;
-		/*GraphViewSeries exampleSeries = new GraphViewSeries(header, seriesStyle, dataSet);
-		GraphView graphView = new BarGraphView(this, header);
-		graphView.addSeries(exampleSeries);*/
 		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
 		popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		popUp.setContentView(R.layout.plot_popup);
@@ -853,7 +850,7 @@ public class ImportLeague extends Activity {
 				graphView.setLegendWidth(350); 
 				
 		graphView.setVerticalLabels(valSpaced);
-		//graphView.addSeries(exampleSeries); // data
+		
 		LinearLayout layout = (LinearLayout) popUp.findViewById(R.id.plot_base_layout);
 		layout.addView(graphView);
 		
