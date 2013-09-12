@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,10 +15,19 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObjec
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.LeagueImports.ESPNImport;
-
 import com.ffr.fantasyfootballrankings.R;
 import com.ffr.fantasyfootballrankings.R.layout;
 import com.ffr.fantasyfootballrankings.R.menu;
+import com.jjoe64.graphview.BarGraphView;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GraphView.LegendAlign;
+import com.jjoe64.graphview.GraphViewDataInterface;
+import com.jjoe64.graphview.GraphViewSeries;
+import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
+import com.jjoe64.graphview.GraphViewStyle;
+import com.jjoe64.graphview.LineGraphView;
+import com.jjoe64.graphview.ValueDependentColor;
+
 import FileIO.ReadFromFile;
 import android.os.Bundle;
 import android.app.ActionBar;
@@ -28,6 +36,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -39,6 +48,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -46,6 +56,8 @@ import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jjoe64.graphview.GraphView.GraphViewData;
 /**
  * Handles the importing of leagues
  * @author Jeff
@@ -73,13 +85,11 @@ public class ImportLeague extends Activity {
 			if(Home.holder.players != null && Home.holder.players.size() > 5 && !prefs.getBoolean("Home Update Import",  false) 
 					&& !prefs.getBoolean("Rankings Update Import",false))
 			{
-				System.out.println("Getting from home");
 				holder = Home.holder; 
 			}
 			else if(Home.holder.players == null || Home.holder.players.size() < 5 || 
 					prefs.getBoolean("Home Update Import", false) || prefs.getBoolean("Rankings Update Import", false))
 			{
-				System.out.println("Re-loading");
 				SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 				editor.putBoolean("Home Update Import", false).commit();
 				editor.putBoolean("Rankings Update Import", false).commit();
@@ -388,7 +398,7 @@ public class ImportLeague extends Activity {
 			}
 	    });
 	    //Handles the back button
-	    TextView back = (TextView)res.findViewById(R.id.back_button_league_stats);
+	    ImageView back = (ImageView)res.findViewById(R.id.back_button_league_stats);
 	    back.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -399,7 +409,7 @@ public class ImportLeague extends Activity {
 	    TextView name = (TextView)res.findViewById(R.id.league_name);
 	    name.setText(newImport.leagueName);
 	    TextView host = (TextView)res.findViewById(R.id.hostName);
-	    host.setText(newImport.leagueHost);
+	    host.setText("Hosted on " + newImport.leagueHost);
 	    //Handles the statistic part of the layout
 	    PriorityQueue<TeamAnalysis> totalPAA = new PriorityQueue<TeamAnalysis>(300, new Comparator<TeamAnalysis>() 
 		{
@@ -733,10 +743,122 @@ public class ImportLeague extends Activity {
                 return true;
             }
         });
+	    handleListOnItemClick(list2, newImport);
+	    //Help work
+	    final TextView helpTeams = (TextView)res.findViewById(R.id.team_help_import);
+	    final TextView helpRanks = (TextView)res.findViewById(R.id.rankings_help_import);
+	    TextView help = (TextView)res.findViewById(R.id.help_button_league_stats);
+	    help.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				if(!helpTeams.isShown())
+				{ 
+					helpTeams.setVisibility(View.VISIBLE);
+					helpRanks.setVisibility(View.VISIBLE);
+				}
+				else
+				{
+					helpTeams.setVisibility(View.GONE);
+					helpRanks.setVisibility(View.GONE);
+				}
+			}
+	    });
 	    ll.addView(res);
-	    
 	}
 	
+	public void handleListOnItemClick(ListView list, final ImportedTeam newImport) {
+		OnItemClickListener listener = new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				showGraph(newImport, arg1);
+			}
+			
+		};
+		list.setOnItemClickListener(listener);
+	}
+	
+	public void showGraph(ImportedTeam newImport, View v)
+	{
+		
+		RelativeLayout base = (RelativeLayout)v;
+		TextView headerText = (TextView)base.findViewById(R.id.text1);
+		String text = headerText.getText().toString();
+		String header = text.split(":")[0];
+		String[] teamSet = text.split("\n\n")[1].split("\n");
+		String[] teams = new String[newImport.teams.size()];
+		String[] valSet = new String[newImport.teams.size()];
+		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[newImport.teams.size()];
+		int counter = 0;
+		double maxFirst = -10000000.0;
+		double minFirst = 1000000000.0;
+		GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();  
+		seriesStyle.setValueDependentColor(new ValueDependentColor() {  
+		  @Override  
+		  public int get(GraphViewDataInterface data) {  
+		    // the higher the more red  
+		    return Color.rgb((int)(150+((data.getY()/3)*100)), (int)(150-((data.getY()/3)*150)), (int)(150-((data.getY()/3)*150)));  
+		  }  
+		  
+		});  
+		GraphView graphView = new BarGraphView(this, header);
+
+		for(String teamIter : teamSet)
+		{
+			String val = teamIter.split(": ")[1];
+			valSet[counter] = val;
+			teams[counter] = teamIter.split(": ")[0];
+			double value = Double.valueOf(val);
+			if(value > maxFirst)
+			{
+				maxFirst = value;
+			}
+			else if(value < minFirst)
+			{
+				minFirst = value;
+			}
+			dataSet[counter] = new GraphViewData(++counter, value);
+			GraphViewSeries exampleSeries = new GraphViewSeries(teams[counter-1], seriesStyle, dataSet);
+			graphView.addSeries(exampleSeries);
+		}
+		final double max = maxFirst;
+		final double min = minFirst;
+		/*GraphViewSeries exampleSeries = new GraphViewSeries(header, seriesStyle, dataSet);
+		GraphView graphView = new BarGraphView(this, header);
+		graphView.addSeries(exampleSeries);*/
+		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
+		popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+		popUp.setContentView(R.layout.plot_popup);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+		lp.copyFrom(popUp.getWindow().getAttributes());
+		lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+		lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+		popUp.getWindow().setAttributes(lp);
+		popUp.show(); 
+		graphView.setScrollable(true); 
+		double space = max - min;
+		DecimalFormat df = new DecimalFormat("#.#");
+		String[] valSpaced = {df.format(max), df.format(min + (space*4.0)/5.0), df.format(min + (space*3.0)/5.0),
+				df.format(min + (space*2.0)/5.0), df.format(min + (space*1.0)/5.0),df.format(min)};
+		graphView.setManualYAxisBounds(max, min - 1);
+
+
+		
+				//graphView.setHorizontalLabels(teams);
+				
+				
+				graphView.setShowLegend(true); 	
+				graphView.setLegendAlign(LegendAlign.MIDDLE);
+				graphView.setLegendWidth(350); 
+				
+		graphView.setVerticalLabels(valSpaced);
+		//graphView.addSeries(exampleSeries); // data
+		LinearLayout layout = (LinearLayout) popUp.findViewById(R.id.plot_base_layout);
+		layout.addView(graphView);
+		
+	}
+
 	/**
 	 * Calculates the total paa of the starters
 	 * @param team

@@ -21,21 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/espn_unpw_close"
         android:layout_centerHorizontal="true"
-        android:text="This league requires you to login\n\nEnter your username"
+        android:text="This league requires you to login"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/username_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:textColor="#000000"
-        android:background="@drawable/spinner_well"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
 
     <TextView
         android:id="@+id/textView2"
@@ -68,5 +55,28 @@
         android:background="@drawable/btn_red"
         style="@style/ButtonText"
         android:text="Submit" />
+
+    <EditText
+        android:id="@+id/username_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/spinner_well"
+        android:ems="10"
+        android:textColor="#000000" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="26dp"
+        android:text="Enter your username"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

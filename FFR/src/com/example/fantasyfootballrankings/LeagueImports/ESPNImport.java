@@ -368,7 +368,6 @@ public class ESPNImport
 	    }
 
 	  }
-	
 	/**
 	 * Takes the document and converts it into the relevant data structures
 	 * to keep track of everything
@@ -376,7 +375,7 @@ public class ESPNImport
 	public void handleParsing()
 	{
 		Elements elements = doc.select("td.playertablePlayerName");
-		Map<String, List<String>>players = new HashMap<String, List<String>>();
+		Map<String, List<String>>players = new HashMap<String, List<String>>(); 
 		for(Element elem : elements)
 		{
 			if(!elem.html().contains("Compare Players"))
