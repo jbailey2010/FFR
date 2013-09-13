@@ -325,7 +325,7 @@ public class ImportLeague extends Activity {
 		ListView list = (ListView)res.findViewById(R.id.leagues_imported_list);
 	    List<Map<String, String>>data = new ArrayList<Map<String, String>>();
 		SimpleAdapter adapter = new SimpleAdapter(cont, data, 
-	    		R.layout.web_listview_item, 
+				R.layout.imported_listview_elem_stats,
 	    		new String[] {"main", "sub"}, 
 	    		new int[] {R.id.text1, 
 	    			R.id.text2});
@@ -337,8 +337,11 @@ public class ImportLeague extends Activity {
 		{
 			Map<String, String> datum = new HashMap<String, String>();
 			String[] keySplit = ManageInput.tokenize(key, '@', 3);
+			String teamData = prefs.getString(key, "SHIT");
+			String[] perTeam = ManageInput.tokenize(teamData, '@', 3);
+
 			datum.put("main", keySplit[1]);
-			datum.put("sub", keySplit[0]);
+			datum.put("sub", "Hosted on " + keySplit[0] + "\n" + perTeam.length + " team league");
 			data.add(datum);
 			adapter.notifyDataSetChanged();
 		}
