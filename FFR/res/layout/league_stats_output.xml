@@ -107,9 +107,10 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="14dp"
+                android:listSelector="@android:color/transparent"
                 android:layout_marginTop="25dp"
                 android:layout_below="@+id/team_help_import"
-                android:background="@drawable/content_well_home"
+                android:background="@drawable/content_well_import"
                 android:divider="#999999" >
             </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
             
@@ -131,8 +132,9 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="14dp"
                     android:layout_marginRight="14dp"
+                    android:listSelector="@android:color/transparent"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/content_well_home"
+                    android:background="@drawable/content_well_import"
                     android:divider="#999999" >
                 </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 

@@ -351,7 +351,7 @@ public class ImportLeague extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				String keyPart1 = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
-				String keyPart2 = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text2)).getText().toString();
+				String keyPart2 = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text2)).getText().toString().split("Hosted on ")[1].split("\n")[0];
 				String key = keyPart2 + "@@@" + keyPart1;
 				handleLeaguePopulation(key);
 			}
