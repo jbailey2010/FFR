@@ -377,16 +377,17 @@ public class ImportLeague extends Activity {
 		//Below sets the team information
 	    List<Map<String, String>>data = new ArrayList<Map<String, String>>();
 		SimpleAdapter adapter = new SimpleAdapter(cont, data, 
-	    		R.layout.web_listview_item, 
-	    		new String[] {"main", "sub"}, 
+	    		R.layout.imported_listview_elem_team, 
+	    		new String[] {"head", "main", "sub"}, 
 	    		new int[] {R.id.text1, 
-	    			R.id.text2});
+	    			R.id.text2, R.id.text3});
 		ListView list = (ListView)res.findViewById(R.id.imported_teams_info);
 		DecimalFormat df = new DecimalFormat("#.##");
 		for(TeamAnalysis team : newImport.teams)
 		{
 			Map<String, String> datum = new HashMap<String, String>();
-			datum.put("main", team.teamName + "\n\n" + team.team);
+			datum.put("head", team.teamName);
+			datum.put("main", team.team);
 			datum.put("sub", df.format(paaTotal(team)) + " PAA total\n" + df.format(paaStart(team)) + " PAA from starters");
 			data.add(datum);
 		}
@@ -771,6 +772,11 @@ public class ImportLeague extends Activity {
 		list.setOnItemClickListener(listener);
 	}
 	
+	/**
+	 * Handles the rendering of the graph
+	 * @param newImport
+	 * @param v
+	 */
 	public void showGraph(ImportedTeam newImport, View v)
 	{
 		
@@ -784,7 +790,6 @@ public class ImportLeague extends Activity {
 		String[] valSet = new String[newImport.teams.size()];
 		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[newImport.teams.size()];
 		int counter = 0;
-		Random generator = new Random();
 		double maxFirst = -10000000.0;
 		double minFirst = 1000000000.0;
 		GraphViewStyle gvs = new GraphViewStyle();
@@ -833,9 +838,10 @@ public class ImportLeague extends Activity {
 		graphView.setScrollable(true); 
 		double space = max - min;
 		DecimalFormat df = new DecimalFormat("#.#");
-		String[] valSpaced = {df.format(max), df.format(min + (space*4.0)/5.0), df.format(min + (space*3.0)/5.0),
-				df.format(min + (space*2.0)/5.0), df.format(min + (space*1.0)/5.0),df.format(min)};
-		graphView.setManualYAxisBounds(max, min - 1);
+		String[] valSpaced = {df.format(max), df.format(min + (space*6.0)/7.0), df.format(min + (space*5.0)/7.0), 
+				df.format(min + (space*4.0)/7.0), df.format(min + (space*3.0)/7.0),
+				df.format(min + (space*2.0)/7.0), df.format(min + (space*1.0)/7.0),df.format(min)};
+		graphView.setManualYAxisBounds(max, min);
 		for(int i = 1; i < 13; i++)
 		{
 			valSet[i-1] = String.valueOf(i);
@@ -889,12 +895,12 @@ public class ImportLeague extends Activity {
 	 */
 	public void teamSpecPopUp(View v, ImportedTeam newImport)
 	{
-		String team = ((TextView)((RelativeLayout)v).findViewById(R.id.text1)).getText().toString();
-		String[] allData = team.split("\n\n");
+		String team = ((TextView)((RelativeLayout)v).findViewById(R.id.text2)).getText().toString();
+		String header = ((TextView)((RelativeLayout)v).findViewById(R.id.text1)).getText().toString();
 		TeamAnalysis ta = new TeamAnalysis("", team, holder, cont);
 		DecimalFormat df = new DecimalFormat("#.##");
 		StringBuilder info = new StringBuilder(2000);
-		info.append(allData[0] + "\n\n");
+		info.append(header + "\n\n");
 		info.append("Note: this is based on the currently calculated projections/PAA\n");
 		info.append("Set the scoring/roster settings on the home screen to this draft's settings to see accurate versions of these numbers\n\n");
 		info.append("Pos: PAA from starters (PAA total) - League Rank\n\n");
