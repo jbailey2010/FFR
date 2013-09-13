@@ -563,23 +563,14 @@ public class ImportLeague extends Activity {
 	    			}
 	    		});
 	    StringBuilder paaTotal = new StringBuilder(1000);
-	    paaTotal.append("Total PAA:\n\n");
 	    StringBuilder paaStart = new StringBuilder(1000);
-	    paaStart.append("PAA From Starters:\n\n");
 	    StringBuilder paaBench = new StringBuilder(1000);
-	    paaBench.append("PAA From the Bench:\n\n");
 	    StringBuilder qb = new StringBuilder(1000);
-	    qb.append("QB PAA Rankings:\n\n");
 	    StringBuilder rb = new StringBuilder(1000);
-	    rb.append("RB PAA Rankings:\n\n");
 	    StringBuilder wr = new StringBuilder(1000);
-	    wr.append("WR PAA Rankings:\n\n");
 	    StringBuilder te = new StringBuilder(1000);
-	    te.append("TE PAA Rankings:\n\n");
 	    StringBuilder d  = new StringBuilder(1000);
-	    d.append("D/ST PAA Rankings:\n\n");
 	    StringBuilder k  = new StringBuilder(1000);
-	    k.append("K PAA Rankings:\n\n");
 	    for(TeamAnalysis team : newImport.teams)
 	    {
 	    	totalPAA.add(team);
@@ -657,47 +648,47 @@ public class ImportLeague extends Activity {
 	    }
 	    List<Map<String, String>>data2 = new ArrayList<Map<String, String>>();
 		SimpleAdapter adapter2 = new SimpleAdapter(cont, data2, 
-	    		R.layout.web_listview_item, 
+	    		R.layout.imported_listview_elem_stats, 
 	    		new String[] {"main", "sub"}, 
 	    		new int[] {R.id.text1, 
 	    			R.id.text2});
 		ListView list2 = (ListView)res.findViewById(R.id.imported_league_rankings);
 		Map<String, String> datum = new HashMap<String, String>();
-		datum.put("main", paaTotal.toString());
-		datum.put("sub", "");
+		datum.put("main", "Total PAA");
+		datum.put("sub", paaTotal.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
-		datum.put("main", paaStart.toString());
-		datum.put("sub", "");
+		datum.put("main", "PAA From Starters");
+		datum.put("sub", paaStart.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
 		datum = new HashMap<String, String>();
-		datum.put("main", paaBench.toString());
-		datum.put("sub", "");
+		datum.put("main", "PAA From Backups");
+		datum.put("sub", paaBench.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
-		datum.put("main", qb.toString());
-		datum.put("sub", "");
+		datum.put("main", "QB PAA Rankings");
+		datum.put("sub", qb.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
-		datum.put("main", rb.toString());
-		datum.put("sub", "");
+		datum.put("main", "RB PAA Rankings");
+		datum.put("sub", rb.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
-		datum.put("main", wr.toString());
-		datum.put("sub", "");
+		datum.put("main", "WR PAA Rankings");
+		datum.put("sub", wr.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
-		datum.put("main", te.toString());
-		datum.put("sub", "");
+		datum.put("main", "TE PAA Rankings");
+		datum.put("sub", te.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
-		datum.put("main", d.toString());
-		datum.put("sub", "");
+		datum.put("main", "D/ST PAA Rankings");
+		datum.put("sub", d.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
-		datum.put("main", k.toString());
-		datum.put("sub", "");
+		datum.put("main", "K PAA Rankings");
+		datum.put("sub", k.toString());
 		data2.add(datum);
 		adapter2.notifyDataSetChanged();
 	    list2.setAdapter(adapter2);
@@ -785,9 +776,10 @@ public class ImportLeague extends Activity {
 		
 		RelativeLayout base = (RelativeLayout)v;
 		TextView headerText = (TextView)base.findViewById(R.id.text1);
-		String text = headerText.getText().toString();
-		String header = text.split(":")[0];
-		String[] teamSet = text.split("\n\n")[1].split("\n");
+		String header = headerText.getText().toString();
+		TextView content = (TextView)base.findViewById(R.id.text2);
+		String text = content.getText().toString();
+		String[] teamSet = text.split("\n");
 		String[] teams = new String[newImport.teams.size()];
 		String[] valSet = new String[newImport.teams.size()];
 		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[newImport.teams.size()];
