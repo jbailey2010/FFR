@@ -845,7 +845,8 @@ public class ImportLeague extends Activity {
 				df.format(min + (space*4.0)/7.0), df.format(min + (space*3.0)/7.0),
 				df.format(min + (space*2.0)/7.0), df.format(min + (space*1.0)/7.0),df.format(min)};
 		graphView.setManualYAxisBounds(max, min);
-		for(int i = 1; i < 13; i++)
+		int maxLoop = newImport.teams.size() +1;
+		for(int i = 1; i < maxLoop; i++)
 		{
 			valSet[i-1] = String.valueOf(i);
 		}

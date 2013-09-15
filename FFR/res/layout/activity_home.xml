@@ -44,7 +44,7 @@
             android:minHeight="45dp"
             android:layout_alignLeft="@+id/news_button"
             android:background="@drawable/btn_red_home_middle"
-            android:text="Import a League" />
+            android:text="My Leagues" />
 
         <Button
             android:id="@+id/trending"

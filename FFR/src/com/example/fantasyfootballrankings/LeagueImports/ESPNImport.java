@@ -399,7 +399,7 @@ public class ESPNImport
 								teamBuilder.append(ManageInput.capitalize(teamIter) + " ");
 							}
 							String intermediate = teamBuilder.toString();
-							team = intermediate.substring(0, intermediate.length() - 1);
+							team = intermediate.substring(0, intermediate.length() - 1) + "@@@" + child.child(0).html();
 						}
 					}  
 				}
@@ -434,6 +434,7 @@ public class ESPNImport
 			StringBuilder te = new StringBuilder(1000);
 			StringBuilder d = new StringBuilder(1000);
 			StringBuilder k = new StringBuilder(1000);
+			team = team.split("@@@")[0];
 			qb.append("Quarterbacks: ");
 			rb.append("Running Backs: ");
 			wr.append("Wide Receivers: ");
