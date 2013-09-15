@@ -16,8 +16,8 @@
             android:layout_below="@+id/league_name"
             android:layout_centerHorizontal="true"
             android:text="Small Text"
-            android:textColor="#AAAAAA"
-            android:textSize="20sp" />
+            android:textColor="#BBBBBB"
+            android:textSize="14sp" />
  
         <ImageView
             android:id="@+id/back_button_league_stats"
@@ -49,8 +49,8 @@
             android:layout_marginTop="10dp"
             android:text="Large Text"
             android:textColor="#FFFFFF"
-            android:textSize="28sp"
-            android:maxWidth="140dp"
+            android:textSize="19sp"
+            android:maxWidth="170dp"
             android:textStyle="bold" />
 
         <TextView
@@ -78,51 +78,54 @@
 
     </RelativeLayout>
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="#262626"
         android:layout_below="@+id/relativeLayout1" >
+	     <ScrollView
+	        android:layout_width="match_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_alignParentLeft="true"         >
+	         <RelativeLayout
+	             android:layout_width="match_parent"
+	             android:layout_height="wrap_content">
+	            <TextView
+	                android:id="@+id/team_help_import"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_alignLeft="@+id/imported_teams_info"
+	                android:layout_below="@+id/imported_league_rankings"
+	                android:layout_marginTop="15dp"
+	                android:visibility="gone"
+	                android:text="Below are the individual team breakdowns, with each team's members and PAA breakdowns listed.\n\nClick on a team to see detailed positional breakdowns and rankings."
+	                android:textColor="#ffffff" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#262626" >
+	            <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
+	                android:id="@+id/imported_teams_info"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_alignParentLeft="true"
+	                android:layout_marginLeft="20dp"
+	                android:layout_marginRight="20dp"
+	                android:listSelector="@android:color/transparent"
+	                android:layout_marginTop="25dp"
+	                android:layout_below="@+id/team_help_import"
+	                android:background="@drawable/content_well_import"
+	                android:divider="#999999"
+	                android:paddingBottom="9dp" >
+	            </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
             
-            <TextView
-                android:id="@+id/team_help_import"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/imported_teams_info"
-                android:layout_below="@+id/imported_league_rankings"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"
-                android:text="Below are the individual team breakdowns, with each team's members and PAA breakdowns listed.\n\nClick on a team to see detailed positional breakdowns and rankings."
-                android:textColor="#ffffff" />
-
-            <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
-                android:id="@+id/imported_teams_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="14dp"
-                android:layout_marginRight="14dp"
-                android:listSelector="@android:color/transparent"
-                android:layout_marginTop="25dp"
-                android:layout_below="@+id/team_help_import"
-                android:background="@drawable/content_well_import"
-                android:divider="#999999" >
-            </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
-            
-            <TextView
-                android:id="@+id/rankings_help_import"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/imported_league_rankings"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"
-                android:text="Below are the rankings of the entire lineups, starting lineups, benches, and each position of all of the teams in this league.\n\nClick on one of the elements to see a graphical representation."
-                android:textColor="#ffffff" />
+	            <TextView
+	                android:id="@+id/rankings_help_import"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_alignLeft="@+id/imported_league_rankings"
+	                android:layout_marginTop="10dp"
+	                android:visibility="gone"
+	                android:text="Below are the rankings of the entire lineups, starting lineups, benches, and each position of all of the teams in this league.\n\nClick on one of the elements to see a graphical representation."
+	                android:textColor="#ffffff" />
 
                 <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
                     android:id="@+id/imported_league_rankings"
@@ -130,18 +133,28 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/rankings_help_import"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="14dp"
-                    android:layout_marginRight="14dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:listSelector="@android:color/transparent"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="25dp"
+                    android:paddingBottom="9dp"
                     android:background="@drawable/content_well_import"
                     android:divider="#999999" >
                 </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:layout_below="@id/imported_teams_info" />
-			</RelativeLayout>
-	    </ScrollView>
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imported_teams_info"
+                    android:text="Small Text"
+                    android:visibility="invisible"
+                    android:layout_marginTop="10dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+          </RelativeLayout>
+	</ScrollView>
+                
 </RelativeLayout>
+		
+			</RelativeLayout>
