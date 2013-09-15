@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+        <Button
+	        android:id="@+id/team_info_close"
+	        style="?android:attr/buttonBarButtonStyle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_weight="100"
+	        android:textColor="#CD0000"
+	        android:textSize="32sp"
+	        android:text="X" />
+        <TextView
+		    android:id="@+id/team_info_popup_header"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignBaseline="@+id/team_info_close"
+		    android:layout_alignBottom="@+id/team_info_close"
+		    android:layout_centerHorizontal="true"
+		    android:text="Header"
+		    android:textColor="#FFFFFF"
+		    android:textSize="24sp"
+		    android:textStyle="bold" />
+        
+		<LinearLayout
+		    android:id="@+id/plot_base_layout"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:layout_below="@+id/textView1"
+		    android:layout_marginTop="12dp"
+		    android:orientation="vertical" >
+		</LinearLayout>
+
+		<TextView
+		    android:id="@+id/textView1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:layout_centerHorizontal="true"
+		    android:layout_below="@+id/team_info_popup_header"
+		    android:text="Legend Key: PAA Pos: Starters (Total)"
+		    android:textStyle=""
+		    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </RelativeLayout>

@@ -20,6 +20,7 @@ import com.ffr.fantasyfootballrankings.R;
 import com.ffr.fantasyfootballrankings.R.layout;
 import com.ffr.fantasyfootballrankings.R.menu;
 import com.jjoe64.graphview.BarGraphView;
+import com.jjoe64.graphview.CustomLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.LegendAlign;
 import com.jjoe64.graphview.GraphViewDataInterface;
@@ -202,7 +203,7 @@ public class ImportLeague extends Activity {
 		popUp.setContentView(R.layout.import_service_decider);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(popUp.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    popUp.getWindow().setAttributes(lp);
 	    popUp.show(); 
 	    Button close = (Button)popUp.findViewById(R.id.import_decider_close);
@@ -237,7 +238,7 @@ public class ImportLeague extends Activity {
 		popUp.setContentView(R.layout.import_espn_league_id);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(popUp.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    popUp.getWindow().setAttributes(lp);
 	    popUp.show(); 
 	    Button close = (Button)popUp.findViewById(R.id.import_espnid_close);
@@ -856,7 +857,7 @@ public class ImportLeague extends Activity {
 		graphView.setLegendWidth(275); 
 		graphView.setVerticalLabels(valSpaced);
 		((LineGraphView)graphView).setDrawBackground(true);
-		((LineGraphView) graphView).setBackgroundColor(Color.rgb(131,155,243));
+		//((LineGraphView) graphView).setBackgroundColor(Color.rgb(131,155,243));
 		LinearLayout layout = (LinearLayout) popUp.findViewById(R.id.plot_base_layout);
 		layout.addView(graphView);
 		 
@@ -903,39 +904,116 @@ public class ImportLeague extends Activity {
 		String header = ((TextView)((RelativeLayout)v).findViewById(R.id.text1)).getText().toString();
 		TeamAnalysis ta = new TeamAnalysis("", team, holder, cont);
 		DecimalFormat df = new DecimalFormat("#.##");
-		StringBuilder info = new StringBuilder(2000);
-		info.append(header + "\n\n");
-		info.append("Note: this is based on the currently calculated projections/PAA\n");
-		info.append("Set the scoring/roster settings on the home screen to this draft's settings to see accurate versions of these numbers\n\n");
-		info.append("Pos: PAA from starters (PAA total) - League Rank\n\n");
-		info.append("QB: " + ta.qbStart + " (" + ta.qbTotal + ") - Ranked " + rankQBs(newImport, ta));
-		info.append("\n\nRB: " + ta.rbStart + " (" + ta.rbTotal + ") - Ranked " + rankRBs(newImport, ta));
-		info.append("\n\nWR: " + ta.wrStart + " (" + ta.wrTotal + ") - Ranked " + rankWRs(newImport, ta));
-		info.append("\n\nTE: " + ta.teStart + " (" + ta.teTotal + ") - Ranked " + rankTEs(newImport, ta));
-		info.append("\n\nD/ST: "+ta.dStart +  " (" +  ta.dTotal + ") - Ranked " + rankDs(newImport, ta));
-		info.append("\n\nK: " + ta.kStart + " (" + ta.kTotal + ") - Ranked " + rankKs(newImport, ta));
-		double paaStart = ta.qbStart + ta.rbStart + ta.wrStart + ta.teStart + ta.dStart + ta.kStart;
-		double paaBench = (ta.qbTotal + ta.wrTotal + ta.teTotal + ta.rbTotal + ta.dTotal + ta.kTotal) - paaStart;
-		info.append("\n\nPAA from starters: " + df.format(paaStart));
-		info.append("\nPAA from bench: " + df.format(paaBench));
-		info.append("\nPAA total: " + df.format(paaStart + paaBench) + "\n");	
 		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
 	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
-		popUp.setContentView(R.layout.tweet_popup);
+		popUp.setContentView(R.layout.team_info_popup);
+		TextView head = (TextView)popUp.findViewById(R.id.team_info_popup_header);
+		head.setText(header);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(popUp.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-	    popUp.getWindow().setAttributes(lp);
-	    popUp.show(); 
-	    TextView textView = (TextView)popUp.findViewById(R.id.tweet_field);
-	    textView.setText(info.toString());
-	    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+	    lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+	    Button close = (Button)popUp.findViewById(R.id.team_info_close);
 	    close.setOnClickListener(new OnClickListener(){
 		@Override
 			public void onClick(View v) {
 				popUp.dismiss();
 			}
 	    });
+		popUp.getWindow().setAttributes(lp);
+	    popUp.show(); 
+	    GraphViewStyle gvs = new GraphViewStyle();
+		gvs.setTextSize(15);
+		GraphView graphView = new LineGraphView(this, "");
+		graphView.setGraphViewStyle(gvs);
+		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[9];
+		int max = newImport.teams.size() + 1;
+		String[] horizLabels = {"Total", "Start", "Bench", "QBs", "RBs", "WRs", "TEs", "D/ST", "Ks"};
+		String[] vertLabels = new String[max-1];
+		GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();  
+		for(int i = 1; i < max; i++)
+		{
+			vertLabels[i-1] = String.valueOf(i);
+		}
+		
+		int counter = 0;
+		dataSet[counter++] = new GraphViewData(counter, max - rankPAATot(newImport, ta));
+		GraphViewSeries es = new GraphViewSeries("PAA Total: " + df.format(paaTotal(ta)), seriesStyle, dataSet);
+		graphView.addSeries(es);
+		dataSet[counter++] = new GraphViewData(counter,  max - rankPAAStart(newImport, ta));
+		es = new GraphViewSeries("PAA Starters: " + df.format(paaStart(ta)), seriesStyle, dataSet);
+		graphView.addSeries(es);
+		dataSet[counter++] = new GraphViewData(counter,  max - rankPAABench(newImport, ta));
+		es = new GraphViewSeries("PAA Bench: " + df.format(paaBench(ta)), seriesStyle, dataSet);
+		graphView.addSeries(es);
+		dataSet[counter++] = new GraphViewData(counter, max - rankQBs(newImport, ta));
+		es = new GraphViewSeries("PAA QBs: " + ta.qbStart + " (" + ta.qbTotal + ")", seriesStyle, dataSet);
+		graphView.addSeries(es);
+		dataSet[counter++] = new GraphViewData(counter, max - rankRBs(newImport, ta));
+		es = new GraphViewSeries("PAA RBs: " + ta.rbStart + " (" + ta.rbTotal + ")", seriesStyle, dataSet);
+		graphView.addSeries(es);
+		dataSet[counter++] = new GraphViewData(counter, max - rankWRs(newImport, ta));
+		es = new GraphViewSeries("PAA WRs: " + ta.wrStart + " (" + ta.wrTotal + ")", seriesStyle, dataSet);
+		graphView.addSeries(es);
+		dataSet[counter++] = new GraphViewData(counter, max - rankTEs(newImport, ta));
+		es = new GraphViewSeries("PAA TEs: " + ta.teStart + " (" + ta.teTotal + ")", seriesStyle, dataSet);
+		graphView.addSeries(es);
+		dataSet[counter++] = new GraphViewData(counter, max - rankDs(newImport, ta));
+		es = new GraphViewSeries("PAA D/ST: " + ta.dStart + " (" + ta.dTotal + ")", seriesStyle, dataSet);
+		graphView.addSeries(es);
+		dataSet[counter++] = new GraphViewData(counter, max - rankKs(newImport, ta));
+		es = new GraphViewSeries("PAA Ks: " + ta.kStart + " (" + ta.kTotal + ")", seriesStyle, dataSet);
+		graphView.addSeries(es);
+		graphView.setHorizontalLabels(horizLabels);
+		graphView.setVerticalLabels(vertLabels);
+		graphView.setScrollable(true); 
+		graphView.setShowLegend(true); 	
+		graphView.setLegendAlign(LegendAlign.TOP);
+		graphView.setLegendWidth(250); 
+		((LineGraphView)graphView).setDrawBackground(true);
+		graphView.setManualYAxisBounds(max-1, 1);
+		LinearLayout layout = (LinearLayout) popUp.findViewById(R.id.plot_base_layout);
+		layout.addView(graphView);
+
+	}
+	
+	public int rankPAATot(ImportedTeam leagueSet, TeamAnalysis team)
+	{
+		int rank = 1;
+		for(TeamAnalysis iter : leagueSet.teams)
+		{
+			if(paaTotal(iter) > paaTotal(team))
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	public int rankPAAStart(ImportedTeam leagueSet, TeamAnalysis team)
+	{
+		int rank = 1;
+		for(TeamAnalysis iter : leagueSet.teams)
+		{
+			if(paaStart(iter) > paaStart(team))
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	public int rankPAABench(ImportedTeam leagueSet, TeamAnalysis team)
+	{
+		int rank = 1;
+		for(TeamAnalysis iter : leagueSet.teams)
+		{
+			if(paaBench(iter) > paaBench(team))
+			{
+				rank++;
+			}
+		}
+		return rank;
 	}
 	
 	/**
