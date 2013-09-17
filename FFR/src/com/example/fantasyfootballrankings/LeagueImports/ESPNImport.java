@@ -82,6 +82,7 @@ public class ESPNImport
 	public void handleESPNParsing(String urlOrig, final Context c) throws IOException
 	{
 		cont = c;
+		System.out.println(urlOrig);
 		url = urlOrig;
 		((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		GetTestDoc task1 = this.new GetTestDoc((Activity)cont, this);
@@ -632,7 +633,8 @@ public class ESPNImport
 		{
 			wholeSet.append(team.teamName + "~~" + team.team + "@@@");
 		}
-		editor.putString(leagueKey, wholeSet.toString());
+		System.out.println("Setting " + url);
+		editor.putString(leagueKey, url + "LEAGUEURLSPLIT" + wholeSet.toString());
 		editor.commit();
 		dummy.handleLayoutInit();
 	}

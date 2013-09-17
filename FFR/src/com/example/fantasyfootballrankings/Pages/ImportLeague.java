@@ -43,6 +43,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
@@ -366,7 +367,7 @@ public class ImportLeague extends Activity {
 	public void handleLeaguePopulation(String key)
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		String leagueDataWhole = prefs.getString(key, "SHIT");
+		String leagueDataWhole = prefs.getString(key, "SHIT").split("LEAGUEURLSPLIT")[1];
 		String[] perTeam = ManageInput.tokenize(leagueDataWhole, '@', 3);
 		List<TeamAnalysis> teamList = new ArrayList<TeamAnalysis>();
 		for(String teamSet : perTeam)
@@ -414,6 +415,7 @@ public class ImportLeague extends Activity {
 	    //Handles the basic league information
 	    TextView name = (TextView)res.findViewById(R.id.league_name);
 	    name.setText(newImport.leagueName);
+	    handleLongClick(name, newImport, cont);
 	    TextView host = (TextView)res.findViewById(R.id.hostName);
 	    host.setText("Hosted on " + newImport.leagueHost);
 	    //Handles the statistic part of the layout
@@ -763,6 +765,11 @@ public class ImportLeague extends Activity {
 	    ll.addView(res);
 	}
 	
+	/**
+	 * Handles the onclick of the team info list
+	 * @param list
+	 * @param newImport
+	 */
 	public void handleListOnItemClick(ListView list, final ImportedTeam newImport) {
 		OnItemClickListener listener = new OnItemClickListener(){
 
@@ -774,6 +781,51 @@ public class ImportLeague extends Activity {
 			
 		};
 		list.setOnItemClickListener(listener);
+	}
+	
+	public void handleLongClick(TextView name, final ImportedTeam newImport, final Context cont)
+	{
+		name.setOnLongClickListener(new OnLongClickListener(){
+
+			@Override
+			public boolean onLongClick(View v) {
+				if(((TextView)((Activity)cont).findViewById(R.id.hostName)).getText().toString().contains("ESPN"))
+				{
+					clearDataESPNInit((TextView)v, newImport, cont);
+				}
+				return true;
+			}
+			
+		});		
+	}
+	
+	public void clearDataESPNInit(TextView name, ImportedTeam newImport, Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		int numImported = prefs.getInt("Number of Leagues Imported", 1);
+		editor.putInt("Number of Leagues Imported", numImported-1);
+		String keyPart2 = name.getText().toString();
+		String keyPart1 = ((TextView)findViewById(R.id.hostName)).getText().toString().split("Hosted on ")[1];
+		String key = keyPart1 + "@@@" + keyPart2;
+		String remKey = key + "~~~";
+		System.out.println(key);
+		String oldKeys = prefs.getString("Imported League Keys", "");
+		System.out.println(oldKeys);
+		System.out.println(oldKeys.contains(remKey));
+		System.out.println(oldKeys.contains(key));
+		oldKeys = oldKeys.replaceAll(remKey, "");
+		String leagueURL = prefs.getString(key, "").split("LEAGUEURLSPLIT")[0];
+		System.out.println("Using " + leagueURL);
+		editor.remove(key);
+		editor.putString("Imported League Keys", oldKeys);
+		editor.commit();
+		ESPNImport espnImporter = new ESPNImport(holder, this);
+		try {
+			espnImporter.handleESPNParsing(leagueURL, cont);
+		} catch (IOException e) {
+			Toast.makeText(cont, "There was an error, do you have a valid internet connection?", Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	/**
