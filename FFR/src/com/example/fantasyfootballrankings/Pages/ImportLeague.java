@@ -789,9 +789,16 @@ public class ImportLeague extends Activity {
 
 			@Override
 			public boolean onLongClick(View v) {
-				if(((TextView)((Activity)cont).findViewById(R.id.hostName)).getText().toString().contains("ESPN"))
+				if(ManageInput.confirmInternet(cont))
 				{
-					clearDataESPNInit((TextView)v, newImport, cont);
+					if(((TextView)((Activity)cont).findViewById(R.id.hostName)).getText().toString().contains("ESPN"))
+					{
+						clearDataESPNInit((TextView)v, newImport, cont);
+					}
+				}
+				else
+				{
+					Toast.makeText(cont, "No internet connection available, can't refresh the league", Toast.LENGTH_SHORT).show();
 				}
 				return true;
 			}
