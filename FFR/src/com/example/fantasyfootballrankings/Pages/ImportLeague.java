@@ -783,6 +783,9 @@ public class ImportLeague extends Activity {
 		list.setOnItemClickListener(listener);
 	}
 	
+	/**
+	 * Handles the logic of deciding what to do when the name has been clicked
+	 */
 	public void handleLongClick(TextView name, final ImportedTeam newImport, final Context cont)
 	{
 		name.setOnLongClickListener(new OnLongClickListener(){

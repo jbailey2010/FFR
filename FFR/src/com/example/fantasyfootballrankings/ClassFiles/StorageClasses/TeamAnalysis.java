@@ -69,12 +69,12 @@ public class TeamAnalysis
 		dTotal = paaPos(d);
 		kTotal = paaPos(k);
 		cont = c;
-		qbStart = paaStarters(qb, "QB");
-		rbStart = paaStarters(rb, "RB");
-		wrStart = paaStarters(wr, "WR");
-		teStart = paaStarters(te, "TE");
-		dStart = paaStarters(d, "D/ST");
-		kStart = paaStarters(k, "K");
+		qbStart = paaStarters(qb, rb, wr, "QB");
+		rbStart = paaStarters(rb, rb, wr, "RB");
+		wrStart = paaStarters(wr, rb, wr, "WR");
+		teStart = paaStarters(te, rb, wr, "TE");
+		dStart = paaStarters(d, rb, wr, "D/ST");
+		kStart = paaStarters(k, rb, wr, "K");
 	}
 	
 	/**
@@ -112,7 +112,7 @@ public class TeamAnalysis
 	 * @param posStr
 	 * @return
 	 */
-	public double paaStarters(String[] pos, String posStr)
+	public double paaStarters(String[] pos, String[] rbs, String[] wrs, String posStr)
 	{
 		double total = 0.0;
 		DecimalFormat df = new DecimalFormat("#.##");
@@ -143,13 +143,105 @@ public class TeamAnalysis
 			limit = r.k;
 		}
 		Scoring s = ReadFromFile.readScoring(cont);
-		if(s.catches > 0 && posStr.equals("WR"))
+		if(r.flex > 0 && posStr.equals("RB") || posStr.equals("WR"))
 		{
-			limit++;
-		}
-		else if(s.catches == 0 && posStr.equals("RB"))
-		{
-			limit++;
+			PriorityQueue<PlayerObject> rb = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			PriorityQueue<PlayerObject> wr = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			for(int i = 0; i < rbs.length; i++)
+			{
+				if(holder.parsedPlayers.contains(rbs[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("RB") && player.info.name.equals(rbs[i]))
+						{
+							rb.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			for(int i = 0; i < wrs.length; i++)
+			{
+				if(holder.parsedPlayers.contains(wrs[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("WR") && player.info.name.equals(wrs[i]))
+						{
+							wr.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			if(posStr.equals("RB") && rb.size() < limit)
+			{
+				limit = rb.size();
+			}
+			else if(posStr.equals("WR") && wr.size() < limit)
+			{
+				limit = wr.size();
+			}
+			else if(posStr.equals("WR") && rb.size() <= r.rbs)
+			{
+				limit++;
+			}
+			else if(posStr.equals("RB") && wr.size() <= r.wrs)
+			{
+				limit++;
+			}
+			else
+			{
+				for(int i = 0; i < r.rbs; i++)
+				{
+					rb.poll();
+				}
+				for(int i = 0; i < r.wrs; i++)
+				{
+					wr.poll();
+				}
+				PlayerObject rbNextBest = rb.poll();
+				PlayerObject wrNextBest = wr.poll();
+				if(posStr.equals("WR") && wrNextBest.values.paa > rbNextBest.values.paa)
+				{
+					limit++;
+				}
+				else if(posStr.equals("RB") && rbNextBest.values.paa > wrNextBest.values.paa)
+				{
+					limit++;
+				}
+			}
 		}
 		PriorityQueue<PlayerObject> inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 		{

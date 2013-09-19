@@ -432,13 +432,19 @@ public class News extends Activity {
 				listview.smoothScrollToPosition(0);		
 			}
 		});
-	    List<String> news = new ArrayList<String>(10000);
 	    final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 	    for(NewsObjects newsObj : result)
 	    {
 	    	Map<String, String> datum = new HashMap<String, String>(2);
 	    	datum.put("news", newsObj.news + " \n\n" + newsObj.impact);
-	    	datum.put("date", " \n" + newsObj.date);
+	    	datum.put("date", newsObj.date);
+	    	data.add(datum);
+	    }
+	    if(data.size() == 0)
+	    {
+	    	Map<String, String> datum = new HashMap<String, String>(2);
+	    	datum.put("news", "No results were found");
+	    	datum.put("date", "Try again, or try a different search");
 	    	data.add(datum);
 	    }
 	    final SimpleAdapter adapter = new SimpleAdapter(cont, data, 

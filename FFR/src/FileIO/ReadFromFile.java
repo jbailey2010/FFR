@@ -285,8 +285,9 @@ public class ReadFromFile {
 		roster.wrs = prefs.getInt("Starting WRs", 2);
 		roster.tes = prefs.getInt("Starting TEs", 1);
 		roster.flex = prefs.getInt("Starting flexes", 1);
-		roster.def = 1;
-		roster.k = 1;
+		roster.def = prefs.getInt("Starting Defs", 1);
+		roster.k = prefs.getInt("Starting Ks", 1);
+		
 		return roster;
 	}
 	
