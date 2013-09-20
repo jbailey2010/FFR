@@ -99,7 +99,7 @@
 	                android:layout_below="@+id/imported_league_rankings"
 	                android:layout_marginTop="15dp"
 	                android:visibility="gone"
-	                android:text="Below are the individual team breakdowns, with each team's members and PAA breakdowns listed.\n\nClick on a team to see detailed positional breakdowns and rankings."
+	                android:text="Below are the individual team breakdowns, with each team's members and PAA breakdowns listed.\n\nClick on a team to see detailed positional breakdowns and rankings\n\nClick and hold to see the best lineup this team can field\nNote: This is based on your roster settings. During the preseason, this is overall, but during the season it's per week."
 	                android:textColor="#ffffff" />
 
 	            <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView

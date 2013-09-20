@@ -49,6 +49,7 @@ import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -393,7 +394,7 @@ public class ImportLeague extends Activity {
 			Map<String, String> datum = new HashMap<String, String>();
 			datum.put("head", team.teamName);
 			datum.put("main", team.team);
-			datum.put("sub", df.format(paaTotal(team)) + " PAA total\n" + df.format(paaStart(team)) + " PAA from starters");
+			datum.put("sub", df.format(paaTotal(team)) + " PAA Total\n" + df.format(paaStart(team)) + " PAA From Starters");
 			data.add(datum);
 		}
 	    list.setAdapter(adapter);
@@ -404,6 +405,15 @@ public class ImportLeague extends Activity {
 				teamSpecPopUp(arg1, newImport);
 			}
 	    });
+		OnItemLongClickListener longListener = new OnItemLongClickListener(){
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				optimalLineup(newImport, arg1);
+				return true;
+			}
+		};
+		list.setOnItemLongClickListener(longListener);
 	    //Handles the back button
 	    ImageView back = (ImageView)res.findViewById(R.id.back_button_league_stats);
 	    back.setOnClickListener(new OnClickListener(){
@@ -809,6 +819,12 @@ public class ImportLeague extends Activity {
 		});		
 	}
 	
+	/**
+	 * Clears the non password espn stuff then calls the refreshing
+	 * @param name
+	 * @param newImport
+	 * @param cont
+	 */
 	public void clearDataESPNInit(TextView name, ImportedTeam newImport, Context cont)
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
@@ -836,6 +852,50 @@ public class ImportLeague extends Activity {
 		} catch (IOException e) {
 			Toast.makeText(cont, "There was an error, do you have a valid internet connection?", Toast.LENGTH_SHORT).show();
 		}
+	}
+	
+	public void optimalLineup(ImportedTeam newImport, View v)
+	{
+		RelativeLayout base = (RelativeLayout)v;
+		TextView headerText = (TextView)base.findViewById(R.id.text1);
+		String header = headerText.getText().toString();
+		TextView content = (TextView)base.findViewById(R.id.text2);
+		String text = content.getText().toString();
+		Map<String, String[]> rosters = new HashMap<String, String[]>();
+		rosters.put("QB", text.split("Quarterbacks: ")[1].split("\n")[0].split(", "));
+		rosters.put("RB", text.split("Running Backs: ")[1].split("\n")[0].split(", "));
+		rosters.put("WR", text.split("Wide Receivers: ")[1].split("\n")[0].split(", "));
+		rosters.put("TE", text.split("Tight Ends: ")[1].split("\n")[0].split(", "));
+		rosters.put("D/ST", text.split("D/ST: ")[1].split("\n")[0].split(", "));
+		rosters.put("K", text.split("Kickers: ")[1].split("\n")[0].split(", "));
+		StringBuilder output = new StringBuilder(1000);
+		TeamAnalysis dummy = new TeamAnalysis();
+		output.append(dummy.optimalLineup(rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), "QB", cont, holder));
+		output.append(dummy.optimalLineup(rosters.get("RB"), rosters.get("RB"), rosters.get("WR"), "RB", cont, holder));
+		output.append(dummy.optimalLineup(rosters.get("WR"), rosters.get("RB"), rosters.get("WR"), "WR", cont, holder));
+		output.append(dummy.optimalLineup(rosters.get("TE"), rosters.get("RB"), rosters.get("WR"), "TE", cont, holder));
+		output.append(dummy.optimalLineup(rosters.get("D/ST"), rosters.get("RB"), rosters.get("WR"), "D/ST", cont, holder));
+		output.append(dummy.optimalLineup(rosters.get("K"), rosters.get("RB"), rosters.get("WR"), "K", cont, holder));
+		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
+	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+		popUp.setContentView(R.layout.team_optimal_lineup);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(popUp.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+	    popUp.getWindow().setAttributes(lp);
+	    popUp.show(); 
+	    Button close = (Button)popUp.findViewById(R.id.optimal_close);
+	    close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				popUp.dismiss();
+				return;
+			}
+	    });
+	    TextView teamName = (TextView)popUp.findViewById(R.id.team_name_optimal);
+	    teamName.setText(header);
+	    TextView teamRoster = (TextView)popUp.findViewById(R.id.team_roster_optimal);
+	    teamRoster.setText(output.toString());
 	}
 	
 	/**
@@ -985,12 +1045,12 @@ public class ImportLeague extends Activity {
 		popUp.getWindow().setAttributes(lp);
 	    popUp.show(); 
 	    GraphViewStyle gvs = new GraphViewStyle();
-		gvs.setTextSize(15);
+		gvs.setTextSize(12);
 		GraphView graphView = new LineGraphView(this, "");
 		graphView.setGraphViewStyle(gvs);
 		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[9];
 		int max = newImport.teams.size() + 1;
-		String[] horizLabels = {"Total", "Start", "Bench", "QBs", "RBs", "WRs", "TEs", "D/ST", "Ks"};
+		String[] horizLabels = {"All", "Start", "Rest", "QB", "RB", "WR", "TE", "D", "K"};
 		String[] vertLabels = new String[max-1];
 		GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();  
 		for(int i = 1; i < max; i++)
