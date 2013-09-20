@@ -38,6 +38,7 @@ import FileIO.WriteToFile;
 import android.content.Context;
 import android.os.StrictMode;
 import android.provider.ContactsContract.Data;
+import android.widget.Toast;
 
 /**
  * Handles operations done on all of the players
@@ -352,6 +353,7 @@ public class HighLevel
 		wrProj("http://www.fantasypros.com/nfl/projections/wr.php", points, scoring, "WR");
 		teProj("http://www.fantasypros.com/nfl/projections/te.php", points, scoring, "TE");
 		kProj("http://www.fantasypros.com/nfl/projections/k.php", points, "K");
+		defProjWeekly(points, "D/ST");
 		for(PlayerObject player : holder.players)
 		{
 			if(points.containsKey(player.info.name + "/" + player.info.team + "/" + player.info.position))
@@ -579,6 +581,50 @@ public class HighLevel
 		}		
 	}
 	
+	/**
+	 * Handles the weekly defensive projections
+	 * @param points
+	 * @param pos
+	 * @throws IOException
+	 */
+	public static void defProjWeekly(HashMap<String, Double> points, String pos) throws IOException
+	{
+		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/weeklycheatsheets.cfm?player_pos=DEF", "table#proj td");
+		if(html.length() < 59)
+		{
+			defProjAnnual(points, pos);
+		}
+		else
+		{
+			String[] td = ManageInput.tokenize(html, '\n', 1);
+			for(int i = 0; i < td.length; i+=5)
+			{
+				String teamName = ParseRankings.fixDefenses(td[i+1]);
+				String team = ParseRankings.fixTeams(td[i+2]);
+				double proj = Double.valueOf(td[i+4]);
+				points.put(teamName + "/" + team + "/" + pos, proj);
+			}
+		}
+	}
+	
+	/**
+	 * Handles the defensive projection parsing on an annual basis
+	 * @param points
+	 * @param pos
+	 * @throws IOException
+	 */
+	public static void defProjAnnual(HashMap<String, Double> points, String pos) throws IOException {
+		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/cheatsheets.cfm?player_pos=DEF", "table#proj td");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
+		for(int i = 0; i < td.length; i+=5)
+		{
+			String teamName = ParseRankings.fixDefenses(td[i+1]);
+			String team = ParseRankings.fixTeams(td[i+2]);
+			double proj = Double.valueOf(td[i+4]);
+			points.put(teamName + "/" + team + "/" + pos, proj);
+		}
+	}
+
 	/**
 	 * Calculates the points above average per player per position
 	 * @param holder

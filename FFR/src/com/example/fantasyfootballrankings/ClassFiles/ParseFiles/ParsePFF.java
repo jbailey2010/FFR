@@ -89,10 +89,6 @@ public class ParsePFF {
 				BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
 				Values.handleNewValue(match.values, newPlayer.values.worth);
 				match.info.team = ParseRankings.fixTeams(match.info.team);
-				if(match.info.position.equals("D/ST") && proj != 0)
-				{
-					match.values.points = proj;
-				}
 			}
 			else
 			{
@@ -102,7 +98,6 @@ public class ParsePFF {
 				if(proj != 0)
 				{
 					newPlayer.info.position = "D/ST";
-					newPlayer.values.points = proj;
 				}
 			}		
 	    }
