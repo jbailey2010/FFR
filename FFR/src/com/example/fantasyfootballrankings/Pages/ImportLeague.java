@@ -1045,7 +1045,7 @@ public class ImportLeague extends Activity {
 		graphView.setGraphViewStyle(gvs);
 		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[9];
 		int max = newImport.teams.size() + 1;
-		String[] horizLabels = {"All", "Start", "Rest", "QB", "RB", "WR", "TE", "D", "K"};
+		String[] horizLabels = {"QB", "RB", "WR", "TE", "D", "K", "All", "Start", "Rest"};
 		String[] vertLabels = new String[max-1];
 		GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();  
 		for(int i = 1; i < max; i++)
@@ -1054,40 +1054,38 @@ public class ImportLeague extends Activity {
 		}
 		
 		int counter = 0;
-		dataSet[counter++] = new GraphViewData(counter, max - rankPAATot(newImport, ta));
-		GraphViewSeries es = new GraphViewSeries("PAA Total: " + df.format(paaTotal(ta)), seriesStyle, dataSet);
-		graphView.addSeries(es);
-		dataSet[counter++] = new GraphViewData(counter,  max - rankPAAStart(newImport, ta));
-		es = new GraphViewSeries("PAA Starters: " + df.format(paaStart(ta)), seriesStyle, dataSet);
-		graphView.addSeries(es);
-		dataSet[counter++] = new GraphViewData(counter,  max - rankPAABench(newImport, ta));
-		es = new GraphViewSeries("PAA Bench: " + df.format(paaBench(ta)), seriesStyle, dataSet);
-		graphView.addSeries(es);
+		GraphViewSeriesStyle seriesStyle2 = new GraphViewSeriesStyle();
+		seriesStyle2.color = Color.CYAN;
+		GraphViewDataInterface[] dataSet2 = new GraphViewDataInterface[6];
 		dataSet[counter++] = new GraphViewData(counter, max - rankQBs(newImport, ta));
-		es = new GraphViewSeries("PAA QBs: " + ta.qbStart + " (" + ta.qbTotal + ")", seriesStyle, dataSet);
-		graphView.addSeries(es);
 		dataSet[counter++] = new GraphViewData(counter, max - rankRBs(newImport, ta));
-		es = new GraphViewSeries("PAA RBs: " + ta.rbStart + " (" + ta.rbTotal + ")", seriesStyle, dataSet);
-		graphView.addSeries(es);
 		dataSet[counter++] = new GraphViewData(counter, max - rankWRs(newImport, ta));
-		es = new GraphViewSeries("PAA WRs: " + ta.wrStart + " (" + ta.wrTotal + ")", seriesStyle, dataSet);
-		graphView.addSeries(es);
 		dataSet[counter++] = new GraphViewData(counter, max - rankTEs(newImport, ta));
-		es = new GraphViewSeries("PAA TEs: " + ta.teStart + " (" + ta.teTotal + ")", seriesStyle, dataSet);
-		graphView.addSeries(es);
 		dataSet[counter++] = new GraphViewData(counter, max - rankDs(newImport, ta));
-		es = new GraphViewSeries("PAA D/ST: " + ta.dStart + " (" + ta.dTotal + ")", seriesStyle, dataSet);
-		graphView.addSeries(es);
 		dataSet[counter++] = new GraphViewData(counter, max - rankKs(newImport, ta));
-		es = new GraphViewSeries("PAA Ks: " + ta.kStart + " (" + ta.kTotal + ")", seriesStyle, dataSet);
+		dataSet[counter++] = new GraphViewData(counter, max - rankPAATot(newImport, ta));
+		dataSet[counter++] = new GraphViewData(counter,  max - rankPAAStart(newImport, ta));
+		dataSet[counter++] = new GraphViewData(counter,  max - rankPAABench(newImport, ta));
+		GraphViewSeries es = new GraphViewSeries("PAA (Whole Roster)", seriesStyle, dataSet);
 		graphView.addSeries(es);
+		
+		counter = 0;
+		dataSet2[counter++] = new GraphViewData(counter, max - rankQBStart(newImport, ta));
+		dataSet2[counter++] = new GraphViewData(counter, max - rankRBStart(newImport, ta));
+		dataSet2[counter++] = new GraphViewData(counter, max - rankWRStart(newImport, ta));
+		dataSet2[counter++] = new GraphViewData(counter, max - rankTEStart(newImport, ta));
+		dataSet2[counter++] = new GraphViewData(counter, max - rankDStart(newImport, ta));
+		dataSet2[counter++] = new GraphViewData(counter, max - rankKStart(newImport, ta));
+		es = new GraphViewSeries("PAA (Starters)", seriesStyle2, dataSet2);
+		graphView.addSeries(es);
+
+		
 		graphView.setHorizontalLabels(horizLabels);
 		graphView.setVerticalLabels(vertLabels);
 		graphView.setScrollable(true); 
 		graphView.setShowLegend(true); 	
 		graphView.setLegendAlign(LegendAlign.TOP);
 		graphView.setLegendWidth(250); 
-		((LineGraphView)graphView).setDrawBackground(true);
 		graphView.setManualYAxisBounds(max-1, 1);
 		LinearLayout layout = (LinearLayout) popUp.findViewById(R.id.plot_base_layout);
 		layout.addView(graphView);
@@ -1152,6 +1150,20 @@ public class ImportLeague extends Activity {
 		return rank;
 	}
 	
+	public int rankQBStart(ImportedTeam leagueSet, TeamAnalysis team)
+	{
+		int rank = 1;
+		for(TeamAnalysis iter : leagueSet.teams)
+		{
+			if(iter.qbStart > team.qbStart)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+
+	
 	/**
 	 * Ranks the rb data
 	 * @param leagueSet
@@ -1164,6 +1176,19 @@ public class ImportLeague extends Activity {
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
 			if(iter.rbTotal > team.rbTotal)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	public int rankRBStart(ImportedTeam leagueSet, TeamAnalysis team)
+	{
+		int rank = 1;
+		for(TeamAnalysis iter : leagueSet.teams)
+		{
+			if(iter.rbStart > team.rbStart)
 			{
 				rank++;
 			}
@@ -1190,6 +1215,19 @@ public class ImportLeague extends Activity {
 		return rank;
 	}
 	
+	public int rankWRStart(ImportedTeam leagueSet, TeamAnalysis team)
+	{
+		int rank = 1;
+		for(TeamAnalysis iter : leagueSet.teams)
+		{
+			if(iter.wrStart > team.wrStart)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
 	/**
 	 * Ranks the te data
 	 * @param leagueSet
@@ -1202,6 +1240,19 @@ public class ImportLeague extends Activity {
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
 			if(iter.teTotal > team.teTotal)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	public int rankTEStart(ImportedTeam leagueSet, TeamAnalysis team)
+	{
+		int rank = 1;
+		for(TeamAnalysis iter : leagueSet.teams)
+		{
+			if(iter.teStart > team.teStart)
 			{
 				rank++;
 			}
@@ -1228,6 +1279,19 @@ public class ImportLeague extends Activity {
 		return rank;
 	}
 	
+	public int rankDStart(ImportedTeam leagueSet, TeamAnalysis team)
+	{
+		int rank = 1;
+		for(TeamAnalysis iter : leagueSet.teams)
+		{
+			if(iter.dStart > team.dStart)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
 	/**
 	 * Ranks the kicker data
 	 * @param leagueSet
@@ -1240,6 +1304,19 @@ public class ImportLeague extends Activity {
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
 			if(iter.kTotal > team.kTotal)
+			{
+				rank++;
+			}
+		}
+		return rank;
+	}
+	
+	public int rankKStart(ImportedTeam leagueSet, TeamAnalysis team)
+	{
+		int rank = 1;
+		for(TeamAnalysis iter : leagueSet.teams)
+		{
+			if(iter.kStart > team.kStart)
 			{
 				rank++;
 			}

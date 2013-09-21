@@ -41,7 +41,7 @@
 		    android:layout_height="wrap_content"
 		    android:layout_centerHorizontal="true"
 		    android:layout_below="@+id/team_info_popup_header"
-		    android:text="Legend Key: PAA Pos: Starters (Total)"
+		    android:text="X-Axis: Position, Y-Axis: League Rank"
 		    android:textStyle=""
 		    android:textAppearance="?android:attr/textAppearanceSmall" />
 
