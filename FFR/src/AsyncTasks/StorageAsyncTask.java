@@ -275,7 +275,7 @@ public class StorageAsyncTask
 			String[][] individual = new String[perSet.length][];
 			for(int j = 0; j < perSet.length; j++)
 			{
-				individual[j] = ManageInput.tokenize(perSet[j], '~', 1);
+				individual[j] = perSet[j].split("~");
 			}
 			if(!perSet[0].equals("Doesn't matter") && individual.length > 4)
 			{

@@ -394,6 +394,10 @@ public class Draft
 					break;
 				}
 			}
+			if(p == null)
+			{
+				System.out.println("NULL " + name + " was waht it should've bene");
+			}
 			Map<String, String> datum = new HashMap<String, String>(2);
 			if(isAuction)
 			{
@@ -407,10 +411,10 @@ public class Draft
 			data.add(datum);
 		}
 		final SimpleAdapter adapter = new SimpleAdapter(cont, data, 
-	    		android.R.layout.simple_list_item_2, 
+	    		R.layout.web_listview_item, 
 	    		new String[] {"main", "sub"}, 
-	    		new int[] {android.R.id.text1, 
-	    			android.R.id.text2});
+	    		new int[] {R.id.text1, 
+	    			R.id.text2});
 	    listWatch.setAdapter(adapter);
 	    //ArrayAdapter<String> mAdapter = display(dialog, holder.draft.ignore, holder, listWatch, cont);
 	    handleListSelect(holder, cont, listWatch, dialog, adapter, data);
