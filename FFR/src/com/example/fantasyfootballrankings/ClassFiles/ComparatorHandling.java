@@ -743,7 +743,6 @@ public class ComparatorHandling
 		TextView header2 = (TextView)dialog.findViewById(R.id.compare_header_2);
 		header2.setText(player2.info.name);
 		TextView result = (TextView)dialog.findViewById(R.id.comparator_result);
-		System.out.println(val1 + ", " + val2);
 		if(val1 > val2)
 		{
 			if(val1 - val2 < 4.0)

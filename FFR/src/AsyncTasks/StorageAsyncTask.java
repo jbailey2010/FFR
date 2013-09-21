@@ -149,7 +149,6 @@ public class StorageAsyncTask
 	    	StringBuilder players = new StringBuilder(10000);
 	    	for (PlayerObject player : holder.players)
 	    	{
-	    		System.out.println(player.info.name + " - " + player.values.worth);
 	    		players.append( 
 	    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
 	    	    		 player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 

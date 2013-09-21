@@ -658,7 +658,6 @@ public class ManageInput
 				boolean isAuction = ReadFromFile.readIsAuction(cont);
 				boolean needReset = false;
 				String input = salary.getText().toString();
-				System.out.println("String is " + input);
 				if(s.isChecked() || (ManageInput.isInteger(input) && a.isChecked() && Integer.parseInt(input) > 0))
 				{
 					SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
@@ -670,8 +669,6 @@ public class ManageInput
 					if(a.isChecked())
 					{
 						double aucFactor = 200.0 / Integer.parseInt(input);
-						System.out.println("Int is " + Integer.parseInt(input));
-						System.out.println("Double is " + aucFactor);
 						WriteToFile.writeIsAuction(true, cont, aucFactor, holder);
 					}
 					else

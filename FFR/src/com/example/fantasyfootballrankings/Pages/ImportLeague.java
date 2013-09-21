@@ -835,14 +835,9 @@ public class ImportLeague extends Activity {
 		String keyPart1 = ((TextView)findViewById(R.id.hostName)).getText().toString().split("Hosted on ")[1];
 		String key = keyPart1 + "@@@" + keyPart2;
 		String remKey = key + "~~~";
-		System.out.println(key);
 		String oldKeys = prefs.getString("Imported League Keys", "");
-		System.out.println(oldKeys);
-		System.out.println(oldKeys.contains(remKey));
-		System.out.println(oldKeys.contains(key));
 		oldKeys = oldKeys.replaceAll(remKey, "");
 		String leagueURL = prefs.getString(key, "").split("LEAGUEURLSPLIT")[0];
-		System.out.println("Using " + leagueURL);
 		editor.remove(key);
 		editor.putString("Imported League Keys", oldKeys);
 		editor.commit();
