@@ -36,10 +36,11 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TwoLineListItem;
-import com.ffr.fantasyfootballrankings.R;
 
+import com.ffr.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
@@ -75,7 +76,7 @@ public class PlayerInfo
 		
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 	    
 		Rankings.voice = (Button) dialog.findViewById(R.id.speakButton);
@@ -142,15 +143,15 @@ public class PlayerInfo
 		{
 			// Your entity key. May be passed as a Bundle parameter to your activity
 			String entityKey = "http://www.fantasyfootballdraftmanager.com/" + namePlayer + "/player_info";
-							
+
 							// Create an entity object including a name
 							// The Entity object is Serializable, so you could also store the whole object in the Intent
 			Entity entity = Entity.newInstance(entityKey, namePlayer);
-							
+
 							// Wrap your existing view with the action bar.
 							// your_layout refers to the resource ID of your current layout.
 			View actionBarWrapped = ActionBarUtils.showActionBar(act, R.layout.search_output, entity);
-							
+
 							// Now set the view for your activity to be the wrapped view.
 			dialog.setContentView(actionBarWrapped);
 		}
@@ -219,49 +220,57 @@ public class PlayerInfo
 			}
 		}
 		final PlayerObject copy = searchedPlayer;
+		final Roster r = ReadFromFile.readRoster(act);
 		if(draftable)
 		{
 			name.setOnLongClickListener(new OnLongClickListener(){
 				@Override
 				public boolean onLongClick(View v) {
-					String nameStr = name.getText().toString();
-					if(!Draft.isDrafted(nameStr, holder.draft))
+					if(r.isRostered(copy))
 					{
-						int index = 0;
-		                for(int i = 0; i < holder.players.size(); i++)
-		                {
-		                	
-		               	 	if(Rankings.data.get(i).get("main").contains(namePlayer))
-		               	 	{
-		               	 		index = i;
-		               	 		break;
-		               	 	}
-		                } 
-		               	DecimalFormat df = new DecimalFormat("#.##");
-		               	Rankings.data.remove(index);
-		               	Rankings.adapter.notifyDataSetChanged();
-		               	Map<String, String> datum = new HashMap<String, String>();
-		               	boolean isAuction = ReadFromFile.readIsAuction(act);
-		               	if(isAuction)
-		               	{
-		               		datum.put("main", df.format(copy.values.secWorth) + ":  " + copy.info.name);
-		               	}
-		               	else if(!isAuction && copy.values.ecr != -1)
-		               	{
-		               		datum.put("main", df.format(copy.values.ecr) + ":  " + copy.info.name);
-		               	}
-		               	else if(!isAuction && copy.values.ecr == -1)
-		               	{
-		               		datum.put("main", copy.info.name);
-		               	}
-		               	datum.put("sub", copy.info.position + " - " + copy.info.team + "\n" + "Bye: " + holder.bye.get(copy.info.team));
-						Rankings.handleDrafted(datum, 
-								holder, (Activity)Rankings.context, dialog, index);
-						return true;
+						String nameStr = name.getText().toString();
+						if(!Draft.isDrafted(nameStr, holder.draft))
+						{
+							int index = 0;
+			                for(int i = 0; i < holder.players.size(); i++)
+			                {
+	
+			               	 	if(Rankings.data.get(i).get("main").contains(namePlayer))
+			               	 	{
+			               	 		index = i;
+			               	 		break;
+			               	 	}
+			                } 
+			               	DecimalFormat df = new DecimalFormat("#.##");
+			               	Rankings.data.remove(index);
+			               	Rankings.adapter.notifyDataSetChanged();
+			               	Map<String, String> datum = new HashMap<String, String>();
+			               	boolean isAuction = ReadFromFile.readIsAuction(act);
+			               	if(isAuction)
+			               	{
+			               		datum.put("main", df.format(copy.values.secWorth) + ":  " + copy.info.name);
+			               	}
+			               	else if(!isAuction && copy.values.ecr != -1)
+			               	{
+			               		datum.put("main", df.format(copy.values.ecr) + ":  " + copy.info.name);
+			               	}
+			               	else if(!isAuction && copy.values.ecr == -1)
+			               	{
+			               		datum.put("main", copy.info.name);
+			               	}
+			               	datum.put("sub", copy.info.position + " - " + copy.info.team + "\n" + "Bye: " + holder.bye.get(copy.info.team));
+							Rankings.handleDrafted(datum, 
+									holder, (Activity)Rankings.context, dialog, index);
+							return true;
+						}
+						else
+						{
+							Toast.makeText(act, "That player is already drafted", Toast.LENGTH_SHORT).show();
+						}
 					}
 					else
 					{
-						Toast.makeText(act, "That player is already drafted", Toast.LENGTH_SHORT).show();
+						Toast.makeText(act, "Your league has no roster spots for this position. Are the roster settings up to date?", Toast.LENGTH_SHORT).show();
 					}
 					return true;
 				}
@@ -1081,7 +1090,7 @@ public class PlayerInfo
 		dialog.setContentView(R.layout.player_tweet_search); 
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 	    dialog.show();
 	    TextView header = (TextView)dialog.findViewById(R.id.name);
@@ -1095,7 +1104,6 @@ public class PlayerInfo
 				return;
 			}
 	    });
-	    List<String> news = new ArrayList<String>(10000);
 	    final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 	    for(NewsObjects newsObj : result)
 	    {

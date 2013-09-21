@@ -284,6 +284,9 @@ public class Rankings extends Activity {
 		}
 	}
 	
+	/**
+	 * Starts the draft saving process
+	 */
 	public void saveDraft() 
 	{
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
@@ -291,7 +294,7 @@ public class Rankings extends Activity {
 		dialog.setContentView(R.layout.save_draft_confirm);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 	    dialog.show();
 	    Button close = (Button)dialog.findViewById(R.id.draft_save_close);
@@ -311,6 +314,9 @@ public class Rankings extends Activity {
 	    });
 	}
 	
+	/**
+	 * Once it's confirmed, more on
+	 */
 	public void saveDraftConfirmed() 
 	{
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
@@ -318,7 +324,7 @@ public class Rankings extends Activity {
 		dialog.setContentView(R.layout.team_name_input);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 	    dialog.show();
 	    Button close = (Button)dialog.findViewById(R.id.draft_save_confirmed_close);
@@ -360,7 +366,7 @@ public class Rankings extends Activity {
 		dialog.setContentView(R.layout.help_rankings);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 	    dialog.show();
 	    Button close = (Button)dialog.findViewById(R.id.help_rankings_close);
@@ -1066,17 +1072,36 @@ public class Rankings extends Activity {
 	/**
 	 * Populate team/pos lists
 	 */
-	public static void setLists()
+	public void setLists()
 	{
+		Roster r = ReadFromFile.readRoster(this);
 		if(posList.size() != 7)
 		{
 			posList.add("All Positions");
-			posList.add("QB");
-			posList.add("RB");
-			posList.add("WR");
-			posList.add("TE");
-			posList.add("D/ST");
-			posList.add("K");
+			if(r.qbs != 0)
+			{
+				posList.add("QB");
+			}
+			if(r.rbs != 0)
+			{
+				posList.add("RB");
+			}
+			if(r.wrs != 0)
+			{
+				posList.add("WR");
+			}
+			if(r.tes != 0)
+			{
+				posList.add("TE");
+			}
+			if(r.def != 0)
+			{
+				posList.add("D/ST");
+			}
+			if(r.k != 0)
+			{
+				posList.add("K");
+			}
 		}
 		if(teamList.size() != 33)
 		{
@@ -1131,7 +1156,7 @@ public class Rankings extends Activity {
 		dialog.setContentView(R.layout.rankings_filter);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		Button cancel = (Button)dialog.findViewById(R.id.rankings_filter_close);
 		cancel.setOnClickListener(new OnClickListener() 
@@ -1141,13 +1166,35 @@ public class Rankings extends Activity {
 	    	}	
 		});
 		posList.clear();
-		posList.add("All Positions");
-		posList.add("QB");
-		posList.add("RB");
-		posList.add("WR");
-		posList.add("TE");
-		posList.add("D/ST");
-		posList.add("K");
+		Roster r = ReadFromFile.readRoster(this);
+		if(posList.size() != 7)
+		{
+			posList.add("All Positions");
+			if(r.qbs != 0)
+			{
+				posList.add("QB");
+			}
+			if(r.rbs != 0)
+			{
+				posList.add("RB");
+			}
+			if(r.wrs != 0)
+			{
+				posList.add("WR");
+			}
+			if(r.tes != 0)
+			{
+				posList.add("TE");
+			}
+			if(r.def != 0)
+			{
+				posList.add("D/ST");
+			}
+			if(r.k != 0)
+			{
+				posList.add("K");
+			}
+		}
 		teamList.clear();
 		teamList.add("All Teams");
 		teamList.add("Arizona Cardinals");
@@ -1236,7 +1283,7 @@ public class Rankings extends Activity {
 		dialog.setContentView(R.layout.refresh); 
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		Button refreshDraft = (Button)dialog.findViewById(R.id.reset_draft);
 		refreshDraft.setOnClickListener(new OnClickListener(){
@@ -1277,7 +1324,7 @@ public class Rankings extends Activity {
 				} catch (XPatherException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
+ 				}
 	    	}	
 		});
     	dialog.show();	
@@ -1483,7 +1530,7 @@ public class Rankings extends Activity {
 		dialog.setContentView(R.layout.value_salary); 
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		String salRem = Integer.toString((int)(holder.draft.remainingSalary));
 		String value = Integer.toString((int)holder.draft.value); 
@@ -1566,7 +1613,7 @@ public class Rankings extends Activity {
 		dialog.setContentView(R.layout.paa_pos_left); 
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 	    dialog.show();
 	    TextView qbLeft = (TextView)dialog.findViewById(R.id.qb_paa_left);
@@ -1574,10 +1621,39 @@ public class Rankings extends Activity {
 	    TextView wrLeft = (TextView)dialog.findViewById(R.id.wr_paa_left);
 	    TextView teLeft = (TextView)dialog.findViewById(R.id.te_paa_left);
 	    DecimalFormat df = new DecimalFormat("#.##");
-	    qbLeft.setText("QB: " + paaDiff("QB").split(": ")[1]);
-	    rbLeft.setText("RB: " + paaDiff("RB").split(": ")[1]);
-	    wrLeft.setText("WR: " + paaDiff("WR").split(": ")[1]);
-	    teLeft.setText("TE: " + paaDiff("TE").split(": ")[1]);
+	    Roster r = ReadFromFile.readRoster(context);
+	    if(r.qbs != 0)
+	    {
+	    	qbLeft.setText("QB: " + paaDiff("QB").split(": ")[1]);
+	    }
+	    else
+	    {
+	    	qbLeft.setVisibility(View.GONE);
+	    }
+	    if(r.rbs != 0)
+	    {
+	    	rbLeft.setText("RB: " + paaDiff("RB").split(": ")[1]);
+	    }
+	    else
+	    {
+	    	rbLeft.setVisibility(View.GONE);
+	    }
+	    if(r.wrs != 0)
+	    {
+	    	wrLeft.setText("WR: " + paaDiff("WR").split(": ")[1]);
+	    }
+	    else
+	    {
+	    	wrLeft.setVisibility(View.GONE);
+	    }
+	    if(r.teams != 0)
+	    {
+	    	teLeft.setText("TE: " + paaDiff("TE").split(": ")[1]);
+	    }
+	    else
+	    {
+	    	teLeft.setVisibility(View.GONE);
+	    }
 	    Button back = (Button)dialog.findViewById(R.id.val_left_back);
 	    back.setOnClickListener(new OnClickListener(){
 			@Override
@@ -1617,7 +1693,7 @@ public class Rankings extends Activity {
 		dialog.setContentView(R.layout.draft_team_status);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
     	String qbs = handleDraftParsing(holder.draft.qb);
     	String rbs = handleDraftParsing(holder.draft.rb);
@@ -1637,6 +1713,31 @@ public class Rankings extends Activity {
     	te.setText("Tight Ends: " + tes);
     	d.setText("D/ST: " + ds);
     	k.setText("Kickers: " + ks);
+    	Roster r = ReadFromFile.readRoster(cont);
+    	if(qb.getText().toString().contains("None selected") && r.qbs == 0)
+    	{
+    		qb.setVisibility(View.GONE);
+    	}
+    	if(rb.getText().toString().contains("None selected") && r.rbs == 0)
+    	{
+    		rb.setVisibility(View.GONE);
+    	}
+    	if(wr.getText().toString().contains("None selected") && r.wrs == 0)
+    	{
+    		wr.setVisibility(View.GONE);
+    	}
+    	if(te.getText().toString().contains("None selected") && r.tes == 0)
+    	{
+    		te.setVisibility(View.GONE);
+    	}
+    	if(d.getText().toString().contains("None selected") && r.def == 0)
+    	{
+    		d.setVisibility(View.GONE);
+    	}
+    	if(k.getText().toString().contains("None selected") && r.k == 0)
+    	{
+    		k.setVisibility(View.GONE);
+    	}
     	dialog.show();
     	Button back = (Button)dialog.findViewById(R.id.back);
 		back.setOnClickListener(new OnClickListener()
@@ -1812,15 +1913,17 @@ public class Rankings extends Activity {
 		{
 			teamFilter = teamList.get(0);
 		}
+		Roster r = ReadFromFile.readRoster(cont);
 		for(int i = 0; i < holder.players.size(); i++)
 		{
 			PlayerObject player = holder.players.get(i);
-			if(!holder.draft.ignore.contains(player.info.name))
+			if(!holder.draft.ignore.contains(player.info.name) && r.isRostered(player))
 			{
 				if((teamFilter.contains("All") && posFilter.contains("All")) || 
 						(teamList.contains(player.info.team) && !teamFilter.contains("All")) || 
 						(posList.contains(player.info.position) && !posFilter.contains("All")))
 				{
+					
 					inter.add(player);
 				}
 			}
@@ -2012,11 +2115,10 @@ public class Rankings extends Activity {
     	popup.setContentView(R.layout.draft_by_who);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(popup.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    popup.getWindow().setAttributes(lp);
     	TextView header = (TextView)popup.findViewById(R.id.name_header);
     	String name = view.get("main");
-    	final String adapt = name;
     	if(view.get("main").contains(":"))
     	{
     		name = view.get("main").split(":  ")[1];

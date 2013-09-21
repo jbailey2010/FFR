@@ -550,17 +550,19 @@ public class ManageInput
 		final Spinner flex = (Spinner)dialog.findViewById(R.id.flex_quantity);
 		final Spinner def = (Spinner)dialog.findViewById(R.id.defense_quantity);
 		final Spinner k = (Spinner)dialog.findViewById(R.id.kicker_quantity);
+		spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
+				android.R.layout.simple_spinner_dropdown_item, quantitiesFlex);
+		flex.setAdapter(spinnerArrayAdapter);
+		def.setAdapter(spinnerArrayAdapter);
+		k.setAdapter(spinnerArrayAdapter);
 		flex.setSelection(1);
 		team.setSelection(1);
 		wr.setSelection(2);
 		rb.setSelection(2);
 		qb.setSelection(1);
 		te.setSelection(1);
-		spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
-				android.R.layout.simple_spinner_dropdown_item, quantitiesFlex);
-		flex.setAdapter(spinnerArrayAdapter);
-		def.setAdapter(spinnerArrayAdapter);
-		k.setAdapter(spinnerArrayAdapter);
+		k.setSelection(1);
+		def.setSelection(1);
 		Button submit = (Button)dialog.findViewById(R.id.roster_submit);
 		submit.setOnClickListener(new OnClickListener(){
 			@Override
