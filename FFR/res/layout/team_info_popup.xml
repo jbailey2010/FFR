@@ -14,17 +14,6 @@
 	        android:textColor="#CD0000"
 	        android:textSize="32sp"
 	        android:text="X" />
-        <TextView
-		    android:id="@+id/team_info_popup_header"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_alignBaseline="@+id/team_info_close"
-		    android:layout_alignBottom="@+id/team_info_close"
-		    android:layout_centerHorizontal="true"
-		    android:text="Header"
-		    android:textColor="#FFFFFF"
-		    android:textSize="24sp"
-		    android:textStyle="bold" />
         
 		<LinearLayout
 		    android:id="@+id/plot_base_layout"
@@ -44,5 +33,16 @@
 		    android:text="X-Axis: Position, Y-Axis: League Rank"
 		    android:textStyle=""
 		    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+		<TextView
+		    android:id="@+id/team_info_popup_header"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@+id/team_info_close"
+		    android:layout_centerHorizontal="true"
+		    android:text="Header"
+		    android:textColor="#FFFFFF"
+		    android:textSize="24sp"
+		    android:textStyle="bold" />
 
     </RelativeLayout>

@@ -3,7 +3,7 @@
         android:id="@+id/compare_team"
         android:orderInCategory="100"
         android:showAsAction="ifRoom|withText"
-        android:title="Compare Teams"
+        android:title="Matchup Teams"
         android:visible="false"
         android:enabled="false"/>"
     <item

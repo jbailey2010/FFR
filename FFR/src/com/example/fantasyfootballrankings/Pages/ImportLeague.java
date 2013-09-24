@@ -1186,7 +1186,18 @@ public class ImportLeague extends Activity {
 	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		popUp.setContentView(R.layout.team_info_popup);
 		TextView head = (TextView)popUp.findViewById(R.id.team_info_popup_header);
-		head.setText("Results");
+		int r1 = rankPAAStart(newImport, t1);
+		int r2 = rankPAAStart(newImport, t2);
+		String winner = "";
+		if(r1 > r2)
+		{
+			winner = t2.teamName;
+		}
+		else
+		{
+			winner = t1.teamName;
+		}
+		head.setText("Projected Winner: " + winner);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(popUp.getWindow().getAttributes());
 	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
