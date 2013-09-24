@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/compare_close"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textColor="#CD0000"
+        android:textSize="28sp"
+        android:text="X" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/compare_close"
+        android:layout_centerHorizontal="true"
+        android:text="Select the Two Teams Below"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/team1_spinner"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView1"
+        android:background="@drawable/spinner_well"
+        android:layout_marginTop="27dp" />
+
+    <Spinner
+        android:id="@+id/team2_spinner"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/team1_spinner"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/spinner_well" />
+
+    <Button
+        android:id="@+id/compare_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/ButtonText"
+        android:background="@drawable/btn_red"
+        android:layout_below="@+id/team2_spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:text="Submit" />
+
+</RelativeLayout>

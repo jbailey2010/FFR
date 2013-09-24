@@ -50,6 +50,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -58,6 +59,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,7 +73,10 @@ public class ImportLeague extends Activity {
 	public Context cont;
 	public static Storage holder = new Storage(null);
 	public static LinearLayout ll;
-
+	public Menu menuObj;
+	public MenuItem compare;
+	public ImportedTeam newImport;
+	
 	/**
 	 * Sets up the layout of the activity
 	 */
@@ -115,6 +120,7 @@ public class ImportLeague extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.import_league, menu);
+		menuObj = menu;
 		return true; 
 	}
 	
@@ -165,6 +171,9 @@ public class ImportLeague extends Activity {
 				return true;
 			case R.id.clear_imports:
 				clearImports();
+				return true;
+			case R.id.compare_team:
+				compareTeamInit();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -298,6 +307,12 @@ public class ImportLeague extends Activity {
 	 */
 	public void handleLayoutInit()
 	{
+		if(menuObj != null)
+		{
+			compare = (MenuItem)menuObj.findItem(R.id.compare_team);
+			compare.setVisible(false);
+			compare.setEnabled(false);
+		}
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		ll.removeAllViews();
 		if(prefs.getInt("Number of Leagues Imported", 0) == 0)
@@ -332,6 +347,12 @@ public class ImportLeague extends Activity {
 	    		new String[] {"main", "sub"}, 
 	    		new int[] {R.id.text1, 
 	    			R.id.text2});
+		if(menuObj != null)
+		{
+			compare = (MenuItem)menuObj.findItem(R.id.compare_team);
+			compare.setVisible(false);
+			compare.setEnabled(false);
+		}
 	    list.setAdapter(adapter);
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		String usedKeys = prefs.getString("Imported League Keys", "");
@@ -367,6 +388,9 @@ public class ImportLeague extends Activity {
 	 */
 	public void handleLeaguePopulation(String key)
 	{
+		compare = (MenuItem)menuObj.findItem(R.id.compare_team);
+		compare.setVisible(true);
+		compare.setEnabled(true);
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		String leagueDataWhole = prefs.getString(key, "SHIT").split("LEAGUEURLSPLIT")[1];
 		String[] perTeam = ManageInput.tokenize(leagueDataWhole, '@', 3);
@@ -378,7 +402,7 @@ public class ImportLeague extends Activity {
 			teamList.add(teamData);
 		}
 		String[] keySet = key.split("@@@");
-		final ImportedTeam newImport = new ImportedTeam(teamList, keySet[1], keySet[0]);
+		newImport = new ImportedTeam(teamList, keySet[1], keySet[0]);
 		View res = ((Activity)cont).getLayoutInflater().inflate(R.layout.league_stats_output, ll, false);
 		//Below sets the team information
 	    List<Map<String, String>>data = new ArrayList<Map<String, String>>();
@@ -1092,6 +1116,143 @@ public class ImportLeague extends Activity {
 
 	}
 	
+	public void compareTeamInit()
+	{
+		List<String> teamNames = new ArrayList<String>();
+		for(TeamAnalysis team : newImport.teams)
+		{
+			teamNames.add(team.teamName);
+		}
+		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
+	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+		popUp.setContentView(R.layout.compare_teams_popup);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(popUp.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+	    Button close = (Button)popUp.findViewById(R.id.compare_close);
+	    close.setOnClickListener(new OnClickListener(){
+		@Override
+			public void onClick(View v) {
+				popUp.dismiss();
+			}
+	    });
+	    popUp.show();
+	    final Spinner team1 = (Spinner)popUp.findViewById(R.id.team1_spinner);
+	    final Spinner team2 = (Spinner)popUp.findViewById(R.id.team2_spinner);
+	    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
+				android.R.layout.simple_spinner_dropdown_item, teamNames);
+	    team1.setAdapter(spinnerArrayAdapter);
+	    team2.setAdapter(spinnerArrayAdapter);
+	    Button submit = (Button)popUp.findViewById(R.id.compare_submit);
+	    submit.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				String team1Str = team1.getSelectedItem().toString();
+				String team2Str = team2.getSelectedItem().toString();
+				if(!team1Str.equals(team2Str))
+				{
+					popUp.dismiss();
+					compareTeamOutput(team1Str, team2Str);
+				}
+				else
+				{
+					Toast.makeText(cont, "Please select different teams", Toast.LENGTH_SHORT).show();
+				}
+			}
+	    });
+	}
+	
+	/**
+	 * Shows the graph of the team comparison
+	 * @param team1
+	 * @param team2
+	 */
+	public void compareTeamOutput(String team1, String team2)
+	{
+		TeamAnalysis t1 = null;
+		TeamAnalysis t2 = null;
+		for(TeamAnalysis team : newImport.teams)
+		{
+			if(team.teamName.equals(team1))
+			{
+				t1 = team;
+			}
+			if(team.teamName.equals(team2))
+			{
+				t2 = team;
+			}
+		}
+		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
+	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+		popUp.setContentView(R.layout.team_info_popup);
+		TextView head = (TextView)popUp.findViewById(R.id.team_info_popup_header);
+		head.setText("Results");
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(popUp.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+	    lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+	    Button close = (Button)popUp.findViewById(R.id.team_info_close);
+	    close.setOnClickListener(new OnClickListener(){
+		@Override
+			public void onClick(View v) {
+				popUp.dismiss();
+			}
+	    });
+		popUp.getWindow().setAttributes(lp);
+	    popUp.show(); 
+	    GraphViewStyle gvs = new GraphViewStyle();
+		gvs.setTextSize(12);
+		GraphView graphView = new LineGraphView(this, "");
+		graphView.setGraphViewStyle(gvs);
+		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[7];
+		int max = newImport.teams.size() + 1;
+		String[] horizLabels = {"Starters", "QB", "RB", "WR", "TE", "D", "K"};
+		String[] vertLabels = new String[max-1];
+		GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();  
+		for(int i = 1; i < max; i++)
+		{
+			vertLabels[i-1] = String.valueOf(i);
+		}
+		int counter = 0;
+		dataSet[counter++] = new GraphViewData(counter, max - rankPAAStart(newImport, t1));
+		dataSet[counter++] = new GraphViewData(counter, max - rankQBStart(newImport, t1));
+		dataSet[counter++] = new GraphViewData(counter, max - rankRBStart(newImport, t1));
+		dataSet[counter++] = new GraphViewData(counter, max - rankWRStart(newImport, t1));
+		dataSet[counter++] = new GraphViewData(counter, max - rankTEStart(newImport, t1));
+		dataSet[counter++] = new GraphViewData(counter, max - rankDStart(newImport, t1));
+		dataSet[counter++] = new GraphViewData(counter, max - rankKStart(newImport, t1));
+		GraphViewSeries es = new GraphViewSeries(t1.teamName + " Starters", seriesStyle, dataSet);
+		graphView.addSeries(es);
+		GraphViewSeriesStyle seriesStyle2 = new GraphViewSeriesStyle();
+		seriesStyle2.color = Color.RED;
+		GraphViewDataInterface[] dataSet2 = new GraphViewDataInterface[7];
+		counter = 0;
+		dataSet2[counter++] = new GraphViewData(counter, max - rankPAAStart(newImport, t2));
+		dataSet2[counter++] = new GraphViewData(counter, max - rankQBStart(newImport, t2));
+		dataSet2[counter++] = new GraphViewData(counter, max - rankRBStart(newImport, t2));
+		dataSet2[counter++] = new GraphViewData(counter, max - rankWRStart(newImport, t2));
+		dataSet2[counter++] = new GraphViewData(counter, max - rankTEStart(newImport, t2));
+		dataSet2[counter++] = new GraphViewData(counter, max - rankDStart(newImport, t2));
+		dataSet2[counter++] = new GraphViewData(counter, max - rankKStart(newImport, t2));
+		es = new GraphViewSeries(t2.teamName + " Starters", seriesStyle2, dataSet2);
+		graphView.addSeries(es);
+		graphView.setHorizontalLabels(horizLabels);
+		graphView.setVerticalLabels(vertLabels);
+		graphView.setScrollable(true); 
+		graphView.setShowLegend(true); 	
+		graphView.setLegendAlign(LegendAlign.TOP);
+		graphView.setLegendWidth(250); 
+		graphView.setManualYAxisBounds(max-1, 1);
+		LinearLayout layout = (LinearLayout) popUp.findViewById(R.id.plot_base_layout);
+		layout.addView(graphView);
+	}
+	
+	/**
+	 * Ranks each teams total PAA relative to the rest of the league
+	 * @param leagueSet
+	 * @param team
+	 * @return
+	 */
 	public int rankPAATot(ImportedTeam leagueSet, TeamAnalysis team)
 	{
 		int rank = 1;
@@ -1105,6 +1266,12 @@ public class ImportLeague extends Activity {
 		return rank;
 	}
 	
+	/**
+	 * Ranks an individual teams paa in starters relative to the rest of the league
+	 * @param leagueSet
+	 * @param team
+	 * @return
+	 */
 	public int rankPAAStart(ImportedTeam leagueSet, TeamAnalysis team)
 	{
 		int rank = 1;

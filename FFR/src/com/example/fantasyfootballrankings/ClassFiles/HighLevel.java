@@ -1101,7 +1101,22 @@ public class HighLevel
 				teMaxProj = player.values.points;
 			}
 		}
-		System.out.println(rbMaxWorth + ", " + rbMaxProj);
+		if(qbMaxProj == 0.0)
+		{
+			qbMaxProj = 1.0;
+		}
+		if(rbMaxProj == 0.0)
+		{
+			rbMaxProj = 1.0;
+		}
+		if(wrMaxProj == 0.0)
+		{
+			wrMaxProj = 1.0;
+		}
+		if(teMaxProj == 0.0)
+		{
+			teMaxProj = 1.0;
+		}
 		//Now that the max worth/projections are set, time to get the relative data and leverage
 		for(PlayerObject player : holder.players)
 		{
