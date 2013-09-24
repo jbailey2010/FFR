@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 import com.ffr.fantasyfootballrankings.R;
-
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
@@ -113,13 +113,32 @@ public class SortHandler
 	    topics.add("Positional SOS");
 	    topics.add("Weekly Trend (ESPN)");
 	    //Add the positional options
+	    Roster r = ReadFromFile.readRoster(cont);
 	    positions.add("All Positions");
-	    positions.add("QB");
-	    positions.add("RB");
-	    positions.add("WR");
-	    positions.add("TE");
-	    positions.add("D/ST");
-	    positions.add("K");
+	    if(r.qbs != 0)
+	    {
+	    	positions.add("QB");
+	    }
+	    if(r.rbs != 0)
+	    {
+	    	positions.add("RB");
+	    }
+	    if(r.wrs != 0)
+	    {
+	    	positions.add("WR");
+	    }
+	    if(r.tes != 0)
+	    {
+	    	positions.add("TE");
+	    }
+	    if(r.def != 0)
+	    {
+		    positions.add("D/ST");
+	    }
+	    if(r.k != 0)
+	    {
+	    	positions.add("K");
+	    }
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(context, 
 				android.R.layout.simple_spinner_dropdown_item, topics);
 		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context, 
@@ -1084,151 +1103,155 @@ public class SortHandler
 	    	data.add(datum);
 	    }
 	    int count = 0;
+	    Roster r = ReadFromFile.readRoster(cont);
 	    while(!sorted.isEmpty())
 	    {
 	    	PlayerObject elem = sorted.poll();
-	    	if(elem.values.ecr == -1)
+	    	if(r.isRostered(elem))
 	    	{
-	    		elem.values.ecr = 300.0;
-	    	}
-	    	Map<String, String> datum = new HashMap<String, String>(2);
-	    	String output = "";
-	    	count++;
-	    	output = String.valueOf(count) + ") ";
-	    	if(Draft.draftedMe(elem.info.name, holder.draft))
-	    	{
-	    		output += "DRAFTED (YOU) - ";
-	    	}
-	    	else if(Draft.isDrafted(elem.info.name, holder.draft))
-	    	{
-	    		output += "DRAFTED - ";
-	    	}
-	    	if(isHidden && !output.equals(String.valueOf(count) + ") "))
-	    	{
-	    		continue;
-	    	}  
-	    	if(subject.equals("Projections"))
-			{
-				datum.put("main", output + elem.values.points + ": " + elem.info.name);
-				datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
-			}
-	    	else if(subject.equals("Auction Values"))
-	    	{
-	    		datum.put("main", output + df.format(elem.values.secWorth)+ ": " + elem.info.name);
-	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + df.format(elem.values.paa) + " PAA");
-	    	}
-	    	else if(subject.equals("Under Drafted"))
-	    	{
-	    		double diff = Double.parseDouble(elem.info.adp) - elem.values.ecr;
-	    		datum.put("main", output + df.format(diff)+ ": " + elem.info.name);
-	    		datum.put("sub", "$" +df.format(elem.values.secWorth)+ ", Projection: " + elem.values.points + "\n" + "ADP: " + elem.info.adp + ", " + "ECR: " + elem.values.ecr);
-	    	}
-	    	else if(subject.equals("PAA"))
-	    	{
-	    		datum.put("main", output + df.format(elem.values.paa)+ ": " + elem.info.name);
-	    		datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
-	    	}
-	    	else if(subject.equals("PAA per dollar"))
-	    	{ 
-	    		datum.put("main", output + df.format(elem.values.paapd)+ ": " + elem.info.name);
-	    		datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
-	    	}
-	    	else if(subject.equals("DYOA"))
-	    	{
-	    		String close1 = elem.stats.split("\\(rank\\):")[1].split("\n")[0];
-				String r1 = (close1.split("\\(")[0].trim());
-				datum.put("main", output + r1 + ": " + elem.info.name);
-				datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth) + ", " + elem.values.points + " projected points");
-	    	}
-	    	else if(subject.equals("DVOA"))
-	    	{
-	    		String close1 = elem.stats.split("\\(rank\\):")[2].split("\n")[0];
-				String r1 = close1.split("\\(")[0].trim();
-				datum.put("main", output + r1 + ": " + elem.info.name);
-				datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth) + ", " + elem.values.points + " projected points");
-	    	}
-	    	else if(subject.equals("Risk"))
-	    	{
-	    		datum.put("main", output + df.format(elem.risk)+ ": " + elem.info.name);
-	    		datum.put("sub", elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
-	    	}
-			else if(subject.equals("Risk"))
-			{
-				datum.put("main", output + elem.risk + ": " + elem.info.name);
-	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
-			}
-			else if(subject.equals("Positional SOS"))
-			{
-				if(elem.values.points != 0.0)
+		    	if(elem.values.ecr == -1)
+		    	{
+		    		elem.values.ecr = 300.0;
+		    	}
+		    	Map<String, String> datum = new HashMap<String, String>(2);
+		    	String output = "";
+		    	count++;
+		    	output = String.valueOf(count) + ") ";
+		    	if(Draft.draftedMe(elem.info.name, holder.draft))
+		    	{
+		    		output += "DRAFTED (YOU) - ";
+		    	}
+		    	else if(Draft.isDrafted(elem.info.name, holder.draft))
+		    	{
+		    		output += "DRAFTED - ";
+		    	}
+		    	if(isHidden && !output.equals(String.valueOf(count) + ") "))
+		    	{
+		    		continue;
+		    	}  
+		    	if(subject.equals("Projections"))
 				{
-					datum.put("main",output + holder.sos.get(elem.info.team + "," + elem.info.position) + ": " + elem.info.name);
-		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth) + ", " + 
-							elem.values.points);
+					datum.put("main", output + elem.values.points + ": " + elem.info.name);
+					datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
 				}
-				else
+		    	else if(subject.equals("Auction Values"))
+		    	{
+		    		datum.put("main", output + df.format(elem.values.secWorth)+ ": " + elem.info.name);
+		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + df.format(elem.values.paa) + " PAA");
+		    	}
+		    	else if(subject.equals("Under Drafted"))
+		    	{
+		    		double diff = Double.parseDouble(elem.info.adp) - elem.values.ecr;
+		    		datum.put("main", output + df.format(diff)+ ": " + elem.info.name);
+		    		datum.put("sub", "$" +df.format(elem.values.secWorth)+ ", Projection: " + elem.values.points + "\n" + "ADP: " + elem.info.adp + ", " + "ECR: " + elem.values.ecr);
+		    	}
+		    	else if(subject.equals("PAA"))
+		    	{
+		    		datum.put("main", output + df.format(elem.values.paa)+ ": " + elem.info.name);
+		    		datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
+		    	}
+		    	else if(subject.equals("PAA per dollar"))
+		    	{ 
+		    		datum.put("main", output + df.format(elem.values.paapd)+ ": " + elem.info.name);
+		    		datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
+		    	}
+		    	else if(subject.equals("DYOA"))
+		    	{
+		    		String close1 = elem.stats.split("\\(rank\\):")[1].split("\n")[0];
+					String r1 = (close1.split("\\(")[0].trim());
+					datum.put("main", output + r1 + ": " + elem.info.name);
+					datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth) + ", " + elem.values.points + " projected points");
+		    	}
+		    	else if(subject.equals("DVOA"))
+		    	{
+		    		String close1 = elem.stats.split("\\(rank\\):")[2].split("\n")[0];
+					String r1 = close1.split("\\(")[0].trim();
+					datum.put("main", output + r1 + ": " + elem.info.name);
+					datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth) + ", " + elem.values.points + " projected points");
+		    	}
+		    	else if(subject.equals("Risk"))
+		    	{
+		    		datum.put("main", output + df.format(elem.risk)+ ": " + elem.info.name);
+		    		datum.put("sub", elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
+		    	}
+				else if(subject.equals("Risk"))
 				{
-					datum.put("main",output + holder.sos.get(elem.info.team + "," + elem.info.position) + ": " + elem.info.name);
+					datum.put("main", output + elem.risk + ": " + elem.info.name);
 		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
 				}
-			}
-			else if(subject.equals("ECR"))
-			{
-				datum.put("main", output + elem.values.ecr + ": " + elem.info.name);
-	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
-			}
-			else if(subject.equals("ADP"))
-			{
-				datum.put("main", output + elem.info.adp + ": " + elem.info.name);
-	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
-			}
-			else if(subject.equals("Weekly Trend (ESPN)"))
-			{
-				datum.put("main", output + elem.info.trend + ": " + elem.info.name);
-	    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
-			}
-			else if(subject.equals("Success Rate"))
-			{
-				String aS = elem.stats.split("Success Rate: ")[1].split("\n")[0];
-				int sr1 = Integer.parseInt(aS.substring(0, aS.length()-1));
-				datum.put("main", output + sr1 + ": " + elem.info.name);
-				datum.put("sub", "ECR: " + elem.values.ecr + ", ADP: " + elem.info.adp + ", $" + df.format(elem.values.secWorth));
-			}
-			else if(subject.equals("Yard Adjustment"))
-			{
-				String yardsStr = elem.stats.split("Yards: ")[1].split("\n")[0];
-				int yards = Integer.parseInt(yardsStr.replaceAll(",", ""));
-				String adjStr = elem.stats.split("Adjusted Yards: ")[1].split("\n")[0];
-				int adjYards = Integer.parseInt(adjStr.replaceAll(",", ""));
-				int aDiff = adjYards - yards;
-				datum.put("main", output + aDiff + ": " + elem.info.name);
-				datum.put("sub", "Actual: " + yards + ", Adjusted: " + adjYards + ", ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
-			}
-			else if(subject.equals("Completion to Int Ratio"))
-			{
-				String intsA = elem.stats.split("Interceptions: ")[1].split("\n")[0];
-				int intA = Integer.parseInt(intsA);
-				String compA = elem.stats.split("Completion Percentage: ")[1].split("\n")[0].replace("%", "");
-				double compPercent = Double.parseDouble(compA)/100.0;
-				double attempts = Double.parseDouble(elem.stats.split("Pass Attempts: ")[1].split("\n")[0]);
-				double completions = attempts * compPercent;
-				double aDiff = (completions)/((double)intA);
-				datum.put("main", output + df.format(aDiff) + ": " + elem.info.name);
-				datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
-			}
-			else if(subject.equals("Broken Tackles"))
-			{
-				int aDiff = Integer.parseInt(elem.stats.split("Broken Tackles: ")[1].split(", ")[0]);
-				datum.put("main", output + aDiff + ": " + elem.info.name);
-				datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
-			}
-			else if(subject.equals("Leverage"))
-			{
-				double leverage = elem.values.relPoints / elem.values.relPrice;
-				datum.put("main", output + df.format(leverage) + ": " + elem.info.name);
-				datum.put("sub", df.format(elem.values.relPrice) + " relative price, " + df.format(elem.values.relPoints) + " relative points\n" + 
-						"ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
-			}
-	    	data.add(datum);
+				else if(subject.equals("Positional SOS"))
+				{
+					if(elem.values.points != 0.0)
+					{
+						datum.put("main",output + holder.sos.get(elem.info.team + "," + elem.info.position) + ": " + elem.info.name);
+			    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth) + ", " + 
+								elem.values.points);
+					}
+					else
+					{
+						datum.put("main",output + holder.sos.get(elem.info.team + "," + elem.info.position) + ": " + elem.info.name);
+			    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
+					}
+				}
+				else if(subject.equals("ECR"))
+				{
+					datum.put("main", output + elem.values.ecr + ": " + elem.info.name);
+		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
+				}
+				else if(subject.equals("ADP"))
+				{
+					datum.put("main", output + elem.info.adp + ": " + elem.info.name);
+		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
+				}
+				else if(subject.equals("Weekly Trend (ESPN)"))
+				{
+					datum.put("main", output + elem.info.trend + ": " + elem.info.name);
+		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
+				}
+				else if(subject.equals("Success Rate"))
+				{
+					String aS = elem.stats.split("Success Rate: ")[1].split("\n")[0];
+					int sr1 = Integer.parseInt(aS.substring(0, aS.length()-1));
+					datum.put("main", output + sr1 + ": " + elem.info.name);
+					datum.put("sub", "ECR: " + elem.values.ecr + ", ADP: " + elem.info.adp + ", $" + df.format(elem.values.secWorth));
+				}
+				else if(subject.equals("Yard Adjustment"))
+				{
+					String yardsStr = elem.stats.split("Yards: ")[1].split("\n")[0];
+					int yards = Integer.parseInt(yardsStr.replaceAll(",", ""));
+					String adjStr = elem.stats.split("Adjusted Yards: ")[1].split("\n")[0];
+					int adjYards = Integer.parseInt(adjStr.replaceAll(",", ""));
+					int aDiff = adjYards - yards;
+					datum.put("main", output + aDiff + ": " + elem.info.name);
+					datum.put("sub", "Actual: " + yards + ", Adjusted: " + adjYards + ", ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
+				}
+				else if(subject.equals("Completion to Int Ratio"))
+				{
+					String intsA = elem.stats.split("Interceptions: ")[1].split("\n")[0];
+					int intA = Integer.parseInt(intsA);
+					String compA = elem.stats.split("Completion Percentage: ")[1].split("\n")[0].replace("%", "");
+					double compPercent = Double.parseDouble(compA)/100.0;
+					double attempts = Double.parseDouble(elem.stats.split("Pass Attempts: ")[1].split("\n")[0]);
+					double completions = attempts * compPercent;
+					double aDiff = (completions)/((double)intA);
+					datum.put("main", output + df.format(aDiff) + ": " + elem.info.name);
+					datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
+				}
+				else if(subject.equals("Broken Tackles"))
+				{
+					int aDiff = Integer.parseInt(elem.stats.split("Broken Tackles: ")[1].split(", ")[0]);
+					datum.put("main", output + aDiff + ": " + elem.info.name);
+					datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
+				}
+				else if(subject.equals("Leverage"))
+				{
+					double leverage = elem.values.relPoints / elem.values.relPrice;
+					datum.put("main", output + df.format(leverage) + ": " + elem.info.name);
+					datum.put("sub", df.format(elem.values.relPrice) + " relative price, " + df.format(elem.values.relPoints) + " relative points\n" + 
+							"ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
+				}
+		    	data.add(datum);
+	    	}
 		} 
 	    adapter = new SimpleAdapter(context, data, 
 	    		R.layout.web_listview_item, 

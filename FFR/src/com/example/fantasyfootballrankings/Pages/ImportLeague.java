@@ -914,7 +914,7 @@ public class ImportLeague extends Activity {
 		double maxFirst = -10000000.0;
 		double minFirst = 1000000000.0;
 		GraphViewStyle gvs = new GraphViewStyle();
-		gvs.setTextSize(16);
+		gvs.setTextSize(13);
 		GraphView graphView = new LineGraphView(this, "");
 		graphView.setGraphViewStyle(gvs);
 		for(String teamIter : teamSet)
