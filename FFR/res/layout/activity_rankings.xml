@@ -8,18 +8,18 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
         android:background="@drawable/menu_btn_black"
-        android:weightSum="125"> 
+        android:weightSum="100"> 
 
         <Button
             android:id="@+id/draft_info"
-            android:layout_width="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
             android:layout_height="fill_parent"
-        	android:text="Draft Info"
-        	android:textSize="13sp"
-        	android:textColor="#FFFFFF"
-        	android:layout_weight="25"
-        	android:background="@drawable/menu_btn_black"
-        	style="?android:attr/buttonBarButtonStyle"/>
+            android:layout_weight="25"
+            android:background="@drawable/menu_btn_black"
+            android:text="Draft Info"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
         
        	<View android:layout_height="fill_parent"
 		    android:layout_width="2dp"
@@ -29,14 +29,14 @@
 
         <Button
             android:id="@+id/search"
-            android:layout_width="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="Search" 
-            android:textColor="#FFFFFF"
             android:layout_weight="25"
-            android:textSize="13sp"
             android:background="@drawable/menu_btn_black"
-            style="?android:attr/buttonBarButtonStyle"/>
+            android:text="Search"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
         
         <View android:layout_height="fill_parent"
 		    android:layout_width="2dp"
@@ -46,31 +46,14 @@
 
         <Button
             android:id="@+id/player_comparator"
-            android:layout_width="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
             android:layout_height="fill_parent"
+            android:layout_weight="25"
+            android:background="@drawable/menu_btn_black"
             android:text="Compare Players"
             android:textColor="#FFFFFF"
-            android:layout_weight="25" 
-            android:textSize="13sp"
-            android:background="@drawable/menu_btn_black"
-            style="?android:attr/buttonBarButtonStyle"/>
-       
-        <View android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-		    android:background="#FF0000"
-		    android:layout_marginTop="5dp"
-		    android:layout_marginBottom="5dp"/>
-
-        <Button
-            android:id="@+id/trade_calc"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:text="Trade Calc" 
-            android:textColor="#FFFFFF"
-            android:layout_weight="25"
-            android:textSize="13sp"
-            android:background="@drawable/menu_btn_black"
-            />
+            android:textSize="15sp" />
         
         <View android:layout_height="fill_parent"
 		    android:layout_width="2dp"
@@ -81,13 +64,13 @@
         <Button
             android:id="@+id/sort_players"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="25"
             android:background="@drawable/menu_btn_black"
             android:text="Sort"
             android:textColor="#FFFFFF"
-            android:textSize="13sp" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 

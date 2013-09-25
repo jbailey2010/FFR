@@ -5,71 +5,50 @@ import java.io.IOException;
 
 
 
-import java.net.MalformedURLException;
+
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.concurrent.ExecutionException;
-
 import org.htmlcleaner.XPatherException;
 
 import com.ffr.fantasyfootballrankings.R;
 
 import com.example.fantasyfootballrankings.ClassFiles.ComparatorHandling;
 import com.example.fantasyfootballrankings.ClassFiles.HandleWatchList;
-import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.SortHandler;
-import com.example.fantasyfootballrankings.ClassFiles.TradeHandling;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.*;
 import com.socialize.Socialize;
 
-import AsyncTasks.StorageAsyncTask;
-import AsyncTasks.StorageAsyncTask.ReadDraft;
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.StrictMode;
 import android.app.ActionBar;
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Typeface;
 import android.speech.RecognizerIntent;
 import android.util.TypedValue;
 import android.view.Display;
-import android.view.GestureDetector;
-import android.view.HapticFeedbackConstants;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
-import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -85,7 +64,6 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.TwoLineListItem;
 import android.widget.AdapterView.OnItemClickListener;
 /**
  * Handles the rankings part of the java file
@@ -106,7 +84,6 @@ public class Rankings extends Activity {
 	static Button search;
 	static Button info;
 	static Button compare;
-	static Button calc;
 	static Button sort;
 	public static ListView listview;
 	static boolean refreshed = false;
@@ -142,7 +119,6 @@ public class Rankings extends Activity {
 		search = (Button)findViewById(R.id.search);
 		info = (Button)findViewById(R.id.draft_info);
 		compare = (Button)findViewById(R.id.player_comparator);
-		calc = (Button)findViewById(R.id.trade_calc);
 		sort = (Button)findViewById(R.id.sort_players);
     	listview = (ListView)findViewById(R.id.listview_rankings);
     	widgetBase = (RelativeLayout)findViewById(R.id.rankings_widget_base);
@@ -1388,16 +1364,6 @@ public class Rankings extends Activity {
 	        	  ComparatorHandling.handleComparingInit(holder, cont);
 	          }
 		});
-		
-		//Calculator pop up on click
-		calc.setOnClickListener(new View.OnClickListener() 
-	    {
-	          @Override
-	          public void onClick(View v) 
-	          {
-	        	  TradeHandling.handleTradeInit(holder, cont);
-	          }
-	    }); 
 		//sort pop up on click
 		sort.setOnClickListener(new OnClickListener(){
 			@Override
