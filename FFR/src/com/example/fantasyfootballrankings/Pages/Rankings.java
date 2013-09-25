@@ -1918,7 +1918,14 @@ public class Rankings extends Activity {
 	        Map<String, String> datum = new HashMap<String, String>(2);
 	        if(isAuction)
 	        {
-	        	datum.put("main", df.format(elem.values.secWorth) + ":  " + elem.info.name);
+	        	if(elem.values.secWorth > 0.0)
+	        	{
+	        		datum.put("main", df.format(elem.values.secWorth) + ":  " + elem.info.name);
+	        	}
+	        	else
+	        	{
+	        		datum.put("main", df.format(elem.values.worth)+ ": " + elem.info.name); 
+	        	}
 	        }
 	        else
 	        {
