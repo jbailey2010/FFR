@@ -89,35 +89,13 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/draft_paapd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/draft_paa"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:visibility="invisible" />
-    
-   <TextView
-        android:id="@+id/draft_leverage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/draft_paapd"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:visibility="invisible" />
-
     <Button
         android:id="@+id/value_left"
         style="@style/ButtonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/draft_leverage"
+        android:layout_below="@+id/draft_paa"
         android:layout_marginRight="14dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/btn_red"

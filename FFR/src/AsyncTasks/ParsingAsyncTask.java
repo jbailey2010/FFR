@@ -362,8 +362,6 @@ public class ParsingAsyncTask
 				}
 	    		publishProgress("Please wait, normalizing projections...");
 	    		HighLevel.getPAA(holder, cont);
-		    	publishProgress("Please wait, getting player leverage...");
-		    	HighLevel.setLeverage(holder, cont);
 				return null;
 		    }
 
@@ -410,7 +408,6 @@ public class ParsingAsyncTask
 		    	try {
 					HighLevel.projPointsWrapper(holder, cont);
 					HighLevel.parseECRWrapper(holder, cont);
-					HighLevel.setLeverage(holder, cont);
 					HighLevel.getPAA(holder, cont);
 					SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 			    	//Rankings work
@@ -420,12 +417,12 @@ public class ParsingAsyncTask
 			    		players.append( 
 			    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&"
 			    	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
-			    	    		player.info.adp +  "&&" 
-			    	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + 
+			    	    		player.info.adp 
+			    	    		+ "&&" + player.info.contractStatus + "&&" + 
 			    	    		player.info.age + "&&" + player.stats + "&&"  + player.injuryStatus + 
 			    	    		"&&" + player.values.ecr + "&&" + 
 			    	    		player.risk +  "&&" + 
-			    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "~~~~");
+			    	    		player.values.points + "&&" + player.values.paa + "~~~~");
 
 			    	} 
 			    	String playerString = players.toString();

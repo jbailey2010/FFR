@@ -99,10 +99,8 @@ public class SortHandler
 	    topics.add("ADP");
 	    topics.add("Under Drafted");
 	    topics.add("Auction Values");
-	    topics.add("Leverage");
 	    topics.add("Projections");
 	    topics.add("PAA");
-	    topics.add("PAA per dollar");
 	    topics.add("DYOA");
 	    topics.add("DVOA");
 	    topics.add("Success Rate");
@@ -111,7 +109,6 @@ public class SortHandler
 	    topics.add("Completion to Int Ratio");
 	    topics.add("Risk");
 	    topics.add("Positional SOS");
-	    topics.add("Weekly Trend (ESPN)");
 	    //Add the positional options
 	    Roster r = ReadFromFile.readRoster(cont);
 	    positions.add("All Positions");
@@ -437,10 +434,6 @@ public class SortHandler
 		{
 			underDrafted(cont);
 		}
-		else if(subject.equals("PAA per dollar"))
-		{
-			paapd(cont);
-		}
 		else if(subject.equals("DVOA"))
 		{
 			dvoa(cont);
@@ -473,10 +466,6 @@ public class SortHandler
 		{
 			adp(cont);
 		}
-		else if(subject.equals("Weekly Trend (ESPN)"))
-		{
-			weeklyTrend(cont);
-		}
 		else if(subject.equals("Completion to Int Ratio"))
 		{
 			compInt(cont);
@@ -484,10 +473,6 @@ public class SortHandler
 		else if(subject.equals("Broken Tackles"))
 		{
 			brokenTackles(cont);
-		}
-		else if(subject.equals("Leverage"))
-		{
-			leverage(cont);
 		}
 	}
 
@@ -728,37 +713,6 @@ public class SortHandler
 				wrappingUp(sorted, cont);
 	}
 	
-	public static void leverage(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-				{
-					@Override
-					public int compare(PlayerObject a, PlayerObject b)
-					{
-						double leva = a.values.relPoints / a.values.relPrice;
-						double levb = b.values.relPoints / b.values.relPrice;
-						if(leva > levb)
-						{
-							return -1;
-						}
-						if(leva < levb)
-						{
-							return 1;
-						}
-						return 0;
-					}
-				});
-				for(PlayerObject player : players)
-				{
-					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && 
-							player.values.relPrice != 0.0  && player.values.relPoints != 0.0 && player.values.relPoints != 0.0)
-					{
-						sorted.add(player);
-					}
-				}
-				wrappingUp(sorted, cont);
-	}
-	
 	public static void dvoa(Context cont)
 	{
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
@@ -884,38 +838,6 @@ public class SortHandler
 				}
 				wrappingUp(sorted, cont);
 	}
-	
-	/**
-	 * Sorts by paapd
-	 */
-	public static void paapd(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-				{
-					@Override
-					public int compare(PlayerObject a, PlayerObject b)
-					{
-						if(a.values.paapd > b.values.paapd)
-						{
-							return -1;
-						}
-						if(a.values.paapd < b.values.paapd)
-						{
-							return 1;
-						}
-						return 0;
-					}
-				});
-				for(PlayerObject player : players)
-				{
-					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && player.values.points != 0.0)
-					{
-						sorted.add(player);
-					}
-				}
-				wrappingUp(sorted, cont);
-	}
-	
 
 	
 	/**
@@ -1012,38 +934,6 @@ public class SortHandler
 		}
 		wrappingUp(sorted, cont);
 	}
-	
-	/**
-	 * Sets up the priority queue based on the Weekly Trend (ESPN) in values
-	 */
-	public static void weeklyTrend(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-		{
-			@Override
-			public int compare(PlayerObject a, PlayerObject b)
-			{
-				if(Double.parseDouble(a.info.trend) > Double.parseDouble(b.info.trend))
-				{
-					return -1;
-				}
-				if(Double.parseDouble(a.info.trend) < Double.parseDouble(b.info.trend))
-				{
-					return 1;
-				}
-				return 0;
-			}
-		});
-		for(PlayerObject player : players)
-		{
-			if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && !player.info.trend.equals("0.0"))
-			{
-				sorted.add(player);
-			}
-		}
-		wrappingUp(sorted, cont);
-	}
-
 	
 	/**
 	 * Puts the priority queue into the list, and sets up the dialog
@@ -1150,11 +1040,6 @@ public class SortHandler
 		    		datum.put("main", output + df.format(elem.values.paa)+ ": " + elem.info.name);
 		    		datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
 		    	}
-		    	else if(subject.equals("PAA per dollar"))
-		    	{ 
-		    		datum.put("main", output + df.format(elem.values.paapd)+ ": " + elem.info.name);
-		    		datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
-		    	}
 		    	else if(subject.equals("DYOA"))
 		    	{
 		    		String close1 = elem.stats.split("\\(rank\\):")[1].split("\n")[0];
@@ -1203,11 +1088,6 @@ public class SortHandler
 					datum.put("main", output + elem.info.adp + ": " + elem.info.name);
 		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
 				}
-				else if(subject.equals("Weekly Trend (ESPN)"))
-				{
-					datum.put("main", output + elem.info.trend + ": " + elem.info.name);
-		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
-				}
 				else if(subject.equals("Success Rate"))
 				{
 					String aS = elem.stats.split("Success Rate: ")[1].split("\n")[0];
@@ -1242,13 +1122,6 @@ public class SortHandler
 					int aDiff = Integer.parseInt(elem.stats.split("Broken Tackles: ")[1].split(", ")[0]);
 					datum.put("main", output + aDiff + ": " + elem.info.name);
 					datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
-				}
-				else if(subject.equals("Leverage"))
-				{
-					double leverage = elem.values.relPoints / elem.values.relPrice;
-					datum.put("main", output + df.format(leverage) + ": " + elem.info.name);
-					datum.put("sub", df.format(elem.values.relPrice) + " relative price, " + df.format(elem.values.relPoints) + " relative points\n" + 
-							"ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
 				}
 		    	data.add(datum);
 	    	}

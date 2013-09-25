@@ -640,16 +640,6 @@ public class PlayerInfo
 			}
 			data.add(datum);
 		}
-		//Leverage
-		if(searchedPlayer.values.relPrice != 0.0 && searchedPlayer.values.relPoints != 0.0)
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", df.format(searchedPlayer.values.relPoints / searchedPlayer.values.relPrice) + " Leverage");
-			datum.put("sub", df.format(searchedPlayer.values.relPrice) + " relative price\n" + 
-					df.format(searchedPlayer.values.relPoints) + " relative points\n" + 
-					"Ranked " + rankLeveragePos(searchedPlayer, holder) + " positionally, " + rankLeverage(searchedPlayer, holder) + " overall");
-			data.add(datum);
-		}
 		//PAA and PAAPD
 		if(searchedPlayer.values.paa != 0.0 && searchedPlayer.values.points != 0.0)
 		{
@@ -665,20 +655,6 @@ public class PlayerInfo
 				datum.put("sub", "Ranked " + rankPAAAll(searchedPlayer, holder) + " overall");
 			}
 			data.add(datum);
-			if(searchedPlayer.values.worth > 0.0)
-			{
-				Map<String, String> datum2 = new HashMap<String, String>(2);
-				datum2.put("main", df.format(searchedPlayer.values.paapd) + " PAA per dollar");
-				if(searchedPlayer.info.position.length() >= 1)
-				{
-					datum2.put("sub", "Ranked " + rankPAAPDPos(searchedPlayer, holder) + " positionally, " + rankPAAPDAll(searchedPlayer, holder) + " overall");
-				}
-				else
-				{
-					datum2.put("sub", "Ranked " + rankPAAPDAll(searchedPlayer, holder) + " overall");
-				}
-				data.add(datum2);
-			}
 		} 
 		//Risk
 		if(searchedPlayer.risk > 0.0)
@@ -773,13 +749,6 @@ public class PlayerInfo
 		    		data.add(datum);
 		    	}
 			}
-		}
-		if(!searchedPlayer.info.trend.equals("0.0"))
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", "Weekly Value Trend: " + searchedPlayer.info.trend);
-			datum.put("sub", "Per ESPN's AAV data");
-			data.add(datum);
 		}
 		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
 		{
@@ -935,34 +904,6 @@ public class PlayerInfo
 		return rank;
 	}
 	
-	public static int rankLeverage(PlayerObject player, Storage holder)
-	{
-		int rank = 1;
-		for(PlayerObject iter : holder.players)
-		{
-			if(iter.values.relPrice != 0.0 && iter.values.relPoints != 0.0 && (iter.values.relPoints / iter.values.relPrice) >
-				(player.values.relPoints / player.values.relPrice))
-			{
-				rank++;
-			}
-		}
-		return rank;
-	}
-	
-	public static int rankLeveragePos(PlayerObject player, Storage holder)
-	{
-		int rank = 1;
-		for(PlayerObject iter : holder.players)
-		{
-			if(iter.values.relPrice != 0.0 && iter.values.relPoints != 0.0 && (iter.values.relPoints / iter.values.relPrice) >
-				(player.values.relPoints / player.values.relPrice) && iter.info.position.equals(player.info.position))
-			{
-				rank++;
-			}
-		}
-		return rank;
-	}
-	
 	/**
 	 * Ranks paa among all players
 	 */
@@ -978,24 +919,7 @@ public class PlayerInfo
 		}
 		return rank;
 	}
-	
-	/**
-	 * Ranks paapd among positional players
-	 */
-	public static int rankPAAPDPos(PlayerObject player, Storage holder)
-	{
-		int rank = 1;
-		for(PlayerObject iter : holder.players)
-		{
-			if(iter.values.paa != 0.0 && iter.info.position.equals(player.info.position) && 
-					iter.values.paapd > player.values.paapd)
-			{
-				rank++;
-			}
-		}
-		return rank;
-	}
-	
+
 	public static int rankIntComp(Storage holder, double aDiff2)
 	{
 		int rank = 1;
@@ -1015,22 +939,6 @@ public class PlayerInfo
 				{
 					rank++;
 				}
-			}
-		}
-		return rank;
-	}
-	
-	/**
-	 * Ranks paapd among all players
-	 */
-	public static int rankPAAPDAll(PlayerObject player, Storage holder)
-	{
-		int rank = 1;
-		for(PlayerObject iter : holder.players)
-		{
-			if(iter.values.paapd != 0.0 && iter.values.paapd > player.values.paapd)
-			{
-				rank++;
 			}
 		}
 		return rank;

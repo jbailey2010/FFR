@@ -489,30 +489,6 @@ public class Rankings extends Activity {
 			{
 				double aVal = 0;
 				double bVal = 0;
-				double leverage = a.values.relPoints / a.values.relPrice;
-				if(leverage != 0.0)
-				{
-					if(a.values.worth < 1.0)
-					{
-						aVal -= (leverage / 2);
-					}
-					else
-					{
-						aVal -= leverage;
-					}
-				}
-				leverage = a.values.relPoints / a.values.relPrice;
-				if(leverage != 0.0)
-				{
-					if(b.values.worth < 1.0)
-					{
-						bVal -= (leverage / 2);
-					}
-					else
-					{
-						bVal -= leverage;
-					}
-				}
 				if(watchList.contains(a.info.name))
 				{
 					aVal -= 10;
@@ -718,18 +694,6 @@ public class Rankings extends Activity {
 		{
 			PlayerObject a = inter.poll();
 			double aVal = 0;
-			double leverage = a.values.relPoints / a.values.relPrice;
-			if(leverage != 0.0)
-			{
-				if(a.values.worth < 1.0)
-				{
-					aVal -= (leverage / 2);
-				}
-				else
-				{
-					aVal -= leverage;
-				}
-			}
 			aVal -= a.values.worth;
 			if(!a.info.adp.equals("Not set"))
 			{ 
@@ -873,7 +837,6 @@ public class Rankings extends Activity {
 		int teTotal = Draft.posDraftedQuantity(holder.draft.te);
 		int defTotal = Draft.posDraftedQuantity(holder.draft.def);
 		int kTotal = Draft.posDraftedQuantity(holder.draft.k);
-		double draftLev = Draft.averageLev(holder.draft);
 		DecimalFormat df = new DecimalFormat("#.#");
 		if(qbTotal + rbTotal + wrTotal + teTotal + defTotal + kTotal == 0)
 		{
@@ -935,10 +898,6 @@ public class Rankings extends Activity {
 			result += kTotal + " " + val + ", ";
 		}
 		result +=  df.format(Draft.paaTotal(holder.draft)) + " total PAA";
-		if(!(draftLev == 0.0))
-		{
-			result += ", " + draftLev + " average leverage    ";
-		}
 		return result;
 	}
 	
@@ -1537,8 +1496,6 @@ public class Rankings extends Activity {
 		TextView remSalary = (TextView)dialog.findViewById(R.id.remSalary);
 		TextView draftVal = (TextView)dialog.findViewById(R.id.draftValue);
 		TextView paaView = (TextView)dialog.findViewById(R.id.draft_paa);
-		TextView paapdView = (TextView)dialog.findViewById(R.id.draft_paapd);
-		TextView levView = (TextView)dialog.findViewById(R.id.draft_leverage);
 		double paa = 0.0;
 		double paapd = 0.0;
 		if(holder.draft.playersDrafted(holder.draft) != 0)
@@ -1548,17 +1505,11 @@ public class Rankings extends Activity {
 			paapd = paa / ((200.0/aucFactor) - holder.draft.remainingSalary);
 			paaView.setVisibility(View.VISIBLE);
 			paaView.setText("PAA total: " + df.format(paa));
-			paapdView.setVisibility(View.VISIBLE);
-			paapdView.setText("PAA per dollar: " + df.format(paapd));
-			levView.setVisibility(View.VISIBLE);
-			levView.setText("Average leverage: " + Draft.averageLev(holder.draft));
 		}
 		else
 		{
 			paaView.setVisibility(View.GONE);
-			paapdView.setVisibility(View.GONE);
 			draftVal.setVisibility(View.GONE);
-			levView.setVisibility(View.GONE);
 		}
 		ProgressBar salBar = (ProgressBar)dialog.findViewById(R.id.progressBar1);
 		salBar.setMax((int) (200 / aucFactor));
@@ -1600,9 +1551,7 @@ public class Rankings extends Activity {
 		{
 			remSalary.setVisibility(View.GONE);
 			draftVal.setVisibility(View.GONE);
-			paapdView.setVisibility(View.GONE);
 			salBar.setVisibility(View.GONE);
-			levView.setVisibility(View.GONE);
 		}
     	dialog.show();
     }

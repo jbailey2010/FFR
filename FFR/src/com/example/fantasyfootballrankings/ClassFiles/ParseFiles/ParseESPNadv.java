@@ -42,20 +42,17 @@ public class ParseESPNadv
 			String name = ParseRankings.fixNames(brokenValues[i+1].split(", ")[0]).replace("*", "");
 			name = Storage.nameExists(holder, name);
 			String val = brokenValues[i+5];
-			String trend = brokenValues[i+6];
 			int worth = (int)Double.parseDouble(val);
 			PlayerObject newPlayer = new PlayerObject(name, "", "", worth);
 			PlayerObject match =  Storage.pqExists(holder, name);
 			if(match != null)
 			{
-				match.info.trend = trend;
 				BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);
 				Values.handleNewValue(match.values, newPlayer.values.worth);
 				match.info.team = ParseRankings.fixTeams(match.info.team);
 			}
 			else
 			{
-				newPlayer.info.trend = trend;
 				newPlayer.info.team = ParseRankings.fixTeams(newPlayer.info.team);
 				holder.players.add(newPlayer);
 				holder.parsedPlayers.add(newPlayer.info.name);

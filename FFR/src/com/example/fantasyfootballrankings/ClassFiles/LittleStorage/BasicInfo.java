@@ -13,7 +13,6 @@ public class BasicInfo
 	public String team;
 	public String position;
 	public String adp;
-	public String trend;
 	public String contractStatus;
 	public String age;
 	/**
@@ -28,7 +27,6 @@ public class BasicInfo
 		team = playerTeam;
 		position = pos;
 		adp = "Not set";
-		trend = "0.0";
 		contractStatus = "Under Contract";
 		age = "0"; 
 	}

@@ -482,61 +482,7 @@ public class ReadFromFile {
 		}
 		return secData;
 	}
-	
-	/**
-	 * Reads leverage from file
-	 * @param cont
-	 * @param holder
-	 */
-	public static void readLeverage(Context cont, Storage holder)
-	{
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		double qbMaxProj = prefs.getFloat("QB Max Proj", 1);
-		double qbMaxWorth = prefs.getFloat("QB Max Worth", 1);
-		double rbMaxProj = prefs.getFloat("RB Max Proj", 1);
-		double rbMaxWorth = prefs.getFloat("RB Max Worth", 1);
-		double wrMaxProj = prefs.getFloat("WR Max Proj", 1);
-		double wrMaxWorth = prefs.getFloat("WR Max Worth", 1);
-		double teMaxProj = prefs.getFloat("TE Max Proj", 1);
-		double teMaxWorth = prefs.getFloat("TE Max Worth", 1);
-		double dMaxProj = prefs.getFloat("D/ST Max Proj", 1);
-		double dMaxWorth = prefs.getFloat("D/ST Max Worth", 1);
-		double kMaxProj = prefs.getFloat("K Max Proj", 1);
-		double kMaxWorth = prefs.getFloat("K Max Worth", 1);
-		for(PlayerObject player : holder.players)
-		{
-			if(player.info.position.equals("QB"))
-			{
-				player.values.relPoints = player.values.points / qbMaxProj;
-				player.values.relPrice = player.values.worth / qbMaxWorth;
-			}
-			if(player.info.position.equals("RB"))
-			{
-				player.values.relPoints = player.values.points / rbMaxProj;
-				player.values.relPrice = player.values.worth / rbMaxWorth;
-			}
-			if(player.info.position.equals("WR"))
-			{
-				player.values.relPoints = player.values.points / wrMaxProj;
-				player.values.relPrice = player.values.worth / wrMaxWorth;
-			}
-			if(player.info.position.equals("TE"))
-			{
-				player.values.relPoints = player.values.points / teMaxProj;
-				player.values.relPrice = player.values.worth / teMaxWorth;
-			}
-			if(player.info.position.equals("D/ST"))
-			{
-				player.values.relPoints = player.values.points / dMaxProj;
-				player.values.relPrice = player.values.worth / dMaxWorth;
-			}
-			if(player.info.position.equals("K"))
-			{
-				player.values.relPoints = player.values.points / kMaxProj;
-				player.values.relPrice = player.values.worth / kMaxWorth;
-			}
-		}
-	}
+
 	
 	/**
 	 * Returns the auction factor as input by the user, defaulting to 1

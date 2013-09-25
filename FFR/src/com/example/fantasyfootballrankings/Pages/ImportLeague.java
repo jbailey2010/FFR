@@ -1143,6 +1143,7 @@ public class ImportLeague extends Activity {
 				android.R.layout.simple_spinner_dropdown_item, teamNames);
 	    team1.setAdapter(spinnerArrayAdapter);
 	    team2.setAdapter(spinnerArrayAdapter);
+	    team2.setSelection(1);
 	    Button submit = (Button)popUp.findViewById(R.id.compare_submit);
 	    submit.setOnClickListener(new OnClickListener(){
 			@Override

@@ -652,57 +652,5 @@ public class Draft
     	}
     	return total;
     }
-    
-    /**
-     * Gets the total leverage of a position drafted
-     * @param set
-     * @return
-     */
-    public static double levTotalPos(List<PlayerObject> set)
-    {
-    	double total = 0.0;
-    	for(PlayerObject player : set)
-    	{
-    		if(player.values.relPrice != 0.0 && player.values.relPoints != 0.0)
-    		{
-    			total += (player.values.relPoints / player.values.relPrice);
-    		}
-    	}
-    	return total;
-    }
-    
-    /**
-     * Gets the average leverage of a draft thus far
-     * @param draft
-     * @return
-     */
-    public static double averageLev(Draft draft)
-    {
-    	double avg = 0.0;
-    	double total = 0.0;
-    	double count = 0.0;
-    	if(draft.qb.size() != 0)
-    	{
-    		total += levTotalPos(draft.qb);
-    		count += draft.qb.size();
-    	}
-    	if(draft.rb.size() != 0)
-    	{
-    		total += levTotalPos(draft.rb);
-    		count += draft.rb.size();
-    	}
-    	if(draft.wr.size() != 0)
-    	{
-    		total += levTotalPos(draft.wr);
-    		count += draft.wr.size();
-    	}
-    	if(draft.te.size() != 0)
-    	{
-    		total += levTotalPos(draft.te);
-    		count += draft.te.size();
-    	}
-    	DecimalFormat df = new DecimalFormat("#.##");
-    	avg = Double.valueOf(df.format(total / ((double)count)));
-    	return avg;
-    }
+  
 }

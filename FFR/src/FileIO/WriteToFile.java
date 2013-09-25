@@ -491,9 +491,6 @@ public class WriteToFile {
 		if(ReadFromFile.readIsAuction(cont))
 		{
 			secondaryData.append("\nValue: " + df.format(holder.draft.value));
-			secondaryData.append("\nAverage leverage: " + Draft.averageLev(holder.draft));
-			secondaryData.append("\nPAA per dollar: " + df.format(Draft.paaTotal(holder.draft)/((200.0/ReadFromFile.readAucFactor(cont))
-					- holder.draft.remainingSalary)));
 		}
 		String qbs = Rankings.handleDraftParsing(holder.draft.qb);
     	String rbs = Rankings.handleDraftParsing(holder.draft.rb);
@@ -532,93 +529,6 @@ public class WriteToFile {
 			editor.remove("Secondary " + i);
 		}
 		editor.remove("Current Draft");
-		editor.commit();
-	}
-	
-	/**
-	 * Writes the leverage data to file
-	 * @param cont
-	 * @param holder
-	 */
-	public static void writeLeverage(Context cont, Storage holder)
-	{
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		double qbMaxProj = 0.0;
-		double qbMaxWorth = 0.0;
-		double rbMaxProj = 0.0;
-		double rbMaxWorth = 0.0;
-		double wrMaxProj = 0.0;
-		double wrMaxWorth = 0.0;
-		double teMaxProj = 0.0;
-		double teMaxWorth = 0.0;
-		double dMaxProj = 0.0;
-		double dMaxWorth = 0.0;
-		double kMaxProj = 0.0;
-		double kMaxWorth = 0.0;
-		for(PlayerObject player : holder.players)
-		{
-			if(player.info.position.equals("QB") && player.values.points > qbMaxProj)
-			{
-				qbMaxProj = player.values.points;
-			}
-			if(player.info.position.equals("QB") && player.values.worth > qbMaxWorth)
-			{
-				qbMaxWorth = player.values.worth;
-			}
-			if(player.info.position.equals("RB") && player.values.points > rbMaxProj)
-			{
-				rbMaxProj = player.values.points;
-			}
-			if(player.info.position.equals("RB") && player.values.worth > rbMaxWorth)
-			{
-				rbMaxWorth = player.values.worth;
-			}
-			if(player.info.position.equals("WR") && player.values.points > wrMaxProj)
-			{
-				wrMaxProj = player.values.points;
-			}
-			if(player.info.position.equals("WR") && player.values.worth > wrMaxWorth)
-			{
-				wrMaxWorth = player.values.worth;
-			}
-			if(player.info.position.equals("TE") && player.values.points > teMaxProj)
-			{
-				teMaxProj = player.values.points;
-			}
-			if(player.info.position.equals("TE") && player.values.worth > teMaxWorth)
-			{
-				teMaxWorth = player.values.worth;
-			}
-			if(player.info.position.equals("D/ST") && player.values.points > dMaxProj)
-			{
-				dMaxProj = player.values.points;
-			}
-			if(player.info.position.equals("D/ST") && player.values.worth > dMaxWorth)
-			{
-				dMaxWorth = player.values.worth;
-			}
-			if(player.info.position.equals("K") && player.values.points > kMaxProj)
-			{
-				kMaxProj = player.values.points;
-			}
-			if(player.info.position.equals("K") && player.values.worth > kMaxWorth)
-			{
-				kMaxWorth = player.values.worth;
-			}
-			
-		}
-		editor.putFloat("QB Max Proj", (float) qbMaxProj);
-		editor.putFloat("QB Max Worth", (float) qbMaxWorth);
-		editor.putFloat("RB Max Proj", (float) rbMaxProj);
-		editor.putFloat("RB Max Worth", (float) rbMaxWorth);
-		editor.putFloat("WR Max Proj", (float) wrMaxProj);
-		editor.putFloat("WR Max Worth", (float) wrMaxWorth);
-		editor.putFloat("TE Max Proj", (float) teMaxProj);
-		editor.putFloat("TE Max Worth", (float) teMaxWorth);
-		editor.putFloat("D/ST Max Proj", (float) dMaxProj);
-		editor.putFloat("D/ST Max Worth", (float) dMaxWorth);
-		editor.putFloat("K Max Proj", (float) kMaxProj);
-		editor.putFloat("K Max Worth", (float) kMaxWorth);
 		editor.commit();
 	}
 }

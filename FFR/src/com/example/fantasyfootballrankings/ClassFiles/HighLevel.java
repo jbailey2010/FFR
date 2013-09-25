@@ -964,32 +964,26 @@ public class HighLevel
 				if(player.info.position.equals("QB"))
 				{
 					player.values.paa = player.values.points - qbTotal;
-					player.values.paapd = player.values.paa / player.values.worth;
 				}
 				else if(player.info.position.equals("RB"))
 				{ 
 					player.values.paa = player.values.points - rbTotal;
-					player.values.paapd = player.values.paa / player.values.worth;
 				}
 				else if(player.info.position.equals("WR"))
 				{
 					player.values.paa = player.values.points - wrTotal;
-					player.values.paapd = player.values.paa / player.values.worth;
 				}
 				else if(player.info.position.equals("TE"))
 				{
 					player.values.paa = player.values.points - teTotal;
-					player.values.paapd = player.values.paa / player.values.worth;
 				}
 				else if(player.info.position.equals("D/ST"))
 				{
 					player.values.paa = player.values.points - dTotal;
-					player.values.paapd = player.values.paa / player.values.worth;
 				}
 				else if(player.info.position.equals("K"))
 				{
 					player.values.paa = player.values.points - kTotal;
-					player.values.paapd = player.values.paa / player.values.worth;
 				}
 			}
 		}
@@ -1060,104 +1054,5 @@ public class HighLevel
 			ecr.put(name, ecrVal);
 			risk.put(name, riskVal);
 		}
-	}
-	
-	/**
-	 * Sets the leverage of players
-	 * @param holder
-	 * @param cont
-	 */
-	public static void setLeverage(Storage holder, Context cont)
-	{
-		DecimalFormat df = new DecimalFormat("#.##");
-		double qbMaxWorth = 0.0;
-		double rbMaxWorth = 0.0;
-		double wrMaxWorth = 0.0;
-		double teMaxWorth = 0.0;
-		double qbMaxProj = 0.0;
-		double rbMaxProj = 0.0;
-		double wrMaxProj = 0.0;
-		double teMaxProj = 0.0;
-		for(PlayerObject player : holder.players)
-		{
-			if(player.info.position.equals("QB") && player.values.worth > qbMaxWorth)
-			{
-				qbMaxWorth = player.values.worth;
-				qbMaxProj = player.values.points;
-			}
-			if(player.info.position.equals("RB") && player.values.worth > rbMaxWorth)
-			{
-				rbMaxWorth = player.values.worth;
-				rbMaxProj = player.values.points;
-			}
-			if(player.info.position.equals("WR") && player.values.worth > wrMaxWorth)
-			{
-				wrMaxWorth = player.values.worth;
-				wrMaxProj = player.values.points;
-			}
-			if(player.info.position.equals("TE") && player.values.worth > teMaxWorth)
-			{
-				teMaxWorth = player.values.worth;
-				teMaxProj = player.values.points;
-			}
-		}
-		if(qbMaxProj == 0.0)
-		{
-			qbMaxProj = 1.0;
-		}
-		if(rbMaxProj == 0.0)
-		{
-			rbMaxProj = 1.0;
-		}
-		if(wrMaxProj == 0.0)
-		{
-			wrMaxProj = 1.0;
-		}
-		if(teMaxProj == 0.0)
-		{
-			teMaxProj = 1.0;
-		}
-		//Now that the max worth/projections are set, time to get the relative data and leverage
-		for(PlayerObject player : holder.players)
-		{
-			if((player.info.position.equals("QB") || player.info.position.equals("RB") || player.info.position.equals("WR") || 
-					player.info.position.equals("TE")) && player.values.worth > 0.0 && player.values.points > 0.0)
-			{
-				if(player.info.position.equals("QB"))
-				{
-					double relWorth = player.values.worth / qbMaxWorth;
-					double relPoints = player.values.points / qbMaxProj;
-					player.values.relPoints = Double.valueOf(df.format(relPoints));
-					player.values.relPrice = Double.valueOf(df.format(relWorth));
-				}
-				if(player.info.position.equals("RB"))
-				{ 
-					double relWorth = player.values.worth / rbMaxWorth;
-					double relPoints = player.values.points / rbMaxProj;
-					player.values.relPoints = Double.valueOf(df.format(relPoints));
-					player.values.relPrice = Double.valueOf(df.format(relWorth));
-				} 
-				if(player.info.position.equals("WR"))
-				{
-					double relWorth = player.values.worth / wrMaxWorth;
-					double relPoints = player.values.points / wrMaxProj;
-					player.values.relPoints = Double.valueOf(df.format(relPoints));
-					player.values.relPrice = Double.valueOf(df.format(relWorth));
-				}
-				if(player.info.position.equals("TE"))
-				{
-					double relWorth = player.values.worth / teMaxWorth;
-					double relPoints = player.values.points / teMaxProj;
-					player.values.relPoints = Double.valueOf(df.format(relPoints));
-					player.values.relPrice = Double.valueOf(df.format(relWorth));
-				}
-			}
-		}
-		double aucFactor = ReadFromFile.readAucFactor(cont);
-		for(PlayerObject player : holder.players)
-		{
-			player.values.secWorth = player.values.worth / aucFactor;
-		}
-		WriteToFile.writeLeverage(cont, holder);
 	}
 }

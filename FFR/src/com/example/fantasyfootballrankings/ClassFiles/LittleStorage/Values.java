@@ -15,9 +15,6 @@ public class Values
 	public Double ecr;
 	public double points;
 	public double paa;
-	public double paapd;
-	public double relPrice;
-	public double relPoints;
 	public double secWorth;
 	/**
 	 * Just initializes the values stored in the object,
@@ -31,9 +28,6 @@ public class Values
 		ecr = -1.0;
 		points = 0.0;
 		paa = 0.0;
-		paapd = 0.0;
-		relPrice = 0.0;
-		relPoints = 0.0;
 	}
 
 	/**

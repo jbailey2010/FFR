@@ -119,11 +119,11 @@ public class HandleExport
 	 * Writes each line of the .csv
 	 */
 	private static void writeCsvData(double worth, String name, String pos, String team, String age,
-			String bye, int sos, String adp, String trend, double proj, double paa, double paapd, double ecr, double risk,
+			String bye, int sos, String adp, double proj, double paa, double ecr, double risk,
 			FileWriter writer) throws IOException 
 	{  
-		  String line = String.format("%f,%s,%s,%s,%s,%s,%d,%s,%f,%f,%f,%f,%f,%s\n", 
-				  					worth, name, pos, team, age, bye, sos, adp, ecr, proj, paa, paapd, risk, trend);
+		  String line = String.format("%f,%s,%s,%s,%s,%s,%d,%s,%f,%f,%f,%f\n", 
+				  					worth, name, pos, team, age, bye, sos, adp, ecr, proj, paa, risk);
 		  writer.write(line);
 	}
 	
@@ -159,8 +159,8 @@ public class HandleExport
 				{
 					writeCsvData(player.values.secWorth, player.info.name, player.info.position, player.info.team,
 							player.info.age, holder.bye.get(player.info.team), holder.sos.get(player.info.team + "," + player.info.position), 
-							player.info.adp, player.info.trend, player.values.points, 
-							player.values.paa, player.values.paapd, player.values.ecr, player.risk, writer);
+							player.info.adp, player.values.points, 
+							player.values.paa, player.values.ecr, player.risk, writer);
 				}
 			}
 			writer.flush();

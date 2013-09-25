@@ -297,58 +297,6 @@ public class ComparatorHandling
 					p2.append("-Higher PAA\n");
 				}
 			}
-			double lev1 = player1.values.relPoints / player1.values.relPrice;
-			double lev2 = player2.values.relPoints / player1.values.relPrice;
-			if(lev1 > lev2)
-			{
-				if(lev1 - lev2 > 5.0)
-				{
-					val1 += 0.2;
-					p1.append("-Much higher leverage\n");
-				}
-				else
-				{
-					val1 += 0.1;
-					p1.append("-Higher leverage\n");
-				}
-			}
-			if(lev2 > lev1)
-			{
-				if(lev2 - lev1 > 5.0)
-				{
-					val2 += 0.2;
-					p2.append("-Much higher leverage\n");
-				}
-				else
-				{
-					val2 += 0.1;
-					p2.append("-Higher leverage\n");
-				}
-			}
-			double paapd1 = player1.values.paapd;
-			double paapd2 = player2.values.paapd;
-			if(paapd1 > paapd2)
-			{
-				if(paapd1 - paapd2 > 1.0)
-				{
-					p1.append("-Much higher PAAPD\n");
-				}
-				else
-				{
-					p1.append("-Higher PAAPD\n");
-				}
-			}
-			if(paapd2 > paapd1)
-			{
-				if(paapd2 - paapd1 > 1.0)
-				{
-					p2.append("-Much higher PAAPD\n");
-				}
-				else
-				{
-					p2.append("-Higher PAAPD\n");
-				}
-			}
 		}
 		try{
 			int age1 = Integer.parseInt(player1.info.age);
@@ -465,33 +413,6 @@ public class ComparatorHandling
 					val1 += 0.1;
 					p1.append("-Lower risk\n");
 				}
-			}
-		}
-		double trend1 = trend(player1);
-		double trend2 = trend(player2);
-		if(trend1 != trend2)
-		{
-			if(trend1 > trend2)
-			{
-				if(trend1 - trend2 > 10.0)
-				{
-					p1.append("-Value is trending in a much better direction\n");
-				}
-				else
-				{
-					p1.append("-Value is trending in a better direction\n");
-				}
-			}
-			else
-			{
-				if(trend2 - trend1 > 10.0)
-				{
-					p2.append("-Value is trending in a much better direction\n");
-				}
-				else
-				{
-					p2.append("-Value is trending in a better direction\n");
-				}		
 			}
 		}
 		double quantity1 = player1.values.count;
@@ -948,23 +869,6 @@ public class ComparatorHandling
 			return 500.0;
 		}
 		return Double.parseDouble(player.info.adp);
-	}
-	
-	/**
-	 * Returns the trend of a player
-	 */
-	public static double trend(PlayerObject player)
-	{
-		if(player.info.trend.contains("+") || player.info.trend.contains("-"))
-		{
-			String trendStr = player.info.trend.replace("+", "");
-			if(trendStr.contains("-"))
-			{
-				return 0.0 - Double.parseDouble(trendStr.replace("-", ""));
-			}
-			return Double.parseDouble(trendStr);
-		}
-		return 0.0;
 	}
 	
 	/**

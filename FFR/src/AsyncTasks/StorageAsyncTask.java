@@ -67,16 +67,15 @@ public class StorageAsyncTask
 	    		players.append( 
 	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" 
 	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
-	    		player.info.adp + "&&" 
-	    		+ player.info.trend + "&&" + player.info.contractStatus + "&&" + 
+	    		player.info.adp 
+	    		+ "&&" + player.info.contractStatus + "&&" + 
 	    		player.info.age + "&&" + player.stats + "&&" + player.injuryStatus + 
 	    		"&&"+ player.values.ecr + "&&" + 
 	    		player.risk + "&&" + 
-	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "~~~~");
+	    		player.values.points + "&&" + player.values.paa + "~~~~");
 	    	}
 	    	String playerString = players.toString();
 	    	editor.putString("Player Values", playerString).commit();
-	    	WriteToFile.writeLeverage(cont, holder);
 	    	editor.commit();
 			return null;
 	    }
@@ -153,15 +152,14 @@ public class StorageAsyncTask
 	    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
 	    	    		 player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
 	    	    		player.info.adp + "&&" 
-	    	    		+ player.info.trend + "&&" + player.info.contractStatus +"&&" + 
+	    	    		+  player.info.contractStatus +"&&" + 
 	    	    		player.info.age + "&&" + player.stats + "&&" + player.injuryStatus + 
 	    	    		"&&" + player.values.ecr + "&&" + 
 	    	    		player.risk + "&&"  + 
-	    	    		player.values.points + "&&" + player.values.paa + "&&" + player.values.paapd + "~~~~");
+	    	    		player.values.points + "&&" + player.values.paa + "~~~~");
 
 	    	}
 	    	String playerString = players.toString();
-	    	WriteToFile.writeLeverage(cont, holder);
 	    	editor.putString("Player Values", playerString).commit();
 			return null;
 	    }
@@ -252,16 +250,14 @@ public class StorageAsyncTask
 	   		{  
 	   			String[] allData = ManageInput.tokenize(st[i], '&', 2);
 	   			PlayerObject newPlayer = new PlayerObject(allData[2], allData[3], allData[4], 0);
-	   			newPlayer.values.paapd = Double.parseDouble(allData[15]);
-	   			newPlayer.values.paa = Double.parseDouble(allData[14]);
-	   			newPlayer.values.points = Double.parseDouble(allData[13]);
-	   			newPlayer.risk = Double.parseDouble(allData[12]);
-	   			newPlayer.values.ecr = Double.parseDouble(allData[11]);
-	   			newPlayer.injuryStatus = allData[10];
-	   			newPlayer.stats = allData[9];
-	   			newPlayer.info.age = allData[8];
-	   			newPlayer.info.contractStatus = allData[7];
-	   			newPlayer.info.trend = allData[6];
+	   			newPlayer.values.paa = Double.parseDouble(allData[13]);
+	   			newPlayer.values.points = Double.parseDouble(allData[12]);
+	   			newPlayer.risk = Double.parseDouble(allData[11]);
+	   			newPlayer.values.ecr = Double.parseDouble(allData[10]);
+	   			newPlayer.injuryStatus = allData[9];
+	   			newPlayer.stats = allData[8];
+	   			newPlayer.info.age = allData[7];
+	   			newPlayer.info.contractStatus = allData[6];
 	   			newPlayer.info.adp = allData[5];
 	   			newPlayer.values.count = Double.parseDouble(allData[1]);
 	   			newPlayer.values.worth = Double.parseDouble(allData[0]);
@@ -303,7 +299,6 @@ public class StorageAsyncTask
 				holder.draft.remainingSalary = Integer.parseInt(individual[7][0]);
 				holder.draft.value = Double.parseDouble(individual[8][0]);
 			}
-			ReadFromFile.readLeverage(cont, holder);
 			System.out.println(System.nanoTime() - start + " to read from file");
 			return holder;
 	    }
