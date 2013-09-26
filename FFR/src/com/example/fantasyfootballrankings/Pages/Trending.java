@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
 
 import com.ffr.fantasyfootballrankings.R;
-
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
@@ -316,8 +316,8 @@ public class Trending extends Activity {
 				SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 				editor.putBoolean("Home Update Trending", false).commit();
 				editor.putBoolean("Rankings Update Trending", false).commit();
-		    	String checkExists2 = prefs.getString("Player Values", "Not Set");
-		    	if(!checkExists2.equals("Not Set"))
+				Set<String> checkExists2 = prefs.getStringSet("Player Values", null);
+		    	if(checkExists2 != null)
 		    	{
 					ReadFromFile.fetchPlayers(checkExists2, holder,cont, 2);
 		    	}

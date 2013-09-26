@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import org.htmlcleaner.XPatherException;
@@ -274,8 +275,8 @@ public class Home extends Activity{
 	public void handleInitialRefresh()
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		String checkExists = prefs.getString("Player Values", "Not Set");
-		if(!checkExists.equals("Not Set") || prefs.getBoolean("Rankings Update Home", false))
+		Set<String> checkExists = prefs.getStringSet("Player Values", null);
+		if(checkExists != null || prefs.getBoolean("Rankings Update Home", false))
 		{
 			ReadFromFile.fetchPlayers(checkExists, holder,cont, 1);
 			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();

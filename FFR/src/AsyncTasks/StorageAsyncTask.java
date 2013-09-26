@@ -3,9 +3,11 @@ package AsyncTasks;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import FileIO.ReadFromFile;
@@ -61,21 +63,41 @@ public class StorageAsyncTask
 	    	WriteToFile.writeTeamData(holder, cont);
 	    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 	    	//Rankings work
-	    	StringBuilder players = new StringBuilder(10000);
+	    	Set<String> playerData = new HashSet<String>();
 	    	for (PlayerObject player : holder.players)
 	    	{
-	    		players.append( 
-	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" 
-	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
-	    		player.info.adp 
-	    		+ "&&" + player.info.contractStatus + "&&" + 
-	    		player.info.age + "&&" + player.stats + "&&" + player.injuryStatus + 
-	    		"&&"+ player.values.ecr + "&&" + 
-	    		player.risk + "&&" + 
-	    		player.values.points + "&&" + player.values.paa + "~~~~");
+		    	StringBuilder players = new StringBuilder(10000);
+	    		players.append(Double.toString(player.values.worth));
+	    		players.append("&&");
+	    		players.append(Double.toString(player.values.count));
+	    		players.append("&&");
+	    		players.append(player.info.name);
+	    		players.append("&&");
+	    		players.append(player.info.team);
+	    		players.append("&&");
+	    		players.append(player.info.position);
+	    		players.append("&&");
+	    		players.append(player.info.adp);
+	    		players.append("&&");
+	    		players.append(player.info.contractStatus);
+	    		players.append("&&");
+	    		players.append(player.info.age);
+	    		players.append("&&");
+	    		players.append(player.stats);
+	    		players.append("&&");
+	    		players.append(player.injuryStatus);
+	    		players.append("&&");
+	    		players.append(player.values.ecr);
+	    		players.append("&&");
+	    		players.append(player.risk);
+	    		players.append("&&");
+	    		players.append(player.values.points);
+	    		players.append("&&");
+	    		players.append(player.values.paa);
+	    		playerData.add(players.toString());
 	    	}
-	    	String playerString = players.toString();
-	    	editor.putString("Player Values", playerString).commit();
+	    	editor.putStringSet("Parsed Player Names", new HashSet<String>(holder.parsedPlayers));
+	    	editor.putStringSet("Player Values", playerData).commit();
 	    	editor.commit();
 			return null;
 	    }
@@ -145,22 +167,41 @@ public class StorageAsyncTask
 	    	WriteToFile.writeTeamData(holder, cont);
 	    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 	    	//Rankings work
-	    	StringBuilder players = new StringBuilder(10000);
+	    	Set<String> playerData = new HashSet<String>();
 	    	for (PlayerObject player : holder.players)
 	    	{
-	    		players.append( 
-	    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&" +
-	    	    		 player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
-	    	    		player.info.adp + "&&" 
-	    	    		+  player.info.contractStatus +"&&" + 
-	    	    		player.info.age + "&&" + player.stats + "&&" + player.injuryStatus + 
-	    	    		"&&" + player.values.ecr + "&&" + 
-	    	    		player.risk + "&&"  + 
-	    	    		player.values.points + "&&" + player.values.paa + "~~~~");
-
+		    	StringBuilder players = new StringBuilder(10000);
+	    		players.append(Double.toString(player.values.worth));
+	    		players.append("&&");
+	    		players.append(Double.toString(player.values.count));
+	    		players.append("&&");
+	    		players.append(player.info.name);
+	    		players.append("&&");
+	    		players.append(player.info.team);
+	    		players.append("&&");
+	    		players.append(player.info.position);
+	    		players.append("&&");
+	    		players.append(player.info.adp);
+	    		players.append("&&");
+	    		players.append(player.info.contractStatus);
+	    		players.append("&&");
+	    		players.append(player.info.age);
+	    		players.append("&&");
+	    		players.append(player.stats);
+	    		players.append("&&");
+	    		players.append(player.injuryStatus);
+	    		players.append("&&");
+	    		players.append(player.values.ecr);
+	    		players.append("&&");
+	    		players.append(player.risk);
+	    		players.append("&&");
+	    		players.append(player.values.points);
+	    		players.append("&&");
+	    		players.append(player.values.paa);
+	    		playerData.add(players.toString());
 	    	}
-	    	String playerString = players.toString();
-	    	editor.putString("Player Values", playerString).commit();
+	    	editor.putStringSet("Parsed Player Names", new HashSet<String>(holder.parsedPlayers));
+	    	editor.putStringSet("Player Values", playerData).commit();
 			return null;
 	    }
 	}
@@ -239,16 +280,15 @@ public class StorageAsyncTask
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
 	    	long start = (Long)data[2];
-	    	String checkExists = (String)data[3];
+	    	Set<String> checkExists = (Set<String>)data[3];
 	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     		holder.players = new ArrayList<PlayerObject>();
     		holder.parsedPlayers = new ArrayList<String>();
     		ReadFromFile.readTeamData(holder, cont);
     		double aucFactor = ReadFromFile.readAucFactor(cont);
-    		String[] st = ManageInput.tokenize(checkExists, '~', 4);
-	   		for(int i = 0; i < st.length; i++)
+	   		for(String st : checkExists)
 	   		{  
-	   			String[] allData = ManageInput.tokenize(st[i], '&', 2);
+	   			String[] allData = ManageInput.tokenize(st, '&', 2);
 	   			PlayerObject newPlayer = new PlayerObject(allData[2], allData[3], allData[4], 0);
 	   			newPlayer.values.paa = Double.parseDouble(allData[13]);
 	   			newPlayer.values.points = Double.parseDouble(allData[12]);
@@ -262,9 +302,9 @@ public class StorageAsyncTask
 	   			newPlayer.values.count = Double.parseDouble(allData[1]);
 	   			newPlayer.values.worth = Double.parseDouble(allData[0]);
 	   			newPlayer.values.secWorth = newPlayer.values.worth / aucFactor;
-	   			holder.parsedPlayers.add(allData[2]);
 	   			holder.players.add(newPlayer);
 	   		}
+	   		holder.parsedPlayers = new ArrayList<String>(prefs.getStringSet("Parsed Player Names", null));
 	   		String set = prefs.getString("Draft Information", "Doesn't matter");
 			String[] perSet = ManageInput.tokenize(set, '@', 1);
 			String[][] individual = new String[perSet.length][];

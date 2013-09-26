@@ -11,10 +11,14 @@ import java.io.IOException;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+
 
 
 
@@ -411,22 +415,41 @@ public class ParsingAsyncTask
 					HighLevel.getPAA(holder, cont);
 					SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 			    	//Rankings work
-			    	StringBuilder players = new StringBuilder(10000);
+					Set<String> playerData = new HashSet<String>();
 			    	for (PlayerObject player : holder.players)
-			    	{ 
-			    		players.append( 
-			    	    		Double.toString(player.values.worth) + "&&" + Double.toString(player.values.count) + "&&"
-			    	    		+ player.info.name + "&&" + player.info.team + "&&" + player.info.position + "&&" + 
-			    	    		player.info.adp 
-			    	    		+ "&&" + player.info.contractStatus + "&&" + 
-			    	    		player.info.age + "&&" + player.stats + "&&"  + player.injuryStatus + 
-			    	    		"&&" + player.values.ecr + "&&" + 
-			    	    		player.risk +  "&&" + 
-			    	    		player.values.points + "&&" + player.values.paa + "~~~~");
-
-			    	} 
-			    	String playerString = players.toString();
-			    	editor.putString("Player Values", playerString).commit();
+			    	{
+				    	StringBuilder players = new StringBuilder(10000);
+			    		players.append(Double.toString(player.values.worth));
+			    		players.append("&&");
+			    		players.append(Double.toString(player.values.count));
+			    		players.append("&&");
+			    		players.append(player.info.name);
+			    		players.append("&&");
+			    		players.append(player.info.team);
+			    		players.append("&&");
+			    		players.append(player.info.position);
+			    		players.append("&&");
+			    		players.append(player.info.adp);
+			    		players.append("&&");
+			    		players.append(player.info.contractStatus);
+			    		players.append("&&");
+			    		players.append(player.info.age);
+			    		players.append("&&");
+			    		players.append(player.stats);
+			    		players.append("&&");
+			    		players.append(player.injuryStatus);
+			    		players.append("&&");
+			    		players.append(player.values.ecr);
+			    		players.append("&&");
+			    		players.append(player.risk);
+			    		players.append("&&");
+			    		players.append(player.values.points);
+			    		players.append("&&");
+			    		players.append(player.values.paa);
+			    		playerData.add(players.toString());
+			    	}
+			    	editor.putStringSet("Parsed Player Names", new HashSet<String>(holder.parsedPlayers));
+			    	editor.putStringSet("Player Values", playerData).commit();
 				} catch (IOException e) {
 					return null;
 				}

@@ -1,13 +1,13 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.text.DecimalFormat;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Set;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
@@ -15,10 +15,10 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObjec
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
-
 import com.ffr.fantasyfootballrankings.R;
 import com.ffr.fantasyfootballrankings.R.layout;
 import com.ffr.fantasyfootballrankings.R.menu;
+
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.os.Bundle;
@@ -71,8 +71,8 @@ public class DraftHistory extends Activity {
 				SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 				editor.putBoolean("Home Update Draft", false).commit();
 				editor.putBoolean("Rankings Update Draft", false).commit();
-		    	String checkExists2 = prefs.getString("Player Values", "Not Set");
-		    	if(!checkExists2.equals("Not Set"))
+				Set<String> checkExists2 = prefs.getStringSet("Player Values", null);
+		    	if(checkExists2 != null)
 		    	{
 					ReadFromFile.fetchPlayers(checkExists2, holder,cont, 5);
 		    	}

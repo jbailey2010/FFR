@@ -13,10 +13,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Set;
+
 import org.htmlcleaner.XPatherException;
 
 import com.ffr.fantasyfootballrankings.R;
-
 import com.example.fantasyfootballrankings.ClassFiles.ComparatorHandling;
 import com.example.fantasyfootballrankings.ClassFiles.HandleWatchList;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
@@ -1272,8 +1273,8 @@ public class Rankings extends Activity {
 	{
 		
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-    	String checkExists = prefs.getString("Player Values", "Not Set");
-    	if((!checkExists.equals("Not Set") && holder.players.size() == 0) || prefs.getBoolean("Home Update", false))
+    	Set<String> checkExists = prefs.getStringSet("Player Values", null);
+    	if((checkExists != null && holder.players.size() == 0) || prefs.getBoolean("Home Update", false))
     	{
     		if(Home.holder.players != null && Home.holder.players.size() > 5)
     		{

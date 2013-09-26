@@ -121,7 +121,7 @@ public class ReadFromFile {
 	 * function, which is the function that calls all the rankings functions and the high 
 	 * level stuff
 	 */
-	public static void fetchPlayers(String checkExists, Storage holder, Context cont, int i) 
+	public static void fetchPlayers(Set<String> checkExists, Storage holder, Context cont, int i) 
 	{
     	long start = System.nanoTime();
 		
