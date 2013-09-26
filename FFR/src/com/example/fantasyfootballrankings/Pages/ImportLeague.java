@@ -8,20 +8,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Random;
 import java.util.Set;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
+import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.LeagueImports.ESPNImport;
 import com.ffr.fantasyfootballrankings.R;
-import com.ffr.fantasyfootballrankings.R.layout;
-import com.ffr.fantasyfootballrankings.R.menu;
-import com.jjoe64.graphview.BarGraphView;
-import com.jjoe64.graphview.CustomLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.LegendAlign;
 import com.jjoe64.graphview.GraphViewDataInterface;
@@ -29,7 +25,6 @@ import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.GraphViewStyle;
 import com.jjoe64.graphview.LineGraphView;
-import com.jjoe64.graphview.ValueDependentColor;
 
 import FileIO.ReadFromFile;
 import android.os.Bundle;
@@ -51,6 +46,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -405,40 +401,6 @@ public class ImportLeague extends Activity {
 		String[] keySet = key.split("@@@");
 		newImport = new ImportedTeam(teamList, keySet[1], keySet[0]);
 		View res = ((Activity)cont).getLayoutInflater().inflate(R.layout.league_stats_output, ll, false);
-		//Below sets the team information
-	    List<Map<String, String>>data = new ArrayList<Map<String, String>>();
-		SimpleAdapter adapter = new SimpleAdapter(cont, data, 
-	    		R.layout.imported_listview_elem_team, 
-	    		new String[] {"head", "main", "sub"}, 
-	    		new int[] {R.id.text1, 
-	    			R.id.text2, R.id.text3});
-		ListView list = (ListView)res.findViewById(R.id.imported_teams_info);
-		DecimalFormat df = new DecimalFormat("#.##");
-		for(TeamAnalysis team : newImport.teams)
-		{
-			Map<String, String> datum = new HashMap<String, String>();
-			datum.put("head", team.teamName);
-			datum.put("main", team.team);
-			datum.put("sub", df.format(paaTotal(team)) + " PAA Total\n" + df.format(paaStart(team)) + " PAA From Starters");
-			data.add(datum);
-		}
-	    list.setAdapter(adapter);
-	    list.setOnItemClickListener(new OnItemClickListener(){
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				teamSpecPopUp(arg1, newImport);
-			}
-	    });
-		OnItemLongClickListener longListener = new OnItemLongClickListener(){
-			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				optimalLineup(newImport, arg1);
-				return true;
-			}
-		};
-		list.setOnItemLongClickListener(longListener);
 	    //Handles the back button
 	    ImageView back = (ImageView)res.findViewById(R.id.back_button_league_stats);
 	    back.setOnClickListener(new OnClickListener(){
@@ -447,13 +409,46 @@ public class ImportLeague extends Activity {
 				handleLayoutInit();
 			}
 	    });
+	    //Handles the three listview populations
+	    setTeamInfoList(res);
+	    setLeagueInfoList(res);
+	    setPlayerInfoList(res);
 	    //Handles the basic league information
 	    TextView name = (TextView)res.findViewById(R.id.league_name);
 	    name.setText(newImport.leagueName);
 	    handleLongClick(name, newImport, cont);
 	    TextView host = (TextView)res.findViewById(R.id.hostName);
 	    host.setText("Hosted on " + newImport.leagueHost);
-	    //Handles the statistic part of the layout
+	    //Help work
+	    final TextView helpTeams = (TextView)res.findViewById(R.id.team_help_import);
+	    final TextView helpRanks = (TextView)res.findViewById(R.id.rankings_help_import);
+	    TextView help = (TextView)res.findViewById(R.id.help_button_league_stats);
+	    help.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				if(!helpTeams.isShown())
+				{ 
+					helpTeams.setVisibility(View.VISIBLE);
+					helpRanks.setVisibility(View.VISIBLE);
+				}
+				else
+				{
+					helpTeams.setVisibility(View.GONE);
+					helpRanks.setVisibility(View.GONE);
+				}
+			}
+	    });
+	    ll.addView(res);
+	}
+	
+	/**
+	 * Populates the listview that handles the league information statistically
+	 * @param res
+	 */
+	public void setLeagueInfoList(View res)
+	{
+		DecimalFormat df = new DecimalFormat("#.##");
+		//Handles the statistic part of the layout
 	    PriorityQueue<TeamAnalysis> totalPAA = new PriorityQueue<TeamAnalysis>(300, new Comparator<TeamAnalysis>() 
 		{
 			@Override
@@ -735,27 +730,7 @@ public class ImportLeague extends Activity {
 		adapter2.notifyDataSetChanged();
 	    list2.setAdapter(adapter2);
 	    ll.removeAllViews();
-	    list.setOnTouchListener(new ListView.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-            	int action = event.getAction();
-                switch (action) {
-                case MotionEvent.ACTION_DOWN:
-                    // Disallow ScrollView to intercept touch events.
-                    v.getParent().requestDisallowInterceptTouchEvent(true);
-                    break;
-
-                case MotionEvent.ACTION_UP:
-                    // Allow ScrollView to intercept touch events.
-                    v.getParent().requestDisallowInterceptTouchEvent(false);
-                    break;
-                }
-
-                // Handle ListView touch events.
-                v.onTouchEvent(event);
-                return true;
-            }
-        });
+	    
 	    list2.setOnTouchListener(new ListView.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -778,26 +753,244 @@ public class ImportLeague extends Activity {
             }
         });
 	    handleListOnItemClick(list2, newImport);
-	    //Help work
-	    final TextView helpTeams = (TextView)res.findViewById(R.id.team_help_import);
-	    final TextView helpRanks = (TextView)res.findViewById(R.id.rankings_help_import);
-	    TextView help = (TextView)res.findViewById(R.id.help_button_league_stats);
-	    help.setOnClickListener(new OnClickListener(){
+	}
+	
+	
+	public void setPlayerInfoList(View res)
+	{
+		 List<Map<String, String>>data = new ArrayList<Map<String, String>>();
+		 SimpleAdapter adapter = new SimpleAdapter(cont, data, 
+		    		R.layout.web_listview_item, 
+		    		new String[] {"main", "sub"}, 
+		    		new int[] {R.id.text1, 
+		    			R.id.text2});
+		 final ListView list = (ListView)res.findViewById(R.id.imported_teams_players);
+		 list.setAdapter(adapter);
+		 list.setOnTouchListener(new ListView.OnTouchListener() {
+	            @Override
+	            public boolean onTouch(View v, MotionEvent event) {
+	            	int action = event.getAction();
+	                switch (action) {
+	                case MotionEvent.ACTION_DOWN:
+	                    // Disallow ScrollView to intercept touch events.
+	                    v.getParent().requestDisallowInterceptTouchEvent(true);
+	                    break;
+
+	                case MotionEvent.ACTION_UP:
+	                    // Allow ScrollView to intercept touch events.
+	                    v.getParent().requestDisallowInterceptTouchEvent(false);
+	                    break;
+	                }
+
+	                // Handle ListView touch events.
+	                v.onTouchEvent(event);
+	                return true;
+	            }
+	        });
+		 final Spinner pos = (Spinner)res.findViewById(R.id.player_pos_spinner);
+		 final Spinner status = (Spinner)res.findViewById(R.id.player_status_spinner);
+		 pos.clearFocus();
+		 status.clearFocus();
+		 list.clearFocus();
+		 List<String> positions = new ArrayList<String>();
+		 positions.add("All Positions");
+		 positions.add("QB");
+		 positions.add("RB");
+		 positions.add("WR");
+		 positions.add("TE");
+		 positions.add("D/ST");
+		 positions.add("K");
+		 List<String> playerStatus = new ArrayList<String>();
+		 playerStatus.add("All Players");
+		 playerStatus.add("Free Agents");
+		 playerStatus.add("On Team");
+		 ArrayAdapter<String> adapterPos = new ArrayAdapter<String>(cont, 
+					android.R.layout.simple_spinner_dropdown_item, positions);
+		 pos.setAdapter(adapterPos);
+		 ArrayAdapter<String> statusAdapter = new ArrayAdapter<String>(cont, 
+					android.R.layout.simple_spinner_dropdown_item, playerStatus);
+		 status.setAdapter(statusAdapter);
+		 final OnItemSelectedListener l = new OnItemSelectedListener(){
+				@Override
+				public void onItemSelected(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					String pos = ((TextView)arg1).getText().toString();
+					populatePlayerList(list, pos, status.getSelectedItem().toString());
+				}
+				
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+				}
+			 };
+		 pos.post(new Runnable() {
+			    public void run() {
+			    	pos.setOnItemSelectedListener(l);
+			    }
+			});
+		 final OnItemSelectedListener l2 = new OnItemSelectedListener(){
+
+				@Override
+				public void onItemSelected(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					String status = ((TextView)arg1).getText().toString();
+					populatePlayerList(list, pos.getSelectedItem().toString(), status);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+				}
+			 };
+		 status.post(new Runnable() {
+			    public void run() {
+			    	status.setOnItemSelectedListener(l2);
+			}});
+		 populatePlayerList(list, "All Positions", "All Players");
+	}
+	
+	public void setPlayerAdapter(List<Map<String, String>> data, ListView list)
+	{
+		SimpleAdapter adapter = new SimpleAdapter(cont, data, 
+	    		R.layout.web_listview_item, 
+	    		new String[] {"main", "sub"}, 
+	    		new int[] {R.id.text1, 
+	    			R.id.text2});
+		list.setAdapter(adapter);
+		list.setOnItemClickListener(new OnItemClickListener(){
 			@Override
-			public void onClick(View arg0) {
-				if(!helpTeams.isShown())
-				{ 
-					helpTeams.setVisibility(View.VISIBLE);
-					helpRanks.setVisibility(View.VISIBLE);
-				}
-				else
-				{
-					helpTeams.setVisibility(View.GONE);
-					helpRanks.setVisibility(View.GONE);
-				}
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				String name = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString().split(":  ")[1];
+				PlayerInfo obj = new PlayerInfo();
+				obj.outputResults(name, true, (Activity) cont, holder, false, false);
+			}
+		});
+	}
+	
+	/**
+	 * Handles the logic of populating the player list 
+	 * to fill the selected team/status...etc.
+	 */
+	public void populatePlayerList(ListView list, String pos, String status)
+	{
+		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+		PriorityQueue<PlayerObject> players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+	    		{
+	    			@Override
+	    			public int compare(PlayerObject a, PlayerObject b) 
+	    			{
+	    				if (a.values.ecr > b.values.ecr)
+	    			    {
+	    			        return 1;
+	    			    }
+	    			    if (a.values.ecr < b.values.ecr)
+	    			    {
+	    			    	return -1;
+	    			    } 
+	    			    return 0;
+	    			}
+	    		});
+		 for(PlayerObject player : holder.players)
+		 {
+			 if(player.values.ecr > 0 && (pos.equals("All Positions") || player.info.position.equals(pos)))
+			 {
+				 players.add(player);
+			 }
+		 }
+		 while(!players.isEmpty())
+		 {
+			 Map<String, String> datum = new HashMap<String, String>();
+			 PlayerObject iter = players.poll();
+			 datum.put("main", iter.values.ecr + ":  " + iter.info.name);
+			 StringBuilder subInfo = new StringBuilder(100);
+			 for(TeamAnalysis team : newImport.teams)
+			 {
+				 if(team.team.contains(iter.info.name))
+				 {
+					 subInfo.append(team.teamName + "\n");
+					 break;
+				 }
+			 }
+			 if(!subInfo.toString().contains("\n"))
+			 {
+				 subInfo.append("Free Agent \n");
+			 }
+			 if(status.equals("Free Agents") && !subInfo.toString().contains("Free Agent"))
+			 {
+				 continue;
+			 }
+			 if(status.equals("On Team") && subInfo.toString().contains("Free Agent"))
+			 {
+				 continue;
+			 }
+			 subInfo.append(iter.info.position + " - " + iter.info.team + "\n");
+			 subInfo.append("Projecion: " + iter.values.points);
+			 datum.put("sub", subInfo.toString());
+			 data.add(datum);
+		 }
+		 setPlayerAdapter(data, list);
+	}
+	
+	/**
+	 * Handles the population of the team information listview
+	 * both click, onclick, and initial output
+	 * @param res
+	 */
+	public void setTeamInfoList(View res){
+		//Below sets the team information
+	    List<Map<String, String>>data = new ArrayList<Map<String, String>>();
+		SimpleAdapter adapter = new SimpleAdapter(cont, data, 
+	    		R.layout.imported_listview_elem_team, 
+	    		new String[] {"head", "main", "sub"}, 
+	    		new int[] {R.id.text1, 
+	    			R.id.text2, R.id.text3});
+		ListView list = (ListView)res.findViewById(R.id.imported_teams_info);
+		DecimalFormat df = new DecimalFormat("#.##");
+		for(TeamAnalysis team : newImport.teams)
+		{
+			Map<String, String> datum = new HashMap<String, String>();
+			datum.put("head", team.teamName);
+			datum.put("main", team.team);
+			datum.put("sub", df.format(paaTotal(team)) + " PAA Total\n" + df.format(paaStart(team)) + " PAA From Starters");
+			data.add(datum);
+		}
+	    list.setAdapter(adapter);
+	    list.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				teamSpecPopUp(arg1, newImport);
 			}
 	    });
-	    ll.addView(res);
+		OnItemLongClickListener longListener = new OnItemLongClickListener(){
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				optimalLineup(newImport, arg1);
+				return true;
+			}
+		};
+		list.setOnItemLongClickListener(longListener);
+		list.setOnTouchListener(new ListView.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+            	int action = event.getAction();
+                switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    // Disallow ScrollView to intercept touch events.
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    break;
+
+                case MotionEvent.ACTION_UP:
+                    // Allow ScrollView to intercept touch events.
+                    v.getParent().requestDisallowInterceptTouchEvent(false);
+                    break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
 	}
 	
 	/**
@@ -874,6 +1067,12 @@ public class ImportLeague extends Activity {
 		}
 	}
 	
+	/**
+	 * Comes up with a pop up that shows a specific team's 
+	 * perfect lineup
+	 * @param newImport
+	 * @param v
+	 */
 	public void optimalLineup(ImportedTeam newImport, View v)
 	{
 		RelativeLayout base = (RelativeLayout)v;
@@ -1045,7 +1244,6 @@ public class ImportLeague extends Activity {
 		String team = ((TextView)((RelativeLayout)v).findViewById(R.id.text2)).getText().toString();
 		String header = ((TextView)((RelativeLayout)v).findViewById(R.id.text1)).getText().toString();
 		TeamAnalysis ta = new TeamAnalysis("", team, holder, cont);
-		DecimalFormat df = new DecimalFormat("#.##");
 		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
 	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		popUp.setContentView(R.layout.team_info_popup);
@@ -1117,6 +1315,9 @@ public class ImportLeague extends Activity {
 
 	}
 	
+	/**
+	 * Handles the comaprison of teams, specifically the initial aspects of it
+	 */
 	public void compareTeamInit()
 	{
 		List<String> teamNames = new ArrayList<String>();
