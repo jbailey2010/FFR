@@ -999,12 +999,33 @@ public class HighLevel
 		HashMap<String, Double> ecr = new HashMap<String, Double>();
 		HashMap<String, Double> risk = new HashMap<String, Double>();
 		HashMap<String, Double> adp = new HashMap<String, Double>();
-		String url = "http://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php";
-		if(ReadFromFile.readScoring(cont).catches == 1)
+		if(!isValidRankings("http://www.fantasypros.com/nfl/rankings/ppr-rb.php?week=1"))
 		{
-			url = "http://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php";
+			String url = "http://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php";
+			if(ReadFromFile.readScoring(cont).catches == 1)
+			{
+				url = "http://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php";
+			}
+			parseECRWorker(url, holder, ecr, risk, adp, 9);
 		}
-		parseECRWorker(url, holder, ecr, risk, adp);
+		else
+		{
+			System.out.println("IS REGULAR SEASON");
+			StringBuilder urlBase = new StringBuilder(100);
+			urlBase.append("http://www.fantasypros.com/nfl/rankings/");
+			String url = urlBase.toString();
+			if(ReadFromFile.readScoring(cont).catches > 0)
+			{
+				urlBase.append("ppr-");
+			}
+			String urlRec = urlBase.toString();
+			parseECRWeekly(url + "qb.php", holder, ecr, risk, adp);
+			parseECRWeekly(urlRec + "rb.php", holder, ecr, risk, adp);
+			parseECRWeekly(urlRec + "wr.php", holder, ecr, risk, adp);
+			parseECRWeekly(urlRec + "te.php", holder, ecr, risk, adp);
+			parseECRWeekly(url + "dst.php", holder, ecr, risk, adp);
+			parseECRWeekly(url + "k.php", holder, ecr, risk, adp);
+		}
 		for(PlayerObject player : holder.players)
 		{
 			if(ecr.containsKey(player.info.name) && !(player.info.name.equals("Alex Smith") && player.info.team.equals("Cincinnati Bengals")))
@@ -1018,12 +1039,13 @@ public class HighLevel
 			}
 		} 
 	}
-	 
+	
 	/**
-	 * Gets the ECR Data for players
+	 * Does a mock request to see if the regular season rankings are up
+	 * @return
+	 * @throws IOException
 	 */
-	public static void parseECRWorker(String url, Storage holder, HashMap<String, Double> ecr, 
-			HashMap<String, Double> risk, HashMap<String, Double> adp) throws IOException
+	public static boolean isValidRankings(String url) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = ManageInput.tokenize(html, '\n', 1);
@@ -1036,8 +1058,72 @@ public class HighLevel
 				break;
 			}
 		}
-		for(int i = min; i < td.length; i+=9)
+		if(min != 0 && td.length - min > 15)
 		{
+			return true;
+		}
+		return false;
+	}
+	
+	public static void parseECRWeekly(String url, Storage holder, HashMap<String, Double> ecr, 
+			HashMap<String, Double> risk, HashMap<String, Double> adp) throws IOException
+	{
+		System.out.println(url);
+		String html = HandleBasicQueries.handleLists(url, "td");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
+		int min = 0;
+		for(int i = 0; i < td.length; i++)
+		{ 
+			if(td[i+1].contains("vs") && ManageInput.isInteger(td[i]))
+			{
+				min = i;
+				break;
+			}
+		}
+		for(int i = min; i < td.length; i+=6)
+		{
+			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i+1].split(" \\(")[0].split(", ")[0]));
+			double ecrVal = Double.parseDouble(td[i+4]);
+			double riskVal = Double.parseDouble(td[i+5]);
+			try{
+				double adpVal = Double.parseDouble(td[i+6]);
+				adp.put(name, adpVal);
+			} catch(NumberFormatException e)
+			{
+				
+			} catch(ArrayIndexOutOfBoundsException e1)
+			{
+				
+			}
+			ecr.put(name, ecrVal);
+			risk.put(name, riskVal);
+		}
+	}
+	
+	/**
+	 * Gets the ECR Data for players
+	 */
+	public static void parseECRWorker(String url, Storage holder, HashMap<String, Double> ecr, 
+			HashMap<String, Double> risk, HashMap<String, Double> adp, int loopIter) throws IOException
+	{
+		String html = HandleBasicQueries.handleLists(url, "td");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
+		int min = 0;
+		for(int i = 0; i < td.length; i++)
+		{ 
+			if(td[i+1].contains("QB") || td[i+1].contains("RB") || td[i+1].contains("WR") || td[i+1].contains("TE"))
+			{
+				min = i;
+				break;
+			}
+		}
+		for(int i = min; i < td.length; i+=loopIter)
+		{
+			for(int j = i; j < i+7; j++)
+			{
+				System.out.println(j + ": " + td[j]);
+			}
+			System.out.println("----------");
 			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i].split(" \\(")[0].split(", ")[0]));
 			double ecrVal = Double.parseDouble(td[i+4]);
 			double riskVal = Double.parseDouble(td[i+5]);

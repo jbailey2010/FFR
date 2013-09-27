@@ -96,6 +96,7 @@ public class ImportLeague extends Activity {
 			else if(Home.holder.players == null || Home.holder.players.size() < 5 || 
 					prefs.getBoolean("Home Update Import", false) || prefs.getBoolean("Rankings Update Import", false))
 			{
+				System.out.println("Refreshing");
 				SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 				editor.putBoolean("Home Update Import", false).commit();
 				editor.putBoolean("Rankings Update Import", false).commit();
@@ -422,17 +423,20 @@ public class ImportLeague extends Activity {
 	    //Help work
 	    final TextView helpTeams = (TextView)res.findViewById(R.id.team_help_import);
 	    final TextView helpRanks = (TextView)res.findViewById(R.id.rankings_help_import);
+	    final TextView helpPlayers = (TextView)res.findViewById(R.id.player_list_help);
 	    TextView help = (TextView)res.findViewById(R.id.help_button_league_stats);
 	    help.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
 				if(!helpTeams.isShown())
 				{ 
+					helpPlayers.setVisibility(View.VISIBLE);
 					helpTeams.setVisibility(View.VISIBLE);
 					helpRanks.setVisibility(View.VISIBLE);
 				}
 				else
 				{
+					helpPlayers.setVisibility(View.GONE);
 					helpTeams.setVisibility(View.GONE);
 					helpRanks.setVisibility(View.GONE);
 				}
@@ -872,19 +876,20 @@ public class ImportLeague extends Activity {
 	 */
 	public void populatePlayerList(ListView list, String pos, String status)
 	{
+		DecimalFormat df = new DecimalFormat("#.##");
 		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		PriorityQueue<PlayerObject> players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 	    		{
 	    			@Override
 	    			public int compare(PlayerObject a, PlayerObject b) 
 	    			{
-	    				if (a.values.ecr > b.values.ecr)
+	    				if (a.values.paa > b.values.paa || (b.values.points == 0 && a.values.points > 0))
 	    			    {
-	    			        return 1;
+	    			        return -1;
 	    			    }
-	    			    if (a.values.ecr < b.values.ecr)
+	    			    if (a.values.paa < b.values.paa || (a.values.points == 0 && b.values.points > 0))
 	    			    {
-	    			    	return -1;
+	    			    	return 1;
 	    			    } 
 	    			    return 0;
 	    			}
@@ -900,7 +905,7 @@ public class ImportLeague extends Activity {
 		 {
 			 Map<String, String> datum = new HashMap<String, String>();
 			 PlayerObject iter = players.poll();
-			 datum.put("main", iter.values.ecr + ":  " + iter.info.name);
+			 datum.put("main", df.format(iter.values.points) + ":  " + iter.info.name);
 			 StringBuilder subInfo = new StringBuilder(100);
 			 for(TeamAnalysis team : newImport.teams)
 			 {
@@ -923,7 +928,7 @@ public class ImportLeague extends Activity {
 				 continue;
 			 }
 			 subInfo.append(iter.info.position + " - " + iter.info.team + "\n");
-			 subInfo.append("Projecion: " + iter.values.points);
+			 subInfo.append(iter.values.ecr + " Ranked " + iter.info.position + " This Week");
 			 datum.put("sub", subInfo.toString());
 			 data.add(datum);
 		 }

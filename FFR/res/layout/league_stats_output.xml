@@ -158,6 +158,7 @@
                     android:background="@drawable/content_well_import"
                     android:divider="#999999"
                     android:focusable="false"
+                    android:layout_marginTop="6dp"
                     android:listSelector="@android:color/transparent"
                     android:paddingBottom="9dp" >
 
@@ -206,13 +207,24 @@
                     android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
+                
+                <TextView
+                    android:id="@+id/player_list_help"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView4"
+                    android:layout_centerHorizontal="true"
+                    android:text="Below is the players list. You can use the left dropdown to alternate free agents/on teams/all players, and right for positional splits.\n\nPlayers are sorted by points above average, but have projections listed. Click on a name to see more."
+                    android:textColor="#FFFFFF"
+                    android:visibility="gone"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <Spinner
                     android:id="@+id/player_status_spinner"
                     android:layout_width="125dp"
                     android:layout_height="40dp"
                     android:layout_alignLeft="@+id/imported_teams_players"
-                    android:layout_below="@+id/textView4" 
+                    android:layout_below="@+id/player_list_help" 
                     android:focusable="false"
                     android:background="@drawable/spinner_well_grey"/>
 

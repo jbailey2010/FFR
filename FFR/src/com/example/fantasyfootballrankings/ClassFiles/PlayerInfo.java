@@ -59,6 +59,7 @@ import com.socialize.entity.Entity;
 public class PlayerInfo 
 {
 	Rankings obj = new Rankings();
+	double aucFactor;
 	/**
 	 * Abstracted out of the menu handler as this could get ugly
 	 * once the stuff is added to the dropdown
@@ -139,6 +140,7 @@ public class PlayerInfo
 		final Dialog dialog = new Dialog(act);
 	    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		dialog.setContentView(R.layout.search_output);
+		aucFactor = ReadFromFile.readAucFactor(act);
 		if(ManageInput.confirmInternet(act))
 		{
 			// Your entity key. May be passed as a Bundle parameter to your activity
@@ -565,7 +567,14 @@ public class PlayerInfo
 		}
 		//Worth
 		Map<String, String> datumWorth = new HashMap<String, String>(2);
-		datumWorth.put("main", "$" + df.format(searchedPlayer.values.secWorth));
+		if(searchedPlayer.values.secWorth <= 0.0 && !(aucFactor == 0.0))
+		{
+			datumWorth.put("main", "$" + df.format(searchedPlayer.values.worth / aucFactor));
+		}
+		else
+		{
+			datumWorth.put("main", "$" + df.format(searchedPlayer.values.secWorth));
+		}
 		if(searchedPlayer.info.position.length() >= 1)
 		{
 			datumWorth.put("sub", "Ranked " + rankCostPos(searchedPlayer, holder) + " positionally, " + rankCostAll(searchedPlayer, holder) + " overall"

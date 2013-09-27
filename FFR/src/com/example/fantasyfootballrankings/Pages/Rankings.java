@@ -1951,9 +1951,13 @@ public class Rankings extends Activity {
 					long arg3) {
 				listview.setSelection(arg2);
 				String selected = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
-				if(selected.contains(":"))
+				if(selected.contains(":  "))
 				{
 					selected = selected.split(":  ")[1];
+				}
+				else if(selected.contains(": "))
+				{
+					selected = selected.split(": ")[1];
 				}
 				PlayerInfo obj = new PlayerInfo();
 				obj.outputResults(selected, true, (Rankings)context, holder, false, true);
