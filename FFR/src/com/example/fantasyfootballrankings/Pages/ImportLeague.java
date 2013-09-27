@@ -896,7 +896,8 @@ public class ImportLeague extends Activity {
 	    		});
 		 for(PlayerObject player : holder.players)
 		 {
-			 if(player.values.ecr > 0 && (pos.equals("All Positions") || player.info.position.equals(pos)))
+			 if(player.values.ecr > 0 && (pos.equals("All Positions") || player.info.position.equals(pos)) && 
+					 !(player.info.team.length() == 0 || player.info.team.length() == 1 || player.info.position.length() == 0))
 			 {
 				 players.add(player);
 			 }
