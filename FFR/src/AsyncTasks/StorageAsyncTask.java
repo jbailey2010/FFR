@@ -266,6 +266,10 @@ public class StorageAsyncTask
 		}
 		@Override
 		protected void onPostExecute(Storage result){
+			if(result.maxProj() < 65.0)
+			{
+				result.isRegularSeason = true;
+			}
 			if(flag == 0)
 			{
 				((Rankings)act).intermediateHandleRankings(act);

@@ -2031,8 +2031,11 @@ public class Rankings extends Activity {
                                  
                              }
                          });
-         listview.setOnTouchListener(touchListener);
-         listview.setOnScrollListener(touchListener.makeScrollListener());
+    	 if(!holder.isRegularSeason)
+    	 {
+	         listview.setOnTouchListener(touchListener);
+	         listview.setOnScrollListener(touchListener.makeScrollListener());
+    	 }
     }
     
     /**

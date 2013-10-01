@@ -275,6 +275,16 @@ public class ParsingAsyncTask
 					e1.printStackTrace();
 				}
 
+	    		publishProgress("Please wait, calculating relative risk...");
+	    		try {
+					HighLevel.parseECRWrapper(holder, cont);
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		    	
 		    	start = System.nanoTime(); 
 	    		publishProgress("Please wait, fetching player stats...");
@@ -324,17 +334,6 @@ public class ParsingAsyncTask
 			    publishProgress("Please wait, setting specific player info...");
 	    		try {
 					HighLevel.parseSpecificData(holder, cont);
-				} catch (HttpStatusException e2)
-				{
-					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-	    		publishProgress("Please wait, calculating relative risk...");
-	    		try {
-					HighLevel.setRisk(holder, cont);
 				} catch (HttpStatusException e2)
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());

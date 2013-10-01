@@ -340,16 +340,6 @@ public class HighLevel
 	}
 	
 	/**
-	 * Sets the relative risk of a player
-	 * @param holder
-	 * @throws IOException 
-	 */
-	public static void setRisk(Storage holder, Context cont) throws IOException
-	{
-		parseECRWrapper(holder, cont);
-	}
-	
-	/**
 	 * Calls the specific parsers and sets the projections
 	 */
 	public static void projPointsWrapper(Storage holder, Context cont) throws IOException
@@ -1018,7 +1008,7 @@ public class HighLevel
 		}
 		else
 		{
-			System.out.println("IS REGULAR SEASON");
+			holder.isRegularSeason = true;
 			StringBuilder urlBase = new StringBuilder(100);
 			urlBase.append("http://www.fantasypros.com/nfl/rankings/");
 			String url = urlBase.toString();
@@ -1073,16 +1063,18 @@ public class HighLevel
 		return false;
 	}
 	
+	/**
+	 * Similar to the ecr parser, but handles the minor differences in the weekly set
+	 */
 	public static void parseECRWeekly(String url, Storage holder, HashMap<String, Double> ecr, 
 			HashMap<String, Double> risk, HashMap<String, Double> adp) throws IOException
 	{
-		System.out.println(url);
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = ManageInput.tokenize(html, '\n', 1);
 		int min = 0;
 		for(int i = 0; i < td.length; i++)
 		{ 
-			if(td[i+1].contains("vs") && ManageInput.isInteger(td[i]))
+			if((td[i+1].contains("vs") || td[i+1].contains("at")) && td[i+1].contains("(") && td[i+1].contains(")") && ManageInput.isInteger(td[i]))
 			{
 				min = i;
 				break;
@@ -1093,16 +1085,6 @@ public class HighLevel
 			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i+1].split(" \\(")[0].split(", ")[0]));
 			double ecrVal = Double.parseDouble(td[i+4]);
 			double riskVal = Double.parseDouble(td[i+5]);
-			try{
-				double adpVal = Double.parseDouble(td[i+6]);
-				adp.put(name, adpVal);
-			} catch(NumberFormatException e)
-			{
-				
-			} catch(ArrayIndexOutOfBoundsException e1)
-			{
-				
-			}
 			ecr.put(name, ecrVal);
 			risk.put(name, riskVal);
 		}

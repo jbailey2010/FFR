@@ -52,6 +52,7 @@ import android.widget.EditText;
  */
 public class Storage 
 {
+	public boolean isRegularSeason;
 	public Draft draft;
 	public List<PlayerObject> players;
 	public List<String> playerNames;
@@ -69,6 +70,7 @@ public class Storage
 	 */
 	public Storage(Context cont)
 	{
+		isRegularSeason = false;
 		players = new ArrayList<PlayerObject>(350);
 		postedPlayers = new PriorityQueue<PostedPlayer>(100, new Comparator<PostedPlayer>()
 		{
@@ -132,5 +134,22 @@ public class Storage
 			 }
 		}
 		 return null;
+	}
+	
+	/**
+	 * Gets the maximum projection of the players stored
+	 * @return
+	 */
+	public double maxProj()
+	{
+		double max = 0.0;
+		for(PlayerObject player : this.players)
+		{
+			if(player.values.points > max)
+			{
+				max = player.values.points;
+			}
+		}
+		return max;
 	}
 }

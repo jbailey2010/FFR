@@ -223,7 +223,7 @@ public class PlayerInfo
 		}
 		final PlayerObject copy = searchedPlayer;
 		final Roster r = ReadFromFile.readRoster(act);
-		if(draftable)
+		if(draftable && !holder.isRegularSeason)
 		{
 			name.setOnLongClickListener(new OnLongClickListener(){
 				@Override
@@ -566,25 +566,28 @@ public class PlayerInfo
 			data.add(datum2);
 		}
 		//Worth
-		Map<String, String> datumWorth = new HashMap<String, String>(2);
-		if(searchedPlayer.values.secWorth <= 0.0 && !(aucFactor == 0.0))
+		if(!holder.isRegularSeason)
 		{
-			datumWorth.put("main", "$" + df.format(searchedPlayer.values.worth / aucFactor));
+			Map<String, String> datumWorth = new HashMap<String, String>(2);
+			if(searchedPlayer.values.secWorth <= 0.0 && !(aucFactor == 0.0))
+			{
+				datumWorth.put("main", "$" + df.format(searchedPlayer.values.worth / aucFactor));
+			}
+			else
+			{
+				datumWorth.put("main", "$" + df.format(searchedPlayer.values.secWorth));
+			}
+			if(searchedPlayer.info.position.length() >= 1)
+			{
+				datumWorth.put("sub", "Ranked " + rankCostPos(searchedPlayer, holder) + " positionally, " + rankCostAll(searchedPlayer, holder) + " overall"
+						+ "\nShowed up in " + searchedPlayer.values.count + " rankings");
+			}
+			else
+			{
+				datumWorth.put("sub", "Ranked " + rankCostAll(searchedPlayer, holder) + " overall\n" + "Showed up in " + searchedPlayer.values.count + " rankings");
+			}
+			data.add(datumWorth);
 		}
-		else
-		{
-			datumWorth.put("main", "$" + df.format(searchedPlayer.values.secWorth));
-		}
-		if(searchedPlayer.info.position.length() >= 1)
-		{
-			datumWorth.put("sub", "Ranked " + rankCostPos(searchedPlayer, holder) + " positionally, " + rankCostAll(searchedPlayer, holder) + " overall"
-					+ "\nShowed up in " + searchedPlayer.values.count + " rankings");
-		}
-		else
-		{
-			datumWorth.put("sub", "Ranked " + rankCostAll(searchedPlayer, holder) + " overall\n" + "Showed up in " + searchedPlayer.values.count + " rankings");
-		}
-		data.add(datumWorth);
 		//Rank ecr
 		if(searchedPlayer.values.ecr != -1)
 		{
