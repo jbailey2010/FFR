@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
+
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ import org.jsoup.nodes.Document;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseBrokenTackles;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraft;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFreeAgents;
@@ -141,7 +141,6 @@ public class HighLevel
 	 */
 	public static void parseSpecificData(Storage holder, Context cont) throws IOException
 	{
-		Map<String, String> bt = ParseBrokenTackles.parseBrokenTackles();
 		HashMap<String, String> injuries = ParseInjuries.parseRotoInjuries();
 		HashMap<String, String> byes = ParseFFTB.parseByeWeeks();
 		holder.bye = byes;
@@ -149,10 +148,6 @@ public class HighLevel
 		{
 			if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
 			{
-				if(bt.containsKey(player.info.name))
-				{
-					player.stats += "Broken Tackles: " + bt.get(player.info.name) + "\n";
-				}
 				if(injuries.containsKey(player.info.name + "/" + player.info.position))
 				{
 					player.injuryStatus = injuries.get(player.info.name + "/" + player.info.position);
@@ -187,6 +182,7 @@ public class HighLevel
 					String[] name = player.info.name.split(" ");
 					String testName = name[0].charAt(0) + " " + name[1];
 					testName = testName.toLowerCase();
+					System.out.println("Test name is " + testName);
 					if(player.info.position.equals("QB"))
 					{
 						if(qbs.containsKey(testName + "/" + player.info.team))
@@ -1083,7 +1079,7 @@ public class HighLevel
 		for(int i = min; i < td.length; i+=6)
 		{
 			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i+1].split(" \\(")[0].split(", ")[0]));
-			double ecrVal = Double.parseDouble(td[i+4]);
+			double ecrVal = Double.parseDouble(td[i]);
 			double riskVal = Double.parseDouble(td[i+5]);
 			ecr.put(name, ecrVal);
 			risk.put(name, riskVal);

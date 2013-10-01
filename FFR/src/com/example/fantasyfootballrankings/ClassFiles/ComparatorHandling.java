@@ -565,34 +565,6 @@ public class ComparatorHandling
 		{
 			p2.append("-Injured\n");
 		}
-		if(player1.stats.contains("Broken Tackles") && player2.stats.contains("Broken Tackles") &&
-				player1.info.position.equals(player2.info.position))
-		{
-			int bt1 = bt(player1);
-			int bt2 = bt(player2);
-			if(bt1 > bt2)
-			{
-				if(bt1 - bt2 > 15)
-				{
-					p1.append("-Broke many more tackles last year\n");
-				}
-				else
-				{
-					p1.append("-Broke more tackles last year\n");
-				}
-			}
-			else if(bt2 > bt1)
-			{
-				if(bt2 - bt1 > 15)
-				{
-					p2.append("-Broke many more tackles last year\n");
-				}
-				else
-				{
-					p2.append("-Broke more tackles last year\n");
-				}
-			}
-		}
 		double left1 = remTalent(holder, player1);
 		double left2 = remTalent(holder, player2);
 		if(!player1.info.position.equals(player2.info.position))
@@ -786,16 +758,6 @@ public class ComparatorHandling
 			}
 		}
 		return left;
-	}
-	
-	/**
-	 * Gets the broken tackle total
-	 */
-	public static int bt(PlayerObject player)
-	{
-		String btStr = player.stats.split("Broken Tackles: ")[1];
-		String total = btStr.split(", ")[0];
-		return Integer.parseInt(total);
 	}
 	
 	/**

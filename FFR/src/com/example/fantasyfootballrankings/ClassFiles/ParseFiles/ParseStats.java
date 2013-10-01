@@ -46,29 +46,24 @@ public class ParseStats
 			}
 			if(qbPlayers.containsKey(name.toLowerCase() + "/" + team))
 			{
-				String dvoa = player[6];
-				String yards = player[10];
-				String effectiveYards = player[11];
-				String tds = player[12];
+				String yards = player[player.length - 4];
+				String effectiveYards = player[player.length - 3];
+				String tds = player[player.length - 2];
 				String normal = qbPlayers.get(name.toLowerCase() + "/" + team);
-				normal += "Rushing Yards: " + yards + "\n";
+				normal += "\nRushing Yards: " + yards + "\n";
 				normal += "Adjusted Rushing Yards: " + effectiveYards + "\n";
-				normal += "Rushing Touchdowns: " + tds + "\n";
-				normal += "Rushing Defense-Adjusted  VOA: " + dvoa + "\n";
+				normal += "Rushing Touchdowns: " + tds;
 				qbPlayers.put(name.toLowerCase() + "/" + team, normal);
 				continue;
 			}
 			else
 			{
-				data.append("Pass Attempts: " + player[11] + "\n");
-				data.append("Yards: " + player[12].replace(",", "") + "\n");
-				data.append("Adjusted Yards: " + player[13].replace(",", "") + "\n");
-				data.append("Touchdowns: " + player[14] + "\n");
-				data.append("Completion Percentage: " + player[18] + "\n");
-				data.append("Interceptions: " + player[17] + "\n");
-				data.append("Defense-Adjusted YOA (rank): " + player[2].replace(",", "") + 
-						" (" + player[3] + ")\n");
-				data.append("Defense-Adjusted VOA (rank): " + player[6] + " (" + player[7] + ")\n");
+				data.append("Pass Attempts: " + player[player.length - 9] + "\n");
+				data.append("Yards: " + player[player.length - 8].replace(",", "") + "\n");
+				data.append("Adjusted Yards: " + player[player.length - 7].replace(",", "") + "\n");
+				data.append("Touchdowns: " + player[player.length - 6] + "\n");
+				data.append("Completion Percentage: " + player[player.length - 2] + "\n");
+				data.append("Interceptions: " + player[player.length - 3]);
 				qbPlayers.put(name.toLowerCase() + "/" + team, data.toString());
 			}
 		}
@@ -103,69 +98,28 @@ public class ParseStats
 			}
 			if(rbPlayers.containsKey(name.toLowerCase() + "/" + team))
 			{
-				if(player.length > 12)
-				{
-					String dvoa = player[6];
-					String catches = player[9];
-					String yards = player[10];
-					String effectiveYards = player[11];
-					String tds = player[12];
-					String catchRate = player[13];
-					String normal = rbPlayers.get(name.toLowerCase() + "/" + team);
-					normal += "Targets: " + catches + "\n";
-					normal += "Catch Rate: " + catchRate + "\n";
-					normal += "Receiving Yards: " + yards + "\n";
-					normal += "Adjusted Receiving Yards: " + effectiveYards + "\n";
-					normal += "Receiving Touchdowns: " + tds + "\n";
-					normal += "Receiving Defense-Adjusted VOA: " + dvoa + "\n";
-					rbPlayers.put(name.toLowerCase() + "/" + team, normal);
-					continue;
-				}
-				else
-				{
-					String dvoa = player[4];
-					String catches = player[6];
-					String yards = player[7];
-					String effectiveYards = player[8];
-					String tds = player[9];
-					String catchRate = player[10];
-					String normal = rbPlayers.get(name.toLowerCase() + "/" + team);
-					normal += "Targets: " + catches + "\n";
-					normal += "Catch Rate: " + catchRate + "\n";
-					normal += "Receiving Yards: " + yards + "\n";
-					normal += "Adjusted Receiving Yards: " + effectiveYards + "\n";
-					normal += "Receiving Touchdowns: " + tds + "\n";
-					normal += "Receiving Defense-Adjusted VOA: " + dvoa + "\n";
-					rbPlayers.put(name.toLowerCase() + "/" + team, normal);
-					continue;
-				}
+				String catches = player[player.length - 6];
+				String yards = player[player.length - 5];
+				String effectiveYards = player[player.length - 4];
+				String tds = player[player.length - 3];
+				String catchRate = player[player.length - 2];
+				StringBuilder normal = new StringBuilder(rbPlayers.get(name.toLowerCase()+ "/" + team));
+				normal.append("\nTargets: " + catches + "\n");
+				normal.append("Catch Rate: " + catchRate + "\n");
+				normal.append("Receiving Yards: " + yards + "\n");
+				normal.append("Adjusted Receiving Yards: " + effectiveYards + "\n");
+				normal.append("Receiving Touchdowns: " + tds);
+				rbPlayers.put(name.toLowerCase() + "/" + team, normal.toString());
+				continue;
 			}
 			else
 			{
-				if(player.length > 15)
-				{
-					data.append("Carries: " + player[9] + "\n");
-					data.append("Yards: " + player[10].replace(",", "") + "\n");
-					data.append("Adjusted Yards: " + player[11].replace(",", "") + "\n");
-					data.append("Touchdowns: " + player[12] + "\n");
-					data.append("Fumbles: " + player[13] + "\n");
-					data.append("Success Rate: " + player[14] + "\n");
-					data.append("Defense-Adjusted YOA (rank): " + player[2].replace(",", "") + 
-							" (" + player[3] + ")\n");
-					data.append("Defense-Adjusted VOA (rank): " + player[6] + " (" + player[7] + ")\n");
-					rbPlayers.put(name.toLowerCase() + "/" + team, data.toString());
-				}
-				else
-				{
-					data.append("Carries: " + player[6] + "\n");
-					data.append("Yards: " + player[7] + "\n");
-					data.append("Adjusted Yards: " + player[8].replace(",", "") + "\n");
-					data.append("Touchdowns: " + player[9] + "\n");
-					data.append("Fumbles: " + player[10] + "\n");
-					data.append("Defense-Adjusted YOA: " + player[2].replace(",", "") + "\n");
-					data.append("Defense-Adjusted VOA: " + player[4] + "\n");
-					rbPlayers.put(name.toLowerCase() + "/" + team, data.toString());
-				}
+				data.append("Carries: " + player[player.length - 7] + "\n");
+				data.append("Yards: " + player[player.length - 6].replace(",", "") + "\n");
+				data.append("Adjusted Yards: " + player[player.length - 5].replace(",", "") + "\n");
+				data.append("Touchdowns: " + player[player.length - 4] + "\n");
+				data.append("Fumbles: " + player[player.length - 3]);
+				rbPlayers.put(name.toLowerCase() + "/" + team, data.toString());
 			}
 		}
 		return rbPlayers;
@@ -204,45 +158,25 @@ public class ParseStats
 			}
 			if(wrPlayers.containsKey(name.toLowerCase() + "/" + team))
 			{
-				String dvoa = player[6];
-				String rushes = player[10];
-				String yards = player[11];
-				String tds = player[12]; 
+				String rushes = player[player.length - 4];
+				String yards = player[player.length - 3];
+				String tds = player[player.length - 2]; 
 				String normal = wrPlayers.get(name.toLowerCase() + "/" + team);
-				normal += "Rushes: " + rushes + "\n";
+				normal += "\nRushes: " + rushes + "\n";
 				normal += "Rushing Yards: " + yards + "\n";
-				normal += "Rushing Touchdowns: " + tds + "\n";
-				normal += "Rushing Defense-Adjusted VOA: " + dvoa + "\n";
+				normal += "Rushing Touchdowns: " + tds;
 				wrPlayers.put(name.toLowerCase() + "/" + team, normal);
 				continue;
 			}
 			else
 			{
-				if(player.length > 15)
-				{
-					data.append("Targets: " + player[9] + "\n");
-					data.append("Yards: " + player[10] + "\n");
-					data.append("Adjusted Yards: " + player[11].replace(",", "") + "\n");
-					data.append("Touchdowns: " + player[12] + "\n");
-					data.append("Catch Rate: " + player[13] + "\n");
-					data.append("Fumbles: " + player[14] + "\n");
-					data.append("Defense-Adjusted YOA (rank): " + player[2].replace(",", "") + 
-							" (" + player[3] + ")\n");
-					data.append("Defense-Adjusted VOA (rank): " + player[6] + " (" + player[7] + ")\n");
-					wrPlayers.put(name.toLowerCase() + "/" + team, data.toString());
-				}
-				else
-				{
-					data.append("Targets: " + player[6] + "\n");
-					data.append("Yards: " + player[7] + "\n");
-					data.append("Adjusted Yards: " + player[8].replace(",", "") + "\n");
-					data.append("Touchdowns: " + player[9] + "\n");
-					data.append("Catch Rate: " + player[10] + "\n");
-					data.append("Fumbles: " + player[11] + "\n");
-					data.append("Defense-Adjusted YOA: " + player[2].replace(",", "") + "\n");
-					data.append("Defense-Adjusted VOA: " + player[4] + "\n");
-					wrPlayers.put(name.toLowerCase() + "/" + team, data.toString());
-				}
+				data.append("Targets: " + player[player.length - 7] + "\n");
+				data.append("Yards: " + player[player.length - 6] + "\n");
+				data.append("Adjusted Yards: " + player[player.length - 5].replace(",", "") + "\n");
+				data.append("Touchdowns: " + player[player.length - 4] + "\n");
+				data.append("Catch Rate: " + player[player.length - 3] + "\n");
+				data.append("Fumbles: " + player[player.length - 2]);
+				wrPlayers.put(name.toLowerCase() + "/" + team, data.toString());
 			}
 		}
 		return wrPlayers;
@@ -279,48 +213,13 @@ public class ParseStats
 			{
 				continue;
 			}
-			if(tePlayers.containsKey(name.toLowerCase() + "/" + team))
-			{
-				String dvoa = player[6];
-				String rushes = player[10];
-				String yards = player[11];
-				String tds = player[12];
-				String normal = tePlayers.get(name.toLowerCase() + "/" + team);
-				normal += "Rushing Defense-Adjusted VOA: " + dvoa + "\n";
-				normal += "Rushes: " + rushes + "\n";
-				normal += "Rushing Yards: " + yards + "\n";
-				normal += "Rushing Touchdowns: " + tds + "\n";
-				tePlayers.put(name.toLowerCase() + "/" + team, normal);
-				continue;
-			}
-			else
-			{
-				if(player.length > 15)
-				{ 
-					data.append("Targets: " + player[9] + "\n");
-					data.append("Yards: " + player[10] + "\n");
-					data.append("Adjusted Yards: " + player[11].replace(",", "") + "\n");
-					data.append("Touchdowns: " + player[12] + "\n");
-					data.append("Catch Rate: " + player[13] + "\n");
-					data.append("Fumbles: " + player[14] + "\n");
-					data.append("Defense-Adjusted YOA (rank): " + player[2].replace(",", "") + 
-							" (" + player[3] + ")\n");
-					data.append("Defense-Adjusted VOA (rank): " + player[6] + " (" + player[7] + ")\n");
-					tePlayers.put(name.toLowerCase() + "/" + team, data.toString());
-				}
-				else
-				{
-					data.append("Targets: " + player[6] + "\n");
-					data.append("Yards: " + player[7] + "\n");
-					data.append("Adjusted Yards: " + player[8].replace(",", "") + "\n");
-					data.append("Touchdowns: " + player[9] + "\n");
-					data.append("Catch Rate: " + player[10] + "\n");
-					data.append("Fumbles: " + player[11] + "\n");
-					data.append("Defense-Adjusted YOA: " + player[2].replace(",", "") + "\n");
-					data.append("Defense-Adjusted VOA: " + player[4] + "\n");
-					tePlayers.put(name.toLowerCase() + "/" + team, data.toString());
-				}
-			}
+			data.append("Targets: " + player[player.length - 7] + "\n");
+			data.append("Yards: " + player[player.length - 6] + "\n");
+			data.append("Adjusted Yards: " + player[player.length - 5].replace(",", "") + "\n");
+			data.append("Touchdowns: " + player[player.length - 4] + "\n");
+			data.append("Catch Rate: " + player[player.length - 3] + "\n");
+			data.append("Fumbles: " + player[player.length - 2]);
+			tePlayers.put(name.toLowerCase() + "/" + team, data.toString());
 		}
 		return tePlayers;
 	}

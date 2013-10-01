@@ -366,27 +366,7 @@ public class PlayerInfo
 						}
 				    });
 				}
-				else if(input.contains("PAA per dollar"))
-				{
-					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
-				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
-					popUp.setContentView(R.layout.tweet_popup);
-					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-				    lp.copyFrom(popUp.getWindow().getAttributes());
-				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-				    popUp.getWindow().setAttributes(lp);
-				    popUp.show();
-				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("PAA attempts to quantify the value a player has, cross-positions. This attempts to get an idea of that actual value, taking the price into account. It's simply PAA divided by the auction value.\n\n");
-				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
-				    close.setOnClickListener(new OnClickListener(){
-						@Override
-						public void onClick(View v) {
-							popUp.dismiss();
-						}
-				    });
-				}
-				else if(input.contains("projected points"))
+				else if(input.contains("Project"))
 				{
 					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
 				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
@@ -446,7 +426,7 @@ public class PlayerInfo
 						}
 				    });
 				}
-				else if(input.contains("Average Expert Ranking"))
+				else if(input.contains("Ranking"))
 				{
 					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
 				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
@@ -457,27 +437,7 @@ public class PlayerInfo
 				    popUp.getWindow().setAttributes(lp);
 				    popUp.show();
 				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("This is the weighted average ranking (ECR) of many different experts.\n\n");
-				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
-				    close.setOnClickListener(new OnClickListener(){
-						@Override
-						public void onClick(View v) {
-							popUp.dismiss();
-						}
-				    });
-				}
-				else if(input.contains("Leverage"))
-				{
-					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
-				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
-					popUp.setContentView(R.layout.tweet_popup);
-					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-				    lp.copyFrom(popUp.getWindow().getAttributes());
-				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-				    popUp.getWindow().setAttributes(lp);
-				    popUp.show();
-				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("Leverage is the difference in projections between a player and the top of his position divided by the difference in cost between a player and the top of his position. The higher the leverage the better, though as a player's cost goes down, they can become outliers.\n\n");
+				    tv.setText("This is the weighted average ranking (ECR) of many different experts, hosted on FantasyPros\n\n");
 				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
 				    close.setOnClickListener(new OnClickListener(){
 						@Override
@@ -592,10 +552,10 @@ public class PlayerInfo
 		if(searchedPlayer.values.ecr != -1)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
-			if(rankECRPos(searchedPlayer, holder) != -1)
+			if(!holder.isRegularSeason)
 			{
-				datum.put("main", "Average Expert Ranking: " + searchedPlayer.values.ecr);
-				if(searchedPlayer.info.position.length() >= 1)
+				datum.put("main", "Preseason Ranking: " + searchedPlayer.values.ecr);
+				if(rankECRPos(searchedPlayer, holder) != -1 && searchedPlayer.info.position.length() >= 1)
 				{
 					datum.put("sub", "Ranked " + rankECRPos(searchedPlayer, holder) + " positionally");
 				}
@@ -603,13 +563,13 @@ public class PlayerInfo
 				{
 					datum.put("sub", "");
 				}
-				data.add(datum);
 			}
 			else
 			{
-				datum.put("main", "Average Expert Rankings: " + searchedPlayer.values.ecr);
+				datum.put("main", "Weekly Positional Ranking: " + searchedPlayer.values.ecr);
 				datum.put("sub", "");
 			}
+			data.add(datum);
 		}
 		//ADP Rankings
 		if(!searchedPlayer.info.adp.equals("Not set"))
@@ -628,6 +588,60 @@ public class PlayerInfo
 				data.add(datum);
 			}
 		}
+		//Projections
+				if(searchedPlayer.values.points != 0.0)
+				{
+					Map<String, String> datum = new HashMap<String, String>(2);
+					if(!holder.isRegularSeason)
+					{
+						datum.put("main", searchedPlayer.values.points + " Yearly Projected Points");
+					}
+					else
+					{
+						datum.put("main", searchedPlayer.values.points + " Weekly Projected Points");
+					}
+					if(searchedPlayer.info.position.length() >= 1)
+					{
+						datum.put("sub", "Ranked " + rankProjPos(searchedPlayer, holder)  + " positionally");
+					}
+					else
+					{
+						datum.put("sub", "");
+					}
+					data.add(datum);
+				}
+				//PAA and PAAPD
+				if(searchedPlayer.values.paa != 0.0 && searchedPlayer.values.points != 0.0)
+				{
+					Map<String, String> datum = new HashMap<String, String>(2);
+					datum.put("main", df.format(searchedPlayer.values.paa) + " PAA");
+					if(searchedPlayer.info.position.length() >= 1)
+					{
+						datum.put("sub", "Ranked " + rankPAAPos(searchedPlayer, holder) + " positionally, " + rankPAAAll(searchedPlayer, holder) +
+									 " overall");
+					}
+					else
+					{
+						datum.put("sub", "Ranked " + rankPAAAll(searchedPlayer, holder) + " overall");
+					}
+					data.add(datum);
+				} 
+				//Risk
+				if(searchedPlayer.risk > 0.0)
+				{
+					Map<String, String> datum = new HashMap<String, String>(2);
+					double riskVal = posRiskVal(searchedPlayer, holder);
+					datum.put("main", searchedPlayer.risk + " Risk (" + rankRiskAll(searchedPlayer, holder) + ")");
+					if(searchedPlayer.info.position.length() >= 1)
+					{
+						datum.put("sub", df.format(riskVal) + " relative to his position (" + rankRiskPos(searchedPlayer, holder, riskVal) + ")");
+					}
+					else 
+					{
+						datum.put("sub", "");
+					}
+					data.add(datum);
+				}
 		//Positional SOS
 		if(holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position)!= null && 
 				holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position) > 0)
@@ -635,53 +649,6 @@ public class PlayerInfo
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", "Positional SOS: " + holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position));
 			datum.put("sub", "1 is Easiest, 32 Hardest");
-			data.add(datum);
-		}
-		//Projections
-		if(searchedPlayer.values.points != 0.0)
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", searchedPlayer.values.points + " projected points");
-			if(searchedPlayer.info.position.length() >= 1)
-			{
-				datum.put("sub", "Ranked " + rankProjPos(searchedPlayer, holder)  + " positionally");
-			}
-			else
-			{
-				datum.put("sub", "");
-			}
-			data.add(datum);
-		}
-		//PAA and PAAPD
-		if(searchedPlayer.values.paa != 0.0 && searchedPlayer.values.points != 0.0)
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", df.format(searchedPlayer.values.paa) + " PAA");
-			if(searchedPlayer.info.position.length() >= 1)
-			{
-				datum.put("sub", "Ranked " + rankPAAPos(searchedPlayer, holder) + " positionally, " + rankPAAAll(searchedPlayer, holder) +
-							 " overall");
-			}
-			else
-			{
-				datum.put("sub", "Ranked " + rankPAAAll(searchedPlayer, holder) + " overall");
-			}
-			data.add(datum);
-		} 
-		//Risk
-		if(searchedPlayer.risk > 0.0)
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			double riskVal = posRiskVal(searchedPlayer, holder);
-			datum.put("main", searchedPlayer.risk + " Risk (" + rankRiskAll(searchedPlayer, holder) + ")");
-			if(searchedPlayer.info.position.length() >= 1)
-			{
-				datum.put("sub", df.format(riskVal) + " relative to his position (" + rankRiskPos(searchedPlayer, holder, riskVal) + ")");
-			}
-			else 
-			{
-				datum.put("sub", "");
-			}
 			data.add(datum);
 		}
 		//Contract status

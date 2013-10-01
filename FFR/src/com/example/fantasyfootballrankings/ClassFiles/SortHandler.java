@@ -101,11 +101,7 @@ public class SortHandler
 	    topics.add("Auction Values");
 	    topics.add("Projections");
 	    topics.add("PAA");
-	    topics.add("DYOA");
-	    topics.add("DVOA");
-	    topics.add("Success Rate");
 	    topics.add("Yard Adjustment");
-	    topics.add("Broken Tackles");
 	    topics.add("Completion to Int Ratio");
 	    topics.add("Risk");
 	    topics.add("Positional SOS");
@@ -434,18 +430,6 @@ public class SortHandler
 		{
 			underDrafted(cont);
 		}
-		else if(subject.equals("DVOA"))
-		{
-			dvoa(cont);
-		}
-		else if(subject.equals("DYOA"))
-		{
-			dyoa(cont);
-		}
-		else if(subject.equals("Success Rate"))
-		{
-			success(cont);
-		}
 		else if(subject.equals("Yard Adjustment"))
 		{
 			yardAdj(cont);
@@ -470,41 +454,6 @@ public class SortHandler
 		{
 			compInt(cont);
 		}
-		else if(subject.equals("Broken Tackles"))
-		{
-			brokenTackles(cont);
-		}
-	}
-
-
-	private static void brokenTackles(Context cont) {
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-				{
-					@Override
-					public int compare(PlayerObject a, PlayerObject b)
-					{
-						int aDiff = Integer.parseInt(a.stats.split("Broken Tackles: ")[1].split(", ")[0]);
-						int aDiff2 = Integer.parseInt(b.stats.split("Broken Tackles: ")[1].split(", ")[0]);
-						if(aDiff > aDiff2)
-						{
-							return -1;
-						}
-						if(aDiff < aDiff2)
-						{
-							return 1;
-						}
-						return 0;
-					}
-				});
-				for(PlayerObject player : players)
-				{
-					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && 
-							player.stats.contains("Broken Tackles") )
-					{
-						sorted.add(player);
-					}
-				}
-				wrappingUp(sorted, cont);
 	}
 
 	private static void compInt(Context cont) {
@@ -590,38 +539,6 @@ public class SortHandler
 	}
 
 	
-	public static void success(Context cont) {
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-				{
-					@Override
-					public int compare(PlayerObject a, PlayerObject b)
-					{
-						String aS = a.stats.split("Success Rate: ")[1].split("\n")[0];
-						String bS = b.stats.split("Success Rate: ")[1].split("\n")[0];
-						int sr1 = Integer.parseInt(aS.substring(0, aS.length()-1));
-						int sr2 = Integer.parseInt(bS.substring(0, aS.length()-1));
-						if(sr1 > sr2)
-						{
-							return -1;
-						}
-						if(sr1 < sr2)
-						{
-							return 1;
-						}
-						return 0;
-					}
-				});
-				for(PlayerObject player : players)
-				{
-					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj 
-							&& player.stats.contains("Success Rate"))
-					{
-						sorted.add(player);
-					}
-				}
-				wrappingUp(sorted, cont);
-	}
-
 	public static void risk(Context cont) {
 		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
 				{
@@ -712,70 +629,7 @@ public class SortHandler
 				}
 				wrappingUp(sorted, cont);
 	}
-	
-	public static void dvoa(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-				{
-					@Override
-					public int compare(PlayerObject a, PlayerObject b)
-					{
-						String close = a.stats.split("\\(rank\\)")[2].split("\n")[0];
-						String close2 = b.stats.split("\\(rank\\)")[2].split("\n")[0];
-						int r1 = Integer.parseInt(close.split(" ")[2].replaceAll("\\(", "").replaceAll("\\)", ""));
-						int r2 = Integer.parseInt(close2.split(" ")[2].replaceAll("\\(", "").replaceAll("\\)", ""));
-						if(r1 > r2)
-						{
-							return 1;
-						}
-						if(r1 < r2)
-						{
-							return -1;
-						}
-						return 0;
-					}
-				});
-				for(PlayerObject player : players)
-				{
-					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && player.stats.contains("(rank)"))
-					{
-						sorted.add(player);
-					}
-				}
-				wrappingUp(sorted, cont);
-	}
-	
-	public static void dyoa(Context cont)
-	{
-		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-				{
-					@Override
-					public int compare(PlayerObject a, PlayerObject b)
-					{
-						String close = a.stats.split("\\(rank\\)")[1].split("\n")[0];
-						String close2 = b.stats.split("\\(rank\\)")[1].split("\n")[0];
-						int r1 = Integer.parseInt(close.split(" ")[2].replaceAll("\\(", "").replaceAll("\\)", ""));
-						int r2 = Integer.parseInt(close2.split(" ")[2].replaceAll("\\(", "").replaceAll("\\)", ""));
-						if(r1 > r2)
-						{
-							return 1;
-						}
-						if(r1 < r2)
-						{
-							return -1;
-						}
-						return 0;
-					}
-				});
-				for(PlayerObject player : players)
-				{
-					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && player.stats.contains("(rank)"))
-					{
-						sorted.add(player);
-					}
-				}
-				wrappingUp(sorted, cont);
-	}
+
 	
 	/**
 	 * Sets up the priority queue for projected points
@@ -1040,20 +894,6 @@ public class SortHandler
 		    		datum.put("main", output + df.format(elem.values.paa)+ ": " + elem.info.name);
 		    		datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
 		    	}
-		    	else if(subject.equals("DYOA"))
-		    	{
-		    		String close1 = elem.stats.split("\\(rank\\):")[1].split("\n")[0];
-					String r1 = (close1.split("\\(")[0].trim());
-					datum.put("main", output + r1 + ": " + elem.info.name);
-					datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth) + ", " + elem.values.points + " projected points");
-		    	}
-		    	else if(subject.equals("DVOA"))
-		    	{
-		    		String close1 = elem.stats.split("\\(rank\\):")[2].split("\n")[0];
-					String r1 = close1.split("\\(")[0].trim();
-					datum.put("main", output + r1 + ": " + elem.info.name);
-					datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth) + ", " + elem.values.points + " projected points");
-		    	}
 		    	else if(subject.equals("Risk"))
 		    	{
 		    		datum.put("main", output + df.format(elem.risk)+ ": " + elem.info.name);
@@ -1088,13 +928,6 @@ public class SortHandler
 					datum.put("main", output + elem.info.adp + ": " + elem.info.name);
 		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
 				}
-				else if(subject.equals("Success Rate"))
-				{
-					String aS = elem.stats.split("Success Rate: ")[1].split("\n")[0];
-					int sr1 = Integer.parseInt(aS.substring(0, aS.length()-1));
-					datum.put("main", output + sr1 + ": " + elem.info.name);
-					datum.put("sub", "ECR: " + elem.values.ecr + ", ADP: " + elem.info.adp + ", $" + df.format(elem.values.secWorth));
-				}
 				else if(subject.equals("Yard Adjustment"))
 				{
 					String yardsStr = elem.stats.split("Yards: ")[1].split("\n")[0];
@@ -1115,12 +948,6 @@ public class SortHandler
 					double completions = attempts * compPercent;
 					double aDiff = (completions)/((double)intA);
 					datum.put("main", output + df.format(aDiff) + ": " + elem.info.name);
-					datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
-				}
-				else if(subject.equals("Broken Tackles"))
-				{
-					int aDiff = Integer.parseInt(elem.stats.split("Broken Tackles: ")[1].split(", ")[0]);
-					datum.put("main", output + aDiff + ": " + elem.info.name);
 					datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
 				}
 		    	data.add(datum);
