@@ -589,28 +589,28 @@ public class PlayerInfo
 			}
 		}
 		//Projections
-				if(searchedPlayer.values.points != 0.0)
-				{
-					Map<String, String> datum = new HashMap<String, String>(2);
-					if(!holder.isRegularSeason)
-					{
-						datum.put("main", searchedPlayer.values.points + " Yearly Projected Points");
-					}
-					else
-					{
-						datum.put("main", searchedPlayer.values.points + " Weekly Projected Points");
-					}
-					if(searchedPlayer.info.position.length() >= 1)
-					{
-						datum.put("sub", "Ranked " + rankProjPos(searchedPlayer, holder)  + " positionally");
-					}
-					else
-					{
-						datum.put("sub", "");
-					}
-					data.add(datum);
-				}
-				//PAA and PAAPD
+		if(searchedPlayer.values.points >= 0.0)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			if(!holder.isRegularSeason)
+			{
+				datum.put("main", searchedPlayer.values.points + " Yearly Projected Points");
+			}
+			else
+			{
+				datum.put("main", searchedPlayer.values.points + " Weekly Projected Points");
+			}
+			if(searchedPlayer.info.position.length() >= 1)
+			{
+				datum.put("sub", "Ranked " + rankProjPos(searchedPlayer, holder)  + " positionally");
+			}
+			else
+			{
+				datum.put("sub", "");
+			}
+			data.add(datum);
+		}
+		//PAA and PAAPD
 				if(searchedPlayer.values.paa != 0.0 && searchedPlayer.values.points != 0.0)
 				{
 					Map<String, String> datum = new HashMap<String, String>(2);
