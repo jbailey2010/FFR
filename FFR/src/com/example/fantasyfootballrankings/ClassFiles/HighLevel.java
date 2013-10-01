@@ -169,165 +169,173 @@ public class HighLevel
 	 */
 	public static void setStats(Storage holder, Context cont) throws IOException
 	{
-		//Fetch the stats
-		Map<String, String> qbs = ParseStats.parseQBStats();
-		Set<String> qbKeys = qbs.keySet();
-		Map<String, String> rbs = ParseStats.parseRBStats();
-		Set<String> rbKeys = rbs.keySet();
-		Map<String, String> wrs = ParseStats.parseWRStats();
-		Set<String> wrKeys = wrs.keySet();
-		Map<String, String> tes = ParseStats.parseTEStats();
-		Set<String> teKeys = tes.keySet();
-		for(PlayerObject player : holder.players)
-		{ 
-			if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
-			{
-				//else if testname in keyset
-				String[] name = player.info.name.split(" ");
-				String testName = name[0].charAt(0) + " " + name[1];
-				testName = testName.toLowerCase();
-				if(player.info.position.equals("QB"))
+		try{
+			//Fetch the stats
+			Map<String, String> qbs = ParseStats.parseQBStats();
+			Set<String> qbKeys = qbs.keySet();
+			Map<String, String> rbs = ParseStats.parseRBStats();
+			Set<String> rbKeys = rbs.keySet();
+			Map<String, String> wrs = ParseStats.parseWRStats();
+			Set<String> wrKeys = wrs.keySet();
+			Map<String, String> tes = ParseStats.parseTEStats();
+			Set<String> teKeys = tes.keySet();
+			for(PlayerObject player : holder.players)
+			{ 
+				if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
 				{
-					if(qbs.containsKey(testName + "/" + player.info.team))
+					//else if testname in keyset
+					String[] name = player.info.name.split(" ");
+					String testName = name[0].charAt(0) + " " + name[1];
+					testName = testName.toLowerCase();
+					if(player.info.position.equals("QB"))
 					{
-						player.stats = qbs.get(testName + "/" + player.info.team);
-					}
-					else if(player.info.team.length() < 2)
-					{
-						for(String key : qbKeys) 
+						if(qbs.containsKey(testName + "/" + player.info.team))
 						{
-							if(key.contains(testName))
+							player.stats = qbs.get(testName + "/" + player.info.team);
+						}
+						else if(player.info.team.length() < 2)
+						{
+							for(String key : qbKeys) 
 							{
-								player.stats = qbs.get(key);
-								break;
+								if(key.contains(testName))
+								{
+									player.stats = qbs.get(key);
+									break;
+								}
+							}
+						}
+						else
+						{
+							int found = 0;
+							String statHolder = "";
+							for(String key : qbKeys)
+							{
+								if(key.contains(testName))
+								{
+									found++;
+									statHolder = qbs.get(key);
+								}
+							}
+							if(found == 1)
+							{
+								player.stats = statHolder;
 							}
 						}
 					}
-					else
+					else if(player.info.position.equals("RB"))
 					{
-						int found = 0;
-						String statHolder = "";
-						for(String key : qbKeys)
+						if(rbs.containsKey(testName + "/" + player.info.team))
 						{
-							if(key.contains(testName))
+							player.stats = rbs.get(testName + "/" + player.info.team);
+						}
+						else if(player.info.team.length() < 2)
+						{
+							for(String key : rbKeys)
 							{
-								found++;
-								statHolder = qbs.get(key);
+								if(key.contains(testName))
+								{
+									player.stats = rbs.get(key);
+									break;
+								}
 							}
 						}
-						if(found == 1)
+						else
 						{
-							player.stats = statHolder;
-						}
-					}
-				}
-				else if(player.info.position.equals("RB"))
-				{
-					if(rbs.containsKey(testName + "/" + player.info.team))
-					{
-						player.stats = rbs.get(testName + "/" + player.info.team);
-					}
-					else if(player.info.team.length() < 2)
-					{
-						for(String key : rbKeys)
-						{
-							if(key.contains(testName))
+							int found = 0;
+							String statHolder = "";
+							for(String key : rbKeys)
 							{
-								player.stats = rbs.get(key);
-								break;
+								if(key.contains(testName))
+								{
+									found++;
+									statHolder = rbs.get(key);
+								}
 							}
-						}
-					}
-					else
-					{
-						int found = 0;
-						String statHolder = "";
-						for(String key : rbKeys)
-						{
-							if(key.contains(testName))
+							if(found == 1)
 							{
-								found++;
-								statHolder = rbs.get(key);
-							}
-						}
-						if(found == 1)
-						{
-							player.stats = statHolder;
-						}
-					}
-				}
-				else if(player.info.position.equals("WR"))
-				{
-					if(wrs.containsKey(testName + "/" + player.info.team))
-					{
-						player.stats = wrs.get(testName + "/" + player.info.team);
-					}
-					else if(player.info.team.length() < 2)
-					{
-						for(String key : wrKeys)
-						{
-							if(key.contains(testName))
-							{
-								player.stats = wrs.get(key);
-								break;
+								player.stats = statHolder;
 							}
 						}
 					}
-					else
+					else if(player.info.position.equals("WR"))
 					{
-						int found = 0;
-						String statHolder = "";
-						for(String key : wrKeys)
+						if(wrs.containsKey(testName + "/" + player.info.team))
 						{
-							if(key.contains(testName))
+							player.stats = wrs.get(testName + "/" + player.info.team);
+						}
+						else if(player.info.team.length() < 2)
+						{
+							for(String key : wrKeys)
 							{
-								found++;
-								statHolder = wrs.get(key);
+								if(key.contains(testName))
+								{
+									player.stats = wrs.get(key);
+									break;
+								}
 							}
 						}
-						if(found == 1)
+						else
 						{
-							player.stats = statHolder;
-						}
-					}
-				}
-				else if(player.info.position.equals("TE"))
-				{
-					if(tes.containsKey(testName + "/" + player.info.team))
-					{
-						player.stats = tes.get(testName + "/" + player.info.team);
-					}
-					else if(player.info.team.length() < 2)
-					{
-						for(String key : teKeys)
-						{
-							if(key.contains(testName))
+							int found = 0;
+							String statHolder = "";
+							for(String key : wrKeys)
 							{
-								
-								player.stats = tes.get(key);
-								break;
+								if(key.contains(testName))
+								{
+									found++;
+									statHolder = wrs.get(key);
+								}
+							}
+							if(found == 1)
+							{
+								player.stats = statHolder;
 							}
 						}
 					}
-					else
+					else if(player.info.position.equals("TE"))
 					{
-						int found = 0;
-						String statHolder = "";
-						for(String key : teKeys)
+						if(tes.containsKey(testName + "/" + player.info.team))
 						{
-							if(key.contains(testName))
+							player.stats = tes.get(testName + "/" + player.info.team);
+						}
+						else if(player.info.team.length() < 2)
+						{
+							for(String key : teKeys)
 							{
-								found++;
-								statHolder = tes.get(key);
+								if(key.contains(testName))
+								{
+									
+									player.stats = tes.get(key);
+									break;
+								}
 							}
 						}
-						if(found == 1)
+						else
 						{
-							player.stats = statHolder;
+							int found = 0;
+							String statHolder = "";
+							for(String key : teKeys)
+							{
+								if(key.contains(testName))
+								{
+									found++;
+									statHolder = tes.get(key);
+								}
+							}
+							if(found == 1)
+							{
+								player.stats = statHolder;
+							}
 						}
 					}
 				}
 			}
+		}catch(ArrayIndexOutOfBoundsException e1)
+		{
+			
+		}catch(NumberFormatException e2)
+		{
+			
 		}
 	}
 	

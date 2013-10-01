@@ -23,7 +23,7 @@ public class ParseStats
 	 */
 	public static Map<String, String> parseQBStats() throws IOException
 	{
-		String text = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/qb2012", "tr");
+		String text = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/qb", "tr");
 		String[] rows = ManageInput.tokenize(text, '\n', 1);
 		Map<String, String>qbPlayers = new HashMap<String, String>();
 		for(int i = 0; i < rows.length; i++)
@@ -82,7 +82,7 @@ public class ParseStats
 	 */
 	public static Map<String, String> parseRBStats() throws IOException
 	{
-		String text = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/rb2012", "tr");
+		String text = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/rb", "tr");
 		String[] rows = ManageInput.tokenize(text, '\n', 1);
 		Map<String, String>rbPlayers = new HashMap<String, String>();
 		for(int i = 0; i < rows.length; i++)
@@ -178,7 +178,7 @@ public class ParseStats
 	 */
 	public static Map<String, String> parseWRStats() throws IOException
 	{
-		String text = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/wr2012", "tr");
+		String text = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/wr", "tr");
 		String[] rows = ManageInput.tokenize(text, '\n', 1);
 		Map<String, String>wrPlayers = new HashMap<String, String>();
 		for(int i = 0; i < rows.length; i++)
@@ -255,7 +255,7 @@ public class ParseStats
 	 */
 	public static Map<String, String> parseTEStats() throws IOException
 	{
-		String text = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/te2012", "tr");
+		String text = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/te", "tr");
 		String[] rows = ManageInput.tokenize(text, '\n', 1);
 		Map<String, String>tePlayers = new HashMap<String, String>();
 		for(int i = 0; i < rows.length; i++)

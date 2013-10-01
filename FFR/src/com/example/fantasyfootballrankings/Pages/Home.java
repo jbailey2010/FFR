@@ -218,7 +218,12 @@ public class Home extends Activity{
 				return super.onOptionsItemSelected(item);
 		}
 	}
+
 	
+	/**
+	 * Handles the displaying of the help popup for the home page. Nothing else, very simple
+	 * @param cont2
+	 */
 	private void helpDialog(Context cont2) {
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

@@ -2009,7 +2009,14 @@ public class Rankings extends Activity {
                                  for (int position : reverseSortedPositions) {
                                 	 if(data.get(position).containsKey(":"))
                                 	 {
-                                		 name = data.get(position).get("main").split(":  ")[1];
+                                		 if(data.get(position).get("main").contains(":  "))
+                                		 {
+                                			 name = data.get(position).get("main").split(":  ")[1];
+                                		 }
+                                		 else
+                                		 {
+                                			 name = data.get(position).get("main").split(": ")[1];
+                                		 }
                                 	 }
                                 	 else
                                 	 {
