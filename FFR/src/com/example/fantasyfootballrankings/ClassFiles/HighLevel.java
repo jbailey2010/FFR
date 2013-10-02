@@ -1105,11 +1105,6 @@ public class HighLevel
 		}
 		for(int i = min; i < td.length; i+=loopIter)
 		{
-			for(int j = i; j < i+7; j++)
-			{
-				System.out.println(j + ": " + td[j]);
-			}
-			System.out.println("----------");
 			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i].split(" \\(")[0].split(", ")[0]));
 			double ecrVal = Double.parseDouble(td[i+4]);
 			double riskVal = Double.parseDouble(td[i+5]);

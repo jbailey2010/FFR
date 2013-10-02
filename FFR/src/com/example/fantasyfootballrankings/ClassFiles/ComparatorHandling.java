@@ -471,33 +471,36 @@ public class ComparatorHandling
 				p2.append("-Better graded draft\n");
 			}	
 		}
-		double adp1 = adp(player1);
-		double adp2 = adp(player2);
-		if(adp1 < adp2)
+		if(!holder.isRegularSeason)
 		{
-			if(adp2 - adp1 > 15.0)
+			double adp1 = adp(player1);
+			double adp2 = adp(player2);
+			if(adp1 < adp2)
 			{
-				val1 += 8;
-				p1.append("-Much higher ADP\n"); 
-			}
-			else
-			{ 
-				val1 += 4;
-				p1.append("-Higher ADP\n");
-			}
-		}
-		else
-		{
-			if(adp1 - adp2 > 15.0)
-			{
-				val2 += 8;
-				p2.append("-Much higher ADP\n");
+				if(adp2 - adp1 > 15.0)
+				{
+					val1 += 8;
+					p1.append("-Much higher ADP\n"); 
+				}
+				else
+				{ 
+					val1 += 4;
+					p1.append("-Higher ADP\n");
+				}
 			}
 			else
 			{
-				val2 += 4;
-				p2.append("-Higher ADP\n");
-			}		
+				if(adp1 - adp2 > 15.0)
+				{
+					val2 += 8;
+					p2.append("-Much higher ADP\n");
+				}
+				else
+				{
+					val2 += 4;
+					p2.append("-Higher ADP\n");
+				}		
+			}
 		}
 		double ecr1 = player1.values.ecr;
 		double ecr2 = player2.values.ecr;

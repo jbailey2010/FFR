@@ -51,7 +51,7 @@ public class ParseRankings
 	/** 
 	 * This is where the magic happens. This sets the names/fetches them if they're
 	 * stored (not based on user input as it won't change), then fetches the players, 
-	 * and runs high-level stuff on it. Does NOT save, as that is up to user choice.
+	 * and runs high-level stuff on it. 
 	 * @param cont the context used to work with the saving
 	 * @throws IOException
 	 * @throws XPatherException
@@ -59,7 +59,6 @@ public class ParseRankings
 	public static void runRankings(final Storage holder, final Context cont) throws IOException, XPatherException
 	{  
 		handleHashes();
-		holder.players.clear();
 		context = cont;
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
 		

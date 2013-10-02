@@ -55,8 +55,6 @@ public class ParseFantasyPros
 				name = fullName[fullName.length-1] + " D/ST";
 			}
 			int val1 = Integer.parseInt(td[i+1].split("\\$")[1]);
-			int val2 = Integer.parseInt(td[i+2].split("\\$")[1]);
-			int val3 = Integer.parseInt(td[i+3].split("\\$")[1]);
 			int ecr = -1;
 			try{
 				ecr = Integer.parseInt(td[i+4]);
@@ -86,7 +84,7 @@ public class ParseFantasyPros
 				{
 					match.values.ecr = (double) ecr;
 				}
-				if(adp != -1)
+				if(adp != -1 && !holder.isRegularSeason)
 				{
 					match.info.adp = String.valueOf(adp);
 				}
@@ -101,7 +99,7 @@ public class ParseFantasyPros
 				{
 					newPlayer.values.ecr = (double) ecr;
 				}
-				if(adp != -1)
+				if(adp != -1 && !holder.isRegularSeason)
 				{
 					newPlayer.info.adp = String.valueOf(adp);
 				}

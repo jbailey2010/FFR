@@ -124,10 +124,6 @@ public class Rankings extends Activity {
     	listview = (ListView)findViewById(R.id.listview_rankings);
     	widgetBase = (RelativeLayout)findViewById(R.id.rankings_widget_base);
 		hideWidget = ReadFromFile.readHideWidget(cont);
-		if(hideWidget)
-		{
-			widgetBase.setVisibility(View.GONE);
-		}
     	context = this;
     	isAuction = ReadFromFile.readIsAuction(cont);
     	setLists();
@@ -137,7 +133,12 @@ public class Rankings extends Activity {
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
 		setUpWidget();
-		
+		System.out.println(hideWidget);
+		System.out.println(holder.isRegularSeason);
+		if(hideWidget || holder.isRegularSeason)
+		{
+			widgetBase.setVisibility(View.GONE);
+		}
 	}
 	
 	@Override

@@ -11,12 +11,14 @@ import java.io.IOException;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
+
 
 
 
@@ -129,7 +131,14 @@ public class ParsingAsyncTask
 		    {
 		    	Storage holder = (Storage) data[0];
 		    	Context cont = (Context) data[1];
-
+		    	Map<String, List<String>> fa = new HashMap<String, List<String>>();
+		    	Map<String, String> draftClasses = new HashMap<String, String>(); 
+		    	if(holder.isRegularSeason)
+		    	{
+		    		fa = holder.fa;
+		    		draftClasses = holder.draftClasses;
+		    	}
+				holder.players.clear();
 		    	holder.parsedPlayers.clear();
 	    		all = System.nanoTime();
 	    		System.out.println("Before WF");
@@ -299,15 +308,23 @@ public class ParsingAsyncTask
 				}
 
 	    		publishProgress("Please wait, fetching team data...");
-				try {
-					HighLevel.setTeamInfo(holder, cont);
-				} catch (HttpStatusException e2)
-				{
-					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+	    		if(!holder.isRegularSeason || (holder.isRegularSeason && (fa.size() < 5 || draftClasses.size() < 5)))
+	    		{
+					try {
+						HighLevel.setTeamInfo(holder, cont);
+					} catch (HttpStatusException e2)
+					{
+						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	    		}
+	    		else
+	    		{
+	    			holder.fa = fa;
+	    			holder.draftClasses = draftClasses;
+	    		}
 
 				publishProgress("Please wait, fetching positional SOS...");
 				try {
@@ -319,7 +336,7 @@ public class ParsingAsyncTask
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-
+				
 				publishProgress("Please wait, fetching player contract status...");
 	    		try {
 					HighLevel.setContractStatus(holder);
