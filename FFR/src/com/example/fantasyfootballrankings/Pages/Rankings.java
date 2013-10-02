@@ -133,8 +133,6 @@ public class Rankings extends Activity {
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
 		setUpWidget();
-		System.out.println(hideWidget);
-		System.out.println(holder.isRegularSeason);
 		if(hideWidget || holder.isRegularSeason)
 		{
 			widgetBase.setVisibility(View.GONE);

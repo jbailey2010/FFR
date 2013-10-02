@@ -182,7 +182,6 @@ public class HighLevel
 					String[] name = player.info.name.split(" ");
 					String testName = name[0].charAt(0) + " " + name[1];
 					testName = testName.toLowerCase();
-					System.out.println("Test name is " + testName);
 					if(player.info.position.equals("QB"))
 					{
 						if(qbs.containsKey(testName + "/" + player.info.team))

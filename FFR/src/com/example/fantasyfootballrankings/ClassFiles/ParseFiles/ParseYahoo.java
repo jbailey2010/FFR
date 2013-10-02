@@ -34,7 +34,27 @@ public class ParseYahoo
 			{
 				break;
 			} 
-			String name = td[i].split(" \\(")[0];
+			String fName = "";
+			String name = "";
+			if(td[i].split(" \\(")[0].contains("Note"))
+			{
+				String splitter = "Note ";
+				if(td[i].split(" \\(")[0].contains("Notes"))
+				{
+					splitter = "Notes ";
+				}
+				fName = td[i].split(" \\(")[0].split(splitter)[1].split(" - ")[0];
+				String[] nameSet = fName.split(" ");
+				for(int j = 0; j < nameSet.length - 1; j++)
+				{
+					name += nameSet[j] + " ";
+				}
+				name = name.substring(0, name.length() - 1);
+			}
+			else
+			{
+				name = td[i].split(" \\(")[0];
+			}
 			if(td[i].contains("DEF"))
 			{
 				if(td[i].contains("NYG"))
