@@ -185,15 +185,22 @@ public class HandleWatchList
 	    	PlayerObject iter = totalList.poll();
 			DecimalFormat df = new DecimalFormat("#.##");
 			String val = "";
-			if(isAuction)
+			if(!holder.isRegularSeason)
 			{
-				val = df.format(iter.values.secWorth);
+				if(isAuction)
+				{
+					val = df.format(iter.values.secWorth);
+				}
+				else
+				{
+					val = df.format(iter.values.ecr);
+				}
 			}
 			else
 			{
-				val = df.format(iter.values.ecr);
+				val = df.format(iter.values.points);
 			}
-	    	if(selected)
+			if(selected)
 	    	{
 	    		if(Draft.isDrafted(iter.info.name, holder.draft))
 	    		{

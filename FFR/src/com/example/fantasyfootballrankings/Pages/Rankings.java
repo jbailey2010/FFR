@@ -1696,122 +1696,194 @@ public class Rankings extends Activity {
 		cont.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		int maxSize = ReadFromFile.readFilterQuantitySize((Context)cont, "Rankings");
 		PriorityQueue<PlayerObject>inter = null;
-		if(isAuction)
+		PriorityQueue<PlayerObject> totalList = null;
+		if(!holder.isRegularSeason)
 		{
-			inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+			if(isAuction)
 			{
-				@Override
-				public int compare(PlayerObject a, PlayerObject b) 
+				inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 				{
-					if (a.values.worth > b.values.worth)
-				    {
-				        return -1;
-				    }
-				    if (a.values.worth < b.values.worth)
-				    {
-				    	return 1;
-				    }
-				    return 0;
-				}
-			});
-		}
-		else
-		{
-			inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
-			{
-						@Override
-						public int compare(PlayerObject a, PlayerObject b) 
+					@Override
+					public int compare(PlayerObject a, PlayerObject b) 
+					{
+						if (a.values.worth > b.values.worth)
+					    {
+					        return -1;
+					    }
+					    if (a.values.worth < b.values.worth)
+					    {
+					    	return 1;
+					    }
+					    return 0;
+					}
+				});
+				totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 						{
-							if(a.values.ecr == -1 && b.values.ecr != -1)
+							@Override
+							public int compare(PlayerObject a, PlayerObject b) 
 							{
-								return 1;
+								if (a.values.worth > b.values.worth)
+							    {
+							        return -1;
+							    }
+							    if (a.values.worth < b.values.worth)
+							    {
+							    	return 1;
+							    }
+							    return 0;
 							}
-							if(a.values.ecr != -1 && b.values.ecr == -1)
+						});
+			}
+			else
+			{
+				inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+				{
+							@Override
+							public int compare(PlayerObject a, PlayerObject b) 
 							{
-								return -1;
-							}
-							if(a.values.ecr == -1 && b.values.ecr == -1)
-							{
-								if(a.values.worth > b.values.worth)
-								{
-									return -1;
-								}
-								if(b.values.worth > a.values.worth)
+								if(a.values.ecr == -1 && b.values.ecr != -1)
 								{
 									return 1;
 								}
-								return 0;
+								if(a.values.ecr != -1 && b.values.ecr == -1)
+								{
+									return -1;
+								}
+								if(a.values.ecr == -1 && b.values.ecr == -1)
+								{
+									if(a.values.worth > b.values.worth)
+									{
+										return -1;
+									}
+									if(b.values.worth > a.values.worth)
+									{
+										return 1;
+									}
+									return 0;
+								}
+								if (a.values.ecr > b.values.ecr)
+							    {
+							        return 1;
+							    }
+							    if (a.values.ecr < b.values.ecr)
+							    {
+							    	return -1;
+							    }
+							    return 0;
 							}
-							if (a.values.ecr > b.values.ecr)
-						    {
-						        return 1;
-						    }
-						    if (a.values.ecr < b.values.ecr)
-						    {
-						    	return -1;
-						    }
-						    return 0;
-						}
-			});
-		}
-		PriorityQueue<PlayerObject> totalList = null;
-		if(isAuction)
-		{
-			totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
-			{
-				@Override
-				public int compare(PlayerObject a, PlayerObject b) 
-				{
-					if (a.values.worth > b.values.worth)
-				    {
-				        return -1;
-				    }
-				    if (a.values.worth < b.values.worth)
-				    {
-				    	return 1;
-				    }
-				    return 0;
-				}
-			});
+				});
+				totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+						{
+							@Override
+							public int compare(PlayerObject a, PlayerObject b) 
+							{
+								if(a.values.ecr == -1 && b.values.ecr != -1)
+								{
+									return 1;
+								}
+								if(a.values.ecr != -1 && b.values.ecr == -1)
+								{
+									return -1;
+								}
+								if(a.values.ecr == -1 && b.values.ecr == -1)
+								{
+									if(a.values.worth > b.values.worth)
+									{
+										return -1;
+									}
+									if(b.values.worth > a.values.worth)
+									{
+										return 1;
+									}
+									return 0;
+								}
+								if (a.values.ecr > b.values.ecr)
+							    {
+							        return 1;
+							    }
+							    if (a.values.ecr < b.values.ecr)
+							    {
+							    	return -1;
+							    }
+							    return 0;
+							}
+						});
+			}
 		}
 		else
 		{
-			totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+			inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 			{
 				@Override
 				public int compare(PlayerObject a, PlayerObject b) 
 				{
-					if(a.values.ecr == -1 && b.values.ecr != -1)
+					if(a.values.points <=0 && b.values.points > 0)
 					{
 						return 1;
 					}
-					if(a.values.ecr != -1 && b.values.ecr == -1)
+					if(a.values.points > 0 && b.values.points <= 0)
 					{
 						return -1;
 					}
-					if(a.values.ecr == -1 && b.values.ecr == -1)
+					if(a.values.points == 0 && b.values.points == 0)
 					{
-						if(a.values.worth > b.values.worth)
-						{
-							return -1;
-						}
-						if(b.values.worth > a.values.worth)
+						if(a.values.ecr > b.values.ecr)
 						{
 							return 1;
 						}
+						if(b.values.ecr > a.values.ecr)
+						{
+							return -1;
+						}
 						return 0;
 					}
-					if (a.values.ecr > b.values.ecr)
-				    {
-				        return 1;
-				    }
-				    if (a.values.ecr < b.values.ecr)
-				    {
-				    	return -1;
-				    }
-				    return 0;
+					if (a.values.paa > b.values.paa)
+					{
+						return -1;
+					}
+					if (a.values.paa < b.values.paa)
+					{
+					  	return 1;
+					}
+					return 0;
 				}
-			});
+	 		});
+			totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if(a.values.points <=0 && b.values.points > 0)
+							{
+								return 1;
+							}
+							if(a.values.points > 0 && b.values.points <= 0)
+							{
+								return -1;
+							}
+							if(a.values.points == 0 && b.values.points == 0)
+							{
+								if(a.values.ecr > b.values.ecr)
+								{
+									return 1;
+								}
+								if(b.values.ecr > a.values.ecr)
+								{
+									return -1;
+								}
+								return 0;
+							}
+							if (a.values.paa > b.values.paa)
+							{
+								return -1;
+							}
+							if (a.values.paa < b.values.paa)
+							{
+							  	return 1;
+							}
+							return 0;
+						}
+			 		});
 		}
 		if(posList.size() > 1)
 		{
@@ -1883,27 +1955,34 @@ public class Rankings extends Activity {
 	    	PlayerObject elem = playerList.poll();
 	        DecimalFormat df = new DecimalFormat("#.##");
 	        Map<String, String> datum = new HashMap<String, String>(2);
-	        if(isAuction)
+	        if(!holder.isRegularSeason)
 	        {
-	        	if(elem.values.secWorth > 0.0)
-	        	{
-	        		datum.put("main", df.format(elem.values.secWorth) + ":  " + elem.info.name);
-	        	}
-	        	else
-	        	{
-	        		datum.put("main", df.format(elem.values.worth)+ ": " + elem.info.name); 
-	        	}
+		        if(isAuction)
+		        {
+		        	if(elem.values.secWorth > 0.0)
+		        	{
+		        		datum.put("main", df.format(elem.values.secWorth) + ":  " + elem.info.name);
+		        	}
+		        	else
+		        	{
+		        		datum.put("main", df.format(elem.values.worth)+ ":  " + elem.info.name); 
+		        	}
+		        }
+		        else
+		        {
+		        	if(elem.values.ecr != -1)
+		        	{
+		        		datum.put("main", df.format(elem.values.ecr)+ ":  " + elem.info.name);
+		        	}
+		        	else
+		        	{
+		        		datum.put("main", elem.info.name);
+		        	}
+		        }
 	        }
 	        else
 	        {
-	        	if(elem.values.ecr != -1)
-	        	{
-	        		datum.put("main", df.format(elem.values.ecr)+ ":  " + elem.info.name);
-	        	}
-	        	else
-	        	{
-	        		datum.put("main", elem.info.name);
-	        	}
+	        	datum.put("main", df.format(elem.values.points) + ":  " + elem.info.name);
 	        }
 	        String sub = "";
 	        if(elem.info.position.length() > 0)
@@ -1914,9 +1993,13 @@ public class Rankings extends Activity {
 	        {
 	        	sub += " - " + elem.info.team + "\n" + "Bye: "+ holder.bye.get(elem.info.team);
 	        }
-	        if(elem.values.points > 0.0)
+	        if(elem.values.points > 0.0 && !holder.isRegularSeason)
 	        {
 	        	sub += "\nProjection: " + df.format(elem.values.points);
+	        }
+	        else if(elem.values.points > 0.0)
+	        {
+	        	sub += "\n" + df.format(elem.values.paa)+ " PAA"; 
 	        }
 	        datum.put("sub", sub);
 	        data.add(datum);
