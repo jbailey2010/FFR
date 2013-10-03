@@ -848,6 +848,11 @@ public class SortHandler
 	    }
 	    int count = 0;
 	    Roster r = ReadFromFile.readRoster(cont);
+	    String baseECR = "ECR: ";
+	    if(holder.isRegularSeason)
+	    {
+	    	baseECR = "Weekly ECR: ";
+	    }
 	    while(!sorted.isEmpty())
 	    {
 	    	PlayerObject elem = sorted.poll();
@@ -876,57 +881,64 @@ public class SortHandler
 		    	if(subject.equals("Projections"))
 				{
 					datum.put("main", output + elem.values.points + ": " + elem.info.name);
-					datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
+					datum.put("sub", baseECR + elem.values.ecr);
 				}
 		    	else if(subject.equals("Auction Values"))
 		    	{
-		    		datum.put("main", output + df.format(elem.values.secWorth)+ ": " + elem.info.name);
-		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + df.format(elem.values.paa) + " PAA");
+		    		if(elem.values.secWorth > 0)
+		    		{
+		    			datum.put("main", output + df.format(elem.values.secWorth) + ": " + elem.info.name);
+		    		}
+		    		else
+		    		{
+		    			datum.put("main", output + df.format(elem.values.worth)+ ": " + elem.info.name );
+		    		}
+		    		datum.put("sub", baseECR + elem.values.ecr + ", " + df.format(elem.values.paa) + " PAA");
 		    	}
 		    	else if(subject.equals("Under Drafted"))
 		    	{
 		    		double diff = Double.parseDouble(elem.info.adp) - elem.values.ecr;
 		    		datum.put("main", output + df.format(diff)+ ": " + elem.info.name);
-		    		datum.put("sub", "$" +df.format(elem.values.secWorth)+ ", Projection: " + elem.values.points + "\n" + "ADP: " + elem.info.adp + ", " + "ECR: " + elem.values.ecr);
+		    		datum.put("sub", "Projection: " + elem.values.points + "\n" + "ADP: " + elem.info.adp + ", " + baseECR + elem.values.ecr);
 		    	}
 		    	else if(subject.equals("PAA"))
 		    	{
 		    		datum.put("main", output + df.format(elem.values.paa)+ ": " + elem.info.name);
-		    		datum.put("sub", "ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
+		    		datum.put("sub", baseECR + elem.values.ecr);
 		    	}
 		    	else if(subject.equals("Risk"))
 		    	{
 		    		datum.put("main", output + df.format(elem.risk)+ ": " + elem.info.name);
-		    		datum.put("sub", elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
+		    		datum.put("sub", baseECR + elem.values.ecr);
 		    	}
 				else if(subject.equals("Risk"))
 				{
 					datum.put("main", output + elem.risk + ": " + elem.info.name);
-		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
+		    		datum.put("sub", baseECR + elem.values.ecr );
 				}
 				else if(subject.equals("Positional SOS"))
 				{
 					if(elem.values.points != 0.0)
 					{
 						datum.put("main",output + holder.sos.get(elem.info.team + "," + elem.info.position) + ": " + elem.info.name);
-			    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth) + ", " + 
+			    		datum.put("sub", baseECR + elem.values.ecr + ", " + 
 								elem.values.points);
-					}
+			    	}
 					else
 					{
 						datum.put("main",output + holder.sos.get(elem.info.team + "," + elem.info.position) + ": " + elem.info.name);
-			    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
+			    		datum.put("sub", baseECR + elem.values.ecr);
 					}
 				}
 				else if(subject.equals("ECR"))
 				{
 					datum.put("main", output + elem.values.ecr + ": " + elem.info.name);
-		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
+		    		datum.put("sub", "");
 				}
 				else if(subject.equals("ADP"))
 				{
 					datum.put("main", output + elem.info.adp + ": " + elem.info.name);
-		    		datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
+		    		datum.put("sub", baseECR + elem.values.ecr);
 				}
 				else if(subject.equals("Yard Adjustment"))
 				{
@@ -936,7 +948,7 @@ public class SortHandler
 					int adjYards = Integer.parseInt(adjStr.replaceAll(",", ""));
 					int aDiff = adjYards - yards;
 					datum.put("main", output + aDiff + ": " + elem.info.name);
-					datum.put("sub", "Actual: " + yards + ", Adjusted: " + adjYards + ", ECR: " + elem.values.ecr + ", $" + df.format(elem.values.secWorth));
+					datum.put("sub", "Actual: " + yards + ", Adjusted: " + adjYards + ", ECR: " + elem.values.ecr);
 				}
 				else if(subject.equals("Completion to Int Ratio"))
 				{
@@ -948,7 +960,7 @@ public class SortHandler
 					double completions = attempts * compPercent;
 					double aDiff = (completions)/((double)intA);
 					datum.put("main", output + df.format(aDiff) + ": " + elem.info.name);
-					datum.put("sub", "ECR: " + elem.values.ecr + ", " + "$" + df.format(elem.values.secWorth));
+					datum.put("sub", baseECR + elem.values.ecr);
 				}
 		    	data.add(datum);
 	    	}
