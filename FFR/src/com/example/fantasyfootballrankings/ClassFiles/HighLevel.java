@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
-
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -58,7 +57,7 @@ public class HighLevel
 	public static void setContractStatus(Storage holder) throws IOException
 	{
 		HashMap<String, String> cs = new HashMap<String, String>();
-		String html = HandleBasicQueries.handleLists("http://www.kffl.com/static/nfl/features/freeagents/fa.php?option=All&y=2014", "td");
+		String html = HandleBasicQueries.handleLists("http://www.kffl.com/static/nfl/features/freeagents/fa.php?option=All", "td");
 		String[] td = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 20; i < td.length; i+=5)
 		{
@@ -72,7 +71,8 @@ public class HighLevel
 				pos = "K";
 			}
 			String name = td[i+1];
-			if(!name.equals("Player"))
+			String status = td[i+2];
+			if(!name.equals("Player") && !status.contains("Signed") && !status.contains("signed"))
 			{
 				cs.put(pos + "/" + name, "In a contract year");
 			}
@@ -991,7 +991,7 @@ public class HighLevel
 	{
 		HashMap<String, Double> ecr = new HashMap<String, Double>();
 		HashMap<String, Double> risk = new HashMap<String, Double>();
-		HashMap<String, Double> adp = new HashMap<String, Double>();
+		HashMap<String, String> adp = new HashMap<String, String>();
 		if(!isValidRankings("http://www.fantasypros.com/nfl/rankings/ppr-rb.php?week=1"))
 		{
 			String url = "http://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php";
@@ -1025,9 +1025,19 @@ public class HighLevel
 			{
 				player.values.ecr = ecr.get(player.info.name);
 				player.risk = risk.get(player.info.name);
-				if(adp.containsKey(player.info.name))
+				if(holder.isRegularSeason)
 				{
-					player.info.adp = String.valueOf(adp.get(player.info.name));
+					if(adp.containsKey(player.info.team))
+					{
+						player.info.adp = adp.get(player.info.team);
+					}
+				}
+				else
+				{
+					if(adp.containsKey(player.info.name))
+					{
+						player.info.adp = (adp.get(player.info.name));
+					}
 				}
 			}
 		} 
@@ -1062,7 +1072,7 @@ public class HighLevel
 	 * Similar to the ecr parser, but handles the minor differences in the weekly set
 	 */
 	public static void parseECRWeekly(String url, Storage holder, HashMap<String, Double> ecr, 
-			HashMap<String, Double> risk, HashMap<String, Double> adp) throws IOException
+			HashMap<String, Double> risk, HashMap<String, String> adp) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = ManageInput.tokenize(html, '\n', 1);
@@ -1080,6 +1090,21 @@ public class HighLevel
 			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i+1].split(" \\(")[0].split(", ")[0]));
 			double ecrVal = Double.parseDouble(td[i]);
 			double riskVal = Double.parseDouble(td[i+5]);
+			String team = ParseRankings.fixTeams(td[i+1].split(" \\(")[1].split("\\)")[0]);
+			if(!adp.containsKey(team) && !team.contains("FA") && !team.contains(" vs. ") && !team.contains(" at ") && !ManageInput.isInteger(team))
+			{
+				String wholeSet = td[i+1];
+				String opp = "";
+				if(wholeSet.contains("vs"))
+				{
+					opp = ParseRankings.fixTeams(wholeSet.split("vs. ")[1]);
+				}
+				else
+				{
+					opp = ParseRankings.fixTeams(wholeSet.split("at ")[1]);
+				}
+				adp.put(team, opp);
+			}
 			ecr.put(name, ecrVal);
 			risk.put(name, riskVal);
 		}
@@ -1089,7 +1114,7 @@ public class HighLevel
 	 * Gets the ECR Data for players
 	 */
 	public static void parseECRWorker(String url, Storage holder, HashMap<String, Double> ecr, 
-			HashMap<String, Double> risk, HashMap<String, Double> adp, int loopIter) throws IOException
+			HashMap<String, Double> risk, HashMap<String, String> adp, int loopIter) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = ManageInput.tokenize(html, '\n', 1);
@@ -1109,7 +1134,7 @@ public class HighLevel
 			double riskVal = Double.parseDouble(td[i+5]);
 			try{
 				double adpVal = Double.parseDouble(td[i+6]);
-				adp.put(name, adpVal);
+				adp.put(name, td[i+6]);
 			} catch(NumberFormatException e)
 			{
 				

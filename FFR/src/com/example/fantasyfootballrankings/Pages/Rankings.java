@@ -1996,10 +1996,15 @@ public class Rankings extends Activity {
 	        {
 	        	sub += "\nProjection: " + df.format(elem.values.points);
 	        }
-	        else if(elem.values.points > 0.0)
+	        if(holder.isRegularSeason)
 	        {
-	        	sub += "\n" + df.format(elem.values.paa)+ " PAA"; 
+	        	if(!elem.info.adp.equals("Not set"))
+	        	{
+	        		sub += "\nPlaying: " + elem.info.adp + "\nPositional SOS: " + 
+	        				holder.sos.get(elem.info.team + "," + elem.info.position);
+	        	}
 	        }
+	        
 	        datum.put("sub", sub);
 	        data.add(datum);
 	        adapter.notifyDataSetChanged();

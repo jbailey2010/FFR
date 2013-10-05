@@ -104,4 +104,51 @@ public class ParseFFTB
 		}
 		return byes;
 	}
+	
+	/**
+	 * Calls the worker to handle all of the various pages
+	 */
+	public static void parseSOSInSeason(Storage holder) throws IOException
+	{
+		HashMap<String, Integer>sos = new HashMap<String, Integer>();
+		parseSOSWorker("http://www.fftoolbox.com/football/2013/points-allowed.cfm?pos=QB", sos, "QB");
+		parseSOSWorker("http://www.fftoolbox.com/football/2013/points-allowed.cfm?pos=RB", sos, "RB");
+		parseSOSWorker("http://www.fftoolbox.com/football/2013/points-allowed.cfm?pos=WR", sos, "WR");
+		parseSOSWorker("http://www.fftoolbox.com/football/2013/points-allowed.cfm?pos=TE", sos, "TE");
+		parseSOSWorker("http://www.fftoolbox.com/football/2013/points-allowed.cfm?pos=K", sos, "K");
+		holder.sos = sos;
+	}
+	
+	/**
+	 * Does the per page parsing of the positional SOS data
+	 */
+	public static void parseSOSWorker(String url, HashMap<String, Integer> sos, String pos) throws IOException
+	{
+		String tr = HandleBasicQueries.handleLists(url, "tr");
+		String[] trSet = tr.split("\n");
+		for(int i = 0; i < trSet.length; i++)
+		{
+			String[]trWords = trSet[i].split(" ");
+			if(ManageInput.isInteger(trWords[0]))
+			{
+				System.out.println(trWords[0]);
+				StringBuilder team = new StringBuilder(100);
+				for(int j = 1; j < trWords.length; j++)
+				{
+					if(!trWords[j].equals("vs"))
+					{
+						team.append(trWords[j] + " ");
+					}
+					else
+					{
+						break;
+					}
+				}
+				String teamStr = team.toString();
+				teamStr = ParseRankings.fixTeams(teamStr.substring(0, teamStr.length() - 1));
+				System.out.println(teamStr);
+				sos.put(teamStr + "," + pos, Integer.valueOf(trWords[0]));
+			}
+		}
+	}
 }

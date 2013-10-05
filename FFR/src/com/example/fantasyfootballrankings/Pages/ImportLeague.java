@@ -928,8 +928,12 @@ public class ImportLeague extends Activity {
 			 {
 				 continue;
 			 }
+			 subInfo.append(iter.values.ecr + " Ranked " + iter.info.position + " This Week\n");
 			 subInfo.append(iter.info.position + " - " + iter.info.team + "\n");
-			 subInfo.append(iter.values.ecr + " Ranked " + iter.info.position + " This Week");
+			 if(holder.sos.keySet().contains(iter.info.team + "," + iter.info.position))
+			 {
+				 subInfo.append("Positional SOS: " + holder.sos.get(iter.info.team + "," + iter.info.position));
+			 }
 			 datum.put("sub", subInfo.toString());
 			 data.add(datum);
 		 }

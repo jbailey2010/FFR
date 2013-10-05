@@ -575,16 +575,26 @@ public class PlayerInfo
 		if(!searchedPlayer.info.adp.equals("Not set"))
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
-			if(rankADPPos(searchedPlayer, holder) != -1)
+			if(!holder.isRegularSeason)
 			{
-				datum.put("main", "Average Draft Position: " + searchedPlayer.info.adp);
-				datum.put("sub", "Ranked " + rankADPPos(searchedPlayer, holder) + " positionally");
-				data.add(datum);
+				if(rankADPPos(searchedPlayer, holder) != -1)
+				{
+					datum.put("main", "Average Draft Position: " + searchedPlayer.info.adp);
+					datum.put("sub", "Ranked " + rankADPPos(searchedPlayer, holder) + " positionally");
+					data.add(datum);
+				}
+				else
+				{
+					datum.put("main", "Average Draft Position: " + searchedPlayer.info.adp);
+					datum.put("sub", "");
+					data.add(datum);
+				}
 			}
 			else
 			{
-				datum.put("main", "Average Draft Position: " + searchedPlayer.info.adp);
-				datum.put("sub", "");
+				datum.put("main", "Playing The " + searchedPlayer.info.adp);
+				datum.put("sub", "Positional SOS: " + holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position) + 
+							"\n1 is Easiest, 32 Hardest");
 				data.add(datum);
 			}
 		}
@@ -594,11 +604,11 @@ public class PlayerInfo
 			Map<String, String> datum = new HashMap<String, String>(2);
 			if(!holder.isRegularSeason)
 			{
-				datum.put("main", searchedPlayer.values.points + " Yearly Projected Points");
+				datum.put("main", searchedPlayer.values.points + " Projected Points This Year");
 			}
 			else
 			{
-				datum.put("main", searchedPlayer.values.points + " Weekly Projected Points");
+				datum.put("main", searchedPlayer.values.points + " Projected Points This Week");
 			}
 			if(searchedPlayer.info.position.length() >= 1)
 			{
@@ -643,8 +653,9 @@ public class PlayerInfo
 					data.add(datum);
 				}
 		//Positional SOS
+		System.out.println(searchedPlayer.info.team + "," + searchedPlayer.info.position);
 		if(holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position)!= null && 
-				holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position) > 0)
+				holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position) > 0 && !holder.isRegularSeason)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", "Positional SOS: " + holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position));

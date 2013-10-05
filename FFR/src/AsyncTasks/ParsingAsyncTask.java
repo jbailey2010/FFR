@@ -326,9 +326,18 @@ public class ParsingAsyncTask
 	    			holder.draftClasses = draftClasses;
 	    		}
 
+	    		
 				publishProgress("Please wait, fetching positional SOS...");
+				
 				try {
-					HighLevel.getSOS(holder);
+					if(!holder.isRegularSeason)
+					{
+						HighLevel.getSOS(holder);
+					}
+					else
+					{
+						ParseFFTB.parseSOSInSeason(holder);
+					}
 				} catch (HttpStatusException e2)
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
