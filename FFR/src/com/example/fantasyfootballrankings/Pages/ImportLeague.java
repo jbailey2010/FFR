@@ -883,6 +883,18 @@ public class ImportLeague extends Activity {
 	    			@Override
 	    			public int compare(PlayerObject a, PlayerObject b) 
 	    			{
+	    				if(a.values.points == 0 && b.values.points > 0)
+	    				{
+	    					return 1;
+	    				}
+	    				if(a.values.points > 0 && b.values.points == 0)
+	    				{
+	    					return -1;
+	    				}
+	    				if(a.values.points == 0 && b.values.points == 0)
+	    				{
+	    					return 0;
+	    				}
 	    				if (a.values.paa > b.values.paa || (b.values.points == 0 && a.values.points > 0))
 	    			    {
 	    			        return -1;
@@ -897,7 +909,7 @@ public class ImportLeague extends Activity {
 		 for(PlayerObject player : holder.players)
 		 {
 			 if(player.values.ecr > 0 && (pos.equals("All Positions") || player.info.position.equals(pos)) && 
-					 !(player.info.team.length() == 0 || player.info.team.length() == 1 || player.info.position.length() == 0))
+					 !(player.info.team.length() == 0 || player.info.team.length() == 1 || player.info.position.length() == 0) )
 			 {
 				 players.add(player);
 			 }
@@ -929,15 +941,22 @@ public class ImportLeague extends Activity {
 				 continue;
 			 }
 			 subInfo.append(iter.info.position + " - " + iter.info.team + "\n");
-			 subInfo.append("Weekly Positional Rank: " + iter.values.ecr.intValue()+ "\n");
-			 subInfo.append("Opponent: " + iter.info.adp);
-			 if(holder.sos.keySet().contains(iter.info.team + "," + iter.info.position))
-			 {
-				 subInfo.append(" (SOS: " + holder.sos.get(iter.info.team + "," + iter.info.position) + ")");
-			 }
 			 if(iter.values.rosRank > 0)
 			 {
-				 subInfo.append("\nROS Positional Rank: " + iter.values.rosRank);
+				 subInfo.append("ROS Positional Rank: " + iter.values.rosRank + "\n");
+			 }
+			 subInfo.append("Weekly Positional Rank: " + iter.values.ecr.intValue()+ "\n");
+			 if(!iter.info.adp.contains("Not set"))
+			 {
+				 subInfo.append("Opponent: " + iter.info.adp);
+				 if(holder.sos.keySet().contains(iter.info.team + "," + iter.info.position))
+				 {
+					 subInfo.append(" (SOS: " + holder.sos.get(iter.info.team + "," + iter.info.position) + ")");
+				 }
+			 }
+			 else
+			 {
+				 subInfo.append("Bye Week");
 			 }
 			 datum.put("sub", subInfo.toString());
 			 data.add(datum);
