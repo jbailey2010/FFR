@@ -548,6 +548,16 @@ public class PlayerInfo
 			}
 			data.add(datumWorth);
 		}
+		if(holder.isRegularSeason)
+		{
+			if(searchedPlayer.values.rosRank > 0)
+			{
+				Map<String, String> datum = new HashMap<String, String>(2);
+				datum.put("main", "ROS Positional Ranking: " + searchedPlayer.values.rosRank);
+				datum.put("sub", "");
+				data.add(datum);
+			}
+		}
 		//Rank ecr
 		if(searchedPlayer.values.ecr != -1)
 		{
@@ -566,7 +576,7 @@ public class PlayerInfo
 			}
 			else
 			{
-				datum.put("main", "Weekly Positional Ranking: " + searchedPlayer.values.ecr);
+				datum.put("main", "Weekly Positional Ranking: " + searchedPlayer.values.ecr.intValue());
 				datum.put("sub", "");
 			}
 			data.add(datum);
@@ -604,11 +614,11 @@ public class PlayerInfo
 			Map<String, String> datum = new HashMap<String, String>(2);
 			if(!holder.isRegularSeason)
 			{
-				datum.put("main", searchedPlayer.values.points + " Projected Points This Year");
+				datum.put("main", searchedPlayer.values.points + " Projection This Year");
 			}
 			else
 			{
-				datum.put("main", searchedPlayer.values.points + " Projected Points This Week");
+				datum.put("main", searchedPlayer.values.points + " Projection This Week");
 			}
 			if(searchedPlayer.info.position.length() >= 1)
 			{

@@ -1146,4 +1146,59 @@ public class HighLevel
 			risk.put(name, riskVal);
 		}
 	}
+
+	/**
+	 * Calls the worker thread with the appropriate URL then sets it to the players' storage
+	 */
+	public static void getROSRankingsWrapper(Storage holder, Context cont) throws IOException 
+	{
+		HashMap<String, Integer> rankings = new HashMap<String, Integer>();
+		parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-qb.php","QB", rankings);
+		Scoring s = ReadFromFile.readScoring(cont);
+		if(s.catches == 0)
+		{
+			parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-rb.php","RB", rankings);
+			parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-wr.php","WR", rankings);
+			parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-te.php","TE", rankings);
+		}
+		else
+		{
+			parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-ppr-rb.php","RB", rankings);
+			parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-ppr-wr.php","WR", rankings);
+			parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-ppr-te.php","TE", rankings);
+		}
+		parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-dst.php","D/ST", rankings);
+		parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-k.php","K", rankings);
+		for(PlayerObject player : holder.players)
+		{
+			if(rankings.containsKey(player.info.name + "," + player.info.position))
+			{
+				player.values.rosRank = rankings.get(player.info.name + "," + player.info.position);
+			}
+		}
+	}
+	
+	/**
+	 * Does the per page parsing, getting the ranking and the name and putting them in the hash
+	 */
+	public static void parseROSRankingsWorker(String url, String pos, HashMap<String, Integer> rankings) throws IOException
+	{
+		String html = HandleBasicQueries.handleLists(url, "td");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
+		int min = 0;
+		for(int i = 0; i < td.length; i++)
+		{
+			if(ManageInput.isInteger(td[i]))
+			{
+				min = i;
+				break;
+			}
+		}
+		for(int i = min; i < td.length; i+=6)
+		{
+			int ranking = Integer.parseInt(td[i]);
+			String name = ParseRankings.fixDefenses(ParseRankings.fixTeams(td[i+1].split(" \\(")[0]));
+			rankings.put(name+","+pos, ranking);
+		}
+	}
 }

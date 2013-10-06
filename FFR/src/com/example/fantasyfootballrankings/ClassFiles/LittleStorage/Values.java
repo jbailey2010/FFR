@@ -16,6 +16,7 @@ public class Values
 	public double points;
 	public double paa;
 	public double secWorth;
+	public int rosRank;
 	/**
 	 * Just initializes the values stored in the object,
 	 * count to one (obviously)
@@ -28,6 +29,7 @@ public class Values
 		ecr = -1.0;
 		points = 0.0;
 		paa = 0.0;
+		rosRank = 0;
 	}
 
 	/**

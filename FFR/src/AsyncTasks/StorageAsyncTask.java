@@ -94,6 +94,8 @@ public class StorageAsyncTask
 	    		players.append(player.values.points);
 	    		players.append("&&");
 	    		players.append(player.values.paa);
+	    		players.append("&&");
+	    		players.append(player.values.rosRank);
 	    		playerData.add(players.toString());
 	    	}
 	    	editor.putStringSet("Parsed Player Names", new HashSet<String>(holder.parsedPlayers));
@@ -198,6 +200,8 @@ public class StorageAsyncTask
 	    		players.append(player.values.points);
 	    		players.append("&&");
 	    		players.append(player.values.paa);
+	    		players.append("&&");
+	    		players.append(player.values.rosRank);
 	    		playerData.add(players.toString());
 	    	}
 	    	editor.putStringSet("Parsed Player Names", new HashSet<String>(holder.parsedPlayers));
@@ -294,6 +298,7 @@ public class StorageAsyncTask
 	   		{  
 	   			String[] allData = ManageInput.tokenize(st, '&', 2);
 	   			PlayerObject newPlayer = new PlayerObject(allData[2], allData[3], allData[4], 0);
+	   			newPlayer.values.rosRank = Integer.parseInt(allData[14]);
 	   			newPlayer.values.paa = Double.parseDouble(allData[13]);
 	   			newPlayer.values.points = Double.parseDouble(allData[12]);
 	   			newPlayer.risk = Double.parseDouble(allData[11]);

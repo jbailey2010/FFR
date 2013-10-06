@@ -131,7 +131,6 @@ public class ParseFFTB
 			String[]trWords = trSet[i].split(" ");
 			if(ManageInput.isInteger(trWords[0]))
 			{
-				System.out.println(trWords[0]);
 				StringBuilder team = new StringBuilder(100);
 				for(int j = 1; j < trWords.length; j++)
 				{
@@ -146,7 +145,6 @@ public class ParseFFTB
 				}
 				String teamStr = team.toString();
 				teamStr = ParseRankings.fixTeams(teamStr.substring(0, teamStr.length() - 1));
-				System.out.println(teamStr);
 				sos.put(teamStr + "," + pos, Integer.valueOf(trWords[0]));
 			}
 		}

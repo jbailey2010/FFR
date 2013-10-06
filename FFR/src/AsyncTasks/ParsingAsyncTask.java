@@ -391,6 +391,20 @@ public class ParsingAsyncTask
 				}
 	    		publishProgress("Please wait, normalizing projections...");
 	    		HighLevel.getPAA(holder, cont);
+	    		
+	    		if(holder.isRegularSeason)
+	    		{
+	    			publishProgress("Please wait, getting rest of season rankings...");
+	    			try {
+						HighLevel.getROSRankingsWrapper(holder, cont);
+					} catch (HttpStatusException e2)
+					{
+						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	    		}
 				return null;
 		    }
 
@@ -471,6 +485,8 @@ public class ParsingAsyncTask
 			    		players.append(player.values.points);
 			    		players.append("&&");
 			    		players.append(player.values.paa);
+			    		players.append("&&");
+			    		players.append(player.values.rosRank);
 			    		playerData.add(players.toString());
 			    	}
 			    	editor.putStringSet("Parsed Player Names", new HashSet<String>(holder.parsedPlayers));

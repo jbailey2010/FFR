@@ -2000,8 +2000,12 @@ public class Rankings extends Activity {
 	        {
 	        	if(!elem.info.adp.equals("Not set"))
 	        	{
-	        		sub += "\nPlaying: " + elem.info.adp + "\nPositional SOS: " + 
-	        				holder.sos.get(elem.info.team + "," + elem.info.position);
+	        		sub += "\nOpponent: " + elem.info.adp + " (SOS: " + 
+	        				holder.sos.get(elem.info.team + "," + elem.info.position) + ")";
+	        	}
+	        	if(elem.values.rosRank > 0)
+	        	{
+	        		sub += "\nROS Positional Ranking: " + elem.values.rosRank;
 	        	}
 	        }
 	        
