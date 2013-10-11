@@ -28,8 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="18dp"
-        android:text="If you want to limit how many players are shown, click Quantity Shown, and adjust as you please."
+        android:layout_marginTop="22dp"
+        android:text="If you want to limit how many players are shown, click Quantity Shown."
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -38,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="15dp"
-        android:text="If you see someone in the output list that you aren't interested in, slide to the side, and he will disappear. Note that this is temporary, and once you leave and come back that person will be back."
+        android:layout_marginTop="22dp"
+        android:text="If you see someone in the output list that you aren't interested in, slide to the side, and he will disappear. Note that this is temporary."
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -48,8 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView3"
-        android:layout_marginTop="14dp"
-        android:text="If you've already fetched your rankings, you can click on a player in the output and get detailed information about him. If you haven't, or it's someone who isn't in the rankings, nothing will appear and you will be notified as such."
+        android:layout_marginTop="22dp"
+        android:text="If you've already fetched your rankings, you can click on a player in the output and get detailed information about him."
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

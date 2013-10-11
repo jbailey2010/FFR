@@ -526,6 +526,10 @@ public class ParseRankings
 		{
 			return "New England Patriots";
 		}
+		else if(low.contains("nyj"))
+		{
+			return "New York Jets";
+		}
 		return team;
 	}
 

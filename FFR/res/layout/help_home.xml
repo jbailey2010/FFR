@@ -24,7 +24,7 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_below="@+id/textView1"
 	        android:layout_marginTop="22dp"
-	        android:text="Through here, you can set up the roster settings of your league, the scoring settings of your league, export the rankings (once they've been fetched), and refresh the list of player names through which the rankings are oriented. You can also export the rankings to a .csv to use on a computer."
+	        android:text="Through here, you can set up the roster settings of your league, the scoring settings of your league, export the rankings, and refresh the list of player names."
 	        android:textAppearance="?android:attr/textAppearanceSmall" />
 	
 	    <TextView
@@ -65,7 +65,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
 	        android:layout_below="@+id/help_home_close"
-	        android:text="This is the home page. From here, you can get to the three main aspects of the app: trending, news, and rankings."
+	        android:text="This is the home page. From here, you can get to the main aspects of the app: trending, news, rnakings, saved drafts, and your leagues."
 	        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 	</RelativeLayout>

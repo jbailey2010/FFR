@@ -1434,7 +1434,14 @@ public class ImportLeague extends Activity {
 		{
 			winner = t1.teamName;
 		}
-		head.setText("Projected Winner: " + winner);
+		if(holder.isRegularSeason)
+		{
+			head.setText("Projected Winner: " + winner);
+		}
+		else
+		{
+			head.setText("Better Team: " + winner);
+		}
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(popUp.getWindow().getAttributes());
 	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
