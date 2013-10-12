@@ -512,11 +512,11 @@ public class ImportLeague extends Activity {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				if (a.qbTotal > b.qbTotal)
+	    				if (a.qbStart > b.qbStart)
 	    			    {
 	    			        return -1;
 	    			    }
-	    			    if (a.qbTotal < b.qbTotal)
+	    			    if (a.qbStart < b.qbStart)
 	    			    {
 	    			    	return 1;
 	    			    } 
@@ -528,11 +528,11 @@ public class ImportLeague extends Activity {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				if (a.rbTotal > b.rbTotal)
+	    				if (a.rbStart > b.rbStart)
 	    			    {
 	    			        return -1;
 	    			    }
-	    			    if (a.rbTotal < b.rbTotal)
+	    			    if (a.rbStart < b.rbStart)
 	    			    {
 	    			    	return 1;
 	    			    } 
@@ -544,11 +544,11 @@ public class ImportLeague extends Activity {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				if (a.wrTotal > b.wrTotal)
+	    				if (a.wrStart > b.wrStart)
 	    			    {
 	    			        return -1;
 	    			    }
-	    			    if (a.wrTotal < b.wrTotal)
+	    			    if (a.wrStart < b.wrStart)
 	    			    {
 	    			    	return 1;
 	    			    } 
@@ -560,11 +560,11 @@ public class ImportLeague extends Activity {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				if (a.teTotal > b.teTotal)
+	    				if (a.teStart > b.teStart)
 	    			    {
 	    			        return -1;
 	    			    }
-	    			    if (a.teTotal < b.teTotal)
+	    			    if (a.teStart < b.teStart)
 	    			    {
 	    			    	return 1;
 	    			    } 
@@ -576,11 +576,11 @@ public class ImportLeague extends Activity {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				if (a.dTotal > b.dTotal)
+	    				if (a.dStart > b.dStart)
 	    			    {
 	    			        return -1;
 	    			    }
-	    			    if (a.dTotal < b.dTotal)
+	    			    if (a.dStart < b.dStart)
 	    			    {
 	    			    	return 1;
 	    			    } 
@@ -592,11 +592,11 @@ public class ImportLeague extends Activity {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				if (a.kTotal > b.kTotal)
+	    				if (a.kStart > b.kStart)
 	    			    {
 	    			        return -1;
 	    			    }
-	    			    if (a.kTotal < b.kTotal)
+	    			    if (a.kStart < b.kStart)
 	    			    {
 	    			    	return 1;
 	    			    } 
@@ -650,42 +650,42 @@ public class ImportLeague extends Activity {
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = qbPAA.poll();
-	    	qb.append(counter + ") " + iter.teamName + ": " + df.format(iter.qbTotal) + "\n");
+	    	qb.append(counter + ") " + iter.teamName + ": " + df.format(iter.qbStart) + " (" + df.format(iter.qbTotal) + ")\n");
 	    }
 	    counter = 0;
 	    while(!rbPAA.isEmpty())
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = rbPAA.poll();
-	    	rb.append(counter + ") " + iter.teamName + ": " + df.format(iter.rbTotal) + "\n");
+	    	rb.append(counter + ") " + iter.teamName + ": " + df.format(iter.rbStart) + " (" + df.format(iter.rbTotal) + ")\n");
 	    }
 	    counter = 0;
 	    while(!wrPAA.isEmpty())
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = wrPAA.poll();
-	    	wr.append(counter + ") " + iter.teamName + ": " + df.format(iter.wrTotal) + "\n");
+	    	wr.append(counter + ") " + iter.teamName + ": " + df.format(iter.wrStart) + " (" + df.format(iter.wrTotal) + ")\n");
 	    }
 	    counter = 0;
 	    while(!tePAA.isEmpty())
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = tePAA.poll();
-	    	te.append(counter + ") " + iter.teamName + ": " + df.format(iter.teTotal) + "\n");
+	    	te.append(counter + ") " + iter.teamName + ": " + df.format(iter.teStart) + " (" + df.format(iter.teTotal) + ")\n");
 	    }
 	    counter = 0;
 	    while(!dPAA.isEmpty())
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = dPAA.poll();
-	    	d.append(counter + ") " + iter.teamName + ": " + df.format(iter.dTotal) + "\n");
+	    	d.append(counter + ") " + iter.teamName + ": " + df.format(iter.dStart) + " (" + df.format(iter.dTotal) + ")\n");
 	    }
 	    counter = 0;
 	    while(!kPAA.isEmpty())
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = kPAA.poll();
-	    	k.append(counter + ") " + iter.teamName + ": " + df.format(iter.kTotal) + "\n");
+	    	k.append(counter + ") " + iter.teamName + ": " + df.format(iter.kStart) + " (" + df.format(iter.kTotal) + ")\n");
 	    }
 	    List<Map<String, String>>data2 = new ArrayList<Map<String, String>>();
 		SimpleAdapter adapter2 = new SimpleAdapter(cont, data2, 
@@ -1038,11 +1038,22 @@ public class ImportLeague extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				showGraph(newImport, arg1);
+				showGraph(newImport, arg1, false);
+			}
+			
+		};
+		OnItemLongClickListener longListener = new OnItemLongClickListener(){
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				showGraph(newImport, arg1, true);
+				return true;
 			}
 			
 		};
 		list.setOnItemClickListener(listener);
+		list.setOnItemLongClickListener(longListener);
 	}
 	
 	/**
@@ -1156,7 +1167,7 @@ public class ImportLeague extends Activity {
 	 * @param newImport
 	 * @param v
 	 */
-	public void showGraph(ImportedTeam newImport, View v)
+	public void showGraph(ImportedTeam newImport, View v, boolean isLong)
 	{
 		
 		RelativeLayout base = (RelativeLayout)v;
@@ -1175,9 +1186,60 @@ public class ImportLeague extends Activity {
 		gvs.setTextSize(13);
 		GraphView graphView = new LineGraphView(this, "");
 		graphView.setGraphViewStyle(gvs);
-		for(String teamIter : teamSet)
+		List<String> teamList = new ArrayList<String>();
+		String test = teamSet[0];
+		boolean flag = false;
+		if(!test.split(" ")[test.split(" ").length - 1].contains("("))
 		{
-			String val = teamIter.split(": ")[1];
+			flag = true;
+		}
+		if(!isLong || flag)
+		{
+			for(String team : teamSet)
+			{
+				teamList.add(team);
+			}
+		}
+		else
+		{
+			PriorityQueue<String> longOrder = new PriorityQueue<String>(300, new Comparator<String>() 
+			{
+				@Override
+				public int compare(String a, String b)  
+				{
+					double aVal = Double.valueOf(a.split(" \\(")[1].split("\\)")[0]);
+					double bVal = Double.valueOf(b.split(" \\(")[1].split("\\)")[0]);
+					if(aVal > bVal)
+					{
+						return -1;
+					}
+					if(bVal > aVal)
+					{
+						return 1;
+					}
+					return 0;
+				}
+			});
+			for(String team : teamSet)
+			{
+				longOrder.add(team);
+			}
+			while(!longOrder.isEmpty())
+			{
+				teamList.add(longOrder.poll());
+			}
+		}
+		for(String teamIter : teamList)
+		{
+			String val = "";
+			if(!isLong || (isLong && !teamIter.split(" ")[teamIter.split(" ").length-1].contains("(")))
+			{
+				val = teamIter.split(": ")[1].split(" \\(")[0];
+			}
+			else
+			{
+				val = teamIter.split(" \\(")[1].split("\\)")[0];
+			}
 			teams[counter] = teamIter.split(": ")[0];
 			double value = Double.valueOf(val);
 			if(value > maxFirst)

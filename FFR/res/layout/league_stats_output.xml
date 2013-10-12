@@ -128,7 +128,7 @@
 	                android:layout_marginTop="10dp"
 	                android:layout_below="@+id/textView2"
 	                android:visibility="gone"
-	                android:text="Above is the name of the league and hosting site. If you'd like to refresh the rosters in this league, click and hold on the league name.\n\nBelow are the rankings of the entire lineups, starting lineups, benches, and each position of all of the teams in this league.\n\nClick on one of the elements to see a graphical representation."
+	                android:text="Above is the name of the league and hosting site. If you'd like to refresh the rosters in this league, click and hold on the league name.\n\nBelow are the rankings of the entire lineups, starting lineups, benches, and each position of all of the teams in this league.\n\nClick on one of the elements to see a graphical representation. If it's a positional breakdown, a single click will show starters and a long click the whole set."
 	                android:textColor="#ffffff" />
 
                 <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
