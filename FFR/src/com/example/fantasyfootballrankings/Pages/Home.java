@@ -296,7 +296,7 @@ public class Home extends Activity{
 				{
 					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 					final ParsingAsyncTask stupid = new ParsingAsyncTask();
-					ParseNames task = stupid.new ParseNames((Activity)cont);
+					ParseNames task = stupid.new ParseNames((Activity)cont, true);
 				    task.execute(cont);
 				}
 				else
@@ -336,7 +336,7 @@ public class Home extends Activity{
 				{
 					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 					dialog.dismiss();
-					ParseNames task = stupid.new ParseNames((Activity)cont);
+					ParseNames task = stupid.new ParseNames((Activity)cont, false);
 				    task.execute(cont);	
 				}
 				else

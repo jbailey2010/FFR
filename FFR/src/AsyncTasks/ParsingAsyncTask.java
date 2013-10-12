@@ -38,6 +38,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 
 
+
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
@@ -78,6 +79,7 @@ import FileIO.WriteToFile;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
@@ -609,11 +611,13 @@ public class ParsingAsyncTask
 		{
 			ProgressDialog pdia;
 			Activity act;
-		    public ParseNames(Activity activity) 
+			boolean isFirstFetch;
+		    public ParseNames(Activity activity, boolean iff) 
 		    {
 		        pdia = new ProgressDialog(activity);
 		        pdia.setCancelable(false);
 		        act = activity;
+		        isFirstFetch = iff;
 		    }
 
 			@Override
@@ -628,6 +632,11 @@ public class ParsingAsyncTask
 			   super.onPostExecute(result);
 			   act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 			   pdia.dismiss();
+			   if(isFirstFetch)
+			   {
+				   Intent intent = new Intent(act, Rankings.class);
+			       act.startActivity(intent);	
+			   }
 			}
 
 		    @Override
