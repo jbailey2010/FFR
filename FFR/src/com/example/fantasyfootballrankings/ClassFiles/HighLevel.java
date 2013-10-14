@@ -1197,7 +1197,12 @@ public class HighLevel
 		for(int i = min; i < td.length; i+=6)
 		{
 			int ranking = Integer.parseInt(td[i]);
-			String name = ParseRankings.fixDefenses(ParseRankings.fixTeams(td[i+1].split(" \\(")[0]));
+			String name = "";
+			name = ParseRankings.fixNames(td[i+1].split(" \\(")[0]);
+			if(pos.equals("D/ST"))
+			{
+				name = ParseRankings.fixDefenses(name);
+			}
 			rankings.put(name+","+pos, ranking);
 		}
 	}

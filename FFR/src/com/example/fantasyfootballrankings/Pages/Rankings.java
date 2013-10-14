@@ -1691,6 +1691,10 @@ public class Rankings extends Activity {
 	 */
 	public void intermediateHandleRankings(Activity cont)
 	{ 
+		if(holder.isRegularSeason)
+		{
+			widgetBase.setVisibility(View.GONE);
+		}
 		isAsync = false;
 		cont.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		int maxSize = ReadFromFile.readFilterQuantitySize((Context)cont, "Rankings");

@@ -105,6 +105,12 @@ public class SortHandler
 	    topics.add("Completion to Int Ratio");
 	    topics.add("Risk");
 	    topics.add("Positional SOS");
+	    if(holder.isRegularSeason)
+	    {
+	    	topics.add("Targets");
+	    	topics.add("Weekly Positional Ranking");
+	    	topics.add("Rest of Season Positional Ranking");
+	    }
 	    //Add the positional options
 	    Roster r = ReadFromFile.readRoster(cont);
 	    positions.add("All Positions");
@@ -156,14 +162,13 @@ public class SortHandler
 					{
 						position = (String)pos.getSelectedItem();
 						subject = (String)sort.getSelectedItem();
-						if(	((subject.equals("DYOA") || subject.equals("DVOA"))
-										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))) 
-										|| (subject.equals("Success Rate") && 
-												!(position.equals("RB") || position.equals("All Positions"))) || (subject.equals("Yard Adjustment") && 
-														(position.equals("D/ST") || position.equals("K"))) || 
+						if((subject.equals("Success Rate") && !(position.equals("RB") || position.equals("All Positions"))) || 
+								(subject.equals("Yard Adjustment") && (position.equals("D/ST") || position.equals("K"))) || 
 										((position.equals("RB") || position.equals("WR") || position.equals("TE") || position.equals("K") || position.equals("D/ST"))
-												&& subject.equals("Completion to Int Ratio")) || ((subject.equals("Broken Tackles")) && 
-														(position.equals("TE") || position.equals("D/ST") || position.equals("K"))))
+										&& subject.equals("Completion to Int Ratio")) || ((subject.equals("Broken Tackles")) && 
+										(position.equals("TE") || position.equals("D/ST") || position.equals("K"))) || 
+										(subject.equals("Rest of Season Positional Ranking") && position.equals("D/ST")) ||
+										subject.equals("Targets") && (position.equals("QB") || position.equals("D/ST") || position.equals("K")))
 						{
 							Toast.makeText(context, "That subject is not available for that position", Toast.LENGTH_SHORT).show();
 						}
@@ -198,13 +203,13 @@ public class SortHandler
 					{
 						position = (String)pos.getSelectedItem();
 						subject = (String)sort.getSelectedItem();
-						if(	((subject.equals("DYOA") || subject.equals("DVOA"))
-										&&(position.equals("QB") || position.equals("D/ST") || position.equals("K"))) || (subject.equals("Success Rate") && 
-												!(position.equals("RB") || position.equals("All Positions"))) || (subject.equals("Yard Adjustment") && 
-														(position.equals("D/ST") || position.equals("K"))) || 
-														((position.equals("RB") || position.equals("WR") || position.equals("TE") || position.equals("K") || position.equals("D/ST"))
-																&& subject.equals("Completion to Int Ratio")) || ((subject.equals("Broken Tackles")) && 
-																		(position.equals("TE") || position.equals("D/ST") || position.equals("K"))))
+						if((subject.equals("Success Rate") && !(position.equals("RB") || position.equals("All Positions"))) || 
+								(subject.equals("Yard Adjustment") && (position.equals("D/ST") || position.equals("K"))) || 
+										((position.equals("RB") || position.equals("WR") || position.equals("TE") || position.equals("K") || position.equals("D/ST"))
+										&& subject.equals("Completion to Int Ratio")) || ((subject.equals("Broken Tackles")) && 
+										(position.equals("TE") || position.equals("D/ST") || position.equals("K"))) || 
+										(subject.equals("Rest of Season Positional Ranking") && position.equals("D/ST")) ||
+										subject.equals("Targets") && (position.equals("QB") || position.equals("D/ST") || position.equals("K")))
 						{
 							Toast.makeText(context, "That subject is not available for that position", Toast.LENGTH_SHORT).show();
 						}
@@ -454,6 +459,121 @@ public class SortHandler
 		{
 			compInt(cont);
 		}
+		else if(subject.equals("Targets"))
+		{
+			targets(cont);
+		}
+		else if(subject.equals("Weekly Positional Ranking"))
+		{
+			weeklyRank(cont);
+		}
+		else if(subject.equals("Rest of Season Positional Ranking"))
+		{
+			rosRank(cont);
+		}
+	}
+	
+	public static void rosRank(Context cont) {
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						if(a.values.rosRank > b.values.rosRank)
+						{
+							return 1;
+						}
+						if(a.values.rosRank < b.values.rosRank)
+						{
+							return -1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && 
+							player.values.rosRank > 0)
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted, cont);
+	}
+	
+	/**
+	 * Handles the sorting by weekly positional ranking
+	 * @param cont
+	 */
+	public static void weeklyRank(Context cont) {
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						if(a.values.ecr > b.values.ecr)
+						{
+							return 1;
+						}
+						if(a.values.ecr < b.values.ecr)
+						{
+							return -1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && 
+							player.values.ecr > 0)
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted, cont);
+	}
+	
+	
+	/**
+	 * Handles the sorting by target count
+	 * @param cont
+	 */
+	public static void targets(Context cont) {
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						int aVal = Integer.valueOf(a.stats.split("Targets: ")[1].split("\n")[0]);
+						int bVal = Integer.valueOf(b.stats.split("Targets: ")[1].split("\n")[0]);
+						if(aVal > bVal)
+						{
+							return -1;
+						}
+						if(aVal < bVal)
+						{
+							return 1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj
+							 && player.stats.contains("Targets"))
+					{
+						sorted.add(player);
+					}
+				}
+				if(sorted.size() == 0)
+				{
+					Toast.makeText(cont, "Targets are not yet an available stat", Toast.LENGTH_SHORT).show();
+					initialPopUp(cont, holder);
+				}
+				else
+				{
+					wrappingUp(sorted, cont);
+				}
 	}
 
 	private static void compInt(Context cont) {
@@ -961,6 +1081,22 @@ public class SortHandler
 					double aDiff = (completions)/((double)intA);
 					datum.put("main", output + df.format(aDiff) + ": " + elem.info.name);
 					datum.put("sub", baseECR + elem.values.ecr);
+				}
+				else if(subject.equals("Targets"))
+				{
+					int targets = Integer.valueOf(elem.stats.split("Targets: ")[1].split("\n")[0]);
+					datum.put("main", output + targets + ": "+  elem.info.name);
+					datum.put("sub", elem.values.rosRank + " ROS Positional Ranking");
+				}
+				else if(subject.equals("Weekly Positional Ranking"))
+				{
+					datum.put("main", output + elem.values.ecr + ": " + elem.info.name);
+					datum.put("sub", elem.values.points + " Projected Points This Week, " + elem.values.rosRank + " ROS Positional Ranking");
+				}
+				else if(subject.equals("Rest of Season Positional Ranking"))
+				{
+					datum.put("main", output + elem.values.rosRank + ": " + elem.info.name);
+					datum.put("sub", elem.values.ecr + " Weekly Positional Ranking");
 				}
 		    	data.add(datum);
 	    	}
