@@ -152,7 +152,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="500dp"
                     android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/player_status_spinner"
+                    android:layout_below="@+id/player_sort_spinner"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/content_well_import"
@@ -229,13 +229,23 @@
                     android:background="@drawable/spinner_well_grey"/>
 
                 <Spinner
+                    android:id="@+id/player_sort_spinner"
+                    android:layout_width="125dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/player_status_spinner"
+                    android:layout_marginTop="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/spinner_well_grey"
+                    android:focusable="false" />
+
+                <Spinner
                     android:id="@+id/player_pos_spinner"
                     android:layout_width="125dp"
                     android:layout_height="40dp"
-                    android:focusable="false"
-                    android:layout_above="@+id/imported_teams_players"
-                    android:layout_alignRight="@+id/imported_teams_players"
-                    android:background="@drawable/spinner_well_grey" />
+                    android:layout_alignRight="@+id/imported_teams_info"
+                    android:layout_below="@+id/textView4"
+                    android:background="@drawable/spinner_well_grey"
+                    android:focusable="false" />
 
           </RelativeLayout>
 	</ScrollView>

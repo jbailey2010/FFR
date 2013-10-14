@@ -583,7 +583,7 @@ public class HighLevel
 	public static void defProjWeekly(HashMap<String, Double> points, String pos) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/weeklycheatsheets.cfm?player_pos=DEF", "table#proj td");
-		if(html.length() < 59)
+		if(html.split("\n").length < 59 && !html.contains("Week") && !html.contains("will be up"))
 		{
 			defProjAnnual(points, pos);
 		}

@@ -531,6 +531,10 @@ public class ParseRankings
 		{
 			return "New York Jets";
 		}
+		else if(low.contains("tb"))
+		{
+			return "Tampa Bay Buccaneers";
+		}
 		return team;
 	}
 

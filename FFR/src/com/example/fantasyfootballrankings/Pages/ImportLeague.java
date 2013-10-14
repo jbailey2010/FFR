@@ -793,9 +793,11 @@ public class ImportLeague extends Activity {
 	        });
 		 final Spinner pos = (Spinner)res.findViewById(R.id.player_pos_spinner);
 		 final Spinner status = (Spinner)res.findViewById(R.id.player_status_spinner);
+		 final Spinner sortSp = (Spinner)res.findViewById(R.id.player_sort_spinner);
 		 pos.clearFocus();
 		 status.clearFocus();
 		 list.clearFocus();
+		 sortSp.clearFocus();
 		 List<String> positions = new ArrayList<String>();
 		 positions.add("All Positions");
 		 positions.add("QB");
@@ -808,18 +810,26 @@ public class ImportLeague extends Activity {
 		 playerStatus.add("All Players");
 		 playerStatus.add("Free Agents");
 		 playerStatus.add("On Team");
+		 List<String> sortFactors = new ArrayList<String>();
+		 sortFactors.add("PAA");
+		 sortFactors.add("Projection");
+		 sortFactors.add("Weekly Ranking");
+		 sortFactors.add("ROS Ranking");
 		 ArrayAdapter<String> adapterPos = new ArrayAdapter<String>(cont, 
 					android.R.layout.simple_spinner_dropdown_item, positions);
 		 pos.setAdapter(adapterPos);
 		 ArrayAdapter<String> statusAdapter = new ArrayAdapter<String>(cont, 
 					android.R.layout.simple_spinner_dropdown_item, playerStatus);
 		 status.setAdapter(statusAdapter);
+		 ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(cont, 
+					android.R.layout.simple_spinner_dropdown_item, sortFactors);
+		 sortSp.setAdapter(sAdapter);
 		 final OnItemSelectedListener l = new OnItemSelectedListener(){
 				@Override
 				public void onItemSelected(AdapterView<?> arg0, View arg1,
 						int arg2, long arg3) {
 					String pos = ((TextView)arg1).getText().toString();
-					populatePlayerList(list, pos, status.getSelectedItem().toString());
+					populatePlayerList(list, pos, status.getSelectedItem().toString(), sortSp.getSelectedItem().toString());
 				}
 				
 				@Override
@@ -837,7 +847,7 @@ public class ImportLeague extends Activity {
 				public void onItemSelected(AdapterView<?> arg0, View arg1,
 						int arg2, long arg3) {
 					String status = ((TextView)arg1).getText().toString();
-					populatePlayerList(list, pos.getSelectedItem().toString(), status);
+					populatePlayerList(list, pos.getSelectedItem().toString(), status, sortSp.getSelectedItem().toString());
 				}
 
 				@Override
@@ -848,7 +858,23 @@ public class ImportLeague extends Activity {
 			    public void run() {
 			    	status.setOnItemSelectedListener(l2);
 			}});
-		 populatePlayerList(list, "All Positions", "All Players");
+		 final OnItemSelectedListener l3 = new OnItemSelectedListener(){
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				String sort = ((TextView)arg1).getText().toString();
+				populatePlayerList(list, pos.getSelectedItem().toString(), status.getSelectedItem().toString(), sort);
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+		 };
+		 sortSp.post(new Runnable() {
+			    public void run() {
+			    	sortSp.setOnItemSelectedListener(l3);
+			}});
+		 populatePlayerList(list, "All Positions", "All Players", "PAA");
 	}
 	
 	public void setPlayerAdapter(List<Map<String, String>> data, ListView list)
@@ -874,38 +900,135 @@ public class ImportLeague extends Activity {
 	 * Handles the logic of populating the player list 
 	 * to fill the selected team/status...etc.
 	 */
-	public void populatePlayerList(ListView list, String pos, String status)
+	public void populatePlayerList(ListView list, String pos, String status, String sortFactor)
 	{
 		DecimalFormat df = new DecimalFormat("#.##");
 		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-		PriorityQueue<PlayerObject> players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
-	    		{
-	    			@Override
-	    			public int compare(PlayerObject a, PlayerObject b) 
-	    			{
-	    				if(a.values.points == 0 && b.values.points > 0)
-	    				{
-	    					return 1;
-	    				}
-	    				if(a.values.points > 0 && b.values.points == 0)
-	    				{
-	    					return -1;
-	    				}
-	    				if(a.values.points == 0 && b.values.points == 0)
-	    				{
-	    					return 0;
-	    				}
-	    				if (a.values.paa > b.values.paa || (b.values.points == 0 && a.values.points > 0))
-	    			    {
-	    			        return -1;
-	    			    }
-	    			    if (a.values.paa < b.values.paa || (a.values.points == 0 && b.values.points > 0))
-	    			    {
-	    			    	return 1;
-	    			    } 
-	    			    return 0;
-	    			}
-	    		});
+		PriorityQueue<PlayerObject> players = null;
+		if(sortFactor.equals("PAA"))
+		{
+			players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>()
+		    		{
+		    			@Override
+		    			public int compare(PlayerObject a, PlayerObject b) 
+		    			{
+		    				if(a.values.points == 0 && b.values.points > 0)
+		    				{
+		    					return 1;
+		    				}
+		    				if(a.values.points > 0 && b.values.points == 0)
+		    				{
+		    					return -1;
+		    				}
+		    				if(a.values.points == 0 && b.values.points == 0)
+		    				{
+		    					return 0;
+		    				}
+		    				if (a.values.paa > b.values.paa || (b.values.points == 0 && a.values.points > 0))
+		    			    {
+		    			        return -1;
+		    			    }
+		    			    if (a.values.paa < b.values.paa || (a.values.points == 0 && b.values.points > 0))
+		    			    {
+		    			    	return 1;
+		    			    } 
+		    			    return 0;
+		    			}
+		    		});
+		}
+		else if(sortFactor.equals("Projection"))
+		{
+			players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>()
+					{
+		    			@Override
+		    			public int compare(PlayerObject a, PlayerObject b) 
+		    			{
+		    				if(a.values.points <= 0 && b.values.points > 0)
+		    				{
+		    					return 1;
+		    				}
+		    				if(a.values.points > 0 && b.values.points == 0)
+		    				{
+		    					return -1;
+		    				}
+		    				if(a.values.points == 0 && b.values.points == 0)
+		    				{
+		    					return 0;
+		    				}
+		    				if (a.values.points > b.values.points || (b.values.points == 0 && a.values.points > 0))
+		    			    {
+		    			        return -1;
+		    			    }
+		    			    if (a.values.points < b.values.points || (a.values.points == 0 && b.values.points > 0))
+		    			    {
+		    			    	return 1;
+		    			    } 
+		    			    return 0;
+		    			}
+		    		});
+		}
+		else if(sortFactor.equals("Weekly Ranking"))
+		{
+			players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>()
+					{
+		    			@Override
+		    			public int compare(PlayerObject a, PlayerObject b) 
+		    			{
+		    				if(a.values.ecr <= 0 && b.values.ecr > 0)
+		    				{
+		    					return 1;
+		    				}
+		    				if(a.values.ecr > 0 && b.values.ecr == 0)
+		    				{
+		    					return -1;
+		    				}
+		    				if(a.values.ecr == 0 && b.values.ecr == 0)
+		    				{
+		    					return 0;
+		    				}
+		    				if (a.values.ecr > b.values.ecr || (b.values.ecr == 0 && a.values.ecr > 0))
+		    			    {
+		    			        return 1;
+		    			    }
+		    			    if (a.values.ecr < b.values.ecr || (a.values.ecr == 0 && b.values.ecr > 0))
+		    			    {
+		    			    	return -1;
+		    			    } 
+		    			    return 0;
+		    			}
+		    		});
+		}
+		else if(sortFactor.equals("ROS Ranking"))
+		{
+			players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>()
+					{
+		    			@Override
+		    			public int compare(PlayerObject a, PlayerObject b) 
+		    			{
+		    				if(a.values.rosRank <= 0 && b.values.rosRank > 0)
+		    				{
+		    					return 1;
+		    				}
+		    				if(a.values.rosRank > 0 && b.values.rosRank == 0)
+		    				{
+		    					return -1;
+		    				}
+		    				if(a.values.rosRank == 0 && b.values.rosRank == 0)
+		    				{
+		    					return 0;
+		    				}
+		    				if (a.values.rosRank > b.values.rosRank || (b.values.rosRank == 0 && a.values.rosRank > 0))
+		    			    {
+		    			        return 1;
+		    			    }
+		    			    if (a.values.rosRank < b.values.rosRank || (a.values.rosRank == 0 && b.values.rosRank > 0))
+		    			    {
+		    			    	return -1;
+		    			    } 
+		    			    return 0;
+		    			}
+		    		});
+		}
 		 for(PlayerObject player : holder.players)
 		 {
 			 if(player.values.ecr > 0 && (pos.equals("All Positions") || player.info.position.equals(pos)) && 
