@@ -1201,7 +1201,7 @@ public class HighLevel
 			name = ParseRankings.fixNames(td[i+1].split(" \\(")[0]);
 			if(pos.equals("D/ST"))
 			{
-				name = ParseRankings.fixDefenses(name);
+				name = ParseRankings.fixDefenses(ParseRankings.fixTeams(name));
 			}
 			rankings.put(name+","+pos, ranking);
 		}

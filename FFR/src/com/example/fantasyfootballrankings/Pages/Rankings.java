@@ -233,19 +233,33 @@ public class Rankings extends Activity {
 		        cont.startActivity(team_intent);		
 				return true;
 			case R.id.hide_widget:
-				hideWidget = !hideWidget;
-				WriteToFile.writeHideWidget(hideWidget, cont);
-				if(hideWidget)
+				if(!holder.isRegularSeason)
 				{
-					widgetBase.setVisibility(View.GONE);
+					hideWidget = !hideWidget;
+					WriteToFile.writeHideWidget(hideWidget, cont);
+					if(hideWidget)
+					{
+						widgetBase.setVisibility(View.GONE);
+					}
+					else
+					{
+						widgetBase.setVisibility(View.VISIBLE);
+					}
 				}
 				else
 				{
-					widgetBase.setVisibility(View.VISIBLE);
+					Toast.makeText(cont, "The widget is a drafting tool, and will be hidden until next preseason", Toast.LENGTH_SHORT).show();
 				}
 				return true;
 			case R.id.save_draft:
-				saveDraft();
+				if(!holder.isRegularSeason)
+				{
+					saveDraft();
+				}
+				else
+				{
+					Toast.makeText(cont, "Drafting is not available now that the regular season has started, so you cannot save a draft", Toast.LENGTH_SHORT).show();
+				}
 				return true;
 			case R.id.draft_history:
 				Intent draft_intent = new Intent(cont, DraftHistory.class);
