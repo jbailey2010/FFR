@@ -95,9 +95,12 @@ public class SortHandler
 	    List<String> topics = new ArrayList<String>();
 	    List<String> positions = new ArrayList<String>();
 	    //Add the topics which it can sort by
-	    topics.add("ECR");
-	    topics.add("ADP");
-	    topics.add("Under Drafted");
+	    if(!holder.isRegularSeason)
+	    {
+		    topics.add("ECR");
+		    topics.add("ADP");
+		    topics.add("Under Drafted");
+	    }
 	    topics.add("Auction Values");
 	    topics.add("Projections");
 	    topics.add("PAA");

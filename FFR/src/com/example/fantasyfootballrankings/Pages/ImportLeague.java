@@ -1352,8 +1352,10 @@ public class ImportLeague extends Activity {
 				teamList.add(longOrder.poll());
 			}
 		}
+		int teamCt = 0;
 		for(String teamIter : teamList)
 		{
+			teamCt++;
 			String val = "";
 			if(!isLong || (isLong && !teamIter.split(" ")[teamIter.split(" ").length-1].contains("(")))
 			{
@@ -1376,7 +1378,7 @@ public class ImportLeague extends Activity {
 			dataSet[counter] = new GraphViewData(++counter, value);
 			GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();  
 			seriesStyle.thickness = 5;
-			GraphViewSeries exampleSeries = new GraphViewSeries(teams[counter-1].replace(')', ' '), seriesStyle, dataSet);  
+			GraphViewSeries exampleSeries = new GraphViewSeries(teamCt + " " + teams[counter-1].split("\\)")[1], seriesStyle, dataSet);  
 			graphView.addSeries(exampleSeries);
 		}
 		final double max = maxFirst;
