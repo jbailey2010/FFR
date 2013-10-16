@@ -867,6 +867,16 @@ public class ImportLeague extends Activity {
 					int arg2, long arg3) {
 				String sort = ((TextView)arg1).getText().toString();
 				populatePlayerList(list, pos.getSelectedItem().toString(), status.getSelectedItem().toString(), sort);
+				if(sort.equals("Custom"))
+				{
+					pos.setClickable(false);
+					Toast.makeText(cont, "Note position now can only be set through the pop up, not through the drop down here until you choose"
+							+ " a different sorting factor", Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					pos.setClickable(true);
+				}
 			}
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
@@ -909,7 +919,20 @@ public class ImportLeague extends Activity {
 		PriorityQueue<PlayerObject> players = null;
 		if(sortFactor.equals("Custom"))
 		{
-			SortHandler.initialPopUp(cont, holder, R.id.imported_teams_players, false);
+			int flag = 1;
+			if(status.equals("All Players"))
+			{
+				flag = 1;
+			}
+			if(status.equals("Free Agents"))
+			{
+				flag = 3;
+			}
+			if(status.equals("On Team"))
+			{
+				flag = 2;
+			}
+			SortHandler.initialPopUp(cont, holder, R.id.imported_teams_players, false, flag, newImport);
 		}
 		else
 		{

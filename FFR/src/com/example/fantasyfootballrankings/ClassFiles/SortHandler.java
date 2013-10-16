@@ -12,8 +12,10 @@ import com.ffr.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.Pages.Rankings;
@@ -64,14 +66,18 @@ public class SortHandler
 	static HashMap<PlayerObject, Integer> ignore = new HashMap<PlayerObject, Integer>();
 	public static int listViewLookup;
 	public static boolean isRankings;
+	public static int status;
+	public static ImportedTeam league;
 	
 	/**
 	 * Sets up the new dialog to get all the relevant info from the user
 	 * @param cont
 	 * @param hold
 	 */
-	public static void initialPopUp(final Context cont, Storage hold, int listId, boolean flag)
+	public static void initialPopUp(final Context cont, Storage hold, int listId, boolean flag, int playerStatusSwitch, ImportedTeam newImport)
 	{
+		league = newImport;
+		status = playerStatusSwitch;
 		isRankings = flag;
 		listViewLookup = listId;
 		players.clear();
@@ -266,7 +272,7 @@ public class SortHandler
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				initialPopUp(context, holder, listViewLookup, isRankings);
+				initialPopUp(context, holder, listViewLookup, isRankings, status, league);
 			}
 	    });
 	    final CheckBox age = (CheckBox)dialog.findViewById(R.id.sort_second_under_30);
@@ -416,7 +422,30 @@ public class SortHandler
 		{
 			if(posList.contains(player.info.position))
 			{
-				players.add(player);
+				if(isRankings || status == 1)
+				{
+					players.add(player);
+				}
+				else
+				{
+					boolean isOnTeam = false;
+					for(TeamAnalysis team : league.teams)
+					{
+						if(team.team.contains(player.info.name))
+						{
+							isOnTeam = true;
+							if(status == 2)
+							{
+								players.add(player);
+								break;
+							}
+						}
+					}
+					if(status == 3 && isOnTeam != true)
+					{
+						players.add(player);
+					}
+				}
 			}
 		}
 		handleSortingSetUp(cont);
@@ -576,7 +605,7 @@ public class SortHandler
 				if(sorted.size() == 0)
 				{
 					Toast.makeText(cont, "Targets are not yet an available stat", Toast.LENGTH_SHORT).show();
-					initialPopUp(cont, holder, listViewLookup, isRankings);
+					initialPopUp(cont, holder, listViewLookup, isRankings, status, league);
 				}
 				else
 				{
@@ -947,7 +976,7 @@ public class SortHandler
 				@Override
 				public void onClick(View v) {
 					dialog.dismiss();
-					initialPopUp(context, holder, listViewLookup, isRankings);
+					initialPopUp(context, holder, listViewLookup, isRankings, status, league);
 				}
 		    });
 		    Button close = (Button)dialog.findViewById(R.id.search_close);
