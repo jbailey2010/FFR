@@ -1382,7 +1382,7 @@ public class Rankings extends Activity {
 		sort.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				SortHandler.initialPopUp(cont, holder);
+				SortHandler.initialPopUp(cont, holder, R.id.listview_search, true);
 			}
 		});
 	}

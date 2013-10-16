@@ -25,6 +25,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -61,14 +62,18 @@ public class SortHandler
 	static boolean isHidden = false;
 	public static List<Map<String, String>> data;
 	static HashMap<PlayerObject, Integer> ignore = new HashMap<PlayerObject, Integer>();
+	public static int listViewLookup;
+	public static boolean isRankings;
 	
 	/**
 	 * Sets up the new dialog to get all the relevant info from the user
 	 * @param cont
 	 * @param hold
 	 */
-	public static void initialPopUp(final Context cont, Storage hold)
+	public static void initialPopUp(final Context cont, Storage hold, int listId, boolean flag)
 	{
+		isRankings = flag;
+		listViewLookup = listId;
 		players.clear();
 		context = cont;
 		holder = hold;
@@ -100,8 +105,8 @@ public class SortHandler
 		    topics.add("ECR");
 		    topics.add("ADP");
 		    topics.add("Under Drafted");
+		    topics.add("Auction Values");
 	    }
-	    topics.add("Auction Values");
 	    topics.add("Projections");
 	    topics.add("PAA");
 	    topics.add("Yard Adjustment");
@@ -261,7 +266,7 @@ public class SortHandler
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				initialPopUp(context, holder);
+				initialPopUp(context, holder, listViewLookup, isRankings);
 			}
 	    });
 	    final CheckBox age = (CheckBox)dialog.findViewById(R.id.sort_second_under_30);
@@ -571,7 +576,7 @@ public class SortHandler
 				if(sorted.size() == 0)
 				{
 					Toast.makeText(cont, "Targets are not yet an available stat", Toast.LENGTH_SHORT).show();
-					initialPopUp(cont, holder);
+					initialPopUp(cont, holder, listViewLookup, isRankings);
 				}
 				else
 				{
@@ -919,46 +924,63 @@ public class SortHandler
 	public static void wrappingUp(PriorityQueue<PlayerObject> sorted, final Context cont)
 	{
 		DecimalFormat df = new DecimalFormat("#.##");
-		final Dialog dialog = new Dialog(context);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(R.layout.search_output); 
-		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-	    dialog.getWindow().setAttributes(lp);
-	    dialog.show(); 
-	    RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header);
-		base.setVisibility(View.GONE);
-	    Button watch = (Button)dialog.findViewById(R.id.add_watch);
-	    watch.setText("Hide Drafted");
-	    TextView header = (TextView)dialog.findViewById(R.id.name);
-	    header.setText(subject);
-	    final BounceListView results = (BounceListView)dialog.findViewById(R.id.listview_search);
-	    header.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View arg0) {
-				results.smoothScrollToPosition(0);
-			}
-	    	
-	    });
-	    Button back = (Button)dialog.findViewById(R.id.search_back);
-	    back.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
-				initialPopUp(context, holder);
-			}
-	    });
-	    Button close = (Button)dialog.findViewById(R.id.search_close);
-	    close.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
-				return;
-			}
-	    });
-	    results.setAdapter(null);
+		BounceListView results = null;
+		if(isRankings)
+		{
+			final Dialog dialog = new Dialog(context);
+			dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+			dialog.setContentView(R.layout.search_output); 
+			WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+		    lp.copyFrom(dialog.getWindow().getAttributes());
+		    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+		    dialog.getWindow().setAttributes(lp);
+		    dialog.show(); 
+		    RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header);
+			base.setVisibility(View.GONE);
+		    Button watch = (Button)dialog.findViewById(R.id.add_watch);
+		    watch.setText("Hide Drafted");
+		    TextView header = (TextView)dialog.findViewById(R.id.name);
+		    header.setText(subject);
+		    results = (BounceListView)dialog.findViewById(listViewLookup);
+		    Button back = (Button)dialog.findViewById(R.id.search_back);
+		    back.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					dialog.dismiss();
+					initialPopUp(context, holder, listViewLookup, isRankings);
+				}
+		    });
+		    Button close = (Button)dialog.findViewById(R.id.search_close);
+		    close.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					dialog.dismiss();
+					return;
+				}
+		    });
+		    results.setAdapter(null);
+		    watch.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					isHidden = !isHidden;
+					dialog.dismiss();
+					if(isHidden)
+					{
+						Toast.makeText(context, "Hiding the drafted players", Toast.LENGTH_SHORT).show();
+					}
+					else
+					{
+						Toast.makeText(context, "Showing the drafted players", Toast.LENGTH_SHORT).show();
+					}
+					handleSortingSetUp(cont);
+				}
+		    });
+		}
+		else
+		{
+			results = (BounceListView)((Activity)cont).findViewById(listViewLookup);
+			results.setAdapter(null);
+		}
 	    List<String> rankings = new ArrayList<String>(400);
 	    int counter = 0;
 	    data = new ArrayList<Map<String, String>>();
@@ -1110,23 +1132,6 @@ public class SortHandler
 	    		new int[] {R.id.text1, 
 	    			R.id.text2});
 	    results.setAdapter(adapter);
-	    //adapter = ManageInput.handleArray(rankings, results, (Activity) context);
-	    watch.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				isHidden = !isHidden;
-				dialog.dismiss();
-				if(isHidden)
-				{
-					Toast.makeText(context, "Hiding the drafted players", Toast.LENGTH_SHORT).show();
-				}
-				else
-				{
-					Toast.makeText(context, "Showing the drafted players", Toast.LENGTH_SHORT).show();
-				}
-				handleSortingSetUp(cont);
-			}
-	    });
 	    handleOnClicks(results);
 	}
 	
@@ -1144,7 +1149,7 @@ public class SortHandler
 				String tv1 = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
 				String selected = tv1.split(": ")[1];
 				PlayerInfo obj = new PlayerInfo();
-				obj.outputResults(selected, true, (Rankings)context, holder, false, false);
+				obj.outputResults(selected, true, (Activity)context, holder, false, false);
 			}
     	 });
 		SwipeDismissListViewTouchListener touchListener =
@@ -1162,5 +1167,29 @@ public class SortHandler
                          });
          results.setOnTouchListener(touchListener);
          results.setOnScrollListener(touchListener.makeScrollListener());
+         if(!isRankings)
+         {
+        	 results.setOnTouchListener(new ListView.OnTouchListener() {
+                 @Override
+                 public boolean onTouch(View v, MotionEvent event) {
+                 	int action = event.getAction();
+                     switch (action) {
+                     case MotionEvent.ACTION_DOWN:
+                         // Disallow ScrollView to intercept touch events.
+                         v.getParent().requestDisallowInterceptTouchEvent(true);
+                         break;
+
+                     case MotionEvent.ACTION_UP:
+                         // Allow ScrollView to intercept touch events.
+                         v.getParent().requestDisallowInterceptTouchEvent(false);
+                         break;
+                     }
+
+                     // Handle ListView touch events.
+                     v.onTouchEvent(event);
+                     return true;
+                 }
+             });
+         }
 	}
 }

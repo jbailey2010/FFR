@@ -12,6 +12,7 @@ import java.util.Set;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
+import com.example.fantasyfootballrankings.ClassFiles.SortHandler;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
@@ -815,6 +816,7 @@ public class ImportLeague extends Activity {
 		 sortFactors.add("Projection");
 		 sortFactors.add("Weekly Ranking");
 		 sortFactors.add("ROS Ranking");
+		 sortFactors.add("Custom");
 		 ArrayAdapter<String> adapterPos = new ArrayAdapter<String>(cont, 
 					android.R.layout.simple_spinner_dropdown_item, positions);
 		 pos.setAdapter(adapterPos);
@@ -905,186 +907,193 @@ public class ImportLeague extends Activity {
 		DecimalFormat df = new DecimalFormat("#.##");
 		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		PriorityQueue<PlayerObject> players = null;
-		if(sortFactor.equals("PAA"))
+		if(sortFactor.equals("Custom"))
 		{
-			players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>()
-		    		{
-		    			@Override
-		    			public int compare(PlayerObject a, PlayerObject b) 
-		    			{
-		    				if(a.values.points == 0 && b.values.points > 0)
-		    				{
-		    					return 1;
-		    				}
-		    				if(a.values.points > 0 && b.values.points == 0)
-		    				{
-		    					return -1;
-		    				}
-		    				if(a.values.points == 0 && b.values.points == 0)
-		    				{
-		    					return 0;
-		    				}
-		    				if (a.values.paa > b.values.paa || (b.values.points == 0 && a.values.points > 0))
-		    			    {
-		    			        return -1;
-		    			    }
-		    			    if (a.values.paa < b.values.paa || (a.values.points == 0 && b.values.points > 0))
-		    			    {
-		    			    	return 1;
-		    			    } 
-		    			    return 0;
-		    			}
-		    		});
+			SortHandler.initialPopUp(cont, holder, R.id.imported_teams_players, false);
 		}
-		else if(sortFactor.equals("Projection"))
+		else
 		{
-			players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>()
-					{
-		    			@Override
-		    			public int compare(PlayerObject a, PlayerObject b) 
-		    			{
-		    				if(a.values.points <= 0 && b.values.points > 0)
-		    				{
-		    					return 1;
-		    				}
-		    				if(a.values.points > 0 && b.values.points == 0)
-		    				{
-		    					return -1;
-		    				}
-		    				if(a.values.points == 0 && b.values.points == 0)
-		    				{
-		    					return 0;
-		    				}
-		    				if (a.values.points > b.values.points || (b.values.points == 0 && a.values.points > 0))
-		    			    {
-		    			        return -1;
-		    			    }
-		    			    if (a.values.points < b.values.points || (a.values.points == 0 && b.values.points > 0))
-		    			    {
-		    			    	return 1;
-		    			    } 
-		    			    return 0;
-		    			}
-		    		});
-		}
-		else if(sortFactor.equals("Weekly Ranking"))
-		{
-			players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>()
-					{
-		    			@Override
-		    			public int compare(PlayerObject a, PlayerObject b) 
-		    			{
-		    				if(a.values.ecr <= 0 && b.values.ecr > 0)
-		    				{
-		    					return 1;
-		    				}
-		    				if(a.values.ecr > 0 && b.values.ecr == 0)
-		    				{
-		    					return -1;
-		    				}
-		    				if(a.values.ecr == 0 && b.values.ecr == 0)
-		    				{
-		    					return 0;
-		    				}
-		    				if (a.values.ecr > b.values.ecr || (b.values.ecr == 0 && a.values.ecr > 0))
-		    			    {
-		    			        return 1;
-		    			    }
-		    			    if (a.values.ecr < b.values.ecr || (a.values.ecr == 0 && b.values.ecr > 0))
-		    			    {
-		    			    	return -1;
-		    			    } 
-		    			    return 0;
-		    			}
-		    		});
-		}
-		else if(sortFactor.equals("ROS Ranking"))
-		{
-			players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>()
-					{
-		    			@Override
-		    			public int compare(PlayerObject a, PlayerObject b) 
-		    			{
-		    				if(a.values.rosRank <= 0 && b.values.rosRank > 0)
-		    				{
-		    					return 1;
-		    				}
-		    				if(a.values.rosRank > 0 && b.values.rosRank == 0)
-		    				{
-		    					return -1;
-		    				}
-		    				if(a.values.rosRank == 0 && b.values.rosRank == 0)
-		    				{
-		    					return 0;
-		    				}
-		    				if (a.values.rosRank > b.values.rosRank || (b.values.rosRank == 0 && a.values.rosRank > 0))
-		    			    {
-		    			        return 1;
-		    			    }
-		    			    if (a.values.rosRank < b.values.rosRank || (a.values.rosRank == 0 && b.values.rosRank > 0))
-		    			    {
-		    			    	return -1;
-		    			    } 
-		    			    return 0;
-		    			}
-		    		});
-		}
-		 for(PlayerObject player : holder.players)
-		 {
-			 if(player.values.ecr > 0 && (pos.equals("All Positions") || player.info.position.equals(pos)) && 
-					 !(player.info.team.length() == 0 || player.info.team.length() == 1 || player.info.position.length() == 0) )
+			if(sortFactor.equals("PAA"))
+			{
+				players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>()
+			    		{
+			    			@Override
+			    			public int compare(PlayerObject a, PlayerObject b) 
+			    			{
+			    				if(a.values.points == 0 && b.values.points > 0)
+			    				{
+			    					return 1;
+			    				}
+			    				if(a.values.points > 0 && b.values.points == 0)
+			    				{
+			    					return -1;
+			    				}
+			    				if(a.values.points == 0 && b.values.points == 0)
+			    				{
+			    					return 0;
+			    				}
+			    				if (a.values.paa > b.values.paa || (b.values.points == 0 && a.values.points > 0))
+			    			    {
+			    			        return -1;
+			    			    }
+			    			    if (a.values.paa < b.values.paa || (a.values.points == 0 && b.values.points > 0))
+			    			    {
+			    			    	return 1;
+			    			    } 
+			    			    return 0;
+			    			}
+			    		});
+			}
+			else if(sortFactor.equals("Projection"))
+			{
+				players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>()
+						{
+			    			@Override
+			    			public int compare(PlayerObject a, PlayerObject b) 
+			    			{
+			    				if(a.values.points <= 0 && b.values.points > 0)
+			    				{
+			    					return 1;
+			    				}
+			    				if(a.values.points > 0 && b.values.points == 0)
+			    				{
+			    					return -1;
+			    				}
+			    				if(a.values.points == 0 && b.values.points == 0)
+			    				{
+			    					return 0;
+			    				}
+			    				if (a.values.points > b.values.points || (b.values.points == 0 && a.values.points > 0))
+			    			    {
+			    			        return -1;
+			    			    }
+			    			    if (a.values.points < b.values.points || (a.values.points == 0 && b.values.points > 0))
+			    			    {
+			    			    	return 1;
+			    			    } 
+			    			    return 0;
+			    			}
+			    		});
+			}
+			else if(sortFactor.equals("Weekly Ranking"))
+			{
+				players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>()
+						{
+			    			@Override
+			    			public int compare(PlayerObject a, PlayerObject b) 
+			    			{
+			    				if(a.values.ecr <= 0 && b.values.ecr > 0)
+			    				{
+			    					return 1;
+			    				}
+			    				if(a.values.ecr > 0 && b.values.ecr == 0)
+			    				{
+			    					return -1;
+			    				}
+			    				if(a.values.ecr == 0 && b.values.ecr == 0)
+			    				{
+			    					return 0;
+			    				}
+			    				if (a.values.ecr > b.values.ecr || (b.values.ecr == 0 && a.values.ecr > 0))
+			    			    {
+			    			        return 1;
+			    			    }
+			    			    if (a.values.ecr < b.values.ecr || (a.values.ecr == 0 && b.values.ecr > 0))
+			    			    {
+			    			    	return -1;
+			    			    } 
+			    			    return 0;
+			    			}
+			    		});
+			}
+			else if(sortFactor.equals("ROS Ranking"))
+			{
+				players = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>()
+						{
+			    			@Override
+			    			public int compare(PlayerObject a, PlayerObject b) 
+			    			{
+			    				if(a.values.rosRank <= 0 && b.values.rosRank > 0)
+			    				{
+			    					return 1;
+			    				}
+			    				if(a.values.rosRank > 0 && b.values.rosRank == 0)
+			    				{
+			    					return -1;
+			    				}
+			    				if(a.values.rosRank == 0 && b.values.rosRank == 0)
+			    				{
+			    					return 0;
+			    				}
+			    				if (a.values.rosRank > b.values.rosRank || (b.values.rosRank == 0 && a.values.rosRank > 0))
+			    			    {
+			    			        return 1;
+			    			    }
+			    			    if (a.values.rosRank < b.values.rosRank || (a.values.rosRank == 0 && b.values.rosRank > 0))
+			    			    {
+			    			    	return -1;
+			    			    } 
+			    			    return 0;
+			    			}
+			    		});
+			}
+			 for(PlayerObject player : holder.players)
 			 {
-				 players.add(player);
-			 }
-		 }
-		 while(!players.isEmpty())
-		 {
-			 Map<String, String> datum = new HashMap<String, String>();
-			 PlayerObject iter = players.poll();
-			 datum.put("main", df.format(iter.values.points) + ":  " + iter.info.name);
-			 StringBuilder subInfo = new StringBuilder(100);
-			 for(TeamAnalysis team : newImport.teams)
-			 {
-				 if(team.team.contains(iter.info.name))
+				 if(player.values.ecr > 0 && (pos.equals("All Positions") || player.info.position.equals(pos)) && 
+						 !(player.info.team.length() == 0 || player.info.team.length() == 1 || player.info.position.length() == 0) )
 				 {
-					 subInfo.append(team.teamName + "\n");
-					 break;
+					 players.add(player);
 				 }
 			 }
-			 if(!subInfo.toString().contains("\n"))
+			 while(!players.isEmpty())
 			 {
-				 subInfo.append("Free Agent \n");
-			 }
-			 if(status.equals("Free Agents") && !subInfo.toString().contains("Free Agent"))
-			 {
-				 continue;
-			 }
-			 if(status.equals("On Team") && subInfo.toString().contains("Free Agent"))
-			 {
-				 continue;
-			 }
-			 subInfo.append(iter.info.position + " - " + iter.info.team + "\n");
-			 if(iter.values.rosRank > 0)
-			 {
-				 subInfo.append("ROS Positional Rank: " + iter.values.rosRank + "\n");
-			 }
-			 subInfo.append("Weekly Positional Rank: " + iter.values.ecr.intValue()+ "\n");
-			 if(!iter.info.adp.contains("Not set"))
-			 {
-				 subInfo.append("Opponent: " + iter.info.adp);
-				 if(holder.sos.keySet().contains(iter.info.team + "," + iter.info.position))
+				 Map<String, String> datum = new HashMap<String, String>();
+				 PlayerObject iter = players.poll();
+				 datum.put("main", df.format(iter.values.points) + ":  " + iter.info.name);
+				 StringBuilder subInfo = new StringBuilder(100);
+				 for(TeamAnalysis team : newImport.teams)
 				 {
-					 subInfo.append(" (SOS: " + holder.sos.get(iter.info.team + "," + iter.info.position) + ")");
+					 if(team.team.contains(iter.info.name))
+					 {
+						 subInfo.append(team.teamName + "\n");
+						 break;
+					 }
 				 }
+				 if(!subInfo.toString().contains("\n"))
+				 {
+					 subInfo.append("Free Agent \n");
+				 }
+				 if(status.equals("Free Agents") && !subInfo.toString().contains("Free Agent"))
+				 {
+					 continue;
+				 }
+				 if(status.equals("On Team") && subInfo.toString().contains("Free Agent"))
+				 {
+					 continue;
+				 }
+				 subInfo.append(iter.info.position + " - " + iter.info.team + "\n");
+				 if(iter.values.rosRank > 0)
+				 {
+					 subInfo.append("ROS Positional Rank: " + iter.values.rosRank + "\n");
+				 }
+				 subInfo.append("Weekly Positional Rank: " + iter.values.ecr.intValue()+ "\n");
+				 if(!iter.info.adp.contains("Not set"))
+				 {
+					 subInfo.append("Opponent: " + iter.info.adp);
+					 if(holder.sos.keySet().contains(iter.info.team + "," + iter.info.position))
+					 {
+						 subInfo.append(" (SOS: " + holder.sos.get(iter.info.team + "," + iter.info.position) + ")");
+					 }
+				 }
+				 else
+				 {
+					 subInfo.append("Bye Week");
+				 }
+				 datum.put("sub", subInfo.toString());
+				 data.add(datum);
 			 }
-			 else
-			 {
-				 subInfo.append("Bye Week");
-			 }
-			 datum.put("sub", subInfo.toString());
-			 data.add(datum);
-		 }
-		 setPlayerAdapter(data, list);
+			 setPlayerAdapter(data, list);
+		}
 	}
 	
 	/**
