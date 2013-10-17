@@ -535,6 +535,10 @@ public class ParseRankings
 		{
 			return "Tampa Bay Buccaneers";
 		}
+		else if(low.contains("mia"))
+		{
+			return "Miami Dolphins";
+		}
 		return team;
 	}
 

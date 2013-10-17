@@ -10,6 +10,7 @@ import java.io.IOException;
 
 
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
+
 
 
 
@@ -150,9 +152,8 @@ public class ParsingAsyncTask
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e15) {
-					// TODO Auto-generated catch block
-					e15.printStackTrace();
-				}
+
+				} 
 		        publishProgress("Please wait, fetching the rankings...(3/24)");
 				System.out.println("Before CBS");
 				try {
@@ -161,8 +162,7 @@ public class ParsingAsyncTask
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e14) {
-					// TODO Auto-generated catch block
-					e14.printStackTrace();
+
 				}
 				System.out.println("Before ESPN ADV");
 		        publishProgress("Please wait, fetching the rankings...(6/24)");
@@ -174,7 +174,6 @@ public class ParsingAsyncTask
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e13) {
 					// TODO Auto-generated catch block
-					e13.printStackTrace();
 				} catch (XPatherException e13) {
 					// TODO Auto-generated catch block
 					e13.printStackTrace();
@@ -190,8 +189,6 @@ public class ParsingAsyncTask
 					// TODO Auto-generated catch block
 					e12.printStackTrace();
 				} catch (IOException e12) {
-					// TODO Auto-generated catch block
-					e12.printStackTrace();
 				} catch (XPatherException e12) {
 					// TODO Auto-generated catch block
 					e12.printStackTrace();
@@ -204,8 +201,6 @@ public class ParsingAsyncTask
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e11) {
-					// TODO Auto-generated catch block
-					e11.printStackTrace();
 				}
 		        publishProgress("Please wait, fetching the rankings...(10/24)");
 		        System.out.println("Before Yahoo");
@@ -215,8 +210,6 @@ public class ParsingAsyncTask
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e9) {
-					// TODO Auto-generated catch block
-					e9.printStackTrace();
 				}
 		        publishProgress("Please wait, fetching the rankings...(12/24)");
 		        System.out.println("Before Fantasy Pros");
@@ -226,8 +219,6 @@ public class ParsingAsyncTask
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e8) {
-					// TODO Auto-generated catch block
-					e8.printStackTrace();
 				}
 				publishProgress("Please wait, fetching the rankings...(18/24)");
 				System.out.println("Before PFF");
@@ -248,8 +239,6 @@ public class ParsingAsyncTask
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e6) {
-					// TODO Auto-generated catch block
-					e6.printStackTrace();
 				} 
 				publishProgress("Please wait, fetching the rankings...(21/24)");
 				System.out.println("Before NFL AAV");
@@ -259,8 +248,6 @@ public class ParsingAsyncTask
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e3) {
-					// TODO Auto-generated catch block
-					e3.printStackTrace();
 				}
 				System.out.println("Before Juan Elway");
 				publishProgress("Please wait, fetching the rankings...(22/24)");
@@ -270,8 +257,6 @@ public class ParsingAsyncTask
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
 				publishProgress("Please wait, fetching the rankings...(23/24)");
 				System.out.println("Before SI");
@@ -282,8 +267,6 @@ public class ParsingAsyncTask
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
 
 	    		publishProgress("Please wait, calculating relative risk...");
@@ -293,8 +276,6 @@ public class ParsingAsyncTask
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
 		    	
 		    	start = System.nanoTime(); 
@@ -305,8 +286,6 @@ public class ParsingAsyncTask
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 
 	    		publishProgress("Please wait, fetching team data...");
@@ -318,8 +297,6 @@ public class ParsingAsyncTask
 					{
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
 	    		}
 	    		else
@@ -344,8 +321,6 @@ public class ParsingAsyncTask
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
 				
 				publishProgress("Please wait, fetching player contract status...");
@@ -355,8 +330,6 @@ public class ParsingAsyncTask
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
 
 			    publishProgress("Please wait, setting specific player info...");
@@ -366,8 +339,6 @@ public class ParsingAsyncTask
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
 
 	    		publishProgress("Please wait, getting advanced line stats...");
@@ -377,20 +348,18 @@ public class ParsingAsyncTask
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
 
 	    		publishProgress("Please wait, getting projected points...");
+	    		System.out.println("Before");
 	    		try {
 					HighLevel.projPointsWrapper(holder, cont);
 				} catch (HttpStatusException e2)
 				{
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
+	    		System.out.println("After");
 	    		publishProgress("Please wait, normalizing projections...");
 	    		HighLevel.getPAA(holder, cont);
 	    		
@@ -403,8 +372,6 @@ public class ParsingAsyncTask
 					{
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
 	    		}
 				return null;

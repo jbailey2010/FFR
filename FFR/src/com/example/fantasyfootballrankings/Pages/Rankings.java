@@ -1928,7 +1928,6 @@ public class Rankings extends Activity {
 						(teamList.contains(player.info.team) && !teamFilter.contains("All")) || 
 						(posList.contains(player.info.position) && !posFilter.contains("All")))
 				{
-					
 					inter.add(player);
 				}
 			}
@@ -1976,6 +1975,7 @@ public class Rankings extends Activity {
 	        {
 		        if(isAuction)
 		        {
+		        	System.out.println(elem.info.name + " is auction - " + elem.values.worth + ", " + elem.values.secWorth);
 		        	if(elem.values.secWorth > 0.0)
 		        	{
 		        		datum.put("main", df.format(elem.values.secWorth) + ":  " + elem.info.name);
@@ -1987,6 +1987,7 @@ public class Rankings extends Activity {
 		        }
 		        else
 		        {
+		        	System.out.println("In ECR");
 		        	if(elem.values.ecr != -1)
 		        	{
 		        		datum.put("main", df.format(elem.values.ecr)+ ":  " + elem.info.name);
@@ -2018,8 +2019,12 @@ public class Rankings extends Activity {
 	        {
 	        	if(!elem.info.adp.equals("Not set"))
 	        	{
-	        		sub += "\nOpponent: " + elem.info.adp + " (SOS: " + 
-	        				holder.sos.get(elem.info.team + "," + elem.info.position) + ")";
+	        		sub += "\nOpponent: " + elem.info.adp;
+	        		if(!elem.info.position.equals("D/ST"))
+	        		{
+	        			sub += " (SOS: " + 	holder.sos.get(elem.info.team + "," + elem.info.position) + ")";
+
+	        		}
 	        	}
 	        	if(elem.values.rosRank > 0)
 	        	{

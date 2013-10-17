@@ -40,7 +40,7 @@ public class HandleBasicQueries
 	public static String handleLists(String url, String params) throws IOException
 	{
 		StringBuilder result = new StringBuilder(5000);
-		Document doc = Jsoup.connect(url).userAgent(ua).timeout(0).get();
+		Document doc = Jsoup.connect(url).userAgent(ua).get();
         Elements links = doc.select(params);
 
         for (Element element : links) 
@@ -53,7 +53,7 @@ public class HandleBasicQueries
 	public static String handleListsNoUA(String url, String params) throws IOException
 	{
 		StringBuilder result = new StringBuilder(5000);
-		Document doc = Jsoup.connect(url).timeout(0).get();
+		Document doc = Jsoup.connect(url).get();
         Elements links = doc.select(params);
 
         for (Element element : links) 
