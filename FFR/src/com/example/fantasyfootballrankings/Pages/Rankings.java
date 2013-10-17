@@ -133,7 +133,7 @@ public class Rankings extends Activity {
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
 		setUpWidget();
-		if(hideWidget || holder.isRegularSeason)
+		if(hideWidget || holder.isRegularSeason || holder.players.size() == 0)
 		{
 			widgetBase.setVisibility(View.GONE);
 		}

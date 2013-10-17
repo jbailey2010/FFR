@@ -474,7 +474,14 @@ public class TeamAnalysis
 			}
 		}
 		String res = result.toString();
-		res = res.substring(0, res.length() - 2) + "\n";
+		if(res.length() != 0)
+		{
+			res = res.substring(0, res.length() - 2) + "\n";
+		}
+		else
+		{
+			res = posStr + "s: N/A";
+		}
 		return res;
 	}
 
