@@ -351,7 +351,6 @@ public class ParsingAsyncTask
 				}
 
 	    		publishProgress("Please wait, getting projected points...");
-	    		System.out.println("Before");
 	    		try {
 					HighLevel.projPointsWrapper(holder, cont);
 				} catch (HttpStatusException e2)
@@ -359,7 +358,6 @@ public class ParsingAsyncTask
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e1) {
 				}
-	    		System.out.println("After");
 	    		publishProgress("Please wait, normalizing projections...");
 	    		HighLevel.getPAA(holder, cont);
 	    		

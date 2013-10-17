@@ -97,7 +97,6 @@ public class ImportLeague extends Activity {
 			else if(Home.holder.players == null || Home.holder.players.size() < 5 || 
 					prefs.getBoolean("Home Update Import", false) || prefs.getBoolean("Rankings Update Import", false))
 			{
-				System.out.println("Refreshing");
 				SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 				editor.putBoolean("Home Update Import", false).commit();
 				editor.putBoolean("Rankings Update Import", false).commit();

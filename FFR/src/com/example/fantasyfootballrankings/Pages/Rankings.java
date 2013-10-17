@@ -1975,7 +1975,6 @@ public class Rankings extends Activity {
 	        {
 		        if(isAuction)
 		        {
-		        	System.out.println(elem.info.name + " is auction - " + elem.values.worth + ", " + elem.values.secWorth);
 		        	if(elem.values.secWorth > 0.0)
 		        	{
 		        		datum.put("main", df.format(elem.values.secWorth) + ":  " + elem.info.name);
@@ -1987,7 +1986,6 @@ public class Rankings extends Activity {
 		        }
 		        else
 		        {
-		        	System.out.println("In ECR");
 		        	if(elem.values.ecr != -1)
 		        	{
 		        		datum.put("main", df.format(elem.values.ecr)+ ":  " + elem.info.name);

@@ -1079,7 +1079,6 @@ public class HighLevel
 	public static void parseECRWeekly(String url, Storage holder, HashMap<String, Double> ecr, 
 			HashMap<String, Double> risk, HashMap<String, String> adp) throws IOException
 	{
-		System.out.println(url);
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = ManageInput.tokenize(html, '\n', 1);
 		int min = 0;

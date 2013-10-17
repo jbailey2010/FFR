@@ -491,9 +491,18 @@ public class ParseRankings
 	public static String fixTeams(String team)
 	{
 		String low = team.toLowerCase().replaceAll("[^\\x20-\\x7e]","");
+		
 		if(teams.containsKey(low))
 		{
 			return teams.get(low);
+		}
+		if(low.length() >= 2)
+		{
+			char[] teamSet = low.toCharArray();
+			if(teamSet[teamSet.length - 1] == 'p' && teamSet[teamSet.length - 2] == ' ')
+			{
+				low = low.substring(0, low.length() - 2);
+			}
 		}
 		else if(low.contains("kansas"))
 		{
