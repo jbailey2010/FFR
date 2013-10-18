@@ -140,9 +140,17 @@ public class SortHandler
 	    {
 	    	positions.add("WR");
 	    }
+	    if(r.rbs != 0 && r.wrs != 0)
+	    {
+	    	positions.add("RB/WR");
+	    }
 	    if(r.tes != 0)
 	    {
 	    	positions.add("TE");
+	    }
+	    if(r.rbs != 0 && r.wrs != 0 && r.tes != 0)
+	    {
+	    	positions.add("RB/WR/TE");
 	    }
 	    if(r.def != 0)
 	    {
@@ -348,6 +356,17 @@ public class SortHandler
 			posList.add("D/ST");
 			posList.add("K");
 		}
+		else if(position.equals("RB/WR"))
+		{
+			posList.add("RB");
+			posList.add("WR");
+		}
+		else if(position.equals("RB/WR/TE"))
+		{
+			posList.add("RB");
+			posList.add("WR");
+			posList.add("TE");
+		}
 		else
 		{
 			posList.add(position);
@@ -413,6 +432,17 @@ public class SortHandler
 			posList.add("TE");
 			posList.add("D/ST");
 			posList.add("K");
+		}
+		else if(position.equals("RB/WR"))
+		{
+			posList.add("RB");
+			posList.add("WR");
+		}
+		else if(position.equals("RB/WR/TE"))
+		{
+			posList.add("RB");
+			posList.add("WR");
+			posList.add("TE");
 		}
 		else
 		{
