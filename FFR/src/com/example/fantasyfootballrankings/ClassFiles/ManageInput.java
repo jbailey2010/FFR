@@ -463,7 +463,6 @@ public class ManageInput
 						if(ManageInput.confirmInternet(cont))
 						{
 							((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-						    Toast.makeText(cont, "Updating projections...", Toast.LENGTH_SHORT).show();
 						    SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 							ParsingAsyncTask stupid = new ParsingAsyncTask();
 						    ParseProjections task = stupid.new ParseProjections((Activity)cont, ((Home)cont).holder);
@@ -580,7 +579,6 @@ public class ManageInput
 				if(doSyncData)
 				{
 					((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-					Toast.makeText(cont, "Updating PAA...", Toast.LENGTH_SHORT).show();
 					StorageAsyncTask obj = new StorageAsyncTask();
 				    WriteNewPAA task2 = obj.new WriteNewPAA(cont);
 				    task2.execute(holder, cont);

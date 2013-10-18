@@ -13,6 +13,7 @@ import java.util.StringTokenizer;
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -44,14 +45,23 @@ public class StorageAsyncTask
 	 */
 	public class WriteDraft extends AsyncTask<Object, Void, Void> 
 	{
-	    public WriteDraft() 
+		ProgressDialog pdia;
+	    public WriteDraft(Activity activity) 
 	    {
-
+	    	pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
 	    }
 
-
+	    @Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		        pdia.setMessage("Please wait, saving the rankings...");
+		        pdia.show();    
+		}
+	    
 		@Override
 		protected void onPostExecute(Void result){
+			pdia.dismiss();
 		   super.onPostExecute(result);
 		}
 
@@ -112,14 +122,23 @@ public class StorageAsyncTask
 	 */
 	public class WritePostsListAsync extends AsyncTask<Object, Void, Void> 
 	{
-	    public WritePostsListAsync() 
+		ProgressDialog pdia;
+	    public WritePostsListAsync(Activity activity) 
 	    {
-
+	    	pdia = new ProgressDialog(activity);
+	        pdia.setCancelable(false);
 	    }
 
-
+	    @Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();
+		        pdia.setMessage("Please wait, saving the trending players...");
+		        pdia.show();    
+		}
+	    
 		@Override
 		protected void onPostExecute(Void result){
+			pdia.dismiss();
 		   super.onPostExecute(result);
 		}
 
@@ -148,14 +167,24 @@ public class StorageAsyncTask
 	public class WriteNewPAA extends AsyncTask<Object, Void, Void> 
 	{
 		Context cont;
+		ProgressDialog pdia;
 	    public WriteNewPAA(Context c) 
 	    {
-	    	cont = c;
+	    	pdia = new ProgressDialog(c);
+	    	pdia.setCancelable(false);
+	        cont = c;
 	    }
 
+		@Override
+		protected void onPreExecute(){ 
+			pdia.setMessage("Please wait, saving the updated rankings...");
+	        pdia.show();
+		   super.onPreExecute();   
+		}
 
 		@Override
 		protected void onPostExecute(Void result){
+			pdia.dismiss();
 			((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		   super.onPostExecute(result);
 		}

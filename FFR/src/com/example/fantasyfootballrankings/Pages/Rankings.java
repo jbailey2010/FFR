@@ -1956,6 +1956,20 @@ public class Rankings extends Activity {
      */
     public void rankingsFetched(PriorityQueue<PlayerObject> playerList, Activity cont)
     {
+	    if(refreshed)
+	    {
+	    	WriteToFile.storeRankingsAsync(holder, (Context)cont);
+			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+			editor.putBoolean("Rankings Update Home", true).commit();
+			editor.putBoolean("Rankings Update Trending", true).commit();
+			editor.putBoolean("Rankings Update Draft", true).commit();
+			editor.putBoolean("Rankings Update Import", true).commit();
+			if(Home.holder.players == null || Home.holder.players.size() < 5)
+			{
+				Home.holder = holder;
+			}
+	    	refreshed = false;
+	    }
 	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
 	    listview.setAdapter(null);
 	    data = new ArrayList<Map<String, String>>();
@@ -2034,21 +2048,6 @@ public class Rankings extends Activity {
 	        data.add(datum);
 	        adapter.notifyDataSetChanged();
 	    } 
-	    if(refreshed)
-	    {
-	    	WriteToFile.storeRankingsAsync(holder, (Context)cont);
-			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-			editor.putBoolean("Rankings Update Home", true).commit();
-			editor.putBoolean("Rankings Update Trending", true).commit();
-			editor.putBoolean("Rankings Update Draft", true).commit();
-			editor.putBoolean("Rankings Update Import", true).commit();
-			if(Home.holder.players == null || Home.holder.players.size() < 5)
-			{
-				Home.holder = holder;
-			}
-	    	refreshed = false;
-	    }
-	    //adapter = ManageInput.handleArray(rankings, listview, cont);
 	}
     
     /**

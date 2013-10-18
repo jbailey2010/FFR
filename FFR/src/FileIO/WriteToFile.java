@@ -65,7 +65,7 @@ public class WriteToFile {
 	 */
 	public static void storeRankingsAsync(Storage holder, Context cont)
 	{
-	    WriteDraft draftTask = asyncObject.new WriteDraft();
+	    WriteDraft draftTask = asyncObject.new WriteDraft((Activity) cont);
 	    draftTask.execute(holder, cont);
 	}
 
@@ -119,7 +119,7 @@ public class WriteToFile {
 	 */
 	public static void writePostsList(List<String> trendingPlayers, Activity cont) 
 	{
-	    WritePostsListAsync draftTask = asyncObject.new WritePostsListAsync();
+	    WritePostsListAsync draftTask = asyncObject.new WritePostsListAsync(cont);
 	    draftTask.execute(trendingPlayers, cont);
 	}
 	

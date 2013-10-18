@@ -392,19 +392,25 @@ public class ParsingAsyncTask
 		{
 			Activity act;
 			Storage hold;
+			ProgressDialog pdia;
 		    public ParseProjections(Activity activity, Storage holder) 
 		    {
+		    	pdia = new ProgressDialog(activity);
+		    	pdia.setCancelable(false);
 		        act = activity;
 		        hold = holder;
 		    }
 
 			@Override
 			protected void onPreExecute(){ 
+				pdia.setMessage("Please wait, updating and saving the projections...");
+		        pdia.show();
 			   super.onPreExecute();   
 			}
 
 			@Override
 			protected void onPostExecute(Void result){
+				pdia.dismiss();
 				act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 			   super.onPostExecute(result);
 			}
