@@ -17,6 +17,7 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTea
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.NDSpinner;
 import com.example.fantasyfootballrankings.LeagueImports.ESPNImport;
 import com.ffr.fantasyfootballrankings.R;
 import com.jjoe64.graphview.GraphView;
@@ -795,7 +796,7 @@ public class ImportLeague extends Activity {
 	        });
 		 final Spinner pos = (Spinner)res.findViewById(R.id.player_pos_spinner);
 		 final Spinner status = (Spinner)res.findViewById(R.id.player_status_spinner);
-		 final Spinner sortSp = (Spinner)res.findViewById(R.id.player_sort_spinner);
+		 final NDSpinner sortSp = (NDSpinner)res.findViewById(R.id.player_sort_spinner);
 		 pos.clearFocus();
 		 status.clearFocus();
 		 list.clearFocus();
@@ -845,7 +846,7 @@ public class ImportLeague extends Activity {
 			    }
 			});
 		 final OnItemSelectedListener l2 = new OnItemSelectedListener(){
-
+ 
 				@Override
 				public void onItemSelected(AdapterView<?> arg0, View arg1,
 						int arg2, long arg3) {
