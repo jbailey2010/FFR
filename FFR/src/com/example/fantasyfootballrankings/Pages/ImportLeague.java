@@ -35,6 +35,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -86,6 +87,7 @@ public class ImportLeague extends Activity {
 		ActionBar ab = getActionBar();
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Import", false) || prefs.getBoolean("Rankings Update Import", false))
 		{
