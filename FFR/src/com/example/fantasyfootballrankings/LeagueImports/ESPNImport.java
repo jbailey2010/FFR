@@ -49,6 +49,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -359,7 +360,7 @@ public class ESPNImport
 				{
 					obj.doc = testSignIn;
 					obj.username = un;
-					obj.password = pw;
+					obj.password = Base64.encodeToString(pw.getBytes(), Base64.DEFAULT );
 					storeUnPw(cont);
 					return obj.doc;
 				}
@@ -716,6 +717,7 @@ public class ESPNImport
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		username = prefs.getString("ESPN Username", "Not Set");
 		password = prefs.getString("ESPN Password", "Not Set");
+		password = new String( Base64.decode(password, Base64.DEFAULT ) );
 	}
 	
 	/**
