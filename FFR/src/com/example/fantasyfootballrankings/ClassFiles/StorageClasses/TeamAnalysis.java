@@ -334,11 +334,11 @@ public class TeamAnalysis
 						@Override
 						public int compare(PlayerObject a, PlayerObject b) 
 						{
-							if (a.values.paa > b.values.paa)
+							if (a.values.points > b.values.points)
 						    {
 						        return -1;
 						    }
-						    if (a.values.paa < b.values.paa)
+						    if (a.values.points < b.values.points)
 						    {
 						    	return 1;
 						    }
@@ -350,11 +350,11 @@ public class TeamAnalysis
 						@Override
 						public int compare(PlayerObject a, PlayerObject b) 
 						{
-							if (a.values.paa > b.values.paa)
+							if (a.values.points > b.values.points)
 						    {
 						        return -1;
 						    }
-						    if (a.values.paa < b.values.paa)
+						    if (a.values.points < b.values.points)
 						    {
 						    	return 1;
 						    }
@@ -417,11 +417,11 @@ public class TeamAnalysis
 				}
 				PlayerObject rbNextBest = rb.poll();
 				PlayerObject wrNextBest = wr.poll();
-				if(posStr.equals("WR") && wrNextBest.values.paa > rbNextBest.values.paa)
+				if(posStr.equals("WR") && wrNextBest.values.points > rbNextBest.values.points)
 				{
 					limit++;
 				}
-				else if(posStr.equals("RB") && rbNextBest.values.paa > wrNextBest.values.paa)
+				else if(posStr.equals("RB") && rbNextBest.values.points > wrNextBest.values.points)
 				{
 					limit++;
 				}
@@ -432,11 +432,11 @@ public class TeamAnalysis
 			@Override
 			public int compare(PlayerObject a, PlayerObject b) 
 			{
-				if (a.values.paa > b.values.paa)
+				if (a.values.points > b.values.points)
 			    {
 			        return -1;
 			    }
-			    if (a.values.paa < b.values.paa)
+			    if (a.values.points < b.values.points)
 			    {
 			    	return 1;
 			    }
@@ -480,7 +480,7 @@ public class TeamAnalysis
 		}
 		else
 		{
-			res = posStr + "s: N/A";
+			res = posStr + "s: N/A\n";
 		}
 		return res;
 	}

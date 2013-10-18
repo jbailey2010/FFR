@@ -870,7 +870,7 @@ public class ImportLeague extends Activity {
 				{
 					pos.setClickable(false);
 					Toast.makeText(cont, "Note position now can only be set through the pop up, not through the drop down here until you choose"
-							+ " a different sorting factor", Toast.LENGTH_SHORT).show();
+							+ " a different sorting factor", Toast.LENGTH_LONG).show();
 				}
 				else
 				{

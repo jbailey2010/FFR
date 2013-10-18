@@ -34,6 +34,7 @@ import org.jsoup.select.Elements;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
+import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
@@ -377,11 +378,12 @@ public class ESPNImport
 	{
 		Elements elements = doc.select("td.playertablePlayerName");
 		Map<String, List<String>>players = new HashMap<String, List<String>>(); 
+		ParseRankings.handleHashes();
 		for(Element elem : elements)
 		{
 			if(!elem.html().contains("Compare Players"))
 			{
-				String playerName = elem.child(0).text();
+				String playerName = ParseRankings.fixNames(elem.child(0).text());
 				String team = "";
 				Elements parent = elem.parent().parent().parent().children();
 				for(Element children : parent)
