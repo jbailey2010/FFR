@@ -117,13 +117,13 @@ public class ParseStats
 				int incr = 1;
 				if(player[player.length - 2].contains("%"))
 				{
-					incr = 0;
+					incr = -1;
 				}
-				data.append("Carries: " + player[player.length - 7 + incr] + "\n");
-				data.append("Yards: " + player[player.length - 6 + incr].replace(",", "") + "\n");
-				data.append("Adjusted Yards: " + player[player.length - 5 + incr].replace(",", "") + "\n");
-				data.append("Touchdowns: " + player[player.length - 4 + incr] + "\n");
-				data.append("Fumbles: " + player[player.length - 3 + incr]);
+				data.append("Carries: " + player[player.length - 6 + incr] + "\n");
+				data.append("Yards: " + player[player.length - 5 + incr].replace(",", "") + "\n");
+				data.append("Adjusted Yards: " + player[player.length - 4 + incr].replace(",", "") + "\n");
+				data.append("Touchdowns: " + player[player.length - 3 + incr] + "\n");
+				data.append("Fumbles: " + player[player.length - 2 + incr]);
 				rbPlayers.put(name.toLowerCase() + "/" + team, data.toString());
 			}
 		}
