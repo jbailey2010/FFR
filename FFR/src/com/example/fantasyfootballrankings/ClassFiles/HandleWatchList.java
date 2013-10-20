@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 import com.ffr.fantasyfootballrankings.R;
-
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
@@ -31,6 +30,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -63,6 +63,8 @@ public class HandleWatchList
 		dialog.show();
 		RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header);
 		base.setVisibility(View.GONE);
+		LinearLayout base2 = (LinearLayout)dialog.findViewById(R.id.category_base);
+		base2.setVisibility(View.GONE);
 		if(watchList.size() == 0 || (watchList.size() > 0 && !holder.parsedPlayers.contains(watchList.get(0))))
 		{
 			Toast.makeText(cont, "Watch list empty", Toast.LENGTH_SHORT).show();

@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:divider="#999999"
-        android:background="@drawable/spinner_well"
+        android:background="@drawable/content_well_popup"
         android:layout_width="fill_parent" >
     </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 

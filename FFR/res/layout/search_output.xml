@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#999999"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -80,7 +81,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="3dp"
-            android:background="#999999"
+            android:background="#111111"
             android:layout_alignBottom="@+id/dummy_btn_center"
             />
         <Button 
@@ -114,9 +115,79 @@
             android:textSize="13sp"
             android:textStyle="bold"
             android:text="Bye: Week 5" />
-        
+       
 
     </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/category_base"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:background="@drawable/category_playerinfo"
+        android:weightSum="100"> 
+
+        <Button
+            android:id="@+id/category_ranking"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="25"
+            android:background="@drawable/category_playerinfo_selected"
+            android:text="Rankings"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
+        
+       	<View android:layout_height="fill_parent"
+		    android:layout_width="2dp"
+		    android:background="#FF0000"
+		    android:layout_marginTop="5dp"
+		    android:layout_marginBottom="5dp"/>
+
+        <Button
+            android:id="@+id/category_info"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="25"
+            android:background="@drawable/category_playerinfo"
+            android:text="Player Info"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
+        
+        <View android:layout_height="fill_parent"
+		    android:layout_width="2dp"
+		    android:background="#FF0000"
+		    android:layout_marginTop="5dp"
+		    android:layout_marginBottom="5dp"/>
+
+        <Button
+            android:id="@+id/category_team"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="25"
+            android:background="@drawable/category_playerinfo"
+            android:text="Team Info"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
+        
+        <View android:layout_height="fill_parent"
+		    android:layout_width="2dp"
+		    android:background="#FF0000"
+		    android:layout_marginTop="5dp"
+		    android:layout_marginBottom="5dp"/>
+
+        <Button
+            android:id="@+id/category_other"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:background="@drawable/category_playerinfo"
+            android:text="Other"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
+
+    </LinearLayout>
 
     <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
         android:id="@+id/listview_search"

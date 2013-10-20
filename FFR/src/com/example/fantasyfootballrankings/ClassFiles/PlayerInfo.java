@@ -60,6 +60,11 @@ public class PlayerInfo
 {
 	Rankings obj = new Rankings();
 	double aucFactor;
+	PlayerObject searchedPlayer;
+	List<Map<String, String>> data;
+	Storage holder;
+	Dialog dialog;
+	SimpleAdapter adapter;
 	/**
 	 * Abstracted out of the menu handler as this could get ugly
 	 * once the stuff is added to the dropdown
@@ -135,9 +140,10 @@ public class PlayerInfo
 	 * @param namePlayer
 	 */
 	public void outputResults(final String namePlayer, boolean flag, 
-			final Activity act, final Storage holder, final boolean watchFlag, boolean draftable)
+			final Activity act, final Storage hold, final boolean watchFlag, boolean draftable)
 	{
-		final Dialog dialog = new Dialog(act);
+		holder = hold;
+		dialog = new Dialog(act);
 	    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		dialog.setContentView(R.layout.search_output);
 		aucFactor = ReadFromFile.readAucFactor(act);
@@ -212,7 +218,7 @@ public class PlayerInfo
 		}
 		//Set up the header, and make a mock object with the set name
 		name.setText(namePlayer);
-		PlayerObject searchedPlayer = new PlayerObject("","","",0);
+		searchedPlayer = new PlayerObject("","","",0);
 		for(PlayerObject player : holder.players)
 		{
 			if(player.info.name.equals(namePlayer))
@@ -287,7 +293,7 @@ public class PlayerInfo
 			backView.setVisibility(View.GONE);
 		}
 		//Set the data in the list
-		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+		data = new ArrayList<Map<String, String>>();
 		RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header);
 		if(searchedPlayer.info.position.length() >= 1 && searchedPlayer.info.team.length() > 1)
 		{
@@ -318,7 +324,12 @@ public class PlayerInfo
 		{
 			base.setVisibility(View.GONE);
 		}
-		setSearchContent(searchedPlayer, data, holder);
+		adapter = new SimpleAdapter(act, data, 
+	    		R.layout.web_listview_item, 
+	    		new String[] {"main", "sub"}, 
+	    		new int[] {R.id.text1, 
+	    			R.id.text2});
+		setSearchContent(searchedPlayer, data, holder, dialog, adapter, act);
 		//Show the dialog, then set the list
 		dialog.show();
 		BounceListView results = (BounceListView)dialog.findViewById(R.id.listview_search);
@@ -449,11 +460,7 @@ public class PlayerInfo
 			}
 		});
 		//ManageInput.handleArray(output, results, act);
-		final SimpleAdapter adapter = new SimpleAdapter(act, data, 
-	    		R.layout.web_listview_item, 
-	    		new String[] {"main", "sub"}, 
-	    		new int[] {R.id.text1, 
-	    			R.id.text2});
+
 	    results.setAdapter(adapter);
 		Button back = (Button)dialog.findViewById(R.id.search_back);
 		//If it isn't gone, set that it goes back
@@ -493,38 +500,65 @@ public class PlayerInfo
 	 * @param searchedPlayer
 	 * @param data
 	 * @param holder 
+	 * @param dialog 
+	 * @param adapter 
 	 */
-	public void setSearchContent(PlayerObject searchedPlayer, List<Map<String, String>> data, Storage holder)
+	public void setSearchContent(PlayerObject searchedPlayer, List<Map<String, String>> data, Storage holder, Dialog dialog, SimpleAdapter adapter, final Context cont)
 	{
+	   	final Button ranking = (Button)dialog.findViewById(R.id.category_ranking);
+	   	final Button info = (Button)dialog.findViewById(R.id.category_info);
+	   	final Button team = (Button)dialog.findViewById(R.id.category_team);
+	   	final Button other = (Button)dialog.findViewById(R.id.category_other);
+	   	ranking.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				contentRankings();
+				ranking.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo_selected));
+				info.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
+				team.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
+				other.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
+			}
+	   	});
+	   	info.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				contentInfo();
+				ranking.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
+				info.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo_selected));
+				team.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
+				other.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
+			}
+	   	});
+	   	team.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				contentTeam();
+				ranking.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
+				info.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
+				team.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo_selected));
+				other.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
+			}
+	   	});
+	   	other.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				contentOther();
+				ranking.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
+				info.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
+				team.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
+				other.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo_selected));
+			}
+	   	});
+	   	contentRankings();
+	}
+	
+	/**
+	 * Fills the adapter with ranking based information
+	 */
+	public void contentRankings()
+	{
+		data.clear();
 	   	DecimalFormat df = new DecimalFormat("#.##");
-		if(Draft.draftedMe(searchedPlayer.info.name, obj.holder.draft))
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", "DRAFTED BY YOU");
-			data.add(datum);
-		}
-		//See if they're drafted by someone else
-		else if(Draft.isDrafted(searchedPlayer.info.name, obj.holder.draft))
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", "DRAFTED");
-			data.add(datum);
-		}
-		//Is he in the watch list?
-		if(Rankings.watchList.contains(searchedPlayer.info.name))
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", "He is in your watch list");
-			datum.put("sub", "");
-			data.add(datum);
-		}
-		if(!searchedPlayer.injuryStatus.contains("Healthy"))
-		{
-			Map<String, String> datum2 = new HashMap<String, String>(2);
-			datum2.put("main", searchedPlayer.injuryStatus);
-			datum2.put("sub", "");
-			data.add(datum2);
-		}
 		//Worth
 		if(!holder.isRegularSeason)
 		{
@@ -631,39 +665,38 @@ public class PlayerInfo
 			data.add(datum);
 		}
 		//PAA and PAAPD
-				if(searchedPlayer.values.paa != 0.0 && searchedPlayer.values.points != 0.0)
-				{
-					Map<String, String> datum = new HashMap<String, String>(2);
-					datum.put("main", df.format(searchedPlayer.values.paa) + " PAA");
-					if(searchedPlayer.info.position.length() >= 1)
-					{
-						datum.put("sub", "Ranked " + rankPAAPos(searchedPlayer, holder) + " positionally, " + rankPAAAll(searchedPlayer, holder) +
-									 " overall");
-					}
-					else
-					{
-						datum.put("sub", "Ranked " + rankPAAAll(searchedPlayer, holder) + " overall");
-					}
-					data.add(datum);
-				} 
-				//Risk
-				if(searchedPlayer.risk > 0.0)
-				{
-					Map<String, String> datum = new HashMap<String, String>(2);
-					double riskVal = posRiskVal(searchedPlayer, holder);
-					datum.put("main", searchedPlayer.risk + " Risk (" + rankRiskAll(searchedPlayer, holder) + ")");
-					if(searchedPlayer.info.position.length() >= 1)
-					{
-						datum.put("sub", df.format(riskVal) + " relative to his position (" + rankRiskPos(searchedPlayer, holder, riskVal) + ")");
-					}
-					else 
-					{
-						datum.put("sub", "");
-					}
-					data.add(datum);
-				}
+		if(searchedPlayer.values.paa != 0.0 && searchedPlayer.values.points != 0.0)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", df.format(searchedPlayer.values.paa) + " PAA");
+			if(searchedPlayer.info.position.length() >= 1)
+			{
+				datum.put("sub", "Ranked " + rankPAAPos(searchedPlayer, holder) + " positionally, " + rankPAAAll(searchedPlayer, holder) +
+							 " overall");
+			}
+			else
+			{
+				datum.put("sub", "Ranked " + rankPAAAll(searchedPlayer, holder) + " overall");
+			}
+			data.add(datum);
+		} 
+		//Risk
+		if(searchedPlayer.risk > 0.0)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			double riskVal = posRiskVal(searchedPlayer, holder);
+			datum.put("main", searchedPlayer.risk + " Risk (" + rankRiskAll(searchedPlayer, holder) + ")");
+			if(searchedPlayer.info.position.length() >= 1)
+			{
+				datum.put("sub", df.format(riskVal) + " relative to his position (" + rankRiskPos(searchedPlayer, holder, riskVal) + ")");
+			}
+			else 
+			{
+				datum.put("sub", "");
+			}
+			data.add(datum);
+		}
 		//Positional SOS
-		System.out.println(searchedPlayer.info.team + "," + searchedPlayer.info.position);
 		if(holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position)!= null && 
 				holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position) > 0 && !holder.isRegularSeason)
 		{
@@ -671,8 +704,59 @@ public class PlayerInfo
 			datum.put("main", "Positional SOS: " + holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position));
 			datum.put("sub", "1 is Easiest, 32 Hardest");
 			data.add(datum);
+		}	
+		adapter.notifyDataSetChanged();
+	}
+	
+	/**
+	 * Fills the pop up up with basic player information
+	 */
+	public void contentInfo()
+	{
+		data.clear();
+		Map<String, String> basicDatum = new HashMap<String, String>(2);
+		basicDatum.put("main", searchedPlayer.info.position + " - " + searchedPlayer.info.team);
+		String sub = "";
+		if(ManageInput.isInteger(searchedPlayer.info.age) && Integer.valueOf(searchedPlayer.info.age)> 0)
+		{
+			sub += "Age: " + searchedPlayer.info.age + "\n";
 		}
+		if(searchedPlayer.info.team.length() > 4)
+		{
+			sub += "Bye: " + holder.bye.get(searchedPlayer.info.team);
+		}
+		basicDatum.put("sub", sub);
+		data.add(basicDatum);
 		//Contract status
+		DecimalFormat df = new DecimalFormat("#.##");
+		if(Draft.draftedMe(searchedPlayer.info.name, obj.holder.draft))
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "DRAFTED BY YOU");
+			data.add(datum);
+		}
+		//See if they're drafted by someone else
+		else if(Draft.isDrafted(searchedPlayer.info.name, obj.holder.draft))
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "DRAFTED");
+			data.add(datum);
+		}
+		//Is he in the watch list?
+		if(Rankings.watchList.contains(searchedPlayer.info.name))
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "He is in your watch list");
+			datum.put("sub", "");
+			data.add(datum);
+		}
+		if(!searchedPlayer.injuryStatus.contains("Healthy"))
+		{
+			Map<String, String> datum2 = new HashMap<String, String>(2);
+			datum2.put("main", searchedPlayer.injuryStatus);
+			datum2.put("sub", "");
+			data.add(datum2);
+		}
 		if(!searchedPlayer.info.position.equals("D/ST") && 
 				!searchedPlayer.info.contractStatus.contains("Under Contract"))
 		{
@@ -702,7 +786,21 @@ public class PlayerInfo
 			}
 			data.add(datum);
 
+				}	
+		if(data.size() == 0)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "No information available for this player");
 		}
+		adapter.notifyDataSetChanged();
+	}
+	
+	/**
+	 * Notifies the adapter that team information is desired
+	 */
+	public void contentTeam()
+	{
+		data.clear();
 		//O line data
 		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
 		{ 
@@ -750,6 +848,20 @@ public class PlayerInfo
 		    	}
 			}
 		}
+		if(data.size() == 0)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "No team information available for this player");
+		}
+		adapter.notifyDataSetChanged();
+	}
+	
+	/**
+	 * Notifies the adapter that other data is desired
+	 */
+	public void contentOther()
+	{
+		data.clear();
 		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
@@ -761,6 +873,12 @@ public class PlayerInfo
 			datum2.put("sub", "");
 			data.add(datum2);
 		}
+		if(data.size() == 0)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "No additional information available about this player");
+		}
+		adapter.notifyDataSetChanged();
 	}
 	
 	/**

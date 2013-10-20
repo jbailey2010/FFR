@@ -35,6 +35,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -186,7 +187,7 @@ public class SortHandler
 						subject = (String)sort.getSelectedItem();
 						if((subject.equals("Success Rate") && !(position.equals("RB") || position.equals("All Positions"))) || 
 								(subject.equals("Yard Adjustment") && (position.equals("D/ST") || position.equals("K"))) || 
-										((position.equals("RB") || position.equals("WR") || position.equals("TE") || position.equals("K") || position.equals("D/ST"))
+										((position.equals("RB") || position.equals("RB/WR") || position.equals("RB/WR/TE") || position.equals("WR") || position.equals("TE") || position.equals("K") || position.equals("D/ST"))
 										&& subject.equals("Completion to Int Ratio")) || ((subject.equals("Broken Tackles")) && 
 										(position.equals("TE") || position.equals("D/ST") || position.equals("K"))) || 
 										(subject.equals("Rest of Season Positional Ranking") && position.equals("D/ST")) ||
@@ -227,7 +228,7 @@ public class SortHandler
 						subject = (String)sort.getSelectedItem();
 						if((subject.equals("Success Rate") && !(position.equals("RB") || position.equals("All Positions"))) || 
 								(subject.equals("Yard Adjustment") && (position.equals("D/ST") || position.equals("K"))) || 
-										((position.equals("RB") || position.equals("WR") || position.equals("TE") || position.equals("K") || position.equals("D/ST"))
+										((position.equals("RB") || position.equals("WR") || position.equals("RB/WR") || position.equals("RB/WR/TE") || position.equals("TE") || position.equals("K") || position.equals("D/ST"))
 										&& subject.equals("Completion to Int Ratio")) || ((subject.equals("Broken Tackles")) && 
 										(position.equals("TE") || position.equals("D/ST") || position.equals("K"))) || 
 										(subject.equals("Rest of Season Positional Ranking") && position.equals("D/ST")) ||
@@ -996,6 +997,8 @@ public class SortHandler
 		    dialog.show(); 
 		    RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header);
 			base.setVisibility(View.GONE);
+			LinearLayout base2 = (LinearLayout)dialog.findViewById(R.id.category_base);
+			base2.setVisibility(View.GONE);
 		    Button watch = (Button)dialog.findViewById(R.id.add_watch);
 		    watch.setText("Hide Drafted");
 		    TextView header = (TextView)dialog.findViewById(R.id.name);

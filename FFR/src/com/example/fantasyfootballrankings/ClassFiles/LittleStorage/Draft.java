@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -29,8 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import com.ffr.fantasyfootballrankings.R;
 
+import com.ffr.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
@@ -351,6 +352,8 @@ public class Draft
 		dialog.show();
 		RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header);
 		base.setVisibility(View.GONE); 
+		LinearLayout base2 = (LinearLayout)dialog.findViewById(R.id.category_base);
+		base2.setVisibility(View.GONE);
 		if(holder.draft.ignore.size() == 0)
 		{
 			Toast.makeText(cont, "No one drafted", Toast.LENGTH_SHORT).show();
