@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -513,40 +514,56 @@ public class PlayerInfo
 			@Override
 			public void onClick(View v) {
 				contentRankings();
-				ranking.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo_selected));
-				info.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
-				team.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
-				other.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
+				ranking.setTypeface(null,Typeface.BOLD);
+				info.setTypeface(null, Typeface.NORMAL);
+				team.setTypeface(null, Typeface.NORMAL);
+				other.setTypeface(null, Typeface.NORMAL);
+				ranking.setTextSize(14);
+				info.setTextSize(13);
+				team.setTextSize(13);
+				other.setTextSize(13);
 			}
 	   	});
 	   	info.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				contentInfo();
-				ranking.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
-				info.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo_selected));
-				team.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
-				other.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
+				ranking.setTypeface(null,Typeface.NORMAL);
+				info.setTypeface(null, Typeface.BOLD);
+				team.setTypeface(null, Typeface.NORMAL);
+				other.setTypeface(null, Typeface.NORMAL);
+				ranking.setTextSize(13);
+				info.setTextSize(14);
+				team.setTextSize(13);
+				other.setTextSize(13);
 			}
 	   	});
 	   	team.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				contentTeam();
-				ranking.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
-				info.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
-				team.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo_selected));
-				other.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
+				contentTeam(); 
+				ranking.setTypeface(null,Typeface.NORMAL);
+				info.setTypeface(null, Typeface.NORMAL);
+				team.setTypeface(null, Typeface.BOLD);
+				other.setTypeface(null, Typeface.NORMAL);
+				ranking.setTextSize(13);
+				info.setTextSize(13);
+				team.setTextSize(14);
+				other.setTextSize(13);
 			}
 	   	});
 	   	other.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				contentOther();
-				ranking.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
-				info.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
-				team.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo));
-				other.setBackground(cont.getResources().getDrawable(R.drawable.category_playerinfo_selected));
+				ranking.setTypeface(null,Typeface.NORMAL);
+				info.setTypeface(null, Typeface.NORMAL);
+				team.setTypeface(null, Typeface.NORMAL);
+				other.setTypeface(null, Typeface.BOLD);
+				ranking.setTextSize(13);
+				info.setTextSize(13);
+				team.setTextSize(13);
+				other.setTextSize(14);
 			}
 	   	});
 	   	contentRankings();
