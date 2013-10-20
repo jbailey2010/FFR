@@ -152,6 +152,17 @@ public class Home extends Activity{
         {
         	helpPopUp();
         	WriteToFile.writeFirstOpen(cont);
+			if(ManageInput.confirmInternet(cont))
+			{
+				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+				final ParsingAsyncTask stupid = new ParsingAsyncTask();
+				ParseNames task = stupid.new ParseNames((Activity)cont, true);
+			    task.execute(cont);
+			}
+			else
+			{
+				Toast.makeText(cont, "No Internet Connection Available. The Names List Must Be Fetched, So Please Connect and Refresh it Manually to Avoid Problems With The Rankings", Toast.LENGTH_LONG).show();
+			}
         }
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
@@ -286,24 +297,6 @@ public class Home extends Activity{
 			ReadFromFile.fetchPlayers(checkExists, holder,cont, 1);
 			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 			editor.putBoolean("Rankings Update Home", false).commit();
-		}
-		if(holder.playerNames == null || holder.playerNames.size() < 10)
-		{
-			String checkExists2 = prefs.getString("Player Names", "Not Set");
-			if(checkExists2.equals("Not Set"))
-			{
-				if(ManageInput.confirmInternet(cont))
-				{
-					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-					final ParsingAsyncTask stupid = new ParsingAsyncTask();
-					ParseNames task = stupid.new ParseNames((Activity)cont, true);
-				    task.execute(cont);
-				}
-				else
-				{
-					Toast.makeText(cont, "No Internet Connection Available. The Names List Must Be Fetched, So Please Connect and Refresh it Manually to Avoid Problems With The Rankings", Toast.LENGTH_LONG).show();
-				}
-			}
 		}
 	}
 	
