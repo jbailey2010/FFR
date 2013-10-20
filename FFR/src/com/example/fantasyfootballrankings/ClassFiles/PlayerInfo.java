@@ -810,7 +810,7 @@ public class PlayerInfo
 				String oLineAdv = holder.oLineAdv.get(searchedPlayer.info.team);
 				String oLinePrimary = oLineAdv.split("~~~~")[0];
 				String oLineRanks = oLineAdv.split("~~~~")[1];
-				datum.put("main", oLinePrimary);
+				datum.put("main", "Offensive Line Data:\n\n" + oLinePrimary);
 				datum.put("sub", oLineRanks);
 				data.add(datum);
 			}
@@ -822,7 +822,7 @@ public class PlayerInfo
 			Map<String, String> datum = new HashMap<String, String>(2);
 			String draft = holder.draftClasses.get(searchedPlayer.info.team).substring(holder.draftClasses.get(searchedPlayer.info.team).indexOf('\n'), holder.draftClasses.get(searchedPlayer.info.team).length());
 			String gpa = holder.draftClasses.get(searchedPlayer.info.team).split("\n")[0];
-			datum.put("main", draft);
+			datum.put("main", "Draft Recap:\n" + draft);
 			datum.put("sub", gpa);
 			data.add(datum);
 		}
@@ -835,14 +835,14 @@ public class PlayerInfo
 		    	if(fa.get(0).contains("\n"))
 		    	{
 	                Map<String, String> datum = new HashMap<String, String>(2);
-	                datum.put("main", fa.get(0));
+	                datum.put("main", "Signed Free Agents:\n\n" + fa.get(0).split(": ")[1]);
 		    		datum.put("sub", "");
 		    		data.add(datum);
 		    	}
 		    	if(fa.get(1).contains("\n"))
 		    	{
 	                Map<String, String> datum = new HashMap<String, String>(2);
-	                datum.put("main",  fa.get(1));
+	                datum.put("main",  "Departing Free Agents:\n\n" + fa.get(1).split(": ")[1]);
 		    		datum.put("sub", "");
 		    		data.add(datum);
 		    	}
