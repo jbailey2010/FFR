@@ -38,6 +38,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -75,8 +76,9 @@ public class ImportLeague extends Activity {
 	public static LinearLayout ll;
 	public Menu menuObj;
 	public MenuItem compare;
+	public MenuItem refresh;
 	public ImportedTeam newImport;
-	
+	public TextView v;
 	/**
 	 * Sets up the layout of the activity
 	 */
@@ -175,6 +177,9 @@ public class ImportLeague extends Activity {
 				return true;
 			case R.id.compare_team:
 				compareTeamInit();
+				return true;
+			case R.id.refresh_league:
+				handleLongClick();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -313,6 +318,9 @@ public class ImportLeague extends Activity {
 			compare = (MenuItem)menuObj.findItem(R.id.compare_team);
 			compare.setVisible(false);
 			compare.setEnabled(false);
+			refresh = (MenuItem)menuObj.findItem(R.id.refresh_league);
+			refresh.setVisible(false);
+			refresh.setEnabled(false);
 		}
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		ll.removeAllViews();
@@ -353,6 +361,9 @@ public class ImportLeague extends Activity {
 			compare = (MenuItem)menuObj.findItem(R.id.compare_team);
 			compare.setVisible(false);
 			compare.setEnabled(false);
+			refresh = (MenuItem)menuObj.findItem(R.id.refresh_league);
+			refresh.setVisible(false);
+			refresh.setEnabled(false);
 		}
 	    list.setAdapter(adapter);
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
@@ -392,6 +403,9 @@ public class ImportLeague extends Activity {
 		compare = (MenuItem)menuObj.findItem(R.id.compare_team);
 		compare.setVisible(true);
 		compare.setEnabled(true);
+		refresh = (MenuItem)menuObj.findItem(R.id.refresh_league);
+		refresh.setVisible(true);
+		refresh.setEnabled(true);
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		String leagueDataWhole = prefs.getString(key, "SHIT").split("LEAGUEURLSPLIT")[1];
 		String[] perTeam = ManageInput.tokenize(leagueDataWhole, '@', 3);
@@ -405,6 +419,57 @@ public class ImportLeague extends Activity {
 		String[] keySet = key.split("@@@");
 		newImport = new ImportedTeam(teamList, keySet[1], keySet[0]);
 		View res = ((Activity)cont).getLayoutInflater().inflate(R.layout.league_stats_output, ll, false);
+		final RelativeLayout league = (RelativeLayout)res.findViewById(R.id.category_league_base);
+		final RelativeLayout teams  = (RelativeLayout)res.findViewById(R.id.category_team_base);
+		final RelativeLayout players= (RelativeLayout)res.findViewById(R.id.category_player_base);
+		league.setVisibility(View.VISIBLE);
+		teams.setVisibility(View.GONE);
+		players.setVisibility(View.GONE);
+		final Button leagueButton = (Button)res.findViewById(R.id.category_league_stats);
+		final Button teamsButton  = (Button)res.findViewById(R.id.category_team_stats);
+		final Button playersButton= (Button)res.findViewById(R.id.category_player_list);
+		leagueButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				league.setVisibility(View.VISIBLE);
+				teams.setVisibility(View.GONE);
+				players.setVisibility(View.GONE);
+				leagueButton.setTextSize(14);
+				teamsButton.setTextSize(13);
+				playersButton.setTextSize(13);
+				leagueButton.setTypeface(null,Typeface.BOLD);
+				teamsButton.setTypeface(null, Typeface.NORMAL);
+				playersButton.setTypeface(null, Typeface.NORMAL);
+			}
+		});
+		teamsButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				teams.setVisibility(View.VISIBLE);
+				league.setVisibility(View.GONE);
+				players.setVisibility(View.GONE);
+				teamsButton.setTextSize(14);
+				leagueButton.setTextSize(13);
+				playersButton.setTextSize(13);
+				teamsButton.setTypeface(null,Typeface.BOLD);
+				leagueButton.setTypeface(null, Typeface.NORMAL);
+				playersButton.setTypeface(null, Typeface.NORMAL);
+			}
+		});
+		playersButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				league.setVisibility(View.GONE);
+				teams.setVisibility(View.GONE);
+				players.setVisibility(View.VISIBLE);
+				leagueButton.setTextSize(13);
+				teamsButton.setTextSize(13);
+				playersButton.setTextSize(14);
+				leagueButton.setTypeface(null,Typeface.NORMAL);
+				teamsButton.setTypeface(null, Typeface.NORMAL);
+				playersButton.setTypeface(null, Typeface.BOLD);
+			}
+		});
 	    //Handles the back button
 	    ImageView back = (ImageView)res.findViewById(R.id.back_button_league_stats);
 	    back.setOnClickListener(new OnClickListener(){
@@ -420,7 +485,7 @@ public class ImportLeague extends Activity {
 	    //Handles the basic league information
 	    TextView name = (TextView)res.findViewById(R.id.league_name);
 	    name.setText(newImport.leagueName);
-	    handleLongClick(name, newImport, cont);
+	    v = name;
 	    TextView host = (TextView)res.findViewById(R.id.hostName);
 	    host.setText("Hosted on " + newImport.leagueHost);
 	    //Help work
@@ -431,7 +496,7 @@ public class ImportLeague extends Activity {
 	    help.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
-				if(!helpTeams.isShown())
+				if(!helpTeams.isShown() && !helpPlayers.isShown() && !helpRanks.isShown())
 				{ 
 					helpPlayers.setVisibility(View.VISIBLE);
 					helpTeams.setVisibility(View.VISIBLE);
@@ -1216,27 +1281,19 @@ public class ImportLeague extends Activity {
 	/**
 	 * Handles the logic of deciding what to do when the name has been clicked
 	 */
-	public void handleLongClick(TextView name, final ImportedTeam newImport, final Context cont)
+	public void handleLongClick()
 	{
-		name.setOnLongClickListener(new OnLongClickListener(){
-
-			@Override
-			public boolean onLongClick(View v) {
-				if(ManageInput.confirmInternet(cont))
-				{
-					if(((TextView)((Activity)cont).findViewById(R.id.hostName)).getText().toString().contains("ESPN"))
-					{
-						clearDataESPNInit((TextView)v, newImport, cont);
-					}
-				}
-				else
-				{
-					Toast.makeText(cont, "No internet connection available, can't refresh the league", Toast.LENGTH_SHORT).show();
-				}
-				return true;
+		if(ManageInput.confirmInternet(cont))
+		{
+			if(((TextView)((Activity)cont).findViewById(R.id.hostName)).getText().toString().contains("ESPN"))
+			{
+				clearDataESPNInit((TextView)v, newImport, cont);
 			}
-			
-		});		
+		}
+		else
+		{
+			Toast.makeText(cont, "No internet connection available, can't refresh the league", Toast.LENGTH_SHORT).show();
+		}	
 	}
 	
 	/**

@@ -1,9 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/refresh_league"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom|withText"
+        android:title="Refresh"
+        android:visible="false"
+        android:enabled="false"/>
     <item 
         android:id="@+id/compare_team"
         android:orderInCategory="100"
         android:showAsAction="ifRoom|withText"
-        android:title="Matchup Teams"
+        android:title="Matchup"
         android:visible="false"
         android:enabled="false"/>"
     <item
