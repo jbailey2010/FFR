@@ -12,8 +12,8 @@ public class ActivitySwipeDetector implements View.OnTouchListener {
 
  private Activity activity;
  public String origin;
- static final int MIN_DISTANCE = 100;
- private float downX, downY, upX, upY;
+ static final int MIN_DISTANCE = 300;
+ private float downX, upX;
  public PlayerInfo hold;
 
  public ActivitySwipeDetector(final Activity activity, PlayerInfo playerInfo) { 
