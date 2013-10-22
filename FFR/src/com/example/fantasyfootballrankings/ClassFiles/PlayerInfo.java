@@ -45,6 +45,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.ActivitySwipeDetector;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener.OnDismissCallback;
@@ -66,6 +67,10 @@ public class PlayerInfo
 	Storage holder;
 	Dialog dialog;
 	SimpleAdapter adapter;
+	public static Button ranking;
+	public static Button info;
+	public static Button team;
+	public static Button other;
 	/**
 	 * Abstracted out of the menu handler as this could get ugly
 	 * once the stuff is added to the dropdown
@@ -461,8 +466,10 @@ public class PlayerInfo
 			}
 		});
 		//ManageInput.handleArray(output, results, act);
-
 	    results.setAdapter(adapter);
+	    ActivitySwipeDetector asd = new ActivitySwipeDetector(act, this);
+	    asd.origin = "Popup";
+	    results.setOnTouchListener(asd);
 		Button back = (Button)dialog.findViewById(R.id.search_back);
 		//If it isn't gone, set that it goes back
 		back.setOnClickListener(new OnClickListener()
@@ -506,10 +513,10 @@ public class PlayerInfo
 	 */
 	public void setSearchContent(PlayerObject searchedPlayer, List<Map<String, String>> data, Storage holder, Dialog dialog, SimpleAdapter adapter, final Context cont)
 	{
-	   	final Button ranking = (Button)dialog.findViewById(R.id.category_ranking);
-	   	final Button info = (Button)dialog.findViewById(R.id.category_info);
-	   	final Button team = (Button)dialog.findViewById(R.id.category_team);
-	   	final Button other = (Button)dialog.findViewById(R.id.category_other);
+	   	ranking = (Button)dialog.findViewById(R.id.category_ranking);
+	   	info = (Button)dialog.findViewById(R.id.category_info);
+	   	team = (Button)dialog.findViewById(R.id.category_team);
+	   	other = (Button)dialog.findViewById(R.id.category_other);
 	   	ranking.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -567,6 +574,127 @@ public class PlayerInfo
 			}
 	   	});
 	   	contentRankings();
+	}
+	
+	public void swipeLeftToRight()
+	{
+		if(isMax(ranking))
+		{
+			contentOther();
+			ranking.setTypeface(null,Typeface.NORMAL);
+			info.setTypeface(null, Typeface.NORMAL);
+			team.setTypeface(null, Typeface.NORMAL);
+			other.setTypeface(null, Typeface.BOLD);
+			ranking.setTextSize(13);
+			info.setTextSize(13);
+			team.setTextSize(13);
+			other.setTextSize(14);
+		}
+		else if(isMax(info))
+		{
+			contentRankings();
+			ranking.setTypeface(null,Typeface.BOLD);
+			info.setTypeface(null, Typeface.NORMAL);
+			team.setTypeface(null, Typeface.NORMAL);
+			other.setTypeface(null, Typeface.NORMAL);
+			ranking.setTextSize(14);
+			info.setTextSize(13);
+			team.setTextSize(13);
+			other.setTextSize(13);
+		}
+		else if(isMax(team))
+		{
+			contentInfo();
+			ranking.setTypeface(null,Typeface.NORMAL);
+			info.setTypeface(null, Typeface.BOLD);
+			team.setTypeface(null, Typeface.NORMAL);
+			other.setTypeface(null, Typeface.NORMAL);
+			ranking.setTextSize(13);
+			info.setTextSize(14);
+			team.setTextSize(13);
+			other.setTextSize(13);
+		}
+		else if(isMax(other))
+		{
+			contentTeam(); 
+			ranking.setTypeface(null,Typeface.NORMAL);
+			info.setTypeface(null, Typeface.NORMAL);
+			team.setTypeface(null, Typeface.BOLD);
+			other.setTypeface(null, Typeface.NORMAL);
+			ranking.setTextSize(13);
+			info.setTextSize(13);
+			team.setTextSize(14);
+			other.setTextSize(13);
+		}
+	}
+	
+	/**
+	 * Determines if a button passed in is currently selected
+	 * @param b
+	 * @return
+	 */
+	public boolean isMax(Button b)
+	{
+		if(b.getTextSize() >= ranking.getTextSize() &&
+				b.getTextSize() >= info.getTextSize() &&
+				b.getTextSize() >= team.getTextSize() &&
+				b.getTextSize() >= other.getTextSize())
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public void swipeRightToLeft()
+	{
+		if(isMax(ranking))
+		{
+			contentInfo();
+			ranking.setTypeface(null,Typeface.NORMAL);
+			info.setTypeface(null, Typeface.BOLD);
+			team.setTypeface(null, Typeface.NORMAL);
+			other.setTypeface(null, Typeface.NORMAL);
+			ranking.setTextSize(13);
+			info.setTextSize(14);
+			team.setTextSize(13);
+			other.setTextSize(13);
+		}
+		else if(isMax(info))
+		{
+			contentTeam();
+			ranking.setTypeface(null,Typeface.NORMAL);
+			info.setTypeface(null, Typeface.NORMAL);
+			team.setTypeface(null, Typeface.BOLD);
+			other.setTypeface(null, Typeface.NORMAL);
+			ranking.setTextSize(13);
+			info.setTextSize(13);
+			team.setTextSize(14);
+			other.setTextSize(13);
+		}
+		else if(isMax(team))
+		{
+			contentOther(); 
+			ranking.setTypeface(null,Typeface.NORMAL);
+			info.setTypeface(null, Typeface.NORMAL);
+			team.setTypeface(null, Typeface.NORMAL);
+			other.setTypeface(null, Typeface.BOLD);
+			ranking.setTextSize(13);
+			info.setTextSize(13);
+			team.setTextSize(13);
+			other.setTextSize(14);
+		}
+		else if(isMax(other))
+		{
+			contentRankings();
+			ranking.setTypeface(null,Typeface.BOLD);
+			info.setTypeface(null, Typeface.NORMAL);
+			team.setTypeface(null, Typeface.NORMAL);
+			other.setTypeface(null, Typeface.NORMAL);
+			ranking.setTextSize(14);
+			info.setTextSize(13);
+			team.setTextSize(13);
+			other.setTextSize(13);
+		}
 	}
 	
 	/**
