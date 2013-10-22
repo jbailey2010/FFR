@@ -491,7 +491,7 @@ public class ParseRankings
 	public static String fixTeams(String team)
 	{
 		String low = team.toLowerCase().replaceAll("[^\\x20-\\x7e]","");
-		if(low.split(" ").length > 1 && low.split(" ")[1].equals("p"))
+		if(low.split(" ").length > 1 && (low.split(" ")[1].equals("p") || low.split(" ")[1].equals("q")))
 		{
 			low = low.split(" ")[0];
 		}
