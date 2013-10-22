@@ -169,6 +169,15 @@ public class Rankings extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.rankings, menu);
+		if(menu != null && holder.isRegularSeason)
+		{
+			MenuItem a = (MenuItem)menu.findItem(R.id.save_draft);
+			MenuItem b = (MenuItem)menu.findItem(R.id.hide_widget);
+			a.setVisible(false);
+			a.setEnabled(false);
+			b.setVisible(false);
+			b.setEnabled(false);
+		}
 		return true;
 	}
 	
@@ -233,33 +242,19 @@ public class Rankings extends Activity {
 		        cont.startActivity(team_intent);		
 				return true;
 			case R.id.hide_widget:
-				if(!holder.isRegularSeason)
+				hideWidget = !hideWidget;
+				WriteToFile.writeHideWidget(hideWidget, cont);
+				if(hideWidget)
 				{
-					hideWidget = !hideWidget;
-					WriteToFile.writeHideWidget(hideWidget, cont);
-					if(hideWidget)
-					{
-						widgetBase.setVisibility(View.GONE);
-					}
-					else
-					{
-						widgetBase.setVisibility(View.VISIBLE);
-					}
+					widgetBase.setVisibility(View.GONE);
 				}
 				else
 				{
-					Toast.makeText(cont, "The widget is a drafting tool, and will be hidden until next preseason", Toast.LENGTH_SHORT).show();
+					widgetBase.setVisibility(View.VISIBLE);
 				}
 				return true;
 			case R.id.save_draft:
-				if(!holder.isRegularSeason)
-				{
-					saveDraft();
-				}
-				else
-				{
-					Toast.makeText(cont, "Drafting is not available now that the regular season has started, so you cannot save a draft", Toast.LENGTH_SHORT).show();
-				}
+				saveDraft();
 				return true;
 			case R.id.draft_history:
 				Intent draft_intent = new Intent(cont, DraftHistory.class);
