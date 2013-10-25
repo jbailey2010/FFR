@@ -238,17 +238,18 @@
 
            <Spinner
                android:id="@+id/player_status_spinner"
-               android:layout_width="125dp"
-               android:layout_height="40dp"
-               android:layout_alignLeft="@+id/imported_teams_players"
+               android:layout_width="130dp"
+               android:layout_height="30dp"
+               android:layout_alignParentLeft="true"
+               android:layout_marginLeft="5dp"
                android:layout_below="@+id/player_list_help" 
                android:focusable="false"
                android:background="@drawable/spinner_well_grey"/>
 
            <com.example.fantasyfootballrankings.InterfaceAugmentations.NDSpinner
                android:id="@+id/player_sort_spinner"
-               android:layout_width="125dp"
-               android:layout_height="40dp"
+               android:layout_width="175dp"
+               android:layout_height="30dp"
                android:layout_below="@+id/player_status_spinner"
                android:layout_marginTop="5dp"
                android:layout_centerHorizontal="true"
@@ -258,9 +259,10 @@
            <Spinner
                android:id="@+id/player_pos_spinner"
                android:layout_width="125dp"
-               android:layout_height="40dp"
-               android:layout_above="@+id/player_sort_spinner"
-               android:layout_alignRight="@+id/imported_teams_players"
+               android:layout_height="30dp"
+               android:layout_below="@+id/player_list_help"
+               android:layout_marginRight="5dp"
+               android:layout_alignParentRight="true"
                android:background="@drawable/spinner_well_grey"
                android:focusable="false" />
 
