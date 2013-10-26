@@ -871,7 +871,10 @@ public class ImportLeague extends Activity {
 		 positions.add("QB");
 		 positions.add("RB");
 		 positions.add("WR");
+		 positions.add("RB/WR");
 		 positions.add("TE");
+		 positions.add("RB/WR/TE");
+		 positions.add("QB/RB/WR/TE");
 		 positions.add("D/ST");
 		 positions.add("K");
 		 List<String> playerStatus = new ArrayList<String>();
@@ -984,6 +987,38 @@ public class ImportLeague extends Activity {
 		DecimalFormat df = new DecimalFormat("#.##");
 		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		PriorityQueue<PlayerObject> players = null;
+		List<String> posList = new ArrayList<String>();
+		if(pos.equals("All Positions"))
+		{
+			posList.add("QB");
+			posList.add("RB");
+			posList.add("WR");
+			posList.add("TE");
+			posList.add("D/ST");
+			posList.add("K");
+		}
+		else if(pos.equals("RB/WR"))
+		{
+			posList.add("RB");
+			posList.add("WR");
+		}
+		else if(pos.equals("RB/WR/TE"))
+		{
+			posList.add("RB");
+			posList.add("WR");
+			posList.add("TE");
+		}
+		else if(pos.equals("QB/RB/WR/TE"))
+		{
+			posList.add("RB");
+			posList.add("WR");
+			posList.add("TE");
+			posList.add("QB");
+		}
+		else
+		{
+			posList.add(pos);
+		}
 		if(sortFactor.equals("Custom"))
 		{
 			int flag = 1;
@@ -1129,7 +1164,7 @@ public class ImportLeague extends Activity {
 			}
 			 for(PlayerObject player : holder.players)
 			 {
-				 if(player.values.ecr > 0 && (pos.equals("All Positions") || player.info.position.equals(pos)) && 
+				 if(player.values.ecr > 0 && posList.contains(player.info.position) && 
 						 !(player.info.team.length() == 0 || player.info.team.length() == 1 || player.info.position.length() == 0) )
 				 {
 					 players.add(player);
