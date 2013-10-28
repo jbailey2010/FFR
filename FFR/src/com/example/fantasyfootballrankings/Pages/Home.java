@@ -81,7 +81,7 @@ public class Home extends Activity{
 	Button drafts;
 	Button importLeague;
 	long start; 
-	
+	Menu m;
 	  
 	/**  
 	 * Makes the buttons and sets the listeners for them
@@ -164,6 +164,7 @@ public class Home extends Activity{
 				Toast.makeText(cont, "No Internet Connection Available. The Names List Must Be Fetched, So Please Connect and Refresh it Manually to Avoid Problems With The Rankings", Toast.LENGTH_LONG).show();
 			}
         }
+        
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
         try { 
@@ -180,6 +181,8 @@ public class Home extends Activity{
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.home, menu);
+		System.out.println("Inflating");
+		m = menu;
 		return true;
 	}
 	
@@ -292,11 +295,24 @@ public class Home extends Activity{
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		Set<String> checkExists = prefs.getStringSet("Player Values", null);
-		if(checkExists != null || prefs.getBoolean("Rankings Update Home", false))
+		if(checkExists != null &&( prefs.getBoolean("Rankings Update Home", false) || holder.players.size() < 5))
 		{
 			ReadFromFile.fetchPlayers(checkExists, holder,cont, 1);
 			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 			editor.putBoolean("Rankings Update Home", false).commit();
+		}
+	}
+	
+	/**
+	 * Comes back here after re-loading the data to see if the menu needs altering
+	 */
+	public void seeIfInvalid()
+	{
+		if(m != null && holder.isRegularSeason)
+		{
+			MenuItem a = (MenuItem)m.findItem(R.id.auction_or_snake);
+			a.setVisible(false);
+			a.setEnabled(false);
 		}
 	}
 	

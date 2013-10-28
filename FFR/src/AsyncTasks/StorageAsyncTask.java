@@ -26,6 +26,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFreeAgents;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.example.fantasyfootballrankings.Pages.Trending;
@@ -306,6 +307,10 @@ public class StorageAsyncTask
 			if(flag == 0)
 			{
 				((Rankings)act).intermediateHandleRankings(act);
+			}
+			else if(flag == 1)
+			{
+				((Home)act).seeIfInvalid();
 			}
 			else if(flag == 2)
 			{
