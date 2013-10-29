@@ -255,7 +255,7 @@ public class Rankings extends Activity {
 				}
 				return true;
 			case R.id.save_draft:
-				saveDraft();
+				holder.draft.saveDraft(holder, cont);
 				return true;
 			case R.id.draft_history:
 				Intent draft_intent = new Intent(cont, DraftHistory.class);
@@ -270,78 +270,6 @@ public class Rankings extends Activity {
 		}
 	}
 	
-	/**
-	 * Starts the draft saving process
-	 */
-	public void saveDraft() 
-	{
-		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(R.layout.save_draft_confirm);
-		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-	    dialog.getWindow().setAttributes(lp);
-	    dialog.show();
-	    Button close = (Button)dialog.findViewById(R.id.draft_save_close);
-	    close.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
-			}
-	    });
-	    Button submit = (Button)dialog.findViewById(R.id.draft_save_confirm);
-	    submit.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				saveDraftConfirmed();
-				dialog.dismiss();
-			}
-	    });
-	}
-	
-	/**
-	 * Once it's confirmed, more on
-	 */
-	public void saveDraftConfirmed() 
-	{
-		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(R.layout.team_name_input);
-		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-	    dialog.getWindow().setAttributes(lp);
-	    dialog.show();
-	    Button close = (Button)dialog.findViewById(R.id.draft_save_confirmed_close);
-	    close.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
-			}
-	    });
-	    final EditText teamName = (EditText)dialog.findViewById(R.id.team_name_input);
-	    final EditText teamNote = (EditText)dialog.findViewById(R.id.draft_save_confirmed_note);
-	    Button submit = (Button)dialog.findViewById(R.id.draft_save_confirmed_submit);
-	    submit.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				if(teamName.getText().toString().length() > 0)
-				{
-					Roster r = ReadFromFile.readRoster(cont);
-					String teamNameStr = teamName.getText().toString();
-					String noteStr = teamNote.getText().toString();
-					WriteToFile.writeDraftData(holder, cont, teamNameStr, r.teams, noteStr);
-					Draft.resetDraft(holder.draft, holder, cont);
-					dialog.dismiss();
-				}
-				else
-				{
-					Toast.makeText(context, "Please enter a team name", Toast.LENGTH_SHORT).show();
-				}
-			}
-	    });
-	}
 
 	/**
 	 * Handles the help dialog

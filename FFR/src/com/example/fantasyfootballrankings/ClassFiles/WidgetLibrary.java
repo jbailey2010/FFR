@@ -19,6 +19,7 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
  */
 public class WidgetLibrary 
 {
+	
 	/**
 	 * Does something of a suggested picks system
 	 * @param widgOutput
