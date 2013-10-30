@@ -1,24 +1,17 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.text.DecimalFormat;
+
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
 import java.util.Set;
 
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
-import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.ffr.fantasyfootballrankings.R;
-import com.ffr.fantasyfootballrankings.R.layout;
-import com.ffr.fantasyfootballrankings.R.menu;
-
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.os.Bundle;
@@ -40,8 +33,6 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.TwoLineListItem;
 /**
  * Handles the draft history data
  * @author Jeff

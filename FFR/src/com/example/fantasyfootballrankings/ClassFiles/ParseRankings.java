@@ -6,34 +6,19 @@ import java.io.IOException;
 
 
 
-import java.net.MalformedURLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
 
+import java.util.HashMap;
 import org.htmlcleaner.XPatherException;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPN;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseRanks;
-import FileIO.ReadFromFile;
-import android.R.integer;
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
-import android.os.StrictMode;
 
 /**
  * This is actually where the rankings are parsed

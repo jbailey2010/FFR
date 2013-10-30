@@ -1,11 +1,6 @@
 package com.example.fantasyfootballrankings.InterfaceAugmentations;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.widget.AdapterView;
 import android.widget.Spinner;
 
 

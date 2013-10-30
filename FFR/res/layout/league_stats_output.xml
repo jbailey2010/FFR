@@ -87,7 +87,7 @@
         android:layout_width="fill_parent"
         android:layout_height="40dp" 
         android:background="#282828"
-        android:weightSum="75"> 
+        android:weightSum="100"> 
 
         <Button
             android:id="@+id/category_league_stats"
@@ -132,6 +132,23 @@
             android:layout_weight="25"
             android:background="#282828"
             android:text="Players List"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
+        
+        <View android:layout_height="fill_parent"
+		    android:layout_width="2dp"
+		    android:background="#FF0000"
+		    android:layout_marginTop="5dp"
+		    android:layout_marginBottom="5dp"/>
+
+        <Button
+            android:id="@+id/imported_league_search"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="25"
+            android:background="#282828"
+            android:text="Search"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
     </LinearLayout>

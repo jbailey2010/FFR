@@ -1,7 +1,5 @@
 package com.example.fantasyfootballrankings.ClassFiles.LittleStorage;
 
-import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
-
 /**
  * Just stores some basic information on the values of a player
  * and a mini library that handles basic operations on the values

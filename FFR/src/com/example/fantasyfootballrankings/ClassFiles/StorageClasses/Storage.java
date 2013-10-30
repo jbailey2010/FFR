@@ -2,43 +2,17 @@ package com.example.fantasyfootballrankings.ClassFiles.StorageClasses;
 
 
 
-import java.io.Serializable;
-
-
-import java.lang.reflect.Array;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Comparator;
 
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
-import com.example.fantasyfootballrankings.Pages.Home;
-
-
-
-
-
-
-
-import android.R.integer;
-import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.StrictMode;
-import android.widget.CheckBox;
-import android.widget.EditText;
 
 /**
  * Handles the storage of players and player names.

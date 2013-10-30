@@ -1,8 +1,5 @@
 package com.example.fantasyfootballrankings.ClassFiles.StorageClasses;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 

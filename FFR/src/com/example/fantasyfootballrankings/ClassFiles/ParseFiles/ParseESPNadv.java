@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.htmlcleaner.XPatherException;
 

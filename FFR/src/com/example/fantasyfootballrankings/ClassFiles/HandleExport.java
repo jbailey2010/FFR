@@ -2,37 +2,20 @@ package com.example.fantasyfootballrankings.ClassFiles;
 
 
 import java.io.File;
-import java.io.FileInputStream;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.PriorityQueue;
-import java.util.concurrent.ExecutionException;
-
-import org.htmlcleaner.XPatherException;
-
-import com.dropbox.client2.DropboxAPI;
-import com.dropbox.client2.android.AndroidAuthSession;
-import com.dropbox.client2.session.AccessTokenPair;
-import com.dropbox.client2.session.AppKeyPair;
-import com.dropbox.client2.session.Session.AccessType;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 
-import com.ffr.fantasyfootballrankings.R;
 import FileIO.ReadFromFile;
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.DropBoxManager.Entry;
 import android.os.Environment;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.Toast;
 
 /**
  * Handles the .csv exporting to file

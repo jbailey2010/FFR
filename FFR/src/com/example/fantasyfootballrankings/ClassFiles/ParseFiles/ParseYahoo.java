@@ -2,7 +2,6 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
 
-import android.content.Context;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;

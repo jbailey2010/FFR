@@ -1,29 +1,16 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
+
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.htmlcleaner.XPatherException;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraft;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFreeAgents;
@@ -33,11 +20,7 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObjec
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 
 import FileIO.ReadFromFile;
-import FileIO.WriteToFile;
 import android.content.Context;
-import android.os.StrictMode;
-import android.provider.ContactsContract.Data;
-import android.widget.Toast;
 
 /**
  * Handles operations done on all of the players
@@ -1026,7 +1009,7 @@ public class HighLevel
 		}
 		for(PlayerObject player : holder.players)
 		{
-			if(ecr.containsKey(player.info.name) && !(player.info.name.equals("Alex Smith") && player.info.team.equals("Cincinnati Bengals")))
+			if(ecr.containsKey(player.info.name))
 			{
 				player.values.ecr = ecr.get(player.info.name);
 				player.risk = risk.get(player.info.name);
@@ -1044,6 +1027,11 @@ public class HighLevel
 						player.info.adp = (adp.get(player.info.name));
 					}
 				}
+			}
+			else if(holder.isRegularSeason && player.values.points == 0)
+			{
+				player.info.adp = "Bye Week";
+				player.values.ecr = -1.0;
 			}
 		} 
 	}
@@ -1099,7 +1087,7 @@ public class HighLevel
 			if(!adp.containsKey(team) && !team.contains("FA") && !team.contains(" vs. ") && !team.contains(" at ") && !ManageInput.isInteger(team))
 			{
 				String wholeSet = td[i+1];
-				String opp = "";
+				String opp = "Bye Week";
 				if(wholeSet.contains("vs"))
 				{
 					opp = ParseRankings.fixTeams(wholeSet.split("vs. ")[1]);

@@ -1,10 +1,7 @@
 package com.example.fantasyfootballrankings.InterfaceAugmentations;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
-import com.example.fantasyfootballrankings.Pages.ImportLeague;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 

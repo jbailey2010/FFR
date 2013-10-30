@@ -3,23 +3,11 @@ package com.example.fantasyfootballrankings.ClassFiles;
 import java.io.IOException;
 
 
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
 
-import org.htmlcleaner.CleanerProperties;
-import org.htmlcleaner.HtmlCleaner;
-import org.htmlcleaner.TagNode;
-import org.htmlcleaner.XPatherException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import android.R.string;
-import android.util.Log;
 
 /**
  * This class handles basic queries, returning basic info to be handled

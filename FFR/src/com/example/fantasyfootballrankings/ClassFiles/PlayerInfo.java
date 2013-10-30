@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,20 +16,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.WindowManager.LayoutParams;
-import android.webkit.URLUtil;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -42,13 +36,13 @@ import com.ffr.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.ActivitySwipeDetector;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
-import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener.OnDismissCallback;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.socialize.ActionBarUtils;
 import com.socialize.entity.Entity;
@@ -64,24 +58,29 @@ public class PlayerInfo
 	double aucFactor;
 	PlayerObject searchedPlayer;
 	List<Map<String, String>> data;
-	Storage holder;
+	public Storage holder;
 	Dialog dialog;
 	SimpleAdapter adapter;
 	public static Button ranking;
 	public static Button info;
 	public static Button team;
 	public static Button other;
+	public boolean isImport = false;
+	public Context cont;
+	public ImportedTeam newImport;
 	/**
 	 * Abstracted out of the menu handler as this could get ugly
 	 * once the stuff is added to the dropdown
 	 * @throws IOException
 	 */ 
-	public void searchCalled(final Context oCont) throws IOException
+	public void searchCalled(final Context oCont, final boolean isMyLeague, ImportedTeam it) throws IOException
 	{
+		newImport = it;
+		cont = oCont;
+		isImport = isMyLeague;
 		Rankings.matchedPlayers = new ArrayList<String>(15);
-		Rankings.newCont = oCont;
-		ReadFromFile.fetchNames(obj.holder, Rankings.newCont);
-		final Dialog dialog = new Dialog(Rankings.newCont, R.style.RoundCornersFull);
+		ReadFromFile.fetchNames(holder, oCont);
+		final Dialog dialog = new Dialog(oCont, R.style.RoundCornersFull);
 	    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 	
 		dialog.setContentView(R.layout.search_players);
@@ -93,17 +92,24 @@ public class PlayerInfo
 	    
 		Rankings.voice = (Button) dialog.findViewById(R.id.speakButton);
 	    Rankings.textView = (AutoCompleteTextView)(dialog).findViewById(R.id.player_input);
-	    Rankings.voice.setOnClickListener(new OnClickListener() {
-	
-		    @Override
-		    public void onClick(final View v) {
-		            ((Rankings)Rankings.newCont).speakButtonClicked(v);
-		            
-		    }
-		});
+	    if(!isImport)
+	    {
+		    Rankings.voice.setOnClickListener(new OnClickListener() {
+		
+			    @Override
+			    public void onClick(final View v) {
+			            ((Rankings) oCont).speakButtonClicked(v);
+			            
+			    }
+			});
+	    }
+	    else
+	    {
+	    	Rankings.voice.setVisibility(View.GONE);
+	    }
 	    if(Rankings.matchedPlayers.size() == 0)
 	    {
-	    	ManageInput.setupAutoCompleteSearch(obj.holder, obj.holder.players, Rankings.textView, Rankings.newCont);
+	    	ManageInput.setupAutoCompleteSearch(holder, holder.players, Rankings.textView, oCont);
 	    }
 	    Button searchDismiss = (Button)dialog.findViewById(R.id.search_cancel);
 		searchDismiss.setOnClickListener(new OnClickListener()
@@ -127,10 +133,10 @@ public class PlayerInfo
 				/**
 				 * On item select, get the name
 				 */
-				if(obj.holder.parsedPlayers.contains(Rankings.textView.getText().toString()))
+				if(holder.parsedPlayers.contains(Rankings.textView.getText().toString()))
 				{
 					dialog.dismiss();
-					outputResults(Rankings.textView.getText().toString(), false, (Rankings)Rankings.newCont, obj.holder, false, true);
+					outputResults(Rankings.textView.getText().toString(), false, (Activity) oCont, holder, false, true);
 				}
 				else
 				{
@@ -171,7 +177,13 @@ public class PlayerInfo
 		}
 		Button addWatch = (Button)dialog.findViewById(R.id.add_watch);
 		//If the add to list boolean exists
-		if(!watchFlag)
+		if(isImport)
+		{
+			addWatch.setVisibility(View.GONE);
+			View av = (View)dialog.findViewById(R.id.add_view);
+			av.setVisibility(View.GONE);
+		}
+		else if(!watchFlag)
 		{
 	    	addWatch.setOnClickListener(new OnClickListener(){
 				@Override
@@ -216,7 +228,6 @@ public class PlayerInfo
 			});
 		}
 		//Create the output, make sure it's valid
-		List<String>output = new ArrayList<String>(12);
 		final TextView name = (TextView)dialog.findViewById(R.id.name);
 		if(namePlayer.equals(""))
 		{
@@ -235,7 +246,7 @@ public class PlayerInfo
 		}
 		final PlayerObject copy = searchedPlayer;
 		final Roster r = ReadFromFile.readRoster(act);
-		if(draftable && !holder.isRegularSeason)
+		if(draftable && !holder.isRegularSeason && !isImport)
 		{
 			name.setOnLongClickListener(new OnLongClickListener(){
 				@Override
@@ -363,106 +374,7 @@ public class PlayerInfo
 					i.setData(Uri.parse(url));
 					act.startActivity(i);
 				}
-				else if(input.contains("Risk"))
-				{
-					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
-				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
-					popUp.setContentView(R.layout.tweet_popup);
-					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-				    lp.copyFrom(popUp.getWindow().getAttributes());
-				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-				    popUp.getWindow().setAttributes(lp);
-				    popUp.show();
-				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("The 'Risk' of a player is the relative variation in the total set of expert rankings. The logic is, the less established the value of the player is (a higher variance), the riskier he is.\n\n");
-				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
-				    close.setOnClickListener(new OnClickListener(){
-						@Override
-						public void onClick(View v) {
-							popUp.dismiss();
-						}
-				    });
-				}
-				else if(input.contains("Project"))
-				{
-					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
-				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
-					popUp.setContentView(R.layout.tweet_popup);
-					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-				    lp.copyFrom(popUp.getWindow().getAttributes());
-				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-				    popUp.getWindow().setAttributes(lp);
-				    popUp.show();
-				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("This projection is the weighted average of a series of experts.\n\n");
-				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
-				    close.setOnClickListener(new OnClickListener(){
-						@Override
-						public void onClick(View v) {
-							popUp.dismiss();
-						}
-				    });
-				}
-				else if(input.contains("PAA"))
-				{
-					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
-				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
-					popUp.setContentView(R.layout.tweet_popup);
-					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-				    lp.copyFrom(popUp.getWindow().getAttributes());
-				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-				    popUp.getWindow().setAttributes(lp);
-				    popUp.show();
-				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("PAA attempts to quantify the value has cross-positions. It means points above average. For example, tight ends are generally not highly valued. There are a few, though, that give such a large edge over the alternative that they should be valued highly. Their PAA is high.\n\n");
-				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
-				    close.setOnClickListener(new OnClickListener(){
-						@Override
-						public void onClick(View v) {
-							popUp.dismiss();
-						}
-				    });
-				}
-				else if(input.contains("Average Draft Position"))
-				{
-					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
-				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
-					popUp.setContentView(R.layout.tweet_popup);
-					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-				    lp.copyFrom(popUp.getWindow().getAttributes());
-				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-				    popUp.getWindow().setAttributes(lp);
-				    popUp.show();
-				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("This is the average draft position of a player over thousands and thousands of mock drafts.\n\n");
-				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
-				    close.setOnClickListener(new OnClickListener(){
-						@Override
-						public void onClick(View v) {
-							popUp.dismiss();
-						}
-				    });
-				}
-				else if(input.contains("Ranking"))
-				{
-					final Dialog popUp = new Dialog(act, R.style.RoundCornersFull);
-				    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
-					popUp.setContentView(R.layout.tweet_popup);
-					WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-				    lp.copyFrom(popUp.getWindow().getAttributes());
-				    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-				    popUp.getWindow().setAttributes(lp);
-				    popUp.show();
-				    TextView tv = (TextView)popUp.findViewById(R.id.tweet_field);
-				    tv.setText("This is the weighted average ranking (ECR) of many different experts, hosted on FantasyPros\n\n");
-				    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
-				    close.setOnClickListener(new OnClickListener(){
-						@Override
-						public void onClick(View v) {
-							popUp.dismiss();
-						}
-				    });
-				}
+				
 			}
 		});
 		//ManageInput.handleArray(output, results, act);
@@ -477,7 +389,7 @@ public class PlayerInfo
 			public void onClick(View v) {
 				try {
 					dialog.dismiss();
-					searchCalled(Rankings.newCont);
+					searchCalled(cont, isImport, newImport);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -781,14 +693,23 @@ public class PlayerInfo
 			}
 			else
 			{
-				datum.put("main", "Playing The " + searchedPlayer.info.adp);
-				datum.put("sub", "Positional SOS: " + holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position) + 
-							"\n1 is Easiest, 32 Hardest");
-				data.add(datum);
+				if(!searchedPlayer.info.adp.equals("Bye Week"))
+				{
+					datum.put("main", "Playing The " + searchedPlayer.info.adp);
+					datum.put("sub", "Positional SOS: " + holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position) + 
+								"\n1 is Easiest, 32 Hardest");
+					data.add(datum);
+				}
+				else
+				{
+					datum.put("main", searchedPlayer.info.adp);
+					datum.put("sub", "");
+					data.add(datum);
+				}
 			}
 		}
 		//Projections
-		if(searchedPlayer.values.points >= 0.0)
+		if(searchedPlayer.values.points >= 0.0 && !searchedPlayer.info.adp.equals("Bye Week"))
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			if(!holder.isRegularSeason)
@@ -826,7 +747,7 @@ public class PlayerInfo
 			data.add(datum);
 		} 
 		//Risk
-		if(searchedPlayer.risk > 0.0)
+		if(searchedPlayer.risk > 0.0 && !searchedPlayer.info.adp.equals("Bye Week"))
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			double riskVal = posRiskVal(searchedPlayer, holder);
@@ -872,16 +793,32 @@ public class PlayerInfo
 		}
 		basicDatum.put("sub", sub);
 		data.add(basicDatum);
+		if(isImport)
+		{
+			String team = "Free Agent";
+			for(TeamAnalysis teamIter : newImport.teams)
+			{
+				if(teamIter.team.contains(searchedPlayer.info.name))
+				{
+					team = teamIter.teamName;
+					break;
+				}
+			}
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", team);
+			datum.put("sub", "");
+			data.add(datum);
+		}
 		//Contract status
 		DecimalFormat df = new DecimalFormat("#.##");
-		if(Draft.draftedMe(searchedPlayer.info.name, obj.holder.draft))
+		if(!holder.isRegularSeason && Draft.draftedMe(searchedPlayer.info.name, holder.draft))
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", "DRAFTED BY YOU");
 			data.add(datum);
 		}
 		//See if they're drafted by someone else
-		else if(Draft.isDrafted(searchedPlayer.info.name, obj.holder.draft))
+		else if(!holder.isRegularSeason && Draft.isDrafted(searchedPlayer.info.name, holder.draft))
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", "DRAFTED");

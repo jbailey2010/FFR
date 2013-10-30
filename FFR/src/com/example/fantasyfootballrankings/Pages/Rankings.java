@@ -6,6 +6,7 @@ import java.io.IOException;
 
 
 
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -58,7 +59,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -75,7 +75,6 @@ import android.widget.AdapterView.OnItemClickListener;
  */
 public class Rankings extends Activity {
 	Context cont;
-	public static Context newCont;
 	public static Context context;
 	public static Storage holder = new Storage(null);
 	public static Button voice;
@@ -718,7 +717,8 @@ public class Rankings extends Activity {
 	          {
 	        	  try {
 	        		  PlayerInfo obj = new PlayerInfo();
-	        		  obj.searchCalled(cont);
+	        		  obj.holder = holder;
+	        		  obj.searchCalled(cont, false, null);
 	        	  } catch (IOException e) {
 						// TODO Auto-generated catch block
 	        		  e.printStackTrace();
@@ -786,7 +786,7 @@ public class Rankings extends Activity {
             // Populate the wordsList with the String values the recognition engine thought it heard
             ArrayList<String> matches = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
-            matchedPlayers = ManageInput.voiceInput(matches, newCont, holder, textView);
+            matchedPlayers = ManageInput.voiceInput(matches, context, holder, textView);
             if(matchedPlayers.size() != 0)
             {
             	double maxVal = 0.0;
@@ -1387,7 +1387,7 @@ public class Rankings extends Activity {
 	        	if(!elem.info.adp.equals("Not set"))
 	        	{
 	        		sub += "\nOpponent: " + elem.info.adp;
-	        		if(!elem.info.position.equals("D/ST"))
+	        		if(!elem.info.position.equals("D/ST") && !elem.info.adp.equals("Bye Week"))
 	        		{
 	        			sub += " (SOS: " + 	holder.sos.get(elem.info.team + "," + elem.info.position) + ")";
 

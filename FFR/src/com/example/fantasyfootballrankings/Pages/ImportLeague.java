@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -43,7 +44,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
@@ -428,6 +428,20 @@ public class ImportLeague extends Activity {
 		final Button leagueButton = (Button)res.findViewById(R.id.category_league_stats);
 		final Button teamsButton  = (Button)res.findViewById(R.id.category_team_stats);
 		final Button playersButton= (Button)res.findViewById(R.id.category_player_list);
+		final Button searchButton = (Button)res.findViewById(R.id.imported_league_search);
+		searchButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				PlayerInfo obj = new PlayerInfo();
+				obj.holder = holder;
+				try {
+					obj.searchCalled(cont, true, newImport);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		leagueButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -973,6 +987,8 @@ public class ImportLeague extends Activity {
 					long arg3) {
 				String name = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString().split(":  ")[1];
 				PlayerInfo obj = new PlayerInfo();
+				obj.isImport = true;
+				obj.newImport = newImport;
 				obj.outputResults(name, true, (Activity) cont, holder, false, false);
 			}
 		});

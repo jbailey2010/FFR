@@ -1,6 +1,7 @@
 package FileIO;
 
 import java.text.DateFormat;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.ffr.fantasyfootballrankings.R;
 import twitter4j.auth.AccessToken;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
@@ -27,9 +27,6 @@ import AsyncTasks.StorageAsyncTask.WritePostsListAsync;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.os.AsyncTask;
-import android.widget.TextView;
 /**
  * A library of all of the functions that will write to  
  * file 

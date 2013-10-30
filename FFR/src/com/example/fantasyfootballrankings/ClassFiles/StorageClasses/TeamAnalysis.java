@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.ClassFiles.StorageClasses;
 
 import java.text.DecimalFormat;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -8,7 +9,6 @@ import FileIO.ReadFromFile;
 import android.content.Context;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 
 /**
  * Handles the analysis of a team, given the string input of it

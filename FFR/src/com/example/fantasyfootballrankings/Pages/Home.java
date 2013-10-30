@@ -2,46 +2,18 @@ package com.example.fantasyfootballrankings.Pages;
 
 
 
-import java.io.IOException;
-
-
-
-
-
-
-
-
-
-
-
-import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
-
-import org.htmlcleaner.XPatherException;
-
 import com.ffr.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.HandleExport;
-import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseJuanElway;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseSI;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTheFakeFootball;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
-import com.example.fantasyfootballrankings.LeagueImports.ESPNImport;
-
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
@@ -50,7 +22,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Menu;
@@ -61,7 +32,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
  
 /**
