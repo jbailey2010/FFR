@@ -540,13 +540,11 @@ public class ImportLeague extends Activity {
 			@Override
 			public int compare(TeamAnalysis a, TeamAnalysis b) 
 			{
-				double paaA = paaTotal(a);
-				double paaB = paaTotal(b);
-				if (paaA > paaB)
+				if (a.totalProj > b.totalProj)
 			    {
 			        return -1;
 			    }
-			    if (paaA < paaB)
+			    if (a.totalProj < b.totalProj)
 			    {
 			    	return 1;
 			    } 
@@ -558,8 +556,8 @@ public class ImportLeague extends Activity {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				double paaA = paaStart(a);
-	    				double paaB = paaStart(b);
+	    				double paaA = a.starterProj;
+	    				double paaB = b.starterProj;
 	    				if (paaA > paaB)
 	    			    {
 	    			        return -1;
@@ -576,8 +574,8 @@ public class ImportLeague extends Activity {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				double paaA = paaBench(a);
-	    				double paaB = paaBench(b);
+	    				double paaA = (a.totalProj - a.starterProj);
+	    				double paaB = (b.totalProj - b.starterProj);
 	    				if (paaA > paaB)
 	    			    {
 	    			        return -1;
@@ -711,21 +709,21 @@ public class ImportLeague extends Activity {
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = totalPAA.poll();
-	    	paaTotal.append(counter + ") " + iter.teamName + ": " + df.format(paaTotal(iter)) + "\n");
+	    	paaTotal.append(counter + ") " + iter.teamName + ": " + df.format(iter.totalProj) + "\n");
 	    }
 	    counter = 0;
 	    while(!startPAA.isEmpty())
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = startPAA.poll();
-	    	paaStart.append(counter + ") " + iter.teamName + ": " + df.format(paaStart(iter)) + "\n");
+	    	paaStart.append(counter + ") " + iter.teamName + ": " + df.format(iter.starterProj) + "\n");
 	    }
 	    counter = 0;
 	    while(!benchPAA.isEmpty())
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = benchPAA.poll();
-	    	paaBench.append(counter + ") " + iter.teamName + ": " + df.format(paaBench(iter)) + "\n");
+	    	paaBench.append(counter + ") " + iter.teamName + ": " + df.format(iter.totalProj - iter.starterProj) + "\n");
 	    }
 	    counter = 0;
 	    while(!qbPAA.isEmpty())
@@ -777,16 +775,16 @@ public class ImportLeague extends Activity {
 	    			R.id.text2});
 		ListView list2 = (ListView)res.findViewById(R.id.imported_league_rankings);
 		Map<String, String> datum = new HashMap<String, String>();
-		datum.put("main", "Total PAA");
+		datum.put("main", "Total Projection");
 		datum.put("sub", paaTotal.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
-		datum.put("main", "PAA From Starters");
+		datum.put("main", "Projection From Starters");
 		datum.put("sub", paaStart.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
 		datum = new HashMap<String, String>();
-		datum.put("main", "PAA From Backups");
+		datum.put("main", "Projection From Backups");
 		datum.put("sub", paaBench.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
@@ -1257,7 +1255,7 @@ public class ImportLeague extends Activity {
 			Map<String, String> datum = new HashMap<String, String>();
 			datum.put("head", team.teamName);
 			datum.put("main", team.team);
-			datum.put("sub", df.format(paaTotal(team)) + " PAA Total\n" + df.format(paaStart(team)) + " PAA From Starters");
+			datum.put("sub", df.format(team.totalProj) + " Total Projection\n" + df.format(team.starterProj) + " Projection From Starters");
 			data.add(datum);
 		}
 	    list.setAdapter(adapter);
@@ -1652,7 +1650,7 @@ public class ImportLeague extends Activity {
 		dataSet[counter++] = new GraphViewData(counter, max - rankPAATot(newImport, ta));
 		dataSet[counter++] = new GraphViewData(counter,  max - rankPAAStart(newImport, ta));
 		dataSet[counter++] = new GraphViewData(counter,  max - rankPAABench(newImport, ta));
-		GraphViewSeries es = new GraphViewSeries("PAA (Whole Roster)", seriesStyle, dataSet);
+		GraphViewSeries es = new GraphViewSeries("Whole Roster Rank", seriesStyle, dataSet);
 		graphView.addSeries(es);
 		
 		counter = 0;
@@ -1662,7 +1660,7 @@ public class ImportLeague extends Activity {
 		dataSet2[counter++] = new GraphViewData(counter, max - rankTEStart(newImport, ta));
 		dataSet2[counter++] = new GraphViewData(counter, max - rankDStart(newImport, ta));
 		dataSet2[counter++] = new GraphViewData(counter, max - rankKStart(newImport, ta));
-		es = new GraphViewSeries("PAA (Starters)", seriesStyle2, dataSet2);
+		es = new GraphViewSeries("Starters Rank", seriesStyle2, dataSet2);
 		graphView.addSeries(es);
 
 		
@@ -1842,7 +1840,7 @@ public class ImportLeague extends Activity {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(paaTotal(iter) > paaTotal(team))
+			if(iter.totalProj > team.totalProj)
 			{
 				rank++;
 			}
@@ -1861,7 +1859,7 @@ public class ImportLeague extends Activity {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(paaStart(iter) > paaStart(team))
+			if(iter.starterProj > team.starterProj)
 			{
 				rank++;
 			}
@@ -1874,7 +1872,8 @@ public class ImportLeague extends Activity {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(paaBench(iter) > paaBench(team))
+			
+			if((iter.totalProj - iter.starterProj) > (team.totalProj - team.starterProj))
 			{
 				rank++;
 			}

@@ -27,6 +27,8 @@ public class TeamAnalysis
 	public String teamName;
 	Storage holder;
 	Context cont;
+	public double starterProj;
+	public double totalProj;
 	public double qbTotal;
 	public double rbTotal;
 	public double wrTotal;
@@ -104,6 +106,7 @@ public class TeamAnalysis
 						if(player.values.paa > 0 || player.values.paa < 0)
 						{
 							total += player.values.paa;
+							totalProj += player.values.points;
 							break;
 						}
 					}
@@ -289,6 +292,7 @@ public class TeamAnalysis
 			if(player != null)
 			{
 				total += player.values.paa;
+				starterProj += player.values.points;
 			}
 		}
 		return Double.valueOf(df.format(total));

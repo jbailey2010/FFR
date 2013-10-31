@@ -705,6 +705,10 @@ public class Rankings extends Activity {
 	          @Override
 	          public void onClick(View v) 
 	          {
+	        	  if(holder.isRegularSeason)
+	        	  {
+	        		  Toast.makeText(context, "Note, This is a drafting tool and won't be of much use during the regular season.", Toast.LENGTH_LONG).show();
+	        	  }
 	        	  moreInfo(new Dialog(context, R.style.RoundCornersFull));
 	          }
 	    });    
@@ -730,6 +734,10 @@ public class Rankings extends Activity {
 	          @Override
 	          public void onClick(View v) 
 	          {
+	        	  if(holder.isRegularSeason)
+	        	  {
+	        		  Toast.makeText(context, "Note, This is a drafting tool and won't be of much use during the regular season.", Toast.LENGTH_LONG).show();
+	        	  }
 	        	  ComparatorHandling.handleComparingInit(holder, cont);
 	          }
 		});
