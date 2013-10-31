@@ -1178,7 +1178,7 @@ public class ImportLeague extends Activity {
 			}
 			 for(PlayerObject player : holder.players)
 			 {
-				 if(player.values.ecr > 0 && posList.contains(player.info.position) && 
+				 if(posList.contains(player.info.position) && 
 						 !(player.info.team.length() == 0 || player.info.team.length() == 1 || player.info.position.length() == 0) )
 				 {
 					 players.add(player);
@@ -1215,11 +1215,14 @@ public class ImportLeague extends Activity {
 				 {
 					 subInfo.append("ROS Positional Rank: " + iter.values.rosRank + "\n");
 				 }
-				 subInfo.append("Weekly Positional Rank: " + iter.values.ecr.intValue()+ "\n");
+				 if(iter.values.ecr.intValue() != -1)
+				 {
+					 subInfo.append("Weekly Positional Rank: " + iter.values.ecr.intValue() + "\n");
+				 }
 				 if(!iter.info.adp.contains("Not set"))
 				 {
 					 subInfo.append("Opponent: " + iter.info.adp);
-					 if(holder.sos.keySet().contains(iter.info.team + "," + iter.info.position))
+					 if(!iter.info.adp.equals("Bye Week") && holder.sos.keySet().contains(iter.info.team + "," + iter.info.position))
 					 {
 						 subInfo.append(" (SOS: " + holder.sos.get(iter.info.team + "," + iter.info.position) + ")");
 					 }
