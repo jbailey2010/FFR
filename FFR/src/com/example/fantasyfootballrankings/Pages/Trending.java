@@ -347,6 +347,13 @@ public class Trending extends Activity {
 		final CheckBox rookie = (CheckBox)dialog.findViewById(R.id.rookies);
 		final CheckBox want = (CheckBox)dialog.findViewById(R.id.must_haves);
 		final CheckBox dontWant = (CheckBox)dialog.findViewById(R.id.dont_want);
+		if(holder.isRegularSeason)
+		{
+			value.setText("Buy Low/Sell High");
+			rookie.setText("Streaming Ds/Ks");
+			want.setText("Frustration");
+			dontWant.setText("Mid-Season Trade Targets");
+		}
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		boolean valueSet =  prefs.getBoolean("Value Topic", true);
 		boolean mustHaveSet = prefs.getBoolean("Good Topic", true);

@@ -496,45 +496,67 @@ public class ParsingAsyncTask
 
 		    	holder = hold;
 				try {
-					if(mustHave)
+					if(!holder.isRegularSeason)
 					{
-				    	//2013 'Must Haves'
-						ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=338991&st=");
-						//RB rankings
-						ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=344555&st=");
-						//QB rankings
-						ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=329554&st=");
-						//WR rankings
-						ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=339910&st=");
-						//TE rankings
-						ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=347782&st=");
-						//D/K don't exist
+						if(mustHave)
+						{
+					    	//2013 'Must Haves'
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=338991&st=");
+							//RB rankings
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=344555&st=");
+							//QB rankings
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=329554&st=");
+							//WR rankings
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=339910&st=");
+							//TE rankings
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=347782&st=");
+							//D/K don't exist
+						}
+						if(value)
+						{
+							//Value picks
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=332995&st=");
+							//2013 sleepers
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=327212&st=");
+							//adp steals
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=354905&st=");
+						}
+						if(rookie)
+				 		{
+					 		//Rookie rankings
+				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
+				 			//Draft thread
+				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=345800&st=");
+				 		}
+				 		if(dontWant)
+				 		{
+				 			//Overvalued
+				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=334675&st=");
+				 			//Don't draft
+				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=345722&st=");
+				 			//Busts
+				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=347469&st=");
+				 		}
 					}
-					if(value)
+					else
 					{
-						//Value picks
-						ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=332995&st=");
-						//2013 sleepers
-						ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=327212&st=");
-						//adp steals
-						ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=354905&st=");
+						if(mustHave)
+						{
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=343545&st=");
+						}
+						if(value)
+						{
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=377921&st=");
+						}
+						if(rookie)
+						{
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=360594&st=");
+						}
+						if(dontWant)
+						{
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=365820&st=");
+						}
 					}
-					if(rookie)
-			 		{
-				 		//Rookie rankings
-			 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
-			 			//Draft thread
-			 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=345800&st=");
-			 		}
-			 		if(dontWant)
-			 		{
-			 			//Overvalued
-			 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=334675&st=");
-			 			//Don't draft
-			 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=345722&st=");
-			 			//Busts
-			 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=347469&st=");
-			 		}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
