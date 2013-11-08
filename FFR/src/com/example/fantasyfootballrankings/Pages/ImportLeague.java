@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -14,6 +13,7 @@ import java.util.Set;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.SortHandler;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
@@ -47,11 +47,13 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -63,6 +65,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TwoLineListItem;
 
 import com.jjoe64.graphview.GraphView.GraphViewData;
 /**
@@ -422,12 +425,15 @@ public class ImportLeague extends Activity {
 		final RelativeLayout league = (RelativeLayout)res.findViewById(R.id.category_league_base);
 		final RelativeLayout teams  = (RelativeLayout)res.findViewById(R.id.category_team_base);
 		final RelativeLayout players= (RelativeLayout)res.findViewById(R.id.category_player_base);
+		final LinearLayout lineup =   (LinearLayout)  res.findViewById(R.id.category_lineup_base);
 		league.setVisibility(View.VISIBLE);
 		teams.setVisibility(View.GONE);
 		players.setVisibility(View.GONE);
+		lineup.setVisibility(View.GONE);
 		final Button leagueButton = (Button)res.findViewById(R.id.category_league_stats);
 		final Button teamsButton  = (Button)res.findViewById(R.id.category_team_stats);
 		final Button playersButton= (Button)res.findViewById(R.id.category_player_list);
+		final Button lineupButton = (Button)res.findViewById(R.id.category_lineup_help);
 		final Button searchButton = (Button)res.findViewById(R.id.imported_league_search);
 		searchButton.setOnClickListener(new OnClickListener(){
 			@Override
@@ -448,12 +454,15 @@ public class ImportLeague extends Activity {
 				league.setVisibility(View.VISIBLE);
 				teams.setVisibility(View.GONE);
 				players.setVisibility(View.GONE);
+				lineup.setVisibility(View.GONE);
 				leagueButton.setTextSize(14);
 				teamsButton.setTextSize(13);
 				playersButton.setTextSize(13);
+				lineupButton.setTextSize(13);
 				leagueButton.setTypeface(null,Typeface.BOLD);
 				teamsButton.setTypeface(null, Typeface.NORMAL);
 				playersButton.setTypeface(null, Typeface.NORMAL);
+				lineupButton.setTypeface(null, Typeface.NORMAL);
 			}
 		});
 		teamsButton.setOnClickListener(new OnClickListener(){
@@ -462,12 +471,15 @@ public class ImportLeague extends Activity {
 				teams.setVisibility(View.VISIBLE);
 				league.setVisibility(View.GONE);
 				players.setVisibility(View.GONE);
+				lineup.setVisibility(View.GONE);
 				teamsButton.setTextSize(14);
 				leagueButton.setTextSize(13);
 				playersButton.setTextSize(13);
+				lineupButton.setTextSize(13);
 				teamsButton.setTypeface(null,Typeface.BOLD);
 				leagueButton.setTypeface(null, Typeface.NORMAL);
 				playersButton.setTypeface(null, Typeface.NORMAL);
+				lineupButton.setTypeface(null, Typeface.NORMAL);
 			}
 		});
 		playersButton.setOnClickListener(new OnClickListener(){
@@ -476,13 +488,35 @@ public class ImportLeague extends Activity {
 				league.setVisibility(View.GONE);
 				teams.setVisibility(View.GONE);
 				players.setVisibility(View.VISIBLE);
+				lineup.setVisibility(View.GONE);
 				leagueButton.setTextSize(13);
 				teamsButton.setTextSize(13);
 				playersButton.setTextSize(14);
+				lineupButton.setTextSize(13);
 				leagueButton.setTypeface(null,Typeface.NORMAL);
 				teamsButton.setTypeface(null, Typeface.NORMAL);
 				playersButton.setTypeface(null, Typeface.BOLD);
+				lineupButton.setTypeface(null, Typeface.NORMAL);
 			}
+		});
+		lineupButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				league.setVisibility(View.GONE);
+				teams.setVisibility(View.GONE);
+				players.setVisibility(View.GONE);
+				lineup.setVisibility(View.VISIBLE);
+				leagueButton.setTextSize(13);
+				teamsButton.setTextSize(13);
+				playersButton.setTextSize(13);
+				lineupButton.setTextSize(14);
+				leagueButton.setTypeface(null,Typeface.NORMAL);
+				teamsButton.setTypeface(null, Typeface.NORMAL);
+				playersButton.setTypeface(null, Typeface.NORMAL);
+				lineupButton.setTypeface(null, Typeface.BOLD);
+			}
+			
 		});
 	    //Handles the back button
 	    ImageView back = (ImageView)res.findViewById(R.id.back_button_league_stats);
@@ -496,6 +530,7 @@ public class ImportLeague extends Activity {
 	    setTeamInfoList(res);
 	    setLeagueInfoList(res);
 	    setPlayerInfoList(res);
+	    setLineupInfo(res);
 	    //Handles the basic league information
 	    TextView name = (TextView)res.findViewById(R.id.league_name);
 	    name.setText(newImport.leagueName);
@@ -506,6 +541,7 @@ public class ImportLeague extends Activity {
 	    final TextView helpTeams = (TextView)res.findViewById(R.id.team_help_import);
 	    final TextView helpRanks = (TextView)res.findViewById(R.id.rankings_help_import);
 	    final TextView helpPlayers = (TextView)res.findViewById(R.id.player_list_help);
+	    final TextView helpLineup = (TextView)res.findViewById(R.id.lineup_help);
 	    TextView help = (TextView)res.findViewById(R.id.help_button_league_stats);
 	    help.setOnClickListener(new OnClickListener(){
 			@Override
@@ -515,16 +551,205 @@ public class ImportLeague extends Activity {
 					helpPlayers.setVisibility(View.VISIBLE);
 					helpTeams.setVisibility(View.VISIBLE);
 					helpRanks.setVisibility(View.VISIBLE);
+					helpLineup.setVisibility(View.VISIBLE);
 				}
 				else
 				{
 					helpPlayers.setVisibility(View.GONE);
 					helpTeams.setVisibility(View.GONE);
 					helpRanks.setVisibility(View.GONE);
+					helpLineup.setVisibility(View.GONE);
 				}
 			}
 	    });
 	    ll.addView(res);
+	}
+	
+	public void setLineupInfo(View res)
+	{
+		final AutoCompleteTextView p1 = (AutoCompleteTextView)res.findViewById(R.id.player1_input);
+		final AutoCompleteTextView p2 = (AutoCompleteTextView)res.findViewById(R.id.player2_input);
+		final LinearLayout table = (LinearLayout)res.findViewById(R.id.table_base);
+		Button submit = (Button)res.findViewById(R.id.compare_submit);
+		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+		for(PlayerObject player : holder.players)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", player.info.name);
+			if(!player.info.name.contains("D/ST") && player.info.position.length() >= 1 && player.info.team.length() > 2)
+			{
+				datum.put("sub", player.info.team);
+			}
+			else
+			{
+				datum.put("sub", "");
+			}
+			data.add(datum);
+		}
+		 final SimpleAdapter mAdapter = new SimpleAdapter(cont, data, 
+		    		android.R.layout.simple_list_item_2, 
+		    		new String[] {"main", "sub"}, 
+		    		new int[] {android.R.id.text1, 
+		    			android.R.id.text2});
+		p1.setAdapter(mAdapter);
+	    p2.setAdapter(mAdapter);
+	    p1.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				String name = (((TwoLineListItem)arg1)).getText1().getText().toString();
+				String team = (((TwoLineListItem)arg1)).getText2().getText().toString();
+				p1.setText(name + " - " + team);
+			}
+	    });
+	    p2.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				String name = (((TwoLineListItem)arg1)).getText1().getText().toString();
+				String team = (((TwoLineListItem)arg1)).getText2().getText().toString();
+				p2.setText(name + " - " + team);
+			}
+	    });
+	    submit.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				String p1Input = p1.getText().toString();
+				String[] p1Data = p1Input.split(" - ");
+				String p2Input = p2.getText().toString();
+				String[] p2Data = p2Input.split(" - ");
+				boolean isFound1 = false;
+				PlayerObject pl1 = null;
+				boolean isFound2 = false;
+				PlayerObject pl2 = null;
+				for(PlayerObject player : holder.players)
+				{
+					if(player.info.name.equals(p1Data[0]) && player.info.team.equals(p1Data[1]))
+					{
+						isFound1 = true;
+						pl1 = player;
+					}
+					if(player.info.name.equals(p2Data[0]) && player.info.team.equals(p2Data[1]))
+					{
+						isFound2 = true;
+						pl2 = player;
+					}
+					if(isFound1 && isFound2)
+					{
+						break;
+					}
+				}
+				if(isFound1 && isFound2 && pl1.values.points > 0 && pl2.values.points > 0 && pl1.info.team.length() > 2 && pl2.info.team.length() > 0)
+				{
+					fillTable(pl1, pl2, table, p1, p2);
+				}
+				else
+				{
+					Toast.makeText(cont, "Input is invalid. Make sure you only select a player via the dropdown, and neither player is on bye.", Toast.LENGTH_LONG).show();
+				}
+			}
+	    });
+	}
+	
+	public void fillTable(PlayerObject pl1, PlayerObject pl2, LinearLayout table, AutoCompleteTextView p1, AutoCompleteTextView p2) {
+		InputMethodManager imm = (InputMethodManager)getSystemService(
+			      Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(p1.getWindowToken(), 0);
+			imm.hideSoftInputFromWindow(p2.getWindowToken(), 0);
+			DecimalFormat df = new DecimalFormat("#.##");
+		table.setVisibility(View.VISIBLE);
+		//Names
+		TextView p1name = (TextView)table.findViewById(R.id.player1_name);
+		TextView p2name = (TextView)table.findViewById(R.id.player2_name);
+		p1name.setText(pl1.info.name);
+		p2name.setText(pl2.info.name);
+		//Projections
+		TextView p1proj = (TextView)table.findViewById(R.id.player1_proj);
+		TextView p2proj = (TextView)table.findViewById(R.id.player2_points);
+		RelativeLayout p1projb = (RelativeLayout)table.findViewById(R.id.player1_points_base);
+		RelativeLayout p2projb = (RelativeLayout)table.findViewById(R.id.player2_points_base);
+		if(pl1.values.points > pl2.values.points)
+		{
+			p1projb.setBackgroundColor((Color.GREEN));
+			p2projb.setBackgroundColor(Color.RED);
+		}
+		else if(pl1.values.points < pl2.values.points)
+		{
+			p2projb.setBackgroundColor((Color.GREEN));
+			p1projb.setBackgroundColor(Color.RED);
+		}
+		p1proj.setText("Projected: " + pl1.values.points);
+		p2proj.setText("Projected: " + pl2.values.points);
+		//Positional SOS
+		TextView p1sos = (TextView)table.findViewById(R.id.player1_sos);
+		TextView p2sos = (TextView)table.findViewById(R.id.player2_sos);
+		RelativeLayout p1sosb = (RelativeLayout)table.findViewById(R.id.player1_sos_base);
+		RelativeLayout p2sosb = (RelativeLayout)table.findViewById(R.id.player2_sos_base);
+		int sos1 = holder.sos.get(pl1.info.team + "," + pl1.info.position);
+		int sos2 = holder.sos.get(pl2.info.team + "," + pl2.info.position);
+		if(sos1 > sos2)
+		{
+			p2sosb.setBackgroundColor(Color.GREEN);
+			p1sosb.setBackgroundColor(Color.RED);
+		}
+		if(sos1 < sos2)
+		{
+			p1sosb.setBackgroundColor(Color.GREEN);
+			p2sosb.setBackgroundColor(Color.RED);
+		}
+		p1sos.setText("SOS: " + sos1);
+		p2sos.setText("SOS: " + sos2);
+		//PAA
+		TextView p1paa = (TextView)table.findViewById(R.id.player1_paa);
+		TextView p2paa= (TextView)table.findViewById(R.id.player2_paa);
+		RelativeLayout p1paab = (RelativeLayout)table.findViewById(R.id.player1_paa_base);
+		RelativeLayout p2paab = (RelativeLayout)table.findViewById(R.id.player2_paa_base);
+		if(pl1.values.paa > pl2.values.paa)
+		{
+			p1paab.setBackgroundColor((Color.GREEN));
+			p2paab.setBackgroundColor(Color.RED);
+		}
+		else if(pl1.values.paa < pl2.values.paa)
+		{
+			p2paab.setBackgroundColor((Color.GREEN));
+			p1paab.setBackgroundColor(Color.RED);
+		}
+		p1paa.setText("PAA: " + df.format(pl1.values.paa));
+		p2paa.setText("PAA: " + df.format(pl2.values.paa));
+		//Risk
+		TextView p1risk = (TextView)table.findViewById(R.id.player1_risk);
+		TextView p2risk = (TextView)table.findViewById(R.id.player2_risk);
+		RelativeLayout p1riskb = (RelativeLayout)table.findViewById(R.id.player1_risk_base);
+		RelativeLayout p2riskb = (RelativeLayout)table.findViewById(R.id.player2_risk_base);
+		if(pl1.risk > pl2.risk)
+		{
+			p2riskb.setBackgroundColor(Color.GREEN);
+			p1riskb.setBackgroundColor(Color.RED);
+		}
+		if(pl1.risk < pl2.risk)
+		{
+			p1riskb.setBackgroundColor(Color.GREEN);
+			p2riskb.setBackgroundColor(Color.RED);
+		}
+		p1risk.setText("Risk: " + pl1.risk);
+		p2risk.setText("Risk: " + pl2.risk);
+		//Weekly Rank
+		TextView p1rank = (TextView)table.findViewById(R.id.player1_weekly_pos_rank);
+		TextView p2rank = (TextView)table.findViewById(R.id.player2_weekly_pos_rank);
+		RelativeLayout p1rankb = (RelativeLayout)table.findViewById(R.id.player1_weekly_pos_rank_base);
+		RelativeLayout p2rankb = (RelativeLayout)table.findViewById(R.id.player2_weekly_pos_rank_base);
+		if(pl1.values.ecr > pl2.values.ecr)
+		{
+			p2rankb.setBackgroundColor(Color.GREEN);
+			p1rankb.setBackgroundColor(Color.RED);
+		}
+		if(pl1.values.ecr < pl2.values.ecr)
+		{
+			p1rankb.setBackgroundColor(Color.GREEN);
+			p2rankb.setBackgroundColor(Color.RED);
+		}
+		p1rank.setText("Positional Rank: " + pl1.values.ecr);
+		p2rank.setText("Positional Rank: " + pl2.values.ecr);
 	}
 	
 	/**

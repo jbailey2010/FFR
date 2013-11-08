@@ -87,7 +87,7 @@
         android:layout_width="fill_parent"
         android:layout_height="40dp" 
         android:background="#282828"
-        android:weightSum="100"> 
+        android:weightSum="125"> 
 
         <Button
             android:id="@+id/category_league_stats"
@@ -132,6 +132,23 @@
             android:layout_weight="25"
             android:background="#282828"
             android:text="Players List"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
+        
+        <View android:layout_height="fill_parent"
+		    android:layout_width="2dp"
+		    android:background="#FF0000"
+		    android:layout_marginTop="5dp"
+		    android:layout_marginBottom="5dp"/>
+        
+        <Button
+            android:id="@+id/category_lineup_help"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="25"
+            android:background="#282828"
+            android:text="Who to Start?"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
         
@@ -287,5 +304,294 @@
            
 
 </RelativeLayout>
+<LinearLayout
+    android:visibility="gone"
+    android:layout_below="@+id/league_stats_tabs"
+    android:id="@+id/category_lineup_base"
+	android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/content_well_import"
+    android:orientation="vertical" >
+     <TextView
+         android:id="@+id/lineup_help"
+         android:textColor="#ffffff"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Below are two input fields. Input a player into each, and the table below will fill out, showing how each player compares to the other."
+         android:visibility="gone"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <AutoCompleteTextView
+	        android:id="@+id/player1_input" 
+	        android:layout_width="275dp"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="25dp"
+	        android:ems="10"
+	        android:background="@drawable/spinner_well"
+	    	android:dropDownSelector="#FF0000"
+	    	android:dropDownWidth="300dp"
+	    	android:dropDownHeight="200dp"
+	    	android:textColor="#000000" >
+	        <requestFocus />
+	    </AutoCompleteTextView>
+	    
+        <AutoCompleteTextView
+	        android:id="@+id/player2_input"
+	        android:layout_width="275dp"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:ems="10"
+	        android:layout_marginTop="10dp"
+	    	android:dropDownSelector="#FF0000"
+	    	android:dropDownWidth="300dp"
+	    	android:dropDownHeight="200dp"
+	    	android:background="@drawable/spinner_well"
+	    	android:layout_below="@id/player1_input"
+	    	android:textColor="#000000" >
+	    </AutoCompleteTextView>
+	    
+        <Button 
+            android:id="@+id/compare_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/player2_input"
+            android:layout_marginTop="5dp"
+            android:text="Submit"
+            style="@style/ButtonText"
+        	android:background="@drawable/btn_red"
+        	/>
+        
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/table_base"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:layout_weight="1">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false">
+	        <RelativeLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	   			android:background="#CCCCCC"
+	            >
+		            <TextView
+		            android:id="@+id/player1_name"
+		            android:textSize="17sp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerHorizontal="true"
+		            android:text="Player 1"/>
+            </RelativeLayout>
+            <RelativeLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:background="#CCCCCC"
+	            >
+	            <TextView
+		            android:id="@+id/player2_name"
+		            android:textSize="17sp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerHorizontal="true"
+		            android:text="Player 2"/>
+            </RelativeLayout>
+        </LinearLayout>    
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false">
+
+            <RelativeLayout
+                android:id="@+id/player1_points_base"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="20dp" >
+
+                <TextView
+                    android:id="@+id/player1_proj"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="X Points"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/player2_points_base"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:paddingTop="20dp"
+	            >
+	            <TextView
+		            android:id="@+id/player2_points"
+		            android:textSize="17sp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerHorizontal="true"
+		            android:text="Y Points"/>
+            </RelativeLayout>
+        </LinearLayout>  
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false">
+	        <RelativeLayout
+	            android:id="@+id/player1_sos_base"
+	            android:layout_width="match_parent"
+	            android:paddingTop="20dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            >
+		            <TextView
+		            android:id="@+id/player1_sos"
+		            android:textSize="17sp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerHorizontal="true"
+		            android:text="SOS: 1"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/player2_sos_base"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:paddingTop="20dp"
+	            >
+	            <TextView
+		            android:id="@+id/player2_sos"
+		            android:textSize="17sp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerHorizontal="true"
+		            android:text="SOS: 32"/>
+            </RelativeLayout>
+        </LinearLayout>  
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false">
+	        <RelativeLayout
+	            android:id="@+id/player1_paa_base"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:paddingTop="20dp"
+	            android:layout_weight="1"
+	            >
+		            <TextView
+		            android:id="@+id/player1_paa"
+		            android:textSize="17sp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerHorizontal="true"
+		            android:text="X PAA"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/player2_paa_base"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:paddingTop="20dp"
+	            android:layout_weight="1"
+	            >
+	            <TextView
+		            android:id="@+id/player2_paa"
+		            android:textSize="17sp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerHorizontal="true"
+		            android:text="Y PAA"/>
+            </RelativeLayout>
+        </LinearLayout>  
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false">
+	        <RelativeLayout
+	            android:id="@+id/player1_risk_base"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:paddingTop="20dp"
+	            android:layout_weight="1"
+	            >
+		            <TextView
+		            android:id="@+id/player1_risk"
+		            android:textSize="17sp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerHorizontal="true"
+		            android:text="Risk: 0"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/player2_risk_base"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:paddingTop="20dp"
+	            android:layout_weight="1"
+	            >
+	            <TextView
+		            android:id="@+id/player2_risk"
+		            android:textSize="17sp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerHorizontal="true"
+		            android:text="Risk: A million"/>
+            </RelativeLayout>
+        </LinearLayout>  
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false">
+	        <RelativeLayout
+	            android:id="@+id/player1_weekly_pos_rank_base"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:paddingTop="20dp"
+	            android:layout_weight="1"
+	            >
+		            <TextView
+		            android:id="@+id/player1_weekly_pos_rank"
+		            android:textSize="17sp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerHorizontal="true"
+		            android:text="Ranked: X Positionally"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/player2_weekly_pos_rank_base"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:paddingTop="20dp"
+	            android:layout_weight="1"
+	            >
+	            <TextView
+		            android:id="@+id/player2_weekly_pos_rank"
+		            android:textSize="17sp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerHorizontal="true"
+		            android:text="Ranked: Y Positionally"/>
+            </RelativeLayout>
+        </LinearLayout>  
+</LinearLayout>
+</LinearLayout>
 		
 			</RelativeLayout>
