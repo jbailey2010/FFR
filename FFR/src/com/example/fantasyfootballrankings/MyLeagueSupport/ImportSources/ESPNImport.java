@@ -1,4 +1,4 @@
-package com.example.fantasyfootballrankings.LeagueImports;
+package com.example.fantasyfootballrankings.MyLeagueSupport.ImportSources;
 
 import java.io.IOException;
 
