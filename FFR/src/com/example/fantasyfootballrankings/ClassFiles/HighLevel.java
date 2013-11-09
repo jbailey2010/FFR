@@ -341,6 +341,10 @@ public class HighLevel
 			{
 				player.values.points = points.get(player.info.name + "/" + player.info.team + "/" + player.info.position);
 			}
+			else
+			{
+				player.values.points = 0;
+			}
 		}
 	}
 	
