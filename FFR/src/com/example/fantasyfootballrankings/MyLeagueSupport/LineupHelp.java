@@ -42,6 +42,7 @@ public class LineupHelp {
 		final AutoCompleteTextView p2 = (AutoCompleteTextView)res.findViewById(R.id.player2_input);
 		final LinearLayout table = (LinearLayout)res.findViewById(R.id.table_base);
 		Button submit = (Button)res.findViewById(R.id.compare_submit);
+		Button clear =  (Button)res.findViewById(R.id.compare_clear);
 		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		for(PlayerObject player : ImportLeague.holder.players)
 		{
@@ -80,6 +81,13 @@ public class LineupHelp {
 				String name = (((TwoLineListItem)arg1)).getText1().getText().toString();
 				String team = (((TwoLineListItem)arg1)).getText2().getText().toString();
 				p2.setText(name + " - " + team);
+			}
+	    });
+	    clear.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				p1.setText("");
+				p2.setText("");
 			}
 	    });
 	    submit.setOnClickListener(new OnClickListener(){
