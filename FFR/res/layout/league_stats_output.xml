@@ -312,6 +312,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/content_well_import"
     android:orientation="vertical" >
+     
      <TextView
          android:id="@+id/lineup_help"
          android:textColor="#ffffff"
@@ -366,7 +367,9 @@
         	/>
         
     </RelativeLayout>
-
+	<ScrollView
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/table_base"
         android:orientation="vertical"
@@ -375,6 +378,7 @@
         android:layout_marginTop="20dp"
         android:visibility="gone"
         android:layout_weight="1">
+       
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
@@ -386,7 +390,7 @@
 	            android:layout_weight="1"
 	   			android:background="#CCCCCC"
 	            >
-		            <TextView
+		            <TextView android:textStyle="bold"
 		            android:id="@+id/player1_name"
 		            android:textSize="17sp"
 		            android:layout_width="wrap_content"
@@ -400,7 +404,7 @@
 	            android:layout_weight="1"
 	            android:background="#CCCCCC"
 	            >
-	            <TextView
+	            <TextView android:textStyle="bold"
 		            android:id="@+id/player2_name"
 		            android:textSize="17sp"
 		            android:layout_width="wrap_content"
@@ -420,9 +424,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingTop="20dp" >
+                android:paddingTop="20dp" android:paddingBottom="20dp">
 
-                <TextView
+                <TextView android:textStyle="bold"
                     android:id="@+id/player1_proj"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -436,9 +440,9 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
-	            android:paddingTop="20dp"
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            >
-	            <TextView
+	            <TextView android:textStyle="bold"
 		            android:id="@+id/player2_points"
 		            android:textSize="17sp"
 		            android:layout_width="wrap_content"
@@ -455,11 +459,11 @@
 	        <RelativeLayout
 	            android:id="@+id/player1_sos_base"
 	            android:layout_width="match_parent"
-	            android:paddingTop="20dp"
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
 	            >
-		            <TextView
+		            <TextView android:textStyle="bold"
 		            android:id="@+id/player1_sos"
 		            android:textSize="17sp"
 		            android:layout_width="wrap_content"
@@ -472,9 +476,9 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
-	            android:paddingTop="20dp"
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            >
-	            <TextView
+	            <TextView android:textStyle="bold"
 		            android:id="@+id/player2_sos"
 		            android:textSize="17sp"
 		            android:layout_width="wrap_content"
@@ -492,10 +496,10 @@
 	            android:id="@+id/player1_paa_base"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:paddingTop="20dp"
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            android:layout_weight="1"
 	            >
-		            <TextView
+		            <TextView android:textStyle="bold"
 		            android:id="@+id/player1_paa"
 		            android:textSize="17sp"
 		            android:layout_width="wrap_content"
@@ -507,10 +511,10 @@
                 android:id="@+id/player2_paa_base"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:paddingTop="20dp"
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            android:layout_weight="1"
 	            >
-	            <TextView
+	            <TextView android:textStyle="bold"
 		            android:id="@+id/player2_paa"
 		            android:textSize="17sp"
 		            android:layout_width="wrap_content"
@@ -528,10 +532,10 @@
 	            android:id="@+id/player1_risk_base"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:paddingTop="20dp"
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            android:layout_weight="1"
 	            >
-		            <TextView
+		            <TextView android:textStyle="bold"
 		            android:id="@+id/player1_risk"
 		            android:textSize="17sp"
 		            android:layout_width="wrap_content"
@@ -543,10 +547,10 @@
                 android:id="@+id/player2_risk_base"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:paddingTop="20dp"
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            android:layout_weight="1"
 	            >
-	            <TextView
+	            <TextView android:textStyle="bold"
 		            android:id="@+id/player2_risk"
 		            android:textSize="17sp"
 		            android:layout_width="wrap_content"
@@ -564,10 +568,10 @@
 	            android:id="@+id/player1_weekly_pos_rank_base"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:paddingTop="20dp"
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            android:layout_weight="1"
 	            >
-		            <TextView
+		            <TextView android:textStyle="bold"
 		            android:id="@+id/player1_weekly_pos_rank"
 		            android:textSize="17sp"
 		            android:layout_width="wrap_content"
@@ -579,10 +583,10 @@
                 android:id="@+id/player2_weekly_pos_rank_base"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:paddingTop="20dp"
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            android:layout_weight="1"
 	            >
-	            <TextView
+	            <TextView android:textStyle="bold"
 		            android:id="@+id/player2_weekly_pos_rank"
 		            android:textSize="17sp"
 		            android:layout_width="wrap_content"
@@ -592,6 +596,8 @@
             </RelativeLayout>
         </LinearLayout>  
 </LinearLayout>
+        </ScrollView>
+   
 </LinearLayout>
-		
+
 			</RelativeLayout>
