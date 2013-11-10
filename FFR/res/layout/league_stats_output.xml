@@ -245,12 +245,31 @@
                android:layout_height="match_parent"
                android:layout_below="@+id/category_team_base"
                android:layout_alignParentBottom="true">
+         <Button 
+             android:id="@+id/player_list_clear"
+             android:layout_alignLeft="@+id/player_status_spinner"
+             android:layout_below="@+id/player_status_spinner"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Clear"
+             style="@style/ButtonText"
+        		android:background="@drawable/btn_red"/>
+         
+         <Button 
+             android:id="@+id/player_list_graph"
+             android:layout_alignRight="@+id/player_pos_spinner"
+             android:layout_below="@+id/player_pos_spinner"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Graph"
+             style="@style/ButtonText"
+        		android:background="@drawable/btn_red"/>
                <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
                android:id="@+id/imported_teams_players"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:layout_alignParentLeft="true"
-               android:layout_below="@+id/player_sort_spinner"
+               android:layout_below="@+id/player_list_clear"
                android:background="@drawable/content_well_import"
                android:divider="#999999"
                android:focusable="false"
@@ -284,7 +303,7 @@
                android:id="@+id/player_sort_spinner"
                android:layout_width="175dp"
                android:layout_height="30dp"
-               android:layout_below="@+id/player_status_spinner"
+               android:layout_alignBottom="@+id/player_list_graph"
                android:layout_marginTop="5dp"
                android:layout_centerHorizontal="true"
                android:background="@drawable/spinner_well_grey"
@@ -399,7 +418,7 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
-	   			android:background="#444444"
+	   			android:background="#555555"
 	            >
 		            <TextView android:textStyle="bold"
 		            android:id="@+id/player1_name"
@@ -415,7 +434,7 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
-	            android:background="#444444"
+	            android:background="#555555"
 	            >
 	            <TextView android:textStyle="bold"
 		            android:id="@+id/player2_name"

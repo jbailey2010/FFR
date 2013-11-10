@@ -151,7 +151,6 @@ public class Home extends Activity{
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.home, menu);
-		System.out.println("Inflating");
 		m = menu;
 		return true;
 	}

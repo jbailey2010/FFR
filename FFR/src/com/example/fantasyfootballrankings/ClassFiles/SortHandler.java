@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.text.DecimalFormat;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -10,6 +9,14 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 import com.ffr.fantasyfootballrankings.R;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GraphViewDataInterface;
+import com.jjoe64.graphview.GraphViewSeries;
+import com.jjoe64.graphview.GraphViewStyle;
+import com.jjoe64.graphview.LineGraphView;
+import com.jjoe64.graphview.GraphView.GraphViewData;
+import com.jjoe64.graphview.GraphView.LegendAlign;
+import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
@@ -18,10 +25,14 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
+import com.example.fantasyfootballrankings.Pages.ImportLeague;
+
 import FileIO.ReadFromFile;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.MotionEvent;
@@ -369,38 +380,41 @@ public class SortHandler
 		}
 		for(PlayerObject player : holder.players)
 		{
-			if(!young || (!player.info.age.equals("0") && ManageInput.isInteger(player.info.age) && Integer.parseInt(player.info.age)<30 && young))
+			if(player.info.team.split(" ").length > 1)
 			{
-				
-				List<String> watchList = ReadFromFile.readWatchList(context);
-				if(!wl || (wl && watchList.contains(player.info.name)))
+				if(!young || (!player.info.age.equals("0") && ManageInput.isInteger(player.info.age) && Integer.parseInt(player.info.age)<30 && young))
 				{
-					if(!cy || (cy && !player.info.contractStatus.equals("Under Contract")))
+					
+					List<String> watchList = ReadFromFile.readWatchList(context);
+					if(!wl || (wl && watchList.contains(player.info.name)))
 					{
-						if(!healthy || (healthy && player.injuryStatus.equals("Injury Status: Healthy")))
+						if(!cy || (cy && !player.info.contractStatus.equals("Under Contract")))
 						{
-							if((run || pass) && !holder.oLineAdv.containsKey(player.info.team))
+							if(!healthy || (healthy && player.injuryStatus.equals("Injury Status: Healthy")))
 							{
-								continue;
-							}
-							String oLine = holder.oLineAdv.get(player.info.team).split("~~~~")[1];
-							
-							int runRank = -1;
-							int passRank = -1;
-							if(oLine != null && !oLine.equals("") && oLine.contains("\n"))
-							{
-								runRank = Integer.parseInt(oLine.split(": ")[2].split("\n")[0]);
-								passRank = Integer.parseInt(oLine.split(": ")[1].split("\n")[0]);
-							}
-							if(!run || (run && runRank > 0 && runRank < 17))
-							{
-								if(!pass || (pass && passRank > 0 && passRank < 17))
+								if((run || pass) && !holder.oLineAdv.containsKey(player.info.team))
 								{
-									if(posList.contains(player.info.position))
+									continue;
+								}
+								String oLine = holder.oLineAdv.get(player.info.team).split("~~~~")[1];
+								
+								int runRank = -1;
+								int passRank = -1;
+								if(oLine != null && !oLine.equals("") && oLine.contains("\n"))
+								{
+									runRank = Integer.parseInt(oLine.split(": ")[2].split("\n")[0]);
+									passRank = Integer.parseInt(oLine.split(": ")[1].split("\n")[0]);
+								}
+								if(!run || (run && runRank > 0 && runRank < 17))
+								{
+									if(!pass || (pass && passRank > 0 && passRank < 17))
 									{
-										if(player.values.count >= minimum)
+										if(posList.contains(player.info.position))
 										{
-											players.add(player);
+											if(player.values.count >= minimum)
+											{
+												players.add(player);
+											}
 										}
 									}
 								}
@@ -977,7 +991,7 @@ public class SortHandler
 	 * @param sorted
 	 */
 	public static void wrappingUp(PriorityQueue<PlayerObject> sorted, final Context cont)
-	{
+	{		
 		DecimalFormat df = new DecimalFormat("#.##");
 		BounceListView results = null;
 		if(isRankings)
@@ -987,26 +1001,56 @@ public class SortHandler
 			dialog.setContentView(R.layout.search_output); 
 			WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 		    lp.copyFrom(dialog.getWindow().getAttributes());
-		    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+		    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 		    dialog.getWindow().setAttributes(lp);
 		    dialog.show(); 
 		    RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header);
 			base.setVisibility(View.GONE);
 			LinearLayout base2 = (LinearLayout)dialog.findViewById(R.id.category_base);
-			base2.setVisibility(View.GONE);
-		    Button watch = (Button)dialog.findViewById(R.id.add_watch);
-		    watch.setText("Hide Drafted");
-		    TextView header = (TextView)dialog.findViewById(R.id.name);
-		    header.setText(subject);
-		    results = (BounceListView)dialog.findViewById(listViewLookup);
-		    Button back = (Button)dialog.findViewById(R.id.search_back);
-		    back.setOnClickListener(new OnClickListener(){
+			Button back = (Button)base2.findViewById(R.id.category_ranking);
+			back.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v) {
 					dialog.dismiss();
 					initialPopUp(context, holder, listViewLookup, isRankings, status, league);
 				}
 		    });
+			back.setText("Back");
+			back.setTypeface(null, Typeface.NORMAL);
+			back.setTextSize(13);
+			Button watch = (Button)base2.findViewById(R.id.category_info);
+			Button hidden = (Button)base2.findViewById(R.id.category_team);
+			View backView = (View)dialog.findViewById(R.id.back_view);
+			View addView = (View)dialog.findViewById(R.id.add_view);
+			backView.setVisibility(View.GONE);
+			addView.setVisibility(View.GONE);
+			hidden.setText("Scroll to Top");
+			hidden.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					BounceListView r = (BounceListView)dialog.findViewById(listViewLookup);
+					r.smoothScrollToPosition(0);
+				}
+				
+			});
+			Button graph = (Button)base2.findViewById(R.id.category_other);
+			graph.setText("Graph");
+			graph.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					buildGraph(context, data, subject, position);
+				}
+			});
+			//base2.setVisibility(View.GONE);
+		    Button watch2 = (Button)dialog.findViewById(R.id.add_watch);
+		    watch2.setVisibility(View.GONE);
+		    watch.setText("Hide Drafted");
+		    TextView header = (TextView)dialog.findViewById(R.id.name);
+		    header.setText(subject);
+		    results = (BounceListView)dialog.findViewById(listViewLookup);
+		    Button back2 = (Button)dialog.findViewById(R.id.search_back);
+		    back2.setVisibility(View.GONE);
 		    Button close = (Button)dialog.findViewById(R.id.search_close);
 		    close.setOnClickListener(new OnClickListener(){
 				@Override
@@ -1038,8 +1082,6 @@ public class SortHandler
 			results = (BounceListView)((Activity)cont).findViewById(listViewLookup);
 			results.setAdapter(null);
 		}
-	    List<String> rankings = new ArrayList<String>(400);
-	    int counter = 0;
 	    data = new ArrayList<Map<String, String>>();
 	    if(sorted.size() == 0)
 	    {
@@ -1248,5 +1290,57 @@ public class SortHandler
                  }
              });
          }
+	}
+	
+	/**
+	 * Shows the graph of the content in the output
+	 */
+	public static void buildGraph(Context cont, List<Map<String, String>> data, String subject, String position)
+	{
+		String team = position;
+		String header = subject;
+		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
+	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+		popUp.setContentView(R.layout.team_info_popup);
+		TextView sub = (TextView) popUp.findViewById(R.id.textView1);
+		TextView head = (TextView)popUp.findViewById(R.id.team_info_popup_header);
+		head.setText(header);
+		sub.setText(team);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(popUp.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+	    lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+	    Button close = (Button)popUp.findViewById(R.id.team_info_close);
+	    close.setOnClickListener(new OnClickListener(){
+		@Override
+			public void onClick(View v) {
+				popUp.dismiss();
+			}
+	    });
+		popUp.getWindow().setAttributes(lp);
+	    popUp.show(); 
+	    GraphViewStyle gvs = new GraphViewStyle();
+		gvs.setTextSize(12);
+		GraphView graphView = new LineGraphView(cont, "");
+		graphView.setGraphViewStyle(gvs);
+		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[data.size()];
+		GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();  
+		for(int i = 0; i < data.size(); i++)
+		{
+			Map<String, String> datum = data.get(i);
+			if(datum.get("main").contains(")"))
+			{
+				dataSet[i] = new GraphViewData(i, Double.valueOf(datum.get("main").split(":")[0].split("\\)")[1]));
+			}
+			else
+			{
+				dataSet[i] = new GraphViewData(i, Double.valueOf(datum.get("main").split(":")[0]));
+			}
+		}
+		GraphViewSeries es = new GraphViewSeries(subject, seriesStyle, dataSet);
+		graphView.addSeries(es);
+		LinearLayout layout = (LinearLayout) popUp.findViewById(R.id.plot_base_layout);
+		layout.addView(graphView);
+
 	}
 }

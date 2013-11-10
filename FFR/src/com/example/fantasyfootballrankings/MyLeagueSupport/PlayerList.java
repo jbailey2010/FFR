@@ -12,8 +12,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -40,6 +42,7 @@ import com.ffr.fantasyfootballrankings.R;
 public class PlayerList {
 	private static Context cont;
 	private static ImportedTeam newImport;
+	public static List<Map<String, String>>data;
 	/**
 	 * Handles the initial set up of the list
 	 * @param res
@@ -48,7 +51,7 @@ public class PlayerList {
 	{
 		cont = c;
 		newImport = n;
-		 List<Map<String, String>>data = new ArrayList<Map<String, String>>();
+		data = new ArrayList<Map<String, String>>();
 		 SimpleAdapter adapter = new SimpleAdapter(cont, data, 
 		    		R.layout.web_listview_item, 
 		    		new String[] {"main", "sub"}, 
@@ -175,6 +178,24 @@ public class PlayerList {
 			    	sortSp.setOnItemSelectedListener(l3);
 			}});
 		 populatePlayerList(list, "All Positions", "All Players", "PAA");
+		 Button clear = (Button)res.findViewById(R.id.player_list_clear);
+		 Button graph = (Button)res.findViewById(R.id.player_list_graph);
+		 clear.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				pos.setSelection(0);
+				status.setSelection(0);
+				sortSp.setSelection(0);
+				populatePlayerList(list, "All Positions", "All Players", "PAA");
+			}
+		 });
+		 graph.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(cont, "Note that, while these are sorted by the appropriate factor, the plotted value is projection", Toast.LENGTH_LONG).show();
+				SortHandler.buildGraph(cont, data, (sortSp.getSelectedItem()).toString(), (pos.getSelectedItem()).toString());
+			}
+		 });
 	}
 	
 	/**
@@ -210,7 +231,6 @@ public class PlayerList {
 	public static void populatePlayerList(ListView list, String pos, String status, String sortFactor)
 	{
 		DecimalFormat df = new DecimalFormat("#.##");
-		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		PriorityQueue<PlayerObject> players = null;
 		List<String> posList = new ArrayList<String>();
 		if(pos.equals("All Positions"))
@@ -394,6 +414,7 @@ public class PlayerList {
 					 players.add(player);
 				 }
 			 }
+			 data.clear();
 			 while(!players.isEmpty())
 			 {
 				 Map<String, String> datum = new HashMap<String, String>();
