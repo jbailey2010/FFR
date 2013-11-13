@@ -693,7 +693,7 @@ public class PlayerInfo
 			}
 			else
 			{
-				if(!searchedPlayer.info.adp.equals("Bye Week"))
+				if(!searchedPlayer.info.adp.equals("Bye Week") && !searchedPlayer.info.position.equals("D/ST"))
 				{
 					datum.put("main", "Playing The " + searchedPlayer.info.adp);
 					datum.put("sub", "Positional SOS: " + holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position) + 

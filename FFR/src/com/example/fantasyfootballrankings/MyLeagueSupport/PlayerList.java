@@ -43,6 +43,7 @@ public class PlayerList {
 	private static Context cont;
 	private static ImportedTeam newImport;
 	public static List<Map<String, String>>data;
+	public static SimpleAdapter adapter;
 	/**
 	 * Handles the initial set up of the list
 	 * @param res
@@ -52,7 +53,7 @@ public class PlayerList {
 		cont = c;
 		newImport = n;
 		data = new ArrayList<Map<String, String>>();
-		 SimpleAdapter adapter = new SimpleAdapter(cont, data, 
+		adapter = new SimpleAdapter(cont, data, 
 		    		R.layout.web_listview_item, 
 		    		new String[] {"main", "sub"}, 
 		    		new int[] {R.id.text1, 
@@ -192,8 +193,7 @@ public class PlayerList {
 		 graph.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(cont, "Note that, while these are sorted by the appropriate factor, the plotted value is projection", Toast.LENGTH_LONG).show();
-				SortHandler.buildGraph(cont, data, (sortSp.getSelectedItem()).toString(), (pos.getSelectedItem()).toString());
+				SortHandler.buildGraph(cont, adapter, (sortSp.getSelectedItem()).toString(), (pos.getSelectedItem()).toString(), " with plotted Projection");
 			}
 		 });
 	}
@@ -205,7 +205,7 @@ public class PlayerList {
 	 */
 	public static void setPlayerAdapter(List<Map<String, String>> data, ListView list)
 	{
-		SimpleAdapter adapter = new SimpleAdapter(cont, data, 
+		adapter = new SimpleAdapter(cont, data, 
 	    		R.layout.web_listview_item, 
 	    		new String[] {"main", "sub"}, 
 	    		new int[] {R.id.text1, 

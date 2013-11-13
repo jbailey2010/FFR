@@ -1039,7 +1039,7 @@ public class SortHandler
 			graph.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v) {
-					buildGraph(context, data, subject, position);
+					buildGraph(context, adapter, subject, position, "");
 				}
 			});
 			//base2.setVisibility(View.GONE);
@@ -1294,11 +1294,12 @@ public class SortHandler
 	
 	/**
 	 * Shows the graph of the content in the output
+	 * @param a 
 	 */
-	public static void buildGraph(Context cont, List<Map<String, String>> data, String subject, String position)
+	public static void buildGraph(Context cont, SimpleAdapter a, String subject, String position, String addit)
 	{
 		String team = position;
-		String header = subject;
+		String header = "Sorted by " + subject + addit;
 		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
 	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		popUp.setContentView(R.layout.team_info_popup);
@@ -1325,7 +1326,7 @@ public class SortHandler
 		graphView.setGraphViewStyle(gvs);
 		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[data.size()];
 		GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();  
-		for(int i = 0; i < data.size(); i++)
+		for(int i = 0; i < a.getCount(); i++)
 		{
 			Map<String, String> datum = data.get(i);
 			if(datum.get("main").contains(")"))
