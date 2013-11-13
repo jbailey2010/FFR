@@ -432,10 +432,12 @@ public class ImportLeague extends Activity {
 		final RelativeLayout teams  = (RelativeLayout)res.findViewById(R.id.category_team_base);
 		final RelativeLayout players= (RelativeLayout)res.findViewById(R.id.category_player_base);
 		final LinearLayout lineup =   (LinearLayout)  res.findViewById(R.id.category_lineup_base);
+		final RelativeLayout tips =   (RelativeLayout)res.findViewById(R.id.category_tips_base);
 		league.setVisibility(View.VISIBLE);
 		teams.setVisibility(View.GONE);
 		players.setVisibility(View.GONE);
 		lineup.setVisibility(View.GONE);
+		tips.setVisibility(View.GONE);
 		final Button leagueButton = (Button)res.findViewById(R.id.category_league_stats);
 		final Button teamsButton  = (Button)res.findViewById(R.id.category_team_stats);
 		final Button playersButton= (Button)res.findViewById(R.id.category_player_list);
@@ -444,7 +446,21 @@ public class ImportLeague extends Activity {
 		tipsButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				RosterTips.init(newImport);
+				league.setVisibility(View.GONE);
+				teams.setVisibility(View.GONE);
+				players.setVisibility(View.GONE);
+				lineup.setVisibility(View.GONE);
+				leagueButton.setTextSize(13);
+				teamsButton.setTextSize(13);
+				playersButton.setTextSize(13);
+				lineupButton.setTextSize(13);
+				leagueButton.setTypeface(null,Typeface.NORMAL);
+				teamsButton.setTypeface(null, Typeface.NORMAL);
+				playersButton.setTypeface(null, Typeface.NORMAL);
+				lineupButton.setTypeface(null, Typeface.NORMAL);
+				tips.setVisibility(View.VISIBLE);
+				tipsButton.setTextSize(14);
+				tipsButton.setTypeface(null, Typeface.BOLD);
 			}
 		});
 		leagueButton.setOnClickListener(new OnClickListener(){
@@ -462,6 +478,9 @@ public class ImportLeague extends Activity {
 				teamsButton.setTypeface(null, Typeface.NORMAL);
 				playersButton.setTypeface(null, Typeface.NORMAL);
 				lineupButton.setTypeface(null, Typeface.NORMAL);
+				tips.setVisibility(View.GONE);
+				tipsButton.setTextSize(13);
+				tipsButton.setTypeface(null, Typeface.NORMAL);
 			}
 		});
 		teamsButton.setOnClickListener(new OnClickListener(){
@@ -479,6 +498,9 @@ public class ImportLeague extends Activity {
 				leagueButton.setTypeface(null, Typeface.NORMAL);
 				playersButton.setTypeface(null, Typeface.NORMAL);
 				lineupButton.setTypeface(null, Typeface.NORMAL);
+				tips.setVisibility(View.GONE);
+				tipsButton.setTextSize(13);
+				tipsButton.setTypeface(null, Typeface.NORMAL);
 			}
 		});
 		playersButton.setOnClickListener(new OnClickListener(){
@@ -496,6 +518,9 @@ public class ImportLeague extends Activity {
 				teamsButton.setTypeface(null, Typeface.NORMAL);
 				playersButton.setTypeface(null, Typeface.BOLD);
 				lineupButton.setTypeface(null, Typeface.NORMAL);
+				tips.setVisibility(View.GONE);
+				tipsButton.setTextSize(13);
+				tipsButton.setTypeface(null, Typeface.NORMAL);
 			}
 		});
 		lineupButton.setOnClickListener(new OnClickListener(){
@@ -514,6 +539,9 @@ public class ImportLeague extends Activity {
 				teamsButton.setTypeface(null, Typeface.NORMAL);
 				playersButton.setTypeface(null, Typeface.NORMAL);
 				lineupButton.setTypeface(null, Typeface.BOLD);
+				tips.setVisibility(View.GONE);
+				tipsButton.setTextSize(13);
+				tipsButton.setTypeface(null, Typeface.NORMAL);
 			}
 			
 		});
@@ -530,6 +558,7 @@ public class ImportLeague extends Activity {
 	    LeagueList.setLeagueInfoList(res);
 	    PlayerList.setPlayerInfoList(res, cont, newImport);
 	    LineupHelp.setLineupInfo(res);
+		RosterTips.init(newImport, res);
 	    //Handles the basic league information
 	    TextView name = (TextView)res.findViewById(R.id.league_name);
 	    name.setText(newImport.leagueName);

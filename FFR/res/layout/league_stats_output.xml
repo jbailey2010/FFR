@@ -633,5 +633,97 @@
         </ScrollView>
    
 </LinearLayout>
+<RelativeLayout 
+    android:visibility="gone"
+    android:layout_below="@+id/league_stats_tabs"
+    android:id="@+id/category_tips_base"
+	android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/content_well_import"
+    >
+    <Spinner
+        android:id="@+id/team_tips_spinner"
+        android:layout_width="180dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:focusable="false"
+        android:background="@drawable/spinner_well"/>
+    
+ 	<LinearLayout
+	        android:id="@+id/category_sub_base"
+	        android:layout_marginTop="20dp"
+	        android:layout_below="@+id/team_tips_spinner"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content" 
+	        android:weightSum="75"> 
+	
+	        <Button
+	            android:id="@+id/fa_tips"
+	            style="?android:attr/buttonBarButtonStyle"
+	            android:layout_width="match_parent"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="25"
+	            android:background="@drawable/not_selected_tab"
+	            android:text="Free Agency Tips"
+	            android:textStyle="bold"
+	            android:textColor="#FFFFFF"
+	            android:textSize="15sp" />
+	
+	        <Button 
+	            android:id="@+id/sw_game_venueinfo"
+	            style="?android:attr/buttonBarButtonStyle"
+	            android:layout_width="match_parent"
+	            android:layout_height="fill_parent" 
+	            android:layout_weight="25"
+	            android:clickable="false"
+	            android:background="#999999"
+	            android:textColor="#FFFFFF"
+	            android:textSize="13sp" /> 
+	  
+	        <Button
+	            android:id="@+id/trade_tips"
+	            style="?android:attr/buttonBarButtonStyle"
+	            android:layout_width="match_parent"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="25"
+	            android:textStyle="bold"
+	            android:background="@drawable/not_selected_tab"
+	            android:text="Trade Tips"
+	            android:textColor="#FFFFFF"
+	            android:textSize="15sp" />
+	
+	    </LinearLayout>
+	    <View
+		    android:layout_width="fill_parent"
+		    android:layout_height="2dp"
+		    android:background="#AA7777"
+		    android:layout_alignBottom="@+id/category_sub_base"/>
+	    <RelativeLayout
+	        	       	android:layout_below="@+id/category_sub_base"
+	      
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:background="#cccccc">
+	    <ScrollView
+	        android:id="@+id/fa_scroll"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginTop="20dp"
+	        android:layout_marginLeft="10dp"
+	        android:visibility="gone">
 
-			</RelativeLayout>
+	    <TextView
+	        android:id="@+id/fa_content"
+	        android:textSize="15sp"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:visibility="gone" />
+
+	    </ScrollView>
+	    </RelativeLayout>
+
+</RelativeLayout>
+</RelativeLayout>
