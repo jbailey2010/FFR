@@ -23,6 +23,7 @@ import com.example.fantasyfootballrankings.MyLeagueSupport.CompareTeams;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LeagueList;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LineupHelp;
 import com.example.fantasyfootballrankings.MyLeagueSupport.PlayerList;
+import com.example.fantasyfootballrankings.MyLeagueSupport.RosterTips;
 import com.example.fantasyfootballrankings.MyLeagueSupport.TeamList;
 import com.example.fantasyfootballrankings.MyLeagueSupport.ImportSources.ESPNImport;
 import com.ffr.fantasyfootballrankings.R;
@@ -443,7 +444,7 @@ public class ImportLeague extends Activity {
 		tipsButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				
+				RosterTips.init(newImport);
 			}
 		});
 		leagueButton.setOnClickListener(new OnClickListener(){

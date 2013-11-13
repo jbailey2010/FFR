@@ -1,14 +1,18 @@
 package com.example.fantasyfootballrankings.ClassFiles.StorageClasses;
 
 import java.text.DecimalFormat;
-
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 import FileIO.ReadFromFile;
 import android.content.Context;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
+import com.example.fantasyfootballrankings.Pages.ImportLeague;
 
 /**
  * Handles the analysis of a team, given the string input of it
@@ -18,6 +22,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 public class TeamAnalysis 
 {
 	public String team;
+	public List<PlayerObject> players = new ArrayList<PlayerObject>();
 	String[] qb;
 	String[] rb;
 	String[] wr;
@@ -77,6 +82,7 @@ public class TeamAnalysis
 		teStart = paaStarters(te, rb, wr, "TE");
 		dStart = paaStarters(d, rb, wr, "D/ST");
 		kStart = paaStarters(k, rb, wr, "K");
+		populateTeamsList(this);
 	}
 	
 	/**
@@ -85,6 +91,41 @@ public class TeamAnalysis
 	public TeamAnalysis() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**
+	 * Populates each team's player object list
+	 */
+	public void populateTeamsList(TeamAnalysis team)
+	{
+		Map<String, String> posFix = new HashMap<String, String>();
+		posFix.put("Quarterbacks", "QB");
+		posFix.put("Running Backs", "RB");
+		posFix.put("Wide Receivers", "WR");
+		posFix.put("Tight Ends", "TE");
+		posFix.put("Kickers", "K");
+		String[] posSet = team.team.split("\n");
+		for(String pos : posSet)
+		{
+			if(pos.split(",").length > 1)
+			{
+				String position = posFix.get(pos.split(": ")[0]);
+				String[] playerList = pos.split(": ")[1].split(", ");
+				for(String name: playerList)
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.name.equals(name) && player.info.position.equals(position))
+						{
+							team.players.add(player);
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	
 
 	/**
 	 * Gets the paa of all of the players at each position (given)

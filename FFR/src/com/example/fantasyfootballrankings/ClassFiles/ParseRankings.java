@@ -118,6 +118,7 @@ public class ParseRankings
 		fixes.put("Michael Crabtre", "Michael Crabtree");
 		fixes.put("Zach K. Brown", "Zach Brown");
 		fixes.put("Gio Bernard", "Giovani Bernard");
+		fixes.put("Timothy Wright", "Tim Wright");
 		
 		teams.put("cin", "Cincinnati Bengals");
 		teams.put("cincinnati", "Cincinnati Bengals");
