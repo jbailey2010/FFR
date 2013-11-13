@@ -1340,6 +1340,7 @@ public class SortHandler
 		}
 		GraphViewSeries es = new GraphViewSeries(subject, seriesStyle, dataSet);
 		graphView.addSeries(es);
+		((LineGraphView)graphView).setDrawBackground(true);
 		LinearLayout layout = (LinearLayout) popUp.findViewById(R.id.plot_base_layout);
 		layout.addView(graphView);
 

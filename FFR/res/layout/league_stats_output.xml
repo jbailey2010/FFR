@@ -159,13 +159,13 @@
 		    android:layout_marginBottom="5dp"/>
 
         <Button
-            android:id="@+id/imported_league_search"
+            android:id="@+id/imported_league_tips"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="25"
             android:background="#282828"
-            android:text="Search"
+            android:text="Tips"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
     </LinearLayout>
@@ -246,12 +246,12 @@
                android:layout_below="@+id/category_team_base"
                android:layout_alignParentBottom="true">
          <Button 
-             android:id="@+id/player_list_clear"
+             android:id="@+id/player_list_search"
              android:layout_alignLeft="@+id/player_status_spinner"
              android:layout_below="@+id/player_status_spinner"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="Clear"
+             android:text="Search"
              style="@style/ButtonText"
         		android:background="@drawable/btn_red"/>
          
@@ -269,7 +269,7 @@
                android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:layout_alignParentLeft="true"
-               android:layout_below="@+id/player_list_clear"
+               android:layout_below="@+id/player_list_search"
                android:background="@drawable/content_well_import"
                android:divider="#999999"
                android:focusable="false"
@@ -301,7 +301,7 @@
 
            <com.example.fantasyfootballrankings.InterfaceAugmentations.NDSpinner
                android:id="@+id/player_sort_spinner"
-               android:layout_width="175dp"
+               android:layout_width="150dp"
                android:layout_height="30dp"
                android:layout_alignBottom="@+id/player_list_graph"
                android:layout_marginTop="5dp"

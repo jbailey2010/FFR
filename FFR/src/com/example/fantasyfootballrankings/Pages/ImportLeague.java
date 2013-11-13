@@ -439,18 +439,11 @@ public class ImportLeague extends Activity {
 		final Button teamsButton  = (Button)res.findViewById(R.id.category_team_stats);
 		final Button playersButton= (Button)res.findViewById(R.id.category_player_list);
 		final Button lineupButton = (Button)res.findViewById(R.id.category_lineup_help);
-		final Button searchButton = (Button)res.findViewById(R.id.imported_league_search);
-		searchButton.setOnClickListener(new OnClickListener(){
+		final Button tipsButton = (Button)res.findViewById(R.id.imported_league_tips);
+		tipsButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				PlayerInfo obj = new PlayerInfo();
-				obj.holder = holder;
-				try {
-					obj.searchCalled(cont, true, newImport);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 			}
 		});
 		leagueButton.setOnClickListener(new OnClickListener(){

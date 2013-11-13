@@ -1,5 +1,6 @@
 package com.example.fantasyfootballrankings.MyLeagueSupport;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -179,16 +180,20 @@ public class PlayerList {
 			    	sortSp.setOnItemSelectedListener(l3);
 			}});
 		 populatePlayerList(list, "All Positions", "All Players", "PAA");
-		 Button clear = (Button)res.findViewById(R.id.player_list_clear);
+		 Button search = (Button)res.findViewById(R.id.player_list_search);
 		 Button graph = (Button)res.findViewById(R.id.player_list_graph);
-		 clear.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				pos.setSelection(0);
-				status.setSelection(0);
-				sortSp.setSelection(0);
-				populatePlayerList(list, "All Positions", "All Players", "PAA");
-			}
+		 search.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					PlayerInfo obj = new PlayerInfo();
+					obj.holder = ImportLeague.holder;
+					try {
+						obj.searchCalled(cont, true, newImport);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 		 });
 		 graph.setOnClickListener(new OnClickListener(){
 			@Override
