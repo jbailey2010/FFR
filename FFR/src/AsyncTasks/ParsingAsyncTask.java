@@ -106,12 +106,14 @@ public class ParsingAsyncTask
 		    	Context cont = (Context) data[1];
 		    	Map<String, List<String>> fa = new HashMap<String, List<String>>();
 		    	Map<String, String> draftClasses = new HashMap<String, String>(); 
+		    	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+				int draftIter = prefs.getInt("Parse Count", 0);
 		    	if(holder.isRegularSeason)
 		    	{
 		    		fa = holder.fa;
 		    		draftClasses = holder.draftClasses;
 		    	}
-		    	if(!holder.isRegularSeason || holder.players.size() < 100)
+		    	if(!holder.isRegularSeason || holder.players.size() < 100 || draftIter >= 8)
 		    	{
 					holder.players.clear();
 			    	holder.parsedPlayers.clear();
@@ -343,6 +345,8 @@ public class ParsingAsyncTask
 					} catch (IOException e1) {
 					}
 	    		}
+	    		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+	    		editor.putInt("Parse Count", draftIter++).commit();
 				return null;
 		    }
 

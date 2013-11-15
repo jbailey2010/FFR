@@ -377,7 +377,7 @@ public class ESPNImport
 						if(child.children().size() > 0)
 						{
 							team = child.child(0).text();
-							team = team.split("\\(")[0];
+							//team = team.split("\\(")[0];
 							String[] teamSet = team.split(" ");
 							StringBuilder teamBuilder = new StringBuilder(40);
 							for(String teamIter : teamSet)

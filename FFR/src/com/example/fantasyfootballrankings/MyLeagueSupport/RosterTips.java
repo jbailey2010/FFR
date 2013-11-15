@@ -187,15 +187,42 @@ public class RosterTips
 				outputStr.append(old.info.name + " has a ROS ranking of " + old.values.rosRank + ", but ");
 				PriorityQueue<PlayerObject> better = qb.get(old);
 				int counter = 12;
+				boolean flag = false;
+				if(better.size() == 2)
+				{
+					flag = true;
+				}
 				while(!better.isEmpty() && counter > 0)
 				{
 					counter --;
 					PlayerObject iter = better.poll();
-					outputStr.append(iter.info.name + " (" + iter.values.rosRank + "), ");
+					if(!flag)
+					{
+						outputStr.append(iter.info.name + " (" + iter.values.rosRank + "), ");
+					}
+					else
+					{
+						outputStr.append(iter.info.name + " (" + iter.values.rosRank + ") ");
+					}
+					if(better.size() == 1)
+					{
+						outputStr.append("and ");
+					}
 				}
 				String inter = outputStr.toString();
 				inter = inter.substring(0, inter.length() - 2);
-				outputS.append(inter + " are all available\n\n");
+				if(counter <= 9)
+				{
+					outputS.append(inter + " are all available\n\n");
+				}
+				else if(counter <= 10)
+				{
+					outputS.append(inter + " are available\n\n");
+				}
+				else if(counter <= 11)
+				{
+					outputS.append(inter + " is available\n\n");
+				}
 			}
 			outputS.append("\n\n");
 		}
