@@ -1094,13 +1094,13 @@ public class HighLevel
 				String opp = "Bye Week";
 				if(wholeSet.contains("vs"))
 				{
-					opp = ParseRankings.fixTeams(wholeSet.split("vs. ")[1]);
+					opp = ParseRankings.fixTeams(wholeSet.split("vs. ")[1].split(" Start /")[0]);
 				}
 				else
 				{
 					if(wholeSet.contains("at "))
 					{
-						opp = ParseRankings.fixTeams(wholeSet.split("at ")[1]);
+						opp = ParseRankings.fixTeams(wholeSet.split("at ")[1].split(" Start /")[0]);
 					}
 				}
 				adp.put(team, opp);

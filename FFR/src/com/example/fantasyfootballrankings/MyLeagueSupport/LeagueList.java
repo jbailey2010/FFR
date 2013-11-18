@@ -430,8 +430,8 @@ public class LeagueList {
 				@Override
 				public int compare(String a, String b)  
 				{
-					double aVal = Double.valueOf(a.split(" \\(")[1].split("\\)")[0]);
-					double bVal = Double.valueOf(b.split(" \\(")[1].split("\\)")[0]);
+					double aVal = Double.valueOf(a.split(" \\(")[2].split("\\)")[0]);
+					double bVal = Double.valueOf(b.split(" \\(")[2].split("\\)")[0]);
 					if(aVal > bVal)
 					{
 						return -1;
@@ -463,7 +463,7 @@ public class LeagueList {
 			}
 			else
 			{
-				val = teamIter.split(" \\(")[1].split("\\)")[0];
+				val = teamIter.split(" \\(")[2].split("\\)")[0];
 			}
 			teams[counter] = teamIter.split(": ")[0];
 			double value = Double.valueOf(val);
@@ -478,7 +478,7 @@ public class LeagueList {
 			dataSet[counter] = new GraphViewData(++counter, value);
 			GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();  
 			seriesStyle.thickness = 5;
-			GraphViewSeries exampleSeries = new GraphViewSeries(teamCt + " " + teams[counter-1].split("\\)")[1], seriesStyle, dataSet);  
+			GraphViewSeries exampleSeries = new GraphViewSeries(teamCt + " " + teams[counter-1].split("\\) ")[1], seriesStyle, dataSet);  
 			graphView.addSeries(exampleSeries);
 		}
 		final double max = maxFirst;

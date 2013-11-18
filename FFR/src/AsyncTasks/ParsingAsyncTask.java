@@ -346,6 +346,10 @@ public class ParsingAsyncTask
 					}
 	    		}
 	    		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+	    		if(draftIter >= 8)
+	    		{
+	    			draftIter = -1;
+	    		}
 	    		editor.putInt("Parse Count", draftIter++).commit();
 				return null;
 		    }
