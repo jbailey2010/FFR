@@ -165,10 +165,10 @@ public class RosterTips
 	
 	public static void handleTrades(TeamAnalysis team, View res)
 	{
-		List<TeamTradeInfo>leagueMaster = new ArrayList<TeamTradeInfo>();
+		Map<TeamAnalysis, TeamTradeInfo>leagueMaster = new HashMap<TeamAnalysis, TeamTradeInfo>();
 		for(TeamAnalysis iter : newImport.teams)
 		{
-			leagueMaster.add(new TeamTradeInfo(iter, ImportLeague.cont));
+			leagueMaster.put(iter, new TeamTradeInfo(iter, ImportLeague.cont));
 		}
 		TextView output = (TextView)res.findViewById(R.id.fa_content);
 		ScrollView base = (ScrollView)res.findViewById(R.id.fa_scroll);
