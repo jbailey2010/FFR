@@ -19,6 +19,7 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.TeamTradeInfo;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
@@ -111,32 +112,47 @@ public class RosterTips
 			public void onClick(View v) {
 				trade.setBackgroundResource(R.drawable.selected_tab);
 				fa.setBackgroundResource(R.drawable.not_selected_tab);
-			}
+				String teamName = teamsSp.getSelectedItem().toString();
+				TeamAnalysis iter = null;
+				for(TeamAnalysis team : newImport.teams)
+				{
+					if(team.teamName.equals(teamName))
+					{
+						iter = team;
+						break;
+					}
+				}
+				handleTrades(iter, res);
+			} 
 		});
 		teamsSp.setOnItemSelectedListener(new OnItemSelectedListener(){
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				TextView output = (TextView)res.findViewById(R.id.fa_content);
+				TextView tradeOutput = (TextView)res.findViewById(R.id.trade_content);
+				String teamName = teamsSp.getSelectedItem().toString();
+				TeamAnalysis iter = null;
+				for(TeamAnalysis team : newImport.teams)
+				{
+					if(team.teamName.equals(teamName))
+					{
+						iter = team;
+						break;
+					}
+				}
 				if(output.isShown())
 				{
 					fa.setBackgroundResource(R.drawable.selected_tab);
 					trade.setBackgroundResource(R.drawable.not_selected_tab);
-					String teamName = teamsSp.getSelectedItem().toString();
-					TeamAnalysis iter = null;
-					for(TeamAnalysis team : newImport.teams)
-					{
-						if(team.teamName.equals(teamName))
-						{
-							iter = team;
-							break;
-						}
-					}
 					handleFA(iter, res);
 				}
-				/**
-				 * Need a second condition for trading when it happens
-				 */
+				else if(tradeOutput.isShown())
+				{
+					fa.setBackgroundResource(R.drawable.not_selected_tab);
+					trade.setBackgroundResource(R.drawable.selected_tab);
+					handleTrades(iter, res);
+				}
 			}
 
 			@Override
@@ -145,6 +161,21 @@ public class RosterTips
 				
 			}
 		});
+	}
+	
+	public static void handleTrades(TeamAnalysis team, View res)
+	{
+		List<TeamTradeInfo>leagueMaster = new ArrayList<TeamTradeInfo>();
+		for(TeamAnalysis iter : newImport.teams)
+		{
+			leagueMaster.add(new TeamTradeInfo(iter, ImportLeague.cont));
+		}
+		TextView output = (TextView)res.findViewById(R.id.fa_content);
+		ScrollView base = (ScrollView)res.findViewById(R.id.fa_scroll);
+		base.setVisibility(View.VISIBLE);
+		output.setVisibility(View.GONE);
+		TextView tradeOutput = (TextView)res.findViewById(R.id.trade_content);
+		tradeOutput.setVisibility(View.VISIBLE);
 	}
 	
 	/**
@@ -161,6 +192,8 @@ public class RosterTips
 		Map<PlayerObject, PriorityQueue<PlayerObject>> k  = faMoves(team, "K");
 		TextView output = (TextView)res.findViewById(R.id.fa_content);
 		ScrollView base = (ScrollView)res.findViewById(R.id.fa_scroll);
+		TextView tradeOutput = (TextView)res.findViewById(R.id.trade_content);
+		tradeOutput.setVisibility(View.GONE);
 		base.setVisibility(View.VISIBLE);
 		output.setVisibility(View.VISIBLE);
 		StringBuilder outputS = new StringBuilder(10000);

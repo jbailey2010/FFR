@@ -106,7 +106,7 @@ public class TeamAnalysis
 		String[] posSet = team.team.split("\n");
 		for(String pos : posSet)
 		{
-			if(pos.split(",").length > 1)
+			if(!pos.contains("None "))
 			{
 				String position = posFix.get(pos.split(": ")[0]);
 				String[] playerList = pos.split(": ")[1].split(", ");
