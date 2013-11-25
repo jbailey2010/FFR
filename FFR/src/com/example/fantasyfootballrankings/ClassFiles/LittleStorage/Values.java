@@ -30,6 +30,10 @@ public class Values
 		rosRank = 0;
 	}
 
+	public Values() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Takes in a new value and re-calculates the worth based on it
 	 * @param player the Values object being worked with

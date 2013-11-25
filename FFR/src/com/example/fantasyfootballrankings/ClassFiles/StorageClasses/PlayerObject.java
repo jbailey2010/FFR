@@ -34,6 +34,13 @@ public class PlayerObject
 		injuryStatus = "Injury Status: Healthy";
 		risk = -1.0;
 	}
+
+	/**
+	 * Empty dummy constructor
+	 */
+	public PlayerObject() {
+		// TODO Auto-generated constructor stub
+	}
 	
 
 	

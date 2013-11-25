@@ -1,7 +1,6 @@
 package FileIO;
 
 import java.text.DateFormat;
-
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -13,6 +12,7 @@ import java.util.Set;
 import twitter4j.auth.AccessToken;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Flex;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
@@ -326,11 +326,17 @@ public class WriteToFile {
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 		editor.putInt("Number of teams", roster.teams);
+		if(roster.flex == null)
+		{
+			roster.flex = new Flex();
+		}
 		editor.putInt("Starting QBs", roster.qbs);
 		editor.putInt("Starting RBs", roster.rbs);
 		editor.putInt("Starting WRs", roster.wrs);
 		editor.putInt("Starting TEs", roster.tes);
-		editor.putInt("Starting flexes", roster.flex);
+		editor.putInt("Starting RB/WRs", roster.flex.rbwr);
+		editor.putInt("Starting RB/WR/TEs", roster.flex.rbwrte);
+		editor.putInt("Starting OPs", roster.flex.op);
 		editor.putInt("Starting Ks", roster.k);
 		editor.putInt("Starting Defs", roster.def);
 		editor.putBoolean("Is roster set?", true);

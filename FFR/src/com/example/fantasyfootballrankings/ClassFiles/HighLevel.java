@@ -643,134 +643,153 @@ public class HighLevel
 		{
 			teLimit = (7.5 * x) - 41.66667;
 		}
-		if(roster.flex == 0)
+		if(roster.rbs == 1)
 		{
-			if(roster.rbs == 1)
-			{
-				rbLimit = (1.5 * x) - 2;
-			}
-			else if(roster.rbs == 2)
-			{
-				rbLimit = (3.25 * x) - 5.33333;
-			}
-			else
-			{
-				rbLimit = (6 * x) - 16.33333;
-			}
-			if(roster.wrs == 1)
-			{
-				wrLimit = (1.25 * x) + 0.33333;
-			}
-			else if(roster.wrs == 2)
-			{
-				wrLimit = (2.75 * x) - 1.66666667;
-			}
-			else
-			{
-				wrLimit = (4.5 * x) - 5;
-			}
+			rbLimit = (1.5 * x) - 2;
+		}
+		else if(roster.rbs == 2)
+		{
+			rbLimit = (3.25 * x) - 5.33333;
 		}
 		else
 		{
+			rbLimit = (6 * x) - 16.33333;
+		}
+		if(roster.wrs == 1)
+		{
+			wrLimit = (1.25 * x) + 0.33333;
+		}
+		else if(roster.wrs == 2)
+		{
+			wrLimit = (2.75 * x) - 1.66666667;
+		}
+		else
+		{
+			wrLimit = (4.5 * x) - 5;
+		}
+		if(roster.flex != null)
+		{
 			Scoring scoring = ReadFromFile.readScoring(cont);
-			if(scoring.catches == 1)
+			if(roster.flex.rbwr == 1 || roster.flex.rbwrte == 1)
 			{
-				//Legit
-				if(roster.rbs == 2 && roster.wrs == 2)
+				if(scoring.catches == 1)
 				{
-					rbLimit = 3.75 * x - 10.666667;
-					wrLimit = 4.25 * x - 2.33333;
+					//Legit
+					if(roster.rbs == 2 && roster.wrs == 2)
+					{
+						rbLimit = 3.75 * x - 10.666667;
+						wrLimit = 4.25 * x - 2.33333;
+					}
+					if(roster.rbs == 1 && roster.wrs == 3)
+					{
+						rbLimit = 3 * x - 3.3333;
+						wrLimit = 4.75 * x - 6.3333;
+					}
+					if(roster.rbs == 2 && roster.wrs == 3)
+					{
+						rbLimit = 4.5 * x - 5.33333;
+						wrLimit = 5.75 * x - 14;
+					}
+					//Guesstimated
+					if(roster.rbs == 1 && roster.wrs == 1)
+					{
+						rbLimit = 2 * x - 3.3333;
+						wrLimit = 2 * x - 1;
+					}
+					if(roster.rbs == 1 && roster.wrs == 2)
+					{
+						rbLimit = 2.5 * x;
+						wrLimit = 4.25 * x - 5;
+					}
+					if(roster.rbs == 2 && roster.wrs == 1)
+					{
+						rbLimit = 3.5 * x - 10;
+						wrLimit = 2.25 * x - 1;
+					}
+					if(roster.rbs == 3 && roster.wrs == 1)
+					{
+						wrLimit = 2.5 * x + 1;
+						rbLimit = 4.7 * x - 5;
+					}
+					if(roster.rbs == 3 && roster.wrs == 2)
+					{
+						rbLimit = 4.75 * x - 4.33333;
+						wrLimit = 4.25 * x;
+					}
+					if(roster.rbs == 3 && roster.wrs == 3)
+					{
+						rbLimit = 4.75 * x - 1;
+						wrLimit = 5.75 * x - 12;
+					}
 				}
-				if(roster.rbs == 1 && roster.wrs == 3)
+				else
 				{
-					rbLimit = 3 * x - 3.3333;
-					wrLimit = 4.75 * x - 6.3333;
+					//Legit
+					if(roster.rbs == 2 && roster.wrs == 2)
+					{
+						rbLimit = 2.75 * x + 6;
+						wrLimit = 4.25 * x - 7.3333;
+					}
+					if(roster.rbs == 1 && roster.wrs == 3)
+					{
+						rbLimit = 2.5 * x + 3.3333;
+						wrLimit = 5.25 * x - 13;
+					}
+					if(roster.rbs == 2 && roster.wrs == 3)
+					{
+						rbLimit = 4.5 * x - 5.3333;
+						wrLimit = 5.75 * x - 14;
+					}
+					//Guesstimated
+					if(roster.rbs == 1 && roster.wrs == 1)
+					{
+						rbLimit = 2 * x - 2;
+						wrLimit = 2 * x - 1.66667;
+					}
+					if(roster.rbs == 1 && roster.wrs == 2)
+					{
+						rbLimit = 2.5 * x + 1;
+						wrLimit = 4.25 * x - 6;
+					}
+					if(roster.rbs == 2 && roster.wrs == 1)
+					{
+						rbLimit = 3.5 * x - 9;
+						wrLimit = 2.25 * x - 1.666667;
+					}
+					if(roster.rbs == 3 && roster.wrs == 1)
+					{
+						wrLimit = 2.5 * x + 1.5;
+						rbLimit = 4.7 * x - 3.6667;
+					}
+					if(roster.rbs == 3 && roster.wrs == 2)
+					{
+						rbLimit = 4.75 * x - 3.666667;
+						wrLimit = 4.25 * x - 1;
+					}
+					if(roster.rbs == 3 && roster.wrs == 3)
+					{
+						rbLimit = 4.75 * x;
+						wrLimit = 5.75 * x - 13;
+					}
 				}
-				if(roster.rbs == 2 && roster.wrs == 3)
+				if(roster.flex.rbwrte == 1)
 				{
-					rbLimit = 4.5 * x - 5.33333;
-					wrLimit = 5.75 * x - 14;
-				}
-				//Guesstimated
-				if(roster.rbs == 1 && roster.wrs == 1)
-				{
-					rbLimit = 2 * x - 3.3333;
-					wrLimit = 2 * x - 1;
-				}
-				if(roster.rbs == 1 && roster.wrs == 2)
-				{
-					rbLimit = 2.5 * x;
-					wrLimit = 4.25 * x - 5;
-				}
-				if(roster.rbs == 2 && roster.wrs == 1)
-				{
-					rbLimit = 3.5 * x - 10;
-					wrLimit = 2.25 * x - 1;
-				}
-				if(roster.rbs == 3 && roster.wrs == 1)
-				{
-					wrLimit = 2.5 * x + 1;
-					rbLimit = 4.7 * x - 5;
-				}
-				if(roster.rbs == 3 && roster.wrs == 2)
-				{
-					rbLimit = 4.75 * x - 4.33333;
-					wrLimit = 4.25 * x;
-				}
-				if(roster.rbs == 3 && roster.wrs == 3)
-				{
-					rbLimit = 4.75 * x - 1;
-					wrLimit = 5.75 * x - 12;
+					teLimit += x/6.0;
 				}
 			}
-			else
+			if(roster.flex.op == 1)
 			{
-				//Legit
-				if(roster.rbs == 2 && roster.wrs == 2)
+				qbLimit = (6 * x - 33);
+				teLimit += 0.5;
+				if(scoring.catches == 1)
 				{
-					rbLimit = 2.75 * x + 6;
-					wrLimit = 4.25 * x - 7.3333;
+					rbLimit += x/6.0;
+					wrLimit += x/5.0;
 				}
-				if(roster.rbs == 1 && roster.wrs == 3)
+				else
 				{
-					rbLimit = 2.5 * x + 3.3333;
-					wrLimit = 5.25 * x - 13;
-				}
-				if(roster.rbs == 2 && roster.wrs == 3)
-				{
-					rbLimit = 4.5 * x - 5.3333;
-					wrLimit = 5.75 * x - 14;
-				}
-				//Guesstimated
-				if(roster.rbs == 1 && roster.wrs == 1)
-				{
-					rbLimit = 2 * x - 2;
-					wrLimit = 2 * x - 1.66667;
-				}
-				if(roster.rbs == 1 && roster.wrs == 2)
-				{
-					rbLimit = 2.5 * x + 1;
-					wrLimit = 4.25 * x - 6;
-				}
-				if(roster.rbs == 2 && roster.wrs == 1)
-				{
-					rbLimit = 3.5 * x - 9;
-					wrLimit = 2.25 * x - 1.666667;
-				}
-				if(roster.rbs == 3 && roster.wrs == 1)
-				{
-					wrLimit = 2.5 * x + 1.5;
-					rbLimit = 4.7 * x - 3.6667;
-				}
-				if(roster.rbs == 3 && roster.wrs == 2)
-				{
-					rbLimit = 4.75 * x - 3.666667;
-					wrLimit = 4.25 * x - 1;
-				}
-				if(roster.rbs == 3 && roster.wrs == 3)
-				{
-					rbLimit = 4.75 * x;
-					wrLimit = 5.75 * x - 13;
+					rbLimit += x/5.0;
+					wrLimit += x/6.0;
 				}
 			}
 		}

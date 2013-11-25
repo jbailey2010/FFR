@@ -16,12 +16,13 @@ public class Roster
 	public int tes;
 	public int def;
 	public int k;
-	public int flex;
+	public Flex flex;
+	//public int flex;
 	
 	/**
 	 * Stores the roster numbers
 	 */
-	public Roster(int teamCt, int qbCt, int rbCt, int wrCt, int teCt, int flexCt, int defCt, int kCt)
+	public Roster(int teamCt, int qbCt, int rbCt, int wrCt, int teCt, Flex flexCt, int defCt, int kCt)
 	{
 		teams = teamCt;
 		qbs = qbCt;
@@ -43,7 +44,7 @@ public class Roster
 		rbs = 0;
 		wrs = 0;
 		tes = 0;
-		flex = 0;
+		flex = null;
 		k = 0;
 		def = 0;
 	}
@@ -55,19 +56,19 @@ public class Roster
 	 */
 	public boolean isRostered(PlayerObject player)
 	{
-		if(player.info.position.equals("QB") && qbs == 0)
+		if(player.info.position.equals("QB") && qbs == 0 && (flex == null || flex.op == 0))
 		{
 			return false;
 		}
-		if(player.info.position.equals("RB") && rbs == 0 && flex == 0)
+		if(player.info.position.equals("RB") && rbs == 0 && (flex == null || flex.rbwr == 0 || flex.rbwrte == 0 || flex.op == 0))
 		{
 			return false;
 		}
-		if(player.info.position.equals("WR") && wrs == 0 && flex == 0)
+		if(player.info.position.equals("WR") && wrs == 0 && (flex == null || flex.rbwr == 0 || flex.rbwrte == 0 || flex.op == 0))
 		{
 			return false;
 		}
-		if(player.info.position.equals("TE") && tes == 0)
+		if(player.info.position.equals("TE") && tes == 0 && (flex == null || flex.op == 0 || flex.rbwrte == 0))
 		{
 			return false;
 		}

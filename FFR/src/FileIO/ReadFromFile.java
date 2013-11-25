@@ -1,10 +1,10 @@
 package FileIO;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 import AsyncTasks.StorageAsyncTask;
 import AsyncTasks.StorageAsyncTask.ReadDraft;
 import AsyncTasks.StorageAsyncTask.ReadNamesList;
@@ -12,7 +12,9 @@ import AsyncTasks.StorageAsyncTask.ReadPosts;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Flex;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
@@ -273,11 +275,29 @@ public class ReadFromFile {
 		roster.rbs = prefs.getInt("Starting RBs", 2);
 		roster.wrs = prefs.getInt("Starting WRs", 2);
 		roster.tes = prefs.getInt("Starting TEs", 1);
-		roster.flex = prefs.getInt("Starting flexes", 1);
+		roster.flex = readFlex(cont);
 		roster.def = prefs.getInt("Starting Defs", 1);
 		roster.k = prefs.getInt("Starting Ks", 1);
 		
 		return roster;
+	}
+	
+	/**
+	 * Reads the roster flex options from file
+	 * @param cont
+	 * @return
+	 */
+	public static Flex readFlex(Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		int rbwr = prefs.getInt("Starting RB/WRs", 0);
+		int rbwrte = prefs.getInt("Starting RB/WR/TEs", 0);
+		int op = prefs.getInt("Starting OPs", 0);
+		if(rbwr == 0 && rbwrte == 0 && op == 0)
+		{
+			return null;
+		}
+		return new Flex(rbwr, rbwrte, op);
 	}
 	
 	/**

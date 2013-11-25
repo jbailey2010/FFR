@@ -118,7 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView5"
         android:layout_alignLeft="@+id/TextView02"
-        android:text="How many flexes?"
+        android:text="Do you use flexes?"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Spinner

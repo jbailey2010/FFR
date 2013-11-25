@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,9 +8,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import com.ffr.fantasyfootballrankings.R;
 
+import com.ffr.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Flex;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
@@ -37,6 +37,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -522,9 +524,12 @@ public class ManageInput
 		quantitiesTeam.add("12");
 		quantitiesTeam.add("14");
 		quantitiesTeam.add("16");
-		List<String>quantitiesFlex = new ArrayList<String>();
-		quantitiesFlex.add("0");
-		quantitiesFlex.add("1");
+		List<String>flexFlag = new ArrayList<String>();
+		flexFlag.add("Yes");
+		flexFlag.add("No");
+		List<String>quantitiesK = new ArrayList<String>();
+		quantitiesK.add("0");
+		quantitiesK.add("1");
 		final Spinner qb = (Spinner)dialog.findViewById(R.id.qb_quantity);
 		final Spinner te = (Spinner)dialog.findViewById(R.id.te_quantity);
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
@@ -545,8 +550,10 @@ public class ManageInput
 		final Spinner def = (Spinner)dialog.findViewById(R.id.defense_quantity);
 		final Spinner k = (Spinner)dialog.findViewById(R.id.kicker_quantity);
 		spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
-				android.R.layout.simple_spinner_dropdown_item, quantitiesFlex);
+				android.R.layout.simple_spinner_dropdown_item, flexFlag);
 		flex.setAdapter(spinnerArrayAdapter);
+		spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
+				android.R.layout.simple_spinner_dropdown_item, quantitiesK);
 		def.setAdapter(spinnerArrayAdapter);
 		k.setAdapter(spinnerArrayAdapter);
 		flex.setSelection(1);
@@ -557,6 +564,27 @@ public class ManageInput
 		te.setSelection(1);
 		k.setSelection(1);
 		def.setSelection(1);
+		dummyRoster.flex = new Flex();
+		flex.setOnItemSelectedListener(new OnItemSelectedListener(){
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				String selection = ((TextView)arg1).getText().toString();
+				if(selection.equals("Yes"))
+				{
+					dummyRoster.flex = new Flex();
+					handleFlexPopUp(cont, dummyRoster.flex);
+				}
+				else
+				{
+					dummyRoster.flex = null;
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+		});
 		Button submit = (Button)dialog.findViewById(R.id.roster_submit);
 		submit.setOnClickListener(new OnClickListener(){
 			@Override
@@ -566,7 +594,6 @@ public class ManageInput
 				dummyRoster.wrs = Integer.parseInt((String)wr.getSelectedItem());
 				dummyRoster.tes = Integer.parseInt((String)te.getSelectedItem());
 				dummyRoster.teams = Integer.parseInt((String)team.getSelectedItem());
-				dummyRoster.flex = Integer.parseInt((String)flex.getSelectedItem());
 				dummyRoster.def = Integer.parseInt((String)def.getSelectedItem());
 				dummyRoster.k = Integer.parseInt((String)k.getSelectedItem());
 				WriteToFile.writeRoster(cont, dummyRoster);
@@ -584,6 +611,42 @@ public class ManageInput
 				    editor.putBoolean("Home Update Import", true).commit();
 
 				}
+			}
+		});
+	}
+	
+	/**
+	 * Handles the flex pop up for all three major flexes
+	 */
+	public static void handleFlexPopUp(Context cont, final Flex newFlex)
+	{
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.flex_layout_roster);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+		dialog.show();
+		final Spinner rbwr = (Spinner)dialog.findViewById(R.id.rb_wr_quantity);
+		final Spinner rbwrte = (Spinner) dialog.findViewById(R.id.rb_wr_te_quantity);
+		final Spinner op = (Spinner)dialog.findViewById(R.id.op_quantity);
+		List<String>quantitiesQBTE = new ArrayList<String>();
+		quantitiesQBTE.add("0");
+		quantitiesQBTE.add("1");
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(cont, 
+				android.R.layout.simple_spinner_dropdown_item, quantitiesQBTE);
+		rbwr.setAdapter(spinnerArrayAdapter);
+		rbwrte.setAdapter(spinnerArrayAdapter);
+		op.setAdapter(spinnerArrayAdapter);
+		Button submit = (Button)dialog.findViewById(R.id.roster_submit);
+		submit.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				newFlex.rbwr = Integer.valueOf(rbwr.getSelectedItem().toString());
+				newFlex.rbwrte = Integer.valueOf(rbwrte.getSelectedItem().toString());
+				newFlex.op = Integer.valueOf(op.getSelectedItem().toString());
+				dialog.dismiss();
 			}
 		});
 	}

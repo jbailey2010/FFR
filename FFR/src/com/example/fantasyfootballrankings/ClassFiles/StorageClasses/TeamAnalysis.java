@@ -12,6 +12,7 @@ import FileIO.ReadFromFile;
 import android.content.Context;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 
 /**
@@ -76,12 +77,12 @@ public class TeamAnalysis
 		dTotal = paaPos(d);
 		kTotal = paaPos(k);
 		cont = c;
-		qbStart = paaStarters(qb, rb, wr, "QB");
-		rbStart = paaStarters(rb, rb, wr, "RB");
-		wrStart = paaStarters(wr, rb, wr, "WR");
-		teStart = paaStarters(te, rb, wr, "TE");
-		dStart = paaStarters(d, rb, wr, "D/ST");
-		kStart = paaStarters(k, rb, wr, "K");
+		qbStart = paaStarters(qb, qb, rb, wr, te, "QB");
+		rbStart = paaStarters(rb, qb, rb, wr, te, "RB");
+		wrStart = paaStarters(wr, qb, rb, wr, te, "WR");
+		teStart = paaStarters(te, qb, rb, wr, te, "TE");
+		dStart = paaStarters(d, qb, rb, wr, te, "D/ST");
+		kStart = paaStarters(k, qb, rb, wr, te, "K");
 		populateTeamsList(this);
 	}
 	
@@ -163,7 +164,7 @@ public class TeamAnalysis
 	 * @param posStr
 	 * @return
 	 */
-	public double paaStarters(String[] pos, String[] rbs, String[] wrs, String posStr)
+	public double paaStarters(String[] pos, String[] qbs, String[] rbs, String[] wrs, String[] tes, String posStr)
 	{
 		double total = 0.0;
 		DecimalFormat df = new DecimalFormat("#.##");
@@ -193,7 +194,7 @@ public class TeamAnalysis
 		{
 			limit = r.k;
 		}
-		if(r.flex > 0 && posStr.equals("RB") || posStr.equals("WR"))
+		if(r.flex != null && r.flex.rbwr > 0 && (posStr.equals("RB") || posStr.equals("WR")))
 		{
 			PriorityQueue<PlayerObject> rb = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 					{
@@ -283,11 +284,406 @@ public class TeamAnalysis
 				}
 				PlayerObject rbNextBest = rb.poll();
 				PlayerObject wrNextBest = wr.poll();
-				if(posStr.equals("WR") && wrNextBest.values.paa > rbNextBest.values.paa)
+				if(rbNextBest == null)
+				{
+					rbNextBest = new PlayerObject();
+					rbNextBest.values = new Values();
+					rbNextBest.values.points = 0;
+				}
+				if(wrNextBest == null)
+				{
+					wrNextBest = new PlayerObject();
+					wrNextBest.values = new Values();
+					wrNextBest.values.points = 0;
+				}
+				if(posStr.equals("WR") && wrNextBest.values.points > rbNextBest.values.points)
 				{
 					limit++;
 				}
-				else if(posStr.equals("RB") && rbNextBest.values.paa > wrNextBest.values.paa)
+				else if(posStr.equals("RB") && rbNextBest.values.points > wrNextBest.values.points)
+				{
+					limit++;
+				}
+			}
+		}
+		if(r.flex != null && r.flex.rbwrte > 0 && (posStr.equals("RB") || posStr.equals("WR") || posStr.equals("TE")))
+		{
+			PriorityQueue<PlayerObject> rb = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			PriorityQueue<PlayerObject> wr = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			PriorityQueue<PlayerObject> te = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			for(int i = 0; i < rbs.length; i++)
+			{
+				if(holder.parsedPlayers.contains(rbs[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("RB") && player.info.name.equals(rbs[i]))
+						{
+							rb.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			for(int i = 0; i < wrs.length; i++)
+			{
+				if(holder.parsedPlayers.contains(wrs[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("WR") && player.info.name.equals(wrs[i]))
+						{
+							wr.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			for(int i = 0; i < tes.length; i++)
+			{
+				if(holder.parsedPlayers.contains(tes[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("TE") && player.info.name.equals(tes[i]))
+						{
+							te.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			if(posStr.equals("RB") && rb.size() < limit)
+			{
+				limit = rb.size();
+			}
+			else if(posStr.equals("WR") && wr.size() < limit)
+			{
+				limit = wr.size();
+			}
+			else if(posStr.equals("TE") && te.size() < limit)
+			{
+				limit = te.size();
+			}
+			else if(posStr.equals("WR") && (rb.size() <= r.rbs && te.size() <= r.tes))
+			{
+				limit++;
+			}
+			else if(posStr.equals("RB") && (wr.size() <= r.wrs && te.size() <= r.tes))
+			{
+				limit++;
+			}
+			else if(posStr.equals("TE") && (rb.size() <= r.rbs && wr.size() <= r.wrs))
+			{
+				limit++;
+			}
+			else
+			{
+				for(int i = 0; i < r.rbs; i++)
+				{
+					rb.poll();
+				}
+				for(int i = 0; i < r.wrs; i++)
+				{
+					wr.poll();
+				}
+				for(int i = 0; i < r.tes; i++)
+				{
+					te.poll();
+				}
+				PlayerObject rbNextBest = rb.poll();
+				PlayerObject wrNextBest = wr.poll();
+				PlayerObject teNextBest = te.poll();
+				if(rbNextBest == null)
+				{
+					rbNextBest = new PlayerObject();
+					rbNextBest.values = new Values();
+					rbNextBest.values.points = 0;
+				}
+				if(wrNextBest == null)
+				{
+					wrNextBest = new PlayerObject();
+					wrNextBest.values = new Values();
+					wrNextBest.values.points = 0;
+				}
+				if(teNextBest == null)
+				{
+					teNextBest = new PlayerObject();
+					teNextBest.values = new Values();
+					teNextBest.values.points = 0;
+				}
+				if(posStr.equals("WR") && wrNextBest.values.points > rbNextBest.values.points && wrNextBest.values.points > teNextBest.values.points)
+				{
+					limit++;
+				}
+				else if(posStr.equals("RB") && rbNextBest.values.points > wrNextBest.values.points && rbNextBest.values.points > teNextBest.values.points)
+				{
+					limit++;
+				}
+				else if(posStr.equals("TE") && teNextBest.values.points > wrNextBest.values.points && teNextBest.values.points > rbNextBest.values.points)
+				{
+					limit++;
+				}
+			}
+		}
+		if(r.flex != null && r.flex.op > 0 && (posStr.equals("QB") || posStr.equals("RB") || posStr.equals("WR") || posStr.equals("TE")))
+		{
+			PriorityQueue<PlayerObject> qb = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			PriorityQueue<PlayerObject> rb = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			PriorityQueue<PlayerObject> wr = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			PriorityQueue<PlayerObject> te = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			for(int i = 0; i < qbs.length; i++)
+			{
+				if(holder.parsedPlayers.contains(qbs[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("QB") && player.info.name.equals(qbs[i]))
+						{
+							qb.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			for(int i = 0; i < rbs.length; i++)
+			{
+				if(holder.parsedPlayers.contains(rbs[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("RB") && player.info.name.equals(rbs[i]))
+						{
+							rb.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			for(int i = 0; i < wrs.length; i++)
+			{
+				if(holder.parsedPlayers.contains(wrs[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("WR") && player.info.name.equals(wrs[i]))
+						{
+							wr.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			for(int i = 0; i < tes.length; i++)
+			{
+				if(holder.parsedPlayers.contains(tes[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("TE") && player.info.name.equals(tes[i]))
+						{
+							te.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			if(posStr.equals("QB") && qb.size() < limit)
+			{
+				limit = qb.size();
+			}
+			else if(posStr.equals("RB") && rb.size() < limit)
+			{
+				limit = rb.size();
+			}
+			else if(posStr.equals("WR") && wr.size() < limit)
+			{
+				limit = wr.size();
+			}
+			else if(posStr.equals("TE") && te.size() < limit)
+			{
+				limit = te.size();
+			}
+			else if(posStr.equals("QB") && (rb.size() <= r.rbs && wr.size() <= r.wrs && te.size() <= r.tes))
+			{
+				limit++;
+			}
+			else if(posStr.equals("WR") && (qb.size() <= r.qbs &&rb.size() <= r.rbs && te.size() <= r.tes))
+			{
+				limit++;
+			}
+			else if(posStr.equals("RB") && (qb.size() <= r.qbs &&wr.size() <= r.wrs && te.size() <= r.tes))
+			{
+				limit++;
+			}
+			else if(posStr.equals("TE") && (qb.size() <= r.qbs &&rb.size() <= r.rbs && wr.size() <= r.wrs))
+			{
+				limit++;
+			}
+			else
+			{
+				for(int i = 0; i < r.qbs; i++)
+				{
+					qb.poll();
+				}
+				for(int i = 0; i < r.rbs; i++)
+				{
+					rb.poll();
+				}
+				for(int i = 0; i < r.wrs; i++)
+				{
+					wr.poll();
+				}
+				for(int i = 0; i < r.tes; i++)
+				{
+					te.poll();
+				}
+				PlayerObject qbNextBest = qb.poll();
+				PlayerObject rbNextBest = rb.poll();
+				PlayerObject wrNextBest = wr.poll();
+				PlayerObject teNextBest = te.poll();
+				if(qbNextBest == null)
+				{
+					qbNextBest = new PlayerObject();
+					qbNextBest.values = new Values();
+					qbNextBest.values.points = 0;
+				}
+				if(rbNextBest == null)
+				{
+					rbNextBest = new PlayerObject();
+					rbNextBest.values = new Values();
+					rbNextBest.values.points = 0;
+				}
+				if(wrNextBest == null)
+				{
+					wrNextBest = new PlayerObject();
+					wrNextBest.values = new Values();
+					wrNextBest.values.points = 0;
+				}
+				if(teNextBest == null)
+				{
+					teNextBest = new PlayerObject();
+					teNextBest.values = new Values();
+					teNextBest.values.points = 0;
+				}
+				if(posStr.equals("QB") && qbNextBest.values.points > wrNextBest.values.points && qbNextBest.values.points > rbNextBest.values.points && qbNextBest.values.points > teNextBest.values.points)
+				{
+					limit++;
+				}
+				else if(posStr.equals("WR") && wrNextBest.values.points > qbNextBest.values.points && wrNextBest.values.points > rbNextBest.values.points && wrNextBest.values.points > teNextBest.values.points)
+				{
+					limit++;
+				}
+				else if(posStr.equals("RB") && rbNextBest.values.points > qbNextBest.values.points && rbNextBest.values.points > wrNextBest.values.points && rbNextBest.values.points > teNextBest.values.points)
+				{
+					limit++;
+				}
+				else if(posStr.equals("TE") && teNextBest.values.points > qbNextBest.values.points && teNextBest.values.points > wrNextBest.values.points && teNextBest.values.points > rbNextBest.values.points)
 				{
 					limit++;
 				}
@@ -342,7 +738,7 @@ public class TeamAnalysis
 	/**
 	 * Returns the list of optimal starters for a team
 	 */
-	public String optimalLineup(String[] pos, String[] rbs, String[] wrs, String posStr, Context cont, Storage holder)
+	public String optimalLineup(String[] pos, String[] qbs, String[] rbs, String[] wrs, String[] tes, String posStr, Context cont, Storage holder)
 	{
 		StringBuilder result = new StringBuilder(100);
 		DecimalFormat df = new DecimalFormat("#.##");
@@ -372,18 +768,18 @@ public class TeamAnalysis
 		{
 			limit = r.k;
 		}
-		if(r.flex > 0 && posStr.equals("RB") || posStr.equals("WR"))
+		if(r.flex != null && r.flex.rbwr > 0 && (posStr.equals("RB") || posStr.equals("WR")))
 		{
 			PriorityQueue<PlayerObject> rb = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 					{
 						@Override
 						public int compare(PlayerObject a, PlayerObject b) 
 						{
-							if (a.values.points > b.values.points)
+							if (a.values.paa > b.values.paa)
 						    {
 						        return -1;
 						    }
-						    if (a.values.points < b.values.points)
+						    if (a.values.paa < b.values.paa)
 						    {
 						    	return 1;
 						    }
@@ -395,11 +791,11 @@ public class TeamAnalysis
 						@Override
 						public int compare(PlayerObject a, PlayerObject b) 
 						{
-							if (a.values.points > b.values.points)
+							if (a.values.paa > b.values.paa)
 						    {
 						        return -1;
 						    }
-						    if (a.values.points < b.values.points)
+						    if (a.values.paa < b.values.paa)
 						    {
 						    	return 1;
 						    }
@@ -462,11 +858,406 @@ public class TeamAnalysis
 				}
 				PlayerObject rbNextBest = rb.poll();
 				PlayerObject wrNextBest = wr.poll();
+				if(rbNextBest == null)
+				{
+					rbNextBest = new PlayerObject();
+					rbNextBest.values = new Values();
+					rbNextBest.values.points = 0;
+				}
+				if(wrNextBest == null)
+				{
+					wrNextBest = new PlayerObject();
+					wrNextBest.values = new Values();
+					wrNextBest.values.points = 0;
+				}
 				if(posStr.equals("WR") && wrNextBest.values.points > rbNextBest.values.points)
 				{
 					limit++;
 				}
 				else if(posStr.equals("RB") && rbNextBest.values.points > wrNextBest.values.points)
+				{
+					limit++;
+				}
+			}
+		}
+		if(r.flex != null && r.flex.rbwrte > 0 && (posStr.equals("RB") || posStr.equals("WR") || posStr.equals("TE")))
+		{
+			PriorityQueue<PlayerObject> rb = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			PriorityQueue<PlayerObject> wr = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			PriorityQueue<PlayerObject> te = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			for(int i = 0; i < rbs.length; i++)
+			{
+				if(holder.parsedPlayers.contains(rbs[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("RB") && player.info.name.equals(rbs[i]))
+						{
+							rb.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			for(int i = 0; i < wrs.length; i++)
+			{
+				if(holder.parsedPlayers.contains(wrs[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("WR") && player.info.name.equals(wrs[i]))
+						{
+							wr.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			for(int i = 0; i < tes.length; i++)
+			{
+				if(holder.parsedPlayers.contains(tes[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("TE") && player.info.name.equals(tes[i]))
+						{
+							te.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			if(posStr.equals("RB") && rb.size() < limit)
+			{
+				limit = rb.size();
+			}
+			else if(posStr.equals("WR") && wr.size() < limit)
+			{
+				limit = wr.size();
+			}
+			else if(posStr.equals("TE") && te.size() < limit)
+			{
+				limit = te.size();
+			}
+			else if(posStr.equals("WR") && (rb.size() <= r.rbs && te.size() <= r.tes))
+			{
+				limit++;
+			}
+			else if(posStr.equals("RB") && (wr.size() <= r.wrs && te.size() <= r.tes))
+			{
+				limit++;
+			}
+			else if(posStr.equals("TE") && (rb.size() <= r.rbs && wr.size() <= r.wrs))
+			{
+				limit++;
+			}
+			else
+			{
+				for(int i = 0; i < r.rbs; i++)
+				{
+					rb.poll();
+				}
+				for(int i = 0; i < r.wrs; i++)
+				{
+					wr.poll();
+				}
+				for(int i = 0; i < r.tes; i++)
+				{
+					te.poll();
+				}
+				PlayerObject rbNextBest = rb.poll();
+				PlayerObject wrNextBest = wr.poll();
+				PlayerObject teNextBest = te.poll();
+				if(rbNextBest == null)
+				{
+					rbNextBest = new PlayerObject();
+					rbNextBest.values = new Values();
+					rbNextBest.values.points = 0;
+				}
+				if(wrNextBest == null)
+				{
+					wrNextBest = new PlayerObject();
+					wrNextBest.values = new Values();
+					wrNextBest.values.points = 0;
+				}
+				if(teNextBest == null)
+				{
+					teNextBest = new PlayerObject();
+					teNextBest.values = new Values();
+					teNextBest.values.points = 0;
+				}
+				if(posStr.equals("WR") && wrNextBest.values.points > rbNextBest.values.points && wrNextBest.values.points > teNextBest.values.points)
+				{
+					limit++;
+				}
+				else if(posStr.equals("RB") && rbNextBest.values.points > wrNextBest.values.points && rbNextBest.values.points > teNextBest.values.points)
+				{
+					limit++;
+				}
+				else if(posStr.equals("TE") && teNextBest.values.points > wrNextBest.values.points && teNextBest.values.points > rbNextBest.values.points)
+				{
+					limit++;
+				}
+			}
+		}
+		if(r.flex != null && r.flex.op > 0 && (posStr.equals("QB") || posStr.equals("RB") || posStr.equals("WR") || posStr.equals("TE")))
+		{
+			PriorityQueue<PlayerObject> qb = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			PriorityQueue<PlayerObject> rb = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			PriorityQueue<PlayerObject> wr = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			PriorityQueue<PlayerObject> te = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b) 
+						{
+							if (a.values.paa > b.values.paa)
+						    {
+						        return -1;
+						    }
+						    if (a.values.paa < b.values.paa)
+						    {
+						    	return 1;
+						    }
+						    return 0;
+						}
+					});
+			for(int i = 0; i < qbs.length; i++)
+			{
+				if(holder.parsedPlayers.contains(qbs[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("QB") && player.info.name.equals(qbs[i]))
+						{
+							qb.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			for(int i = 0; i < rbs.length; i++)
+			{
+				if(holder.parsedPlayers.contains(rbs[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("RB") && player.info.name.equals(rbs[i]))
+						{
+							rb.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			for(int i = 0; i < wrs.length; i++)
+			{
+				if(holder.parsedPlayers.contains(wrs[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("WR") && player.info.name.equals(wrs[i]))
+						{
+							wr.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			for(int i = 0; i < tes.length; i++)
+			{
+				if(holder.parsedPlayers.contains(tes[i]))
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.position.equals("TE") && player.info.name.equals(tes[i]))
+						{
+							te.add(player);
+							break;
+						}
+					}
+				}
+			} 
+			if(posStr.equals("QB") && qb.size() < limit)
+			{
+				limit = qb.size();
+			}
+			else if(posStr.equals("RB") && rb.size() < limit)
+			{
+				limit = rb.size();
+			}
+			else if(posStr.equals("WR") && wr.size() < limit)
+			{
+				limit = wr.size();
+			}
+			else if(posStr.equals("TE") && te.size() < limit)
+			{
+				limit = te.size();
+			}
+			else if(posStr.equals("QB") && (rb.size() <= r.rbs && wr.size() <= r.wrs && te.size() <= r.tes))
+			{
+				limit++;
+			}
+			else if(posStr.equals("WR") && (qb.size() <= r.qbs &&rb.size() <= r.rbs && te.size() <= r.tes))
+			{
+				limit++;
+			}
+			else if(posStr.equals("RB") && (qb.size() <= r.qbs &&wr.size() <= r.wrs && te.size() <= r.tes))
+			{
+				limit++;
+			}
+			else if(posStr.equals("TE") && (qb.size() <= r.qbs &&rb.size() <= r.rbs && wr.size() <= r.wrs))
+			{
+				limit++;
+			}
+			else
+			{
+				for(int i = 0; i < r.qbs; i++)
+				{
+					qb.poll();
+				}
+				for(int i = 0; i < r.rbs; i++)
+				{
+					rb.poll();
+				}
+				for(int i = 0; i < r.wrs; i++)
+				{
+					wr.poll();
+				}
+				for(int i = 0; i < r.tes; i++)
+				{
+					te.poll();
+				}
+				PlayerObject qbNextBest = qb.poll();
+				PlayerObject rbNextBest = rb.poll();
+				PlayerObject wrNextBest = wr.poll();
+				PlayerObject teNextBest = te.poll();
+				if(qbNextBest == null)
+				{
+					qbNextBest = new PlayerObject();
+					qbNextBest.values = new Values();
+					qbNextBest.values.points = 0;
+				}
+				if(rbNextBest == null)
+				{
+					rbNextBest = new PlayerObject();
+					rbNextBest.values = new Values();
+					rbNextBest.values.points = 0;
+				}
+				if(wrNextBest == null)
+				{
+					wrNextBest = new PlayerObject();
+					wrNextBest.values = new Values();
+					wrNextBest.values.points = 0;
+				}
+				if(teNextBest == null)
+				{
+					teNextBest = new PlayerObject();
+					teNextBest.values = new Values();
+					teNextBest.values.points = 0;
+				}
+				if(posStr.equals("QB") && qbNextBest.values.points > wrNextBest.values.points && qbNextBest.values.points > rbNextBest.values.points && qbNextBest.values.points > teNextBest.values.points)
+				{
+					limit++;
+				}
+				else if(posStr.equals("WR") && wrNextBest.values.points > qbNextBest.values.points && wrNextBest.values.points > rbNextBest.values.points && wrNextBest.values.points > teNextBest.values.points)
+				{
+					limit++;
+				}
+				else if(posStr.equals("RB") && rbNextBest.values.points > qbNextBest.values.points && rbNextBest.values.points > wrNextBest.values.points && rbNextBest.values.points > teNextBest.values.points)
+				{
+					limit++;
+				}
+				else if(posStr.equals("TE") && teNextBest.values.points > qbNextBest.values.points && teNextBest.values.points > wrNextBest.values.points && teNextBest.values.points > rbNextBest.values.points)
 				{
 					limit++;
 				}

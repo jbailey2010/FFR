@@ -437,12 +437,12 @@ public class TeamList {
 		rosters.put("K", text.split("Kickers: ")[1].split("\n")[0].split(", "));
 		StringBuilder output = new StringBuilder(1000);
 		TeamAnalysis dummy = new TeamAnalysis();
-		output.append(dummy.optimalLineup(rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), "QB", cont, ImportLeague.holder));
-		output.append(dummy.optimalLineup(rosters.get("RB"), rosters.get("RB"), rosters.get("WR"), "RB", cont, ImportLeague.holder));
-		output.append(dummy.optimalLineup(rosters.get("WR"), rosters.get("RB"), rosters.get("WR"), "WR", cont, ImportLeague.holder));
-		output.append(dummy.optimalLineup(rosters.get("TE"), rosters.get("RB"), rosters.get("WR"), "TE", cont, ImportLeague.holder));
-		output.append(dummy.optimalLineup(rosters.get("D/ST"), rosters.get("RB"), rosters.get("WR"), "D/ST", cont, ImportLeague.holder));
-		output.append(dummy.optimalLineup(rosters.get("K"), rosters.get("RB"), rosters.get("WR"), "K", cont, ImportLeague.holder));
+		output.append(dummy.optimalLineup(rosters.get("QB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "QB", cont, ImportLeague.holder));
+		output.append(dummy.optimalLineup(rosters.get("RB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "RB", cont, ImportLeague.holder));
+		output.append(dummy.optimalLineup(rosters.get("WR"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "WR", cont, ImportLeague.holder));
+		output.append(dummy.optimalLineup(rosters.get("TE"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "TE", cont, ImportLeague.holder));
+		output.append(dummy.optimalLineup(rosters.get("D/ST"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "D/ST", cont, ImportLeague.holder));
+		output.append(dummy.optimalLineup(rosters.get("K"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "K", cont, ImportLeague.holder));
 		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
 	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		popUp.setContentView(R.layout.team_optimal_lineup);
