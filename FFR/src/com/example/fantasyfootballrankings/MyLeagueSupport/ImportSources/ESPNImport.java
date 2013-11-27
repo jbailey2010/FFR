@@ -152,6 +152,7 @@ public class ESPNImport
 		}  
 		else
 		{
+			System.out.println("In else");
 			doc = test;
 			handleParsing();
 		}
@@ -229,7 +230,8 @@ public class ESPNImport
 	 */
 	public void handleFirstLogIn(Document test)
 	{
-		if(isSignIn(test) || test.html().contains("We're Sorry"))
+		Elements elements = test.select("td.playertablePlayerName");
+		if(isSignIn(test) || elements.size() <= 10)
 		{
 			Toast.makeText(cont, "Log in failed with the stored information", Toast.LENGTH_SHORT).show();
 			setLogIn();
@@ -353,218 +355,253 @@ public class ESPNImport
 	    }
 
 	  }
+	
+	public class HandleParsingAsync extends AsyncTask<Object, String, List<TeamAnalysis>> 
+	{
+		Activity act;
+		ProgressDialog pda;
+	    public HandleParsingAsync(Activity activity, ESPNImport espnImport) 
+	    {
+	        act = activity;
+	        pda = new ProgressDialog(act);
+	    }
+
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();  
+		   pda.setMessage("Please wait, parsing your league data...");
+		   pda.show();
+		}
+
+		@Override
+		protected void onPostExecute(List<TeamAnalysis> result){
+			act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+		   super.onPostExecute(result);
+		   pda.dismiss();
+		   getLeagueName(result);
+		}
+
+	    @Override
+	    protected List<TeamAnalysis> doInBackground(Object... data) 
+	    {
+			Elements elements = doc.select("td.playertablePlayerName");
+			Map<String, List<String>>players = new HashMap<String, List<String>>(); 
+			ParseRankings.handleHashes();
+			for(Element elem : elements)
+			{
+				if(!elem.html().contains("Compare Players"))
+				{
+					String playerName = ParseRankings.fixNames(elem.child(0).text());
+					String team = "";
+					Elements parent = elem.parent().parent().parent().children();
+					for(Element children : parent)
+					{
+						if(children.children().size() > 0)
+						{
+							Element child = children.child(0);
+							if(child.children().size() > 0)
+							{
+								team = child.child(0).text();
+								//team = team.split("\\(")[0];
+								String[] teamSet = team.split(" ");
+								StringBuilder teamBuilder = new StringBuilder(40);
+								for(String teamIter : teamSet)
+								{
+									teamBuilder.append(ManageInput.capitalize(teamIter) + " ");
+								}
+								String intermediate = teamBuilder.toString();
+								team = intermediate.substring(0, intermediate.length() - 1) + "@@@" + child.child(0).html();
+							}
+						}  
+					}
+					if(players.containsKey(team))
+					{
+						List<String> tempList = players.get(team);
+						tempList.add(playerName);
+						players.put(team, tempList);
+					}
+					else
+					{
+						List<String> newList = new ArrayList<String>();
+						newList.add(playerName);
+						players.put(team, newList);
+					}
+				} 
+			}
+			Set<String> teamNames = players.keySet();
+			List<TeamAnalysis> teamSet = new ArrayList<TeamAnalysis>();
+			for(String team : teamNames)
+			{
+				List<String> onTeam = players.get(team);
+				List<String> qbs = new ArrayList<String>();
+				List<String> rbs = new ArrayList<String>();
+				List<String> wrs = new ArrayList<String>();
+				List<String> tes = new ArrayList<String>();
+				List<String> def = new ArrayList<String>();
+				List<String> ks = new ArrayList<String>();
+				StringBuilder qb = new StringBuilder(1000);
+				StringBuilder rb = new StringBuilder(1000);
+				StringBuilder wr = new StringBuilder(1000);
+				StringBuilder te = new StringBuilder(1000);
+				StringBuilder d = new StringBuilder(1000);
+				StringBuilder k = new StringBuilder(1000);
+				team = team.split("@@@")[0];
+				qb.append("Quarterbacks: ");
+				rb.append("Running Backs: ");
+				wr.append("Wide Receivers: ");
+				te.append("Tight Ends: ");
+				d.append("D/ST: ");
+				k.append("Kickers: ");
+				for(String member : onTeam)
+				{
+					for(PlayerObject player : holder.players)
+					{
+						if(player.info.name.equals(member))
+						{
+							if(player.info.position.equals("QB"))
+							{
+								qbs.add(member);
+							}
+							if(player.info.position.equals("RB"))
+							{
+								rbs.add(member);
+							}
+							if(player.info.position.equals("WR"))
+							{
+								wrs.add(member);
+							}
+							if(player.info.position.equals("TE"))
+							{
+								tes.add(member);
+							}
+							if(player.info.position.equals("D/ST"))
+							{
+								def.add(member);
+							}
+							if(player.info.position.equals("K"))
+							{
+								ks.add(member);
+							}
+							break;
+						}
+					}
+					
+					
+
+				}
+				
+				if(qbs.size() == 0)
+				{
+					qb.append("None Selected\n");
+				}
+				else
+				{
+					for(String name : qbs)
+					{
+						qb.append(name + ", ");
+					}
+				}
+				if(rbs.size() == 0)
+				{
+					rb.append("None Selected\n");
+				}
+				else
+				{
+					for(String name : rbs)
+					{
+						rb.append(name + ", ");
+					}
+				}
+				if(wrs.size() == 0)
+				{
+					wr.append("None Selected\n");
+				}
+				else
+				{
+					for(String name : wrs)
+					{
+						wr.append(name + ", ");
+					}
+				}
+				if(tes.size() == 0)
+				{
+					te.append("None Selected\n");
+				}
+				else
+				{
+					for(String name : tes)
+					{
+						te.append(name + ", ");
+					}
+				}
+				if(def.size() == 0)
+				{
+					d.append("None Selected\n");
+				}
+				else
+				{
+					for(String name : def)
+					{
+						d.append(name + ", ");
+					}
+				}
+				if(ks.size() == 0)
+				{
+					k.append("None Selected\n");
+				}
+				else
+				{
+					for(String name : ks)
+					{
+						k.append(name + ", ");
+					}
+				}
+				String qbStr = qb.toString();
+				if(!qbStr.contains("None Selected"))
+				{
+					qbStr = qbStr.substring(0, qbStr.length()-2) + "\n";
+				}
+				String rbStr = rb.toString();
+				if(!rbStr.contains("None Selected"))
+				{
+					rbStr = rbStr.substring(0, rbStr.length()-2) + "\n";
+				}
+				String wrStr = wr.toString();
+				if(!wrStr.contains("None Selected"))
+				{
+					wrStr = wrStr.substring(0, wrStr.length()-2) + "\n";
+				}
+				String teStr = te.toString();
+				if(!teStr.contains("None Selected"))
+				{
+					teStr = teStr.substring(0, teStr.length()-2) + "\n";
+				}
+				String dStr = d.toString();
+				if(!dStr.contains("None Selected"))
+				{
+					dStr = dStr.substring(0, dStr.length()-2) + "\n";
+				}
+				String kStr = k.toString();
+				if(!kStr.contains("None Selected"))
+				{
+					kStr = kStr.substring(0, kStr.length()-2) + "\n";
+				}
+				TeamAnalysis teamObj = new TeamAnalysis(team, qbStr + rbStr + wrStr + teStr + dStr + kStr, holder, cont);
+				teamSet.add(teamObj);
+			}
+			return teamSet;
+	    }
+
+	  }
 	/**
 	 * Takes the document and converts it into the relevant data structures
 	 * to keep track of everything
 	 */
 	public void handleParsing()
 	{
-		Elements elements = doc.select("td.playertablePlayerName");
-		Map<String, List<String>>players = new HashMap<String, List<String>>(); 
-		ParseRankings.handleHashes();
-		for(Element elem : elements)
-		{
-			if(!elem.html().contains("Compare Players"))
-			{
-				String playerName = ParseRankings.fixNames(elem.child(0).text());
-				String team = "";
-				Elements parent = elem.parent().parent().parent().children();
-				for(Element children : parent)
-				{
-					if(children.children().size() > 0)
-					{
-						Element child = children.child(0);
-						if(child.children().size() > 0)
-						{
-							team = child.child(0).text();
-							//team = team.split("\\(")[0];
-							String[] teamSet = team.split(" ");
-							StringBuilder teamBuilder = new StringBuilder(40);
-							for(String teamIter : teamSet)
-							{
-								teamBuilder.append(ManageInput.capitalize(teamIter) + " ");
-							}
-							String intermediate = teamBuilder.toString();
-							team = intermediate.substring(0, intermediate.length() - 1) + "@@@" + child.child(0).html();
-						}
-					}  
-				}
-				if(players.containsKey(team))
-				{
-					List<String> tempList = players.get(team);
-					tempList.add(playerName);
-					players.put(team, tempList);
-				}
-				else
-				{
-					List<String> newList = new ArrayList<String>();
-					newList.add(playerName);
-					players.put(team, newList);
-				}
-			} 
-		}
-		Set<String> teamNames = players.keySet();
-		List<TeamAnalysis> teamSet = new ArrayList<TeamAnalysis>();
-		for(String team : teamNames)
-		{
-			List<String> onTeam = players.get(team);
-			List<String> qbs = new ArrayList<String>();
-			List<String> rbs = new ArrayList<String>();
-			List<String> wrs = new ArrayList<String>();
-			List<String> tes = new ArrayList<String>();
-			List<String> def = new ArrayList<String>();
-			List<String> ks = new ArrayList<String>();
-			StringBuilder qb = new StringBuilder(1000);
-			StringBuilder rb = new StringBuilder(1000);
-			StringBuilder wr = new StringBuilder(1000);
-			StringBuilder te = new StringBuilder(1000);
-			StringBuilder d = new StringBuilder(1000);
-			StringBuilder k = new StringBuilder(1000);
-			team = team.split("@@@")[0];
-			qb.append("Quarterbacks: ");
-			rb.append("Running Backs: ");
-			wr.append("Wide Receivers: ");
-			te.append("Tight Ends: ");
-			d.append("D/ST: ");
-			k.append("Kickers: ");
-			for(String member : onTeam)
-			{
-				for(PlayerObject player : holder.players)
-				{
-					if(player.info.name.equals(member))
-					{
-						if(player.info.position.equals("QB"))
-						{
-							qbs.add(member);
-						}
-						if(player.info.position.equals("RB"))
-						{
-							rbs.add(member);
-						}
-						if(player.info.position.equals("WR"))
-						{
-							wrs.add(member);
-						}
-						if(player.info.position.equals("TE"))
-						{
-							tes.add(member);
-						}
-						if(player.info.position.equals("D/ST"))
-						{
-							def.add(member);
-						}
-						if(player.info.position.equals("K"))
-						{
-							ks.add(member);
-						}
-						break;
-					}
-				}
-				
-				
-
-			}
-			
-			if(qbs.size() == 0)
-			{
-				qb.append("None Selected\n");
-			}
-			else
-			{
-				for(String name : qbs)
-				{
-					qb.append(name + ", ");
-				}
-			}
-			if(rbs.size() == 0)
-			{
-				rb.append("None Selected\n");
-			}
-			else
-			{
-				for(String name : rbs)
-				{
-					rb.append(name + ", ");
-				}
-			}
-			if(wrs.size() == 0)
-			{
-				wr.append("None Selected\n");
-			}
-			else
-			{
-				for(String name : wrs)
-				{
-					wr.append(name + ", ");
-				}
-			}
-			if(tes.size() == 0)
-			{
-				te.append("None Selected\n");
-			}
-			else
-			{
-				for(String name : tes)
-				{
-					te.append(name + ", ");
-				}
-			}
-			if(def.size() == 0)
-			{
-				d.append("None Selected\n");
-			}
-			else
-			{
-				for(String name : def)
-				{
-					d.append(name + ", ");
-				}
-			}
-			if(ks.size() == 0)
-			{
-				k.append("None Selected\n");
-			}
-			else
-			{
-				for(String name : ks)
-				{
-					k.append(name + ", ");
-				}
-			}
-			String qbStr = qb.toString();
-			if(!qbStr.contains("None Selected"))
-			{
-				qbStr = qbStr.substring(0, qbStr.length()-2) + "\n";
-			}
-			String rbStr = rb.toString();
-			if(!rbStr.contains("None Selected"))
-			{
-				rbStr = rbStr.substring(0, rbStr.length()-2) + "\n";
-			}
-			String wrStr = wr.toString();
-			if(!wrStr.contains("None Selected"))
-			{
-				wrStr = wrStr.substring(0, wrStr.length()-2) + "\n";
-			}
-			String teStr = te.toString();
-			if(!teStr.contains("None Selected"))
-			{
-				teStr = teStr.substring(0, teStr.length()-2) + "\n";
-			}
-			String dStr = d.toString();
-			if(!dStr.contains("None Selected"))
-			{
-				dStr = dStr.substring(0, dStr.length()-2) + "\n";
-			}
-			String kStr = k.toString();
-			if(!kStr.contains("None Selected"))
-			{
-				kStr = kStr.substring(0, kStr.length()-2) + "\n";
-			}
-			TeamAnalysis teamObj = new TeamAnalysis(team, qbStr + rbStr + wrStr + teStr + dStr + kStr, holder, cont);
-			teamSet.add(teamObj);
-		}
-		getLeagueName(teamSet);
+		((Activity)cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		HandleParsingAsync task = this.new HandleParsingAsync((Activity)cont, this);
+		task.execute();
 	}
 	 
 	/**
@@ -655,6 +692,8 @@ public class ESPNImport
 		Elements elements = doc.select("title");
 		for(Element elem : elements)
 		{
+			System.out.println("Iterating isSignin");
+
 			if(elem.text().contains("Sign In"))
 			{
 				return true;
@@ -673,6 +712,7 @@ public class ESPNImport
 		Elements elements = doc.select("title");
 		for(Element elem : elements)
 		{
+			System.out.println("Iterating isRosters");
 			if(elem.text().contains("League Rosters"))
 			{
 				return true;

@@ -536,7 +536,6 @@ public class HighLevel
 	 */
 	public static void kProj(String url, HashMap<String, Double> points, String pos) throws IOException
 	{
-		DecimalFormat df = new DecimalFormat("#.##");
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = ManageInput.tokenize(html, '\n', 1);
 		int min = 0;
