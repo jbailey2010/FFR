@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
-
 import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -1022,19 +1021,19 @@ public class HighLevel
 				urlBase.append("ppr-");
 			}
 			String urlRec = urlBase.toString();
-			parseECRWeekly(url + "qb.php", holder, ecr, risk, adp);
-			parseECRWeekly(urlRec + "rb.php", holder, ecr, risk, adp);
-			parseECRWeekly(urlRec + "wr.php", holder, ecr, risk, adp);
-			parseECRWeekly(urlRec + "te.php", holder, ecr, risk, adp);
-			parseECRWeekly(url + "dst.php", holder, ecr, risk, adp);
-			parseECRWeekly(url + "k.php", holder, ecr, risk, adp);
+			parseECRWeekly(url + "qb.php", holder, ecr, risk, adp, "QB");
+			parseECRWeekly(urlRec + "rb.php", holder, ecr, risk, adp, "RB");
+			parseECRWeekly(urlRec + "wr.php", holder, ecr, risk, adp, "WR");
+			parseECRWeekly(urlRec + "te.php", holder, ecr, risk, adp, "TE");
+			parseECRWeekly(url + "dst.php", holder, ecr, risk, adp, "D/ST");
+			parseECRWeekly(url + "k.php", holder, ecr, risk, adp, "K");
 		}
 		for(PlayerObject player : holder.players)
 		{
-			if(ecr.containsKey(player.info.name))
+			if(ecr.containsKey(player.info.name + player.info.position))
 			{
-				player.values.ecr = ecr.get(player.info.name);
-				player.risk = risk.get(player.info.name);
+				player.values.ecr = ecr.get(player.info.name + player.info.position);
+				player.risk = risk.get(player.info.name + player.info.position);
 				if(holder.isRegularSeason)
 				{
 					if(adp.containsKey(player.info.team))
@@ -1085,9 +1084,10 @@ public class HighLevel
 	
 	/**
 	 * Similar to the ecr parser, but handles the minor differences in the weekly set
+	 * @param pos 
 	 */
 	public static void parseECRWeekly(String url, Storage holder, HashMap<String, Double> ecr, 
-			HashMap<String, Double> risk, HashMap<String, String> adp) throws IOException
+			HashMap<String, Double> risk, HashMap<String, String> adp, String pos) throws IOException
 	{
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = ManageInput.tokenize(html, '\n', 1);
@@ -1123,8 +1123,8 @@ public class HighLevel
 				}
 				adp.put(team, opp);
 			}
-			ecr.put(name, ecrVal);
-			risk.put(name, riskVal);
+			ecr.put(name + pos, ecrVal);
+			risk.put(name + pos, riskVal);
 		}
 	}
 	
@@ -1150,8 +1150,16 @@ public class HighLevel
 			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i].split(" \\(")[0].split(", ")[0]));
 			double ecrVal = Double.parseDouble(td[i+4]);
 			double riskVal = Double.parseDouble(td[i+5]);
+			String posInd = td[i+1].replaceAll("^[0-9]+$", "");
+			if(posInd.contains("K"))
+			{
+				posInd = "K";
+			}
+			else if(posInd.contains("D"))
+			{
+				posInd = "D/ST";
+			}
 			try{
-				double adpVal = Double.parseDouble(td[i+6]);
 				adp.put(name, td[i+6]);
 			} catch(NumberFormatException e)
 			{
@@ -1160,8 +1168,8 @@ public class HighLevel
 			{
 				
 			}
-			ecr.put(name, ecrVal);
-			risk.put(name, riskVal);
+			ecr.put(name + posInd, ecrVal);
+			risk.put(name + posInd, riskVal);
 		}
 	}
 
