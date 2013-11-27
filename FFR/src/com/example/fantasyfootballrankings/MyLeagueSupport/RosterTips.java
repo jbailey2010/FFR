@@ -89,6 +89,8 @@ public class RosterTips
 		teamsSp.setAdapter(adapterPos);
 		final Button fa = (Button)res.findViewById(R.id.fa_tips);
 		final Button trade = (Button)res.findViewById(R.id.trade_tips);
+		Spinner topics = (Spinner)res.findViewById(R.id.fa_topics);
+		topics.setVisibility(View.GONE);
 		fa.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -165,6 +167,8 @@ public class RosterTips
 	
 	public static void handleTrades(TeamAnalysis team, View res)
 	{
+		Spinner topic = (Spinner)res.findViewById(R.id.fa_topics);
+		topic.setVisibility(View.GONE);
 		Map<TeamAnalysis, TeamTradeInfo>leagueMaster = new HashMap<TeamAnalysis, TeamTradeInfo>();
 		for(TeamAnalysis iter : newImport.teams)
 		{
@@ -182,34 +186,59 @@ public class RosterTips
 	 * Gets all of the relevant maps (each position), given a team
 	 * @param team
 	 */
-	public static void handleFA(TeamAnalysis team, View res)
+	public static void handleFA(final TeamAnalysis team, View res)
 	{
-		Map<PlayerObject, PriorityQueue<PlayerObject>> qb = faMoves(team, "QB");
-		Map<PlayerObject, PriorityQueue<PlayerObject>> rb = faMoves(team, "RB");
-		Map<PlayerObject, PriorityQueue<PlayerObject>> wr = faMoves(team, "WR");
-		Map<PlayerObject, PriorityQueue<PlayerObject>> te = faMoves(team, "TE");
-		Map<PlayerObject, PriorityQueue<PlayerObject>> def= faMoves(team, "D/ST");
-		Map<PlayerObject, PriorityQueue<PlayerObject>> k  = faMoves(team, "K");
-		TextView output = (TextView)res.findViewById(R.id.fa_content);
-		ScrollView base = (ScrollView)res.findViewById(R.id.fa_scroll);
-		TextView tradeOutput = (TextView)res.findViewById(R.id.trade_content);
-		tradeOutput.setVisibility(View.GONE);
-		base.setVisibility(View.VISIBLE);
-		output.setVisibility(View.VISIBLE);
-		StringBuilder outputS = new StringBuilder(10000);
-		parseFAData(qb, outputS, "QBs");
-		parseFAData(rb, outputS, "RBs");
-		parseFAData(wr, outputS, "WRs");
-		parseFAData(te, outputS, "TEs");
-		parseFAData(def, outputS, "D/STs");
-		parseFAData(k, outputS, "Ks");
-		output.setText(outputS.toString());
+		final TextView output = (TextView)res.findViewById(R.id.fa_content);
+		final ScrollView base = (ScrollView)res.findViewById(R.id.fa_scroll);
+		final TextView tradeOutput = (TextView)res.findViewById(R.id.trade_content);
+		Spinner topic = (Spinner)res.findViewById(R.id.fa_topics);
+		topic.setVisibility(View.VISIBLE);
+		List<String> teamNames = new ArrayList<String>();
+		teamNames.add("Rest of Season Free Agents");
+		teamNames.add("Streaming Free Agents");
+		ArrayAdapter<String> adapterPos = new ArrayAdapter<String>(ImportLeague.cont, 
+				android.R.layout.simple_spinner_dropdown_item, teamNames);
+		topic.setAdapter(adapterPos);
+		topic.setOnItemSelectedListener(new OnItemSelectedListener(){
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				StringBuilder outputS = new StringBuilder(10000);
+				tradeOutput.setVisibility(View.GONE);
+				base.setVisibility(View.VISIBLE);
+				output.setVisibility(View.VISIBLE);
+				if(arg2 == 0)
+				{
+					parseFAData(faMoves(team, "QB", arg2), outputS, "QBs", " has a ROS ranking of ", arg2);
+					parseFAData(faMoves(team, "RB", arg2), outputS, "RBs", " has a ROS ranking of ", arg2);
+					parseFAData(faMoves(team, "WR", arg2), outputS, "WRs", " has a ROS ranking of ", arg2);
+					parseFAData(faMoves(team, "TE", arg2), outputS, "TEs", " has a ROS ranking of ", arg2);
+					parseFAData(faMoves(team, "D/ST", arg2), outputS, "D/STs", " has a ROS ranking of ", arg2);
+					parseFAData(faMoves(team, "K", arg2), outputS, "Ks", " has a ROS ranking of ", arg2);
+				}
+				else if(arg2 == 1)
+				{
+					parseFAData(faMoves(team, "QB", arg2), outputS, "QBs", " has a weekly ranking of ", arg2);
+					parseFAData(faMoves(team, "RB", arg2), outputS, "RBs", " has a weekly ranking of ", arg2);
+					parseFAData(faMoves(team, "WR", arg2), outputS, "WRs", " has a weekly ranking of ", arg2);
+					parseFAData(faMoves(team, "TE", arg2), outputS, "TEs", " has a weekly ranking of ", arg2);
+					parseFAData(faMoves(team, "D/ST", arg2), outputS, "D/STs", " has a weekly ranking of ", arg2);
+					parseFAData(faMoves(team, "K", arg2), outputS, "Ks", " has a weekly ranking of ", arg2);
+				}
+				output.setText(outputS.toString());
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}	
+		});
 	}
 	
 	/**
 	 * Handles the iterating through the map/pq and stringbuffering
+	 * @param leadStr 
+	 * @param map 
 	 */
-	public static void parseFAData(Map<PlayerObject, PriorityQueue<PlayerObject>> qb, StringBuilder outputS, String pos)
+	public static void parseFAData(Map<PlayerObject, PriorityQueue<PlayerObject>> qb, StringBuilder outputS, String pos, String leadStr, int map)
 	{
 		outputS.append(pos + "\n\n");
 		if(qb != null && qb.size() > 0)
@@ -217,7 +246,14 @@ public class RosterTips
 			for(PlayerObject old : qb.keySet())
 			{
 				StringBuilder outputStr = new StringBuilder(100);
-				outputStr.append(old.info.name + " has a ROS ranking of " + old.values.rosRank + ", but ");
+				if(map == 0)
+				{
+					outputStr.append(old.info.name + leadStr + old.values.rosRank + ", but ");
+				}
+				if(map == 1)
+				{
+					outputStr.append(old.info.name + leadStr + old.values.ecr + ", but ");
+				}
 				PriorityQueue<PlayerObject> better = qb.get(old);
 				int counter = 12;
 				boolean flag = false;
@@ -229,15 +265,29 @@ public class RosterTips
 				{
 					counter --;
 					PlayerObject iter = better.poll();
-					if(!flag)
+					if(map == 0)
 					{
-						outputStr.append(iter.info.name + " (" + iter.values.rosRank + "), ");
+						if(!flag)
+						{
+							outputStr.append(iter.info.name + " (" + iter.values.rosRank + "), ");
+						}
+						else
+						{
+							outputStr.append(iter.info.name + " (" + iter.values.rosRank + ") ");
+						}
 					}
-					else
+					if(map == 1)
 					{
-						outputStr.append(iter.info.name + " (" + iter.values.rosRank + ") ");
+						if(!flag)
+						{
+							outputStr.append(iter.info.name + " (" + iter.values.ecr + "), ");
+						}
+						else
+						{
+							outputStr.append(iter.info.name + " (" + iter.values.ecr + ") ");
+						}
 					}
-					if(better.size() == 1)
+					if(better.size() == 1 || counter == 1)
 					{
 						outputStr.append("and ");
 					}
@@ -250,7 +300,7 @@ public class RosterTips
 				}
 				else if(counter <= 10)
 				{
-					outputS.append(inter + " are available\n\n");
+					outputS.append(inter + ") are available\n\n");
 				}
 				else if(counter <= 11)
 				{
@@ -261,7 +311,7 @@ public class RosterTips
 		}
 		else
 		{
-			outputS.append("No improvements obviously available in free agency\n\n\n");
+			outputS.append("No obvious improvements available in free agency\n\n\n");
 		}
 	}
 	
@@ -269,42 +319,134 @@ public class RosterTips
 	/**
 	 * Given a team and a position, it runs through all free agents and generates a list of maybe better players, in order
 	 * of ROS rank
+	 * @param flag 
 	 */
-	public static Map<PlayerObject, PriorityQueue<PlayerObject>> faMoves(TeamAnalysis team, String pos)
+	public static Map<PlayerObject, PriorityQueue<PlayerObject>> faMoves(TeamAnalysis team, String pos, int flag)
 	{
+		List<PlayerObject> iter = new ArrayList<PlayerObject>();
+		if(flag == 0)
+		{
+			iter = team.players;
+		}
+		if(flag == 1)
+		{
+			String text = team.team;
+			Map<String, String[]> rosters = new HashMap<String, String[]>();
+			rosters.put("QB", text.split("Quarterbacks: ")[1].split("\n")[0].split(", "));
+			rosters.put("RB", text.split("Running Backs: ")[1].split("\n")[0].split(", "));
+			rosters.put("WR", text.split("Wide Receivers: ")[1].split("\n")[0].split(", "));
+			rosters.put("TE", text.split("Tight Ends: ")[1].split("\n")[0].split(", "));
+			rosters.put("D/ST", text.split("D/ST: ")[1].split("\n")[0].split(", "));
+			rosters.put("K", text.split("Kickers: ")[1].split("\n")[0].split(", "));
+			StringBuilder output = new StringBuilder(1000);
+			TeamAnalysis dummy = new TeamAnalysis();
+			output.append(dummy.optimalLineup(rosters.get("QB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "QB", ImportLeague.cont, ImportLeague.holder));
+			output.append(dummy.optimalLineup(rosters.get("RB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "RB", ImportLeague.cont, ImportLeague.holder));
+			output.append(dummy.optimalLineup(rosters.get("WR"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "WR", ImportLeague.cont, ImportLeague.holder));
+			output.append(dummy.optimalLineup(rosters.get("TE"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "TE", ImportLeague.cont, ImportLeague.holder));
+			output.append(dummy.optimalLineup(rosters.get("D/ST"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "D/ST", ImportLeague.cont, ImportLeague.holder));
+			output.append(dummy.optimalLineup(rosters.get("K"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "K", ImportLeague.cont, ImportLeague.holder));
+			String[] middle = output.toString().split("\n");
+			for(String posIter : middle)
+			{
+				String[] players = posIter.split(": ")[1].split(", ");
+				for(String name : players)
+				{
+					if(ImportLeague.holder.parsedPlayers.contains(name))
+					{
+						for(PlayerObject iterPlayers : ImportLeague.holder.players)
+						{
+							if(iterPlayers.info.name.equals(name) && iterPlayers.info.position.equals(pos))
+							{
+								iter.add(iterPlayers);
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
 		Map<PlayerObject, PriorityQueue<PlayerObject>> improvements = new HashMap<PlayerObject, PriorityQueue<PlayerObject>>();
-		for(PlayerObject player : team.players)
+		for(PlayerObject player : iter)
 		{
 			if(player.info.position.equals(pos))
 			{
-				int rosRank = player.values.rosRank;
-				if(rosRank <= 0)
+				int rosRank = 0;
+				if(flag == 0)
 				{
-					rosRank = 100;
-				}
-				PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
-				{
-					@Override
-					public int compare(PlayerObject a, PlayerObject b)
+					rosRank = player.values.rosRank;
+					if(rosRank <= 0)
 					{
-						if(a.values.rosRank > b.values.rosRank)
-						{
-							return 1;
-						}
-						if(a.values.rosRank < b.values.rosRank)
-						{
-							return -1;
-						}
-						return 0;
+						rosRank = 100;
 					}
-				});
+				}
+				if(flag == 1)
+				{
+					rosRank = player.values.ecr.intValue();
+					if(rosRank <= 0)
+					{
+						continue;
+					}
+				}
+				PriorityQueue<PlayerObject> sorted = null;
+				if(flag == 0)
+				{
+					sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b)
+						{
+							if(a.values.rosRank > b.values.rosRank)
+							{
+								return 1;
+							}
+							if(a.values.rosRank < b.values.rosRank)
+							{
+								return -1;
+							}
+							return 0;
+						}
+					});
+				}
+				else if(flag == 1)
+				{
+					sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+					{
+						@Override
+						public int compare(PlayerObject a, PlayerObject b)
+						{
+							if(a.values.ecr > b.values.ecr)
+							{
+								return 1;
+							}
+							if(a.values.ecr < b.values.ecr)
+							{
+								return -1;
+							}
+							return 0;
+						}
+					});
+				}
 				for(PlayerObject fa : freeAgents)
 				{
-					if(fa.info.position.equals(pos) && fa.values.rosRank > 0)
+					if(flag == 0)
 					{
-						if(fa.values.rosRank < rosRank)
+						if(fa.info.position.equals(pos) && fa.values.rosRank > 0)
 						{
-							sorted.add(fa);
+							if(fa.values.rosRank < rosRank)
+							{
+								sorted.add(fa);
+							}
+						}
+					}
+					if(flag == 1)
+					{
+						if(fa.info.position.equals(pos) && fa.values.ecr > 0)
+						{
+							if(fa.values.ecr < rosRank)
+							{
+								sorted.add(fa);
+							}
 						}
 					}
 				}
