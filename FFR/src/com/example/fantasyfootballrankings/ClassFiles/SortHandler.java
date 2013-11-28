@@ -1345,11 +1345,12 @@ public class SortHandler
 		gvs.setTextSize(12);
 		GraphView graphView = new LineGraphView(cont, "");
 		graphView.setGraphViewStyle(gvs);
-		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[data.size()];
+		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[a.getCount()];
 		GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();  
 		for(int i = 0; i < a.getCount(); i++)
 		{
-			Map<String, String> datum = data.get(i);
+			@SuppressWarnings("unchecked")
+			Map<String, String> datum = (Map<String, String>) a.getItem(i);//data.get(i);
 			if(datum.get("main").contains(")"))
 			{
 				dataSet[i] = new GraphViewData(i, Double.valueOf(datum.get("main").split(":")[0].split("\\)")[1]));
