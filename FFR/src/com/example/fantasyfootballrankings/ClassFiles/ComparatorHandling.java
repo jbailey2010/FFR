@@ -528,8 +528,18 @@ public class ComparatorHandling
 				p2.append("-Higher ECR\n");
 			}
 		}
-		int sos1 = holder.sos.get(player1.info.team + "," + player1.info.position);//player1.info.sos;
-		int sos2 = holder.sos.get(player2.info.team + "," + player2.info.position);//player2.info.sos;
+		int sos1 = 0;
+		int sos2 = 0;
+		if(!holder.isRegularSeason)
+		{
+			sos1 = holder.sos.get(player1.info.team + "," + player1.info.position);//player1.info.sos;
+			sos2 = holder.sos.get(player2.info.team + "," + player2.info.position);//player2.info.sos;
+		}
+		else
+		{
+			sos1 = holder.sos.get(player1.info.adp + "," + player1.info.position);//player1.info.sos;
+			sos2 = holder.sos.get(player2.info.adp + "," + player2.info.position);//player2.info.sos;
+		}
 		if(sos1 > sos2)
 		{
 			if(sos1 - sos2 < 5)

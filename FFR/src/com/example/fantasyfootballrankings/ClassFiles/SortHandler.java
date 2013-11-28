@@ -901,11 +901,23 @@ public class SortHandler
 			@Override
 			public int compare(PlayerObject a, PlayerObject b)
 			{
-				if(holder.sos.get(a.info.team + "," + a.info.position) > holder.sos.get(b.info.team + "," + b.info.position))
+				int sosa = 0;
+				int sosb = 0;
+				if(holder.isRegularSeason)
+				{
+					sosa = holder.sos.get(a.info.team + "," + a.info.position);
+					sosb = holder.sos.get(b.info.team + "," + b.info.position);
+				}
+				else if(!holder.isRegularSeason)
+				{
+					sosa = holder.sos.get(a.info.adp + "," + a.info.position);
+					sosb = holder.sos.get(b.info.adp + "," + b.info.position);
+				}
+				if(sosa > sosb)
 				{
 					return 1;
 				}
-				if(holder.sos.get(a.info.team + "," + a.info.position) < holder.sos.get(b.info.team + "," + b.info.position))
+				if(sosa < sosb)
 				{
 					return -1;
 				}
@@ -1162,15 +1174,24 @@ public class SortHandler
 				}
 				else if(subject.equals("Positional SOS"))
 				{
+					int sos = 0;
+					if(!holder.isRegularSeason)
+					{
+						sos = holder.sos.get(elem.info.team + "," + elem.info.position);
+					}
+					else
+					{
+						sos = holder.sos.get(elem.info.adp + "," + elem.info.position);
+					}
 					if(elem.values.points != 0.0)
 					{
-						datum.put("main",output + holder.sos.get(elem.info.team + "," + elem.info.position) + ": " + elem.info.name);
+						datum.put("main",output + sos + ": " + elem.info.name);
 			    		datum.put("sub", baseECR + elem.values.ecr + ", " + 
 								elem.values.points);
 			    	}
 					else
 					{
-						datum.put("main",output + holder.sos.get(elem.info.team + "," + elem.info.position) + ": " + elem.info.name);
+						datum.put("main",output + sos + ": " + elem.info.name);
 			    		datum.put("sub", baseECR + elem.values.ecr);
 					}
 				}

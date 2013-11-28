@@ -447,20 +447,39 @@ public class PlayerList {
 					 continue;
 				 }
 				 subInfo.append(iter.info.position + " - " + iter.info.team + "\n");
-				 if(iter.values.rosRank > 0)
+				 if(ImportLeague.holder.isRegularSeason)
 				 {
-					 subInfo.append("ROS Positional Rank: " + iter.values.rosRank + "\n");
+					 if(iter.values.rosRank > 0)
+					 {
+						 subInfo.append("ROS Positional Rank: " + iter.values.rosRank + "\n");
+					 }
+					 if(iter.values.ecr.intValue() != -1)
+					 {
+						 subInfo.append("Weekly Positional Rank: " + iter.values.ecr.intValue() + "\n");
+					 }
 				 }
-				 if(iter.values.ecr.intValue() != -1)
+				 else
 				 {
-					 subInfo.append("Weekly Positional Rank: " + iter.values.ecr.intValue() + "\n");
+					 subInfo.append("Preseason Expert Rank: " + iter.values.ecr.intValue() + "\n");
 				 }
 				 if(!iter.info.adp.contains("Not set"))
 				 {
-					 subInfo.append("Opponent: " + iter.info.adp);
-					 if(!iter.info.adp.equals("Bye Week") && ImportLeague.holder.sos.keySet().contains(iter.info.team + "," + iter.info.position))
+					 if(ImportLeague.holder.isRegularSeason)
 					 {
-						 subInfo.append(" (SOS: " + ImportLeague.holder.sos.get(iter.info.team + "," + iter.info.position) + ")");
+						 subInfo.append("Opponent: " + iter.info.adp);
+					 }
+					 if(!iter.info.adp.equals("Bye Week") && 
+							 ((!ImportLeague.holder.isRegularSeason && ImportLeague.holder.sos.keySet().contains(iter.info.team + "," + iter.info.position)) ||
+							(ImportLeague.holder.isRegularSeason && ImportLeague.holder.sos.keySet().contains(iter.info.adp + "," + iter.info.position))))
+					 {
+						 if(!ImportLeague.holder.isRegularSeason)
+						 {
+							 subInfo.append(" (SOS: " + ImportLeague.holder.sos.get(iter.info.team + "," + iter.info.position) + ")");
+						 }
+						 if(ImportLeague.holder.isRegularSeason)
+						 {
+							 subInfo.append(" (SOS: " + ImportLeague.holder.sos.get(iter.info.adp + "," + iter.info.position) + ")");
+						 }
 					 }
 				 }
 				 else

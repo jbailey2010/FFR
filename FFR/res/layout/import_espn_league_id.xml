@@ -57,7 +57,7 @@
         android:layout_below="@+id/import_espnid_close"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
-        android:text="Enter your ESPN league ID below"
+        android:text="Enter your league ID below"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

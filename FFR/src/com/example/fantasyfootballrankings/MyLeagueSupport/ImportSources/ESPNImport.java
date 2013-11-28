@@ -712,7 +712,6 @@ public class ESPNImport
 		Elements elements = doc.select("title");
 		for(Element elem : elements)
 		{
-			System.out.println("Iterating isRosters");
 			if(elem.text().contains("League Rosters"))
 			{
 				return true;

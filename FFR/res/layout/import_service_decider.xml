@@ -41,18 +41,11 @@
             android:text="ESPN" />
 
         <RadioButton
-            android:id="@+id/radio1"
+            android:id="@+id/yahoo_import"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:text="RadioButton" />
-
-        <RadioButton
-            android:id="@+id/radio2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-			android:textColor="#FFFFFF"
-            android:text="RadioButton" />
+            android:text="Yahoo" />
     </RadioGroup>
 
     <Button

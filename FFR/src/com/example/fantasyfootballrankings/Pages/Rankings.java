@@ -1397,8 +1397,7 @@ public class Rankings extends Activity {
 	        		sub += "\nOpponent: " + elem.info.adp;
 	        		if(!elem.info.position.equals("D/ST") && !elem.info.adp.equals("Bye Week"))
 	        		{
-	        			sub += " (SOS: " + 	holder.sos.get(elem.info.team + "," + elem.info.position) + ")";
-
+	        			sub += " (SOS: " + 	holder.sos.get(elem.info.adp + "," + elem.info.position) + ")";
 	        		}
 	        	}
 	        	if(elem.values.rosRank > 0)

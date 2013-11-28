@@ -167,8 +167,18 @@ public class LineupHelp {
 		TextView p2sos = (TextView)table.findViewById(R.id.player2_sos);
 		RelativeLayout p1sosb = (RelativeLayout)table.findViewById(R.id.player1_sos_base);
 		RelativeLayout p2sosb = (RelativeLayout)table.findViewById(R.id.player2_sos_base);
-		int sos1 = ImportLeague.holder.sos.get(pl1.info.team + "," + pl1.info.position);
-		int sos2 = ImportLeague.holder.sos.get(pl2.info.team + "," + pl2.info.position);
+		int sos1 = 0;
+		int sos2 = 0;
+		if(!ImportLeague.holder.isRegularSeason)
+		{
+			sos1 = ImportLeague.holder.sos.get(pl1.info.team + "," + pl1.info.position);
+			sos2 = ImportLeague.holder.sos.get(pl2.info.team + "," + pl2.info.position);
+		}
+		else
+		{
+			sos1 = ImportLeague.holder.sos.get(pl1.info.adp + "," + pl1.info.position);
+			sos2 = ImportLeague.holder.sos.get(pl2.info.adp + "," + pl2.info.position);
+		}
 		if(sos1 > sos2)
 		{
 			p2sosb.setBackgroundColor(Color.GREEN);

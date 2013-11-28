@@ -26,6 +26,7 @@ import com.example.fantasyfootballrankings.MyLeagueSupport.PlayerList;
 import com.example.fantasyfootballrankings.MyLeagueSupport.RosterTips;
 import com.example.fantasyfootballrankings.MyLeagueSupport.TeamList;
 import com.example.fantasyfootballrankings.MyLeagueSupport.ImportSources.ESPNImport;
+import com.example.fantasyfootballrankings.MyLeagueSupport.ImportSources.YahooImport;
 import com.ffr.fantasyfootballrankings.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.LegendAlign;
@@ -241,13 +242,19 @@ public class ImportLeague extends Activity {
 			}
 	    });
 	    final RadioButton espn = (RadioButton)popUp.findViewById(R.id.espn_import);
+	    final RadioButton yahoo =(RadioButton)popUp.findViewById(R.id.yahoo_import);
 	    Button submit = (Button)popUp.findViewById(R.id.import_decide_submit);
 	    submit.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				if(espn.isChecked())
 				{
-					espnGetLeagueID();
+					getLeagueID(0);
+					popUp.dismiss();
+				}
+				if(yahoo.isChecked())
+				{
+					getLeagueID(1);
 					popUp.dismiss();
 				}
 			}
@@ -256,8 +263,9 @@ public class ImportLeague extends Activity {
 	
 	/**
 	 * Puts up a pop up to get the ESPN league ID
+	 * @param i 
 	 */
-	public void espnGetLeagueID()
+	public void getLeagueID(final int i)
 	{
 		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
 	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
@@ -293,7 +301,14 @@ public class ImportLeague extends Activity {
 				if(test.length() > 1 && ManageInput.isInteger(test))
 				{
 					popUp.dismiss();
-					callESPNParsing(test);
+					if(i == 0)
+					{
+						callESPNParsing(test);
+					}
+					if(i == 1)
+					{
+						callYahooParsing(test);
+					}
 				}
 				else
 				{
@@ -312,6 +327,20 @@ public class ImportLeague extends Activity {
 		ESPNImport espnImporter = new ESPNImport(holder, this);
 		try {
 			espnImporter.handleESPNParsing("http://games.espn.go.com/ffl/leaguerosters?leagueId=" + id, cont);
+		} catch (IOException e) {
+			Toast.makeText(cont, "There was an error, do you have a valid internet connection?", Toast.LENGTH_SHORT).show();
+		}
+	}
+	
+	/**
+	 * Calls the yahoo parser
+	 * @param id
+	 */
+	public void callYahooParsing(String id)
+	{
+		YahooImport yahooImporter = new YahooImport(holder, this, (Context)this);
+		try {
+			yahooImporter.handleYahooParsing("http://football.fantasysports.yahoo.com/f1/" + id + "/starters");
 		} catch (IOException e) {
 			Toast.makeText(cont, "There was an error, do you have a valid internet connection?", Toast.LENGTH_SHORT).show();
 		}
@@ -604,6 +633,10 @@ public class ImportLeague extends Activity {
 			{
 				clearDataESPNInit((TextView)v, newImport, cont);
 			}
+			if(((TextView)((Activity)cont).findViewById(R.id.hostName)).getText().toString().contains("Yahoo"))
+			{
+				clearDataYahooInit((TextView)v, newImport, cont);
+			}
 		}
 		else
 		{
@@ -641,4 +674,33 @@ public class ImportLeague extends Activity {
 		}
 	}
 
+	/**
+	 * Clears the non password yahoo stuff then calls the refreshing
+	 * @param name
+	 * @param newImport
+	 * @param cont
+	 */
+	public void clearDataYahooInit(TextView name, ImportedTeam newImport, Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		int numImported = prefs.getInt("Number of Leagues Imported", 1);
+		editor.putInt("Number of Leagues Imported", numImported-1);
+		String keyPart2 = name.getText().toString();
+		String keyPart1 = ((TextView)findViewById(R.id.hostName)).getText().toString().split("Hosted on ")[1];
+		String key = keyPart1 + "@@@" + keyPart2;
+		String remKey = key + "~~~";
+		String oldKeys = prefs.getString("Imported League Keys", "");
+		oldKeys = oldKeys.replaceAll(remKey, "");
+		String leagueURL = prefs.getString(key, "").split("LEAGUEURLSPLIT")[0];
+		editor.remove(key);
+		editor.putString("Imported League Keys", oldKeys);
+		editor.commit();
+		YahooImport yahooImporter = new YahooImport(holder, this, (Context)this);
+		try {
+			yahooImporter.handleYahooParsing(leagueURL);
+		} catch (IOException e) {
+			Toast.makeText(cont, "There was an error, do you have a valid internet connection?", Toast.LENGTH_SHORT).show();
+		}
+	}
 }
