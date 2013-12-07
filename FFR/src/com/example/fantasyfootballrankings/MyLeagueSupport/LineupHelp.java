@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import AsyncTasks.ParsingAsyncTask;
+import AsyncTasks.ParsingAsyncTask.ParseFP;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 import android.widget.TwoLineListItem;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
@@ -32,6 +35,7 @@ import com.ffr.fantasyfootballrankings.R;
  *
  */
 public class LineupHelp {
+	public static LinearLayout t;
 	/**
 	 * Handles the initial set up of the lineup decider front end
 	 * @param res
@@ -139,6 +143,15 @@ public class LineupHelp {
 			imm.hideSoftInputFromWindow(p1.getWindowToken(), 0);
 			imm.hideSoftInputFromWindow(p2.getWindowToken(), 0);
 			DecimalFormat df = new DecimalFormat("#.##");
+		t = table;
+		RelativeLayout ecr1 = (RelativeLayout)table.findViewById(R.id.player1_fp_base);
+		RelativeLayout ecr2 = (RelativeLayout)table.findViewById(R.id.player2_fp_base);
+		RelativeLayout ppw1 = (RelativeLayout)table.findViewById(R.id.player1_ppw_base);
+		RelativeLayout ppw2 = (RelativeLayout)table.findViewById(R.id.player2_ppw_base);
+		ecr1.setVisibility(View.GONE);
+		ecr2.setVisibility(View.GONE);
+		ppw1.setVisibility(View.GONE);
+		ppw2.setVisibility(View.GONE);
 		table.setVisibility(View.VISIBLE);
 		//Names
 		TextView p1name = (TextView)table.findViewById(R.id.player1_name);
@@ -242,5 +255,55 @@ public class LineupHelp {
 		}
 		p1rank.setText("Positional Rank: " + pl1.values.ecr);
 		p2rank.setText("Positional Rank: " + pl2.values.ecr);
+		if(ManageInput.confirmInternet(ImportLeague.cont))
+		{
+			ParsingAsyncTask o = new ParsingAsyncTask();
+			ParseFP task = o.new ParseFP(ImportLeague.cont, pl1.info.name, pl2.info.name);
+			task.execute(ImportLeague.cont);
+		}
+	}
+	
+	/**
+	 * Sets the percentage of experts starting player x at the top of the table
+	 * @param ecrList
+	 */
+	public static void setECR(List<String> ecrList)
+	{
+		RelativeLayout p1Base = (RelativeLayout)t.findViewById(R.id.player1_fp_base);
+		RelativeLayout p2Base = (RelativeLayout)t.findViewById(R.id.player2_fp_base);
+		RelativeLayout ppw1Base = (RelativeLayout)t.findViewById(R.id.player1_ppw_base);
+		RelativeLayout ppw2Base = (RelativeLayout)t.findViewById(R.id.player2_ppw_base);
+		p1Base.setVisibility(View.VISIBLE);
+		p2Base.setVisibility(View.VISIBLE);
+		ppw1Base.setVisibility(View.VISIBLE);
+		ppw2Base.setVisibility(View.VISIBLE);
+		TextView p1 = (TextView)t.findViewById(R.id.player1_fp);
+		TextView p2 = (TextView)t.findViewById(R.id.player2_fp);
+		TextView ppw1 = (TextView)t.findViewById(R.id.player1_ppw);
+		TextView ppw2 = (TextView)t.findViewById(R.id.player2_ppw);
+		p1.setText("Percentage of Experts: " + ecrList.get(0));
+		p2.setText("Percentage of Experts: " + ecrList.get(1));
+		ppw1.setText("Average Scoring: " + ecrList.get(2));
+		ppw2.setText("Average Scoring: " + ecrList.get(3));
+		if(Integer.parseInt(ecrList.get(0).substring(0, ecrList.get(0).length() - 1)) > Integer.parseInt(ecrList.get(1).substring(0, ecrList.get(1).length() - 1)))
+		{
+			p1Base.setBackgroundColor(Color.GREEN);
+			p2Base.setBackgroundColor(Color.RED);
+		}
+		else
+		{
+			p2Base.setBackgroundColor(Color.GREEN);
+			p1Base.setBackgroundColor(Color.RED);
+		}
+		if(Double.parseDouble(ecrList.get(2)) > Double.parseDouble(ecrList.get(3)))
+		{
+			ppw1Base.setBackgroundColor(Color.GREEN);
+			ppw2Base.setBackgroundColor(Color.RED);
+		}
+		else
+		{
+			ppw2Base.setBackgroundColor(Color.GREEN);
+			ppw1Base.setBackgroundColor(Color.RED);
+		}
 	}
 }

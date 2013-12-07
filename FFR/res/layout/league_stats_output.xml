@@ -446,7 +446,87 @@
 		            android:layout_centerHorizontal="true"
 		            android:text="Player 2"/>
             </RelativeLayout>
-        </LinearLayout>    
+        </LinearLayout> 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false">
+
+            <RelativeLayout
+                android:id="@+id/player1_fp_base"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:paddingTop="20dp" android:paddingBottom="20dp">
+
+                <TextView android:textStyle="bold"
+                    android:id="@+id/player1_fp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="X Points"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/player2_fp_base"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:visibility="gone"
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
+	            >
+	            <TextView android:textStyle="bold"
+		            android:id="@+id/player2_fp"
+		            android:textSize="17sp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerHorizontal="true"
+		            android:text="Y Points"/>
+            </RelativeLayout>
+        </LinearLayout>     
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false">
+
+            <RelativeLayout
+                android:id="@+id/player1_ppw_base"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:paddingTop="20dp" android:paddingBottom="20dp">
+
+                <TextView android:textStyle="bold"
+                    android:id="@+id/player1_ppw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="X Points"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/player2_ppw_base"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:visibility="gone"
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
+	            >
+	            <TextView android:textStyle="bold"
+		            android:id="@+id/player2_ppw"
+		            android:textSize="17sp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerHorizontal="true"
+		            android:text="Y Points"/>
+            </RelativeLayout>
+        </LinearLayout>     
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"

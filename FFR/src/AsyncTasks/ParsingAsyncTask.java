@@ -20,10 +20,17 @@ import java.util.Set;
 
 import org.htmlcleaner.XPatherException;
 import org.jsoup.HttpStatusException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPN;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
@@ -42,10 +49,12 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseYahoo;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.MyLeagueSupport.LineupHelp;
 import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.example.fantasyfootballrankings.Pages.Trending;
 
+import FileIO.ReadFromFile;
 import FileIO.WriteToFile; 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -871,6 +880,113 @@ public class ParsingAsyncTask
 		    		WriteToFile.writeNewsTwitter(cont, news, header);
 		    	}
 				return news;
+		    }
+		  }
+		
+		/**
+		 * Gets the ecr of each player being compared
+		 * @author Jeff
+		 *
+		 */
+		public class ParseFP extends AsyncTask<Object, Void, List<String>> 
+		{
+			ProgressDialog pdia;
+			Activity act;
+			String player1;
+			String player2;
+		    public ParseFP(Context cont, String p1, String p2) 
+		    {
+		        pdia = new ProgressDialog(cont);
+		        pdia.setCancelable(false);
+		        act = (Activity)cont;
+		        player1 = p1;
+		        player2 = p2;
+		    }
+
+			@Override 
+			protected void onPreExecute(){ 
+			   super.onPreExecute();
+			        pdia.setMessage("Please wait, trying to get the ECR starting numbers...");
+			        pdia.show();    
+			}
+
+			@Override
+			protected void onPostExecute(List<String> result){
+				super.onPostExecute(result);
+				pdia.dismiss();
+				if(result != null)
+				{
+					LineupHelp.setECR(result);
+				}
+			}
+
+		    @Override
+		    protected List<String> doInBackground(Object... data) 
+		    {
+		    	Context cont = (Context) data[0];
+		    	Scoring s = ReadFromFile.readScoring(cont);
+		    	List<String> ecrList = new ArrayList<String>();
+		    	String baseURL = "http://www.fantasypros.com/nfl/start/";
+		    	String firstName = player1;
+		    	String[] p1Set = player1.toLowerCase().split(" ");
+		    	String[] p2Set = player2.toLowerCase().split(" ");
+		    	for(String elem : p1Set)
+		    	{
+		    		baseURL += elem + "-";
+		    	}
+		    	for(String elem : p2Set)
+		    	{
+		    		baseURL += elem + "-";
+		    	}
+		    	baseURL = baseURL.substring(0, baseURL.length() - 1) + ".php";
+		    	if(s.catches == 1)
+		    	{
+		    		baseURL += "?scoring=PPR";
+		    	}
+		    	try {
+					Document doc = Jsoup.connect(baseURL).get();
+					String[] percentages = HandleBasicQueries.handleListsMulti(doc, baseURL, "div div.mpb-col span").split("\n");
+					for(String percent : percentages)
+					{
+						if(percent.contains("%") && (percent.contains("50") || !ecrList.contains(percent)))
+						{
+							ecrList.add(percent);
+						}
+					}
+					if(percentages.length < 2)
+					{
+						return null;
+					}
+					Elements elems = doc.select("div.mpb-left");
+					Element p = null;
+					for(Element elem : elems)
+					{
+						if(elem.text().contains("Points / Game"))
+						{
+							p = elem;
+							ecrList.add(elem.parent().child(1).text());
+							ecrList.add(elem.parent().child(2).text());
+							break;
+						}
+					}
+					if(p != null)
+					{
+						Element megaParent = p.parent().parent().parent().parent();//.child(2).child(1).child(1).child(0).text();
+						String name = (megaParent.child(2).child(1).child(1).child(0).text());
+						if(!name.equals(firstName))
+						{
+							List<String> newEcr = new ArrayList<String>();
+							newEcr.add(ecrList.get(1));
+							newEcr.add(ecrList.get(0));
+							newEcr.add(ecrList.get(3));
+							newEcr.add(ecrList.get(2));
+							return newEcr;
+						}
+					}
+				} catch (IOException e) {
+					return null;
+				}
+		    	return ecrList;    	
 		    }
 		  }
 	}

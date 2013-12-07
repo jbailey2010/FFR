@@ -172,7 +172,14 @@ public class Home extends Activity{
 			case R.id.export_names:
 				if(isStored)
 				{ 
-					callExport();
+					if(!holder.isRegularSeason)
+					{
+						callExport();
+					}
+					else
+					{
+						Toast.makeText(cont, "This is a preseason only feature", Toast.LENGTH_SHORT).show();
+					}
 				}
 				else
 				{
