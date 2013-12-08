@@ -2,6 +2,7 @@ package com.example.fantasyfootballrankings.MyLeagueSupport;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,9 @@ import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 public class TeamList {
 	private static Context cont;
 	private static ImportedTeam newImport;
+	public static boolean isF = false;
+	public static boolean isFTE = false;
+	public static boolean isOP = false;
 	/**
 	 * Handles the population of the team information listview
 	 * both click, onclick, and initial output
@@ -435,14 +439,25 @@ public class TeamList {
 		rosters.put("TE", text.split("Tight Ends: ")[1].split("\n")[0].split(", "));
 		rosters.put("D/ST", text.split("D/ST: ")[1].split("\n")[0].split(", "));
 		rosters.put("K", text.split("Kickers: ")[1].split("\n")[0].split(", "));
+		List<String>remainingPlayers = new ArrayList<String>();
+		remainingPlayers.addAll(Arrays.asList(rosters.get("QB")));
+		remainingPlayers.addAll(Arrays.asList(rosters.get("RB")));
+		remainingPlayers.addAll(Arrays.asList(rosters.get("WR")));
+		remainingPlayers.addAll(Arrays.asList(rosters.get("TE")));
+		remainingPlayers.addAll(Arrays.asList(rosters.get("D/ST")));
+		remainingPlayers.addAll(Arrays.asList(rosters.get("K")));
 		StringBuilder output = new StringBuilder(1000);
 		TeamAnalysis dummy = new TeamAnalysis();
-		output.append(dummy.optimalLineup(rosters.get("QB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "QB", cont, ImportLeague.holder));
-		output.append(dummy.optimalLineup(rosters.get("RB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "RB", cont, ImportLeague.holder));
-		output.append(dummy.optimalLineup(rosters.get("WR"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "WR", cont, ImportLeague.holder));
-		output.append(dummy.optimalLineup(rosters.get("TE"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "TE", cont, ImportLeague.holder));
-		output.append(dummy.optimalLineup(rosters.get("D/ST"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "D/ST", cont, ImportLeague.holder));
-		output.append(dummy.optimalLineup(rosters.get("K"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "K", cont, ImportLeague.holder));
+		isF = false;
+		isFTE = false;
+		isOP = false;
+		String rb = (dummy.optimalLineup(remainingPlayers, rosters.get("RB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "RB", cont, ImportLeague.holder));
+		String wr = (dummy.optimalLineup(remainingPlayers, rosters.get("WR"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "WR", cont, ImportLeague.holder));
+		String qb = (dummy.optimalLineup(remainingPlayers, rosters.get("QB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "QB", cont, ImportLeague.holder));
+		String te = (dummy.optimalLineup(remainingPlayers, rosters.get("TE"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "TE", cont, ImportLeague.holder));
+		String d = (dummy.optimalLineup(remainingPlayers, rosters.get("D/ST"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "D/ST", cont, ImportLeague.holder));
+		String k = (dummy.optimalLineup(remainingPlayers, rosters.get("K"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "K", cont, ImportLeague.holder));
+		output.append(qb).append(rb).append(wr).append(te).append(d).append(k);
 		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
 	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		popUp.setContentView(R.layout.team_optimal_lineup);

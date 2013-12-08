@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.MyLeagueSupport;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +37,9 @@ public class RosterTips
 	public static List<PlayerObject> freeAgents;
 	public static ImportedTeam newImport;
 	public static View res;
+	public static boolean isF = false;
+	public static boolean isFTE = false;
+	public static boolean isOP = false;
 	
 	/**
 	 * Handles the logistics of setting up roster tips
@@ -340,12 +344,22 @@ public class RosterTips
 			rosters.put("K", text.split("Kickers: ")[1].split("\n")[0].split(", "));
 			StringBuilder output = new StringBuilder(1000);
 			TeamAnalysis dummy = new TeamAnalysis();
-			output.append(dummy.optimalLineup(rosters.get("QB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "QB", ImportLeague.cont, ImportLeague.holder));
-			output.append(dummy.optimalLineup(rosters.get("RB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "RB", ImportLeague.cont, ImportLeague.holder));
-			output.append(dummy.optimalLineup(rosters.get("WR"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "WR", ImportLeague.cont, ImportLeague.holder));
-			output.append(dummy.optimalLineup(rosters.get("TE"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "TE", ImportLeague.cont, ImportLeague.holder));
-			output.append(dummy.optimalLineup(rosters.get("D/ST"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "D/ST", ImportLeague.cont, ImportLeague.holder));
-			output.append(dummy.optimalLineup(rosters.get("K"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "K", ImportLeague.cont, ImportLeague.holder));
+			List<String> remainingPlayers = new ArrayList<String>();
+			remainingPlayers.addAll(Arrays.asList(rosters.get("QB")));
+			remainingPlayers.addAll(Arrays.asList(rosters.get("RB")));
+			remainingPlayers.addAll(Arrays.asList(rosters.get("WR")));
+			remainingPlayers.addAll(Arrays.asList(rosters.get("TE")));
+			remainingPlayers.addAll(Arrays.asList(rosters.get("D/ST")));
+			remainingPlayers.addAll(Arrays.asList(rosters.get("K")));
+			TeamList.isF = false;
+			TeamList.isFTE = false;
+			TeamList.isOP = false;
+			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("RB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "RB", ImportLeague.cont, ImportLeague.holder));
+			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("WR"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "WR", ImportLeague.cont, ImportLeague.holder));
+			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("QB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "QB", ImportLeague.cont, ImportLeague.holder));
+			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("TE"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "TE", ImportLeague.cont, ImportLeague.holder));
+			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("D/ST"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "D/ST", ImportLeague.cont, ImportLeague.holder));
+			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("K"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "K", ImportLeague.cont, ImportLeague.holder));
 			String[] middle = output.toString().split("\n");
 			for(String posIter : middle)
 			{

@@ -1102,7 +1102,15 @@ public class HighLevel
 		}
 		for(int i = min; i < td.length; i+=6)
 		{
-			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i+1].split(" \\(")[0].split(", ")[0]));
+			String name = "";
+			if(pos.equals("D/ST"))
+			{
+				name = (ParseRankings.fixDefenses(td[i+1].split(" \\(")[0].split(", ")[0]));
+			}
+			else
+			{
+				name = ParseRankings.fixNames((td[i+1].split(" \\(")[0].split(", ")[0]));
+			}
 			double ecrVal = Double.parseDouble(td[i]);
 			double riskVal = Double.parseDouble(td[i+5]);
 			String team = ParseRankings.fixTeams(td[i+1].split(" \\(")[1].split("\\)")[0]);
