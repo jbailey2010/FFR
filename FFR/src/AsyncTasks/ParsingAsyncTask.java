@@ -945,6 +945,7 @@ public class ParsingAsyncTask
 		    	}
 		    	try {
 					Document doc = Jsoup.connect(baseURL).get();
+					System.out.println(baseURL);
 					String[] percentages = HandleBasicQueries.handleListsMulti(doc, baseURL, "div div.mpb-col span").split("\n");
 					for(String percent : percentages)
 					{
@@ -984,6 +985,7 @@ public class ParsingAsyncTask
 						}
 					}
 				} catch (IOException e) {
+					e.printStackTrace();
 					return null;
 				}
 		    	return ecrList;    	

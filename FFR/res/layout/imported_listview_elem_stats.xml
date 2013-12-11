@@ -27,7 +27,7 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_below="@+id/text1"
 	        android:text="Text Sub"
-	       	android:layout_marginLeft="5dp"
+	       	android:layout_marginLeft="10dp"
 	       	android:layout_marginTop="10dp"
 	       	android:paddingBottom="3dp"
 	       	android:textColor="#333333"

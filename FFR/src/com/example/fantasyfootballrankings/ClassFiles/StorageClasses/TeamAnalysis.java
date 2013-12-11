@@ -866,11 +866,10 @@ public class TeamAnalysis
 		for(int i = 0; i < limit; i++)
 		{ 
 			PlayerObject player = inter.poll();
-			if(player != null && remainingPlayers.contains(player.info.name))
+			if(player != null)
 			{
 				total += player.values.paa;
 				starterProj += player.values.points;
-				remainingPlayers.remove(player.info.name);
 			}
 		}
 		return Double.valueOf(df.format(total));
