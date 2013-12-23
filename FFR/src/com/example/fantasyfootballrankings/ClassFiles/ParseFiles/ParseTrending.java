@@ -157,7 +157,9 @@ public class ParseTrending
 		}
 		for(int i = 0; i < posts.size(); i++)
 		{
-			String text = posts.get(i).text;
+			Post elem = posts.get(i);
+			int len = handleDays(elem.date);
+			String text = elem.text;
 			text = text.replaceAll("[.,/?]", " ");
 			String[] postWords = ManageInput.tokenize(text, ' ', 1);
 			for(int j = 0; j < postWords.length-1; j++)
@@ -182,6 +184,7 @@ public class ParseTrending
                         {
                     		holder.postedPlayers.remove(e);
                             e.count++;
+                            e.times.add(len);
                             holder.postedPlayers.add(e);
                             inserted = true;
                         }
@@ -189,6 +192,7 @@ public class ParseTrending
 					if(inserted == false)
 					{
 						PostedPlayer newPlayer = new PostedPlayer(capFirst + " " + capLast, 1);
+						newPlayer.times.add(len);
 						holder.postedPlayers.add(newPlayer);
 					}
 				}
@@ -241,6 +245,7 @@ public class ParseTrending
 		                        {
 		                    		holder.postedPlayers.remove(e);
 		                            e.count++;
+		                            e.times.add(len);
 		                            holder.postedPlayers.add(e);
 		                            inserted = true;
 		                        }
@@ -248,6 +253,7 @@ public class ParseTrending
 							if(inserted == false && !player.contains("D/ST"))
 							{
 								PostedPlayer newPlayer = new PostedPlayer(player, 1);
+								newPlayer.times.add(len);
 								holder.postedPlayers.add(newPlayer);
 							}
 						}

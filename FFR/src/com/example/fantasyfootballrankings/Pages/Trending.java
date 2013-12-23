@@ -233,10 +233,9 @@ public class Trending extends Activity {
 					String[] nameSet = post.split(": mentioned ");
 					Map<String, String> datum = new HashMap<String, String>(2);
 					String name = nameSet[0];
-					String count = (nameSet[1].split(" times")[0]);
+					String sec = nameSet[1].split("//")[1];
 					datum.put("name", name + "");
-					String countStr = count + " times";
-					datum.put("count", countStr); 
+					datum.put("count", sec); 
 					data.add(datum);
 					postsList.add(post);
 				} catch(ArrayIndexOutOfBoundsException e)
@@ -590,16 +589,33 @@ public class Trending extends Activity {
 	    	PostedPlayer elem = playersTrending.poll();
 	    	Map<String, String> datum = new HashMap<String, String>(2);
 	    	datum.put("name", elem.name + "");
-	    	datum.put("count", elem.count + " times");
+	    	StringBuilder sub = new StringBuilder(1000);
+	    	sub.append(elem.count + " times");
+	    	if(lastFilter >= 7)
+	    	{
+	    		int lastDay = elem.lastTime(1);
+	    		sub.append("\n" + lastDay + "% in the last day");
+	    	}
+	    	if(lastFilter >= 28)
+	    	{
+	    		int lastWeek = elem.lastTime(8);
+	    		sub.append("\n" + lastWeek + "% in the last week");
+	    	}
+	    	if(lastFilter >= 45)
+	    	{
+	    		int lastMonth = elem.lastTime(32);
+	    		sub.append("\n" + lastMonth + "% in the last month");
+	    	}
+	    	datum.put("count", sub.toString());
 	    	data.add(datum);
-	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times");
+	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times//" + sub.toString());
 	    }
 	    if(data.size() == 0)
 	    {
 	    	Map<String, String> datum = new HashMap<String, String>(2);
 	    	datum.put("name", "No players mentioned in this timeframe\n");
 	    	datum.put("count", "Please try something else");
-	    	trendingPlayers.add("No players mentioned in this timeframe" + ": mentioned " + "Please try something else" + " times");
+	    	trendingPlayers.add("No players mentioned in this timeframe" + ": mentioned " + "Please try something else" + " times//");
 	    	data.add(datum);
 	    }
 	    if(refreshed)
@@ -684,7 +700,7 @@ public class Trending extends Activity {
 		{
 			for(Map<String, String> datum : data)
 			{ 
-				if(!hold.parsedPlayers.contains(datum.get("name")) && datum.containsKey("count"))
+				if(!hold.parsedPlayers.contains(datum.get("name")) && datum.containsKey("count") && !datum.get("count").contains("try something else"))
 				{
 					datum.put("count", datum.get("count") + "\nPlayer Information Unavailable");
 					mAdapter.notifyDataSetChanged();
