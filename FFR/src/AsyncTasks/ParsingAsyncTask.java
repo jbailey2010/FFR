@@ -83,8 +83,11 @@ public class ParsingAsyncTask
 			ProgressDialog pdia;
 			Activity act;
 			Storage hold;
+			int draftIter;
 		    public ParseRanks(Activity activity, Storage holder) 
 		    {
+		    	SharedPreferences prefs = activity.getSharedPreferences("FFR", 0); 
+				draftIter = prefs.getInt("Parse Count", 0);
 		        pdia = new ProgressDialog(activity);
 		        pdia.setCancelable(false);
 		        act = activity;
@@ -102,6 +105,12 @@ public class ParsingAsyncTask
 			protected void onPostExecute(Void result){
 			   super.onPostExecute(result);
 			   pdia.dismiss();
+			   SharedPreferences.Editor editor = act.getSharedPreferences("FFR", 0).edit();
+	    		if(draftIter >= 8)
+	    		{
+	    			draftIter = -1;
+	    		}
+	    		editor.putInt("Parse Count", ++draftIter).commit();
 			   if(hold.players.size() > 1)
 			   {
 				   ((Rankings) act).intermediateHandleRankings(act);
@@ -115,8 +124,6 @@ public class ParsingAsyncTask
 		    	Context cont = (Context) data[1];
 		    	Map<String, List<String>> fa = new HashMap<String, List<String>>();
 		    	Map<String, String> draftClasses = new HashMap<String, String>(); 
-		    	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-				int draftIter = prefs.getInt("Parse Count", 0);
 		    	if(holder.isRegularSeason)
 		    	{
 		    		fa = holder.fa;
@@ -354,12 +361,6 @@ public class ParsingAsyncTask
 					} catch (IOException e1) {
 					}
 	    		}
-	    		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-	    		if(draftIter >= 8)
-	    		{
-	    			draftIter = -1;
-	    		}
-	    		editor.putInt("Parse Count", draftIter++).commit();
 				return null;
 		    }
 
