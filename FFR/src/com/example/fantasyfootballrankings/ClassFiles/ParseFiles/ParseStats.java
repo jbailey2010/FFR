@@ -62,7 +62,8 @@ public class ParseStats
 				data.append("Adjusted Yards: " + player[player.length - 7].replace(",", "") + "\n");
 				data.append("Touchdowns: " + player[player.length - 6] + "\n");
 				data.append("Completion Percentage: " + player[player.length - 2] + "\n");
-				data.append("Interceptions: " + player[player.length - 3]);
+				data.append("Interceptions: " + player[player.length - 3] + "\n");
+				data.append("Fumbles Lost: " + player[player.length - 4]);
 				qbPlayers.put(name.toLowerCase() + "/" + team, data.toString());
 			}
 		}

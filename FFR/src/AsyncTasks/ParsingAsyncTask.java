@@ -565,6 +565,7 @@ public class ParsingAsyncTask
 						if(value)
 						{
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=377921&st=");
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=418103&st=");
 						}
 						if(rookie)
 						{

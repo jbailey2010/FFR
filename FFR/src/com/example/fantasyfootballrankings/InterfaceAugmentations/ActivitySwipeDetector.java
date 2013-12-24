@@ -21,14 +21,14 @@ public class ActivitySwipeDetector implements View.OnTouchListener {
  public final void onRightToLeftSwipe() {
   	if(origin.equals("Popup"))
   	{
-  		hold.swipeRightToLeft();
+  		hold.swipeRightToLeft(activity);
   	}
  }
 
  public void onLeftToRightSwipe(){
   	if(origin.equals("Popup"))
   	{
-  		hold.swipeLeftToRight();
+  		hold.swipeLeftToRight(activity);
   	}
  }
 

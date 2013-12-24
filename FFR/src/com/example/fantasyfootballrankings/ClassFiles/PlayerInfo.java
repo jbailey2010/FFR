@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +35,7 @@ import com.ffr.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
@@ -432,7 +432,7 @@ public class PlayerInfo
 	   	ranking.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				contentRankings();
+				contentRankings(cont);
 				ranking.setTypeface(null,Typeface.BOLD);
 				info.setTypeface(null, Typeface.NORMAL);
 				team.setTypeface(null, Typeface.NORMAL);
@@ -485,10 +485,10 @@ public class PlayerInfo
 				other.setTextSize(14);
 			}
 	   	});
-	   	contentRankings();
+	   	contentRankings(cont);
 	}
 	
-	public void swipeLeftToRight()
+	public void swipeLeftToRight(Context act)
 	{
 		if(isMax(ranking))
 		{
@@ -504,7 +504,7 @@ public class PlayerInfo
 		}
 		else if(isMax(info))
 		{
-			contentRankings();
+			contentRankings(act);
 			ranking.setTypeface(null,Typeface.BOLD);
 			info.setTypeface(null, Typeface.NORMAL);
 			team.setTypeface(null, Typeface.NORMAL);
@@ -557,7 +557,7 @@ public class PlayerInfo
 		return false;
 	}
 	
-	public void swipeRightToLeft()
+	public void swipeRightToLeft(Context act)
 	{
 		if(isMax(ranking))
 		{
@@ -597,7 +597,7 @@ public class PlayerInfo
 		}
 		else if(isMax(other))
 		{
-			contentRankings();
+			contentRankings(act);
 			ranking.setTypeface(null,Typeface.BOLD);
 			info.setTypeface(null, Typeface.NORMAL);
 			team.setTypeface(null, Typeface.NORMAL);
@@ -611,8 +611,9 @@ public class PlayerInfo
 	
 	/**
 	 * Fills the adapter with ranking based information
+	 * @param cont2 
 	 */
-	public void contentRankings()
+	public void contentRankings(Context cont2)
 	{
 		data.clear();
 	   	DecimalFormat df = new DecimalFormat("#.##");
@@ -746,6 +747,21 @@ public class PlayerInfo
 			}
 			data.add(datum);
 		} 
+		Scoring s = ReadFromFile.readScoring(cont2);
+		if(!holder.isRegularSeason)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", searchedPlayer.pointsSoFar(s) + " Points Scored Last Year");
+			datum.put("sub",  "");
+			data.add(datum);
+		}
+		if(holder.isRegularSeason)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", searchedPlayer.pointsSoFar(s) + " Points Scored So Far");
+			datum.put("sub", "");
+			data.add(datum);
+		}
 		//Risk
 		if(searchedPlayer.risk > 0.0 && !searchedPlayer.info.adp.equals("Bye Week"))
 		{
