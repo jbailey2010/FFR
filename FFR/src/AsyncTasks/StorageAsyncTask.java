@@ -102,6 +102,8 @@ public class StorageAsyncTask
 	    		players.append(player.values.paa);
 	    		players.append("&&");
 	    		players.append(player.values.rosRank);
+	    		players.append("&&");
+	    		players.append(player.note);
 	    		playerData.add(players.toString());
 	    	}
 	    	editor.putStringSet("Parsed Player Names", new HashSet<String>(holder.parsedPlayers));
@@ -164,16 +166,25 @@ public class StorageAsyncTask
 	{
 		Context cont;
 		ProgressDialog pdia;
-	    public WriteNewPAA(Context c) 
+		Boolean flag;
+	    public WriteNewPAA(Context c, Boolean sw) 
 	    {
 	    	pdia = new ProgressDialog(c);
 	    	pdia.setCancelable(false);
 	        cont = c;
+	        flag = sw;
 	    }
 
 		@Override
 		protected void onPreExecute(){ 
-			pdia.setMessage("Please wait, saving the updated rankings...");
+			if(flag)
+			{
+				pdia.setMessage("Please wait, saving the updated rankings...");
+			}
+			else
+			{
+				pdia.setMessage("Please wait, saving the note...");
+			}
 	        pdia.show();
 		   super.onPreExecute();   
 		}
@@ -227,6 +238,8 @@ public class StorageAsyncTask
 	    		players.append(player.values.paa);
 	    		players.append("&&");
 	    		players.append(player.values.rosRank);
+	    		players.append("&&");
+	    		players.append(player.note);
 	    		playerData.add(players.toString());
 	    	}
 	    	editor.putStringSet("Parsed Player Names", new HashSet<String>(holder.parsedPlayers));
@@ -327,6 +340,7 @@ public class StorageAsyncTask
 	   		{  
 	   			String[] allData = ManageInput.tokenize(st, '&', 2);
 	   			PlayerObject newPlayer = new PlayerObject(allData[2], allData[3], allData[4], 0);
+	   			newPlayer.note = allData[15];
 	   			newPlayer.values.rosRank = Integer.parseInt(allData[14]);
 	   			newPlayer.values.paa = Double.parseDouble(allData[13]);
 	   			newPlayer.values.points = Double.parseDouble(allData[12]);

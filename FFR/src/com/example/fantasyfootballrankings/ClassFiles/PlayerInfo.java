@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import AsyncTasks.StorageAsyncTask;
+import AsyncTasks.StorageAsyncTask.WriteNewPAA;
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.app.Activity;
@@ -355,10 +357,15 @@ public class PlayerInfo
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				String input = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
+				String sub = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text2)).getText().toString();
 				//Show tweets about the player
 				if(input.contains("See tweets about"))
 				{
 					playerTweetSearchInit(namePlayer, act);
+				}
+				else if(sub.contains("Click to change"))
+				{
+					changeNote(searchedPlayer, holder, act, (RelativeLayout)arg1);
 				}
 				//Bring up the interweb to show highlights of the player
 				else if(input.contains("See highlights of"))
@@ -413,6 +420,64 @@ public class PlayerInfo
 				}
 			}
 		}); 
+	}
+
+	/**
+	 * Makes a popup that will handle the changing of the player note
+	 */
+	public void changeNote(final PlayerObject searchedPlayer2, final Storage holder2, final Activity act, final RelativeLayout arg1) {
+		final Dialog dialog = new Dialog(act, R.style.RoundCornersFull);
+	    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+		dialog.setContentView(R.layout.note_change);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+	    dialog.show();
+	    Button close = (Button)dialog.findViewById(R.id.search_cancel);
+	    close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+			}
+	    });
+	    final AutoCompleteTextView input = (AutoCompleteTextView)dialog.findViewById(R.id.player_input);
+	    Button submit = (Button)dialog.findViewById(R.id.search_submit);
+	    submit.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				String str = input.getText().toString();
+				if(str.length() > 0)
+				{
+					handleNote(str, searchedPlayer2, holder2, act, arg1);
+					dialog.dismiss();
+				}
+				else
+				{
+					Toast.makeText(act, "Please enter a note", Toast.LENGTH_SHORT).show();
+				}
+			}
+	    });
+	}
+	
+	/**
+	 * Saves the note to the object and writes it to file
+	 */
+	public void handleNote(String note, PlayerObject player, Storage holder, Activity act, RelativeLayout elem)
+	{
+		TextView text = (TextView)elem.findViewById(R.id.text1);
+		text.setText(note);
+		for(PlayerObject iter : holder.players)
+		{
+			if(iter.info.name.equals(player.info.name) && iter.info.team.equals(player.info.team))
+			{
+				iter.note = note;
+				break;
+			}
+		}
+		StorageAsyncTask obj = new StorageAsyncTask();
+	    WriteNewPAA task2 = obj.new WriteNewPAA(act, false);
+	    task2.execute(holder, act);
 	}
 
 	/**
@@ -960,6 +1025,20 @@ public class PlayerInfo
 	public void contentOther()
 	{
 		data.clear();
+		if(searchedPlayer.note.length() > 1)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", searchedPlayer.note);
+			datum.put("sub", "Click to change note for this player");
+			data.add(datum);
+		}
+		else
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "No note entered");
+			datum.put("sub", "Click to change note for this player");
+			data.add(datum);
+		}
 		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);

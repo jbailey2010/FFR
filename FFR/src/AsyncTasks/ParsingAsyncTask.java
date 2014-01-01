@@ -449,6 +449,8 @@ public class ParsingAsyncTask
 			    		players.append(player.values.paa);
 			    		players.append("&&");
 			    		players.append(player.values.rosRank);
+			    		players.append("&&");
+			    		players.append(player.note);
 			    		playerData.add(players.toString());
 			    	}
 			    	editor.putStringSet("Parsed Player Names", new HashSet<String>(holder.parsedPlayers));

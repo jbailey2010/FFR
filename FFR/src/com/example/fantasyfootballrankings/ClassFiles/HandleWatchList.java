@@ -226,6 +226,10 @@ public class HandleWatchList
 			    	datum.put("info", iter.info.position + " - " + iter.info.team);
 		    	}
 	    	}
+			if(iter.note.length() > 1)
+			{
+				datum.put("info", datum.get("info") + "\n" + iter.note);
+			}
 	    	dataSet.add(datum);
 	    }
 	    final SimpleAdapter adapter = new SimpleAdapter(cont, dataSet, 
