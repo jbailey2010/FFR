@@ -141,7 +141,7 @@ public class HandleWatchList
 				}
 			});
 		}
-		else
+		else if(holder.isRegularSeason)
 		{
 			totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 					{
