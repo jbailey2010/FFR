@@ -9,7 +9,7 @@
         android:layout_height="wrap_content" 
         android:background="@drawable/menu_btn_black"
         android:weightSum="100"> 
-
+	
         <Button
             android:id="@+id/draft_info"
             style="?android:attr/buttonBarButtonStyle"

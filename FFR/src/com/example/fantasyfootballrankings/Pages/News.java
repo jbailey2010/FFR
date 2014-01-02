@@ -407,7 +407,8 @@ public class News extends Activity {
 	    for(NewsObjects newsObj : result)
 	    {
 	    	Map<String, String> datum = new HashMap<String, String>(2);
-	    	datum.put("news", newsObj.news + " \n\n" + newsObj.impact);
+	    	datum.put("news", newsObj.news);
+	    	datum.put("sub", newsObj.impact);
 	    	datum.put("date", newsObj.date);
 	    	data.add(datum);
 	    }
@@ -415,14 +416,15 @@ public class News extends Activity {
 	    {
 	    	Map<String, String> datum = new HashMap<String, String>(2);
 	    	datum.put("news", "No results were found");
+	    	datum.put("sub", "");
 	    	datum.put("date", "Try again, or try a different search");
 	    	data.add(datum);
 	    }
 	    final SimpleAdapter adapter = new SimpleAdapter(cont, data, 
-	    		R.layout.web_listview_item, 
-	    		new String[] {"news", "date"}, 
+	    		R.layout.bold_header_elem,
+	    		new String[] {"news", "sub", "date"}, 
 	    		new int[] {R.id.text1, 
-	    			R.id.text2});
+	    			R.id.text2, R.id.text3});
 
 	    listview.setAdapter(adapter);
 	    final SwipeDismissListViewTouchListener touchListener = 

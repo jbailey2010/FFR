@@ -1377,36 +1377,36 @@ public class Rankings extends Activity {
 	        {
 	        	datum.put("main", df.format(elem.values.points) + ":  " + elem.info.name);
 	        }
-	        String sub = "";
+	        StringBuilder sub = new StringBuilder(1000);
 	        if(elem.info.position.length() > 0)
 	        {
-	        	sub += elem.info.position;
+	        	sub.append(elem.info.position);
 	        }
 	        if((elem.info.team.length() > 2 &&	!elem.info.team.equals("---") && !elem.info.team.equals("FA")))
 	        {
-	        	sub += " - " + elem.info.team + "\n" + "Bye: "+ holder.bye.get(elem.info.team);
+	        	sub.append(" - " + elem.info.team + " (Bye: " + holder.bye.get(elem.info.team) + ")");
 	        }
 	        if(elem.values.points > 0.0 && !holder.isRegularSeason)
 	        {
-	        	sub += "\nProjection: " + df.format(elem.values.points);
+	        	sub.append("\nProjection: " + df.format(elem.values.points));
 	        }
 	        if(holder.isRegularSeason)
 	        {
 	        	if(!elem.info.adp.equals("Not set"))
 	        	{
-	        		sub += "\nOpponent: " + elem.info.adp;
+	        		sub.append("\nOpponent: " + elem.info.adp);
 	        		if(!elem.info.position.equals("D/ST") && !elem.info.adp.equals("Bye Week"))
 	        		{
-	        			sub += " (SOS: " + 	holder.sos.get(elem.info.adp + "," + elem.info.position) + ")";
+	        			sub.append(" (SOS: " + 	holder.sos.get(elem.info.adp + "," + elem.info.position) + ")");
 	        		}
 	        	}
 	        	if(elem.values.rosRank > 0)
 	        	{
-	        		sub += "\nROS Positional Ranking: " + elem.values.rosRank;
+	        		sub.append("\nROS Positional Ranking: " + elem.values.rosRank);
 	        	}
 	        }
 	        
-	        datum.put("sub", sub);
+	        datum.put("sub", sub.toString());
 	        data.add(datum);
 	        adapter.notifyDataSetChanged();
 	    } 
