@@ -87,7 +87,7 @@ public class PlayerObject
 		//RBs
 		else if(stats.contains("Carries: ") && (!stats.contains("Targets") || (stats.contains("Targets") && stats.contains("Receiving Yards"))))
 		{
-			total += s.rushYards * Integer.valueOf(stats.split("Yards: ")[1].split("\n")[0].replace(",", ""));
+			total += Integer.valueOf(stats.split("Yards: ")[1].split("\n")[0].replace(",", "")) / s.rushYards;
 			total += s.rushTD * Integer.valueOf(stats.split("Touchdowns: ")[1].split("\n")[0]);
 			if(stats.contains("Targets: "))
 			{

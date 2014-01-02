@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.text.DecimalFormat;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +11,7 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.ffr.fantasyfootballrankings.R;
+
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.os.Bundle;
@@ -155,15 +155,16 @@ public class DraftHistory extends Activity {
 	    for(int i = 0; i < primary.size(); i++)
 	    {
 	    	Map<String, String> datum = new HashMap<String, String>();
-	    	datum.put("main", primary.get(i));
+	    	datum.put("head", primary.get(i).split("Quarterbacks: ")[0]);
+	    	datum.put("main", "Quarterbacks: " + primary.get(i).split("Quarterbacks: ")[1]);
 	    	datum.put("sub", sec.get(i));
 	    	data.add(datum);
 	    }
 	    SimpleAdapter adapter = new SimpleAdapter(cont, data, 
-	    		R.layout.web_listview_item, 
-	    		new String[] {"main", "sub"}, 
+	    		R.layout.imported_listview_elem_team, 
+	    		new String[] {"head", "main", "sub"}, 
 	    		new int[] {R.id.text1, 
-	    			R.id.text2});
+	    			R.id.text2, R.id.text3});
 	    drafts.setAdapter(adapter);
 	    drafts.setOnItemClickListener(new OnItemClickListener(){
 			@Override

@@ -235,7 +235,8 @@ public class Trending extends Activity {
 					String name = nameSet[0];
 					String sec = nameSet[1].split("//")[1];
 					datum.put("name", name + "");
-					datum.put("count", sec); 
+					datum.put("count", post.split(": mentioned ")[1].split("//")[0]);
+					datum.put("freq", sec); 
 					data.add(datum);
 					postsList.add(post);
 				} catch(ArrayIndexOutOfBoundsException e)
@@ -243,11 +244,11 @@ public class Trending extends Activity {
 					continue;
 				}
 			}
-    		 mAdapter = new SimpleAdapter(cont, data, 
-    		    		R.layout.web_listview_item, 
-    		    		new String[] {"name", "count"}, 
-    		    		new int[] {R.id.text1, 
-    		    			R.id.text2});
+			mAdapter = new SimpleAdapter(cont, data, 
+		    		R.layout.bold_header_elem, 
+		    		new String[] {"name", "count", "freq"}, 
+		    		new int[] {R.id.text1, 
+		    			R.id.text2, R.id.text3});
    		    listview.setAdapter(mAdapter); 
     		SwipeDismissListViewTouchListener touchListener =
     				new SwipeDismissListViewTouchListener(
@@ -589,24 +590,27 @@ public class Trending extends Activity {
 	    	PostedPlayer elem = playersTrending.poll();
 	    	Map<String, String> datum = new HashMap<String, String>(2);
 	    	datum.put("name", elem.name + "");
+	    	StringBuilder count = new StringBuilder(1000);
+	    	count.append(elem.count + " times");
+	    	datum.put("count", count.toString());
 	    	StringBuilder sub = new StringBuilder(1000);
-	    	sub.append(elem.count + " times");
-	    	if(lastFilter >= 7)
+	    	sub.append(" ");
+	    	if(lastFilter >= 7 && elem.lastTime(1) > 0)
 	    	{
 	    		int lastDay = elem.lastTime(1);
 	    		sub.append("\n" + lastDay + "% in the last day");
 	    	}
-	    	if(lastFilter >= 28)
+	    	if(lastFilter >= 28 && elem.lastTime(8) > 0)
 	    	{
 	    		int lastWeek = elem.lastTime(8);
 	    		sub.append("\n" + lastWeek + "% in the last week");
 	    	}
-	    	if(lastFilter >= 45)
+	    	if(lastFilter >= 45 && elem.lastTime(32) > 0)
 	    	{
 	    		int lastMonth = elem.lastTime(32);
 	    		sub.append("\n" + lastMonth + "% in the last month");
 	    	}
-	    	datum.put("count", sub.toString());
+	    	datum.put("freq", sub.toString());
 	    	data.add(datum);
 	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times//" + sub.toString());
 	    }
@@ -625,10 +629,10 @@ public class Trending extends Activity {
 	    } 
 	    //final ArrayAdapter<String> mAdapter = ManageInput.handleArray(trendingPlayers, listview, cont);
 	    mAdapter = new SimpleAdapter(cont, data, 
-	    		R.layout.web_listview_item, 
-	    		new String[] {"name", "count"}, 
+	    		R.layout.bold_header_elem, 
+	    		new String[] {"name", "count", "freq"}, 
 	    		new int[] {R.id.text1, 
-	    			R.id.text2});
+	    			R.id.text2, R.id.text3});
 	    listview.setAdapter(mAdapter);
 	    SwipeDismissListViewTouchListener touchListener =
                 new SwipeDismissListViewTouchListener(
