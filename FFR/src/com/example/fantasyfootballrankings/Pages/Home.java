@@ -64,6 +64,7 @@ public class Home extends Activity{
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
 		cont = this;
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         rankings = (Button)findViewById(R.id.rankings);
         rankings.setOnClickListener(rankHandler);
         trending = (Button)findViewById(R.id.trending);
@@ -78,7 +79,7 @@ public class Home extends Activity{
 		 Display display = wm.getDefaultDisplay();
 		 Resources r = cont.getResources();
 		 int height = display.getHeight();
-		 int newHeight = height / 16;
+		 int newHeight = height / 14;
 		 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newHeight, r.getDisplayMetrics());
 		 		 
 		ImageView pic = (ImageView)findViewById(R.id.football_icon_home);

@@ -155,9 +155,18 @@ public class DraftHistory extends Activity {
 	    for(int i = 0; i < primary.size(); i++)
 	    {
 	    	Map<String, String> datum = new HashMap<String, String>();
-	    	datum.put("head", primary.get(i).split("Quarterbacks: ")[0]);
-	    	datum.put("main", "Quarterbacks: " + primary.get(i).split("Quarterbacks: ")[1]);
-	    	datum.put("sub", sec.get(i));
+	    	if(primary.get(i).contains("Quarterbacks: "))
+	    	{
+		    	datum.put("head", primary.get(i).split("Quarterbacks: ")[0]);
+		    	datum.put("main", "Quarterbacks: " + primary.get(i).split("Quarterbacks: ")[1]);
+		    	datum.put("sub", sec.get(i));
+	    	}
+	    	else
+	    	{
+	    		datum.put("head", primary.get(i));
+	    		datum.put("main", sec.get(i));
+	    		datum.put("sub", "");
+	    	}
 	    	data.add(datum);
 	    }
 	    SimpleAdapter adapter = new SimpleAdapter(cont, data, 

@@ -1,16 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
-    android:background="#222222">
+    android:background="#121212">
 
    <RelativeLayout
        android:id="@+id/home_well"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:layout_below="@+id/textView1"
-       android:layout_marginBottom="15dp"
-       android:layout_marginLeft="15dp"
-       android:layout_marginRight="15dp"
+       android:layout_marginBottom="18dp"
+       android:layout_marginLeft="18dp"
+       android:layout_marginRight="18dp"
        android:background="@drawable/content_well_home" >
 
         <Button
@@ -22,7 +22,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:background="@drawable/btn_red_home"
-            android:text="Previous Drafts" />
+            android:text="Previous Drafts"
+            android:textSize="21sp" />
 
         <Button
             android:id="@+id/news_button"
@@ -33,6 +34,7 @@
             android:layout_above="@+id/draft_history"
             android:layout_alignParentLeft="true"
             android:background="@drawable/btn_red_home_middle"
+            android:textSize="21sp"
             android:text="NFL News" />
         
         <Button
@@ -44,6 +46,7 @@
             android:minHeight="45dp"
             android:layout_alignLeft="@+id/news_button"
             android:background="@drawable/btn_red_home_middle"
+            android:textSize="21sp"
             android:text="My Leagues" />
 
         <Button
@@ -55,6 +58,7 @@
             android:minHeight="45dp"
             android:layout_alignLeft="@+id/news_button"
             android:background="@drawable/btn_red_home_middle"
+            android:textSize="21sp"
             android:text="Trending Players" />
 
         <Button
@@ -66,6 +70,7 @@
             android:layout_above="@+id/import_league_btn"
             android:layout_alignLeft="@+id/trending"
             android:background="@drawable/btn_red_home_top"
+            android:textSize="21sp"
             android:text="View Rankings" />
 
         <ImageView
@@ -89,6 +94,7 @@
        android:layout_alignParentTop="true"
        android:layout_centerHorizontal="true"
        android:text="2014 Fantasy Football GM"
-       style="@style/ButtonText" />
+       style="@style/ButtonText"
+       android:textSize="24sp" />
 
 </RelativeLayout>
