@@ -76,7 +76,7 @@
         <LinearLayout
         android:id="@+id/category_base"
         android:layout_width="fill_parent"
-        android:layout_height="40dp" 
+        android:layout_height="45dp" 
         android:background="@drawable/category_playerinfo"
         android:weightSum="100"> 
 
@@ -95,8 +95,8 @@
        	<View android:layout_height="fill_parent"
 		    android:layout_width="2dp"
 		    android:background="#FF0000"
-		    android:layout_marginTop="5dp"
-		    android:layout_marginBottom="5dp"/>
+		    android:layout_marginTop="7dp"
+		    android:layout_marginBottom="7dp"/>
 
         <Button
             android:id="@+id/category_info"
@@ -112,8 +112,8 @@
         <View android:layout_height="fill_parent"
 		    android:layout_width="2dp"
 		    android:background="#FF0000"
-		    android:layout_marginTop="5dp"
-		    android:layout_marginBottom="5dp"/>
+		    android:layout_marginTop="7dp"
+		    android:layout_marginBottom="7dp"/>
 
         <Button
             android:id="@+id/category_team"
@@ -130,8 +130,8 @@
             android:layout_height="fill_parent"
 		    android:layout_width="2dp"
 		    android:background="#FF0000"
-		    android:layout_marginTop="5dp"
-		    android:layout_marginBottom="5dp"/>
+		    android:layout_marginTop="7dp"
+		    android:layout_marginBottom="7dp"/>
 
         <Button
             android:id="@+id/category_other"
