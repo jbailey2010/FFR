@@ -14,7 +14,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_centerHorizontal="true"
-	        android:layout_marginTop="3dp"
+	        android:layout_marginTop="10dp"
 	        android:text="Text Main"
 	        android:textSize="28sp"
 	        android:textColor="#680000"
@@ -27,20 +27,21 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_below="@+id/text1"
 	        android:text="Text Sub"
-	       	android:layout_marginLeft="10dp"
+	       	android:layout_marginLeft="15dp"
+	       	android:paddingRight="15dp"
 	       	android:layout_marginTop="10dp"
-	       	android:paddingBottom="3dp"
 	       	android:textColor="#333333"
-	        android:textSize="20sp" />
+	        android:textSize="21sp" />
 
 	    <TextView
 	        android:id="@+id/text3"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
-	        android:layout_marginLeft="10dp"
+	        android:layout_marginLeft="15dp"
 	        android:layout_below="@+id/text2"
 	        android:text="Small Text"
+	        android:paddingBottom="10dp"
 	        android:textColor="#464646"
 	        android:textAppearance="?android:attr/textAppearanceSmall" />
 
