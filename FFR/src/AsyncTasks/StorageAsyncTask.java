@@ -104,6 +104,8 @@ public class StorageAsyncTask
 	    		players.append(player.values.rosRank);
 	    		players.append("&&");
 	    		players.append(player.note);
+	    		players.append("&&");
+	    		players.append(player.values.startDists.get("Bad") + "," + player.values.startDists.get("Good") + "," + player.values.startDists.get("Great"));
 	    		playerData.add(players.toString());
 	    	}
 	    	editor.putStringSet("Parsed Player Names", new HashSet<String>(holder.parsedPlayers));
@@ -240,6 +242,8 @@ public class StorageAsyncTask
 	    		players.append(player.values.rosRank);
 	    		players.append("&&");
 	    		players.append(player.note);
+	    		players.append("&&");
+	    		players.append(player.values.startDists.get("Bad") + "," + player.values.startDists.get("Good") + "," + player.values.startDists.get("Great"));
 	    		playerData.add(players.toString());
 	    	}
 	    	editor.putStringSet("Parsed Player Names", new HashSet<String>(holder.parsedPlayers));
@@ -340,6 +344,10 @@ public class StorageAsyncTask
 	   		{  
 	   			String[] allData = ManageInput.tokenize(st, '&', 2);
 	   			PlayerObject newPlayer = new PlayerObject(allData[2], allData[3], allData[4], 0);
+	   			String[] distSet = allData[16].split(",");
+	   			newPlayer.values.startDists.put("Bad", Integer.parseInt(distSet[0]));
+	   			newPlayer.values.startDists.put("Good", Integer.parseInt(distSet[1]));
+	   			newPlayer.values.startDists.put("Great", Integer.parseInt(distSet[2]));
 	   			newPlayer.note = allData[15];
 	   			newPlayer.values.rosRank = Integer.parseInt(allData[14]);
 	   			newPlayer.values.paa = Double.parseDouble(allData[13]);

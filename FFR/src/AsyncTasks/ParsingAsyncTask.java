@@ -361,6 +361,13 @@ public class ParsingAsyncTask
 					} catch (IOException e1) {
 					}
 	    		}
+	    		publishProgress("Please wait, getting quality start numbers...");
+	    		try {
+					HighLevel.parseQualityDists(holder);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				return null;
 		    }
 
@@ -451,6 +458,8 @@ public class ParsingAsyncTask
 			    		players.append(player.values.rosRank);
 			    		players.append("&&");
 			    		players.append(player.note);
+			    		players.append("&&");
+			    		players.append(player.values.startDists.get("Bad") + "," + player.values.startDists.get("Good") + "," + player.values.startDists.get("Great"));
 			    		playerData.add(players.toString());
 			    	}
 			    	editor.putStringSet("Parsed Player Names", new HashSet<String>(holder.parsedPlayers));

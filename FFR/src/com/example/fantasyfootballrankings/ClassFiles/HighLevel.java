@@ -1094,7 +1094,7 @@ public class HighLevel
 		int min = 0;
 		for(int i = 0; i < td.length; i++)
 		{ 
-			if((td[i+1].contains("vs") || td[i+1].contains("at")) && td[i+1].contains("(") && td[i+1].contains(")") && ManageInput.isInteger(td[i]))
+			if(td[i+1].contains("(") && td[i+1].contains(")") && ManageInput.isInteger(td[i]))
 			{
 				min = i;
 				break;
@@ -1238,6 +1238,43 @@ public class HighLevel
 				name = ParseRankings.fixDefenses(ParseRankings.fixTeams(name));
 			}
 			rankings.put(name+","+pos, ranking);
+		}
+	}
+	
+	public static void parseQualityDists(Storage holder) throws IOException
+	{
+		HashMap<String, HashMap<String, Integer>> retMap = new HashMap<String, HashMap<String, Integer>>();
+		String html = HandleBasicQueries.handleLists("http://www.fantasypros.com/nfl/players/quality-starts.php", "td");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
+		int min = 0;
+		for(int i = 0; i < td.length; i++)
+		{
+			if(ManageInput.isInteger(td[i]))
+			{
+				min = i;
+				break;
+			}
+		}
+		for(int i = min; i < td.length; i += 10)
+		{
+			String nameSet = td[i+1];
+			String name = ParseRankings.fixNames(nameSet.split(" \\(")[0]);
+			String pos = nameSet.split(" \\(")[1].split(",")[0];
+			Integer bad = Integer.parseInt(td[i+3].replace("%", ""));
+			Integer good = Integer.parseInt(td[i+5].replace("%", ""));
+			Integer great = Integer.parseInt(td[i+7].replace("%", ""));
+			HashMap<String, Integer> playerMap = new HashMap<String, Integer>();
+			playerMap.put("Bad", bad);
+			playerMap.put("Good", good);
+			playerMap.put("Great", great);
+			retMap.put(name + "," + pos, playerMap);
+		}
+		for(PlayerObject player : holder.players)
+		{
+			if(retMap.containsKey(player.info.name + "," + player.info.position))
+			{
+				player.values.startDists = retMap.get(player.info.name + "," + player.info.position);
+			}
 		}
 	}
 }
