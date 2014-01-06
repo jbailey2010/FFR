@@ -456,7 +456,7 @@ public class ImportLeague extends Activity {
                 }
                 String[] keySet = key.split("@@@");
                 newImport = new ImportedTeam(teamList, keySet[1], keySet[0]);
-                View res = ((Activity)cont).getLayoutInflater().inflate(R.layout.league_stats_output, ll, false);
+                final View res = ((Activity)cont).getLayoutInflater().inflate(R.layout.league_stats_output, ll, false);
                 final RelativeLayout league = (RelativeLayout)res.findViewById(R.id.category_league_base);
                 final RelativeLayout teams  = (RelativeLayout)res.findViewById(R.id.category_team_base);
                 final RelativeLayout players= (RelativeLayout)res.findViewById(R.id.category_player_base);
@@ -467,6 +467,8 @@ public class ImportLeague extends Activity {
                 players.setVisibility(View.GONE);
                 lineup.setVisibility(View.GONE);
                 tips.setVisibility(View.GONE);
+                ll.removeAllViews();
+        		LeagueList.setLeagueInfoList(res);
                 final Button leagueButton = (Button)res.findViewById(R.id.category_league_stats);
                 final Button teamsButton  = (Button)res.findViewById(R.id.category_team_stats);
                 final Button playersButton= (Button)res.findViewById(R.id.category_player_list);
@@ -475,6 +477,7 @@ public class ImportLeague extends Activity {
                 tipsButton.setOnClickListener(new OnClickListener(){
                         @Override
                         public void onClick(View v) {
+                        		RosterTips.init(newImport, res);
                                 league.setVisibility(View.GONE);
                                 teams.setVisibility(View.GONE);
                                 players.setVisibility(View.GONE);
@@ -495,6 +498,7 @@ public class ImportLeague extends Activity {
                 leagueButton.setOnClickListener(new OnClickListener(){
                         @Override
                         public void onClick(View v) {
+                        		LeagueList.setLeagueInfoList(res);
                                 league.setVisibility(View.VISIBLE);
                                 teams.setVisibility(View.GONE);
                                 players.setVisibility(View.GONE);
@@ -515,6 +519,7 @@ public class ImportLeague extends Activity {
                 teamsButton.setOnClickListener(new OnClickListener(){
                         @Override
                         public void onClick(View v) {
+                        		TeamList.setTeamInfoList(res, cont, newImport);
                                 teams.setVisibility(View.VISIBLE);
                                 league.setVisibility(View.GONE);
                                 players.setVisibility(View.GONE);
@@ -535,6 +540,7 @@ public class ImportLeague extends Activity {
                 playersButton.setOnClickListener(new OnClickListener(){
                         @Override
                         public void onClick(View v) {
+                        		PlayerList.setPlayerInfoList(res, cont, newImport);
                                 league.setVisibility(View.GONE);
                                 teams.setVisibility(View.GONE);
                                 players.setVisibility(View.VISIBLE);
@@ -556,6 +562,7 @@ public class ImportLeague extends Activity {
 
                         @Override
                         public void onClick(View arg0) {
+                        		LineupHelp.setLineupInfo(res);
                                 league.setVisibility(View.GONE);
                                 teams.setVisibility(View.GONE);
                                 players.setVisibility(View.GONE);
@@ -582,12 +589,6 @@ public class ImportLeague extends Activity {
                                 handleLayoutInit();
                         }
             });
-            //Handles the three listview populations
-            TeamList.setTeamInfoList(res, cont, newImport);
-            LeagueList.setLeagueInfoList(res);
-            PlayerList.setPlayerInfoList(res, cont, newImport);
-            LineupHelp.setLineupInfo(res);
-                RosterTips.init(newImport, res);
             //Handles the basic league information
             TextView name = (TextView)res.findViewById(R.id.league_name);
             name.setText(newImport.leagueName);

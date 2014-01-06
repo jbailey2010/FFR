@@ -328,9 +328,7 @@ public class LeagueList {
 		datum.put("sub", k.toString());
 		data2.add(datum);
 		adapter2.notifyDataSetChanged();
-	    list2.setAdapter(adapter2);
-	    ImportLeague.ll.removeAllViews();
-	    
+	    list2.setAdapter(adapter2);	    
 	    list2.setOnTouchListener(new ListView.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
