@@ -757,9 +757,9 @@ public class PlayerInfo
 					data.add(datum);
 				}
 			}
-			else
+			else if(!searchedPlayer.info.adp.equals("Bye Week"))
 			{
-				if(!searchedPlayer.info.adp.equals("Bye Week") && !searchedPlayer.info.position.equals("D/ST"))
+				if(!searchedPlayer.info.position.equals("D/ST"))
 				{
 					datum.put("main", "Playing The " + searchedPlayer.info.adp);
 					datum.put("sub", "Positional SOS: " + holder.sos.get(searchedPlayer.info.adp + "," + searchedPlayer.info.position) + 
@@ -775,7 +775,7 @@ public class PlayerInfo
 			}
 		}
 		//Projections
-		if(searchedPlayer.values.points >= 0.0 && !searchedPlayer.info.adp.equals("Bye Week"))
+		if(searchedPlayer.values.points >= 0.0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			if(!holder.isRegularSeason)
@@ -828,7 +828,7 @@ public class PlayerInfo
 			data.add(datum);
 		}
 		//Risk
-		if(searchedPlayer.risk > 0.0 && !searchedPlayer.info.adp.equals("Bye Week"))
+		if(searchedPlayer.risk > 0.0 && !searchedPlayer.info.adp.equals("Bye Week") && searchedPlayer.values.points > 0.0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			double riskVal = posRiskVal(searchedPlayer, holder);

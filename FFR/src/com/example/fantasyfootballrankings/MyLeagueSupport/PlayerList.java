@@ -449,7 +449,7 @@ public class PlayerList {
 					 continue;
 				 }
 				 subInfo.append(iter.info.position + " - " + iter.info.team + "\n");
-				 if(ImportLeague.holder.isRegularSeason)
+				 if(ImportLeague.holder.isRegularSeason && iter.values.points > 0.0)
 				 {
 					 if(iter.values.rosRank > 0)
 					 {
@@ -464,29 +464,32 @@ public class PlayerList {
 				 {
 					 subInfo.append("Preseason Expert Rank: " + iter.values.ecr.intValue() + "\n");
 				 }
-				 if(!iter.info.adp.contains("Not set"))
+				 if(iter.values.points > 0.0)
 				 {
-					 if(ImportLeague.holder.isRegularSeason)
+					 if(!iter.info.adp.contains("Not set"))
 					 {
-						 subInfo.append("Opponent: " + iter.info.adp);
-					 }
-					 if(!iter.info.adp.equals("Bye Week") && 
-							 ((!ImportLeague.holder.isRegularSeason && ImportLeague.holder.sos.keySet().contains(iter.info.team + "," + iter.info.position)) ||
-							(ImportLeague.holder.isRegularSeason && ImportLeague.holder.sos.keySet().contains(iter.info.adp + "," + iter.info.position))))
-					 {
-						 if(!ImportLeague.holder.isRegularSeason)
-						 {
-							 subInfo.append(" (SOS: " + ImportLeague.holder.sos.get(iter.info.team + "," + iter.info.position) + ")");
-						 }
 						 if(ImportLeague.holder.isRegularSeason)
 						 {
-							 subInfo.append(" (SOS: " + ImportLeague.holder.sos.get(iter.info.adp + "," + iter.info.position) + ")");
+							 subInfo.append("Opponent: " + iter.info.adp);
+						 }
+						 if(!iter.info.adp.equals("Bye Week") && 
+								 ((!ImportLeague.holder.isRegularSeason && ImportLeague.holder.sos.keySet().contains(iter.info.team + "," + iter.info.position)) ||
+								(ImportLeague.holder.isRegularSeason && ImportLeague.holder.sos.keySet().contains(iter.info.adp + "," + iter.info.position))))
+						 {
+							 if(!ImportLeague.holder.isRegularSeason)
+							 {
+								 subInfo.append(" (SOS: " + ImportLeague.holder.sos.get(iter.info.team + "," + iter.info.position) + ")");
+							 }
+							 if(ImportLeague.holder.isRegularSeason)
+							 {
+								 subInfo.append(" (SOS: " + ImportLeague.holder.sos.get(iter.info.adp + "," + iter.info.position) + ")");
+							 }
 						 }
 					 }
-				 }
-				 else
-				 {
-					 subInfo.append("Bye Week");
+					 else
+					 {
+						 subInfo.append("Bye Week");
+					 }
 				 }
 				 datum.put("sub", subInfo.toString());
 				 data.add(datum);

@@ -332,19 +332,19 @@ public class TeamAnalysis
 						wrNextBest.values.points = 0;
 					}
 				}
-				if(posStr.equals("WR") && wrNextBest.values.points >= rbNextBest.values.points)
+				if(posStr.equals("WR") && wrNextBest.values.points > rbNextBest.values.points)
 				{
 					remainingPlayers.remove(wrNextBest.info.name);
 					TeamList.isF = true;
 					limit++;
 				}
-				else if(posStr.equals("RB") && rbNextBest.values.points >= wrNextBest.values.points)
+				else if(posStr.equals("RB") && rbNextBest.values.points > wrNextBest.values.points)
 				{
 					TeamList.isF = true;
 					remainingPlayers.remove(rbNextBest.info.name);
 					limit++;
 				}
-				else if(posStr.equals("RB") && wrNextBest.values.points >= rbNextBest.values.points)
+				else if(posStr.equals("RB") && wrNextBest.values.points > rbNextBest.values.points)
 				{
 					tempName = wrNextBest.info.name;
 					remainingPlayers.remove(tempName);
@@ -535,19 +535,19 @@ public class TeamAnalysis
 						teNextBest.values.points = 0;
 					}
 				}
-				if(posStr.equals("WR") && wrNextBest.values.points >= rbNextBest.values.points && wrNextBest.values.points >= teNextBest.values.points)
+				if(posStr.equals("WR") && wrNextBest.values.points > rbNextBest.values.points && wrNextBest.values.points > teNextBest.values.points)
 				{
 					TeamList.isFTE = true;
 					remainingPlayers.remove(wrNextBest.info.name);
 					limit++;
 				}
-				else if(posStr.equals("RB") && rbNextBest.values.points >= wrNextBest.values.points && rbNextBest.values.points >= teNextBest.values.points)
+				else if(posStr.equals("RB") && rbNextBest.values.points > wrNextBest.values.points && rbNextBest.values.points > teNextBest.values.points)
 				{
 					TeamList.isFTE = true;
 					remainingPlayers.remove(rbNextBest.info.name);
 					limit++;
 				}
-				else if(posStr.equals("TE") && teNextBest.values.points >= wrNextBest.values.points && teNextBest.values.points >= rbNextBest.values.points)
+				else if(posStr.equals("TE") && teNextBest.values.points > wrNextBest.values.points && teNextBest.values.points > rbNextBest.values.points)
 				{
 					TeamList.isFTE = true;
 					remainingPlayers.remove(teNextBest.info.name);
@@ -799,25 +799,25 @@ public class TeamAnalysis
 						teNextBest.values.points = 0;
 					}
 				}
-				if(posStr.equals("QB") && qbNextBest.values.points >= wrNextBest.values.points && qbNextBest.values.points >= rbNextBest.values.points && qbNextBest.values.points >= teNextBest.values.points)
+				if(posStr.equals("QB") && qbNextBest.values.points > wrNextBest.values.points && qbNextBest.values.points > rbNextBest.values.points && qbNextBest.values.points > teNextBest.values.points)
 				{
 					TeamList.isOP = true;
 					limit++;
 					remainingPlayers.remove(qbNextBest.info.name);
 				}
-				else if(posStr.equals("WR") && wrNextBest.values.points >= qbNextBest.values.points && wrNextBest.values.points >= rbNextBest.values.points && wrNextBest.values.points >= teNextBest.values.points)
+				else if(posStr.equals("WR") && wrNextBest.values.points > qbNextBest.values.points && wrNextBest.values.points > rbNextBest.values.points && wrNextBest.values.points > teNextBest.values.points)
 				{
 					TeamList.isOP = true;
 					limit++;
 					remainingPlayers.remove(wrNextBest.info.name);
 				}
-				else if(posStr.equals("RB") && rbNextBest.values.points >= qbNextBest.values.points && rbNextBest.values.points >= wrNextBest.values.points && rbNextBest.values.points >= teNextBest.values.points)
+				else if(posStr.equals("RB") && rbNextBest.values.points > qbNextBest.values.points && rbNextBest.values.points > wrNextBest.values.points && rbNextBest.values.points > teNextBest.values.points)
 				{
 					TeamList.isOP = true;
 					limit++;
 					remainingPlayers.remove(rbNextBest.info.name);
 				}
-				else if(posStr.equals("TE") && teNextBest.values.points >= qbNextBest.values.points && teNextBest.values.points >= wrNextBest.values.points && teNextBest.values.points >= rbNextBest.values.points)
+				else if(posStr.equals("TE") && teNextBest.values.points > qbNextBest.values.points && teNextBest.values.points > wrNextBest.values.points && teNextBest.values.points > rbNextBest.values.points)
 				{
 					TeamList.isOP = true;
 					limit++;
@@ -1035,19 +1035,19 @@ public class TeamAnalysis
 						wrNextBest.values.points = 0;
 					}
 				}
-				if(posStr.equals("WR") && wrNextBest.values.points >= rbNextBest.values.points)
+				if(posStr.equals("WR") && wrNextBest.values.points > rbNextBest.values.points)
 				{
 					remainingPlayers.remove(wrNextBest.info.name);
 					TeamList.isF = true;
 					limit++;
 				}
-				else if(posStr.equals("RB") && rbNextBest.values.points >= wrNextBest.values.points)
+				else if(posStr.equals("RB") && rbNextBest.values.points > wrNextBest.values.points)
 				{
 					TeamList.isF = true;
 					remainingPlayers.remove(rbNextBest.info.name);
 					limit++;
 				}
-				else if(posStr.equals("RB") && wrNextBest.values.points >= rbNextBest.values.points)
+				else if(posStr.equals("RB") && wrNextBest.values.points > rbNextBest.values.points)
 				{
 					tempName = wrNextBest.info.name;
 					remainingPlayers.remove(tempName);
@@ -1238,19 +1238,19 @@ public class TeamAnalysis
 						teNextBest.values.points = 0;
 					}
 				}
-				if(posStr.equals("WR") && wrNextBest.values.points >= rbNextBest.values.points && wrNextBest.values.points >= teNextBest.values.points)
+				if(posStr.equals("WR") && wrNextBest.values.points > rbNextBest.values.points && wrNextBest.values.points > teNextBest.values.points)
 				{
 					TeamList.isFTE = true;
 					remainingPlayers.remove(wrNextBest.info.name);
 					limit++;
 				}
-				else if(posStr.equals("RB") && rbNextBest.values.points >= wrNextBest.values.points && rbNextBest.values.points >= teNextBest.values.points)
+				else if(posStr.equals("RB") && rbNextBest.values.points > wrNextBest.values.points && rbNextBest.values.points > teNextBest.values.points)
 				{
 					TeamList.isFTE = true;
 					remainingPlayers.remove(rbNextBest.info.name);
 					limit++;
 				}
-				else if(posStr.equals("TE") && teNextBest.values.points >= wrNextBest.values.points && teNextBest.values.points >= rbNextBest.values.points)
+				else if(posStr.equals("TE") && teNextBest.values.points > wrNextBest.values.points && teNextBest.values.points > rbNextBest.values.points)
 				{
 					TeamList.isFTE = true;
 					remainingPlayers.remove(teNextBest.info.name);
@@ -1502,25 +1502,25 @@ public class TeamAnalysis
 						teNextBest.values.points = 0;
 					}
 				}
-				if(posStr.equals("QB") && qbNextBest.values.points >= wrNextBest.values.points && qbNextBest.values.points >= rbNextBest.values.points && qbNextBest.values.points >= teNextBest.values.points)
+				if(posStr.equals("QB") && qbNextBest.values.points > wrNextBest.values.points && qbNextBest.values.points > rbNextBest.values.points && qbNextBest.values.points > teNextBest.values.points)
 				{
 					TeamList.isOP = true;
 					limit++;
 					remainingPlayers.remove(qbNextBest.info.name);
 				}
-				else if(posStr.equals("WR") && wrNextBest.values.points >= qbNextBest.values.points && wrNextBest.values.points >= rbNextBest.values.points && wrNextBest.values.points >= teNextBest.values.points)
+				else if(posStr.equals("WR") && wrNextBest.values.points > qbNextBest.values.points && wrNextBest.values.points > rbNextBest.values.points && wrNextBest.values.points > teNextBest.values.points)
 				{
 					TeamList.isOP = true;
 					limit++;
 					remainingPlayers.remove(wrNextBest.info.name);
 				}
-				else if(posStr.equals("RB") && rbNextBest.values.points >= qbNextBest.values.points && rbNextBest.values.points >= wrNextBest.values.points && rbNextBest.values.points >= teNextBest.values.points)
+				else if(posStr.equals("RB") && rbNextBest.values.points > qbNextBest.values.points && rbNextBest.values.points > wrNextBest.values.points && rbNextBest.values.points > teNextBest.values.points)
 				{
 					TeamList.isOP = true;
 					limit++;
 					remainingPlayers.remove(rbNextBest.info.name);
 				}
-				else if(posStr.equals("TE") && teNextBest.values.points >= qbNextBest.values.points && teNextBest.values.points >= wrNextBest.values.points && teNextBest.values.points >= rbNextBest.values.points)
+				else if(posStr.equals("TE") && teNextBest.values.points > qbNextBest.values.points && teNextBest.values.points > wrNextBest.values.points && teNextBest.values.points > rbNextBest.values.points)
 				{
 					TeamList.isOP = true;
 					limit++;

@@ -1281,6 +1281,7 @@ public class Rankings extends Activity {
 		{
 			teamFilter = teamList.get(0);
 		}
+		System.out.println(teamFilter);
 		Roster r = ReadFromFile.readRoster(cont);
 		for(int i = 0; i < holder.players.size(); i++)
 		{
@@ -1288,8 +1289,9 @@ public class Rankings extends Activity {
 			if(!holder.draft.ignore.contains(player.info.name) && r.isRostered(player))
 			{
 				if((teamFilter.contains("All") && posFilter.contains("All")) || 
-						(teamList.contains(player.info.team) && !teamFilter.contains("All")) || 
-						(posList.contains(player.info.position) && !posFilter.contains("All")))
+						(!teamFilter.contains("All") && teamList.contains(player.info.team) && posFilter.contains("All")) ||
+						(teamFilter.contains("All") && !posFilter.contains("All") && posList.contains(player.info.position)) ||
+						(!teamFilter.contains("All") && teamList.contains(player.info.team) && !posFilter.contains("All") && posList.contains(player.info.position)))
 				{
 					inter.add(player);
 				}
@@ -1392,7 +1394,7 @@ public class Rankings extends Activity {
 	        }
 	        if(holder.isRegularSeason)
 	        {
-	        	if(!elem.info.adp.equals("Not set"))
+	        	if(!elem.info.adp.equals("Not set") && !(elem.info.adp.equals("Bye Week") || elem.values.points == 0.0))
 	        	{
 	        		sub.append("\nOpponent: " + elem.info.adp);
 	        		if(!elem.info.position.equals("D/ST") && !elem.info.adp.equals("Bye Week"))
