@@ -4,11 +4,15 @@ package com.example.fantasyfootballrankings.Pages;
 
 import java.util.Random;
 import java.util.Set;
+
 import com.ffr.fantasyfootballrankings.R;
+import com.devspark.sidenavigation.ISideNavigationCallback;
+import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.HandleExport;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
 import FileIO.ReadFromFile;
@@ -52,6 +56,7 @@ public class Home extends Activity{
 	Button importLeague;
 	long start; 
 	Menu m;
+	SideNavigationView sideNavigationView;
 	  
 	/**  
 	 * Makes the buttons and sets the listeners for them
@@ -61,9 +66,47 @@ public class Home extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		ActionBar ab = getActionBar();
-		ab.setDisplayShowHomeEnabled(false);
-		ab.setDisplayShowTitleEnabled(false);
 		cont = this;
+		//ab.setDisplayShowHomeEnabled(false);
+		ab.setDisplayShowTitleEnabled(false);
+		ISideNavigationCallback sideNavigationCallback = new ISideNavigationCallback() {
+		    @Override
+		    public void onSideNavigationItemClick(int itemId) {
+		    	switch (itemId) {
+	            case R.id.side_navigation_menu_item1:
+	            	Intent intent = new Intent(cont, Home.class);
+	    	        cont.startActivity(intent);	
+	                break;
+	            case R.id.side_navigation_menu_item2:
+	            	Intent intent2 = new Intent(cont, Rankings.class);
+	    	        cont.startActivity(intent2);	
+	                break;
+	            case R.id.side_navigation_menu_item3:
+	            	Intent intent5 = new Intent(cont, ImportLeague.class);
+	    	        cont.startActivity(intent5);
+	                break;
+	            case R.id.side_navigation_menu_item4:
+	            	Intent intent3 = new Intent(cont, Trending.class);
+	    	        cont.startActivity(intent3);		
+	                break;
+	            case R.id.side_navigation_menu_item5:
+	            	Intent intent4 = new Intent(cont, News.class);
+	    	        cont.startActivity(intent4);
+	                break;
+	            case R.id.side_navigation_menu_item6:
+	            	Intent intent6 = new Intent(cont, DraftHistory.class);
+	    	        cont.startActivity(intent6);
+	                break;
+	            default:
+	                return;
+		    	}
+		    }
+		};
+		sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view);
+	    sideNavigationView.setMenuItems(R.menu.side_navigation_view);
+	    sideNavigationView.setMenuClickCallback(sideNavigationCallback);
+	   // sideNavigationView.setMode(/*SideNavigationView.Mode*/);
+	    getActionBar().setDisplayHomeAsUpEnabled(true);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         rankings = (Button)findViewById(R.id.rankings);
         rankings.setOnClickListener(rankHandler);
@@ -189,7 +232,10 @@ public class Home extends Activity{
 				return true;
 			case R.id.refresh_names:
 				nameRefresh(dialog);
-		    	return true;			
+		    	return true;	
+			case android.R.id.home:
+		        sideNavigationView.toggleMenu();
+		        return true;
 			case R.id.credit_home:
 				helpDialog(cont);
 				return true;

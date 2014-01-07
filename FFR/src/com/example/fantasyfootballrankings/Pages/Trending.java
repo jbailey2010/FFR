@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,6 +14,8 @@ import java.util.concurrent.ExecutionException;
 import org.htmlcleaner.XPatherException;
 
 import com.ffr.fantasyfootballrankings.R;
+import com.devspark.sidenavigation.ISideNavigationCallback;
+import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
@@ -73,6 +74,7 @@ public class Trending extends Activity {
 	int lastFilter;
 	public static SimpleAdapter mAdapter;
 	public static List<Map<String, String>> data;
+	SideNavigationView sideNavigationView;
 	/**
 	 * Sets up the dialog to show up immediately
 	 */
@@ -82,7 +84,45 @@ public class Trending extends Activity {
 		setContentView(R.layout.activity_trending);
 		ActionBar ab = getActionBar();
 		cont = this;
-		ab.setDisplayShowHomeEnabled(false);
+		ISideNavigationCallback sideNavigationCallback = new ISideNavigationCallback() {
+		    @Override
+		    public void onSideNavigationItemClick(int itemId) {
+		    	switch (itemId) {
+	            case R.id.side_navigation_menu_item1:
+	            	Intent intent = new Intent(cont, Home.class);
+	    	        cont.startActivity(intent);	
+	                break;
+	            case R.id.side_navigation_menu_item2:
+	            	Intent intent2 = new Intent(cont, Rankings.class);
+	    	        cont.startActivity(intent2);	
+	                break;
+	            case R.id.side_navigation_menu_item3:
+	            	Intent intent5 = new Intent(cont, ImportLeague.class);
+	    	        cont.startActivity(intent5);
+	                break;
+	            case R.id.side_navigation_menu_item4:
+	            	Intent intent3 = new Intent(cont, Trending.class);
+	    	        cont.startActivity(intent3);		
+	                break;
+	            case R.id.side_navigation_menu_item5:
+	            	Intent intent4 = new Intent(cont, News.class);
+	    	        cont.startActivity(intent4);
+	                break;
+	            case R.id.side_navigation_menu_item6:
+	            	Intent intent6 = new Intent(cont, DraftHistory.class);
+	    	        cont.startActivity(intent6);
+	                break;
+	            default:
+	                return;
+		    	}
+		    }
+		};
+		sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view_trending);
+	    sideNavigationView.setMenuItems(R.menu.side_navigation_view);
+	    sideNavigationView.setMenuClickCallback(sideNavigationCallback);
+	   // sideNavigationView.setMode(/*SideNavigationView.Mode*/);
+	    getActionBar().setDisplayHomeAsUpEnabled(true);
+		//ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
 		//Fetch the date of the posts, and convert it to a date
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
@@ -148,6 +188,9 @@ public class Trending extends Activity {
 	{
 		switch (item.getItemId()) 
 		{
+			case android.R.id.home:
+		        sideNavigationView.toggleMenu();
+		        return true;
 			case R.id.filter_quantity_menu:
 				if(holder.players.size() < 10)
 				{
@@ -161,28 +204,8 @@ public class Trending extends Activity {
 			case R.id.filter_topics_menu:
 				topicalTrending(holder);
 				return true;
-			case R.id.news:
-		        Intent intent_news = new Intent(cont, News.class);
-		        cont.startActivity(intent_news);		
- 		        return true;
 			case R.id.help:
 				helpDialog();
-				return true;
-			case R.id.go_home:
-				Intent home_intent = new Intent(cont, Home.class);
-				cont.startActivity(home_intent);		
-		        return true;
-			case R.id.view_rankings:
-		        Intent intent = new Intent(cont, Rankings.class);
-		        cont.startActivity(intent);		
- 		        return true;
-			case R.id.draft_history:
-				Intent draft_intent = new Intent(cont, DraftHistory.class);
-		        cont.startActivity(draft_intent);		
-				return true;
-			case R.id.import_league:
-				Intent import_intent = new Intent(cont, ImportLeague.class);
-				cont.startActivity(import_intent);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

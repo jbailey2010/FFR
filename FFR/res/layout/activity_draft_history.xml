@@ -16,6 +16,9 @@
 
     </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 
-    
+    <com.devspark.sidenavigation.SideNavigationView
+        android:id="@+id/side_navigation_view_draft"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

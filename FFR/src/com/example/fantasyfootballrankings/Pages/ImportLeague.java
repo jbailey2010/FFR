@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import com.devspark.sidenavigation.ISideNavigationCallback;
+import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.SortHandler;
@@ -89,6 +91,7 @@ public class ImportLeague extends Activity {
         public MenuItem refresh;
         public static ImportedTeam newImport;
         public TextView v;
+        SideNavigationView sideNavigationView;
         /**
          * Sets up the layout of the activity
          */
@@ -97,8 +100,46 @@ public class ImportLeague extends Activity {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_import_league);
                 cont = this;
+                ISideNavigationCallback sideNavigationCallback = new ISideNavigationCallback() {
+        		    @Override
+        		    public void onSideNavigationItemClick(int itemId) {
+        		    	switch (itemId) {
+        	            case R.id.side_navigation_menu_item1:
+        	            	Intent intent = new Intent(cont, Home.class);
+        	    	        cont.startActivity(intent);	
+        	                break;
+        	            case R.id.side_navigation_menu_item2:
+        	            	Intent intent2 = new Intent(cont, Rankings.class);
+        	    	        cont.startActivity(intent2);	
+        	                break;
+        	            case R.id.side_navigation_menu_item3:
+        	            	Intent intent5 = new Intent(cont, ImportLeague.class);
+        	    	        cont.startActivity(intent5);
+        	                break;
+        	            case R.id.side_navigation_menu_item4:
+        	            	Intent intent3 = new Intent(cont, Trending.class);
+        	    	        cont.startActivity(intent3);		
+        	                break;
+        	            case R.id.side_navigation_menu_item5:
+        	            	Intent intent4 = new Intent(cont, News.class);
+        	    	        cont.startActivity(intent4);
+        	                break;
+        	            case R.id.side_navigation_menu_item6:
+        	            	Intent intent6 = new Intent(cont, DraftHistory.class);
+        	    	        cont.startActivity(intent6);
+        	                break;
+        	            default:
+        	                return;
+        		    	}
+        		    }
+        		};
+        		sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view_import);
+        	    sideNavigationView.setMenuItems(R.menu.side_navigation_view);
+        	    sideNavigationView.setMenuClickCallback(sideNavigationCallback);
+        	   // sideNavigationView.setMode(/*SideNavigationView.Mode*/);
+        	    getActionBar().setDisplayHomeAsUpEnabled(true);
                 ActionBar ab = getActionBar();
-                ab.setDisplayShowHomeEnabled(false);
+                //ab.setDisplayShowHomeEnabled(false);
                 ab.setDisplayShowTitleEnabled(false);
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
@@ -145,26 +186,9 @@ public class ImportLeague extends Activity {
         {
                 switch (item.getItemId()) 
                 {
-                        case R.id.go_home:
-                                Intent home_intent = new Intent(cont, Home.class);
-                                cont.startActivity(home_intent);                
-                        return true;
-                        case R.id.view_rankings:
-                        Intent intent_ranking = new Intent(cont, Rankings.class);
-                        cont.startActivity(intent_ranking);                
-                         return true;
-                        case R.id.view_trending:
-                        Intent team_intent = new Intent(cont, Trending.class);
-                        cont.startActivity(team_intent);                
-                                return true;
-                        case R.id.draft_history:
-                                Intent hist_intent = new Intent(cont, DraftHistory.class);
-                                cont.startActivity(hist_intent);
-                                return true;
-                        case R.id.news:
-                        Intent news_intent = new Intent(cont, News.class);
-                        cont.startActivity(news_intent);                
-                                return true;
+		                case android.R.id.home:
+		    		        sideNavigationView.toggleMenu();
+		    		        return true;
                         case R.id.importa_league:
                                 if(ManageInput.confirmInternet(cont))
                                 {

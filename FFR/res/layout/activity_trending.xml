@@ -1,90 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#D6D6D6"
     android:orientation="vertical" >
+
     <LinearLayout
+        android:id="@+id/trending_header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/menu_btn_black"  >
+        android:background="@drawable/menu_btn_black" >
 
-        <Button 
-            android:id="@+id/filter_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-        	android:text="Last Day"
-        	android:textColor="#FFFFFF"
-        	android:layout_weight="25"
-        	android:background="@drawable/menu_btn_black"
-        	style="?android:attr/buttonBarButtonStyle"/>
-        
-		<View android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-		    android:background="#FF0000"
-		    android:layout_marginTop="6dp"
-		    android:layout_marginBottom="6dp"/>
-		
         <Button
-            android:id="@+id/filter_week"
+            android:id="@+id/filter_day"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Last Week" 
-            android:textColor="#FFFFFF"
             android:layout_weight="25"
             android:background="@drawable/menu_btn_black"
-            style="?android:attr/buttonBarButtonStyle"/>
-        
-		<View android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-		    android:background="#FF0000"
-		    android:layout_marginTop="6dp"
-		    android:layout_marginBottom="6dp"/>
+            android:text="Last Day"
+            android:textColor="#FFFFFF" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp"
+            android:background="#FF0000" />
+
+        <Button
+            android:id="@+id/filter_week"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:background="@drawable/menu_btn_black"
+            android:text="Last Week"
+            android:textColor="#FFFFFF" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp"
+            android:background="#FF0000" />
 
         <Button
             android:id="@+id/filter_month"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Last month"
-            android:textColor="#FFFFFF"
             android:layout_weight="25"
             android:background="@drawable/menu_btn_black"
-            style="?android:attr/buttonBarButtonStyle" />
-        
-       <View android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-		    android:background="#FF0000"
-		    android:layout_marginTop="6dp"
-		    android:layout_marginBottom="6dp"/>
+            android:text="Last month"
+            android:textColor="#FFFFFF" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp"
+            android:background="#FF0000" />
 
         <Button
             android:id="@+id/filter_all"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No Filter" 
-            android:textColor="#FFFFFF"
             android:layout_weight="25"
             android:background="@drawable/menu_btn_black"
-            style="?android:attr/buttonBarButtonStyle"/>
-
-
+            android:text="No Filter"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
+
     <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/trending_subheader"
+        android:layout_below="@+id/trending_header"
         android:layout_width="fill_parent"
-        android:background="#161616"
-        android:layout_height="15dp"/>
+        android:layout_height="15dp"
+        android:background="#161616" />
+
     <RelativeLayout
+        android:layout_below="@+id/trending_subheader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-	    android:background="#444444">
-	    <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
-	        android:id="@+id/listview_trending"
-	        android:layout_height="match_parent"
-	        android:clickable="true"
-	        android:divider="#999999"
-	        android:background="@drawable/content_well"
-	        android:dividerHeight="1dp"
-	        android:layout_width="fill_parent">
-	    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
-	</RelativeLayout>
-</LinearLayout>
+        android:background="#444444" >
+
+        <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
+            android:id="@+id/listview_trending"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/content_well"
+            android:clickable="true"
+            android:divider="#999999"
+            android:dividerHeight="1dp" >
+        </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
+    </RelativeLayout>
+
+    <com.devspark.sidenavigation.SideNavigationView
+        android:id="@+id/side_navigation_view_trending"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout1" />
+
+</RelativeLayout>

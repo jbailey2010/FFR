@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.ffr.fantasyfootballrankings.R;
-
+import com.devspark.sidenavigation.ISideNavigationCallback;
+import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
@@ -49,15 +50,54 @@ public class News extends Activity {
 	public Dialog dialog;
 	public static String selection = "NFL News";
 	static TwitterWork obj = new TwitterWork();
+	SideNavigationView sideNavigationView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news);
-		cont = this;
 		ActionBar ab = getActionBar();
-		ab.setDisplayShowHomeEnabled(false);
+		cont = this;
+		//ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		ISideNavigationCallback sideNavigationCallback = new ISideNavigationCallback() {
+		    @Override
+		    public void onSideNavigationItemClick(int itemId) {
+		    	switch (itemId) {
+	            case R.id.side_navigation_menu_item1:
+	            	Intent intent = new Intent(cont, Home.class);
+	    	        cont.startActivity(intent);	
+	                break;
+	            case R.id.side_navigation_menu_item2:
+	            	Intent intent2 = new Intent(cont, Rankings.class);
+	    	        cont.startActivity(intent2);	
+	                break;
+	            case R.id.side_navigation_menu_item3:
+	            	Intent intent5 = new Intent(cont, ImportLeague.class);
+	    	        cont.startActivity(intent5);
+	                break;
+	            case R.id.side_navigation_menu_item4:
+	            	Intent intent3 = new Intent(cont, Trending.class);
+	    	        cont.startActivity(intent3);		
+	                break;
+	            case R.id.side_navigation_menu_item5:
+	            	Intent intent4 = new Intent(cont, News.class);
+	    	        cont.startActivity(intent4);
+	                break;
+	            case R.id.side_navigation_menu_item6:
+	            	Intent intent6 = new Intent(cont, DraftHistory.class);
+	    	        cont.startActivity(intent6);
+	                break;
+	            default:
+	                return;
+		    	}
+		    }
+		};
+		sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view_news);
+	    sideNavigationView.setMenuItems(R.menu.side_navigation_view);
+	    sideNavigationView.setMenuClickCallback(sideNavigationCallback);
+	   // sideNavigationView.setMode(/*SideNavigationView.Mode*/);
+	    getActionBar().setDisplayHomeAsUpEnabled(true);
+		//SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		handleInitialLoading();
 	}
 
@@ -77,6 +117,10 @@ public class News extends Activity {
 		dialog = new Dialog(cont, R.style.RoundCornersFull);
 		switch (item.getItemId()) 
 		{
+			case android.R.id.home:
+				System.out.println("Pressed");
+		        sideNavigationView.toggleMenu();
+		        return true;
 			case R.id.refresh_news:
 				if(ManageInput.confirmInternet(cont))
 				{
@@ -109,28 +153,6 @@ public class News extends Activity {
 				return true;
 			case R.id.help:
 				helpDialog();
-				return true;
-			//New page opens up entirely for going home
-			case R.id.go_home:
-				Intent home_intent = new Intent(cont, Home.class);
-				cont.startActivity(home_intent);		
-		        return true;
-			case R.id.view_rankings:
-		        Intent intent_ranking = new Intent(cont, Rankings.class);
-		        cont.startActivity(intent_ranking);		
- 		        return true;
- 		    //New page opens up entirely for viewing trending players
-			case R.id.view_trending:
-		        Intent team_intent = new Intent(cont, Trending.class);
-		        cont.startActivity(team_intent);		
-				return true;
-			case R.id.draft_history:
-				Intent draft_intent = new Intent(cont, DraftHistory.class);
-		        cont.startActivity(draft_intent);		
-				return true;
-			case R.id.import_league:
-				Intent import_intent = new Intent(cont, ImportLeague.class);
-				cont.startActivity(import_intent);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -395,14 +417,7 @@ public class News extends Activity {
 	public void handleNewsListView(List<NewsObjects> result, final Activity cont) 
 	{
 		final BounceListView listview = (BounceListView)cont.findViewById(R.id.listview_news);
-		View v = cont.findViewById(android.R.id.home);
 		cont.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-		v.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				listview.smoothScrollToPosition(0);		
-			}
-		});
 	    final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 	    for(NewsObjects newsObj : result)
 	    {

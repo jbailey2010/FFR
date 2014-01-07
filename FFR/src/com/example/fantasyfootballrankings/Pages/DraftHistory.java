@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.devspark.sidenavigation.ISideNavigationCallback;
+import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
@@ -41,14 +43,53 @@ import android.widget.TextView;
 public class DraftHistory extends Activity {
 	public Context cont;
 	public static Storage holder = new Storage(null);
+	SideNavigationView sideNavigationView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		cont = this;
+		ISideNavigationCallback sideNavigationCallback = new ISideNavigationCallback() {
+		    @Override
+		    public void onSideNavigationItemClick(int itemId) {
+		    	switch (itemId) {
+	            case R.id.side_navigation_menu_item1:
+	            	Intent intent = new Intent(cont, Home.class);
+	    	        cont.startActivity(intent);	
+	                break;
+	            case R.id.side_navigation_menu_item2:
+	            	Intent intent2 = new Intent(cont, Rankings.class);
+	    	        cont.startActivity(intent2);	
+	                break;
+	            case R.id.side_navigation_menu_item3:
+	            	Intent intent5 = new Intent(cont, ImportLeague.class);
+	    	        cont.startActivity(intent5);
+	                break;
+	            case R.id.side_navigation_menu_item4:
+	            	Intent intent3 = new Intent(cont, Trending.class);
+	    	        cont.startActivity(intent3);		
+	                break;
+	            case R.id.side_navigation_menu_item5:
+	            	Intent intent4 = new Intent(cont, News.class);
+	    	        cont.startActivity(intent4);
+	                break;
+	            case R.id.side_navigation_menu_item6:
+	            	Intent intent6 = new Intent(cont, DraftHistory.class);
+	    	        cont.startActivity(intent6);
+	                break;
+	            default:
+	                return;
+		    	}
+		    }
+		};
 		setContentView(R.layout.activity_draft_history);
+		sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view_draft);
+	    sideNavigationView.setMenuItems(R.menu.side_navigation_view);
+	    sideNavigationView.setMenuClickCallback(sideNavigationCallback);
+	   // sideNavigationView.setMode(/*SideNavigationView.Mode*/);
+	    getActionBar().setDisplayHomeAsUpEnabled(true);
 		setUpView();
 		ActionBar ab = getActionBar();
-		ab.setDisplayShowHomeEnabled(false);
+		//ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Draft", false) || prefs.getBoolean("Rankings Update Draft", false))
@@ -86,28 +127,11 @@ public class DraftHistory extends Activity {
 	{
 		switch (item.getItemId()) 
 		{
+			case android.R.id.home:
+		        sideNavigationView.toggleMenu();
+		        return true;
 			case R.id.clear_drafts:
 				clearDraft();
-				return true;
-			case R.id.go_home:
-				Intent home_intent = new Intent(cont, Home.class);
-				cont.startActivity(home_intent);		
-		        return true;
-			case R.id.view_rankings:
-		        Intent intent_ranking = new Intent(cont, Rankings.class);
-		        cont.startActivity(intent_ranking);		
- 		        return true;
-			case R.id.view_trending:
-		        Intent team_intent = new Intent(cont, Trending.class);
-		        cont.startActivity(team_intent);		
-				return true;
-			case R.id.import_league:
-				Intent import_intent = new Intent(cont, ImportLeague.class);
-				cont.startActivity(import_intent);
-				return true;
-			case R.id.news:
-		        Intent news_intent = new Intent(cont, News.class);
-		        cont.startActivity(news_intent);		
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

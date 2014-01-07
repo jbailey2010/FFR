@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#A3A3A3"
     android:orientation="vertical" >
     <LinearLayout
+        android:id="@+id/rankings_header_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
         android:background="@drawable/menu_btn_black"
@@ -74,12 +75,21 @@
 
     </LinearLayout>
     <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/rankings_header_sublayout"
+        android:layout_below="@+id/rankings_header_layout"
         android:layout_width="fill_parent"
         android:layout_height="10dp"
         android:background="#161616"/>
 
+    
+
+    
+    
+    
     <RelativeLayout
         android:id="@+id/rankings_widget_base"
+        android:layout_below="@+id/rankings_header_sublayout"
         android:layout_width="match_parent"
         android:layout_height="37dp" 
         android:background="#141414">
@@ -125,6 +135,7 @@
 
     </RelativeLayout>
     <RelativeLayout
+        android:layout_below="@+id/rankings_widget_base"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 	    android:paddingBottom="2dp"
@@ -139,7 +150,11 @@
 	        android:background="@drawable/content_well"
 	        android:clickable="true"> 
 	    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
+	            
 	</RelativeLayout>
+<com.devspark.sidenavigation.SideNavigationView
+        android:id="@+id/side_navigation_view_rankings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-
-</LinearLayout>
+</RelativeLayout>

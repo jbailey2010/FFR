@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#D9D9D9"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/news_header_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
         android:background="#121212">
@@ -22,8 +23,9 @@
             android:textSize="26sp" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 	<RelativeLayout
+	    android:layout_below="@+id/news_header_layout"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
 		    android:background="#454545">
@@ -37,4 +39,9 @@
 	        android:clickable="true" >
 	    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 	</RelativeLayout>
-</LinearLayout>
+	
+	<com.devspark.sidenavigation.SideNavigationView
+        android:id="@+id/side_navigation_view_news"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>
