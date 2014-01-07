@@ -153,7 +153,7 @@ int id filter_quantity_menu 0x7f0a0160
 int id filter_rankings_submit 0x7f0a00e5
 int id filter_size_cancel 0x7f0a0053
 int id filter_size_submit 0x7f0a0054
-int id filter_topics_menu 0x7f0a016a
+int id filter_topics_menu 0x7f0a016b
 int id filter_topics_rankings 0x7f0a015f
 int id filter_week 0x7f0a0020
 int id first_player_compare 0x7f0a003b
@@ -324,6 +324,7 @@ int id side_navigation_item_icon 0x7f0a0112
 int id side_navigation_item_text 0x7f0a0113
 int id side_navigation_listview 0x7f0a0116
 int id side_navigation_menu 0x7f0a0115
+int id side_navigation_menu_item0 0x7f0a016a
 int id side_navigation_menu_item1 0x7f0a0164
 int id side_navigation_menu_item2 0x7f0a0165
 int id side_navigation_menu_item3 0x7f0a0166
@@ -499,8 +500,9 @@ int menu home 0x7f090001
 int menu import_league 0x7f090002
 int menu news 0x7f090003
 int menu rankings 0x7f090004
-int menu side_navigation_view 0x7f090005
-int menu trending 0x7f090006
+int menu side_navigation_menu 0x7f090005
+int menu side_navigation_view 0x7f090006
+int menu trending 0x7f090007
 int string action_settings 0x7f070006
 int string app_name 0x7f070000
 int string hello_world 0x7f070007

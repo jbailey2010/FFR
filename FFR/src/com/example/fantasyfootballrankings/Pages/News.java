@@ -51,6 +51,8 @@ public class News extends Activity {
 	public static String selection = "NFL News";
 	static TwitterWork obj = new TwitterWork();
 	SideNavigationView sideNavigationView;
+	BounceListView listview;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,6 +65,9 @@ public class News extends Activity {
 		    @Override
 		    public void onSideNavigationItemClick(int itemId) {
 		    	switch (itemId) {
+		    	case R.id.side_navigation_menu_item0:
+	            	listview.smoothScrollToPosition(0);
+	                break;
 	            case R.id.side_navigation_menu_item1:
 	            	Intent intent = new Intent(cont, Home.class);
 	    	        cont.startActivity(intent);	
@@ -416,7 +421,7 @@ public class News extends Activity {
 	 */
 	public void handleNewsListView(List<NewsObjects> result, final Activity cont) 
 	{
-		final BounceListView listview = (BounceListView)cont.findViewById(R.id.listview_news);
+		listview = (BounceListView)cont.findViewById(R.id.listview_news);
 		cont.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 	    final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 	    for(NewsObjects newsObj : result)

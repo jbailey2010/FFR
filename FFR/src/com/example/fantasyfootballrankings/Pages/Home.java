@@ -103,7 +103,7 @@ public class Home extends Activity{
 		    }
 		};
 		sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view);
-	    sideNavigationView.setMenuItems(R.menu.side_navigation_view);
+	    sideNavigationView.setMenuItems(R.menu.side_navigation_menu);
 	    sideNavigationView.setMenuClickCallback(sideNavigationCallback);
 	   // sideNavigationView.setMode(/*SideNavigationView.Mode*/);
 	    getActionBar().setDisplayHomeAsUpEnabled(true);

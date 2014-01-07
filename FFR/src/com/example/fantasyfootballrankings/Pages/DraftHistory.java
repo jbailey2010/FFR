@@ -44,6 +44,8 @@ public class DraftHistory extends Activity {
 	public Context cont;
 	public static Storage holder = new Storage(null);
 	SideNavigationView sideNavigationView;
+	BounceListView drafts;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,6 +54,9 @@ public class DraftHistory extends Activity {
 		    @Override
 		    public void onSideNavigationItemClick(int itemId) {
 		    	switch (itemId) {
+		    	case R.id.side_navigation_menu_item0:
+	            	drafts.smoothScrollToPosition(0);
+	                break;
 	            case R.id.side_navigation_menu_item1:
 	            	Intent intent = new Intent(cont, Home.class);
 	    	        cont.startActivity(intent);	
@@ -172,7 +177,7 @@ public class DraftHistory extends Activity {
 	 * Sets the listview content
 	 */
 	public void setUpView(){
-		BounceListView drafts = (BounceListView)findViewById(R.id.draft_history_listview);
+		drafts = (BounceListView)findViewById(R.id.draft_history_listview);
 		List<String> primary = ReadFromFile.readPrimData(cont);
 		List<String> sec = ReadFromFile.readSecData(cont);
 		List<Map<String, String>>data = new ArrayList<Map<String, String>>();

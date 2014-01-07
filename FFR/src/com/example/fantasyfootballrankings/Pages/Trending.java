@@ -88,6 +88,9 @@ public class Trending extends Activity {
 		    @Override
 		    public void onSideNavigationItemClick(int itemId) {
 		    	switch (itemId) {
+		    	case R.id.side_navigation_menu_item0:
+	            	listview.smoothScrollToPosition(0);
+	                break;
 	            case R.id.side_navigation_menu_item1:
 	            	Intent intent = new Intent(cont, Home.class);
 	    	        cont.startActivity(intent);	
