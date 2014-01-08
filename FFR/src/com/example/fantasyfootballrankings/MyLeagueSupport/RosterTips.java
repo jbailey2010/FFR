@@ -20,6 +20,7 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.TeamTradeInfo;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
@@ -176,7 +177,7 @@ public class RosterTips
 		Map<TeamAnalysis, TeamTradeInfo>leagueMaster = new HashMap<TeamAnalysis, TeamTradeInfo>();
 		for(TeamAnalysis iter : newImport.teams)
 		{
-			leagueMaster.put(iter, new TeamTradeInfo(iter, ImportLeague.cont));
+			leagueMaster.put(iter, new TeamTradeInfo(iter, ImportLeague.cont, ImportLeague.newImport.roster));
 		}
 		TextView output = (TextView)res.findViewById(R.id.fa_content);
 		ScrollView base = (ScrollView)res.findViewById(R.id.fa_scroll);
@@ -354,12 +355,13 @@ public class RosterTips
 			TeamList.isF = false;
 			TeamList.isFTE = false;
 			TeamList.isOP = false;
-			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("RB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "RB", ImportLeague.cont, ImportLeague.holder));
-			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("WR"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "WR", ImportLeague.cont, ImportLeague.holder));
-			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("QB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "QB", ImportLeague.cont, ImportLeague.holder));
-			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("TE"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "TE", ImportLeague.cont, ImportLeague.holder));
-			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("D/ST"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "D/ST", ImportLeague.cont, ImportLeague.holder));
-			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("K"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "K", ImportLeague.cont, ImportLeague.holder));
+			Roster r = ImportLeague.newImport.roster;
+			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("RB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "RB", ImportLeague.cont, ImportLeague.holder, r));
+			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("WR"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "WR", ImportLeague.cont, ImportLeague.holder, r));
+			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("QB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "QB", ImportLeague.cont, ImportLeague.holder, r));
+			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("TE"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "TE", ImportLeague.cont, ImportLeague.holder, r));
+			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("D/ST"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "D/ST", ImportLeague.cont, ImportLeague.holder, r));
+			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("K"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "K", ImportLeague.cont, ImportLeague.holder, r));
 			String[] middle = output.toString().split("\n");
 			for(String posIter : middle)
 			{

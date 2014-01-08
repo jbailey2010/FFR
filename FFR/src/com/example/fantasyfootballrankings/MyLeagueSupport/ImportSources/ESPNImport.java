@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.MyLeagueSupport.ImportSources;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,12 +18,15 @@ import org.jsoup.select.Elements;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 
+import FileIO.ReadFromFile;
+import FileIO.WriteToFile;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -430,6 +432,7 @@ public class ESPNImport
 			}
 			Set<String> teamNames = players.keySet();
 			List<TeamAnalysis> teamSet = new ArrayList<TeamAnalysis>();
+			Roster r = ReadFromFile.readRoster(cont,  "");
 			for(String team : teamNames)
 			{
 				List<String> onTeam = players.get(team);
@@ -586,7 +589,7 @@ public class ESPNImport
 				{
 					kStr = kStr.substring(0, kStr.length()-2) + "\n";
 				}
-				TeamAnalysis teamObj = new TeamAnalysis(team, qbStr + rbStr + wrStr + teStr + dStr + kStr, holder, cont);
+				TeamAnalysis teamObj = new TeamAnalysis(team, qbStr + rbStr + wrStr + teStr + dStr + kStr, holder, cont, r);
 				teamSet.add(teamObj);
 			}
 			return teamSet;
@@ -655,8 +658,11 @@ public class ESPNImport
 		{
 			wholeSet.append(team.teamName + "~~" + team.team + "@@@");
 		}
-		System.out.println("Setting " + url);
 		editor.putString(leagueKey, url + "LEAGUEURLSPLIT" + wholeSet.toString());
+		newImport.roster = ReadFromFile.readRoster(cont);
+		newImport.scoring = ReadFromFile.readScoring(cont);
+		WriteToFile.writeRoster(newImport.leagueHost + newImport.leagueName, cont, newImport.roster);
+		WriteToFile.writeScoring(newImport.leagueHost + newImport.leagueName, cont, newImport.scoring);
 		editor.commit();
 		dummy.handleLayoutInit();
 	}

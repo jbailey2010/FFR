@@ -22,7 +22,7 @@ public class TeamTradeInfo
 	/**
 	 * \Sets up the teamtradeinfo object to populate based on the teamanalysis object
 	 */
-	public TeamTradeInfo(TeamAnalysis team, Context cont)
+	public TeamTradeInfo(TeamAnalysis team, Context cont, Roster r)
 	{
 		System.out.println(team.teamName);
 		teamObj = team;
@@ -30,7 +30,6 @@ public class TeamTradeInfo
 		rb = new PosTradeInfo();
 		wr = new PosTradeInfo();
 		te = new PosTradeInfo();
-		Roster r = ReadFromFile.readRoster(cont);
 		handleLists(r);
 		parseClassifications(r, qb, r.qbs);
 		parseClassifications(r, rb, r.rbs);

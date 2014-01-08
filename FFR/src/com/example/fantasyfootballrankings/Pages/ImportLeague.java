@@ -16,6 +16,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.SortHandler;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
@@ -24,6 +25,7 @@ import com.example.fantasyfootballrankings.InterfaceAugmentations.NDSpinner;
 import com.example.fantasyfootballrankings.MyLeagueSupport.CompareTeams;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LeagueList;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LineupHelp;
+import com.example.fantasyfootballrankings.MyLeagueSupport.MyLeagueUtils;
 import com.example.fantasyfootballrankings.MyLeagueSupport.PlayerList;
 import com.example.fantasyfootballrankings.MyLeagueSupport.RosterTips;
 import com.example.fantasyfootballrankings.MyLeagueSupport.TeamList;
@@ -39,6 +41,7 @@ import com.jjoe64.graphview.GraphViewStyle;
 import com.jjoe64.graphview.LineGraphView;
 
 import FileIO.ReadFromFile;
+import FileIO.WriteToFile;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -89,6 +92,8 @@ public class ImportLeague extends Activity {
         public Menu menuObj;
         public MenuItem compare;
         public MenuItem refresh;
+        public MenuItem scoring;
+        public MenuItem roster;
         public static ImportedTeam newImport;
         public TextView v;
         SideNavigationView sideNavigationView;
@@ -215,9 +220,31 @@ public class ImportLeague extends Activity {
                         case R.id.refresh_league:
                                 handleLongClick();
                                 return true;
+                        case R.id.change_roster:
+                        		changeRoster();
+                        		return true;
+                        case R.id.change_scoring:
+                        		changeScoring();
+                        		return true;
                         default:
                                 return super.onOptionsItemSelected(item);
                 }
+        }
+        
+        /**
+         * Handles the pop up to store the new roster
+         */
+        public void changeRoster()
+        {
+            MyLeagueUtils.getRoster(cont, holder, newImport.roster, newImport.leagueHost + newImport.leagueName, newImport);
+        }
+        
+        /**
+         * Handles the pop up to store the new scoring
+         */
+        public void changeScoring()
+        {
+        	MyLeagueUtils.passSettings(cont, holder, newImport.scoring, newImport.leagueHost + newImport.leagueName);
         }
         
         /**
@@ -383,6 +410,12 @@ public class ImportLeague extends Activity {
                         refresh = (MenuItem)menuObj.findItem(R.id.refresh_league);
                         refresh.setVisible(false);
                         refresh.setEnabled(false);
+                        scoring = (MenuItem)menuObj.findItem(R.id.change_scoring);
+                        scoring.setVisible(false);
+                        scoring.setEnabled(false);
+                        roster = (MenuItem)menuObj.findItem(R.id.change_roster);
+                        roster.setVisible(false);
+                        roster.setEnabled(false);
                 }
                 SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
                 ll.removeAllViews();
@@ -426,6 +459,12 @@ public class ImportLeague extends Activity {
                         refresh = (MenuItem)menuObj.findItem(R.id.refresh_league);
                         refresh.setVisible(false);
                         refresh.setEnabled(false);
+                        scoring = (MenuItem)menuObj.findItem(R.id.change_scoring);
+                        scoring.setVisible(false);
+                        scoring.setEnabled(false);
+                        roster = (MenuItem)menuObj.findItem(R.id.change_roster);
+                        roster.setVisible(false);
+                        roster.setEnabled(false);
                 }
             list.setAdapter(adapter);
                 SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
@@ -468,18 +507,27 @@ public class ImportLeague extends Activity {
                 refresh = (MenuItem)menuObj.findItem(R.id.refresh_league);
                 refresh.setVisible(true);
                 refresh.setEnabled(true);
+                scoring = (MenuItem)menuObj.findItem(R.id.change_scoring);
+                scoring.setVisible(true);
+                scoring.setEnabled(true);
+                roster = (MenuItem)menuObj.findItem(R.id.change_roster);
+                roster.setVisible(true);
+                roster.setEnabled(true);
                 SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
                 String leagueDataWhole = prefs.getString(key, "SHIT").split("LEAGUEURLSPLIT")[1];
                 String[] perTeam = ManageInput.tokenize(leagueDataWhole, '@', 3);
                 List<TeamAnalysis> teamList = new ArrayList<TeamAnalysis>();
+                Roster r = ReadFromFile.readRoster(cont, key.split("@@@")[0] + key.split("@@@")[1]);
                 for(String teamSet : perTeam)
                 {
                         String[] teamArr = ManageInput.tokenize(teamSet, '~', 2);
-                        TeamAnalysis teamData = new TeamAnalysis(teamArr[0], teamArr[1], holder, cont);
+                        TeamAnalysis teamData = new TeamAnalysis(teamArr[0], teamArr[1], holder, cont, r);
                         teamList.add(teamData);
                 }
                 String[] keySet = key.split("@@@");
                 newImport = new ImportedTeam(teamList, keySet[1], keySet[0]);
+                newImport.roster = ReadFromFile.readRoster(cont, newImport.leagueHost + newImport.leagueName);
+                newImport.scoring = ReadFromFile.readScoring(cont, newImport.leagueHost + newImport.leagueName);
                 final View res = ((Activity)cont).getLayoutInflater().inflate(R.layout.league_stats_output, ll, false);
                 final RelativeLayout league = (RelativeLayout)res.findViewById(R.id.category_league_base);
                 final RelativeLayout teams  = (RelativeLayout)res.findViewById(R.id.category_team_base);

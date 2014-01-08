@@ -223,7 +223,7 @@ public class DraftHistory extends Activity {
 		String sub = ((TextView)((RelativeLayout)v).findViewById(R.id.text2)).getText().toString();
 		if(sub.contains("PAA"))
 		{
-			TeamAnalysis ta = new TeamAnalysis("", team, holder, cont);
+			TeamAnalysis ta = new TeamAnalysis("", team, holder, cont, ReadFromFile.readRoster(cont));
 			DecimalFormat df = new DecimalFormat("#.##");
 			StringBuilder info = new StringBuilder(2000);
 			info.append("Note: this is based on the currently calculated projections/PAA\n");

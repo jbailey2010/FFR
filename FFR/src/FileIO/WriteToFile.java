@@ -302,19 +302,20 @@ public class WriteToFile {
 	
 	/**
 	 * Writes scoring to file
+	 * @param key 
 	 */
-	public static void writeScoring(Context cont, Scoring scoring)
+	public static void writeScoring(String key, Context cont, Scoring scoring)
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		editor.putInt("Pass Yards", scoring.passYards);
-		editor.putInt("Pass Touchdowns", scoring.passTD);
-		editor.putInt("Rush Yards", scoring.rushYards);
-		editor.putInt("Rush Touchdowns", scoring.rushTD);
-		editor.putInt("Receiving Yards", scoring.recYards);
-		editor.putInt("Receiving Touchdowns", scoring.recTD);
-		editor.putInt("Catches", scoring.catches);
-		editor.putInt("Interceptions", scoring.interception);
-		editor.putInt("Fumbles", scoring.fumble);
+		editor.putInt("Pass Yards" + key, scoring.passYards);
+		editor.putInt("Pass Touchdowns" + key, scoring.passTD);
+		editor.putInt("Rush Yards" + key, scoring.rushYards);
+		editor.putInt("Rush Touchdowns" + key, scoring.rushTD);
+		editor.putInt("Receiving Yards" + key, scoring.recYards);
+		editor.putInt("Receiving Touchdowns" + key, scoring.recTD);
+		editor.putInt("Catches" + key, scoring.catches);
+		editor.putInt("Interceptions" + key, scoring.interception);
+		editor.putInt("Fumbles" + key, scoring.fumble);
 		editor.putBoolean("Is Scoring Set?", true);
 		editor.commit();
 	}
@@ -322,23 +323,23 @@ public class WriteToFile {
 	/**
 	 * Writes roster to file
 	 */
-	public static void writeRoster(Context cont, Roster roster)
+	public static void writeRoster(String key, Context cont, Roster roster)
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		editor.putInt("Number of teams", roster.teams);
+		editor.putInt("Number of teams" + key, roster.teams);
 		if(roster.flex == null)
 		{
 			roster.flex = new Flex();
 		}
-		editor.putInt("Starting QBs", roster.qbs);
-		editor.putInt("Starting RBs", roster.rbs);
-		editor.putInt("Starting WRs", roster.wrs);
-		editor.putInt("Starting TEs", roster.tes);
-		editor.putInt("Starting RB/WRs", roster.flex.rbwr);
-		editor.putInt("Starting RB/WR/TEs", roster.flex.rbwrte);
-		editor.putInt("Starting OPs", roster.flex.op);
-		editor.putInt("Starting Ks", roster.k);
-		editor.putInt("Starting Defs", roster.def);
+		editor.putInt("Starting QBs" + key, roster.qbs);
+		editor.putInt("Starting RBs" + key, roster.rbs);
+		editor.putInt("Starting WRs" + key, roster.wrs);
+		editor.putInt("Starting TEs" + key, roster.tes);
+		editor.putInt("Starting RB/WRs" + key, roster.flex.rbwr);
+		editor.putInt("Starting RB/WR/TEs" + key, roster.flex.rbwrte);
+		editor.putInt("Starting OPs" + key, roster.flex.op);
+		editor.putInt("Starting Ks" + key, roster.k);
+		editor.putInt("Starting Defs" + key, roster.def);
 		editor.putBoolean("Is roster set?", true);
 		editor.commit();
 	}

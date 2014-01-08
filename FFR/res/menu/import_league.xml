@@ -11,7 +11,19 @@
         android:showAsAction="ifRoom|withText"
         android:title="Matchup"
         android:visible="false"
-        android:enabled="false"/>"
+        android:enabled="false"/>
+  	<item 
+  	    android:id="@+id/change_roster"
+  	    android:showAsAction="ifRoom|withText"
+  	    android:title="Change Roster Settings"
+  	    android:visible="false"
+  	    android:enabled="false"/>
+  	<item 
+  	    android:id="@+id/change_scoring"
+  	    android:showAsAction="ifRoom|withText"
+  	    android:title="Change Scoring Settings"
+  	    android:visible="false"
+  	    android:enabled="false"/>
     <item
         android:id="@+id/importa_league"
         android:orderInCategory="100"

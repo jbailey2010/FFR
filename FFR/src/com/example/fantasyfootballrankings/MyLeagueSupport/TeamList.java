@@ -124,7 +124,7 @@ public class TeamList {
 	{
 		String team = ((TextView)((RelativeLayout)v).findViewById(R.id.text2)).getText().toString();
 		String header = ((TextView)((RelativeLayout)v).findViewById(R.id.text1)).getText().toString();
-		TeamAnalysis ta = new TeamAnalysis("", team, ImportLeague.holder, cont);
+		TeamAnalysis ta = new TeamAnalysis("", team, ImportLeague.holder, cont, newImport.roster);
 		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
 	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		popUp.setContentView(R.layout.team_info_popup);
@@ -451,12 +451,12 @@ public class TeamList {
 		isF = false;
 		isFTE = false;
 		isOP = false;
-		String rb = (dummy.optimalLineup(remainingPlayers, rosters.get("RB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "RB", cont, ImportLeague.holder));
-		String wr = (dummy.optimalLineup(remainingPlayers, rosters.get("WR"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "WR", cont, ImportLeague.holder));
-		String qb = (dummy.optimalLineup(remainingPlayers, rosters.get("QB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "QB", cont, ImportLeague.holder));
-		String te = (dummy.optimalLineup(remainingPlayers, rosters.get("TE"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "TE", cont, ImportLeague.holder));
-		String d = (dummy.optimalLineup(remainingPlayers, rosters.get("D/ST"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "D/ST", cont, ImportLeague.holder));
-		String k = (dummy.optimalLineup(remainingPlayers, rosters.get("K"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "K", cont, ImportLeague.holder));
+		String rb = (dummy.optimalLineup(remainingPlayers, rosters.get("RB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "RB", cont, ImportLeague.holder, newImport.roster));
+		String wr = (dummy.optimalLineup(remainingPlayers, rosters.get("WR"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "WR", cont, ImportLeague.holder, newImport.roster));
+		String qb = (dummy.optimalLineup(remainingPlayers, rosters.get("QB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "QB", cont, ImportLeague.holder, newImport.roster));
+		String te = (dummy.optimalLineup(remainingPlayers, rosters.get("TE"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "TE", cont, ImportLeague.holder, newImport.roster));
+		String d = (dummy.optimalLineup(remainingPlayers, rosters.get("D/ST"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "D/ST", cont, ImportLeague.holder, newImport.roster));
+		String k = (dummy.optimalLineup(remainingPlayers, rosters.get("K"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "K", cont, ImportLeague.holder, newImport.roster));
 		output.append(qb).append(rb).append(wr).append(te).append(d).append(k);
 		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
 	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       

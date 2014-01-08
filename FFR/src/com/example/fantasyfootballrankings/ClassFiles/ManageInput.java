@@ -454,7 +454,7 @@ public class ManageInput
 					dummyScoring.recTD = Integer.parseInt(tdStr);
 					dummyScoring.catches = Integer.parseInt(intStr);
 					dialog.dismiss();
-					WriteToFile.writeScoring(cont, dummyScoring);
+					WriteToFile.writeScoring("", cont, dummyScoring);
 					if(doSyncData)
 					{
 						if(ManageInput.confirmInternet(cont))
@@ -596,7 +596,7 @@ public class ManageInput
 				dummyRoster.teams = Integer.parseInt((String)team.getSelectedItem());
 				dummyRoster.def = Integer.parseInt((String)def.getSelectedItem());
 				dummyRoster.k = Integer.parseInt((String)k.getSelectedItem());
-				WriteToFile.writeRoster(cont, dummyRoster);
+				WriteToFile.writeRoster("", cont, dummyRoster);
 				dialog.dismiss();
 				if(doSyncData)
 				{

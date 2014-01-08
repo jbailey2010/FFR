@@ -55,7 +55,7 @@ public class TeamAnalysis
 	 * @param hold
 	 * @param c
 	 */
-	public TeamAnalysis(String name, String teamStr, Storage hold, Context c)
+	public TeamAnalysis(String name, String teamStr, Storage hold, Context c, Roster r)
 	{
 		teamName = name;
 		team = teamStr;
@@ -89,12 +89,12 @@ public class TeamAnalysis
 		TeamList.isF = false;
 		TeamList.isFTE = false;
 		TeamList.isOP = false;
-		rbStart = paaStarters(remainingPlayers, rb, qb, rb, wr, te, "RB");
-		wrStart = paaStarters(remainingPlayers, wr, qb, rb, wr, te, "WR");
-		qbStart = paaStarters(remainingPlayers, qb, qb, rb, wr, te, "QB");
-		teStart = paaStarters(remainingPlayers, te, qb, rb, wr, te, "TE");
-		dStart = paaStarters(remainingPlayers, d, qb, rb, wr, te, "D/ST");
-		kStart = paaStarters(remainingPlayers, k, qb, rb, wr, te, "K");
+		rbStart = paaStarters(remainingPlayers, rb, qb, rb, wr, te, "RB", r);
+		wrStart = paaStarters(remainingPlayers, wr, qb, rb, wr, te, "WR", r);
+		qbStart = paaStarters(remainingPlayers, qb, qb, rb, wr, te, "QB", r);
+		teStart = paaStarters(remainingPlayers, te, qb, rb, wr, te, "TE", r);
+		dStart = paaStarters(remainingPlayers, d, qb, rb, wr, te, "D/ST", r);
+		kStart = paaStarters(remainingPlayers, k, qb, rb, wr, te, "K", r);
 		populateTeamsList(this);
 	}
 	
@@ -177,11 +177,10 @@ public class TeamAnalysis
 	 * @return
 	 */
 	public double paaStarters(List<String> remainingPlayers, String[] pos, String[] qbs, String[] rbs, String[] wrs, String[] tes, 
-			String posStr)
+			String posStr, Roster r)
 	{
 		double total = 0.0;
 		DecimalFormat df = new DecimalFormat("#.##");
-		Roster r = ReadFromFile.readRoster(cont);
 		int limit = 0;
 		String tempName = "";
 		if(posStr.equals("QB"))
@@ -880,12 +879,11 @@ public class TeamAnalysis
 	 * @param remainingPlayers 
 	 */
 	public String optimalLineup(List<String> remainingPlayers, String[] pos, String[] qbs, String[] rbs, String[] wrs, String[] tes, 
-			String posStr, Context cont, Storage holder)
+			String posStr, Context cont, Storage holder, Roster r)
 	{
 		StringBuilder result = new StringBuilder(100);
 		DecimalFormat df = new DecimalFormat("#.##");
 		String tempName = "";
-		Roster r = ReadFromFile.readRoster(cont);
 		int limit = 0;
 		if(posStr.equals("QB"))
 		{

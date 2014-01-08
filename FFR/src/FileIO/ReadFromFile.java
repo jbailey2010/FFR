@@ -264,6 +264,25 @@ public class ReadFromFile {
 	}
 	
 	/**
+	 * Reads scoring from file and returns it
+	 */
+	public static Scoring readScoring(Context cont, String key)
+	{
+		Scoring scoring = new Scoring();
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		scoring.passYards = prefs.getInt("Pass Yards" + key, 25);
+		scoring.passTD = prefs.getInt("Pass Touchdowns" + key, 4);
+		scoring.rushYards = prefs.getInt("Rush Yards" + key, 10);
+		scoring.rushTD = prefs.getInt("Rush Touchdowns" + key, 6);
+		scoring.recYards = prefs.getInt("Receiving Yards" + key, 10);
+		scoring.recTD = prefs.getInt("Receiving Touchdowns" + key, 6);
+		scoring.catches = prefs.getInt("Catches" + key, 1);
+		scoring.interception = prefs.getInt("Interceptions" + key, 2);
+		scoring.fumble = prefs.getInt("Fumbles" + key, 2);
+		return scoring;
+	}
+	
+	/**
 	 * Returns the roster object
 	 */
 	public static Roster readRoster(Context cont)
@@ -283,6 +302,25 @@ public class ReadFromFile {
 	}
 	
 	/**
+	 * Returns the roster object
+	 */
+	public static Roster readRoster(Context cont, String key)
+	{
+		Roster roster = new Roster();
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		roster.teams = prefs.getInt("Number of teams" + key, 10);
+		roster.qbs = prefs.getInt("Starting QBs" + key, 1);
+		roster.rbs = prefs.getInt("Starting RBs" + key, 2);
+		roster.wrs = prefs.getInt("Starting WRs" + key, 2);
+		roster.tes = prefs.getInt("Starting TEs" + key, 1);
+		roster.flex = readFlex(cont, key);
+		roster.def = prefs.getInt("Starting Defs" + key, 1);
+		roster.k = prefs.getInt("Starting Ks" + key, 1);
+		
+		return roster;
+	}
+	
+	/**
 	 * Reads the roster flex options from file
 	 * @param cont
 	 * @return
@@ -293,6 +331,24 @@ public class ReadFromFile {
 		int rbwr = prefs.getInt("Starting RB/WRs", 0);
 		int rbwrte = prefs.getInt("Starting RB/WR/TEs", 0);
 		int op = prefs.getInt("Starting OPs", 0);
+		if(rbwr == 0 && rbwrte == 0 && op == 0)
+		{
+			return null;
+		}
+		return new Flex(rbwr, rbwrte, op);
+	}
+	
+	/**
+	 * Reads the roster flex options from file
+	 * @param cont
+	 * @return
+	 */
+	public static Flex readFlex(Context cont, String key)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		int rbwr = prefs.getInt("Starting RB/WRs" + key, 0);
+		int rbwrte = prefs.getInt("Starting RB/WR/TEs" + key, 0);
+		int op = prefs.getInt("Starting OPs" + key, 0);
 		if(rbwr == 0 && rbwrte == 0 && op == 0)
 		{
 			return null;
