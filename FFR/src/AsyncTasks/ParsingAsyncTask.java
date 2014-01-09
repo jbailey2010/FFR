@@ -529,6 +529,8 @@ public class ParsingAsyncTask
 					{
 						if(mustHave)
 						{
+							//2014 UPDATE Rounds 1 and 2
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=417315&st=");
 					    	//2013 'Must Haves'
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=338991&st=");
 							//RB rankings
@@ -543,15 +545,19 @@ public class ParsingAsyncTask
 						}
 						if(value)
 						{
+							//2014 UPDATE Bounce backs
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=418111&st=");
 							//Value picks
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=332995&st=");
-							//2013 sleepers
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=327212&st=");
+							//2014 UDPATE 2014 sleepers
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=418103&st=");
 							//adp steals
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=354905&st=");
 						}
 						if(rookie)
 				 		{
+							//2014 UPDATE Draft eligible players
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=378836&st=");
 					 		//Rookie rankings
 				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
 				 			//Draft thread
@@ -571,19 +577,22 @@ public class ParsingAsyncTask
 					{
 						if(mustHave)
 						{
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=343545&st=");
+							//Interesting contract years/free agents
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=419241&st=");
 						}
 						if(value)
 						{
+							//Buy low/sell high
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=377921&st=");
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=418103&st=");
 						}
 						if(rookie)
 						{
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=360594&st=");
+							//Keepers/dynasty central
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=324465&st=");
 						}
 						if(dontWant)
 						{
+							//Trade targets/completed trades
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=365820&st=");
 						}
 					}

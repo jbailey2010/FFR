@@ -376,8 +376,8 @@ public class Trending extends Activity {
 		if(holder.isRegularSeason)
 		{
 			value.setText("Buy Low/Sell High");
-			rookie.setText("Streaming Ds/Ks");
-			want.setText("Frustration");
+			rookie.setText("Dynasty/Keepers");
+			want.setText("Contract Year Guys");
 			dontWant.setText("Mid-Season Trade Targets");
 		}
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
