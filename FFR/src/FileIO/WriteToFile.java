@@ -105,6 +105,7 @@ public class WriteToFile {
 		String reportDate = df.format(today);
 		editor.putString("Date of Posts", reportDate);
 		editor.putString("Posts", posts.toString());
+		editor.putBoolean("Last Empty", false);
 		editor.commit();
 	}
 

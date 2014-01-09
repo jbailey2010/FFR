@@ -248,26 +248,39 @@ public class Trending extends Activity {
 			ReadFromFile.fetchNamesBackEnd(holder, cont);
 		}
 		String storedPosts = prefs.getString("Posted Players", "Not Posted");
+		Boolean lastEmpty = prefs.getBoolean("Last Empty", false);
+
 		if(!storedPosts.equals("Not Posted"))
 		{ 
 			List<String>postsList = new ArrayList<String>();
 			data = new ArrayList<Map<String, String>>();
-			String[] posts = ManageInput.tokenize(storedPosts, '#', 2);
-			for(String post : posts)
+			if(lastEmpty)
 			{
-				try{
-					String[] nameSet = post.split(": mentioned ");
-					Map<String, String> datum = new HashMap<String, String>(2);
-					String name = nameSet[0];
-					String sec = nameSet[1].split("//")[1];
-					datum.put("name", name + "");
-					datum.put("count", post.split(": mentioned ")[1].split("//")[0]);
-					datum.put("freq", sec); 
-					data.add(datum);
-					postsList.add(post);
-				} catch(ArrayIndexOutOfBoundsException e)
+				Map<String, String> datum = new HashMap<String, String>(2);
+				datum.put("name", "No posts were found with the selection you made.");
+				datum.put("count", "It's possible that thread is not yet available.");
+				datum.put("freq", ""); 
+				data.add(datum);
+			}
+			else
+			{
+				String[] posts = ManageInput.tokenize(storedPosts, '#', 2);
+				for(String post : posts)
 				{
-					continue;
+					try{
+						String[] nameSet = post.split(": mentioned ");
+						Map<String, String> datum = new HashMap<String, String>(2);
+						String name = nameSet[0];
+						String sec = nameSet[1].split("//")[1];
+						datum.put("name", name + "");
+						datum.put("count", post.split(": mentioned ")[1].split("//")[0]);
+						datum.put("freq", sec); 
+						data.add(datum);
+						postsList.add(post);
+					} catch(ArrayIndexOutOfBoundsException e)
+					{
+						continue;
+					}
 				}
 			}
 			mAdapter = new SimpleAdapter(cont, data, 
@@ -744,11 +757,20 @@ public class Trending extends Activity {
 	 * Sets the listview to say the posts are fetched
 	 * @param act
 	 */
-	public static void setContent(Activity act) {
+	public static void setContent(Activity act, boolean flag) {
 		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
     	Map<String, String> datum = new HashMap<String, String>(2);
-    	datum.put("name", "The posts are fetched\n");
-    	datum.put("count", "Select a timeframe from above");
+    	if(flag)
+    	{
+    		datum.put("name", "No posts were found with the selection you made.");
+			datum.put("count", "It's possible that thread is not yet available.");
+			datum.put("freq", ""); 
+    	}
+    	else
+    	{
+	    	datum.put("name", "The posts are fetched\n");
+	    	datum.put("count", "Select a timeframe from above");
+    	}
     	data.add(datum);
     	mAdapter = new SimpleAdapter(act, data, 
 	    		R.layout.web_listview_item, 

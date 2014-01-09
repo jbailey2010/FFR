@@ -505,11 +505,18 @@ public class ParsingAsyncTask
 			protected void onPostExecute(Void result){
 			   super.onPostExecute(result);
 			   pdia.dismiss();
+			   boolean flag = false;
 			   if(holder.posts.size() > 1)
 			   {
 				   WriteToFile.writePosts(holder, act);
 			   }
-			   Trending.setContent(act);
+			   if(holder.posts.size() == 0)
+			   {
+				   SharedPreferences.Editor editor = act.getSharedPreferences("FFR", 0).edit();
+				   editor.putBoolean("Last Empty", true).commit();
+				   flag = true;
+			   }
+			   Trending.setContent(act, flag);
 			}
 	    	
 		    @Override
@@ -532,45 +539,44 @@ public class ParsingAsyncTask
 							//2014 UPDATE Rounds 1 and 2
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=417315&st=");
 					    	//2013 'Must Haves'
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=338991&st=");
+							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=338991&st=");
 							//RB rankings
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=344555&st=");
+							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=344555&st=");
 							//QB rankings
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=329554&st=");
+							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=329554&st=");
 							//WR rankings
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=339910&st=");
+							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=339910&st=");
 							//TE rankings
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=347782&st=");
-							//D/K don't exist
+							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=347782&st=");
 						}
 						if(value)
 						{
 							//2014 UPDATE Bounce backs
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=418111&st=");
 							//Value picks
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=332995&st=");
+							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=332995&st=");
 							//2014 UDPATE 2014 sleepers
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=418103&st=");
 							//adp steals
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=354905&st=");
+							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=354905&st=");
 						}
 						if(rookie)
 				 		{
 							//2014 UPDATE Draft eligible players
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=378836&st=");
 					 		//Rookie rankings
-				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
+				 			//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
 				 			//Draft thread
-				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=345800&st=");
+				 			//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=345800&st=");
 				 		}
 				 		if(dontWant)
 				 		{
 				 			//Overvalued
-				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=334675&st=");
+				 			//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=334675&st=");
 				 			//Don't draft
-				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=345722&st=");
+				 			//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=345722&st=");
 				 			//Busts
-				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=347469&st=");
+				 			//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=347469&st=");
 				 		}
 					}
 					else
