@@ -53,10 +53,12 @@ public class ESPNImport
 	public Context cont;
 	public Storage holder;
 	public ImportLeague dummy;
+	public boolean isRefresh;
 	
-	public ESPNImport(Storage hold, ImportLeague obj) {
+	public ESPNImport(Storage hold, ImportLeague obj, boolean b) {
 		holder = hold;
 		dummy = obj;
+		isRefresh = b;
 	}
 
 	/**
@@ -659,8 +661,16 @@ public class ESPNImport
 			wholeSet.append(team.teamName + "~~" + team.team + "@@@");
 		}
 		editor.putString(leagueKey, url + "LEAGUEURLSPLIT" + wholeSet.toString());
-		newImport.roster = ReadFromFile.readRoster(cont);
-		newImport.scoring = ReadFromFile.readScoring(cont);
+		if(isRefresh)
+		{
+			newImport.roster = ImportLeague.newImport.roster;
+			newImport.scoring = ImportLeague.newImport.scoring;
+		}
+		else
+		{
+			newImport.roster = ReadFromFile.readRoster(cont);
+			newImport.scoring = ReadFromFile.readScoring(cont);
+		}
 		WriteToFile.writeRoster(newImport.leagueHost + newImport.leagueName, cont, newImport.roster);
 		WriteToFile.writeScoring(newImport.leagueHost + newImport.leagueName, cont, newImport.scoring);
 		editor.commit();

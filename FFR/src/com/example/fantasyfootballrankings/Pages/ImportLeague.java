@@ -375,7 +375,7 @@ public class ImportLeague extends Activity {
          */
         public void callESPNParsing(String id)
         {
-                ESPNImport espnImporter = new ESPNImport(holder, this);
+                ESPNImport espnImporter = new ESPNImport(holder, this, false);
                 try {
                         espnImporter.handleESPNParsing("http://games.espn.go.com/ffl/leaguerosters?leagueId=" + id, cont);
                 } catch (IOException e) {
@@ -389,7 +389,7 @@ public class ImportLeague extends Activity {
          */
         public void callYahooParsing(String id)
         {
-                YahooImport yahooImporter = new YahooImport(holder, this, (Context)this);
+                YahooImport yahooImporter = new YahooImport(holder, this, (Context)this, false);
                 try {
                         yahooImporter.handleYahooParsing("http://football.fantasysports.yahoo.com/f1/" + id + "/starters");
                 } catch (IOException e) {
@@ -704,11 +704,11 @@ public class ImportLeague extends Activity {
                 {
                         if(((TextView)((Activity)cont).findViewById(R.id.hostName)).getText().toString().contains("ESPN"))
                         {
-                                clearDataESPNInit((TextView)v, newImport, cont);
+                                clearDataESPNInit((TextView)v, newImport, cont, true);
                         }
                         if(((TextView)((Activity)cont).findViewById(R.id.hostName)).getText().toString().contains("Yahoo"))
                         {
-                                clearDataYahooInit((TextView)v, newImport, cont);
+                                clearDataYahooInit((TextView)v, newImport, cont, true);
                         }
                 }
                 else
@@ -722,8 +722,9 @@ public class ImportLeague extends Activity {
          * @param name
          * @param newImport
          * @param cont
+         * @param b 
          */
-        public void clearDataESPNInit(TextView name, ImportedTeam newImport, Context cont)
+        public void clearDataESPNInit(TextView name, ImportedTeam newImport, Context cont, boolean b)
         {
                 SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
                 SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
@@ -739,7 +740,7 @@ public class ImportLeague extends Activity {
                 editor.remove(key);
                 editor.putString("Imported League Keys", oldKeys);
                 editor.commit();
-                ESPNImport espnImporter = new ESPNImport(holder, this);
+                ESPNImport espnImporter = new ESPNImport(holder, this, b);
                 try {
                         espnImporter.handleESPNParsing(leagueURL, cont);
                 } catch (IOException e) {
@@ -752,8 +753,9 @@ public class ImportLeague extends Activity {
          * @param name
          * @param newImport
          * @param cont
+         * @param b 
          */
-        public void clearDataYahooInit(TextView name, ImportedTeam newImport, Context cont)
+        public void clearDataYahooInit(TextView name, ImportedTeam newImport, Context cont, boolean b)
         {
                 SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
                 SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
@@ -769,7 +771,7 @@ public class ImportLeague extends Activity {
                 editor.remove(key);
                 editor.putString("Imported League Keys", oldKeys);
                 editor.commit();
-                YahooImport yahooImporter = new YahooImport(holder, this, (Context)this);
+                YahooImport yahooImporter = new YahooImport(holder, this, (Context)this, b);
                 try {
                         yahooImporter.handleYahooParsing(leagueURL);
                 } catch (IOException e) {
