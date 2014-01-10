@@ -1,11 +1,11 @@
 package AsyncTasks;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.app.Activity;
@@ -410,8 +410,9 @@ public class StorageAsyncTask
 	 * @author Jeff
 	 *
 	 */
-	public class ReadPosts extends AsyncTask<Object, Void, Void> 
+	public class ReadPosts extends AsyncTask<Object, Void, Storage> 
 	{
+		Context cont;
 	    public ReadPosts() 
 	    {
 	    }
@@ -421,12 +422,14 @@ public class StorageAsyncTask
 		   super.onPreExecute();
 		}
 		@Override
-		protected void onPostExecute(Void result){
+		protected void onPostExecute(Storage result){
+			Trending.setHolder(result);		 
+
 		}
-	    protected Void doInBackground(Object... data) 
+	    protected Storage doInBackground(Object... data) 
 	    {
 	    	Storage holder = (Storage) data[0];
-	    	Context cont = (Context) data[1];
+	    	cont = (Context) data[1];
 	   		//Get the aggregate rankings
 	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 			String checkExists = prefs.getString("Posts", "Not Set");
@@ -438,7 +441,8 @@ public class StorageAsyncTask
 				Post newPost = new Post(split[i][0], split[i][1]);
 				holder.posts.add(newPost);
 			}
-			return null;
+			System.out.println("In read async: " + holder.posts.size());
+			return holder;
 	    }
 	  }
 

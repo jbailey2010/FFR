@@ -2,7 +2,7 @@
     <item
         android:id="@+id/filter_quantity_menu"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom|withText" 
+        android:showAsAction="ifRoom|withText"
         android:title="Quantity Shown"/>
     <item
         android:id="@+id/filter_topics_menu"

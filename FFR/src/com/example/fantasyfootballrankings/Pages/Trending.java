@@ -131,7 +131,6 @@ public class Trending extends Activity {
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	listview = (BounceListView)findViewById(R.id.listview_trending);
 		context = this;
-		initialLoad(prefs);		 
 		try {
 			handleDates(prefs);
 		} catch (IOException e) {
@@ -147,6 +146,7 @@ public class Trending extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		initialLoad(prefs);
 	}
 
 	
@@ -237,8 +237,14 @@ public class Trending extends Activity {
 	    });
 	}
 	
+	public static void setHolder(Storage result)
+	{
+		holder.posts = result.posts;
+	}
+	
 	/**
 	 * Handles the initial load of trending players on creation
+	 * @param result 
 	 * @param prefs
 	 */
 	public void initialLoad(SharedPreferences prefs)
@@ -330,6 +336,7 @@ public class Trending extends Activity {
     	}
     	else
     	{
+    		System.out.println("In fetchPostsLocal call");
     		ReadFromFile.fetchPostsLocal(holder, cont);
 
     	}
@@ -529,6 +536,7 @@ public class Trending extends Activity {
             {
             	if(holder.posts.size() > 0)
             	{
+            		lastFilter = filterSize;
 	            	day.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
 	            	week.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
 	            	month.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));

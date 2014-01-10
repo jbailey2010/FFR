@@ -508,6 +508,7 @@ public class ParsingAsyncTask
 			   boolean flag = false;
 			   if(holder.posts.size() > 1)
 			   {
+				   System.out.println("Done, going to write posts: " + holder.posts.size());
 				   WriteToFile.writePosts(holder, act);
 			   }
 			   if(holder.posts.size() == 0)

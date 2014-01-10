@@ -2,21 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
         android:id="@+id/side_navigation_menu_item1"
+        android:icon="@drawable/home"
         android:title="Home"/>
     <item
         android:id="@+id/side_navigation_menu_item2"
+        android:icon="@drawable/rankings"
         android:title="Rankings"/>
     <item
         android:id="@+id/side_navigation_menu_item3"
+        android:icon="@drawable/import_league"
         android:title="My Leagues"/>
     <item
         android:id="@+id/side_navigation_menu_item4"
+        android:icon="@drawable/trending"
         android:title="Trending Players"/>
     <item
         android:id="@+id/side_navigation_menu_item5"
+        android:icon="@drawable/news"
         android:title="NFL News"/>
     <item
         android:id="@+id/side_navigation_menu_item6"
+        android:icon="@drawable/previous"
         android:title="Previous Drafts"/>
 
 </menu>

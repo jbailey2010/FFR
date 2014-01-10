@@ -94,6 +94,11 @@ public class ImportLeague extends Activity {
         public MenuItem refresh;
         public MenuItem scoring;
         public MenuItem roster;
+        public boolean isSeenLeague;
+        public boolean isSeenLineup;
+        public boolean isSeenPlayer;
+        public boolean isSeenRoster;
+        public boolean isSeenTeam;
         public static ImportedTeam newImport;
         public TextView v;
         SideNavigationView sideNavigationView;
@@ -451,6 +456,11 @@ public class ImportLeague extends Activity {
                             new String[] {"main", "sub"}, 
                             new int[] {R.id.text1, 
                                     R.id.text2});
+                isSeenLeague = false;
+                isSeenLineup = false;
+                isSeenPlayer = false;
+                isSeenRoster = false;
+                isSeenTeam = false;
                 if(menuObj != null)
                 {
                         compare = (MenuItem)menuObj.findItem(R.id.compare_team);
@@ -541,6 +551,7 @@ public class ImportLeague extends Activity {
                 tips.setVisibility(View.GONE);
                 ll.removeAllViews();
         		LeagueList.setLeagueInfoList(res);
+        		isSeenLeague = true;
                 final Button leagueButton = (Button)res.findViewById(R.id.category_league_stats);
                 final Button teamsButton  = (Button)res.findViewById(R.id.category_team_stats);
                 final Button playersButton= (Button)res.findViewById(R.id.category_player_list);
@@ -549,7 +560,11 @@ public class ImportLeague extends Activity {
                 tipsButton.setOnClickListener(new OnClickListener(){
                         @Override
                         public void onClick(View v) {
-                        		RosterTips.init(newImport, res);
+                        		if(!isSeenRoster)
+                        		{
+                        			RosterTips.init(newImport, res);
+                        			isSeenRoster = true;
+                        		}
                                 league.setVisibility(View.GONE);
                                 teams.setVisibility(View.GONE);
                                 players.setVisibility(View.GONE);
@@ -570,7 +585,11 @@ public class ImportLeague extends Activity {
                 leagueButton.setOnClickListener(new OnClickListener(){
                         @Override
                         public void onClick(View v) {
-                        		LeagueList.setLeagueInfoList(res);
+                        		if(!isSeenLeague)
+                        		{
+                        			LeagueList.setLeagueInfoList(res);
+                        			isSeenLeague = true;
+                        		}
                                 league.setVisibility(View.VISIBLE);
                                 teams.setVisibility(View.GONE);
                                 players.setVisibility(View.GONE);
@@ -591,7 +610,11 @@ public class ImportLeague extends Activity {
                 teamsButton.setOnClickListener(new OnClickListener(){
                         @Override
                         public void onClick(View v) {
-                        		TeamList.setTeamInfoList(res, cont, newImport);
+                        		if(!isSeenTeam)
+                        		{
+                        			TeamList.setTeamInfoList(res, cont, newImport);
+                        			isSeenTeam = true;
+                        		}
                                 teams.setVisibility(View.VISIBLE);
                                 league.setVisibility(View.GONE);
                                 players.setVisibility(View.GONE);
@@ -612,7 +635,11 @@ public class ImportLeague extends Activity {
                 playersButton.setOnClickListener(new OnClickListener(){
                         @Override
                         public void onClick(View v) {
-                        		PlayerList.setPlayerInfoList(res, cont, newImport);
+                        		if(!isSeenPlayer)
+                        		{
+                        			PlayerList.setPlayerInfoList(res, cont, newImport);
+                        			isSeenPlayer = true;
+                        		}
                                 league.setVisibility(View.GONE);
                                 teams.setVisibility(View.GONE);
                                 players.setVisibility(View.VISIBLE);
@@ -634,7 +661,11 @@ public class ImportLeague extends Activity {
 
                         @Override
                         public void onClick(View arg0) {
-                        		LineupHelp.setLineupInfo(res);
+                        		if(!isSeenLineup)
+                        		{
+                        			LineupHelp.setLineupInfo(res);
+                        			isSeenLineup = !isSeenLineup;
+                        		}
                                 league.setVisibility(View.GONE);
                                 teams.setVisibility(View.GONE);
                                 players.setVisibility(View.GONE);
