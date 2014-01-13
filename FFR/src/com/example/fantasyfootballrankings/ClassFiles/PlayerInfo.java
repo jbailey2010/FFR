@@ -24,6 +24,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -384,6 +385,21 @@ public class PlayerInfo
 				
 			}
 		});
+		results.setOnItemLongClickListener(new OnItemLongClickListener(){
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				String input = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
+				String sub = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text2)).getText().toString();
+				if(sub.contains("Click and hold to clear"))
+				{
+					clearNote(searchedPlayer, holder, act, (RelativeLayout)arg1);
+				}
+				return true;
+			}
+			
+		});
 		//ManageInput.handleArray(output, results, act);
 	    results.setAdapter(adapter);
 	    ActivitySwipeDetector asd = new ActivitySwipeDetector(act, this);
@@ -458,6 +474,18 @@ public class PlayerInfo
 				}
 			}
 	    });
+	}
+	
+	/**
+	 * Clears the note of the player to some default
+	 */
+	public void clearNote(final PlayerObject searchedPlayer2, final Storage holder2, final Activity act, final RelativeLayout arg1) {
+		searchedPlayer2.note = "No note entered";
+		TextView text = (TextView)arg1.findViewById(R.id.text1);
+		text.setText(searchedPlayer2.note);
+		StorageAsyncTask obj = new StorageAsyncTask();
+	    WriteNewPAA task2 = obj.new WriteNewPAA(act, false);
+	    task2.execute(holder, act);
 	}
 	
 	/**
@@ -1040,14 +1068,14 @@ public class PlayerInfo
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", searchedPlayer.note);
-			datum.put("sub", "Click to change note for this player");
+			datum.put("sub", "Click to change note for this player\nClick and hold to clear the note");
 			data.add(datum);
 		}
 		else
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", "No note entered");
-			datum.put("sub", "Click to change note for this player");
+			datum.put("sub", "Click to change note for this player\nClick and hold to clear the note");
 			data.add(datum);
 		}
 		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
