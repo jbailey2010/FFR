@@ -62,6 +62,7 @@ public class SortHandler
 	public static int minVal = 0;
 	public static int maxVal = 100;
 	public static int minProj;
+	public static int minRanksShown = 0;
 	public static String position = "All Positions";
 	public static String subject = "ECR";
 	public static Storage holder;
@@ -76,7 +77,7 @@ public class SortHandler
 	public static int status;
 	public static ImportedTeam league;
 	
-	/**
+	/** 
 	 * Sets up the new dialog to get all the relevant info from the user
 	 * @param cont
 	 * @param hold
@@ -110,6 +111,15 @@ public class SortHandler
 	    final Spinner pos = (Spinner)dialog.findViewById(R.id.sort_pos_spinner);
 	    final EditText max = (EditText)dialog.findViewById(R.id.maxVal);
 	    final EditText min = (EditText)dialog.findViewById(R.id.minVal);
+	    if(holder.isRegularSeason)
+	    {
+	    	max.setVisibility(View.GONE);
+	    	min.setVisibility(View.GONE);
+	    	TextView hideMax = (TextView)dialog.findViewById(R.id.textView2);
+	    	TextView hideMin = (TextView)dialog.findViewById(R.id.textView3);
+	    	hideMax.setVisibility(View.GONE);
+	    	hideMin.setVisibility(View.GONE);
+	    }
 	    List<String> topics = new ArrayList<String>();
 	    List<String> positions = new ArrayList<String>();
 	    //Add the topics which it can sort by
@@ -298,6 +308,12 @@ public class SortHandler
 	    final CheckBox pass = (CheckBox)dialog.findViewById(R.id.sort_second_pass);
 	    final EditText minRanks = (EditText)dialog.findViewById(R.id.min_rankings);
 	    Button submit = (Button)dialog.findViewById(R.id.sort_second_submit);
+	    if(holder.isRegularSeason)
+	    {
+	    	minRanks.setVisibility(View.GONE);
+	    	TextView minRanksHeader = (TextView)dialog.findViewById(R.id.textView2);
+	    	minRanksHeader.setVisibility(View.GONE);
+	    }
 	    submit.setOnClickListener(new OnClickListener(){
 			@Override 
 			public void onClick(View v) {
@@ -306,11 +322,11 @@ public class SortHandler
 				String minProjection = minProject.getText().toString();
 				if(ManageInput.isInteger(min) && ManageInput.isInteger(minProjection))
 				{
-					int minimum = Integer.parseInt(min);
+					minRanksShown = Integer.parseInt(min);
 					minProj = Integer.parseInt(minProjection);
-					if(minimum < 0)
+					if(minRanksShown < 0)
 					{
-						minimum = 1;
+						minRanksShown = 1;
 					}
 					if(minProj < 0)
 					{
@@ -329,16 +345,16 @@ public class SortHandler
 							maxProj = player.values.secWorth;
 						}
 					}
-					if(minimum > max)
+					if(minRanksShown > max)
 					{
-						minimum = max;
+						minRanksShown = max;
 					}
 					if(minProj > maxProj)
 					{
 						minProj = (int) maxProj;
 					}
 					handleSecSortingOptions(age.isChecked(), wl.isChecked(), cy.isChecked(), healthy.isChecked(),
-							run.isChecked(), pass.isChecked(), minimum, cont);
+							run.isChecked(), pass.isChecked(), minRanksShown, cont);
 				}
 				else
 				{
