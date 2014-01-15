@@ -438,7 +438,7 @@ public class TwitterWork
 				replySet.append("In reply to: " + status.getUser().getName() + " (" + status.getCreatedAt() + ")\n" 
 						+ status.getText() + "\n\n");
 				counter++;
-			}
+			} 
 			if(replySet.length() < 5)
 			{
 				replySet.append(" ");
