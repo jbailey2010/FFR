@@ -127,7 +127,7 @@ public class PlayerInfo
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				String text = ((TwoLineListItem)arg1).getText1().getText().toString();
-				Rankings.textView.setText(text);
+				Rankings.textView.setText(text + ", " + ((TwoLineListItem)arg1).getText2().getText().toString());
 			}
 		});
 		searchSubmit.setOnClickListener(new OnClickListener()
@@ -136,7 +136,7 @@ public class PlayerInfo
 				/**
 				 * On item select, get the name
 				 */
-				if(holder.parsedPlayers.contains(Rankings.textView.getText().toString()))
+				if(holder.parsedPlayers.contains(Rankings.textView.getText().toString().split(", ")[0]))
 				{
 					dialog.dismiss();
 					outputResults(Rankings.textView.getText().toString(), false, (Activity) oCont, holder, false, true);
@@ -195,7 +195,7 @@ public class PlayerInfo
 					int i = -1;
 					for(String name : Rankings.watchList)
 					{ 
-						if(name.equals(namePlayer))
+						if(name.equals(namePlayer.split(", ")[0]))
 						{
 							i++;
 							break;
@@ -204,7 +204,7 @@ public class PlayerInfo
 					//if not, add him on the click of the button
 					if(i == -1)
 					{
-						Rankings.watchList.add(namePlayer);
+						Rankings.watchList.add(namePlayer.split(", ")[0]);
 						WriteToFile.writeWatchList(act, Rankings.watchList);
 						Toast.makeText(act, namePlayer + " added to watch list", Toast.LENGTH_SHORT).show();
 					}
@@ -223,7 +223,7 @@ public class PlayerInfo
 				@Override
 				public void onClick(View v) {
 					Toast.makeText(Rankings.context, namePlayer + " removed from watch list", Toast.LENGTH_SHORT).show();
-					Rankings.watchList.remove(namePlayer);
+					Rankings.watchList.remove(namePlayer.split(", ")[0]);
 					WriteToFile.writeWatchList((Context)act, Rankings.watchList);
 					dialog.dismiss();
 					HandleWatchList.handleWatchInit(holder, (Context)act, Rankings.watchList);
@@ -237,11 +237,14 @@ public class PlayerInfo
 			return;
 		}
 		//Set up the header, and make a mock object with the set name
-		name.setText(namePlayer);
+		String playerName = namePlayer.split(", ")[0];
+		String pos = namePlayer.split(", ")[1].split(" -")[0];
+		String team = namePlayer.split("- ")[1];
+		name.setText(playerName);
 		searchedPlayer = new PlayerObject("","","",0);
 		for(PlayerObject player : holder.players)
 		{
-			if(player.info.name.equals(namePlayer))
+			if(player.info.name.equals(playerName) && player.info.team.equals(team) && player.info.position.equals(pos))
 			{
 				searchedPlayer = player;
 				break;
@@ -263,7 +266,7 @@ public class PlayerInfo
 			                for(int i = 0; i < holder.players.size(); i++)
 			                {
 	
-			               	 	if(Rankings.data.get(i).get("main").contains(namePlayer))
+			               	 	if(Rankings.data.get(i).get("main").contains(namePlayer.split(", ")[0]))
 			               	 	{
 			               	 		index = i;
 			               	 		break;
@@ -362,7 +365,7 @@ public class PlayerInfo
 				//Show tweets about the player
 				if(input.contains("See tweets about"))
 				{
-					playerTweetSearchInit(namePlayer, act);
+					playerTweetSearchInit(namePlayer.split(", ")[0], act);
 				}
 				else if(sub.contains("Click to change"))
 				{
@@ -371,7 +374,7 @@ public class PlayerInfo
 				//Bring up the interweb to show highlights of the player
 				else if(input.contains("See highlights of"))
 				{
-					String[] nameArr = namePlayer.split(" ");
+					String[] nameArr = namePlayer.split(", ")[0].split(" ");
 					String url = "http://www.youtube.com/results?search_query=";
 					for(String name : nameArr)
 					{

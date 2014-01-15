@@ -1446,6 +1446,7 @@ public class Rankings extends Activity {
 					long arg3) {
 				listview.setSelection(arg2);
 				String selected = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
+				String moreInfo = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text2)).getText().toString().split(" \\(Bye")[0];
 				if(selected.contains(":  "))
 				{
 					selected = selected.split(":  ")[1];
@@ -1455,7 +1456,7 @@ public class Rankings extends Activity {
 					selected = selected.split(": ")[1];
 				}
 				PlayerInfo obj = new PlayerInfo();
-				obj.outputResults(selected, true, (Rankings)context, holder, false, true);
+				obj.outputResults(selected + ", " + moreInfo, true, (Rankings)context, holder, false, true);
 			}
     	 });
     	 listview.setOnItemLongClickListener(new OnItemLongClickListener(){

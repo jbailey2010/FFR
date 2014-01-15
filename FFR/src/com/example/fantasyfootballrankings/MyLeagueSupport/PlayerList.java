@@ -223,10 +223,11 @@ public class PlayerList {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				String name = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString().split(":  ")[1];
+				String posTeam = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text2)).getText().toString().split("\n")[1];
 				PlayerInfo obj = new PlayerInfo();
 				obj.isImport = true;
 				obj.newImport = newImport;
-				obj.outputResults(name, true, (Activity) cont, ImportLeague.holder, false, false);
+				obj.outputResults(name + ", " + posTeam, true, (Activity) cont, ImportLeague.holder, false, false);
 			}
 		});
 	}

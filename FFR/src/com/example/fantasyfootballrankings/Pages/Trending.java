@@ -716,12 +716,15 @@ public class Trending extends Activity {
 				listview.setSelection(arg2);
 				String selected = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
 				int index = -1;
+				PlayerObject match = new PlayerObject();
 				for(int i = 0; i < holder.players.size(); i++)
 				{
 					PlayerObject player = holder.players.get(i);
 					if(player.info.name.equals(selected))
 					{
+						match = player;
 						index = i;
+						break;
 					}
 				}
 				if(index == -1 && holder.players.size() > 10)
@@ -735,7 +738,7 @@ public class Trending extends Activity {
 				else
 				{
 					PlayerInfo obj = new PlayerInfo();
-					obj.outputResults(selected, true, (Trending)context, holder, false, false);
+					obj.outputResults(selected + ", " + match.info.position + " - " + match.info.team, true, (Trending)context, holder, false, false);
 				}
 			}
 	    });
