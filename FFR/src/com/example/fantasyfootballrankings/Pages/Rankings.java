@@ -1301,7 +1301,6 @@ public class Rankings extends Activity {
 		{
 			teamFilter = teamList.get(0);
 		}
-		System.out.println(teamFilter);
 		Roster r = ReadFromFile.readRoster(cont);
 		for(int i = 0; i < holder.players.size(); i++)
 		{
@@ -1431,6 +1430,7 @@ public class Rankings extends Activity {
 	        datum.put("sub", sub.toString());
 	        data.add(datum);
 	        adapter.notifyDataSetChanged();
+	        
 	    } 
 	}
     

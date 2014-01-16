@@ -1259,6 +1259,7 @@ public class SortHandler
 					datum.put("main", output + elem.values.rosRank + ": " + elem.info.name);
 					datum.put("sub", elem.values.ecr + " Weekly Positional Ranking");
 				}
+		    	datum.put("sub", elem.info.position + " - " + elem.info.team + "\n" + datum.get("sub"));
 		    	data.add(datum);
 	    	}
 		} 
@@ -1283,9 +1284,10 @@ public class SortHandler
 					long arg3) {
 				results.setSelection(arg2);
 				String tv1 = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
+				String tv2 = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text2)).getText().toString().split("\n")[0];
 				String selected = tv1.split(": ")[1];
 				PlayerInfo obj = new PlayerInfo();
-				obj.outputResults(selected, true, (Activity)context, holder, false, false);
+				obj.outputResults(selected + ", " + tv2, true, (Activity)context, holder, false, false);
 			}
     	 });
 		SwipeDismissListViewTouchListener touchListener =

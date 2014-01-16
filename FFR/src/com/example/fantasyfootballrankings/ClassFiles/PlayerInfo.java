@@ -483,9 +483,12 @@ public class PlayerInfo
 	 * Clears the note of the player to some default
 	 */
 	public void clearNote(final PlayerObject searchedPlayer2, final Storage holder2, final Activity act, final RelativeLayout arg1) {
-		searchedPlayer2.note = "No note entered";
+		if(holder.notes.containsKey(searchedPlayer2.info.name + searchedPlayer2.info.position))
+		{
+			holder.notes.remove(searchedPlayer2.info.name + searchedPlayer2.info.position);
+		}
 		TextView text = (TextView)arg1.findViewById(R.id.text1);
-		text.setText(searchedPlayer2.note);
+		text.setText("No note entered");
 		StorageAsyncTask obj = new StorageAsyncTask();
 	    WriteNewPAA task2 = obj.new WriteNewPAA(act, false);
 	    task2.execute(holder, act);
@@ -498,14 +501,7 @@ public class PlayerInfo
 	{
 		TextView text = (TextView)elem.findViewById(R.id.text1);
 		text.setText(note);
-		for(PlayerObject iter : holder.players)
-		{
-			if(iter.info.name.equals(player.info.name) && iter.info.team.equals(player.info.team))
-			{
-				iter.note = note;
-				break;
-			}
-		}
+		holder.notes.put(player.info.name + player.info.position, note);
 		StorageAsyncTask obj = new StorageAsyncTask();
 	    WriteNewPAA task2 = obj.new WriteNewPAA(act, false);
 	    task2.execute(holder, act);
@@ -1067,10 +1063,10 @@ public class PlayerInfo
 	public void contentOther()
 	{
 		data.clear();
-		if(searchedPlayer.note.length() > 1)
+		if(holder.notes.containsKey(searchedPlayer.info.name + searchedPlayer.info.position))
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", searchedPlayer.note);
+			datum.put("main", holder.notes.get(searchedPlayer.info.name + searchedPlayer.info.position));
 			datum.put("sub", "Click to change note for this player\nClick and hold to clear the note");
 			data.add(datum);
 		}

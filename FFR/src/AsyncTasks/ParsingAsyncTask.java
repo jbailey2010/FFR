@@ -131,14 +131,6 @@ public class ParsingAsyncTask
 		    	}
 		    	if(!holder.isRegularSeason || holder.players.size() < 100 || draftIter >= 8)
 		    	{
-		    		Map<String, String>noteHash = new HashMap<String, String>();
-		    		for(PlayerObject player : holder.players)
-		    		{
-		    			if(player.note.length() > 1)
-		    			{
-		    				noteHash.put(player.info.name + player.info.position + player.info.team, player.note);
-		    			}
-		    		}
 					holder.players.clear();
 			    	holder.parsedPlayers.clear();
 		    		all = System.nanoTime();
@@ -265,13 +257,6 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e1) {
 					}
-			    	for(PlayerObject player : holder.players)
-			    	{
-			    		if(noteHash.containsKey(player.info.name + player.info.position + player.info.team))
-			    		{
-			    			player.note = noteHash.get(player.info.name + player.info.position + player.info.team);
-			    		}
-			    	}
 		    	}
 	    		publishProgress("Please wait, calculating relative risk...");
 	    		try {
@@ -471,8 +456,6 @@ public class ParsingAsyncTask
 			    		players.append(player.values.paa);
 			    		players.append("&&");
 			    		players.append(player.values.rosRank);
-			    		players.append("&&");
-			    		players.append(player.note);
 			    		players.append("&&");
 			    		players.append(player.values.startDists.get("Bad") + "," + player.values.startDists.get("Good") + "," + player.values.startDists.get("Great"));
 			    		playerData.add(players.toString());

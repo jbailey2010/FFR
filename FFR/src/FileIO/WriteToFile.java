@@ -462,6 +462,15 @@ public class WriteToFile {
 				oLineRanks.append(key + "##" + fa.get(0) + "&&" + fa.get(1) + "%%%");
 			}
 		}
+		oLineRanks.append("@#@#");
+		
+		//Notes
+		Set<String> keysNote = holder.notes.keySet();
+		for(String key : keysNote)
+		{
+			String note = holder.notes.get(key);
+			oLineRanks.append(key + "##" + note + "%%%");
+		}
 		
 		editor.putString("Team By Team Data", oLineRanks.toString());
 		editor.commit();

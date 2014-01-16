@@ -19,7 +19,6 @@ public class PlayerObject
 	public Values values;
 	public String stats;
 	public String injuryStatus;
-	public String note;
 	public double risk;
 	 
 	/**
@@ -36,7 +35,6 @@ public class PlayerObject
 		//Holds count, worth, high, and low values
 		values = new Values(value);
 		stats = " ";
-		note = " "; 
 		injuryStatus = "Injury Status: Healthy";
 		risk = -1.0;
 	}

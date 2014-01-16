@@ -226,9 +226,9 @@ public class HandleWatchList
 			    	datum.put("info", iter.info.position + " - " + iter.info.team);
 		    	}
 	    	}
-			if(iter.note.length() > 1)
+			if(holder.notes.containsKey(iter.info.name + iter.info.team))
 			{
-				datum.put("info", datum.get("info") + "\n" + iter.note);
+				datum.put("info", datum.get("info") + "\n" + holder.notes.get(iter.info.name + iter.info.team));
 			}
 	    	dataSet.add(datum);
 	    }
@@ -254,9 +254,10 @@ public class HandleWatchList
 				// TODO Auto-generated method stub
 				String nameText = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
 				String selected = nameText.split(": ")[1];
+				String posTeam = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text2)).getText().toString().split("\n")[0];
 				dialog.dismiss();
 				PlayerInfo obj = new PlayerInfo();
-				obj.outputResults(selected, true,(Activity)cont, holder, true, true);
+				obj.outputResults(selected + ", " + posTeam, true,(Activity)cont, holder, true, true);
 			}
 	    });	
 	    SwipeDismissListViewTouchListener touchListener =

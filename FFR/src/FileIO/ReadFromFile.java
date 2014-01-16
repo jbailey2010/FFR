@@ -451,6 +451,12 @@ public class ReadFromFile {
 				faList.add(fa[1]);
 				holder.fa.put(team.split("##")[0], faList);
 			}
+			 perLevel = totalSet[5].split("%%%");
+			 for(String note : perLevel)
+			 {
+			 	holder.notes.put(note.split("##")[0], note.split("##")[1]);
+			 }
+			 
 		}catch(ArrayIndexOutOfBoundsException e)
 		{
 			//OLine Advanced

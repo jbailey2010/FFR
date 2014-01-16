@@ -38,6 +38,7 @@ public class Storage
 	public Map<String, Integer> sos = new HashMap<String, Integer>();
 	public Map<String, String> bye = new HashMap<String, String>();
 	public Map<String, List<String>> fa = new HashMap<String, List<String>>();
+	public Map<String, String> notes = new HashMap<String, String>();
 	/**
 	 * This sets up the priority queue and it's subsequent comparator.
 	 * No parameters are necessary, and the playerNames array doesn't need initialization.
