@@ -7,5 +7,5 @@
                 android:top="3dp"
                 android:right="2dp"
                 android:bottom="3dp" />
-   <stroke android:width="4dip" android:color="#AA0000"/>
+   <stroke android:width="3dip" android:color="#AA0000"/>
 </shape> 
