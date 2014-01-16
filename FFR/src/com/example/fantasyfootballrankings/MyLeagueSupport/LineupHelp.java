@@ -258,7 +258,7 @@ public class LineupHelp {
 		if(ManageInput.confirmInternet(ImportLeague.cont))
 		{
 			ParsingAsyncTask o = new ParsingAsyncTask();
-			ParseFP task = o.new ParseFP(ImportLeague.cont, pl1.info.name, pl2.info.name);
+			ParseFP task = o.new ParseFP(ImportLeague.cont, pl1.info.name, pl2.info.name, true);
 			task.execute(ImportLeague.cont);
 		}
 	}

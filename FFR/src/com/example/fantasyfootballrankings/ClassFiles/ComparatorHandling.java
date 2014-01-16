@@ -1,20 +1,22 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 import com.ffr.fantasyfootballrankings.R;
-
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.Pages.ImportLeague;
 
+import AsyncTasks.ParsingAsyncTask;
+import AsyncTasks.ParsingAsyncTask.ParseFP;
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
@@ -35,6 +37,9 @@ import android.widget.AdapterView.OnItemClickListener;
  */
 public class ComparatorHandling 
 {
+	static TextView result;
+	public static String name1;
+	public static String name2;
 	/**
 	 * Does the initial setting up of the dialog itself
 	 */
@@ -203,8 +208,6 @@ public class ComparatorHandling
 	{
 		StringBuilder p1 = new StringBuilder(10000);
 		StringBuilder p2 = new StringBuilder(10000);
-		double val1 = 0.0;
-		double val2 = 0.0;
 		int rank1 = posRank(player1, firstPos);
 		int rank2 = posRank(player2, secPos);
 		if(rank1 != rank2)
@@ -213,12 +216,10 @@ public class ComparatorHandling
 			{
 				if(rank2 - rank1 > 10)
 				{
-					val1 += 0.2;
 					p1.append("-Positionally much higher ranked" + "\n");
 				}
 				else
 				{
-					val1 += 0.1;
 					p1.append("-Positionally higher ranked\n");
 				}
 			}
@@ -226,12 +227,10 @@ public class ComparatorHandling
 			{
 				if(rank1 - rank2 > 10)
 				{
-					val2 += 0.2;
 					p2.append("-Positionally much higher ranked" + "\n");
 				}
 				else
 				{
-					val2 += 0.1;
 					p2.append("-Positionally higher ranked\n");
 				}		
 			}
@@ -243,12 +242,10 @@ public class ComparatorHandling
 		{
 			if(worth1 - worth2 > 10.0/aucFactor)
 			{
-				val1 += 2.0;
 				p2.append("-Costs much less\n");
 			}
 			else
 			{
-				val1 += 1;
 				p2.append("-Costs less" + "\n");
 			}
 		}
@@ -256,12 +253,10 @@ public class ComparatorHandling
 		{
 			if(worth2 - worth1 > 10.0/aucFactor)
 			{
-				val2 += 2.0;
 				p1.append("-Costs much less\n");
 			}
 			else
 			{
-				val2 += 1;
 				p1.append("-Costs less" + "\n");
 			}
 		}
@@ -273,12 +268,10 @@ public class ComparatorHandling
 			{
 				if(paa1 - paa2 > 15.0)
 				{
-					val1 += 9.0;
 					p1.append("-Much higher PAA\n");
 				}
 				else
 				{
-					val1 += 4.0;
 					p1.append("-Higher PAA\n");
 				}
 			}
@@ -286,12 +279,10 @@ public class ComparatorHandling
 			{
 				if(paa2 - paa1 > 15.0)
 				{
-					val2 += 9.0;
 					p2.append("-Much higher PAA\n");
 				}
 				else
 				{
-					val2 += 4.0;
 					p2.append("-Higher PAA\n");
 				}
 			}
@@ -348,12 +339,10 @@ public class ComparatorHandling
 		{
 			if(cast1 - cast2 > 20.0)
 			{
-				val1 += 0.2;
 				p1.append("-Much better supporting cast\n");
 			}
 			else
 			{
-				val1 += 0.1;
 				p1.append("-Better supporting cast\n");
 			}
 		}
@@ -361,12 +350,10 @@ public class ComparatorHandling
 		{
 			if(cast2 - cast1 > 20.0)
 			{
-				val2 += 0.2;
 				p2.append("-Much better supporting cast\n");
 			}
 			else
 			{
-				val2 += 0.1;
 				p2.append("-Better supporting cast\n");
 			}
 		}
@@ -374,12 +361,10 @@ public class ComparatorHandling
 		String cy2 = player2.info.contractStatus;
 		if(!cy1.contains("Under"))
 		{
-			val1 += 1;
 			p1.append("-In a contract year\n");
 		}
 		if(!cy2.contains("Under"))
 		{
-			val2 += 1;
 			p2.append("-In a contract year\n");
 		}
 		double risk1 = player1.risk;
@@ -390,12 +375,10 @@ public class ComparatorHandling
 			{
 				if(risk1 - risk2 > 3.0)
 				{
-					val2 += 0.5;
 					p2.append("-Much lower risk\n");
 				}
 				else
 				{
-					val2 += 0.1;
 					p2.append("-Lower risk\n");
 				}
 			}
@@ -403,12 +386,10 @@ public class ComparatorHandling
 			{
 				if(risk2 - risk1 > 3.0)
 				{
-					val1 += 0.5;
 					p1.append("-Much lower risk\n");
 				}
 				else
 				{
-					val1 += 0.1;
 					p1.append("-Lower risk\n");
 				}
 			}
@@ -419,12 +400,10 @@ public class ComparatorHandling
 		{
 			if(quantity1 - quantity2 > 3)
 			{
-				val1 += 0.2;
 				p1.append("-Shows up in a lot more rankings\n");
 			}
 			else
 			{
-				val1 += 0.1;
 				p1.append("-Shows up in more rankings\n");
 			}
 		}
@@ -432,12 +411,10 @@ public class ComparatorHandling
 		{
 			if(quantity2 - quantity1 > 3)
 			{
-				val2 += 0.2;
 				p2.append("-Shows up in a lot more rankings\n");
 			}
 			else
 			{
-				val2 += 0.1;
 				p2.append("-Shows up in more rankings\n");
 			}	
 		}
@@ -447,12 +424,10 @@ public class ComparatorHandling
 		{
 			if(draft2 - draft1 > 5)
 			{
-				val1 += 0.2;
 				p1.append("-Much better graded draft\n");
 			}
 			else
 			{
-				val1 += 0.1;
 				p1.append("-Better graded draft\n");
 			}
 		}
@@ -460,12 +435,10 @@ public class ComparatorHandling
 		{
 			if(draft1 - draft2 > 5)
 			{
-				val2 += 0.2;
 				p2.append("-Much better graded draft\n");
 			}
 			else
 			{
-				val2 += 0.1;
 				p2.append("-Better graded draft\n");
 			}	
 		}
@@ -477,12 +450,10 @@ public class ComparatorHandling
 			{
 				if(adp2 - adp1 > 15.0)
 				{
-					val1 += 8;
 					p1.append("-Much higher ADP\n"); 
 				}
 				else
 				{ 
-					val1 += 4;
 					p1.append("-Higher ADP\n");
 				}
 			}
@@ -490,12 +461,10 @@ public class ComparatorHandling
 			{
 				if(adp1 - adp2 > 15.0)
 				{
-					val2 += 8;
 					p2.append("-Much higher ADP\n");
 				}
 				else
 				{
-					val2 += 4;
 					p2.append("-Higher ADP\n");
 				}		
 			}
@@ -506,12 +475,10 @@ public class ComparatorHandling
 		{
 			if(ecr2 - ecr1 > 10)
 			{
-				val1 += 10.0;
 				p1.append("-Much higher ECR\n");
 			}
 			else
 			{
-				val1 += 5;
 				p1.append("-Higher ECR\n");
 			}
 		}
@@ -519,53 +486,50 @@ public class ComparatorHandling
 		{
 			if(ecr1 - ecr2 > 10)
 			{
-				val2 += 10.0;
 				p2.append("-Much higher ECR\n");
 			}
 			else
 			{
-				val2 += 5;
 				p2.append("-Higher ECR\n");
 			}
 		}
 		int sos1 = 0;
 		int sos2 = 0;
-		if(!holder.isRegularSeason)
-		{
-			sos1 = holder.sos.get(player1.info.team + "," + player1.info.position);//player1.info.sos;
-			sos2 = holder.sos.get(player2.info.team + "," + player2.info.position);//player2.info.sos;
-		}
-		else
-		{
-			sos1 = holder.sos.get(player1.info.adp + "," + player1.info.position);//player1.info.sos;
-			sos2 = holder.sos.get(player2.info.adp + "," + player2.info.position);//player2.info.sos;
-		}
-		if(sos1 > sos2)
-		{
-			if(sos1 - sos2 < 5)
+		try{
+			if(!holder.isRegularSeason)
 			{
-				val2 += 0.2;
-				p2.append("-Easier positional SOS\n");
+				sos1 = holder.sos.get(player1.info.team + "," + player1.info.position);//player1.info.sos;
+				sos2 = holder.sos.get(player2.info.team + "," + player2.info.position);//player2.info.sos;
 			}
 			else
 			{
-				val2 += 0.4;
-				p2.append("-Much easier positional SOS\n");
+				sos1 = holder.sos.get(player1.info.adp + "," + player1.info.position);//player1.info.sos;
+				sos2 = holder.sos.get(player2.info.adp + "," + player2.info.position);//player2.info.sos;
 			}
-		}
-		else if(sos2 > sos1)
-		{
-			if(sos2 - sos1 < 5)
+			if(sos1 > sos2)
 			{
-				val1 += 0.2;
-				p1.append("-Easier positional SOS\n");
+				if(sos1 - sos2 < 5)
+				{
+					p2.append("-Easier positional SOS\n");
+				}        
+				else
+				{
+					p2.append("-Much easier positional SOS\n");
+				}
 			}
-			else
+			else if(sos2 > sos1)
 			{
-				val1 += 0.4;
-				p1.append("-Much easier positional SOS\n");
+				if(sos2 - sos1 < 5)
+				{
+					p1.append("-Easier positional SOS\n");
+				}
+				else
+				{
+					p1.append("-Much easier positional SOS\n");
+				}
 			}
-		}
+		} catch(NullPointerException e)
+		{}
 		boolean inj1 = injury(player1);
 		boolean inj2 = injury(player2);
 		if(inj1)
@@ -625,7 +589,7 @@ public class ComparatorHandling
 		}
 		p1.append("\n");
 		p2.append("\n");
-		fixOutput(new Dialog(cont, R.style.RoundCornersFull), cont, holder, player1, player2, p1, p2, val1, val2);
+		fixOutput(new Dialog(cont, R.style.RoundCornersFull), cont, holder, player1, player2, p1, p2);
 	}
 	
 	/**
@@ -633,7 +597,7 @@ public class ComparatorHandling
 	 */
 	public static void fixOutput(final Dialog dialog, final Context cont, final Storage holder,
 			final PlayerObject player1, final PlayerObject player2, StringBuilder p1,
-			StringBuilder p2, double val1, double val2) 
+			StringBuilder p2) 
 	{
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); 
 		dialog.setContentView(R.layout.comparator_output);
@@ -646,29 +610,8 @@ public class ComparatorHandling
 		header1.setText(player1.info.name);
 		TextView header2 = (TextView)dialog.findViewById(R.id.compare_header_2);
 		header2.setText(player2.info.name);
-		TextView result = (TextView)dialog.findViewById(R.id.comparator_result);
-		if(val1 > val2)
-		{
-			if(val1 - val2 < 4.0)
-			{
-				result.setText(player1.info.name + " looks a bit better");
-			}
-			else
-			{
-				result.setText(player1.info.name + " looks better");
-			}
-		}
-		if(val2 > val1)
-		{
-			if(val2 - val1 < 4.0)
-			{
-				result.setText(player2.info.name + " looks a bit better");
-			}
-			else
-			{
-				result.setText(player2.info.name + " looks better");
-			}
-		}
+		result = (TextView)dialog.findViewById(R.id.comparator_result);
+		result.setVisibility(View.INVISIBLE);
 		Button back = (Button)dialog.findViewById(R.id.compare_back);
 		back.setOnClickListener(new OnClickListener() 
 		{
@@ -748,8 +691,28 @@ public class ComparatorHandling
 	    	}	
 		});
 		dialog.show();
-		
-		
+		name1 = player1.info.name;
+		name2 = player2.info.name;
+		ParsingAsyncTask o = new ParsingAsyncTask();
+		ParseFP task = o.new ParseFP(cont, player1.info.name, player2.info.name, false);
+		task.execute(cont);
+	}
+	
+	/**
+	 * Sets the suggested draft pick header
+	 * @param results
+	 */
+	public void setResult(List<String> results)
+	{
+		result.setVisibility(View.VISIBLE);
+		if(Integer.parseInt(results.get(0).substring(0, results.get(0).length() - 1)) > Integer.parseInt(results.get(1).substring(0, results.get(1).length() - 1)))
+		{
+			result.setText(results.get(0) + " of experts prefer " + name1);
+		}
+		else
+		{
+			result.setText(results.get(0) + " of experts prefer " + name2);
+		}
 	}
 	
 	/**

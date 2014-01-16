@@ -10,6 +10,7 @@ import java.io.IOException;
 
 
 
+
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,7 @@ import org.jsoup.select.Elements;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
+import com.example.fantasyfootballrankings.ClassFiles.ComparatorHandling;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
@@ -921,13 +923,15 @@ public class ParsingAsyncTask
 			Activity act;
 			String player1;
 			String player2;
-		    public ParseFP(Context cont, String p1, String p2) 
+			boolean isStart;
+		    public ParseFP(Context cont, String p1, String p2, boolean flag) 
 		    {
 		        pdia = new ProgressDialog(cont);
 		        pdia.setCancelable(false);
 		        act = (Activity)cont;
 		        player1 = p1;
 		        player2 = p2;
+		        isStart = flag;
 		    }
 
 			@Override 
@@ -941,9 +945,14 @@ public class ParsingAsyncTask
 			protected void onPostExecute(List<String> result){
 				super.onPostExecute(result);
 				pdia.dismiss();
-				if(result != null)
+				if(result != null && isStart)
 				{
 					LineupHelp.setECR(result);
+				}
+				else if(result != null)
+				{
+					ComparatorHandling obj = new ComparatorHandling();
+					obj.setResult(result);
 				}
 			}
 
@@ -953,7 +962,15 @@ public class ParsingAsyncTask
 		    	Context cont = (Context) data[0];
 		    	Scoring s = ReadFromFile.readScoring(cont);
 		    	List<String> ecrList = new ArrayList<String>();
-		    	String baseURL = "http://www.fantasypros.com/nfl/start/";
+		    	String baseURL = "";
+		    	if(isStart)
+		    	{
+		    		baseURL = "http://www.fantasypros.com/nfl/start/";
+		    	}
+		    	else
+		    	{
+		    		baseURL = "http://www.fantasypros.com/nfl/draft/";
+		    	}
 		    	String firstName = player1;
 		    	String[] p1Set = player1.toLowerCase().split(" ");
 		    	String[] p2Set = player2.toLowerCase().split(" ");
