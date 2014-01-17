@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.view.View;
@@ -49,12 +50,13 @@ import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissLi
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.socialize.ActionBarUtils;
 import com.socialize.entity.Entity;
+import com.socialize.ui.actionbar.ActionBarOptions;
 
 /**
  * Handles the player info function
  * @author Jeff
  *
- */
+ */ 
 public class PlayerInfo 
 {
 	Rankings obj = new Rankings();
@@ -70,7 +72,7 @@ public class PlayerInfo
 	public static Button other;
 	public boolean isImport = false;
 	public Context cont;
-	public ImportedTeam newImport;
+	public ImportedTeam newImport; 
 	/**
 	 * Abstracted out of the menu handler as this could get ugly
 	 * once the stuff is added to the dropdown
@@ -166,14 +168,19 @@ public class PlayerInfo
 		{
 			// Your entity key. May be passed as a Bundle parameter to your activity
 			String entityKey = "http://www.fantasyfootballdraftmanager.com/" + namePlayer + "/player_info";
-
-							// Create an entity object including a name
-							// The Entity object is Serializable, so you could also store the whole object in the Intent
+			
 			Entity entity = Entity.newInstance(entityKey, namePlayer);
+			
+			// Create an options instance to disable comments
+			ActionBarOptions options = new ActionBarOptions();
 
-							// Wrap your existing view with the action bar.
-							// your_layout refers to the resource ID of your current layout.
-			View actionBarWrapped = ActionBarUtils.showActionBar(act, R.layout.search_output, entity);
+			// Hide sharing
+			options.setHideShare(true);
+			options.setFillColor(Color.parseColor("#272727"));
+			options.setBackgroundColor(Color.parseColor("#191919"));
+			options.setAccentColor(Color.parseColor("#ff0000"));
+			
+			View actionBarWrapped = ActionBarUtils.showActionBar(act, R.layout.search_output, entity, options);
 
 							// Now set the view for your activity to be the wrapped view.
 			dialog.setContentView(actionBarWrapped);
