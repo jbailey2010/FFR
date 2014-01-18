@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
+import android.widget.ProgressBar;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
@@ -436,7 +437,6 @@ public class StorageAsyncTask
 				Post newPost = new Post(split[i][0], split[i][1]);
 				holder.posts.add(newPost);
 			}
-			System.out.println("In read async: " + holder.posts.size());
 			return holder;
 	    }
 	  }
@@ -471,4 +471,5 @@ public class StorageAsyncTask
 			return news;
 	    }
 	  }
+
 }

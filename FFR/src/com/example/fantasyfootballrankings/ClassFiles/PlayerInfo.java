@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -29,6 +30,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -64,7 +66,7 @@ public class PlayerInfo
 	PlayerObject searchedPlayer;
 	List<Map<String, String>> data;
 	public Storage holder;
-	Dialog dialog;
+	public Dialog dialog;
 	SimpleAdapter adapter;
 	public static Button ranking;
 	public static Button info;
@@ -167,7 +169,7 @@ public class PlayerInfo
 		if(ManageInput.confirmInternet(act))
 		{
 			// Your entity key. May be passed as a Bundle parameter to your activity
-			String entityKey = "http://www.fantasyfootballdraftmanager.com/" + namePlayer + "/player_info";
+			String entityKey = "http://www.fantasyfootballdraftmanager.com/" + namePlayer.split(" - ")[0] + "/player_info";
 			
 			Entity entity = Entity.newInstance(entityKey, namePlayer);
 			

@@ -24,7 +24,11 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObjec
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
+import com.socialize.EntityUtils;
 import com.socialize.Socialize;
+import com.socialize.entity.EntityStats;
+import com.socialize.error.SocializeException;
+import com.socialize.listener.entity.EntityGetListener;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
@@ -33,6 +37,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Entity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -271,16 +276,60 @@ public class Trending extends Activity {
 			else
 			{
 				String[] posts = ManageInput.tokenize(storedPosts, '#', 2);
+				mAdapter = new SimpleAdapter(cont, data, 
+			    		R.layout.bold_header_elem, 
+			    		new String[] {"name", "count", "freq"}, 
+			    		new int[] {R.id.text1, 
+			    			R.id.text2, R.id.text3});
 				for(String post : posts)
 				{
 					try{
 						String[] nameSet = post.split(": mentioned ");
 						Map<String, String> datum = new HashMap<String, String>(2);
-						String name = nameSet[0];
-						String sec = nameSet[1].split("//")[1];
+						final String name = nameSet[0];
+						final StringBuilder sec = new StringBuilder();
+						sec.append(nameSet[1].split("//")[1]);
 						datum.put("name", name + "");
 						datum.put("count", post.split(": mentioned ")[1].split("//")[0]);
-						datum.put("freq", sec); 
+						PlayerObject match = new PlayerObject();
+						for(PlayerObject player : holder.players)
+						{
+							if(player.info.name.equals(name))
+							{
+								match = player;
+								break;
+							}
+						}
+						if(match.info != null && match.info.name != null)
+						{
+							EntityUtils.getEntity(this, "http://www.fantasyfootballdraftmanager.com/" + match.info.name + ", " + match.info.position + "/player_info", new EntityGetListener() {
+					    		@Override
+					    		public void onError(SocializeException error) {
+					    			if(isNotFoundError(error)) {
+					    				// No entity found
+					    			}
+					    			else {
+					    				// lol at handle error
+					    			}
+					    		}
+	
+								@Override
+								public void onGet(com.socialize.entity.Entity result) {
+									EntityStats es = result.getEntityStats();
+									int views = es.getViews();
+									for(Map<String, String> elem : data)
+									{
+										if(elem.get("name").equals(name))
+										{
+											elem.put("freq", elem.get("freq") + "\n" + views + " total player views");
+											mAdapter.notifyDataSetChanged();
+											break;
+										}
+									}
+								}
+					    	});
+						}
+						datum.put("freq", sec.toString()); 
 						data.add(datum);
 						postsList.add(post);
 					} catch(ArrayIndexOutOfBoundsException e)
@@ -289,11 +338,6 @@ public class Trending extends Activity {
 					}
 				}
 			}
-			mAdapter = new SimpleAdapter(cont, data, 
-		    		R.layout.bold_header_elem, 
-		    		new String[] {"name", "count", "freq"}, 
-		    		new int[] {R.id.text1, 
-		    			R.id.text2, R.id.text3});
    		    listview.setAdapter(mAdapter); 
     		SwipeDismissListViewTouchListener touchListener =
     				new SwipeDismissListViewTouchListener(
@@ -336,7 +380,6 @@ public class Trending extends Activity {
     	}
     	else
     	{
-    		System.out.println("In fetchPostsLocal call");
     		ReadFromFile.fetchPostsLocal(holder, cont);
 
     	}
@@ -634,13 +677,13 @@ public class Trending extends Activity {
 	    List<String> trendingPlayers = new ArrayList<String>(350);
 	    while(!playersTrending.isEmpty())
 	    {
-	    	PostedPlayer elem = playersTrending.poll();
+	    	final PostedPlayer elem = playersTrending.poll();
 	    	Map<String, String> datum = new HashMap<String, String>(2);
 	    	datum.put("name", elem.name + "");
 	    	StringBuilder count = new StringBuilder(1000);
 	    	count.append(elem.count + " times");
 	    	datum.put("count", count.toString());
-	    	StringBuilder sub = new StringBuilder(1000);
+	    	final StringBuilder sub = new StringBuilder(1000);
 	    	sub.append(" ");
 	    	if(lastFilter >= 7 && elem.lastTime(1) > 0)
 	    	{
@@ -657,6 +700,44 @@ public class Trending extends Activity {
 	    		int lastMonth = elem.lastTime(32);
 	    		sub.append("\n" + lastMonth + "% in the last month");
 	    	}
+	    	PlayerObject match = new PlayerObject();
+	    	for(PlayerObject player : holder.players)
+	    	{
+	    		if(player.info.name.equals(elem.name))
+	    		{
+	    			match = player;
+	    			break;
+	    		}
+	    	}
+	    	if(match.info != null && match.info.name != null)
+			{
+				EntityUtils.getEntity(this, "http://www.fantasyfootballdraftmanager.com/" + match.info.name + ", " + match.info.position + "/player_info", new EntityGetListener() {
+		    		@Override
+		    		public void onError(SocializeException error) {
+		    			if(isNotFoundError(error)) {
+		    				// No entity found
+		    			}
+		    			else {
+		    				// lol at handle error
+		    			}
+		    		}
+
+					@Override
+					public void onGet(com.socialize.entity.Entity result) {
+						EntityStats es = result.getEntityStats();
+						int views = es.getViews();
+						for(Map<String, String> iter : data)
+						{
+							if(iter.get("name").equals(elem.name))
+							{
+								iter.put("freq", iter.get("freq") + "\n" + views + " total player views");
+								mAdapter.notifyDataSetChanged();
+								break;
+							}
+						}
+					}
+		    	});
+			}
 	    	datum.put("freq", sub.toString());
 	    	data.add(datum);
 	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times//" + sub.toString());

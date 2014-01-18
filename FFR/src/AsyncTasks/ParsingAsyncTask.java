@@ -508,7 +508,6 @@ public class ParsingAsyncTask
 			   boolean flag = false;
 			   if(holder.posts.size() > 1)
 			   {
-				   System.out.println("Done, going to write posts: " + holder.posts.size());
 				   WriteToFile.writePosts(holder, act);
 			   }
 			   if(holder.posts.size() == 0)
@@ -989,7 +988,6 @@ public class ParsingAsyncTask
 		    	}
 		    	try {
 					Document doc = Jsoup.connect(baseURL).get();
-					System.out.println(baseURL);
 					String[] percentages = HandleBasicQueries.handleListsMulti(doc, baseURL, "div div.mpb-col span").split("\n");
 					for(String percent : percentages)
 					{
