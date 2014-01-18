@@ -226,9 +226,9 @@ public class HandleWatchList
 			    	datum.put("info", iter.info.position + " - " + iter.info.team);
 		    	}
 	    	}
-			if(holder.notes.containsKey(iter.info.name + iter.info.team))
+			if(holder.notes.containsKey(iter.info.name + iter.info.position))
 			{
-				datum.put("info", datum.get("info") + "\n" + holder.notes.get(iter.info.name + iter.info.team));
+				datum.put("info", datum.get("info") + "\n" + holder.notes.get(iter.info.name + iter.info.position));
 			}
 	    	dataSet.add(datum);
 	    }
