@@ -9,9 +9,11 @@ import com.ffr.fantasyfootballrankings.R;
 import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
+import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 
@@ -31,11 +33,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -467,6 +472,51 @@ public class News extends Activity {
                         
         listview.setOnTouchListener(touchListener);
         listview.setOnScrollListener(touchListener.makeScrollListener());
+        listview.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				String[] headline = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString().split(" ");
+				boolean isName = false;
+				PlayerObject match = new PlayerObject();
+				for(int i = 0; i < headline.length - 2; i++)
+				{
+					String twoLong = headline[i] + " " + headline[i+1];
+					String threeLong = twoLong + " " + headline[i+2];
+					if(Home.holder.parsedPlayers.contains(twoLong))
+					{
+						isName = true;
+						for(PlayerObject player : Home.holder.players)
+						{
+							if(player.info.name.equals(twoLong))
+							{
+								match = player;
+								break;
+							}
+						}
+					}
+					else if(Home.holder.parsedPlayers.contains(threeLong))
+					{
+						isName = true;
+						for(PlayerObject player : Home.holder.players)
+						{
+							if(player.info.name.equals(threeLong))
+							{
+								match = player;
+								break;
+							}
+						}
+					}
+				}
+				if(isName)
+				{
+					PlayerInfo obj = new PlayerInfo();
+					obj.outputResults(match.info.name + ", " + match.info.position + " - " + match.info.team, true, (News)cont, Home.holder, false, false);
+				}
+			}
+        	
+        });
 	}
 
 }

@@ -856,7 +856,7 @@ public class PlayerInfo
 			datum.put("sub",  "");
 			data.add(datum);
 		}
-		if(holder.isRegularSeason)
+		if(holder.isRegularSeason && !searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", searchedPlayer.pointsSoFar(s) + " Points Scored So Far");
