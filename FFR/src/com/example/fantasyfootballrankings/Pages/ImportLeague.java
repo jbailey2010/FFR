@@ -14,6 +14,7 @@ import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
+import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.SortHandler;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
@@ -138,6 +139,9 @@ public class ImportLeague extends Activity {
         	            	Intent intent6 = new Intent(cont, DraftHistory.class);
         	    	        cont.startActivity(intent6);
         	                break;
+        	            case R.id.side_navigation_menu_item7:
+        	            	PlayerInfoActivity.displayStats(cont);
+        	            	break;
         	            default:
         	                return;
         		    	}

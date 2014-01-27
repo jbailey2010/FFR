@@ -10,6 +10,7 @@ import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.HandleExport;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
+import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
@@ -100,6 +101,9 @@ public class Home extends Activity{
 	            	Intent intent6 = new Intent(cont, DraftHistory.class);
 	    	        cont.startActivity(intent6);
 	                break;
+	            case R.id.side_navigation_menu_item7:
+	            	PlayerInfoActivity.displayStats(cont);
+	            	break;
 	            default:
 	                return;
 		    	}

@@ -29,5 +29,9 @@
         android:id="@+id/side_navigation_menu_item6"
         android:icon="@drawable/previous"
         android:title="Previous Drafts"/>
+    <item
+        android:id="@+id/side_navigation_menu_item7"
+        android:icon="@drawable/heart"
+        android:title="Most Viewed Players"/>
 
 </menu>

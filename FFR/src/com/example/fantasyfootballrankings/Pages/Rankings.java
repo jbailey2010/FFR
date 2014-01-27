@@ -26,6 +26,7 @@ import com.example.fantasyfootballrankings.ClassFiles.HandleWatchList;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
+import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.SortHandler;
 import com.example.fantasyfootballrankings.ClassFiles.WidgetLibrary;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
@@ -144,6 +145,9 @@ public class Rankings extends Activity {
 	            	Intent intent6 = new Intent(cont, DraftHistory.class);
 	    	        cont.startActivity(intent6);
 	                break;
+	            case R.id.side_navigation_menu_item7:
+	            	PlayerInfoActivity.displayStats(cont);
+	            	break;
 	            default:
 	                return;
 		    	}

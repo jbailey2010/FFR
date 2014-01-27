@@ -169,7 +169,7 @@ public class PlayerInfo
 		if(ManageInput.confirmInternet(act))
 		{
 			// Your entity key. May be passed as a Bundle parameter to your activity
-			String entityKey = "http://www.fantasyfootballdraftmanager.com/" + namePlayer.split(" - ")[0] + "/player_info";
+			String entityKey = "http://www.ffr.com/" + namePlayer.split(" - ")[0] + "/player_info";
 			
 			Entity entity = Entity.newInstance(entityKey, namePlayer);
 			
@@ -181,7 +181,7 @@ public class PlayerInfo
 			options.setFillColor(Color.parseColor("#272727"));
 			options.setBackgroundColor(Color.parseColor("#191919"));
 			options.setAccentColor(Color.parseColor("#ff0000"));
-			
+			 
 			View actionBarWrapped = ActionBarUtils.showActionBar(act, R.layout.search_output, entity, options);
 
 							// Now set the view for your activity to be the wrapped view.

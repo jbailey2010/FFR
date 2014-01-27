@@ -10,6 +10,7 @@ import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
+import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
@@ -97,6 +98,9 @@ public class News extends Activity {
 	            	Intent intent6 = new Intent(cont, DraftHistory.class);
 	    	        cont.startActivity(intent6);
 	                break;
+	            case R.id.side_navigation_menu_item7:
+	            	PlayerInfoActivity.displayStats(cont);
+	            	break;
 	            default:
 	                return;
 		    	}
@@ -477,13 +481,12 @@ public class News extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				String[] headline = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString().split(" ");
+				String[] headline = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString().replaceAll("\\(", "").replaceAll("\\)", "").replace("'s ", " ").split(" ");
 				boolean isName = false;
 				PlayerObject match = new PlayerObject();
-				for(int i = 0; i < headline.length - 2; i++)
+				for(int i = 0; i < headline.length - 1; i++)
 				{
 					String twoLong = headline[i] + " " + headline[i+1];
-					String threeLong = twoLong + " " + headline[i+2];
 					if(Home.holder.parsedPlayers.contains(twoLong))
 					{
 						isName = true;
@@ -496,15 +499,19 @@ public class News extends Activity {
 							}
 						}
 					}
-					else if(Home.holder.parsedPlayers.contains(threeLong))
+					if(i + 2 < headline.length)
 					{
-						isName = true;
-						for(PlayerObject player : Home.holder.players)
+						String threeLong = twoLong + " " + headline[i+2];
+						if(Home.holder.parsedPlayers.contains(threeLong))
 						{
-							if(player.info.name.equals(threeLong))
+							isName = true;
+							for(PlayerObject player : Home.holder.players)
 							{
-								match = player;
-								break;
+								if(player.info.name.equals(threeLong))
+								{
+									match = player;
+									break;
+								}
 							}
 						}
 					}

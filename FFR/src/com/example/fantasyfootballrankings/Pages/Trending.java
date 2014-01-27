@@ -18,6 +18,7 @@ import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
+import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
@@ -120,6 +121,9 @@ public class Trending extends Activity {
 	            	Intent intent6 = new Intent(cont, DraftHistory.class);
 	    	        cont.startActivity(intent6);
 	                break;
+	            case R.id.side_navigation_menu_item7:
+	            	PlayerInfoActivity.displayStats(cont);
+	            	break;
 	            default:
 	                return;
 		    	}
@@ -302,7 +306,7 @@ public class Trending extends Activity {
 						}
 						if(match.info != null && match.info.name != null)
 						{
-							EntityUtils.getEntity(this, "http://www.fantasyfootballdraftmanager.com/" + match.info.name + ", " + match.info.position + "/player_info", new EntityGetListener() {
+							EntityUtils.getEntity(this, "http://www.ffr.com/" + match.info.name + ", " + match.info.position + "/player_info", new EntityGetListener() {
 					    		@Override
 					    		public void onError(SocializeException error) {
 					    			if(isNotFoundError(error)) {
@@ -711,7 +715,7 @@ public class Trending extends Activity {
 	    	}
 	    	if(match.info != null && match.info.name != null)
 			{
-				EntityUtils.getEntity(this, "http://www.fantasyfootballdraftmanager.com/" + match.info.name + ", " + match.info.position + "/player_info", new EntityGetListener() {
+				EntityUtils.getEntity(this, "http://www.ffr.com/" + match.info.name + ", " + match.info.position + "/player_info", new EntityGetListener() {
 		    		@Override
 		    		public void onError(SocializeException error) {
 		    			if(isNotFoundError(error)) {
