@@ -35,7 +35,11 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.*;
+import com.socialize.EntityUtils;
 import com.socialize.Socialize;
+import com.socialize.entity.Entity;
+import com.socialize.error.SocializeException;
+import com.socialize.listener.entity.EntityAddListener;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
@@ -1587,6 +1591,14 @@ public class Rankings extends Activity {
     	someone.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
+				for(PlayerObject player : holder.players)
+				{
+					if(player.info.name.equals(d))
+					{
+						bumpEntityValue(player, cont);
+						break;
+					}
+				}
 		    	holder.draft.ignore.add(d);
 				WriteToFile.writeDraft(holder.draft, cont);
 				popup.dismiss();
@@ -1618,6 +1630,7 @@ public class Rankings extends Activity {
 							WriteToFile.writeDraft(holder.draft, cont);
 							
 							popup.dismiss();
+							break;
 						}
 					}
 				}
@@ -1668,6 +1681,7 @@ public class Rankings extends Activity {
 						}
 						if(val <= holder.draft.remainingSalary)
 						{
+							bumpEntityValue(player, cont);
 							holder.draft.draftPlayer(player, holder.draft, val, cont);
 							Toast.makeText(cont, "Drafting " + name, Toast.LENGTH_SHORT).show();
 							holder.draft.ignore.add(name);
@@ -1681,6 +1695,36 @@ public class Rankings extends Activity {
 					}
 				}
 				popup.dismiss();
+			}
+    	});
+    }
+    
+    /**
+     * Takes the drafted count metadata and increases it by one if it exists, otherwise it's 0
+     */
+    public static void bumpEntityValue(PlayerObject player, Context cont)
+    {
+    	String key = "http://www.ffr.com/" + player.info.name + ", " + player.info.position + "/pi" + Home.yearKey;
+    	String name = player.info.name + ", " + player.info.position + " - " + player.info.team;
+    	Entity entity = Entity.newInstance(key, name);
+    	int newVal = 1;
+    	if(entity.getMetaData() != null && entity.getMetaData().length() == 0 && !ManageInput.isInteger(entity.getMetaData()))
+    	{
+    		newVal = Integer.parseInt(entity.getMetaData()) + 1;
+    	}
+    	entity.setMetaData(String.valueOf(newVal));
+
+    	// The "this" argument refers to the current Activity
+    	EntityUtils.saveEntity((Activity)cont , entity, new EntityAddListener() {
+    		
+    		@Override
+    		public void onCreate(Entity result) {
+    			System.out.println("REMOVE THIS LATER Success saving player");
+    		}
+
+			@Override
+			public void onError(SocializeException error) {
+				System.out.println("Error saving metadata: " + error.getLocalizedMessage());
 			}
     	});
     }

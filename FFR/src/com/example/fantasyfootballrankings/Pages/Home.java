@@ -61,6 +61,9 @@ public class Home extends Activity{
 	long start; 
 	Menu m;
 	SideNavigationView sideNavigationView;
+	//UPDATE THIS FOR YEAR CHANGES
+	public static String yearKey = "14/15";
+	//Uniquely identifies player elems
 	  
 	/**  
 	 * Makes the buttons and sets the listeners for them

@@ -306,7 +306,7 @@ public class Trending extends Activity {
 						}
 						if(match.info != null && match.info.name != null)
 						{
-							EntityUtils.getEntity(this, "http://www.ffr.com/" + match.info.name + ", " + match.info.position + "/player_info", new EntityGetListener() {
+							EntityUtils.getEntity(this, "http://www.ffr.com/" + match.info.name + ", " + match.info.position + "/pi" + Home.yearKey, new EntityGetListener() {
 					    		@Override
 					    		public void onError(SocializeException error) {
 					    			if(isNotFoundError(error)) {
@@ -715,7 +715,7 @@ public class Trending extends Activity {
 	    	}
 	    	if(match.info != null && match.info.name != null)
 			{
-				EntityUtils.getEntity(this, "http://www.ffr.com/" + match.info.name + ", " + match.info.position + "/player_info", new EntityGetListener() {
+				EntityUtils.getEntity(this, "http://www.ffr.com/" + match.info.name + ", " + match.info.position + "/pi" + Home.yearKey, new EntityGetListener() {
 		    		@Override
 		    		public void onError(SocializeException error) {
 		    			if(isNotFoundError(error)) {

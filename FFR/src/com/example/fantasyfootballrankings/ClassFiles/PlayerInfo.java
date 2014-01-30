@@ -49,6 +49,7 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysi
 import com.example.fantasyfootballrankings.InterfaceAugmentations.ActivitySwipeDetector;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
+import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.socialize.ActionBarUtils;
 import com.socialize.entity.Entity;
@@ -169,7 +170,7 @@ public class PlayerInfo
 		if(ManageInput.confirmInternet(act))
 		{
 			// Your entity key. May be passed as a Bundle parameter to your activity
-			String entityKey = "http://www.ffr.com/" + namePlayer.split(" - ")[0] + "/player_info";
+			String entityKey = "http://www.ffr.com/" + namePlayer.split(" - ")[0] + "/pi" + Home.yearKey;
 			
 			Entity entity = Entity.newInstance(entityKey, namePlayer);
 			

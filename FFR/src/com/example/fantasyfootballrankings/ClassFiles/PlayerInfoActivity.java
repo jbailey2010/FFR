@@ -30,6 +30,7 @@ import android.widget.TextView;
 public class PlayerInfoActivity 
 {
 	public static TextView output;
+	public static StringBuilder sb = new StringBuilder(10000);
 	
 	/**
 	 * Does the real work, fetching the data asynchronously, sorting it appropriately, and 
@@ -62,12 +63,15 @@ public class PlayerInfoActivity
 				StringBuilder data = new StringBuilder(1000);
 				int i = 0;
 				PriorityQueue<Entity> sorted = sortEntitiesViews(results);
-				data.append("Views:\n");
-				while(!sorted.isEmpty() && i < 11)
+				if(sorted.size() > 0)
 				{
-					Entity elem = sorted.poll();
-					i++;
-					data.append(i + ". "+ elem.getDisplayName() + " - " + elem.getEntityStats().getViews() + " views\n");
+					data.append("Views:\n");
+					while(!sorted.isEmpty() && i < 11)
+					{
+						Entity elem = sorted.poll();
+						i++;
+						data.append(i + ". "+ elem.getDisplayName() + " - " + elem.getEntityStats().getViews() + " views\n");
+					}
 				}
 				PriorityQueue<Entity> sortedLikes = sortEntitiesLikes(results);
 				i=0;
@@ -101,13 +105,48 @@ public class PlayerInfoActivity
 					i++;
 					data.append(i + ". "+ elem.getDisplayName() + " - " + elem.getEntityStats().getComments() + " likes\n");
 				}
-				output.setText(data.toString());
+				sb.append(data.toString());
+				//output.setText(data.toString());
 			}
 
 			@Override
 			public void onError(SocializeException error) {
 				output.setText("An error occurred. Do you have an internet connection?");
 			}
+	    });
+	    EntityUtils.getEntities((Activity) cont, 0, 200, SortOrder.TOTAL_ACTIVITY, new EntityListListener() {
+
+	    	@Override
+	    	public void onList(ListResult<Entity> result) {
+	    		List<Entity> items = result.getItems();
+	    		StringBuilder data = new StringBuilder(1000);
+				int i = 0;
+				PriorityQueue<Entity> sorted = sortEntitiesDraft(items);
+				if(sorted.size() > 0)
+				{
+					data.append("\nTimes Drafted:\n");
+					while(!sorted.isEmpty() && i < 26)
+					{
+						Entity elem = sorted.poll();
+						i++;
+						data.append(i + ". "+ elem.getDisplayName() + " - " + elem.getMetaData() + " times drafted\n");
+					}
+				}
+				sb.append(data.toString());
+				if(sb.toString().length () > 4)
+				{
+					output.setText(sb.toString());
+				}
+				else
+				{
+					output.setText("There was no player data to look at.");
+				}
+	    	}
+	    	
+	    	@Override
+	    	public void onError(SocializeException error) {
+	    		output.setText("An error occurred. Do you have an internet connection?");
+	    	}
 	    });
 	}
 	
@@ -200,6 +239,39 @@ public class PlayerInfoActivity
 		for(Entity elem : input)
 		{
 			if(elem.getEntityStats().getComments() > 0)
+			{
+				sorted.add(elem);
+			}
+		}
+		return sorted;
+	}
+	
+	/**
+	 * Sorts the input based on the amount of times drafted
+	 * @param input
+	 * @return
+	 */
+	public static PriorityQueue<Entity> sortEntitiesDraft(List<Entity> input)
+	{
+		PriorityQueue<Entity> sorted = new PriorityQueue<Entity>(100, new Comparator<Entity>()
+				{
+					@Override
+					public int compare(Entity a, Entity b)
+					{
+						if(Integer.parseInt(a.getMetaData()) > Integer.parseInt(b.getMetaData()))
+						{
+							return -1;
+						}
+						if(Integer.parseInt(a.getMetaData()) < Integer.parseInt(b.getMetaData()))
+						{
+							return 1;
+						}
+						return 0;
+					}
+				});
+		for(Entity elem : input)
+		{
+			if(elem.getMetaData()!= null && elem.getMetaData().length() > 0 && ManageInput.isInteger(elem.getMetaData()) && Integer.parseInt(elem.getMetaData()) > 0)
 			{
 				sorted.add(elem);
 			}
