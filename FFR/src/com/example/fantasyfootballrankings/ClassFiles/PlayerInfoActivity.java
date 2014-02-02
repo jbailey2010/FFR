@@ -55,7 +55,7 @@ public class PlayerInfoActivity
 			}
 	    });
 	    output = (TextView)dialog.findViewById(R.id.textView1);
-	    EntityUtils.getEntities((Activity) cont, 0, 25, SortOrder.TOTAL_ACTIVITY, new EntityListListener() {
+	    EntityUtils.getEntities((Activity) cont, 0, 200, SortOrder.TOTAL_ACTIVITY, new EntityListListener() {
 
 			@Override
 			public void onList(ListResult<Entity> result) {
@@ -66,7 +66,7 @@ public class PlayerInfoActivity
 				if(sorted.size() > 0)
 				{
 					data.append("Views:\n");
-					while(!sorted.isEmpty() && i < 11)
+					while(!sorted.isEmpty() && i < 15)
 					{
 						Entity elem = sorted.poll();
 						i++;
@@ -79,7 +79,7 @@ public class PlayerInfoActivity
 				{
 					data.append("\n");
 				}
-				while(!sortedLikes.isEmpty() && i < 11)
+				while(!sortedLikes.isEmpty() && i < 15)
 				{
 					if(i == 0)
 					{
@@ -95,7 +95,7 @@ public class PlayerInfoActivity
 					data.append("\n");
 				}
 				i=0;
-				while(!sortedComments.isEmpty() && i < 11)
+				while(!sortedComments.isEmpty() && i < 15)
 				{
 					if(i == 0)
 					{
@@ -124,12 +124,12 @@ public class PlayerInfoActivity
 				PriorityQueue<Entity> sorted = sortEntitiesDraft(items);
 				if(sorted.size() > 0)
 				{
-					data.append("\nTimes Drafted:\n");
-					while(!sorted.isEmpty() && i < 26)
+					data.append("\nTimes Added to Watch List:\n");
+					while(!sorted.isEmpty() && i < 20)
 					{
 						Entity elem = sorted.poll();
 						i++;
-						data.append(i + ". "+ elem.getDisplayName() + " - " + elem.getMetaData() + " times drafted\n");
+						data.append(i + ". "+ elem.getDisplayName() + " - " + elem.getMetaData() + " times added\n");
 					}
 				}
 				sb.append(data.toString());

@@ -1488,6 +1488,14 @@ public class Rankings extends Activity {
 				}
 				if(i == -1)
 				{
+					for(PlayerObject iter : holder.players)
+					{
+						if(iter.info.name.equals(namePlayer))
+						{
+							Rankings.bumpEntityValue(iter, cont);
+							break;
+						}
+					}
 					watchList.add(namePlayer);
 					WriteToFile.writeWatchList(context, watchList);
 					Toast.makeText(context, namePlayer + " added to watch list", Toast.LENGTH_SHORT).show();
@@ -1591,14 +1599,6 @@ public class Rankings extends Activity {
     	someone.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				for(PlayerObject player : holder.players)
-				{
-					if(player.info.name.equals(d))
-					{
-						bumpEntityValue(player, cont);
-						break;
-					}
-				}
 		    	holder.draft.ignore.add(d);
 				WriteToFile.writeDraft(holder.draft, cont);
 				popup.dismiss();
@@ -1681,7 +1681,6 @@ public class Rankings extends Activity {
 						}
 						if(val <= holder.draft.remainingSalary)
 						{
-							bumpEntityValue(player, cont);
 							holder.draft.draftPlayer(player, holder.draft, val, cont);
 							Toast.makeText(cont, "Drafting " + name, Toast.LENGTH_SHORT).show();
 							holder.draft.ignore.add(name);

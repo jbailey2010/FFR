@@ -211,9 +211,18 @@ public class PlayerInfo
 							break;
 						}
 					}
+					
 					//if not, add him on the click of the button
 					if(i == -1)
 					{
+						for(PlayerObject iter : holder.players)
+						{
+							if(iter.info.name.equals(namePlayer.split(", ")[0]) && iter.info.position.equals(namePlayer.split(" - ")[1]))
+							{
+								Rankings.bumpEntityValue(iter, act);
+								break;
+							}
+						}
 						Rankings.watchList.add(namePlayer.split(", ")[0]);
 						WriteToFile.writeWatchList(act, Rankings.watchList);
 						Toast.makeText(act, namePlayer + " added to watch list", Toast.LENGTH_SHORT).show();
@@ -471,6 +480,11 @@ public class PlayerInfo
 			}
 	    });
 	    final AutoCompleteTextView input = (AutoCompleteTextView)dialog.findViewById(R.id.player_input);
+	    String old = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
+	    if(!old.equals("No note entered"))
+	    {
+	    	input.setText(old);
+	    }
 	    Button submit = (Button)dialog.findViewById(R.id.search_submit);
 	    submit.setOnClickListener(new OnClickListener(){
 			@Override
