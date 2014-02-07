@@ -56,7 +56,7 @@ public class News extends Activity {
 	public Dialog dialog;
 	public static String selection = "NFL News";
 	static TwitterWork obj = new TwitterWork();
-	SideNavigationView sideNavigationView;
+	public static SideNavigationView sideNavigationView;
 	BounceListView listview;
 	
 	@Override
@@ -458,7 +458,7 @@ public class News extends Activity {
 	    listview.setAdapter(adapter);
 	    final SwipeDismissListViewTouchListener touchListener = 
                 new SwipeDismissListViewTouchListener(
-                        listview,
+                        true, "News", listview,
                         new SwipeDismissListViewTouchListener.OnDismissCallback() {
 
 							@Override

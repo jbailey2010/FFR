@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -28,6 +29,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.NonListSwipeDetector;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
 import com.jjoe64.graphview.GraphView;
@@ -92,27 +94,7 @@ public class TeamList {
 			}
 		};
 		list.setOnItemLongClickListener(longListener);
-		list.setOnTouchListener(new ListView.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-            	int action = event.getAction();
-                switch (action) {
-                case MotionEvent.ACTION_DOWN:
-                    // Disallow ScrollView to intercept touch events.
-                    v.getParent().requestDisallowInterceptTouchEvent(true);
-                    break;
-
-                case MotionEvent.ACTION_UP:
-                    // Allow ScrollView to intercept touch events.
-                    v.getParent().requestDisallowInterceptTouchEvent(false);
-                    break;
-                }
-
-                // Handle ListView touch events.
-                v.onTouchEvent(event);
-                return true;
-            }
-        });
+		list.setOnTouchListener(new NonListSwipeDetector((Activity) ImportLeague.cont, "Import"));
 	}
 	
 	/**

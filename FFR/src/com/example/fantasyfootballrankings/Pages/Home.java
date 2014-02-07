@@ -14,6 +14,7 @@ import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.NonListSwipeDetector;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
@@ -40,6 +41,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
  
 /**
@@ -60,7 +62,7 @@ public class Home extends Activity{
 	Button importLeague;
 	long start; 
 	Menu m;
-	SideNavigationView sideNavigationView;
+	public static SideNavigationView sideNavigationView;
 	//UPDATE THIS FOR YEAR CHANGES
 	public static String yearKey = "14/15";
 	//Uniquely identifies player elems
@@ -74,7 +76,6 @@ public class Home extends Activity{
 		setContentView(R.layout.activity_home);
 		ActionBar ab = getActionBar();
 		cont = this;
-		//ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
 		ISideNavigationCallback sideNavigationCallback = new ISideNavigationCallback() {
 		    @Override
@@ -196,6 +197,8 @@ public class Home extends Activity{
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
 		}*/
+        RelativeLayout homeBase = (RelativeLayout)findViewById(R.id.home_base);
+        homeBase.setOnTouchListener(new NonListSwipeDetector(this, "Home"));
 	}  
 	
 	 

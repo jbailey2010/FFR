@@ -80,7 +80,7 @@ public class Trending extends Activity {
 	int lastFilter;
 	public static SimpleAdapter mAdapter;
 	public static List<Map<String, String>> data;
-	SideNavigationView sideNavigationView;
+	public static SideNavigationView sideNavigationView;
 	/**
 	 * Sets up the dialog to show up immediately
 	 */
@@ -345,7 +345,7 @@ public class Trending extends Activity {
    		    listview.setAdapter(mAdapter); 
     		SwipeDismissListViewTouchListener touchListener =
     				new SwipeDismissListViewTouchListener(
-    						listview,
+    						true, "Trending", listview,
 	                        new SwipeDismissListViewTouchListener.OnDismissCallback() {
     							@Override
 	                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
@@ -768,7 +768,7 @@ public class Trending extends Activity {
 	    listview.setAdapter(mAdapter);
 	    SwipeDismissListViewTouchListener touchListener =
                 new SwipeDismissListViewTouchListener(
-                        listview,
+                        true, "Trending", listview,
                         new SwipeDismissListViewTouchListener.OnDismissCallback() {
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {

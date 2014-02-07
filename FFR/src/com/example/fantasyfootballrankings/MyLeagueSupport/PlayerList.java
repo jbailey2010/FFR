@@ -35,6 +35,7 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObjec
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.NDSpinner;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.NonListSwipeDetector;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
 /**
@@ -63,27 +64,7 @@ public class PlayerList {
 		    			R.id.text2});
 		 final ListView list = (ListView)res.findViewById(R.id.imported_teams_players);
 		 list.setAdapter(adapter);
-		 list.setOnTouchListener(new ListView.OnTouchListener() {
-	            @Override
-	            public boolean onTouch(View v, MotionEvent event) {
-	            	int action = event.getAction();
-	                switch (action) {
-	                case MotionEvent.ACTION_DOWN:
-	                    // Disallow ScrollView to intercept touch events.
-	                    v.getParent().requestDisallowInterceptTouchEvent(true);
-	                    break;
-
-	                case MotionEvent.ACTION_UP:
-	                    // Allow ScrollView to intercept touch events.
-	                    v.getParent().requestDisallowInterceptTouchEvent(false);
-	                    break;
-	                }
-
-	                // Handle ListView touch events.
-	                v.onTouchEvent(event);
-	                return true;
-	            }
-	        });
+		 list.setOnTouchListener(new NonListSwipeDetector((Activity) ImportLeague.cont, "Import"));
 		 final Spinner pos = (Spinner)res.findViewById(R.id.player_pos_spinner);
 		 final Spinner status = (Spinner)res.findViewById(R.id.player_status_spinner);
 		 final NDSpinner sortSp = (NDSpinner)res.findViewById(R.id.player_sort_spinner);

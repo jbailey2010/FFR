@@ -1292,7 +1292,7 @@ public class SortHandler
     	 });
 		SwipeDismissListViewTouchListener touchListener =
                  new SwipeDismissListViewTouchListener(
-                         results,
+                         false, "Irrelevant", results,
                          new SwipeDismissListViewTouchListener.OnDismissCallback() {
                              @Override
                              public void onDismiss(ListView listView, int[] reverseSortedPositions) {

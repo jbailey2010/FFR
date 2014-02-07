@@ -13,6 +13,7 @@ import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.NonListSwipeDetector;
 import com.ffr.fantasyfootballrankings.R;
 
 import FileIO.ReadFromFile;
@@ -44,7 +45,7 @@ import android.widget.TextView;
 public class DraftHistory extends Activity {
 	public Context cont;
 	public static Storage holder = new Storage(null);
-	SideNavigationView sideNavigationView;
+	public static SideNavigationView sideNavigationView;
 	BounceListView drafts;
 	
 	@Override
@@ -100,6 +101,7 @@ public class DraftHistory extends Activity {
 		ActionBar ab = getActionBar();
 		//ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
+		
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Draft", false) || prefs.getBoolean("Rankings Update Draft", false))
 		{
@@ -182,6 +184,7 @@ public class DraftHistory extends Activity {
 	 */
 	public void setUpView(){
 		drafts = (BounceListView)findViewById(R.id.draft_history_listview);
+		drafts.setOnTouchListener(new NonListSwipeDetector(this, "History"));
 		List<String> primary = ReadFromFile.readPrimData(cont);
 		List<String> sec = ReadFromFile.readSecData(cont);
 		List<Map<String, String>>data = new ArrayList<Map<String, String>>();

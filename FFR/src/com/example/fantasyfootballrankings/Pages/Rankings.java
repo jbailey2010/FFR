@@ -110,7 +110,7 @@ public class Rankings extends Activity {
 	public boolean hideWidget = false;
 	public static boolean isAsync = false;
 	public static double aucFactor;
-	SideNavigationView sideNavigationView;
+	public static SideNavigationView sideNavigationView;
 	/**
 	 * Sets up the view
 	 */
@@ -1509,7 +1509,7 @@ public class Rankings extends Activity {
     	 });
     	 touchListener =
                  new SwipeDismissListViewTouchListener(
-                         listview,
+                         true, "Rankings", listview,
                          new SwipeDismissListViewTouchListener.OnDismissCallback() {
                              @Override
                              public void onDismiss(ListView listView, int[] reverseSortedPositions) {
@@ -1547,6 +1547,10 @@ public class Rankings extends Activity {
     	 {
 	         listview.setOnTouchListener(touchListener);
 	         listview.setOnScrollListener(touchListener.makeScrollListener());
+    	 }
+    	 else
+    	 {
+    		 listview.setOnTouchListener(new NonListSwipeDetector((Activity)cont, "Rankings"));
     	 }
     }
     

@@ -1385,7 +1385,7 @@ public class PlayerInfo
 	    tweetResults.setAdapter(adapter);
 	    SwipeDismissListViewTouchListener touchListener =
 	            new SwipeDismissListViewTouchListener(
-	                    tweetResults,
+	                    false, "Irrelevant", tweetResults,
 	                    new SwipeDismissListViewTouchListener.OnDismissCallback() {
 	                        @Override
 	                        public void onDismiss(ListView listView, int[] reverseSortedPositions) {
