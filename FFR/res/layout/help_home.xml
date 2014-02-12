@@ -65,7 +65,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
 	        android:layout_below="@+id/help_home_close"
-	        android:text="This is the home page. From here, you can get to the main aspects of the app: trending, news, rnakings, saved drafts, and your leagues. This can also be done through the menu that appears upon clicking on the icon at the top left."
+	        android:text="This is the home page. From here, you can get to the main aspects of the app: trending, news, rankings, saved drafts, and your leagues. This can also be done through the menu that appears upon clicking on the icon at the top left."
 	        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 	</RelativeLayout>

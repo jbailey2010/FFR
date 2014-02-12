@@ -124,6 +124,9 @@ public class Trending extends Activity {
 	            case R.id.side_navigation_menu_item7:
 	            	PlayerInfoActivity.displayStats(cont);
 	            	break;
+	            case R.id.help:
+	            	ManageInput.generalHelp(cont);
+	            	break;
 	            default:
 	                return;
 		    	}

@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
@@ -85,6 +86,9 @@ public class DraftHistory extends Activity {
 	                break;
 	            case R.id.side_navigation_menu_item7:
 	            	PlayerInfoActivity.displayStats(cont);
+	            	break;
+	            case R.id.help:
+	            	ManageInput.generalHelp(cont);
 	            	break;
 	            default:
 	                return;

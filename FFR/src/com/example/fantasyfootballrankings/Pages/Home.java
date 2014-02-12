@@ -3,6 +3,7 @@ package com.example.fantasyfootballrankings.Pages;
 
 
 import java.util.Random;
+
 import java.util.Set;
 
 import com.ffr.fantasyfootballrankings.R;
@@ -108,6 +109,9 @@ public class Home extends Activity{
 	            case R.id.side_navigation_menu_item7:
 	            	PlayerInfoActivity.displayStats(cont);
 	            	break;
+	            case R.id.help:
+	            	ManageInput.generalHelp(cont);
+	            	break;
 	            default:
 	                return;
 		    	}
@@ -175,6 +179,7 @@ public class Home extends Activity{
         handleInitialRefresh();
         if(ReadFromFile.readFirstOpen(cont))
         {
+        	ManageInput.generalHelp(cont);
         	helpPopUp();
         	WriteToFile.writeFirstOpen(cont);
 			if(ManageInput.confirmInternet(cont))
