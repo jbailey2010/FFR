@@ -30,7 +30,7 @@ import android.widget.TextView;
 public class PlayerInfoActivity 
 {
 	public static TextView output;
-	public static StringBuilder sb = new StringBuilder(10000);
+	public static StringBuilder sb;
 	
 	/**
 	 * Does the real work, fetching the data asynchronously, sorting it appropriately, and 
@@ -105,6 +105,7 @@ public class PlayerInfoActivity
 					i++;
 					data.append(i + ". "+ elem.getDisplayName() + " - " + elem.getEntityStats().getComments() + " likes\n");
 				}
+				sb = new StringBuilder(1000);
 				sb.append(data.toString());
 				//output.setText(data.toString());
 			}
