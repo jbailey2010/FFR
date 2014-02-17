@@ -146,7 +146,7 @@
 	        android:id="@+id/listview_rankings"
 	        android:layout_width="fill_parent"
 	        android:layout_height="match_parent"
-	        android:divider="#999999"
+	        android:divider="#AAAAAA"
 	        android:background="@drawable/content_well"
 	        android:clickable="true"> 
 	    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>

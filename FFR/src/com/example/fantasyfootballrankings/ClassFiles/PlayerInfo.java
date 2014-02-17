@@ -217,7 +217,7 @@ public class PlayerInfo
 					{
 						for(PlayerObject iter : holder.players)
 						{
-							if(iter.info.name.equals(namePlayer.split(", ")[0]) && iter.info.position.equals(namePlayer.split(" - ")[1]))
+							if(iter.info.name.equals(namePlayer.split(", ")[0]) && iter.info.team.equals(namePlayer.split(" - ")[1]))
 							{
 								Rankings.bumpEntityValue(iter, act);
 								break;

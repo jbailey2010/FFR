@@ -4,6 +4,7 @@ package com.example.fantasyfootballrankings.Pages;
 
 import java.util.Random;
 
+
 import java.util.Set;
 
 import com.ffr.fantasyfootballrankings.R;
@@ -15,7 +16,6 @@ import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
-import com.example.fantasyfootballrankings.InterfaceAugmentations.NonListSwipeDetector;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
@@ -203,7 +203,6 @@ public class Home extends Activity{
 			e.printStackTrace(); 
 		}*/
         RelativeLayout homeBase = (RelativeLayout)findViewById(R.id.home_base);
-        homeBase.setOnTouchListener(new NonListSwipeDetector(this, "Home"));
 	}  
 	
 	 

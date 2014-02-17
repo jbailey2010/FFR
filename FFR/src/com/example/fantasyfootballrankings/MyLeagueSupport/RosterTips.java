@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.MyLeagueSupport;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -26,7 +27,6 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.TeamTradeInf
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
-import com.example.fantasyfootballrankings.InterfaceAugmentations.NonListSwipeDetector;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
 
@@ -183,7 +183,6 @@ public class RosterTips
 		}
 		TextView output = (TextView)res.findViewById(R.id.fa_content);
 		ScrollView base = (ScrollView)res.findViewById(R.id.fa_scroll);
-		base.setOnTouchListener(new NonListSwipeDetector((Activity) ImportLeague.cont, "Import"));
 		base.setVisibility(View.VISIBLE);
 		output.setVisibility(View.GONE);
 		TextView tradeOutput = (TextView)res.findViewById(R.id.trade_content);
@@ -198,7 +197,6 @@ public class RosterTips
 	{
 		final TextView output = (TextView)res.findViewById(R.id.fa_content);
 		final ScrollView base = (ScrollView)res.findViewById(R.id.fa_scroll);
-		base.setOnTouchListener(new NonListSwipeDetector((Activity) ImportLeague.cont, "Import"));
 		final TextView tradeOutput = (TextView)res.findViewById(R.id.trade_content);
 		Spinner topic = (Spinner)res.findViewById(R.id.fa_topics);
 		topic.setVisibility(View.VISIBLE);

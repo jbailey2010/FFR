@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.MyLeagueSupport;
 
 import java.text.DecimalFormat;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -29,7 +30,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
-import com.example.fantasyfootballrankings.InterfaceAugmentations.NonListSwipeDetector;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
 import com.jjoe64.graphview.GraphView;
@@ -94,7 +94,6 @@ public class TeamList {
 			}
 		};
 		list.setOnItemLongClickListener(longListener);
-		list.setOnTouchListener(new NonListSwipeDetector((Activity) ImportLeague.cont, "Import"));
 	}
 	
 	/**

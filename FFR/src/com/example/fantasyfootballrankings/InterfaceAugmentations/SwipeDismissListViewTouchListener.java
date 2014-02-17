@@ -90,11 +90,6 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
     private int mDownPosition;
     private View mDownView;
     private boolean mPaused;
-    private boolean isFarLeft = false;
-    private int threshold = 140;
-    private float xCoord;
-    private boolean isSwipable;
-    private String origin;
     
     /**
      * The callback interface used by {@link SwipeDismissListViewTouchListener} to inform its client
@@ -120,8 +115,6 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
      *                 dismiss one or more list items.
      */
     public SwipeDismissListViewTouchListener(boolean isSwipe, String source, ListView listView, OnDismissCallback callback) {
-    	isSwipable = isSwipe;
-    	origin = source;
         ViewConfiguration vc = ViewConfiguration.get(listView.getContext());
         mSlop = vc.getScaledTouchSlop();
         mMinFlingVelocity = vc.getScaledMinimumFlingVelocity();
@@ -164,34 +157,6 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
         };
     }
     
-    public void handleToggle(){
-    	System.out.println("In toggle... " + origin);
-    	if(origin.equals("Home"))
-    	{
-    		Home.sideNavigationView.toggleMenu();
-    	}
-    	else if(origin.equals("History"))
-    	{
-    		DraftHistory.sideNavigationView.toggleMenu();
-    	}
-    	else if(origin.equals("Rankings"))
-    	{
-    		System.out.println("Calling toggle...");
-    		Rankings.sideNavigationView.toggleMenu();
-    	}
-    	else if(origin.equals("News"))
-    	{
-    		News.sideNavigationView.toggleMenu();
-    	}
-    	else if(origin.equals("Trending"))
-    	{
-    		Trending.sideNavigationView.toggleMenu();
-    	}
-    	else if(origin.equals("Import"))
-    	{
-    		ImportLeague.sideNavigationView.toggleMenu();
-    	}
-    }
  
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -203,14 +168,8 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                 if (mPaused) {
                     return false;
                 }
-                if(isSwipable && motionEvent.getX() < 10)
-                {
-                	isFarLeft = true;
-                	xCoord = motionEvent.getX();
-                }
                 else
                 {
-	                isFarLeft = false;
 	                Rect rect = new Rect();
 	                int childCount = mListView.getChildCount();
 	                int[] listViewCoords = new int[2];
@@ -240,10 +199,6 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
             }
  
             case MotionEvent.ACTION_UP: {
-                if(isFarLeft && Math.abs(motionEvent.getX() - xCoord) > threshold)
-                {
-                	handleToggle();
-                }
                 if (mVelocityTracker == null) {
                     break;
                 }

@@ -1476,6 +1476,7 @@ public class Rankings extends Activity {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				String namePlayer = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
+				System.out.println(namePlayer);
 				if(namePlayer.contains(":"))
 				{
 					namePlayer = namePlayer.split(":  ")[1];
@@ -1550,10 +1551,6 @@ public class Rankings extends Activity {
     	 {
 	         listview.setOnTouchListener(touchListener);
 	         listview.setOnScrollListener(touchListener.makeScrollListener());
-    	 }
-    	 else
-    	 {
-    		 listview.setOnTouchListener(new NonListSwipeDetector((Activity)cont, "Rankings"));
     	 }
     }
     

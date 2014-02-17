@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.MyLeagueSupport;
 
 import java.text.DecimalFormat;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -27,7 +28,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
-import com.example.fantasyfootballrankings.InterfaceAugmentations.NonListSwipeDetector;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
 import com.jjoe64.graphview.GraphView;
@@ -292,7 +292,6 @@ public class LeagueList {
 	    		new int[] {R.id.text1, 
 	    			R.id.text2});
 		ListView list2 = (ListView)res.findViewById(R.id.imported_league_rankings);
-		list2.setOnTouchListener(new NonListSwipeDetector((Activity) ImportLeague.cont, "Import"));
 		Map<String, String> datum = new HashMap<String, String>();
 		datum.put("main", "Total Projection");
 		datum.put("sub", paaTotal.toString());

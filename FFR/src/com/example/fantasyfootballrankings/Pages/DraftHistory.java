@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.text.DecimalFormat;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,6 @@ import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
-import com.example.fantasyfootballrankings.InterfaceAugmentations.NonListSwipeDetector;
 import com.ffr.fantasyfootballrankings.R;
 
 import FileIO.ReadFromFile;
@@ -188,7 +188,6 @@ public class DraftHistory extends Activity {
 	 */
 	public void setUpView(){
 		drafts = (BounceListView)findViewById(R.id.draft_history_listview);
-		drafts.setOnTouchListener(new NonListSwipeDetector(this, "History"));
 		List<String> primary = ReadFromFile.readPrimData(cont);
 		List<String> sec = ReadFromFile.readSecData(cont);
 		List<Map<String, String>>data = new ArrayList<Map<String, String>>();

@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -23,7 +24,6 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObjec
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.NDSpinner;
-import com.example.fantasyfootballrankings.InterfaceAugmentations.NonListSwipeDetector;
 import com.example.fantasyfootballrankings.MyLeagueSupport.CompareTeams;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LeagueList;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LineupHelp;
@@ -182,7 +182,6 @@ public class ImportLeague extends Activity {
                         }
                 } 
                 ll = (LinearLayout)findViewById(R.id.import_base);
-                ll.setOnTouchListener(new NonListSwipeDetector(this, "Import"));
                 handleLayoutInit();
         }
  
@@ -450,7 +449,6 @@ public class ImportLeague extends Activity {
         {
                 View res = ((Activity) cont).getLayoutInflater().inflate(R.layout.import_none_imported, ll, false);
                 ll.addView(res);
-                ll.setOnTouchListener(new NonListSwipeDetector(this, "Import"));
         }
         
         /** 

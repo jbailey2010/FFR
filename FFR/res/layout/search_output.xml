@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#999999"
+    android:background="#AAAAAA"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -197,7 +197,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:background="@drawable/content_well_popup"
-        android:divider="#999999"
+        android:divider="#AAAAAA"
         android:layout_width="fill_parent" >
     </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 

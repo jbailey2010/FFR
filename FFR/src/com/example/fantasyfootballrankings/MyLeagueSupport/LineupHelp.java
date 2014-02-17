@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.MyLeagueSupport;
 
 import java.text.DecimalFormat;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +28,6 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
-import com.example.fantasyfootballrankings.InterfaceAugmentations.NonListSwipeDetector;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
 
@@ -146,7 +146,6 @@ public class LineupHelp {
 			imm.hideSoftInputFromWindow(p2.getWindowToken(), 0);
 			DecimalFormat df = new DecimalFormat("#.##");
 		t = table;
-		t.setOnTouchListener(new NonListSwipeDetector((Activity) ImportLeague.cont, "Import"));
 		RelativeLayout ecr1 = (RelativeLayout)table.findViewById(R.id.player1_fp_base);
 		RelativeLayout ecr2 = (RelativeLayout)table.findViewById(R.id.player2_fp_base);
 		RelativeLayout ppw1 = (RelativeLayout)table.findViewById(R.id.player1_ppw_base);

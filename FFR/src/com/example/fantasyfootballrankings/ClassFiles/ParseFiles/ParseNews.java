@@ -120,7 +120,7 @@ public class ParseNews
 		min = Math.min(min, namesSet.length);
 		for(int i = 0; i < min; i++)
 		{
-			NewsObjects news = new NewsObjects(namesSet[i].replace(":", "-") + "\n\n" + reportSet[i], impactSet[i], dateSet[i]);
+			NewsObjects news = new NewsObjects(namesSet[i].replace(":", "-") + " - " + reportSet[i], impactSet[i], dateSet[i]);
 			newsSet.add(news);
 		}
 		return newsSet;

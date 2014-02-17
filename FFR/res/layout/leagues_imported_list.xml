@@ -33,7 +33,7 @@
         android:layout_marginLeft="6dp"
         android:layout_marginRight="6dp"
         android:background="@drawable/content_well"
-        android:divider="#999999" >
+        android:divider="#AAAAAA" >
 
     </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 

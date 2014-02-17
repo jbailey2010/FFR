@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.MyLeagueSupport;
 
 import java.io.IOException;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -35,7 +36,6 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObjec
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.NDSpinner;
-import com.example.fantasyfootballrankings.InterfaceAugmentations.NonListSwipeDetector;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
 /**
@@ -64,7 +64,6 @@ public class PlayerList {
 		    			R.id.text2});
 		 final ListView list = (ListView)res.findViewById(R.id.imported_teams_players);
 		 list.setAdapter(adapter);
-		 list.setOnTouchListener(new NonListSwipeDetector((Activity) ImportLeague.cont, "Import"));
 		 final Spinner pos = (Spinner)res.findViewById(R.id.player_pos_spinner);
 		 final Spinner status = (Spinner)res.findViewById(R.id.player_status_spinner);
 		 final NDSpinner sortSp = (NDSpinner)res.findViewById(R.id.player_sort_spinner);
