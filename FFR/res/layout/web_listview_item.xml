@@ -18,7 +18,7 @@
 	        android:paddingRight="15dp"
 	        android:layout_marginLeft="15dp"
 	        android:text="Text Main"
-	        android:textSize="24sp"
+	        android:textSize="21sp"
 	        android:textStyle="bold" />
 	
 	    <TextView
@@ -34,6 +34,18 @@
 	       	android:paddingBottom="10dp"
 	        android:textAppearance="?android:attr/textAppearanceSmall"
 	        android:textColor="#444444" />
+
+	    <TextView
+	        android:id="@+id/text3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignTop="@+id/text1"
+	        android:text=""
+	        android:layout_marginRight="10dp"
+	        android:textColor="#444444"
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 	</RelativeLayout>
 
 </RelativeLayout>

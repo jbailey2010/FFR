@@ -277,17 +277,16 @@ public class Trending extends Activity {
 				Map<String, String> datum = new HashMap<String, String>(2);
 				datum.put("name", "No posts were found with the selection you made.");
 				datum.put("count", "It's possible that thread is not yet available.");
-				datum.put("freq", ""); 
 				data.add(datum);
 			}
 			else
 			{
 				String[] posts = ManageInput.tokenize(storedPosts, '#', 2);
 				mAdapter = new SimpleAdapter(cont, data, 
-			    		R.layout.bold_header_elem, 
-			    		new String[] {"name", "count", "freq"}, 
+			    		R.layout.web_listview_item, 
+			    		new String[] {"name", "count"}, 
 			    		new int[] {R.id.text1, 
-			    			R.id.text2, R.id.text3});
+			    			R.id.text2});
 				for(String post : posts)
 				{
 					try{
@@ -297,7 +296,7 @@ public class Trending extends Activity {
 						final StringBuilder sec = new StringBuilder();
 						sec.append(nameSet[1].split("//")[1]);
 						datum.put("name", name + "");
-						datum.put("count", post.split(": mentioned ")[1].split("//")[0]);
+						datum.put("count", sec.toString());
 						PlayerObject match = new PlayerObject();
 						for(PlayerObject player : holder.players)
 						{
@@ -328,7 +327,7 @@ public class Trending extends Activity {
 									{
 										if(elem.get("name").equals(name))
 										{
-											elem.put("freq", elem.get("freq") + "\n" + views + " total player views");
+											elem.put("count", elem.get("count") + "\n" + views + " total player views");
 											mAdapter.notifyDataSetChanged();
 											break;
 										}
@@ -336,7 +335,6 @@ public class Trending extends Activity {
 								}
 					    	});
 						}
-						datum.put("freq", sec.toString()); 
 						data.add(datum);
 						postsList.add(post);
 					} catch(ArrayIndexOutOfBoundsException e)
@@ -689,24 +687,42 @@ public class Trending extends Activity {
 	    	datum.put("name", elem.name + "");
 	    	StringBuilder count = new StringBuilder(1000);
 	    	count.append(elem.count + " times");
-	    	datum.put("count", count.toString());
 	    	final StringBuilder sub = new StringBuilder(1000);
-	    	sub.append(" ");
+	    	boolean lastTrue = false;
 	    	if(lastFilter >= 7 && elem.lastTime(1) > 0)
 	    	{
 	    		int lastDay = elem.lastTime(1);
-	    		sub.append("\n" + lastDay + "% in the last day");
+	    		sub.append(lastDay + "% in the last day");
+	    		lastTrue = true;
 	    	}
+	    	boolean lastWeekTrue = false;
 	    	if(lastFilter >= 28 && elem.lastTime(8) > 0)
 	    	{
+	    		if(lastTrue)
+	    		{
+	    			sub.append("\n");
+	    		}
 	    		int lastWeek = elem.lastTime(8);
-	    		sub.append("\n" + lastWeek + "% in the last week");
+	    		sub.append(lastWeek + "% in the last week");
+	    		lastWeekTrue = true;
 	    	}
 	    	if(lastFilter >= 45 && elem.lastTime(32) > 0)
 	    	{
+	    		if(lastWeekTrue)
+	    		{
+	    			sub.append("\n");
+	    		}
 	    		int lastMonth = elem.lastTime(32);
-	    		sub.append("\n" + lastMonth + "% in the last month");
+	    		sub.append(lastMonth + "% in the last month");
 	    	}
+	    	StringBuilder sb = new StringBuilder(1000);
+	    	sb.append(count.toString());
+	    	if(sub.toString().length() > 4)
+	    	{
+	    		sb.append("\n" + sub.toString());
+	    	}
+	    	datum.put("count", sb.toString());
+	    	
 	    	PlayerObject match = new PlayerObject();
 	    	for(PlayerObject player : holder.players)
 	    	{
@@ -737,7 +753,7 @@ public class Trending extends Activity {
 						{
 							if(iter.get("name").equals(elem.name))
 							{
-								iter.put("freq", iter.get("freq") + "\n" + views + " total player views");
+								iter.put("count", iter.get("count") + "\n" + views + " total player views");
 								mAdapter.notifyDataSetChanged();
 								break;
 							}
@@ -745,9 +761,8 @@ public class Trending extends Activity {
 					}
 		    	});
 			}
-	    	datum.put("freq", sub.toString());
 	    	data.add(datum);
-	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times//" + sub.toString());
+	    	trendingPlayers.add(elem.name + ": mentioned " + elem.count + " times//" + sb.toString());
 	    }
 	    if(data.size() == 0)
 	    {
@@ -764,10 +779,10 @@ public class Trending extends Activity {
 	    } 
 	    //final ArrayAdapter<String> mAdapter = ManageInput.handleArray(trendingPlayers, listview, cont);
 	    mAdapter = new SimpleAdapter(cont, data, 
-	    		R.layout.bold_header_elem, 
-	    		new String[] {"name", "count", "freq"}, 
+	    		R.layout.web_listview_item, 
+	    		new String[] {"name", "count"}, 
 	    		new int[] {R.id.text1, 
-	    			R.id.text2, R.id.text3});
+	    			R.id.text2});
 	    listview.setAdapter(mAdapter);
 	    SwipeDismissListViewTouchListener touchListener =
                 new SwipeDismissListViewTouchListener(

@@ -1138,13 +1138,10 @@ public class SortHandler
 		    	String output = "";
 		    	count++;
 		    	output = String.valueOf(count) + ") ";
-		    	if(Draft.draftedMe(elem.info.name, holder.draft))
+		    	String hidden = "";
+		    	if(Draft.isDrafted(elem.info.name, holder.draft))
 		    	{
-		    		output += "DRAFTED (YOU) - ";
-		    	}
-		    	else if(Draft.isDrafted(elem.info.name, holder.draft))
-		    	{
-		    		output += "DRAFTED - ";
+		    		hidden = "D";
 		    	}
 		    	if(isHidden && !output.equals(String.valueOf(count) + ") "))
 		    	{
@@ -1260,14 +1257,15 @@ public class SortHandler
 					datum.put("sub", elem.values.ecr + " Weekly Positional Ranking");
 				}
 		    	datum.put("sub", elem.info.position + " - " + elem.info.team + "\n" + datum.get("sub"));
+		    	datum.put("hidden", hidden);
 		    	data.add(datum);
 	    	}
 		} 
 	    adapter = new SimpleAdapter(context, data, 
 	    		R.layout.web_listview_item, 
-	    		new String[] {"main", "sub"}, 
+	    		new String[] {"main", "sub", "hidden"}, 
 	    		new int[] {R.id.text1, 
-	    			R.id.text2});
+	    			R.id.text2, R.id.text3});
 	    results.setAdapter(adapter);
 	    handleOnClicks(results);
 	}

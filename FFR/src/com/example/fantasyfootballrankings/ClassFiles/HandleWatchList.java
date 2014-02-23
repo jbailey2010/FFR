@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.text.DecimalFormat;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -14,6 +13,8 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
+import com.example.fantasyfootballrankings.Pages.Rankings;
+
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.app.Activity;
@@ -205,26 +206,21 @@ public class HandleWatchList
 		    	{
 			    	datum.put("name", val + ": " + iter.info.name);
 			    	datum.put("info", iter.info.position + " - " + iter.info.team);
+			    	datum.put("hidden", "");
 		    	}
 	    	}
 	    	else
 	    	{
-		    	if(Draft.draftedMe(iter.info.name, holder.draft))
+		    	if(Draft.isDrafted(iter.info.name, holder.draft))
 		    	{
-			    	datum.put("name", "DRAFTED (YOU) - " + val + ": " + iter.info.name);
-			    	datum.put("info", iter.info.position + " - " + iter.info.team);
-
-		    	}
-		    	else if(Draft.isDrafted(iter.info.name, holder.draft))
-		    	{
-		    		datum.put("name", "DRAFTED - " + val + ": " + iter.info.name);
-			    	datum.put("info", iter.info.position + " - " + iter.info.team);
+		    		datum.put("hidden", "D");
 		    	}
 		    	else
 		    	{
-		    		datum.put("name", val + ": " + iter.info.name);
-			    	datum.put("info", iter.info.position + " - " + iter.info.team);
+		    		datum.put("hidden", "");
 		    	}
+	    		datum.put("name", val + ": " + iter.info.name);
+		    	datum.put("info", iter.info.position + " - " + iter.info.team);
 	    	}
 			if(holder.notes.containsKey(iter.info.name + iter.info.position))
 			{
@@ -234,9 +230,9 @@ public class HandleWatchList
 	    }
 	    final SimpleAdapter adapter = new SimpleAdapter(cont, dataSet, 
 	    		R.layout.web_listview_item, 
-	    		new String[] {"name", "info"}, 
+	    		new String[] {"name", "info", "hidden"}, 
 	    		new int[] {R.id.text1, 
-	    			R.id.text2});
+	    			R.id.text2, R.id.text3});
 	    listWatch.setAdapter(adapter);
 	    return adapter;
 	}
@@ -280,6 +276,14 @@ public class HandleWatchList
                 					Toast.makeText(cont, "No players left in the watch list", Toast.LENGTH_SHORT).show();
                 				}
                                 Toast.makeText(cont, "Removing " + name, Toast.LENGTH_SHORT).show();
+                                for(Map<String, String> datum : Rankings.data)
+                                {
+                                	if(datum.get("main").contains(name))
+                                	{
+                                		datum.put("hidden", "");
+                                		Rankings.adapter.notifyDataSetChanged();
+                                	}
+                                }
                             }
                         });
         listview.setOnTouchListener(touchListener);

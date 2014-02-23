@@ -105,8 +105,8 @@
        	<View android:layout_height="fill_parent"
 		    android:layout_width="2dp"
 		    android:background="#FF0000"
-		    android:layout_marginTop="5dp"
-		    android:layout_marginBottom="5dp"/>
+		    android:layout_marginTop="7dp"
+		    android:layout_marginBottom="7dp"/>
 
         <Button
             android:id="@+id/category_team_stats"
@@ -122,8 +122,8 @@
         <View android:layout_height="fill_parent"
 		    android:layout_width="2dp"
 		    android:background="#FF0000"
-		    android:layout_marginTop="5dp"
-		    android:layout_marginBottom="5dp"/>
+		    android:layout_marginTop="7dp"
+		    android:layout_marginBottom="7dp"/>
 
         <Button
             android:id="@+id/category_player_list"
@@ -139,8 +139,8 @@
         <View android:layout_height="fill_parent"
 		    android:layout_width="2dp"
 		    android:background="#FF0000"
-		    android:layout_marginTop="5dp"
-		    android:layout_marginBottom="5dp"/>
+		    android:layout_marginTop="7dp"
+		    android:layout_marginBottom="7dp"/>
         
         <Button
             android:id="@+id/category_lineup_help"
@@ -156,8 +156,8 @@
         <View android:layout_height="fill_parent"
 		    android:layout_width="2dp"
 		    android:background="#FF0000"
-		    android:layout_marginTop="5dp"
-		    android:layout_marginBottom="5dp"/>
+		    android:layout_marginTop="7dp"
+		    android:layout_marginBottom="7dp"/>
 
         <Button
             android:id="@+id/imported_league_tips"
@@ -192,7 +192,7 @@
              android:layout_height="wrap_content"
              android:layout_alignLeft="@+id/imported_league_rankings"
              android:layout_marginTop="10dp"
-             android:visibility="gone"
+             android:visibility="visible"
              android:text="Below are the rankings of the entire lineups, starting lineups, benches, and each position of all of the teams in this league.\n\nClick on one of the elements to see a graphical representation. If it's a positional breakdown, a single click will show starters and a long click the whole set."
              android:textColor="#ffffff" />
 
@@ -222,7 +222,7 @@
              android:layout_height="wrap_content"
              android:layout_alignLeft="@+id/imported_teams_info"
              android:layout_marginTop="10dp"
-             android:visibility="gone"
+             android:visibility="visible"
              android:text="Below are the individual team breakdowns, with each team's members and PAA breakdowns listed.\n\nClick on a team to see detailed positional breakdowns and rankings\n\nClick and hold to see the best lineup this team can field\nNote: This is based on your roster settings. During the preseason, this is overall, but during the season it's per week."
              android:textColor="#ffffff" />
 
@@ -287,7 +287,7 @@
                android:layout_centerHorizontal="true"
                android:text="Below is the players list. You can use the left dropdown to alternate free agents/on teams/all players, and right for positional splits.\n\nPlayers are sorted by points above average, but have projections listed. Click on a name to see more."
                android:textColor="#FFFFFF"
-               android:visibility="gone"
+               android:visibility="visible"
                android:textAppearance="?android:attr/textAppearanceSmall" />
 
            <Spinner
@@ -335,11 +335,13 @@
      
      <TextView
          android:id="@+id/lineup_help"
-         android:textColor="#ffffff"
+         android:textColor="#000000"
+         android:layout_marginLeft="5dp"
+         android:paddingRight="5dp"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:text="Below are two input fields. Input a player into each, and the table below will fill out, showing how each player compares to the other."
-         android:visibility="gone"/>
+         android:visibility="visible"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

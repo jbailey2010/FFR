@@ -16,7 +16,7 @@
 	        android:layout_centerHorizontal="true"
 	        android:layout_marginTop="10dp"
 	        android:text="Text Main"
-	        android:textSize="28sp"
+	        android:textSize="26sp"
 	        android:textColor="#680000"
 	        android:textStyle="bold" />
 	
@@ -31,7 +31,7 @@
 	       	android:paddingRight="15dp"
 	       	android:layout_marginTop="10dp"
 	       	android:textColor="#333333"
-	        android:textSize="21sp" />
+	        android:textSize="20sp" />
 
 	    <TextView
 	        android:id="@+id/text3"

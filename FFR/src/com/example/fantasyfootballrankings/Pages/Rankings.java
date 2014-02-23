@@ -1370,9 +1370,9 @@ public class Rankings extends Activity {
 	    data = new ArrayList<Map<String, String>>();
 	    adapter = new SimpleAdapter(cont, data, 
 	    		R.layout.web_listview_item, 
-	    		new String[] {"main", "sub"}, 
+	    		new String[] {"main", "sub", "hidden"}, 
 	    		new int[] {R.id.text1, 
-	    			R.id.text2});
+	    			R.id.text2, R.id.text3});
 	    listview.setAdapter(adapter);
 	    handleRankingsClick(holder, cont, listview);
 	    while(!playerList.isEmpty())
@@ -1439,6 +1439,14 @@ public class Rankings extends Activity {
 	        }
 	        
 	        datum.put("sub", sub.toString());
+	        if(watchList.contains(elem.info.name))
+	        {
+	        	datum.put("hidden", "W");
+	        }
+	        else
+	        {
+	        	datum.put("hidden", "");
+	        }
 	        data.add(datum);
 	        adapter.notifyDataSetChanged();
 	        
@@ -1476,7 +1484,6 @@ public class Rankings extends Activity {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				String namePlayer = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
-				System.out.println(namePlayer);
 				if(namePlayer.contains(":"))
 				{
 					namePlayer = namePlayer.split(":  ")[1];
@@ -1500,6 +1507,7 @@ public class Rankings extends Activity {
 							break;
 						}
 					}
+					((TextView)((RelativeLayout)arg1).findViewById(R.id.text3)).setText("W");
 					watchList.add(namePlayer);
 					WriteToFile.writeWatchList(context, watchList);
 					Toast.makeText(context, namePlayer + " added to watch list", Toast.LENGTH_SHORT).show();
