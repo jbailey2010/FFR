@@ -484,7 +484,7 @@ public class News extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				String[] headline = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString().replaceAll("\\(", "").replaceAll("\\)", "").replace("'s ", " ").split(" ");
+				String[] headline = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString().replaceAll("\\(", "").replaceAll("\\)", "").replaceAll(",", "").replace("'s ", " ").split(" ");
 				boolean isName = false;
 				PlayerObject match = new PlayerObject();
 				for(int i = 0; i < headline.length - 1; i++)

@@ -226,6 +226,14 @@ public class PlayerInfo
 						Rankings.watchList.add(namePlayer.split(", ")[0]);
 						WriteToFile.writeWatchList(act, Rankings.watchList);
 						Toast.makeText(act, namePlayer + " added to watch list", Toast.LENGTH_SHORT).show();
+						for(Map<String, String> datum: Rankings.data)
+						{
+							if(datum.get("main").contains(namePlayer.split(", ")[0]))
+							{
+								datum.put("hidden", "W");
+								Rankings.adapter.notifyDataSetChanged();
+							}
+						}
 					}
 					else//if so, ignore the click
 					{
@@ -256,13 +264,30 @@ public class PlayerInfo
 			return;
 		}
 		//Set up the header, and make a mock object with the set name
+		System.out.println(namePlayer);
 		String playerName = namePlayer.split(", ")[0];
-		String pos = namePlayer.split(", ")[1].split(" -")[0];
-		String team = namePlayer.split("- ")[1];
+		String pos = "";
+		if(namePlayer.split(", ").length > 1)
+		{
+			pos = namePlayer.split(", ")[1].split(" -")[0];
+		}
+		String team = "";
+		if(namePlayer.split("- ").length > 1)
+		{
+			team = namePlayer.split("- ")[1];
+		}
+		System.out.println("-" + playerName + "-");
+		System.out.println("-" + pos + "-");
+		System.out.println("-" + team + "-");
 		name.setText(playerName);
 		searchedPlayer = new PlayerObject("","","",0);
 		for(PlayerObject player : holder.players)
 		{
+			if(player.info.name.equals(playerName))
+			{
+				System.out.println("-" + player.info.position + "-");
+				System.out.println("-" + player.info.team + "-");
+			}
 			if(player.info.name.equals(playerName) && player.info.team.equals(team) && player.info.position.equals(pos))
 			{
 				searchedPlayer = player;
