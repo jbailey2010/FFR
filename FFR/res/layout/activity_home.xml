@@ -2,29 +2,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
     android:id="@+id/home_base"
-    android:background="#121212">
+    android:background="@drawable/stadium">
 
-   <RelativeLayout
+   <LinearLayout
        android:id="@+id/home_well"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:layout_below="@+id/textView1"
-       android:layout_marginBottom="18dp"
-       android:layout_marginLeft="18dp"
-       android:layout_marginRight="18dp"
+       android:layout_margin="22dp"
+       android:orientation="vertical"
+       android:weightSum="16"
        android:background="@drawable/content_well_home" >
-
-        <Button
-            android:id="@+id/draft_history"
+	          <TextView
+	       android:id="@+id/textView1"
+	       android:layout_weight="1"
+	       android:layout_width="match_parent"
+	       android:layout_height="wrap_content"
+	       android:layout_alignParentTop="true"
+	       android:layout_centerHorizontal="true"
+	       android:text="2014 Fantasy Football GM"
+	       style="@style/ButtonText"
+			android:background="@drawable/btn_red_home_top"
+	       android:textSize="24sp" />
+               <Button
+            android:id="@+id/rankings"
             style="@style/ButtonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="45dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/btn_red_home"
-            android:text="Previous Drafts"
-            android:textSize="21sp" />
+            android:layout_weight="3"
+            android:background="@drawable/btn_red_home_middle"
+            android:textSize="21sp"
+            android:text="View Rankings" />
+               
+                       <Button
+            android:id="@+id/import_league_btn"
+            style="@style/ButtonText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:minHeight="45dp"
+            android:background="@drawable/btn_red_home_middle"
+            android:textSize="21sp"
+            android:text="My Leagues" />
+
+
 
         <Button
             android:id="@+id/news_button"
@@ -32,71 +53,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="45dp"
-            android:layout_above="@+id/draft_history"
-            android:layout_alignParentLeft="true"
+            android:layout_weight="3"
             android:background="@drawable/btn_red_home_middle"
             android:textSize="21sp"
             android:text="NFL News" />
         
-        <Button
-            android:id="@+id/import_league_btn"
-            style="@style/ButtonText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/trending"
-            android:minHeight="45dp"
-            android:layout_alignLeft="@+id/news_button"
-            android:background="@drawable/btn_red_home_middle"
-            android:textSize="21sp"
-            android:text="My Leagues" />
+
 
         <Button
             android:id="@+id/trending"
             style="@style/ButtonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/news_button"
             android:minHeight="45dp"
-            android:layout_alignLeft="@+id/news_button"
+            android:layout_weight="3"
             android:background="@drawable/btn_red_home_middle"
             android:textSize="21sp"
             android:text="Trending Players" />
 
         <Button
-            android:id="@+id/rankings"
+            android:id="@+id/draft_history"
             style="@style/ButtonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="45dp"
-            android:layout_above="@+id/import_league_btn"
-            android:layout_alignLeft="@+id/trending"
-            android:background="@drawable/btn_red_home_top"
-            android:textSize="21sp"
-            android:text="View Rankings" />
+            android:background="@drawable/btn_red_home"
+            android:text="Previous Drafts"
+            android:layout_weight="3"
+            android:textSize="21sp" />
 
-        <ImageView
-            android:id="@+id/football_icon_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/rankings"
-            android:layout_alignParentTop="true"
-            android:layout_alignTop="@+id/rankings"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/fb" />
+    </LinearLayout>
 
-    </RelativeLayout>
 
-   <TextView
-       android:id="@+id/textView1"
-       android:paddingTop="10dp"
-       android:paddingBottom="10dp"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentTop="true"
-       android:layout_centerHorizontal="true"
-       android:text="2014 Fantasy Football GM"
-       style="@style/ButtonText"
-       android:textSize="24sp" />
    
    <com.devspark.sidenavigation.SideNavigationView
         android:id="@+id/side_navigation_view"

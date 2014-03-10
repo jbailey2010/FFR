@@ -133,48 +133,6 @@ public class Home extends Activity{
         drafts.setOnClickListener(draftHandler);
         importLeague = (Button)findViewById(R.id.import_league_btn); 
         importLeague.setOnClickListener(importHandler);
-        WindowManager wm = (WindowManager) cont.getSystemService(Context.WINDOW_SERVICE);
-		 Display display = wm.getDefaultDisplay();
-		 Resources r = cont.getResources();
-		 int height = display.getHeight();
-		 int newHeight = height / 14;
-		 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newHeight, r.getDisplayMetrics());
-		 		 
-		ImageView pic = (ImageView)findViewById(R.id.football_icon_home);
-		final Random message = new Random();
-		pic.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				int random = message.nextInt();
-				if(random%2 == 0)
-				{
-					Toast.makeText(cont, "Thanks for downloading the app!", Toast.LENGTH_SHORT).show();
-				}
-				else if(random%3 == 0 || random%7 == 0)
-				{
-					Toast.makeText(cont, "Stop clicking the image.", Toast.LENGTH_SHORT).show();
-				}
-				else
-				{
-					Toast.makeText(cont, "Clicking this image does nothing.", Toast.LENGTH_SHORT).show();
-				}
-			} 
-		});
-		 android.view.ViewGroup.LayoutParams params1 = rankings.getLayoutParams();
-		 params1.height = (int) px;
-		 rankings.setLayoutParams(params1);
-		 android.view.ViewGroup.LayoutParams params2 = trending.getLayoutParams();
-		 params2.height = (int) px;
-		 trending.setLayoutParams(params2);
-		 android.view.ViewGroup.LayoutParams params3 = news.getLayoutParams();
-		 params3.height = (int) px;
-		 news.setLayoutParams(params3);
-		 android.view.ViewGroup.LayoutParams params4 = drafts.getLayoutParams();
-		 params4.height = (int) px;
-		 drafts.setLayoutParams(params4);
-		 android.view.ViewGroup.LayoutParams params5 = importLeague.getLayoutParams();
-		 params5.height = (int)px;
-		 importLeague.setLayoutParams(params5);
         start = System.nanoTime();
         handleInitialRefresh();
         if(ReadFromFile.readFirstOpen(cont))

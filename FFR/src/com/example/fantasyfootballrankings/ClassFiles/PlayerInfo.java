@@ -276,9 +276,6 @@ public class PlayerInfo
 		{
 			team = namePlayer.split("- ")[1];
 		}
-		System.out.println("-" + playerName + "-");
-		System.out.println("-" + pos + "-");
-		System.out.println("-" + team + "-");
 		name.setText(playerName);
 		searchedPlayer = new PlayerObject("","","",0);
 		for(PlayerObject player : holder.players)
