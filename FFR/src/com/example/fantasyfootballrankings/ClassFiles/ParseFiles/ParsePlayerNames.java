@@ -2,6 +2,7 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -31,7 +32,7 @@ public class ParsePlayerNames {
 	public static void fetchPlayerNames(final Context cont) throws IOException
 	{
 		//holder.playerNames.clear();
-		List<String> names = new ArrayList<String>();
+		HashSet<String> names = new HashSet<String>();
 		String[] defenses = {"Bengals D/ST", "Steelers D/ST", "Browns D/ST", "Ravens D/ST", 
 	   		"Patriots D/ST", "Dolphins D/ST", "Bills D/ST", "Jets D/ST", "Texans D/ST",
 	   		"Colts D/ST", "Jaguars D/ST", "Titans D/ST", "Broncos D/ST", "Raiders D/ST",
@@ -201,7 +202,7 @@ public class ParsePlayerNames {
 	 * @param params the id to parse from
 	 * @throws IOException
 	 */
-	public static void fetchPlayersHelp(Document doc, List<String> names, Context cont, String full, String params) throws IOException
+	public static void fetchPlayersHelp(Document doc, HashSet<String> names, Context cont, String full, String params) throws IOException
 	{
 		String playerText = HandleBasicQueries.handleTablesMulti(doc, full, params);
 		String[] perRow = ManageInput.tokenize(playerText, '\n', 1);

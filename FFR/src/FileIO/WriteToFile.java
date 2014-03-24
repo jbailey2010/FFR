@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -43,15 +44,10 @@ public class WriteToFile {
 	 * @param holder holds the array to be stored
 	 * @param cont used to be allowed to write to file in android
 	 */
-	public static void storePlayerNames(List<String> names, Context cont)
+	public static void storePlayerNames(HashSet<String> names, Context cont)
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		StringBuilder history = new StringBuilder(10000);
-		for(int i = 0; i < names.size(); i++)
-		{
-			history.append(names.get(i) + ",");
-		}
-		editor.putString("Player Names", history.toString());
+		editor.putStringSet("Player Names", names);
 		editor.commit();
 	}
 

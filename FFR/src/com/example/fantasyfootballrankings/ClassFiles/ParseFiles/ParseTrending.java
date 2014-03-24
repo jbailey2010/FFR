@@ -220,9 +220,10 @@ public class ParseTrending
 					{
 						boolean found = false;
 						int key = -1;
-						for(int t = 0; t < holder.playerNames.size(); t++)
+						int t = 0;
+						String foundKey = "";
+						for(String player : holder.playerNames)
 						{
-							String player = holder.playerNames.get(t);
 							if((player.contains(firstName) && firstName.length() > 3)
 									|| (player.contains(lastName) && lastName.length() > 3))
 							{
@@ -232,16 +233,17 @@ public class ParseTrending
 									break;
 								}
 								key = t;
+								foundKey = player;
 								found = true;
 							}
+							t++;
 						}
 						if(found && key != -1)
 						{
-							String player = holder.playerNames.get(key);
 							boolean inserted = false;
 		                    for (PostedPlayer e : holder.postedPlayers)
 		                    {
-		                    	if(e.name.equals(player))
+		                    	if(e.name.equals(foundKey))
 		                        {
 		                    		holder.postedPlayers.remove(e);
 		                            e.count++;
@@ -250,9 +252,9 @@ public class ParseTrending
 		                            inserted = true;
 		                        }
 		                    }
-							if(inserted == false && !player.contains("D/ST"))
+							if(inserted == false && !foundKey.contains("D/ST"))
 							{
-								PostedPlayer newPlayer = new PostedPlayer(player, 1);
+								PostedPlayer newPlayer = new PostedPlayer(foundKey, 1);
 								newPlayer.times.add(len);
 								holder.postedPlayers.add(newPlayer);
 							}

@@ -31,7 +31,7 @@ public class Storage
 	public boolean isRegularSeason;
 	public Draft draft;
 	public List<PlayerObject> players;
-	public List<String> playerNames;
+	public HashSet<String> playerNames;
 	public List<Post> posts;
 	public HashSet<String> parsedPlayers;
 	public PriorityQueue<PostedPlayer> postedPlayers;
@@ -65,7 +65,7 @@ public class Storage
 				return 0;
 			}
 		});
-		playerNames = new ArrayList<String>(400);
+		playerNames = new HashSet<String>(400);
 		posts = new ArrayList<Post>(500);
 		parsedPlayers = new HashSet<String>(350);
 		draft = new Draft(cont);

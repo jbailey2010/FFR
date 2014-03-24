@@ -2,6 +2,7 @@ package FileIO;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -97,13 +98,7 @@ public class ReadFromFile {
 	public static void fetchNames(Storage holder, Context cont) throws IOException
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		String checkExists = prefs.getString("Player Names", "Not Set");
-		holder.playerNames.clear();
-		String[] j = ManageInput.tokenize(checkExists, ',', 1);
-		for(int i = 0; i < j.length; i++)
-		{
-			holder.playerNames.add(j[i]);
-		}
+		holder.playerNames = (HashSet<String>) prefs.getStringSet("Player Names", null);
 	}
 
 	/**
