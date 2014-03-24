@@ -462,7 +462,6 @@ public class ParsingAsyncTask
 			    		players.append(player.values.startDists.get("Bad") + "," + player.values.startDists.get("Good") + "," + player.values.startDists.get("Great"));
 			    		playerData.add(players.toString());
 			    	}
-			    	editor.putStringSet("Parsed Player Names", new HashSet<String>(holder.parsedPlayers));
 			    	editor.putStringSet("Player Values", playerData).commit();
 				} catch (IOException e) {
 					return null;

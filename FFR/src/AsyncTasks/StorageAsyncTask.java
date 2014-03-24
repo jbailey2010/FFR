@@ -107,7 +107,6 @@ public class StorageAsyncTask
 	    		players.append(player.values.startDists.get("Bad") + "," + player.values.startDists.get("Good") + "," + player.values.startDists.get("Great"));
 	    		playerData.add(players.toString());
 	    	}
-	    	editor.putStringSet("Parsed Player Names", new HashSet<String>(holder.parsedPlayers));
 	    	editor.putStringSet("Player Values", playerData).commit();
 	    	editor.commit();
 			return null;
@@ -243,7 +242,6 @@ public class StorageAsyncTask
 	    		players.append(player.values.startDists.get("Bad") + "," + player.values.startDists.get("Good") + "," + player.values.startDists.get("Great"));
 	    		playerData.add(players.toString());
 	    	}
-	    	editor.putStringSet("Parsed Player Names", new HashSet<String>(holder.parsedPlayers));
 	    	editor.putStringSet("Player Values", playerData).commit();
 			return null;
 	    }
@@ -358,9 +356,9 @@ public class StorageAsyncTask
 	   			newPlayer.values.count = Double.parseDouble(allData[1]);
 	   			newPlayer.values.worth = Double.parseDouble(allData[0]);
 	   			newPlayer.values.secWorth = newPlayer.values.worth / aucFactor;
+	   			holder.parsedPlayers.add(newPlayer.info.name);
 	   			holder.players.add(newPlayer);
 	   		}
-	   		holder.parsedPlayers = new ArrayList<String>(prefs.getStringSet("Parsed Player Names", null));
 	   		String set = prefs.getString("Draft Information", "Doesn't matter");
 			String[] perSet = ManageInput.tokenize(set, '@', 1);
 			String[][] individual = new String[perSet.length][];
