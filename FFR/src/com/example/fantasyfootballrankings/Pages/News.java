@@ -486,6 +486,10 @@ public class News extends Activity {
 					long arg3) {
 				String[] headline = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString().replaceAll("\\(", "").replaceAll("\\)", "").replaceAll(",", "").replace("'s ", " ").split(" ");
 				boolean isName = false;
+				if(headline[headline.length-1].substring(headline[headline.length-1].length() - 1).equals("."))
+				{
+					headline[headline.length-1] = headline[headline.length-1].replaceAll("\\.", "");
+				}
 				PlayerObject match = new PlayerObject();
 				for(int i = 0; i < headline.length - 1; i++)
 				{
