@@ -332,7 +332,7 @@ public class StorageAsyncTask
 	    	Set<String> checkExists = (Set<String>)data[3];
 	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     		holder.players = new ArrayList<PlayerObject>();
-    		holder.parsedPlayers = new ArrayList<String>();
+    		holder.parsedPlayers = new HashSet<String>();
     		ReadFromFile.readTeamData(holder, cont);
     		double aucFactor = ReadFromFile.readAucFactor(cont);
 	   		for(String st : checkExists)

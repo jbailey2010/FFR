@@ -4,6 +4,7 @@ package com.example.fantasyfootballrankings.ClassFiles.StorageClasses;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -12,6 +13,7 @@ import java.util.Comparator;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
+
 import android.content.Context;
 
 /**
@@ -31,7 +33,7 @@ public class Storage
 	public List<PlayerObject> players;
 	public List<String> playerNames;
 	public List<Post> posts;
-	public List<String> parsedPlayers;
+	public HashSet<String> parsedPlayers;
 	public PriorityQueue<PostedPlayer> postedPlayers;
 	public Map<String, String> oLineAdv = new HashMap<String, String>();
 	public Map<String, String> draftClasses = new HashMap<String, String>();
@@ -65,7 +67,7 @@ public class Storage
 		});
 		playerNames = new ArrayList<String>(400);
 		posts = new ArrayList<Post>(500);
-		parsedPlayers = new ArrayList<String>(350);
+		parsedPlayers = new HashSet<String>(350);
 		draft = new Draft(cont);
 	}
  
