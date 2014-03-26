@@ -44,8 +44,8 @@ public final class R {
 		public static final int side_navigation_outside_view = 0x7f05012f;
 	}
 	public static final class layout {
-		public static final int side_navigation_item = 0x7f03003f;
-		public static final int side_navigation_left = 0x7f030040;
-		public static final int side_navigation_right = 0x7f030041;
+		public static final int side_navigation_item = 0x7f03003e;
+		public static final int side_navigation_left = 0x7f03003f;
+		public static final int side_navigation_right = 0x7f030040;
 	}
 }
