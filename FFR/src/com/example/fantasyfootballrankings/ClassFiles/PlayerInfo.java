@@ -156,12 +156,29 @@ public class PlayerInfo
 	}
 	
 	/**
+	 * Makes a hey, here's how you draft popup
+	 */
+	public void checkIfFirstOpening(Activity act, boolean isRegularSeason)
+	{
+		if(!ReadFromFile.readFirstOpen(act) && !isRegularSeason)
+		{
+			dialog = new Dialog(act, R.style.RoundCornersFull);
+		    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+			dialog.setContentView(R.layout.one_line_text);
+			TextView text = (TextView)dialog.findViewById(R.id.textView1);
+			text.setText("It appears to be your first time opening this pop up. If you're drafting/prepping for a draft, you can click and hold the name up top here to draft this player to a team. This information is also available in help.");
+			WriteToFile.writeFirstOpen(act);
+		}
+	}
+	
+	/**
 	 * outputs the results to the search dialog
 	 * @param namePlayer
 	 */
 	public void outputResults(final String namePlayer, boolean flag, 
 			final Activity act, final Storage hold, final boolean watchFlag, boolean draftable)
 	{
+		checkIfFirstOpening(act, holder.isRegularSeason);
 		holder = hold;
 		dialog = new Dialog(act);
 	    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       

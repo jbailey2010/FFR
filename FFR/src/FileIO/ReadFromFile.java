@@ -560,4 +560,10 @@ public class ReadFromFile {
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		return (double)prefs.getFloat("Auction Factor", (float)1.0);
 	}
+	
+	public static boolean readIsFirstPlayerInfo(Context cont)
+	{
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+		return prefs.getBoolean("Is First Player Info", false);
+	}
 }

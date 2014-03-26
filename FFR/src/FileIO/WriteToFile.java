@@ -541,4 +541,11 @@ public class WriteToFile {
 		editor.remove("Current Draft");
 		editor.commit();
 	}
+	
+	
+	public static void writeFirstPlayerInfo(Context cont)
+	{
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		editor.putBoolean("Is First Player Info", true).commit();
+	}
 }
