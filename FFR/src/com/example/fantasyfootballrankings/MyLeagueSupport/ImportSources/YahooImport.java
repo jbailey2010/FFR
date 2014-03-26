@@ -487,7 +487,7 @@ public class YahooImport
 		}
 		WriteToFile.writeRoster(newImport.leagueHost + newImport.leagueName, cont, newImport.roster);
 		WriteToFile.writeScoring(newImport.leagueHost + newImport.leagueName, cont, newImport.scoring);
-		editor.commit();
+		editor.apply();
 		dummy.handleLayoutInit();
 	}
 }

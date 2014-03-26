@@ -116,8 +116,8 @@ public class DraftHistory extends Activity {
 			else
 			{
 				SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-				editor.putBoolean("Home Update Draft", false).commit();
-				editor.putBoolean("Rankings Update Draft", false).commit();
+				editor.putBoolean("Home Update Draft", false).apply();
+				editor.putBoolean("Rankings Update Draft", false).apply();
 				Set<String> checkExists2 = prefs.getStringSet("Player Values", null);
 		    	if(checkExists2 != null)
 		    	{

@@ -683,7 +683,7 @@ public class Rankings extends Activity {
     		{
 				ReadFromFile.fetchPlayers(checkExists, holder,cont, 0);
 				SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-				editor.putBoolean("Home Update", false).commit();
+				editor.putBoolean("Home Update", false).apply();
 			}
     		if(holder.playerNames == null || holder.playerNames.size() < 5)
     		{
@@ -1355,10 +1355,10 @@ public class Rankings extends Activity {
 	    {
 	    	WriteToFile.storeRankingsAsync(holder, (Context)cont);
 			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-			editor.putBoolean("Rankings Update Home", true).commit();
-			editor.putBoolean("Rankings Update Trending", true).commit();
-			editor.putBoolean("Rankings Update Draft", true).commit();
-			editor.putBoolean("Rankings Update Import", true).commit();
+			editor.putBoolean("Rankings Update Home", true).apply();
+			editor.putBoolean("Rankings Update Trending", true).apply();
+			editor.putBoolean("Rankings Update Draft", true).apply();
+			editor.putBoolean("Rankings Update Import", true).apply();
 			if(Home.holder.players == null || Home.holder.players.size() < 5)
 			{
 				Home.holder = holder;

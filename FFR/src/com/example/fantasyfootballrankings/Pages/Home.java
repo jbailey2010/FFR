@@ -297,7 +297,7 @@ public class Home extends Activity{
 		{
 			ReadFromFile.fetchPlayers(checkExists, holder,cont, 1);
 			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-			editor.putBoolean("Rankings Update Home", false).commit();
+			editor.putBoolean("Rankings Update Home", false).apply();
 		}
 	}
 	

@@ -112,7 +112,7 @@ public class ParsingAsyncTask
 	    		{
 	    			draftIter = -1;
 	    		}
-	    		editor.putInt("Parse Count", ++draftIter).commit();
+	    		editor.putInt("Parse Count", ++draftIter).apply();
 			   if(hold.players.size() > 1)
 			   {
 				   ((Rankings) act).intermediateHandleRankings(act);
@@ -462,7 +462,7 @@ public class ParsingAsyncTask
 			    		players.append(player.values.startDists.get("Bad") + "," + player.values.startDists.get("Good") + "," + player.values.startDists.get("Great"));
 			    		playerData.add(players.toString());
 			    	}
-			    	editor.putStringSet("Player Values", playerData).commit();
+			    	editor.putStringSet("Player Values", playerData).apply();
 				} catch (IOException e) {
 					return null;
 				}
@@ -512,7 +512,7 @@ public class ParsingAsyncTask
 			   if(holder.posts.size() == 0)
 			   {
 				   SharedPreferences.Editor editor = act.getSharedPreferences("FFR", 0).edit();
-				   editor.putBoolean("Last Empty", true).commit();
+				   editor.putBoolean("Last Empty", true).apply();
 				   flag = true;
 			   }
 			   Trending.setContent(act, flag);

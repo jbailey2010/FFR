@@ -172,8 +172,8 @@ public class ImportLeague extends Activity {
                                         prefs.getBoolean("Home Update Import", false) || prefs.getBoolean("Rankings Update Import", false))
                         {
                                 SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-                                editor.putBoolean("Home Update Import", false).commit();
-                                editor.putBoolean("Rankings Update Import", false).commit();
+                                editor.putBoolean("Home Update Import", false).apply();
+                                editor.putBoolean("Rankings Update Import", false).apply();
                                 Set<String> checkExists2 = prefs.getStringSet("Player Values", null);
                             if(checkExists2 != null)
                             {
@@ -279,7 +279,7 @@ public class ImportLeague extends Activity {
                 }
                 editor.remove("Imported League Keys");
                 Toast.makeText(cont, "Data cleared", Toast.LENGTH_SHORT).show();
-                editor.commit();
+                editor.apply();
                 handleLayoutInit();
         }
         
@@ -778,7 +778,7 @@ public class ImportLeague extends Activity {
                 String leagueURL = prefs.getString(key, "").split("LEAGUEURLSPLIT")[0];
                 editor.remove(key);
                 editor.putString("Imported League Keys", oldKeys);
-                editor.commit();
+                editor.apply();
                 ESPNImport espnImporter = new ESPNImport(holder, this, b);
                 try {
                         espnImporter.handleESPNParsing(leagueURL, cont);
@@ -809,7 +809,7 @@ public class ImportLeague extends Activity {
                 String leagueURL = prefs.getString(key, "").split("LEAGUEURLSPLIT")[0];
                 editor.remove(key);
                 editor.putString("Imported League Keys", oldKeys);
-                editor.commit();
+                editor.apply();
                 YahooImport yahooImporter = new YahooImport(holder, this, (Context)this, b);
                 try {
                         yahooImporter.handleYahooParsing(leagueURL);

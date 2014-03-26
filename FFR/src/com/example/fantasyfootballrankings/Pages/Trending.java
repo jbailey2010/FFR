@@ -401,8 +401,8 @@ public class Trending extends Activity {
 			else
 			{
 				SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-				editor.putBoolean("Home Update Trending", false).commit();
-				editor.putBoolean("Rankings Update Trending", false).commit();
+				editor.putBoolean("Home Update Trending", false).apply();
+				editor.putBoolean("Rankings Update Trending", false).apply();
 				Set<String> checkExists2 = prefs.getStringSet("Player Values", null);
 		    	if(checkExists2 != null)
 		    	{
@@ -476,7 +476,7 @@ public class Trending extends Activity {
 				editor.putBoolean("Rookie Topic", rookieChecked);
 				editor.putBoolean("Good Topic", wantChecked);
 				editor.putBoolean("Bad Topic", dontWantChecked);
-				editor.commit();
+				editor.apply();
 				dialog.dismiss();
 				if(data == null)
 				{

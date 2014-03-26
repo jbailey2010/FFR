@@ -465,10 +465,10 @@ public class ManageInput
 						    ParseProjections task = stupid.new ParseProjections((Activity)cont, ((Home)cont).holder);
 						    task.execute(holder, cont);
 						    SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-						    editor.putBoolean("Home Update", true).commit();
-						    editor.putBoolean("Home Update Draft", true).commit();
-						    editor.putBoolean("Home Update Trending", true).commit();
-						    editor.putBoolean("Home Update Import", true).commit();
+						    editor.putBoolean("Home Update", true).apply();
+						    editor.putBoolean("Home Update Draft", true).apply();
+						    editor.putBoolean("Home Update Trending", true).apply();
+						    editor.putBoolean("Home Update Import", true).apply();
 						}
 						else
 						{
@@ -605,10 +605,10 @@ public class ManageInput
 				    WriteNewPAA task2 = obj.new WriteNewPAA(cont, true);
 				    task2.execute(holder, cont);
 				    SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-				    editor.putBoolean("Home Update", true).commit();
-				    editor.putBoolean("Home Update Draft", true).commit();
-				    editor.putBoolean("Home Update Trending", true).commit();
-				    editor.putBoolean("Home Update Import", true).commit();
+				    editor.putBoolean("Home Update", true).apply();
+				    editor.putBoolean("Home Update Draft", true).apply();
+				    editor.putBoolean("Home Update Trending", true).apply();
+				    editor.putBoolean("Home Update Import", true).apply();
 
 				}
 			}
@@ -717,7 +717,7 @@ public class ManageInput
 				if(s.isChecked() || (ManageInput.isInteger(input) && a.isChecked() && Integer.parseInt(input) > 0))
 				{
 					SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-				    editor.putBoolean("Home Update", true).commit();
+				    editor.putBoolean("Home Update", true).apply();
 				    if((!isAuction && a.isChecked()) || (isAuction && s.isChecked()))
 					{
 						needReset = true;

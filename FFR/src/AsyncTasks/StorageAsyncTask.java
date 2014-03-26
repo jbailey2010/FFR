@@ -107,8 +107,8 @@ public class StorageAsyncTask
 	    		players.append(player.values.startDists.get("Bad") + "," + player.values.startDists.get("Good") + "," + player.values.startDists.get("Great"));
 	    		playerData.add(players.toString());
 	    	}
-	    	editor.putStringSet("Player Values", playerData).commit();
-	    	editor.commit();
+	    	editor.putStringSet("Player Values", playerData).apply();
+	    	editor.apply();
 			return null;
 	    }
 	}
@@ -152,7 +152,7 @@ public class StorageAsyncTask
 	    		posts.append(trendingPlayers.get(i) + "##");
 	    	}
 	    	editor.putString("Posted Players", posts.toString());
-	    	editor.commit();
+	    	editor.apply();
 			return null;
 	    }
 	}
@@ -242,7 +242,7 @@ public class StorageAsyncTask
 	    		players.append(player.values.startDists.get("Bad") + "," + player.values.startDists.get("Good") + "," + player.values.startDists.get("Great"));
 	    		playerData.add(players.toString());
 	    	}
-	    	editor.putStringSet("Player Values", playerData).commit();
+	    	editor.putStringSet("Player Values", playerData).apply();
 			return null;
 	    }
 	}

@@ -48,7 +48,7 @@ public class WriteToFile {
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 		editor.putStringSet("Player Names", names);
-		editor.commit();
+		editor.apply();
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class WriteToFile {
 		editor.putString("Date of Posts", reportDate);
 		editor.putString("Posts", posts.toString());
 		editor.putBoolean("Last Empty", false);
-		editor.commit();
+		editor.apply();
 	}
 
 	
@@ -135,7 +135,7 @@ public class WriteToFile {
     	{
     		editor.putInt("Filter Quantity Size", size);
     	}
-    	editor.commit();
+    	editor.apply();
 	}
 	
 	/**
@@ -152,7 +152,7 @@ public class WriteToFile {
     	{
     		menInBox.append(elem + "~~" + players.get(elem) + "@@#");
     	}
-    	editor.putString("Men In Box", menInBox.toString()).commit();
+    	editor.putString("Men In Box", menInBox.toString()).apply();
     }
 	
 	/**
@@ -169,7 +169,7 @@ public class WriteToFile {
     	{
     		runPassRatio.append(elem + "~~" + players.get(elem) + "@@#");
     	}
-    	editor.putString("Run Pass Ratio", runPassRatio.toString()).commit();
+    	editor.putString("Run Pass Ratio", runPassRatio.toString()).apply();
 	}
 	
 	/**
@@ -186,7 +186,7 @@ public class WriteToFile {
     	{
     		oLineRanks.append(elem + "~~" + players.get(elem) + "@@#");
     	}
-    	editor.putString("O Line Ranks", oLineRanks.toString()).commit();
+    	editor.putString("O Line Ranks", oLineRanks.toString()).apply();
 	}
 	
 	/**
@@ -197,7 +197,7 @@ public class WriteToFile {
 	public static void writeLastFilter(Context cont, int lastFilter)
 	{
     	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-    	editor.putInt("Last Filter", lastFilter).commit();
+    	editor.putInt("Last Filter", lastFilter).apply();
 	}
 	
 	/**
@@ -220,7 +220,7 @@ public class WriteToFile {
     	editor.putBoolean("Use The Huddle", th);
     	editor.putBoolean("Use CBS News", cbs);
     	editor.putBoolean("Use SI News", si);
-    	editor.putString("News RotoWorld", newsSet.toString()).commit();
+    	editor.putString("News RotoWorld", newsSet.toString()).apply();
 	}
 	
 	/**
@@ -238,8 +238,8 @@ public class WriteToFile {
     		newsSet.append(newsObj.news + "~~" + newsObj.impact + "~~" + 
     				newsObj.date + "@@@");
     	}
-    	editor.putString("News RotoWorld", newsSet.toString()).commit();
-    	editor.putString("Selected Twitter Feed", selection).commit();
+    	editor.putString("News RotoWorld", newsSet.toString()).apply();
+    	editor.putString("Selected Twitter Feed", selection).apply();
 	}
 	
 	/**
@@ -250,7 +250,7 @@ public class WriteToFile {
 	public static void writeNewsSelection(Context cont, String selection)
 	{
     	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-    	editor.putString("News Title", selection).commit();
+    	editor.putString("News Title", selection).apply();
 	}
 	
 	/**
@@ -267,7 +267,7 @@ public class WriteToFile {
     			newsSet.append(name + "----");
     		}
     	}
-    	editor.putString("Watch List", newsSet.toString()).commit();
+    	editor.putString("Watch List", newsSet.toString()).apply();
 	}
 	
 	/**
@@ -294,7 +294,7 @@ public class WriteToFile {
     	}
     	draftList += inter.toString() + "@"; 
     	draftList += draft.remainingSalary + "@" + draft.value;
-    	editor.putString("Draft Information", draftList).commit();
+    	editor.putString("Draft Information", draftList).apply();
 	}
 	
 	/**
@@ -314,7 +314,7 @@ public class WriteToFile {
 		editor.putInt("Interceptions" + key, scoring.interception);
 		editor.putInt("Fumbles" + key, scoring.fumble);
 		editor.putBoolean("Is Scoring Set?", true);
-		editor.commit();
+		editor.apply();
 	}
 	
 	/**
@@ -338,7 +338,7 @@ public class WriteToFile {
 		editor.putInt("Starting Ks" + key, roster.k);
 		editor.putInt("Starting Defs" + key, roster.def);
 		editor.putBoolean("Is roster set?", true);
-		editor.commit();
+		editor.apply();
 	}
 	
 	/**
@@ -348,7 +348,7 @@ public class WriteToFile {
 	public static void writeFirstOpen(Context cont)
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		editor.putBoolean("First Open", false).commit();
+		editor.putBoolean("First Open", false).apply();
 	}
 	
 	/**
@@ -358,8 +358,8 @@ public class WriteToFile {
 	public static void writeIsAuction(Boolean isAuction, Context cont, double aucFactor, Storage holder)
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		editor.putBoolean("Is Auction", isAuction).commit();
-		editor.putFloat("Auction Factor", (float) aucFactor).commit();
+		editor.putBoolean("Is Auction", isAuction).apply();
+		editor.putFloat("Auction Factor", (float) aucFactor).apply();
 	}
 	
 	/**
@@ -388,7 +388,7 @@ public class WriteToFile {
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 		editor.putLong("Use ID", l);
-		editor.commit();
+		editor.apply();
 	}
 	
 	/**
@@ -399,7 +399,7 @@ public class WriteToFile {
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 		editor.putString("Token", token.getToken());
 		editor.putString("Token Secret", token.getTokenSecret());
-		editor.commit();
+		editor.apply();
 	}
 	
 	/**
@@ -469,7 +469,7 @@ public class WriteToFile {
 		}
 		
 		editor.putString("Team By Team Data", oLineRanks.toString());
-		editor.commit();
+		editor.apply();
 	}
 	
 	/**
@@ -480,7 +480,7 @@ public class WriteToFile {
 	public static void writeHideWidget(boolean hide, Context cont)
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		editor.putBoolean("Hide Widget", hide).commit();
+		editor.putBoolean("Hide Widget", hide).apply();
 	}
 	
 	/**
@@ -522,7 +522,7 @@ public class WriteToFile {
     	team.append("Kickers: " + ks + "\n");
     	editor.putString("Primary " + ReadFromFile.readCurrDraft(cont), team.toString());
     	editor.putString("Secondary " + ReadFromFile.readCurrDraft(cont), secondaryData.toString());
-		editor.putInt("Current Draft", nextDraft).commit();
+		editor.putInt("Current Draft", nextDraft).apply();
 	}
 	
 	/**
@@ -539,13 +539,13 @@ public class WriteToFile {
 			editor.remove("Secondary " + i);
 		}
 		editor.remove("Current Draft");
-		editor.commit();
+		editor.apply();
 	}
 	
 	
 	public static void writeFirstPlayerInfo(Context cont)
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		editor.putBoolean("Is First Player Info", true).commit();
+		editor.putBoolean("Is First Player Info", true).apply();
 	}
 }

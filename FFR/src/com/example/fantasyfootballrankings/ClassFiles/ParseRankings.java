@@ -254,7 +254,7 @@ public class ParseRankings
 		String newName = Storage.nameExists(holder, validated);
 		PlayerObject newPlayer = new PlayerObject(newName, team, pos, val);
 		PlayerObject match =  Storage.pqExists(holder, newName);
-		ParseRankings.handlePlayer(holder, newPlayer, match);
+		handlePlayer(holder, newPlayer, match);
 	}
 	
 	/**
