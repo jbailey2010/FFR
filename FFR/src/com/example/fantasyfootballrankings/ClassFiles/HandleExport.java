@@ -2,11 +2,11 @@ package com.example.fantasyfootballrankings.ClassFiles;
 
 
 import java.io.File;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.PriorityQueue;
+
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 
@@ -97,25 +97,24 @@ public class HandleExport
 		return totalList;
 	}
 	
+
+	private static void writeCsvData(String name, double secWorth,
+			String position, String team, String age, String string,
+			Integer integer, String adp, double points, double paa, Double ecr,
+			double risk, String note, FileWriter writer) throws IOException {
+		String line = String.format("%s,%f,%s,%s,%s,%s,%d,%s,%f,%f,%f,%f,%s\n",
+				name, secWorth, position, team, age, string, integer, adp, ecr, points, paa, risk, note);
+		writer.write(line);
 	
-	/**
-	 * Writes each line of the .csv
-	 */
-	private static void writeCsvData(double worth, String name, String pos, String team, String age,
-			String bye, int sos, String adp, double proj, double paa, double ecr, double risk,
-			FileWriter writer) throws IOException 
-	{  
-		  String line = String.format("%f,%s,%s,%s,%s,%s,%d,%s,%f,%f,%f,%f\n", 
-				  					worth, name, pos, team, age, bye, sos, adp, ecr, proj, paa, risk);
-		  writer.write(line);
-	}
+	}	
+	
 	
 	/**
 	 * Writes the csv header
 	 */
 	private static void writeCsvHeader(FileWriter writer) throws IOException 
 	{
-		String line = String.format("Worth,Name,Position,Team,Age,Bye,SOS,ADP,ECR,Proj,PAA,PAApd,Risk,Trend\n");
+		String line = String.format("Name,Worth,Position,Team,Age,Bye,SOS,ADP,ECR,Proj,PAA,PAApd,Risk,Note\n");
 		writer.write(line);
 	}
 
@@ -140,10 +139,15 @@ public class HandleExport
 				if(!player.info.team.equals("None") && !player.info.team.equals("---") && !player.info.team.equals("FA") && 
 						player.info.team.length() > 0 && player.info.team.length() > 0 && !player.info.name.contains("NO MATCH FOUND"))
 				{
-					writeCsvData(player.values.secWorth, player.info.name, player.info.position, player.info.team,
+					String note = " ";
+					if(holder.notes.containsKey(player.info.name + player.info.position))
+					{
+						note = holder.notes.get(player.info.name + player.info.position);
+					}
+					writeCsvData(player.info.name, player.values.secWorth, player.info.position, player.info.team,
 							player.info.age, holder.bye.get(player.info.team), holder.sos.get(player.info.team + "," + player.info.position), 
 							player.info.adp, player.values.points, 
-							player.values.paa, player.values.ecr, player.risk, writer);
+							player.values.paa, player.values.ecr, player.risk, note, writer);
 				}
 			}
 			writer.flush();
@@ -157,5 +161,7 @@ public class HandleExport
 		i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(output));
 		cont.startActivity(Intent.createChooser(i, "Exported to the SD card, directory Fantasy Football Rankings. " +
 				"Select below if you'd also like to send it elsewhere."));
-	}	
+	}
+
+
 }
