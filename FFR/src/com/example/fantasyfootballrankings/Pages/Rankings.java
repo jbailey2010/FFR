@@ -1365,6 +1365,7 @@ public class Rankings extends Activity {
 			}
 	    	refreshed = false;
 	    }
+	    System.out.println("Buliding with " + holder.isRegularSeason);
 	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
 	    listview.setAdapter(null);
 	    data = new ArrayList<Map<String, String>>();

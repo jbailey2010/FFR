@@ -178,7 +178,7 @@ public class PlayerInfo
 	public void outputResults(final String namePlayer, boolean flag, 
 			final Activity act, final Storage hold, final boolean watchFlag, boolean draftable)
 	{
-		checkIfFirstOpening(act, holder.isRegularSeason);
+		checkIfFirstOpening(act, hold.isRegularSeason);
 		holder = hold;
 		dialog = new Dialog(act);
 	    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       

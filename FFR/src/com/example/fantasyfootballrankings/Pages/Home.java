@@ -137,20 +137,9 @@ public class Home extends Activity{
         handleInitialRefresh();
         if(ReadFromFile.readFirstOpen(cont))
         {
-        	ManageInput.generalHelp(cont);
-        	helpPopUp();
-        	WriteToFile.writeFirstOpen(cont);
-			if(ManageInput.confirmInternet(cont))
-			{
-				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-				final ParsingAsyncTask stupid = new ParsingAsyncTask();
-				ParseNames task = stupid.new ParseNames((Activity)cont, true);
-			    task.execute(cont);
-			}
-			else
-			{
-				Toast.makeText(cont, "No Internet Connection Available. The Names List Must Be Fetched, So Please Connect and Refresh it Manually to Avoid Problems With The Rankings", Toast.LENGTH_LONG).show();
-			}
+        	//ManageInput.generalHelp(cont);
+        	helpPopUp(true);
+			
         }
         /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy); 
@@ -224,7 +213,7 @@ public class Home extends Activity{
 				ManageInput.isAuctionOrSnake(cont, holder);
 				return true;
 			case R.id.help_home:
-				helpPopUp();
+				helpPopUp(false);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -256,8 +245,9 @@ public class Home extends Activity{
 
 	/**
 	 * Handles the help dialog popup
+	 * @param b 
 	 */
-	public void helpPopUp()
+	public void helpPopUp(final boolean b)
 	{
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -272,6 +262,20 @@ public class Home extends Activity{
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
+				if(b){
+					if(ManageInput.confirmInternet(cont))
+					{
+			        	WriteToFile.writeFirstOpen(cont);
+						setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+						final ParsingAsyncTask stupid = new ParsingAsyncTask();
+						ParseNames task = stupid.new ParseNames((Activity)cont, true);
+					    task.execute(cont);
+					}
+					else
+					{
+						Toast.makeText(cont, "No Internet Connection Available. The Names List Must Be Fetched, So Please Connect and Refresh it Manually to Avoid Problems With The Rankings", Toast.LENGTH_LONG).show();
+					}
+				}
 			}
 		});
 	}

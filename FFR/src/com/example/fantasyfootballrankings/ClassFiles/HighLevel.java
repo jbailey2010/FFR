@@ -1001,18 +1001,18 @@ public class HighLevel
 		HashMap<String, Double> ecr = new HashMap<String, Double>();
 		HashMap<String, Double> risk = new HashMap<String, Double>();
 		HashMap<String, String> adp = new HashMap<String, String>();
-		if(!isValidRankings("http://www.fantasypros.com/nfl/rankings/ppr-rb.php?week=1"))
+		if(!holder.isRegularSeason)
 		{
+			System.out.println("Getting preseason stuff");
 			String url = "http://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php";
 			if(ReadFromFile.readScoring(cont).catches == 1)
 			{
 				url = "http://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php";
 			}
-			parseECRWorker(url, holder, ecr, risk, adp, 9);
+			parseECRWorker(url, holder, ecr, risk, adp, 7);
 		}
 		else
 		{
-			holder.isRegularSeason = true;
 			StringBuilder urlBase = new StringBuilder(100);
 			urlBase.append("http://www.fantasypros.com/nfl/rankings/");
 			String url = urlBase.toString();

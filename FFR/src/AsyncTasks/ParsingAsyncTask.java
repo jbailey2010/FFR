@@ -260,6 +260,28 @@ public class ParsingAsyncTask
 					} catch (IOException e1) {
 					}
 		    	}
+
+	    		publishProgress("Please wait, getting projected points...");
+	    		try {
+					HighLevel.projPointsWrapper(holder, cont);
+				} catch (HttpStatusException e2)
+				{
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e1) {
+				}
+	    		if(holder.maxProj() < 70.0)
+	    		{
+	    			holder.isRegularSeason = true;
+	    			System.out.println("Setting to true");
+	    		}
+	    		else
+	    		{
+	    			holder.isRegularSeason = false;
+	    			System.out.println("Setting to false, " + holder.maxProj());
+	    		}
+	    		publishProgress("Please wait, normalizing projections...");
+	    		HighLevel.getPAA(holder, cont);
+	    		
 	    		publishProgress("Please wait, calculating relative risk...");
 	    		try {
 					HighLevel.parseECRWrapper(holder, cont);
@@ -341,17 +363,6 @@ public class ParsingAsyncTask
 				} catch (IOException e1) {
 				}
 
-	    		publishProgress("Please wait, getting projected points...");
-	    		try {
-					HighLevel.projPointsWrapper(holder, cont);
-				} catch (HttpStatusException e2)
-				{
-					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
-				} catch (IOException e1) {
-				}
-	    		publishProgress("Please wait, normalizing projections...");
-	    		HighLevel.getPAA(holder, cont);
-	    		
 	    		if(holder.isRegularSeason)
 	    		{
 	    			publishProgress("Please wait, getting rest of season rankings...");
@@ -370,6 +381,7 @@ public class ParsingAsyncTask
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+
 				return null;
 		    }
 
