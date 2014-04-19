@@ -1365,7 +1365,6 @@ public class Rankings extends Activity {
 			}
 	    	refreshed = false;
 	    }
-	    System.out.println("Buliding with " + holder.isRegularSeason);
 	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
 	    listview.setAdapter(null);
 	    data = new ArrayList<Map<String, String>>();
@@ -1731,12 +1730,10 @@ public class Rankings extends Activity {
     		
     		@Override
     		public void onCreate(Entity result) {
-    			System.out.println("REMOVE THIS LATER Success saving player");
     		}
 
 			@Override
 			public void onError(SocializeException error) {
-				System.out.println("Error saving metadata: " + error.getLocalizedMessage());
 			}
     	});
     }

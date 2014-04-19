@@ -102,6 +102,11 @@ public class HandleWatchList
 					watchList.clear();
 					WriteToFile.writeWatchList(cont, watchList);
 					dialog.dismiss();
+					for(Map<String, String> datum : Rankings.data)
+					{
+						datum.put("hidden", "");
+					}
+					Rankings.adapter.notifyDataSetChanged();
 					return;
 				}
 				else
@@ -125,6 +130,7 @@ public class HandleWatchList
 		boolean isAuction = ReadFromFile.readIsAuction(cont);
 		if(isAuction)
 		{
+
 			totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
 			{
 				@Override

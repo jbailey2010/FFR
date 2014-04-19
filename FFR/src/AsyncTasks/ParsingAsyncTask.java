@@ -260,6 +260,12 @@ public class ParsingAsyncTask
 					} catch (IOException e1) {
 					}
 		    	}
+		    	publishProgress("Please wait, normalizing auction values...");
+		    	double auctionFactor = ReadFromFile.readAucFactor(cont);
+		    	for(PlayerObject player : holder.players)
+		    	{
+		    		player.values.secWorth = player.values.worth / auctionFactor;
+		    	}
 
 	    		publishProgress("Please wait, getting projected points...");
 	    		try {
@@ -272,12 +278,10 @@ public class ParsingAsyncTask
 	    		if(holder.maxProj() < 70.0)
 	    		{
 	    			holder.isRegularSeason = true;
-	    			System.out.println("Setting to true");
 	    		}
 	    		else
 	    		{
 	    			holder.isRegularSeason = false;
-	    			System.out.println("Setting to false, " + holder.maxProj());
 	    		}
 	    		publishProgress("Please wait, normalizing projections...");
 	    		HighLevel.getPAA(holder, cont);

@@ -71,7 +71,7 @@ public class TwitterWork
 			logInUser(cont, flag, search, b);
 		}
 	}
-	
+
 	/**
 	 * Logs in the user and makes a pop up asking them what they'd like to do
 	 */
@@ -103,10 +103,10 @@ public class TwitterWork
 			ParseNews.startTwitterSearchAsync(cont, search, "Twitter Search: " + search, saveFlag, search, this);
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * Gets the validation URL from twitter
 	 * @author Jeff
@@ -124,7 +124,7 @@ public class TwitterWork
 	        act = activity;
 	        flag = i;
 	    }
-	    
+
 		@Override
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
@@ -145,7 +145,7 @@ public class TwitterWork
 			   Toast.makeText(act, "Please kill the app and re-open it to re-attempt to connect to twitter", Toast.LENGTH_LONG).show();
 		   }
 		}
-		
+
 	    @Override
 	    protected Twitter doInBackground(Object... data) 
 	    {
@@ -168,7 +168,7 @@ public class TwitterWork
 	        return twitter;
 	    }
 	}
-	
+
 	/**
 	 * Creates a dialog to get the user to validate it, then enter the pin
 	 * @param cont
@@ -198,7 +198,7 @@ public class TwitterWork
 	    });
 	    dialog.setCancelable(false);
 	}
-	
+
 	/**
 	 * Gets and fetches the valid pin
 	 * @param cont
@@ -239,7 +239,7 @@ public class TwitterWork
 			}
 	    });
 	}
-	
+
 	/**
 	 * Calls the authentication asynctask
 	 * @param cont
@@ -252,7 +252,7 @@ public class TwitterWork
 	    TwitterValidate task = obj.new TwitterValidate((Activity)cont, flag, dialog, twitter);
 	    task.execute(cont, twitter, requestToken, Integer.toString(pin));
 	} 
-	
+
 	/**
 	 * Gets the validation URL from twitter
 	 * @author Jeff
@@ -274,7 +274,7 @@ public class TwitterWork
 	        t = twitter;
 	        d = dialog;
 	    }
-	    
+
 		@Override
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
@@ -297,7 +297,7 @@ public class TwitterWork
 			   handleAccessToken(act, result, flag);
 		   }
 		}
-		
+
 	    @Override
 	    protected AccessToken doInBackground(Object... data) 
 	    {
@@ -322,7 +322,7 @@ public class TwitterWork
 			return accessToken;
 	    }
 	}
-	
+
 	/**
 	 * Saves the rest of it to file
 	 * @param cont
@@ -452,7 +452,7 @@ public class TwitterWork
 	    } 
 	    return newsSet;
 	}
-	
+
 	/**
 	 * Parses twitter given a user's input query terms, returning relevant tweets
 	 * @param userTwitter2 

@@ -394,7 +394,7 @@ public class Draft
 			}
 			if(p == null)
 			{
-				System.out.println("NULL " + name + " was waht it should've bene");
+				//Bad shit happened
 			}
 			Map<String, String> datum = new HashMap<String, String>(2);
 			if(isAuction)
