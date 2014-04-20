@@ -42,6 +42,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMath;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
@@ -784,15 +785,20 @@ public class PlayerInfo
 			{
 				datumWorth.put("main", "$" + df.format(searchedPlayer.values.secWorth));
 			}
+			StringBuilder sub = new StringBuilder(1000);
+			if(searchedPlayer.info.position.length() > 0){
+				sub.append("$" + df.format(ParseMath.avgPAAMap(holder, ReadFromFile.readRoster(cont2), searchedPlayer)) + " according to PAA\n");
+			}
 			if(searchedPlayer.info.position.length() >= 1)
 			{
-				datumWorth.put("sub", "Ranked " + rankCostPos(searchedPlayer, holder) + " positionally, " + rankCostAll(searchedPlayer, holder) + " overall"
+				sub.append("Ranked " + rankCostPos(searchedPlayer, holder) + " positionally, " + rankCostAll(searchedPlayer, holder) + " overall"
 						+ "\nShowed up in " + searchedPlayer.values.count + " rankings");
 			}
 			else
 			{
-				datumWorth.put("sub", "Ranked " + rankCostAll(searchedPlayer, holder) + " overall\n" + "Showed up in " + searchedPlayer.values.count + " rankings");
+				sub.append("Ranked " + rankCostAll(searchedPlayer, holder) + " overall\n" + "Showed up in " + searchedPlayer.values.count + " rankings");
 			}
+			datumWorth.put("sub", sub.toString());
 			data.add(datumWorth);
 		}
 		if(holder.isRegularSeason)
