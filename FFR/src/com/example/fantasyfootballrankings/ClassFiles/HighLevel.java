@@ -1003,6 +1003,7 @@ public class HighLevel
 		HashMap<String, String> adp = new HashMap<String, String>();
 		if(!holder.isRegularSeason)
 		{
+			System.out.println("preseason ecr");
 			String url = "http://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php";
 			if(ReadFromFile.readScoring(cont).catches == 1)
 			{
@@ -1033,19 +1034,12 @@ public class HighLevel
 			{
 				player.values.ecr = ecr.get(player.info.name + player.info.position);
 				player.risk = risk.get(player.info.name + player.info.position);
-				if(holder.isRegularSeason)
+			}
+			if(holder.isRegularSeason && player.values.points > 0)
+			{
+				if(adp.containsKey(player.info.team))
 				{
-					if(adp.containsKey(player.info.team))
-					{
-						player.info.adp = adp.get(player.info.team);
-					}
-				}
-				else
-				{
-					if(adp.containsKey(player.info.name))
-					{
-						player.info.adp = (adp.get(player.info.name));
-					}
+					player.info.adp = adp.get(player.info.team);
 				}
 			}
 			else if(holder.isRegularSeason && player.values.points == 0)
@@ -1053,6 +1047,14 @@ public class HighLevel
 				player.info.adp = "Bye Week";
 				player.values.ecr = -1.0;
 			}
+			else
+			{
+				if(adp.containsKey(player.info.name + player.info.position))
+				{
+					player.info.adp = (adp.get(player.info.name + player.info.position));
+				}
+			}
+
 		} 
 	}
 	
@@ -1144,6 +1146,11 @@ public class HighLevel
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] td = ManageInput.tokenize(html, '\n', 1);
 		int min = 0;
+		String adpUrl = "http://www.fantasypros.com/nfl/adp/overall.php";
+		if(url.contains("ppr")){
+			adpUrl = "http://www.fantasypros.com/nfl/adp/ppr-overall.php";
+		}
+		parseADPWorker(holder, adp, adpUrl);
 		for(int i = 0; i < td.length; i++)
 		{ 
 			if(td[i+1].contains("QB") || td[i+1].contains("RB") || td[i+1].contains("WR") || td[i+1].contains("TE"))
@@ -1157,26 +1164,29 @@ public class HighLevel
 			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i].split(" \\(")[0].split(", ")[0]));
 			double ecrVal = Double.parseDouble(td[i+4]);
 			double riskVal = Double.parseDouble(td[i+5]);
-			String posInd = td[i+1].replaceAll("^[0-9]+$", "");
-			if(posInd.contains("K"))
-			{
-				posInd = "K";
-			}
-			else if(posInd.contains("D"))
-			{
-				posInd = "D/ST";
-			}
-			try{
-				adp.put(name, td[i+6]);
-			} catch(NumberFormatException e)
-			{
-				
-			} catch(ArrayIndexOutOfBoundsException e1)
-			{
-				
-			}
+			String posInd = td[i+1].replaceAll("(\\d+,\\d+)|\\d+", "").replaceAll("DST", "D/ST");
 			ecr.put(name + posInd, ecrVal);
 			risk.put(name + posInd, riskVal);
+		}
+	}
+	
+	public static void parseADPWorker(Storage holder, HashMap<String, String> adp, String adpUrl) throws IOException{
+		String html = HandleBasicQueries.handleLists(adpUrl, "td");
+		String[] td = ManageInput.tokenize(html, '\n', 1);
+		int min = 0;
+		for(int i = 0; i < td.length; i++)
+		{ 
+			if(td[i+1].contains("QB") || td[i+1].contains("RB") || td[i+1].contains("WR") || td[i+1].contains("TE"))
+			{
+				min = i;
+				break;
+			}
+		}
+		for(int i = min; i < td.length; i+= 8){
+			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i].split(" \\(")[0].split(", ")[0]));
+			String adpStr = td[i+6];
+			String posInd = td[i+1].replaceAll("(\\d+,\\d+)|\\d+", "").replaceAll("DST", "D/ST");
+			adp.put(name + posInd, adpStr);
 		}
 	}
 

@@ -2,6 +2,7 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.util.HashMap;
 
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
@@ -46,6 +47,28 @@ public class ParseMath {
 		}
 	}
 	
+	public static void convertECR(Storage holder){
+		for(PlayerObject player : holder.players){
+			if(player.values.ecr > 0.0){
+				double conv = convertRanking(player.values.ecr);
+				ParseRankings.finalStretch(holder, player.info.name, (int) conv, player.info.team, player.info.position);
+			}
+		}
+	}
+	
+	public static void convertADP(Storage holder){
+		for(PlayerObject player : holder.players){
+			if(ManageInput.isDouble(player.info.adp) || ManageInput.isInteger(player.info.adp)){
+				double conv = convertRanking(Double.parseDouble(player.info.adp));
+				ParseRankings.finalStretch(holder, player.info.name, (int) conv, player.info.team, player.info.position);
+			}
+		}
+	}
+	
+	public static double convertRanking(double ranking){
+		return 78.6341-15.893 * Math.log(ranking);
+	}
+	
 	public static HashMap<String, Double> initPAA1Map(Storage holder){
 		HashMap<String, Double> zMap = new HashMap<String, Double>();
 		zMap.put("QB", avgPAAPos(holder, "QB"));
@@ -61,7 +84,7 @@ public class ParseMath {
 		double coeff = player.values.paa / map.get(player.info.position);
 		double possVal = discretCash * coeff + 1.0;
 		if(player.info.position.equals("RB")){
-			possVal *= 1.35;
+			possVal *= 1.15;
 		}
 		if(player.info.position.equals("D/ST"))
 		{

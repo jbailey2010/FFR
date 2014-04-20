@@ -789,14 +789,22 @@ public class PlayerInfo
 			if(searchedPlayer.info.position.length() > 0){
 				sub.append("$" + df.format(ParseMath.avgPAAMap(holder, ReadFromFile.readRoster(cont2), searchedPlayer)) + " according to PAA\n");
 			}
+			if(searchedPlayer.values.ecr > 0.0){
+				sub.append("$" + df.format(ParseMath.convertRanking(searchedPlayer.values.ecr))+ " according to ECR\n");
+			}
+			if(ManageInput.isInteger(searchedPlayer.info.adp) || ManageInput.isDouble(searchedPlayer.info.adp)){
+				sub.append("$" + df.format(ParseMath.convertRanking(Double.parseDouble(searchedPlayer.info.adp))) + " according to ADP\n"); 
+			}
 			if(searchedPlayer.info.position.length() >= 1)
 			{
-				sub.append("Ranked " + rankCostPos(searchedPlayer, holder) + " positionally, " + rankCostAll(searchedPlayer, holder) + " overall"
-						+ "\nShowed up in " + searchedPlayer.values.count + " rankings");
+				sub.append("Ranked " + rankCostPos(searchedPlayer, holder) + " positionally, " + rankCostAll(searchedPlayer, holder) + " overall");
 			}
 			else
 			{
-				sub.append("Ranked " + rankCostAll(searchedPlayer, holder) + " overall\n" + "Showed up in " + searchedPlayer.values.count + " rankings");
+				sub.append("Ranked " + rankCostAll(searchedPlayer, holder) + " overall");
+			}
+			if(searchedPlayer.values.count < 10){
+				sub.append("\nShowed up in " + searchedPlayer.values.count + " rankings");
 			}
 			datumWorth.put("sub", sub.toString());
 			data.add(datumWorth);
@@ -924,14 +932,14 @@ public class PlayerInfo
 			data.add(datum);
 		}
 		//Risk
-		if(searchedPlayer.risk > 0.0 && !searchedPlayer.info.adp.equals("Bye Week") && searchedPlayer.values.points > 0.0)
+		if(searchedPlayer.risk >= 0.0 && !searchedPlayer.info.adp.equals("Bye Week") && searchedPlayer.values.points > 0.0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			double riskVal = posRiskVal(searchedPlayer, holder);
-			datum.put("main", searchedPlayer.risk + " Risk (" + rankRiskAll(searchedPlayer, holder) + ")");
+			datum.put("main", searchedPlayer.risk + " Risk");
 			if(searchedPlayer.info.position.length() >= 1)
 			{
-				datum.put("sub", df.format(riskVal) + " relative to his position (" + rankRiskPos(searchedPlayer, holder, riskVal) + ")");
+				datum.put("sub", "Ranked " + rankRiskAll(searchedPlayer, holder) + " overall");
 			}
 			else 
 			{
@@ -1189,23 +1197,6 @@ public class PlayerInfo
 		return player.risk - riskPos/posCounter;
 	}
 
-	
-	/**
-	 * Ranks risk relative to position
-	 * @param riskVal 
-	 */
-	public static int rankRiskPos(PlayerObject player, Storage holder, double riskVal)
-	{
-		int rank = 1;
-		for(PlayerObject iter : holder.players)
-		{
-			if(iter.info.position.equals(player.info.position) && iter.risk < player.risk && iter.risk > 0)
-			{
-				rank++;
-			}
-		}
-		return rank;
-	}
 	
 	/**
 	 * Ranks risk relative to all
