@@ -8,6 +8,7 @@ import java.io.IOException;
 
 
 import java.util.HashMap;
+
 import org.htmlcleaner.XPatherException;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
@@ -250,6 +251,9 @@ public class ParseRankings
 	 */
 	public static void finalStretch(Storage holder, String playerName, int val, String team, String pos)
 	{
+		if(playerName.equals("Adrian Peterson")){
+			System.out.println(val);
+		}
 		String validated = fixNames(playerName);
 		String newName = Storage.nameExists(holder, validated);
 		PlayerObject newPlayer = new PlayerObject(newName, team, pos, val);

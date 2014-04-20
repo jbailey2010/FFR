@@ -32,6 +32,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ComparatorHandling;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPN;
@@ -39,6 +40,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseJuanElway;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFantasyPros;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMath;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTheFakeFootball;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
@@ -99,7 +101,7 @@ public class ParsingAsyncTask
 			@Override
 			protected void onPreExecute(){ 
 			   super.onPreExecute();
-			        pdia.setMessage("Please wait, fetching the rankings...(0/24)");
+			        pdia.setMessage("Please wait, fetching the rankings...(0/25)");
 			        pdia.show();    
 			}
 
@@ -145,7 +147,7 @@ public class ParsingAsyncTask
 					} catch (IOException e15) {
 	
 					} 
-			        publishProgress("Please wait, fetching the rankings...(3/24)");
+			        publishProgress("Please wait, fetching the rankings...(3/25)");
 					System.out.println("Before CBS");
 					try {
 						ParseCBS.cbsRankings(holder);
@@ -156,7 +158,7 @@ public class ParsingAsyncTask
 	
 					}
 					System.out.println("Before ESPN ADV");
-			        publishProgress("Please wait, fetching the rankings...(6/24)");
+			        publishProgress("Please wait, fetching the rankings...(6/25)");
 					
 					try {
 						ParseESPNadv.parseESPNAggregate(holder);
@@ -169,7 +171,7 @@ public class ParsingAsyncTask
 						// TODO Auto-generated catch block
 						e13.printStackTrace();
 					}
-			        publishProgress("Please wait, fetching the rankings...(7/24)");
+			        publishProgress("Please wait, fetching the rankings...(7/25)");
 			        System.out.println("Before FFTB");
 					try {
 						ParseFFTB.parseFFTBRankingsWrapper(holder);
@@ -184,7 +186,7 @@ public class ParsingAsyncTask
 						// TODO Auto-generated catch block
 						e12.printStackTrace();
 					}
-			        publishProgress("Please wait, fetching the rankings...(8/24)");
+			        publishProgress("Please wait, fetching the rankings...(8/25)");
 			        System.out.println("Before espn");
 					try {
 						ParseESPN.parseESPN300(holder);
@@ -193,7 +195,7 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e11) {
 					}
-			        publishProgress("Please wait, fetching the rankings...(10/24)");
+			        publishProgress("Please wait, fetching the rankings...(10/25)");
 			        System.out.println("Before Yahoo");
 					try {
 						ParseYahoo.parseYahooWrapper(holder);
@@ -202,7 +204,7 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e9) {
 					}
-			        publishProgress("Please wait, fetching the rankings...(12/24)");
+			        publishProgress("Please wait, fetching the rankings...(12/25)");
 			        System.out.println("Before Fantasy Pros");
 					try {
 						ParseFantasyPros.parseFantasyProsAgg(holder);
@@ -211,7 +213,7 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e8) {
 					}
-					publishProgress("Please wait, fetching the rankings...(18/24)");
+					publishProgress("Please wait, fetching the rankings...(18/25)");
 					System.out.println("Before PFF");
 					try {
 						ParsePFF.parsePFFWrapper(holder);
@@ -222,7 +224,7 @@ public class ParsingAsyncTask
 						// TODO Auto-generated catch block
 						e7.printStackTrace();
 					}
-					publishProgress("Please wait, fetching the rankings...(19/24)");
+					publishProgress("Please wait, fetching the rankings...(19/25)");
 					System.out.println("Before TFF");
 					try {
 						ParseTheFakeFootball.parseTheFakeFootballVals(holder);
@@ -231,7 +233,7 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e6) {
 					} 
-					publishProgress("Please wait, fetching the rankings...(21/24)");
+					publishProgress("Please wait, fetching the rankings...(21/25)");
 					System.out.println("Before NFL AAV");
 					try {
 						ParseNFL.parseNFLAAVWrapper(holder);
@@ -240,25 +242,17 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e3) {
 					}
-					System.out.println("Before Juan Elway");
-					publishProgress("Please wait, fetching the rankings...(22/24)");
-					try { 
-						ParseJuanElway.parseJuanElwayVals(holder);
-					} catch (HttpStatusException e2)
-					{
-						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
-					} catch (IOException e1) {
-					}
-					publishProgress("Please wait, fetching the rankings...(23/24)");
+					publishProgress("Please wait, fetching the rankings...(22/25)");
 					System.out.println("Before SI");
 			    	try {
 						ParseSI.parseSIWrapper(holder);
-						publishProgress("Please wait, fetching the rankings...(24/24)");
+						publishProgress("Please wait, fetching the rankings...(23/25)");
 					} catch (HttpStatusException e2)
 					{
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e1) {
 					}
+
 		    	}
 		    	publishProgress("Please wait, normalizing auction values...");
 		    	double auctionFactor = ReadFromFile.readAucFactor(cont);
@@ -278,13 +272,24 @@ public class ParsingAsyncTask
 	    		if(holder.maxProj() < 70.0)
 	    		{
 	    			holder.isRegularSeason = true;
+	    			System.out.println("Setting to true");
 	    		}
 	    		else
 	    		{
 	    			holder.isRegularSeason = false;
+	    			System.out.println("Setting to false, " + holder.maxProj());
 	    		}
 	    		publishProgress("Please wait, normalizing projections...");
 	    		HighLevel.getPAA(holder, cont);
+	    		if(!holder.isRegularSeason){
+			    	Roster r = ReadFromFile.readRoster(cont);
+			    	System.out.println("Before first PAA adjustment");
+			    	ParseMath.convertPAA(holder, r);
+			    	publishProgress("Please wait, fetching the rankings...(24/25)");
+			    	System.out.println("Before second PAA adjustment");
+			    	ParseMath.convertPAA2(holder, r);
+			    	publishProgress("Please wait, fetching the rankings...(25/25)");
+	    		}
 	    		
 	    		publishProgress("Please wait, calculating relative risk...");
 	    		try {

@@ -777,7 +777,7 @@ public class HighLevel
 			}
 			if(roster.flex.op == 1)
 			{
-				qbLimit = (6 * x - 33);
+				qbLimit = (6 * x - 31);
 				teLimit += 0.5;
 				if(scoring.catches == 1)
 				{
@@ -958,9 +958,9 @@ public class HighLevel
 		kTotal /= kCounter;
 		for(PlayerObject player : holder.players)
 		{
-			if(player.info.position.equals("QB") || player.info.position.equals("RB") || 
+			if((player.info.position.equals("QB") || player.info.position.equals("RB") || 
 					player.info.position.equals("WR") || player.info.position.equals("TE") || player.info.position.equals("K")
-					|| player.info.position.equals("D/ST")&& 
+					|| player.info.position.equals("D/ST"))&& 
 					player.values.points != 0.0)
 			{
 				if(player.info.position.equals("QB"))
@@ -1003,7 +1003,6 @@ public class HighLevel
 		HashMap<String, String> adp = new HashMap<String, String>();
 		if(!holder.isRegularSeason)
 		{
-			System.out.println("Getting preseason stuff");
 			String url = "http://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php";
 			if(ReadFromFile.readScoring(cont).catches == 1)
 			{

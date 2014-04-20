@@ -32,6 +32,7 @@ import com.example.fantasyfootballrankings.ClassFiles.WidgetLibrary;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMath;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.*;
@@ -668,7 +669,7 @@ public class Rankings extends Activity {
 	 * Handles the possible loading of the players
 	 */
 	public void handleRefresh()
-	{
+	{ 
 		
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	Set<String> checkExists = prefs.getStringSet("Player Values", null);

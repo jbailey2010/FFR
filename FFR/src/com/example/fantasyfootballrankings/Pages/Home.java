@@ -149,7 +149,6 @@ public class Home extends Activity{
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
 		}*/
-        RelativeLayout homeBase = (RelativeLayout)findViewById(R.id.home_base);
 	}  
 	
 	 
