@@ -4,11 +4,39 @@
     android:layout_height="fill_parent"
     android:background="#A3A3A3"
     android:orientation="vertical" >
+      <LinearLayout
+        android:id="@+id/rankings_search_base"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="12"
+        android:layout_height="wrap_content" 
+        android:background="#252525">
+
+        <AutoCompleteTextView
+            android:id="@+id/ranking_search"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_margin="7dp"
+            android:layout_weight="11"
+            android:hint="Search"
+            android:dropDownHeight="200dp"
+            android:textColor="#dddddd"
+            android:background="@drawable/spinner_well_grey" />
+
+        <ImageView
+            android:id="@+id/rankings_search_submit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="32dp"
+            android:layout_margin="7dp"
+            android:src="@drawable/search_ranks"/>
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/rankings_header_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
         android:background="@drawable/menu_btn_black"
+        android:layout_below="@+id/rankings_search_base"
         android:weightSum="100"> 
 	
         <Button
@@ -29,13 +57,13 @@
 		    android:layout_marginBottom="7dp"/>
 
         <Button
-            android:id="@+id/search"
+            android:id="@+id/watch"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="25"
             android:background="@drawable/menu_btn_black"
-            android:text="Search"
+            android:text="Watch List"
             android:textColor="#FFFFFF"
             android:textSize="15sp" />
         
@@ -74,68 +102,15 @@
             android:textSize="15sp" />
 
     </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:id="@+id/rankings_header_sublayout"
+
+    
+
+    
+    
+    
+  
+    <RelativeLayout
         android:layout_below="@+id/rankings_header_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="10dp"
-        android:background="#161616"/>
-
-    
-
-    
-    
-    
-    <RelativeLayout
-        android:id="@+id/rankings_widget_base"
-        android:layout_below="@+id/rankings_header_sublayout"
-        android:layout_width="match_parent"
-        android:layout_height="37dp" 
-        android:background="#141414">
-
-        <Spinner
-            android:id="@+id/ranking_pos_spinner"
-            android:layout_width="110dp"
-            android:layout_height="35dp"
-            android:background="@drawable/spinner_well_grey"
-            android:layout_marginLeft="2dp"
-            android:layout_alignParentLeft="true" />
-
-        <Button
-            android:id="@+id/rankings_widget_submit"
-            android:layout_width="30dp"
-            android:layout_height="35dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/ranking_pos_spinner"
-            android:text=">" 
-            android:layout_marginLeft="2dp"
-            android:textColor="#ffffff"
-            android:background="#454545"
-            style="?android:attr/buttonBarButtonStyle"/>
-
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/rankings_widget_submit"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/rankings_widget_submit" >
- 
-            <TextView
-                android:id="@+id/rankings_widget_output"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textColor="#FFFFFF"
-                android:text="  Draft a player by swiping to the side, click on them to get more information, and click and hold to add to your watch list.  "
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </HorizontalScrollView>
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_below="@+id/rankings_widget_base"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 	    android:paddingBottom="2dp"

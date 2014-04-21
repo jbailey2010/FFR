@@ -8,9 +8,16 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
-
+/**
+ * A library to build auction values mathematically
+ * @author user
+ *
+ */
 public class ParseMath {
 	
+	/**
+	 * Averages the two PAA calcs together to give one for playerinfo popup's sake
+	 */
 	public static double avgPAAMap(Storage holder, Roster r, PlayerObject player){
 		int rosterSize = getRosterSize(r);
 		double discretOne = discretPAA(r, rosterSize);
@@ -19,11 +26,13 @@ public class ParseMath {
 		HashMap<String, Double> zMapTwo = initPAA2Map(holder, discretTwo);
 		double val1 = paa1Calc(zMapOne, player, discretOne);
 		double val2 = paa2Calc(zMapTwo, player);
-		System.out.println(val1 + ", " + val2 + " for " + player.info.name);
 		return ((val1 + val2)/2.0);
 		
 	}
 	
+	/**
+	 * Calculates PAA for the first method for everyone
+	 */
 	public static void convertPAA(Storage holder, Roster r)
 	{
 		double discretCash = discretPAA(r, getRosterSize(r));
@@ -36,6 +45,9 @@ public class ParseMath {
 		}
 	}
 	
+	/**
+	 * Calculates the PAA for the second method for everyone
+	 */
 	public static void convertPAA2(Storage holder, Roster r){
 		double freeMoney = discretPAA2(r, getRosterSize(r));
 		HashMap<String, Double> zMap = initPAA2Map(holder, freeMoney);
@@ -47,6 +59,9 @@ public class ParseMath {
 		}
 	}
 	
+	/**
+	 * Converts ECR to auction values for everyone
+	 */
 	public static void convertECR(Storage holder){
 		for(PlayerObject player : holder.players){
 			if(player.values.ecr > 0.0){
@@ -56,6 +71,9 @@ public class ParseMath {
 		}
 	}
 	
+	/**
+	 * Converts ADP to auction values for everyone
+	 */
 	public static void convertADP(Storage holder){
 		for(PlayerObject player : holder.players){
 			if(ManageInput.isDouble(player.info.adp) || ManageInput.isInteger(player.info.adp)){
@@ -65,10 +83,16 @@ public class ParseMath {
 		}
 	}
 	
+	/**
+	 * The actual formula for adp and ecr conversions
+	 */
 	public static double convertRanking(double ranking){
 		return 78.6341-15.893 * Math.log(ranking);
 	}
 	
+	/**
+	 * Builds the hashmap to make the first paa calculation easier
+	 */
 	public static HashMap<String, Double> initPAA1Map(Storage holder){
 		HashMap<String, Double> zMap = new HashMap<String, Double>();
 		zMap.put("QB", avgPAAPos(holder, "QB"));
@@ -80,11 +104,14 @@ public class ParseMath {
 		return zMap;
 	}
 	
+	/**
+	 * Does the individual calculation for the first paa method
+	 */
 	public static double paa1Calc(HashMap<String, Double> map, PlayerObject player, double discretCash){
 		double coeff = player.values.paa / map.get(player.info.position);
 		double possVal = discretCash * coeff + 1.0;
 		if(player.info.position.equals("RB")){
-			possVal *= 1.15;
+			possVal *= 1.08;
 		}
 		if(player.info.position.equals("D/ST"))
 		{
@@ -100,6 +127,9 @@ public class ParseMath {
 		return possVal;
 	}
 	
+	/**
+	 * Builds the hashmap to simplify calculations for the second paa method
+	 */
 	public static HashMap<String, Double> initPAA2Map(Storage holder, double freeMoney){
 		HashMap<String, Double> zMap = new HashMap<String, Double>();
 		zMap.put("QB", totalPAAPos(holder, "QB")/freeMoney);
@@ -111,10 +141,13 @@ public class ParseMath {
 		return zMap;
 	}
 	
+	/**
+	 * Does the individual paa calculations for the second method
+	 */
 	public static double paa2Calc(HashMap<String, Double> zMap, PlayerObject player){
 		double possVal = (player.values.paa / zMap.get(player.info.position)) + 1;
 		if(player.info.position.equals("TE")){
-			possVal /= 4.0;
+			possVal /= 3.9;
 		}
 		if(player.info.position.equals("D/ST")){
 			possVal /= 30.0;
@@ -128,19 +161,31 @@ public class ParseMath {
 		return possVal;
 	}
 	
+	/**
+	 * Gets the discretionary cash for the first method
+	 */
 	public static double discretPAA(Roster r, int rosterSize){
 		return (200 - rosterSize)/rosterSize;
 	}
 	
+	/**
+	 * Gets the discretionary cash for the second method
+	 */
 	public static double discretPAA2(Roster r, int rosterSize){
 		return (200.0 - rosterSize) * r.teams;
 	}
 	
+	/**
+	 * Gets the roster size
+	 */
 	public static int getRosterSize(Roster r){
 		return r.qbs + r.rbs + r.wrs + r.tes + r.def + r.k + r.flex.op + r.flex.rbwr + r.flex.rbwrte;
 	}
 	
 	
+	/**
+	 * Gets the average paa of would be startable people
+	 */
 	public static double avgPAAPos(Storage holder, String position)
 	{
 		double paaTotal = 0.0;
@@ -154,6 +199,9 @@ public class ParseMath {
 		return paaTotal / paaCount;
 	}
 	
+	/**
+	 * Gets the total paa of would be startable people
+	 */
 	public static double totalPAAPos(Storage holder, String position){
 		double paaTotal = 0.0;
 		for(PlayerObject player : holder.players){

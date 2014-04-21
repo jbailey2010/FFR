@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -99,23 +100,7 @@ public class PlayerInfo
 	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 	    
-		Rankings.voice = (Button) dialog.findViewById(R.id.speakButton);
 	    Rankings.textView = (AutoCompleteTextView)(dialog).findViewById(R.id.player_input);
-	    if(!isImport)
-	    {
-		    Rankings.voice.setOnClickListener(new OnClickListener() {
-		
-			    @Override
-			    public void onClick(final View v) {
-			            ((Rankings) oCont).speakButtonClicked(v);
-			            
-			    }
-			});
-	    }
-	    else
-	    {
-	    	Rankings.voice.setVisibility(View.GONE);
-	    }
 	    if(Rankings.matchedPlayers.size() == 0)
 	    {
 	    	ManageInput.setupAutoCompleteSearch(holder, holder.players, Rankings.textView, oCont);

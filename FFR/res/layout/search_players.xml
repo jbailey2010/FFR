@@ -14,17 +14,6 @@
         style="?android:attr/buttonBarButtonStyle"
         android:text="X" />
 
-<Button
-    android:id="@+id/speakButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/player_input"
-    android:layout_centerHorizontal="true"
-    android:text="Voice Search" 
-    android:onClick="speakButtonClicked"
-    android:background="@drawable/btn_black"
-    style="@style/ButtonText"/>
-
 <AutoCompleteTextView
     android:id="@+id/player_input"
     android:layout_width="wrap_content"
@@ -67,7 +56,7 @@
     style="@style/ButtonText"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/speakButton"
+    android:layout_below="@+id/player_input"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="35dp"
     android:background="@drawable/btn_red"

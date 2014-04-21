@@ -54,6 +54,16 @@
          android:layout_marginTop="16dp"
          android:text="Through refresh or reset, you can clear your draft thus far (which also can be done through undraft), or re-fetch the rankings."
          android:textAppearance="?android:attr/textAppearanceSmall" />
+     
+     <TextView
+         android:id="@+id/textView11"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/textView10"
+         android:layout_marginTop="16dp"
+         android:text="To use the search, begin typing and click the appropriate dropdown element. To clear a search, click and hold on the input field."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
 </ScrollView>

@@ -1,9 +1,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item
-        android:id="@+id/watch_list"
-        android:orderInCategory="100"
-        android:showAsAction="ifRoom|withText" 
-        android:title="Watch List" />
     <item 
         android:id="@+id/filter_topics_rankings"
         android:orderInCategory="100"
@@ -24,11 +19,6 @@
         android:orderInCategory="100"
         android:showAsAction="never" 
         android:title="Save This Draft"/> 
-    <item
-        android:id="@+id/hide_widget"
-        android:orderInCategory="100"
-        android:showAsAction="never" 
-        android:title="Hide/Show Widget"/> 
 	<item
         android:id="@+id/help"
         android:orderInCategory="100"

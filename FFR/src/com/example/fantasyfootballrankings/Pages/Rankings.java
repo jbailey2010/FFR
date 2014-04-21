@@ -7,6 +7,7 @@ import java.io.IOException;
 
 
 
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -28,7 +29,6 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.SortHandler;
-import com.example.fantasyfootballrankings.ClassFiles.WidgetLibrary;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
@@ -60,6 +60,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -67,6 +68,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -74,6 +76,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TwoLineListItem;
 import android.widget.AdapterView.OnItemClickListener;
 /**
  * Handles the rankings part of the java file
@@ -87,10 +90,9 @@ public class Rankings extends Activity {
 	public static Storage holder = new Storage(null);
 	public static Button voice;
 	public static AutoCompleteTextView textView;
-	private static final int REQUEST_CODE = 1234;
 	static Dialog dialog;
 	public static List<String> matchedPlayers;
-	static Button search;
+	static Button watch;
 	static Button info;
 	static Button compare;
 	static Button sort;
@@ -107,8 +109,6 @@ public class Rankings extends Activity {
 	static SwipeDismissListViewTouchListener touchListener;
 	static Scoring scoring = new Scoring();
 	public static boolean isAuction;
-	public RelativeLayout widgetBase;
-	public boolean hideWidget = false;
 	public static boolean isAsync = false;
 	public static double aucFactor;
 	public static SideNavigationView sideNavigationView;
@@ -173,13 +173,13 @@ public class Rankings extends Activity {
 		}
 		aucFactor = ReadFromFile.readAucFactor(cont);
 		watchList.clear();
-		search = (Button)findViewById(R.id.search);
+		watch = (Button)findViewById(R.id.watch);
 		info = (Button)findViewById(R.id.draft_info);
 		compare = (Button)findViewById(R.id.player_comparator);
 		sort = (Button)findViewById(R.id.sort_players);
     	listview = (ListView)findViewById(R.id.listview_rankings);
-    	widgetBase = (RelativeLayout)findViewById(R.id.rankings_widget_base);
-		hideWidget = ReadFromFile.readHideWidget(cont);
+    	//widgetBase = (RelativeLayout)findViewById(R.id.rankings_widget_base);
+		//hideWidget = ReadFromFile.readHideWidget(cont);
     	context = this;
     	isAuction = ReadFromFile.readIsAuction(cont);
     	setLists();
@@ -188,12 +188,12 @@ public class Rankings extends Activity {
 		ActionBar ab = getActionBar();
 		//ab.setDisplayShowHomeEnabled(false);
 		ab.setDisplayShowTitleEnabled(false);
-		setUpWidget();
-		if(hideWidget || holder.isRegularSeason || holder.players.size() == 0)
-		{
-			widgetBase.setVisibility(View.GONE);
-		}
+		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		configSearch();
 	}
+	
+	
+	
 	
 	@Override
 	protected void onPause() {
@@ -228,11 +228,8 @@ public class Rankings extends Activity {
 		if(menu != null && holder.isRegularSeason)
 		{
 			MenuItem a = (MenuItem)menu.findItem(R.id.save_draft);
-			MenuItem b = (MenuItem)menu.findItem(R.id.hide_widget);
 			a.setVisible(false);
 			a.setEnabled(false);
-			b.setVisible(false);
-			b.setEnabled(false);
 		}
 		return true;
 	}
@@ -249,17 +246,6 @@ public class Rankings extends Activity {
 			case android.R.id.home:
 		        sideNavigationView.toggleMenu();
 		        return true;
-			case R.id.watch_list:
-				watchList = ReadFromFile.readWatchList(context);
-				if(watchList.size() > 0 && holder.parsedPlayers.contains(watchList.get(0)))
-				{
-					HandleWatchList.handleWatchInit(holder, cont, watchList);
-				}
-				else
-				{
-					Toast.makeText(context, "Watch list is empty", Toast.LENGTH_SHORT).show();
-				}
-				return true;
 			case R.id.refresh:
 				refreshRanks(dialog);
 		    	return true;
@@ -285,18 +271,6 @@ public class Rankings extends Activity {
 				return true;
 			case R.id.help:
 				helpDialog();
-				return true;
-			case R.id.hide_widget:
-				hideWidget = !hideWidget;
-				WriteToFile.writeHideWidget(hideWidget, cont);
-				if(hideWidget)
-				{
-					widgetBase.setVisibility(View.GONE);
-				}
-				else
-				{
-					widgetBase.setVisibility(View.VISIBLE);
-				}
 				return true;
 			case R.id.save_draft:
 				holder.draft.saveDraft(holder, cont);
@@ -327,82 +301,6 @@ public class Rankings extends Activity {
 			}
 	    });
 	}
-	
-	/**
-	 * Handles the widget work
-	 */
-	public void setUpWidget()
-	{
-		List<String> pos = new ArrayList<String>();
-		pos.add("A Brief How-To");
-		pos.add("Suggested Targets");
-		pos.add("Basic Draft Info");
-		pos.add("QB - Drafted by you");
-		pos.add("RB - Drafted by you");
-		pos.add("WR - Drafted by you");
-		pos.add("TE - Drafted by you");
-		pos.add("D/ST - Drafted by you");
-		pos.add("K - Drafted by you");
-		pos.add("QB - PAA left");
-		pos.add("RB - PAA left");
-		pos.add("WR - PAA left");
-		pos.add("TE - PAA left");
-		final Spinner widgSpinner = (Spinner)findViewById(R.id.ranking_pos_spinner);
-		 WindowManager wm = (WindowManager) cont.getSystemService(Context.WINDOW_SERVICE);
-		 Display display = wm.getDefaultDisplay();
-		 @SuppressWarnings("deprecation")
-		 Resources r = cont.getResources();
-		 int width = display.getWidth();
-		 int newWidth = 0;
-		 newWidth = width/3;
-		 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newWidth, r.getDisplayMetrics());
-		 android.view.ViewGroup.LayoutParams params1 = widgSpinner.getLayoutParams();
-		 if(px > 250.0)
-		 {
-			 px = 250;
-		 }
-		 if(px < 110.0)
-		 {
-			 px = 110;
-		 }
-		 params1.width = (int) px;
-		 widgSpinner.setLayoutParams(params1);
-		 ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(context, 
-					android.R.layout.simple_spinner_dropdown_item, pos);
-		 widgSpinner.setAdapter(spinnerArrayAdapter);
-		 final TextView widgOutput = (TextView)findViewById(R.id.rankings_widget_output);
-		 final Button widgSubmit = (Button)findViewById(R.id.rankings_widget_submit);
-		 widgSubmit.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				String total = ((TextView)widgSpinner.getSelectedView()).getText().toString();
-				String posStr = total.split(" - ")[0];
-				if(total.contains("PAA left"))
-				{
-					widgOutput.setText(WidgetLibrary.paaDiff(posStr, holder));
-				}
-				else if(total.contains("Drafted by you"))
-				{
-					widgOutput.setText(WidgetLibrary.draftThusFar(posStr, holder));
-				}
-				else if(total.contains("Basic Draft Info"))
-				{
-					widgOutput.setText(WidgetLibrary.basicInfo(holder));
-				}
-				else if(total.contains("Suggested"))
-				{
-					WidgetLibrary.suggestedPicks(widgOutput, holder, watchList);
-				}
-				else if(total.contains("A Brief"))
-				{
-					widgOutput.setText("  Draft a player by swiping to the side, click on them to get more information, and click and hold to add to your watch list.  ");
-				}
-			}
-		 });
-	}
-	
-
-	
     
 	/**
 	 * Populate team/pos lists
@@ -744,8 +642,24 @@ public class Rankings extends Activity {
 	        	  moreInfo(new Dialog(context, R.style.RoundCornersFull));
 	          }
 	    });    
+		watch.setOnClickListener(new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				watchList = ReadFromFile.readWatchList(context);
+				if(watchList.size() > 0 && holder.parsedPlayers.contains(watchList.get(0)))
+				{
+					HandleWatchList.handleWatchInit(holder, cont, watchList);
+				}
+				else
+				{
+					Toast.makeText(context, "Watch list is empty", Toast.LENGTH_SHORT).show();
+				}
+			}
+			
+		});
 		//Handle the search onclick
-		search.setOnClickListener(new View.OnClickListener() 
+		/*search.setOnClickListener(new View.OnClickListener() 
 	    {
 			
 	          @Override
@@ -760,7 +674,7 @@ public class Rankings extends Activity {
 	        		  e.printStackTrace();
 	        	  }
 	          }
-	    });  
+	    });  */
 		compare.setOnClickListener(new View.OnClickListener()
 		{
 	          @Override
@@ -796,63 +710,70 @@ public class Rankings extends Activity {
 	}
 	
 	/**
-     * Handle the action of the button being clicked
-     */
-    public void speakButtonClicked(View v)
-    {
-        startVoiceRecognitionActivity();
-    }
-    
-    /**
-     * Fire an intent to start the voice recognition activity.
-     */
-    private void startVoiceRecognitionActivity()
-    {
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Enter the player you'd like to search for");
-        startActivityForResult(intent, REQUEST_CODE);
-    }
-    
-    /**
-     * Handle the results from the voice recognition activity.
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK)
-        {
-            // Populate the wordsList with the String values the recognition engine thought it heard
-            ArrayList<String> matches = data.getStringArrayListExtra(
-                    RecognizerIntent.EXTRA_RESULTS);
-            matchedPlayers = ManageInput.voiceInput(matches, context, holder, textView);
-            if(matchedPlayers.size() != 0)
-            {
-            	double maxVal = 0.0;
-            	String maxPlayer = "";
-            	for(String player : matchedPlayers)
-            	{
-            		for(int i = 0; i < holder.players.size(); i++)
-            		{
-            			PlayerObject playerIter = holder.players.get(i);
-            			if(playerIter.info.name.equals(player))
-            			{
-            				if(playerIter.values.worth > maxVal)
-            				{
-            					maxPlayer = playerIter.info.name;
-            					maxVal = playerIter.values.worth;
-            				}
-                			break;
-            			}
-            		}
-            	}            	
-            	textView.setText(maxPlayer);
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-    
+	 * Configures the built in search to do what it should
+	 */
+	public void configSearch(){
+		ImageView submit = (ImageView)findViewById(R.id.rankings_search_submit);
+		final AutoCompleteTextView input = (AutoCompleteTextView)findViewById(R.id.ranking_search);
+		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+		for(PlayerObject player : holder.players)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", player.info.name);
+			if(!player.info.name.contains("D/ST") && player.info.position.length() >= 1 && player.info.team.length() > 2)
+			{
+				datum.put("sub", player.info.position + " - " + player.info.team);
+			}
+			else
+			{
+				datum.put("sub", "");
+			}
+			data.add(datum);
+		}
+		 final SimpleAdapter mAdapter = new SimpleAdapter(cont, data, 
+		    		android.R.layout.simple_list_item_2, 
+		    		new String[] {"main", "sub"}, 
+		    		new int[] {android.R.id.text1, 
+		    			android.R.id.text2});
+		   input.setAdapter(mAdapter);
+		   System.out.println("Setting to an adapter with size of " + mAdapter.getCount());
+		input.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				String text = ((TwoLineListItem)arg1).getText1().getText().toString();
+				input.setText(text + ", " + ((TwoLineListItem)arg1).getText2().getText().toString());
+			}
+		});
+		input.setOnLongClickListener(new OnLongClickListener(){
+
+			@Override
+			public boolean onLongClick(View v) {
+				input.setText("");
+				return true;
+			}
+			
+		});
+		input.clearFocus();
+		submit.setOnClickListener(new OnClickListener(){
+ 
+			@Override
+			public void onClick(View v) {
+				if(holder.parsedPlayers.contains(input.getText().toString().split(", ")[0]))
+				{
+					dialog.dismiss();
+					new PlayerInfo().outputResults(input.getText().toString(), false, (Activity) cont, holder, false, true);
+				}
+				else
+				{
+					Toast.makeText(cont, "Not a valid player name", Toast.LENGTH_SHORT).show();
+				}
+			}
+			
+		});
+	}
+	
+
     /**
      * Sets the dialog to handle the salary/value information
      * @param dialog
@@ -930,6 +851,62 @@ public class Rankings extends Activity {
 		}
     	dialog.show();
     }
+    
+	/**
+	 * Calculates the PAA left at a position
+	 * @param pos
+	 * @return
+	 */
+	public static String paaDiff(String pos, Storage holder)
+	{
+		DecimalFormat df = new DecimalFormat("#.#");
+		String result = "3/5/10 back: ";
+		double paaLeft = 0.0;
+		int counter = 0;
+		PriorityQueue<PlayerObject> inter = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+				{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b) 
+			{
+				if (a.values.worth > b.values.worth)
+			    {
+			        return -1;
+			    }
+			    if (a.values.worth < b.values.worth)
+			    {
+			    	return 1;
+			    } 
+			    return 0;
+			}
+		});
+		for(PlayerObject player: holder.players)
+		{
+			if(!Draft.isDrafted(player.info.name, holder.draft) && player.info.position.equals(pos))
+			{
+				inter.add(player);
+			}
+		}
+		while(!inter.isEmpty())
+		{
+			PlayerObject player = inter.poll();
+			paaLeft += player.values.paa;
+			counter++;
+			if(counter > 10)
+			{
+				result += df.format(paaLeft);
+				break;
+			}
+			if(counter == 4)
+			{
+				result += df.format(paaLeft) + "/";
+			}
+			if(counter == 6)
+			{
+				result += df.format(paaLeft) + "/";
+			}
+		}
+		return result;
+	}
 
 	public void posValLeft(final Dialog dialog, Storage holder, final Context context) 
 	{
@@ -948,7 +925,7 @@ public class Rankings extends Activity {
 	    Roster r = ReadFromFile.readRoster(context);
 	    if(r.qbs != 0)
 	    {
-	    	qbLeft.setText("QB: " + WidgetLibrary.paaDiff("QB", holder).split(": ")[1]);
+	    	qbLeft.setText("QB: " + paaDiff("QB", holder).split(": ")[1]);
 	    }
 	    else
 	    {
@@ -956,7 +933,7 @@ public class Rankings extends Activity {
 	    }
 	    if(r.rbs != 0)
 	    {
-	    	rbLeft.setText("RB: " + WidgetLibrary.paaDiff("RB", holder).split(": ")[1]);
+	    	rbLeft.setText("RB: " + paaDiff("RB", holder).split(": ")[1]);
 	    }
 	    else
 	    {
@@ -964,7 +941,7 @@ public class Rankings extends Activity {
 	    }
 	    if(r.wrs != 0)
 	    {
-	    	wrLeft.setText("WR: " + WidgetLibrary.paaDiff("WR", holder).split(": ")[1]);
+	    	wrLeft.setText("WR: " + paaDiff("WR", holder).split(": ")[1]);
 	    }
 	    else
 	    {
@@ -972,7 +949,7 @@ public class Rankings extends Activity {
 	    }
 	    if(r.teams != 0)
 	    {
-	    	teLeft.setText("TE: " + WidgetLibrary.paaDiff("TE", holder).split(": ")[1]);
+	    	teLeft.setText("TE: " + paaDiff("TE", holder).split(": ")[1]);
 	    }
 	    else
 	    {
@@ -1100,10 +1077,6 @@ public class Rankings extends Activity {
 	 */
 	public void intermediateHandleRankings(Activity cont)
 	{ 
-		if(holder.isRegularSeason)
-		{
-			widgetBase.setVisibility(View.GONE);
-		}
 		isAsync = false;
 		cont.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		int maxSize = ReadFromFile.readFilterQuantitySize((Context)cont, "Rankings");
