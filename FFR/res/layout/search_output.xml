@@ -140,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="25"
             android:background="@drawable/category_playerinfo"
-            android:text="Other"
+            android:text="News"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
 

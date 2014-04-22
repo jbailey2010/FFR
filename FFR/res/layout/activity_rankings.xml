@@ -52,7 +52,7 @@
         
        	<View android:layout_height="fill_parent"
 		    android:layout_width="2dp"
-		    android:background="#FF0000"
+		    android:background="#990000"
 		    android:layout_marginTop="7dp"
 		    android:layout_marginBottom="7dp"/>
 
@@ -69,7 +69,7 @@
         
         <View android:layout_height="fill_parent"
 		    android:layout_width="2dp"
-		    android:background="#FF0000"
+		    android:background="#990000"
 		    android:layout_marginTop="7dp"
 		    android:layout_marginBottom="7dp"/>
 
@@ -86,7 +86,7 @@
         
         <View android:layout_height="fill_parent"
 		    android:layout_width="2dp"
-		    android:background="#FF0000"
+		    android:background="#990000"
 		    android:layout_marginTop="7dp"
 		    android:layout_marginBottom="7dp"/>
 
