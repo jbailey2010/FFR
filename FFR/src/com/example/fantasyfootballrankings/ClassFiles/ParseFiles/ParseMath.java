@@ -87,7 +87,11 @@ public class ParseMath {
 	 * The actual formula for adp and ecr conversions
 	 */
 	public static double convertRanking(double ranking){
-		return 78.6341-15.893 * Math.log(ranking);
+		double possVal = 78.6341-15.893 * Math.log(ranking);
+		if(possVal < 0.0){
+			possVal = 0.0;
+		}
+		return possVal;
 	}
 	
 	/**
@@ -120,9 +124,9 @@ public class ParseMath {
 		if(player.info.position.equals("K")){
 			possVal /= 20;
 		}
-		if(possVal < 1.0)
+		if(possVal < 0.0)
 		{
-			possVal = 1.0;
+			possVal = 0.0;
 		}
 		return possVal;
 	}
@@ -155,8 +159,8 @@ public class ParseMath {
 		if(player.info.position.equals("K")){
 			possVal /= 25.0;
 		}
-		if(possVal < 1.0){
-			possVal = 1.0;
+		if(possVal < 0.0){
+			possVal = 0.0;
 		}
 		return possVal;
 	}
