@@ -67,17 +67,19 @@ public class PlayerInfo
 	Rankings obj = new Rankings();
 	double aucFactor;
 	PlayerObject searchedPlayer;
-	List<Map<String, String>> data;
+	static List<Map<String, String>> data;
 	public Storage holder;
 	public Dialog dialog;
-	SimpleAdapter adapter;
+	static SimpleAdapter adapter;
 	public static Button ranking;
 	public static Button info;
 	public static Button team;
 	public static Button other;
 	public boolean isImport = false;
 	public Context cont;
+	static Context a;
 	public ImportedTeam newImport; 
+	public static List<NewsObjects> newsList = new ArrayList<NewsObjects>();
 	/**
 	 * Abstracted out of the menu handler as this could get ugly
 	 * once the stuff is added to the dropdown
@@ -164,8 +166,10 @@ public class PlayerInfo
 	public void outputResults(final String namePlayer, boolean flag, 
 			final Activity act, final Storage hold, final boolean watchFlag, boolean draftable)
 	{
+		newsList = new ArrayList<NewsObjects>();
 		checkIfFirstOpening(act, hold.isRegularSeason);
 		holder = hold;
+		a = act;
 		dialog = new Dialog(act);
 	    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		dialog.setContentView(R.layout.search_output);
@@ -390,6 +394,10 @@ public class PlayerInfo
 		else
 		{
 			base.setVisibility(View.GONE);
+		}
+		if(ManageInput.confirmInternet(act)){
+			PlayerNewsActivity objNews = new PlayerNewsActivity();
+			objNews.startNews(searchedPlayer.info.name, act);
 		}
 		adapter = new SimpleAdapter(act, data, 
 	    		R.layout.web_listview_item, 
@@ -1150,6 +1158,14 @@ public class PlayerInfo
 			datum2.put("sub", "");
 			data.add(datum2);
 		}
+		if(newsList.size() > 0){
+			for(NewsObjects news : newsList){
+				HashMap<String, String> datum = new HashMap<String, String>();
+				datum.put("main", news.news);
+				datum.put("sub", news.impact);
+				data.add(datum);
+			}
+		}
 		if(data.size() == 0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
@@ -1424,5 +1440,21 @@ public class PlayerInfo
 	                    });
 	    tweetResults.setOnTouchListener(touchListener);
 	    tweetResults.setOnScrollListener(touchListener.makeScrollListener());
+	}
+
+	public static void populateNews(List<NewsObjects> result) {
+		for(NewsObjects news : result){
+			newsList.add(news);
+			float px = other.getTextSize();
+			float sp = ManageInput.pixelsToSp(a, px);
+			if(sp == 14){
+				HashMap<String, String> datum = new HashMap<String, String>();
+				datum.put("main", news.news);
+				datum.put("sub", news.impact);
+				data.add(datum);
+				adapter.notifyDataSetChanged();
+			}
+		}
+		
 	}
 }

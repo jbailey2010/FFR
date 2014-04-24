@@ -870,4 +870,9 @@ public class ManageInput
 		help.setText(helpStr.toString());
 				
 	}
+	
+	public static float pixelsToSp(Context context, Float px) {
+	    float scaledDensity = context.getResources().getDisplayMetrics().scaledDensity;
+	    return px/scaledDensity;
+	}
 }

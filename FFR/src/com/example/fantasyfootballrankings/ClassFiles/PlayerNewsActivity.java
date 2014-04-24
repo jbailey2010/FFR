@@ -1,0 +1,89 @@
+package com.example.fantasyfootballrankings.ClassFiles;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.AsyncTask;
+
+public class PlayerNewsActivity {
+	
+	public void startNews(String playerName, Context cont){
+		String[] nameSet = playerName.split(" ");
+		String baseUrl = "http://www.fantasypros.com/nfl/news/";
+		for(String name : nameSet){
+			baseUrl += name + "-";
+		}
+		baseUrl = baseUrl.substring(0, baseUrl.length() - 1) + ".php";
+		ParsePlayerNews obj = new ParsePlayerNews((Activity) cont, baseUrl);
+		obj.execute();
+	}
+	
+	
+	public class ParsePlayerNews extends AsyncTask<Object, String, List<NewsObjects>> 
+	{
+		Activity act;
+		String urlNews;
+	    public ParsePlayerNews(Activity activity, String url) 
+	    {
+	        act = activity;
+	        urlNews = url;
+	    }
+
+		@Override
+		protected void onPreExecute(){ 
+		   super.onPreExecute();   
+		}
+
+		@Override
+		protected void onPostExecute(List<NewsObjects> result){
+			super.onPostExecute(result);
+			PlayerInfo.populateNews(result);
+		}
+
+	    @Override
+	    protected List<NewsObjects> doInBackground(Object... data) 
+	    {
+	    	List<NewsObjects> newsList = new ArrayList<NewsObjects>();
+	    	try {
+				Document doc = Jsoup.connect(urlNews).userAgent(HandleBasicQueries.ua).get();
+				String tweets = HandleBasicQueries.handleListsMulti(doc, urlNews, "div.tweets");
+				String news = HandleBasicQueries.handleListsMulti(doc, urlNews, "div.notes div.pull-left div.news-title");
+				String newsCont = HandleBasicQueries.handleListsMulti(doc, urlNews, "div.notes div.pull-left div.pull-left div");
+				String[] indivTweets = ManageInput.tokenize(tweets, '\n', 1);
+				String[] indivNews = ManageInput.tokenize(news, '\n', 1);
+				String[] indivNewsElems = ManageInput.tokenize(newsCont, '\n', 1);
+				if(indivNews.length > 0){
+					for(int i = 0; i < indivNews.length; i++){
+						String title = indivNews[i];
+						String newsElem = indivNewsElems[i];
+						NewsObjects obj = new NewsObjects(newsElem, title, "");
+						newsList.add(obj);
+					}
+				}
+				if(indivTweets.length > 0){
+					for(String tweet : indivTweets){
+						String before = tweet.split(" @")[0];
+						String sub = "@" + tweet.split(" @")[1];
+						NewsObjects obj = new NewsObjects(before, sub, "");
+						newsList.add(obj);
+					}
+				}
+			} catch (IOException e) {
+				return newsList;
+			} catch(ArrayIndexOutOfBoundsException e){
+				return newsList;
+			}
+	    	return newsList;
+	    }
+
+	  }
+
+}
