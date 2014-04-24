@@ -362,9 +362,14 @@ public class Trending extends Activity {
 	                            }
 	                        });
 	        listview.setOnTouchListener(touchListener);
-	        listview.setOnScrollListener(touchListener.makeScrollListener());
+	        listview.setOnScrollListener(touchListener.makeScrollListener()); 
 	    	setListViewOnClick();
 	    }
+		else{
+			if(holder.posts.size() != 0){
+				Toast.makeText(cont, "The posts are saved, but not the players. Select a time frame above", Toast.LENGTH_SHORT).show();
+			}
+		}
 	}
 	
 	/**

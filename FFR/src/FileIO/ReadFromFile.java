@@ -428,7 +428,13 @@ public class ReadFromFile {
 			perLevel = totalSet[2].split("%%%");
 			for(String team : perLevel)
 			{
-				holder.sos.put(team.split("##")[0], Integer.parseInt(team.split("##")[1]));
+				if(team.split("##")[0].equals(" ")){
+					break;
+				}
+				else
+				{
+					holder.sos.put(team.split("##")[0], Integer.parseInt(team.split("##")[1]));
+				}
 			}
 			//Bye
 			perLevel = totalSet[3].split("%%%");
@@ -464,7 +470,13 @@ public class ReadFromFile {
 			perLevel = totalSet[2].split("%%%");
 			for(String team : perLevel)
 			{
-				holder.sos.put(team.split("##")[0], Integer.parseInt(team.split("##")[1]));
+				if(team.split("##")[0].equals(" ")){
+					break;
+				}
+				else
+				{
+					holder.sos.put(team.split("##")[0], Integer.parseInt(team.split("##")[1]));
+				}
 			}
 			//Bye
 			perLevel = totalSet[3].split("%%%");

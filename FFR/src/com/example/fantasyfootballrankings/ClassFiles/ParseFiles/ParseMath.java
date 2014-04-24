@@ -183,7 +183,10 @@ public class ParseMath {
 	 * Gets the roster size
 	 */
 	public static int getRosterSize(Roster r){
-		return r.qbs + r.rbs + r.wrs + r.tes + r.def + r.k + r.flex.op + r.flex.rbwr + r.flex.rbwrte;
+		if(r.flex != null){
+			return r.qbs + r.rbs + r.wrs + r.tes + r.def + r.k + r.flex.op + r.flex.rbwr + r.flex.rbwrte;
+		}
+		return r.qbs + r.rbs + r.wrs + r.tes + r.def + r.k;
 	}
 	
 	

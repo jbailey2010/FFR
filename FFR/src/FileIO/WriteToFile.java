@@ -91,15 +91,10 @@ public class WriteToFile {
 	{
 		StringBuilder posts = new StringBuilder(10000);
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		for(int i = 0; i < holder.posts.size(); i++)
+		for(Post post : holder.posts)
 		{
-			Post post = holder.posts.get(i);
 			posts.append(post.text + "~~~" + post.date + "@@@");
 		}
-		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-		Date today = Calendar.getInstance().getTime();        
-		String reportDate = df.format(today);
-		editor.putString("Date of Posts", reportDate);
 		editor.putString("Posts", posts.toString());
 		editor.putBoolean("Last Empty", false);
 		editor.apply();
@@ -113,8 +108,8 @@ public class WriteToFile {
 	 */
 	public static void writePostsList(List<String> trendingPlayers, Activity cont) 
 	{
-	    WritePostsListAsync draftTask = asyncObject.new WritePostsListAsync(cont);
-	    draftTask.execute(trendingPlayers, cont);
+	    WritePostsListAsync draftTask = asyncObject.new WritePostsListAsync(cont, trendingPlayers);
+	    draftTask.execute();
 	}
 	
 	
@@ -430,9 +425,14 @@ public class WriteToFile {
 		
 		//Sos
 		Set<String> keysSos = holder.sos.keySet();
-		for(String key : keysSos)
-		{
-			oLineRanks.append(key + "##" + holder.sos.get(key) + "%%%");
+		if(keysSos == null || keysSos.size() == 0){
+			oLineRanks.append(" ## %%%");
+		}
+		else{
+			for(String key : keysSos)
+			{
+				oLineRanks.append(key + "##" + holder.sos.get(key) + "%%%");
+			}
 		}
 		oLineRanks.append("@#@#");
 		
@@ -471,17 +471,7 @@ public class WriteToFile {
 		editor.putString("Team By Team Data", oLineRanks.toString());
 		editor.apply();
 	}
-	
-	/**
-	 * Writes hiding the widget to file
-	 * @param hide
-	 * @param cont
-	 */
-	public static void writeHideWidget(boolean hide, Context cont)
-	{
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		editor.putBoolean("Hide Widget", hide).apply();
-	}
+
 	
 	/**
 	 * Stores a draft's data

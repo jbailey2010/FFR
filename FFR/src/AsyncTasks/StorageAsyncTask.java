@@ -120,36 +120,32 @@ public class StorageAsyncTask
 	 */
 	public class WritePostsListAsync extends AsyncTask<Object, Void, Void> 
 	{
-		ProgressDialog pdia;
-	    public WritePostsListAsync(Activity activity) 
+		
+		List<String> trendingPlayers;
+		Activity act;
+	    public WritePostsListAsync(Activity activity, List<String> trend) 
 	    {
-	    	pdia = new ProgressDialog(activity);
-	        pdia.setCancelable(false);
+	    	act = activity;
+	    	trendingPlayers = trend;
 	    }
 
 	    @Override
 		protected void onPreExecute(){ 
-		   super.onPreExecute();
-		        pdia.setMessage("Please wait, saving the trending players...");
-		        pdia.show();    
+		   super.onPreExecute();   
 		}
 	    
 		@Override
 		protected void onPostExecute(Void result){
-			pdia.dismiss();
 		   super.onPostExecute(result);
 		}
 
 	    @Override
 	    protected Void doInBackground(Object... data) 
 	    {
-	    	List<String> trendingPlayers = (List<String>)data[0];
-	    	Context cont = (Context)data[1];
-	    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+	    	SharedPreferences.Editor editor = act.getSharedPreferences("FFR", 0).edit();
 	    	StringBuilder posts = new StringBuilder(10000);
-	    	for(int i = 0; i < trendingPlayers.size(); i++)
-	    	{
-	    		posts.append(trendingPlayers.get(i) + "##");
+	    	for(String post : trendingPlayers){
+	    		posts.append(post).append("##");
 	    	}
 	    	editor.putString("Posted Players", posts.toString());
 	    	editor.apply();

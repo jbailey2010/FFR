@@ -330,14 +330,14 @@ public class ParsingAsyncTask
 	    			holder.fa = fa;
 	    			holder.draftClasses = draftClasses;
 	    		}
-
+ 
 	    		
 				publishProgress("Please wait, fetching positional SOS...");
 				
 				try {
 					if(!holder.isRegularSeason)
 					{
-						HighLevel.getSOS(holder);
+						//HighLevel.getSOS(holder);
 					}
 					else
 					{
@@ -560,12 +560,12 @@ public class ParsingAsyncTask
 					{
 						if(mustHave)
 						{
-							//2014 UPDATE Rounds 1 and 2
+							//Rounds 1 and 2
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=417315&st=");
 					    	//2013 'Must Haves'
 							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=338991&st=");
 							//RB rankings
-							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=344555&st=");
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=421811&st=");
 							//QB rankings
 							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=329554&st=");
 							//WR rankings
@@ -575,18 +575,18 @@ public class ParsingAsyncTask
 						}
 						if(value)
 						{
-							//2014 UPDATE Bounce backs
+							//Bounce backs
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=418111&st=");
 							//Value picks
 							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=332995&st=");
-							//2014 UDPATE 2014 sleepers
+							//2014 sleepers
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=418103&st=");
 							//adp steals
 							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=354905&st=");
 						}
 						if(rookie)
 				 		{
-							//2014 UPDATE Draft eligible players
+							//Draft eligible players
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=378836&st=");
 					 		//Rookie rankings
 				 			//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
@@ -600,7 +600,7 @@ public class ParsingAsyncTask
 				 			//Don't draft
 				 			//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=345722&st=");
 				 			//Busts
-				 			//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=347469&st=");
+				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=430292&st=");
 				 		}
 					}
 					else
