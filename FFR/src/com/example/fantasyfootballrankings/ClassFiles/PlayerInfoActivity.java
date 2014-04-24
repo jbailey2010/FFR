@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.util.Comparator;
+
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -10,7 +11,7 @@ import com.socialize.EntityUtils;
 import com.socialize.EntityUtils.SortOrder;
 import com.socialize.entity.Entity;
 import com.socialize.entity.ListResult;
-import com.socialize.error.SocializeException;
+import com.socialize.error.SocializeException; 
 import com.socialize.listener.entity.EntityListListener;
 
 import android.app.Activity;
@@ -19,14 +20,14 @@ import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.view.WindowManager;
+import android.view.WindowManager; 
 import android.widget.Button;
 import android.widget.TextView;
 /**
  * A little library to handle the rendering of the player view/like stats in a pop up
  * @author Jeff
  *
- */
+ */ 
 public class PlayerInfoActivity 
 {
 	public static TextView output;
@@ -112,6 +113,7 @@ public class PlayerInfoActivity
 
 			@Override
 			public void onError(SocializeException error) {
+				System.out.println(error.getMessage());
 				output.setText("An error occurred. Do you have an internet connection?");
 			}
 	    });
@@ -146,6 +148,7 @@ public class PlayerInfoActivity
 	    	
 	    	@Override
 	    	public void onError(SocializeException error) {
+	    		System.out.println(error.getMessage());
 	    		output.setText("An error occurred. Do you have an internet connection?");
 	    	}
 	    });
