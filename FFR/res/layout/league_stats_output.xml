@@ -298,7 +298,7 @@
                android:layout_marginLeft="5dp"
                android:layout_below="@+id/player_list_help" 
                android:focusable="false"
-               android:background="@drawable/spinner_well_grey"/>
+               android:background="@drawable/grey_spinner"/>
 
            <com.example.fantasyfootballrankings.InterfaceAugmentations.NDSpinner
                android:id="@+id/player_sort_spinner"
@@ -307,7 +307,7 @@
                android:layout_alignBottom="@+id/player_list_graph"
                android:layout_marginTop="5dp"
                android:layout_centerHorizontal="true"
-               android:background="@drawable/spinner_well_grey"
+               android:background="@drawable/grey_spinner"
                android:focusable="false" />
 
            <Spinner
@@ -317,7 +317,7 @@
                android:layout_below="@+id/player_list_help"
                android:layout_marginRight="5dp"
                android:layout_alignParentRight="true"
-               android:background="@drawable/spinner_well_grey"
+               android:background="@drawable/grey_spinner"
                android:focusable="false" />
 
            </RelativeLayout>
