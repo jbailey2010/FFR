@@ -1162,6 +1162,12 @@ public class PlayerInfo
 				data.add(datum);
 			}
 		}
+		else if(!ManageInput.confirmInternet(a)){
+			HashMap<String, String> datum = new HashMap<String, String>();
+			datum.put("main",  "Connect to the internet to see player news here");
+			datum.put("sub", "No internet connection available");
+			data.add(datum);
+		}
 		if(data.size() == 0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
