@@ -1343,7 +1343,7 @@ public class SortHandler
 		TextView sub = (TextView) popUp.findViewById(R.id.textView1);
 		TextView head = (TextView)popUp.findViewById(R.id.team_info_popup_header);
 		head.setText(header);
-		sub.setText(team);
+		sub.setText(team); 
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(popUp.getWindow().getAttributes());
 	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;

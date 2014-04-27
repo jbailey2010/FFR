@@ -287,11 +287,6 @@ public class PlayerInfo
 		searchedPlayer = new PlayerObject("","","",0);
 		for(PlayerObject player : holder.players)
 		{
-			if(player.info.name.equals(playerName))
-			{
-				System.out.println("-" + player.info.position + "-");
-				System.out.println("-" + player.info.team + "-");
-			}
 			if(player.info.name.equals(playerName) && player.info.team.equals(team) && player.info.position.equals(pos))
 			{
 				searchedPlayer = player;
@@ -941,6 +936,7 @@ public class PlayerInfo
 			data.add(datum);
 		}
 		//Positional SOS
+		System.out.println(holder.sos.keySet().size());
 		if(holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position)!= null && 
 				holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position) > 0 && !holder.isRegularSeason)
 		{

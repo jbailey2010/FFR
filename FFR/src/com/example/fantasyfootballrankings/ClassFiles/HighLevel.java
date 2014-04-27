@@ -772,22 +772,23 @@ public class HighLevel
 				}
 				if(roster.flex.rbwrte == 1)
 				{
-					teLimit += x/6.0;
+					teLimit += 12.0 / x;
 				}
 			}
 			if(roster.flex.op == 1)
 			{
 				qbLimit = (6 * x - 31);
-				teLimit += 0.5;
+				teLimit += 6.0/x;
+				rbLimit += x/12.0;
 				if(scoring.catches == 1)
 				{
-					rbLimit += x/6.0;
-					wrLimit += x/5.0;
+					rbLimit += x/12.0;
+					wrLimit += x/11.0;
 				}
 				else
 				{
-					rbLimit += x/5.0;
-					wrLimit += x/6.0;
+					rbLimit += x/11.0;
+					wrLimit += x/12.0;
 				}
 			}
 		}
