@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -49,14 +50,16 @@ public class TeamAnalysis
 	public double teStart;
 	public double dStart;
 	public double kStart;
+	public Roster r;
 	/**
 	 * Does all of the string parsing
 	 * @param teamStr
 	 * @param hold
 	 * @param c
 	 */
-	public TeamAnalysis(String name, String teamStr, Storage hold, Context c, Roster r)
+	public TeamAnalysis(String name, String teamStr, Storage hold, Context c, Roster roster)
 	{
+		r = roster;
 		teamName = name;
 		team = teamStr;
 		String qbs = teamStr.split("Quarterbacks: ")[1].split("\n")[0];
@@ -168,6 +171,80 @@ public class TeamAnalysis
 			}
 		}
 		return Double.valueOf(df.format(total));
+	}
+	
+	public void manageStarters(){
+		HashSet<PlayerObject> ignore = new HashSet<PlayerObject>();
+		List<PlayerObject> qbBasic = startersList(r.qbs, qb, "QB");
+		List<PlayerObject> rbBasic = startersList(r.rbs, rb, "RB");
+		List<PlayerObject> wrBasic = startersList(r.wrs, wr, "WR");
+		List<PlayerObject> teBasic = startersList(r.tes, te, "TE");
+		List<PlayerObject> dfBasic = startersList(r.def, d, "D/ST");
+		List<PlayerObject> kBasic  = startersList(r.k,   k, "K");
+		ignore.addAll(qbBasic);
+		ignore.addAll(rbBasic);
+		ignore.addAll(wrBasic);
+		ignore.addAll(teBasic);
+		ignore.addAll(dfBasic);
+		ignore.addAll(kBasic);
+		/*
+		 * If flex is not null...
+		 * 
+		 * Get lists of next best of each position
+		 * Create ints for limits of each, so
+		 * 		if rbwr is true, ++ each
+		 * 		if rbwrte is true ++ all 3,
+		 * 		if op is true, ++ all 4
+		 * Go through each list, if not in ignore and length <= len, poll, add to list, return
+		 * 
+		 * For each non-null flex, find top scorer that applies, add to ignore, find next highest at other position, add...etc.
+		 * 
+		 * Make custom class with a list of players, a getTotal method, a hashmap from player to type of flex, and pq that shit
+		 * 
+		 * Add to lists appropriately, save lists to object, clean the fucking below code and optimal lineup to look at starters list...
+		 */
+	}
+	
+	/**
+	 * Finds the basic starters for a given roster/team, NOT flexes
+	 */
+	public List<PlayerObject> startersList(int limit, String[] pos, String posStr){
+		PriorityQueue<PlayerObject> posSort = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b) 
+			{
+				if (a.values.points > b.values.points)
+			    {
+			        return -1;
+			    }
+			    if (a.values.points < b.values.points)
+			    {
+			    	return 1;
+			    }
+			    return 0;
+			}
+		});
+		int counter = 0;
+		for(String playerName : pos){
+			for(PlayerObject player : holder.players){
+				if(player.info.name.equals(playerName) && player.info.position.equals(posStr)){
+					posSort.add(player);
+					break;
+				}
+			}
+		}
+		List<PlayerObject> posList = new ArrayList<PlayerObject>();
+		while(!posSort.isEmpty()){
+			if((counter) >= limit){
+				break;
+			}
+			PlayerObject nextBest = posSort.poll();
+			posList.add(nextBest);
+			counter ++;
+			System.out.println("Adding " + nextBest.info.name + " - " + nextBest.values.points);
+		}
+		return posList;
 	}
 	
 	/**

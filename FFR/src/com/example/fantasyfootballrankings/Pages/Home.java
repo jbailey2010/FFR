@@ -2,6 +2,7 @@ package com.example.fantasyfootballrankings.Pages;
 
 
 
+import java.io.IOException;
 import java.util.Random;
 
 
@@ -16,6 +17,7 @@ import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
@@ -24,6 +26,7 @@ import AsyncTasks.StorageAsyncTask.WriteNewPAA;
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
@@ -141,14 +144,7 @@ public class Home extends Activity{
         	helpPopUp(true);
 			
         }
-        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy); 
-        try { 
-        	HighLevel.getROSRankingsWrapper(new Storage(cont), cont);
-		} catch (IOException e) { 
-			// TODO Auto-generated catch block
-			e.printStackTrace(); 
-		}*/
+
 	}  
 	
 	 
