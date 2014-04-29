@@ -3,6 +3,8 @@ package com.example.fantasyfootballrankings.ClassFiles;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -69,6 +71,25 @@ public class ManageInput
 	 * so that it autocompletes suggestions based on players who have
 	 * already been parsed.
 	 */
+	
+	public static List<Map<String, String>> sortData(List<Map<String, String>> data){
+		Collections.sort(data, new Comparator<Map<String, String>>() {
+			public int compare(Map<String, String> a, Map<String, String> b) {
+				String aNorm = a.get("main").toLowerCase();
+				String bNorm = b.get("main").toLowerCase();
+				int judgment = aNorm.compareTo(bNorm);
+				if(judgment < 0){
+					return -1;
+				}
+				if(judgment > 0){
+					return 1;
+				}
+				return 0;
+			}
+		});
+		return data;
+	}
+	
 	public static void setupAutoCompleteSearch(Storage holder, List<PlayerObject> players, 
 			AutoCompleteTextView input, Context cont)
 	{
@@ -88,7 +109,8 @@ public class ManageInput
 			}
 			data.add(datum);
 		}
-		 final SimpleAdapter mAdapter = new SimpleAdapter(cont, data, 
+		List<Map<String, String>> dataFinal = sortData(data);
+		 final SimpleAdapter mAdapter = new SimpleAdapter(cont, dataFinal, 
 		    		android.R.layout.simple_list_item_2, 
 		    		new String[] {"main", "sub"}, 
 		    		new int[] {android.R.id.text1, 

@@ -740,13 +740,13 @@ public class Rankings extends Activity {
 			}
 			data.add(datum);
 		}
-		 final SimpleAdapter mAdapter = new SimpleAdapter(cont, data, 
+		List<Map<String, String>> dataSorted = ManageInput.sortData(data);
+		 final SimpleAdapter mAdapter = new SimpleAdapter(cont, dataSorted, 
 		    		android.R.layout.simple_list_item_2, 
 		    		new String[] {"main", "sub"}, 
 		    		new int[] {android.R.id.text1, 
 		    			android.R.id.text2});
 		   input.setAdapter(mAdapter);
-		   System.out.println("Setting to an adapter with size of " + mAdapter.getCount());
 		input.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
