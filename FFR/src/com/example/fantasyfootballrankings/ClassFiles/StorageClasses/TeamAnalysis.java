@@ -187,22 +187,91 @@ public class TeamAnalysis
 		ignore.addAll(teBasic);
 		ignore.addAll(dfBasic);
 		ignore.addAll(kBasic);
+		if(r.flex != null && (r.flex.rbwr > 0 || r.flex.rbwrte > 0 || r.flex.op > 0)){
+			int qbConsider = 0;
+			int rbConsider = 0;
+			int wrConsider = 0;
+			int teConsider = 0;
+			if(r.flex.rbwr > 0){
+				rbConsider++;
+				wrConsider++;
+			}
+			if(r.flex.rbwrte > 0){
+				rbConsider++;
+				wrConsider++;
+				teConsider++;
+			}
+			if(r.flex.op > 0){
+				qbConsider++;
+				rbConsider++;
+				wrConsider++;
+				teConsider++;
+			}
+			List<PlayerObject> qbNext = new ArrayList<PlayerObject>();
+			List<PlayerObject> rbNext = new ArrayList<PlayerObject>();
+			List<PlayerObject> wrNext = new ArrayList<PlayerObject>();
+			List<PlayerObject> teNext = new ArrayList<PlayerObject>();
+			if(qbConsider > 0){
+				qbNext = getNextBest(qbConsider, ignore, qb, "QB");
+			}
+			if(rbConsider > 0){
+				rbNext = getNextBest(rbConsider, ignore, rb, "RB");
+			}
+			if(wrConsider > 0){
+				wrNext = getNextBest(wrConsider, ignore, wr, "WR");
+			}
+			if(teConsider > 0){
+				teNext = getNextBest(teConsider, ignore, te, "TE");
+			}
+		}
 		/*
-		 * If flex is not null...
-		 * 
-		 * Get lists of next best of each position
-		 * Create ints for limits of each, so
-		 * 		if rbwr is true, ++ each
-		 * 		if rbwrte is true ++ all 3,
-		 * 		if op is true, ++ all 4
-		 * Go through each list, if not in ignore and length <= len, poll, add to list, return
-		 * 
 		 * For each non-null flex, find top scorer that applies, add to ignore, find next highest at other position, add...etc.
 		 * 
 		 * Make custom class with a list of players, a getTotal method, a hashmap from player to type of flex, and pq that shit
 		 * 
 		 * Add to lists appropriately, save lists to object, clean the fucking below code and optimal lineup to look at starters list...
 		 */
+	}
+	
+	public List<PlayerObject> getNextBest(int limit, HashSet<PlayerObject> ignore, String[] pos, String posStr){
+		PriorityQueue<PlayerObject> posSort = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b) 
+			{
+				if (a.values.points > b.values.points)
+			    {
+			        return -1;
+			    }
+			    if (a.values.points < b.values.points)
+			    {
+			    	return 1;
+			    }
+			    return 0;
+			}
+		});
+		int counter = 0;
+		for(String playerName : pos){
+			for(PlayerObject player : holder.players){
+				if(player.info.name.equals(playerName) && player.info.position.equals(posStr)){
+					posSort.add(player);
+					break;
+				}
+			}
+		}
+		List<PlayerObject> posList = new ArrayList<PlayerObject>();
+		while(!posSort.isEmpty()){
+			if((counter) >= limit){
+				break;
+			}
+			PlayerObject nextBest = posSort.poll();
+			if(!ignore.contains(nextBest)){
+				posList.add(nextBest);
+				counter ++;
+				System.out.println("Next best-ing " + nextBest.info.name + " - " + nextBest.values.points);
+			}
+		}
+		return posList;
 	}
 	
 	/**

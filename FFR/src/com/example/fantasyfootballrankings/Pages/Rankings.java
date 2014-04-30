@@ -193,8 +193,8 @@ public class Rankings extends Activity {
 		configSearch();
 		System.out.println("BEFORE");
         String players = "Quarterbacks: Robert Griffin III, Matthew Stafford, Jay Cutler\n" + 
-						 "Running Backs: Adrian Peterson, Andre Ellington, Alfred Morris, Ray Rice, Trent Richardson\n" + 
-						 "Wide Receivers: Calvin Johnson, Julio Jones, Jordy Nelson, Mike Williams, Torrey Smith\n" + 
+						 "Running Backs: Adrian Peterson, Andre Ellington, Alfred Morris, Ray Rice, Trent Richardson, Pierre Thomas\n" + 
+						 "Wide Receivers: Calvin Johnson, Julio Jones, Jordy Nelson, Mike Williams, Torrey Smith, Marques Colston\n" + 
 						 "Tight Ends: Jimmy Graham, Jordan Cameron\n" + 
 						 "D/ST: Bengals D/ST\n" + 
 						 "Kickers: Robbie Gould";
