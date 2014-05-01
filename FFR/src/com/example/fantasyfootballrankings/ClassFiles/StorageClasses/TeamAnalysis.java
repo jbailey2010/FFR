@@ -225,9 +225,10 @@ public class TeamAnalysis
 			}
 		}
 		/*
-		 * For each non-null flex, find top scorer that applies, add to ignore, find next highest at other position, add...etc.
+		 * Make custom class with a list of players, a getTotal method, a hashmap from player to type of flex
 		 * 
-		 * Make custom class with a list of players, a getTotal method, a hashmap from player to type of flex, and pq that shit
+		 * For each non-null flex
+		 * 		Add top scoring in next best to custom class, as well as the next best applicable for another flex...etc. For all combinations
 		 * 
 		 * Add to lists appropriately, save lists to object, clean the fucking below code and optimal lineup to look at starters list...
 		 */
