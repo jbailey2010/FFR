@@ -49,9 +49,6 @@ import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 public class TeamList {
 	private static Context cont;
 	private static ImportedTeam newImport;
-	public static boolean isF = false;
-	public static boolean isFTE = false;
-	public static boolean isOP = false;
 	/**
 	 * Handles the population of the team information listview
 	 * both click, onclick, and initial output

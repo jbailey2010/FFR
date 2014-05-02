@@ -57,18 +57,13 @@ public class TeamAnalysis
 		r = roster;
 		teamName = name;
 		team = teamStr;
-		String qbs = teamStr.split("Quarterbacks: ")[1].split("\n")[0];
-		String rbs = teamStr.split("Running Backs: ")[1].split("\n")[0];
-		String wrs = teamStr.split("Wide Receivers: ")[1].split("\n")[0];
-		String tes = teamStr.split("Tight Ends: ")[1].split("\n")[0];
-		String def = teamStr.split("D/ST: ")[1].split("\n")[0];
-		String ks = teamStr.split("Kickers: ")[1].split("\n")[0];
-		String[] qb = qbs.split(", ");
-		String[] rb = rbs.split(", ");
-		String[] wr = wrs.split(", ");
-		String[] te = tes.split(", ");
-		String[] d  = def.split(", ");
-		String[] k  = ks.split(", ");
+		String[] qb = teamStr.split("Quarterbacks: ")[1].split("\n")[0].split(", ");
+		String[] rb = teamStr.split("Running Backs: ")[1].split("\n")[0].split(", ");
+		String[] wr = teamStr.split("Wide Receivers: ")[1].split("\n")[0].split(", ");
+		String[] te = teamStr.split("Tight Ends: ")[1].split("\n")[0].split(", ");
+		String[] d = teamStr.split("D/ST: ")[1].split("\n")[0].split(", ");
+		String[] k = teamStr.split("Kickers: ")[1].split("\n")[0].split(", ");
+		manageStarters(qb, rb, wr, te, d, k);
 		holder = hold;
 		qbPAATotal = paaPos(qb);
 		rbPAATotal = paaPos(rb);
@@ -77,10 +72,6 @@ public class TeamAnalysis
 		dPAATotal = paaPos(d);
 		kPAATotal = paaPos(k);
 		cont = c;
-		TeamList.isF = false;
-		TeamList.isFTE = false;
-		TeamList.isOP = false;
-		manageStarters(qb, rb, wr, te, d, k);
 		populateTeamsList(this);
 	}
 	

@@ -308,7 +308,7 @@ public class LeagueList {
 		datum = new HashMap<String, String>();
 		datum.put("main", "QB PAA Rankings");
 		datum.put("sub", qb.toString());
-		data2.add(datum);
+		data2.add(datum); 
 		datum = new HashMap<String, String>();
 		datum.put("main", "RB PAA Rankings");
 		datum.put("sub", rb.toString());
