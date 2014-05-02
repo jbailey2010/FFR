@@ -74,8 +74,8 @@ public class LeagueList {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				double paaA = a.starterProj;
-	    				double paaB = b.starterProj;
+	    				double paaA = a.getStarterProj();
+	    				double paaB = b.getStarterProj();
 	    				if (paaA > paaB)
 	    			    {
 	    			        return -1;
@@ -92,8 +92,8 @@ public class LeagueList {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				double paaA = (a.totalProj - a.starterProj);
-	    				double paaB = (b.totalProj - b.starterProj);
+	    				double paaA = (a.totalProj - a.getStarterProj());
+	    				double paaB = (b.totalProj - b.getStarterProj());
 	    				if (paaA > paaB)
 	    			    {
 	    			        return -1;
@@ -110,11 +110,11 @@ public class LeagueList {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				if (a.qbStart > b.qbStart)
+	    				if (a.getPosProj(a.qbStarters) > b.getPosProj(b.qbStarters))
 	    			    {
 	    			        return -1;
 	    			    }
-	    			    if (a.qbStart < b.qbStart)
+	    			    if (a.getPosProj(a.qbStarters) < b.getPosProj(b.qbStarters))
 	    			    {
 	    			    	return 1;
 	    			    } 
@@ -126,11 +126,11 @@ public class LeagueList {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				if (a.rbStart > b.rbStart)
+	    				if (a.getPosProj(a.rbStarters) > b.getPosProj(b.rbStarters))
 	    			    {
 	    			        return -1;
 	    			    }
-	    			    if (a.rbStart < b.rbStart)
+	    			    if (a.getPosProj(a.rbStarters) < b.getPosProj(b.rbStarters))
 	    			    {
 	    			    	return 1;
 	    			    } 
@@ -142,11 +142,11 @@ public class LeagueList {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				if (a.wrStart > b.wrStart)
+	    				if (a.getPosProj(a.wrStarters) > b.getPosProj(b.wrStarters))
 	    			    {
 	    			        return -1;
 	    			    }
-	    			    if (a.wrStart < b.wrStart)
+	    			    if (a.getPosProj(a.wrStarters) < b.getPosProj(b.wrStarters))
 	    			    {
 	    			    	return 1;
 	    			    } 
@@ -158,11 +158,11 @@ public class LeagueList {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				if (a.teStart > b.teStart)
+	    				if (a.getPosProj(a.teStarters) > b.getPosProj(b.teStarters))
 	    			    {
 	    			        return -1;
 	    			    }
-	    			    if (a.teStart < b.teStart)
+	    			    if (a.getPosProj(a.teStarters) < b.getPosProj(b.teStarters))
 	    			    {
 	    			    	return 1;
 	    			    } 
@@ -174,11 +174,11 @@ public class LeagueList {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				if (a.dStart > b.dStart)
+	    				if (a.getPosProj(a.dStarters) > b.getPosProj(b.dStarters))
 	    			    {
 	    			        return -1;
 	    			    }
-	    			    if (a.dStart < b.dStart)
+	    			    if (a.getPosProj(a.dStarters) < b.getPosProj(b.dStarters))
 	    			    {
 	    			    	return 1;
 	    			    } 
@@ -190,11 +190,11 @@ public class LeagueList {
 	    			@Override
 	    			public int compare(TeamAnalysis a, TeamAnalysis b) 
 	    			{
-	    				if (a.kStart > b.kStart)
+	    				if (a.getPosProj(a.kStarters) > b.getPosProj(b.kStarters))
 	    			    {
 	    			        return -1;
 	    			    }
-	    			    if (a.kStart < b.kStart)
+	    			    if (a.getPosProj(a.kStarters) < b.getPosProj(b.kStarters))
 	    			    {
 	    			    	return 1;
 	    			    } 
@@ -234,56 +234,56 @@ public class LeagueList {
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = startPAA.poll();
-	    	paaStart.append(counter + ") " + iter.teamName + ": " + df.format(iter.starterProj) + "\n");
+	    	paaStart.append(counter + ") " + iter.teamName + ": " + df.format(iter.getStarterProj()) + "\n");
 	    }
 	    counter = 0;
 	    while(!benchPAA.isEmpty())
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = benchPAA.poll();
-	    	paaBench.append(counter + ") " + iter.teamName + ": " + df.format(iter.totalProj - iter.starterProj) + "\n");
+	    	paaBench.append(counter + ") " + iter.teamName + ": " + df.format(iter.totalProj - iter.getStarterProj()) + "\n");
 	    }
 	    counter = 0;
 	    while(!qbPAA.isEmpty())
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = qbPAA.poll();
-	    	qb.append(counter + ") " + iter.teamName + ": " + df.format(iter.qbStart) + " (" + df.format(iter.qbTotal) + ")\n");
+	    	qb.append(counter + ") " + iter.teamName + ": " + df.format(iter.getPosPAA(iter.qbStarters)) + " (" + df.format(iter.qbPAATotal) + ")\n");
 	    }
 	    counter = 0;
 	    while(!rbPAA.isEmpty())
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = rbPAA.poll();
-	    	rb.append(counter + ") " + iter.teamName + ": " + df.format(iter.rbStart) + " (" + df.format(iter.rbTotal) + ")\n");
+	    	rb.append(counter + ") " + iter.teamName + ": " + df.format(iter.getPosPAA(iter.rbStarters)) + " (" + df.format(iter.rbPAATotal) + ")\n");
 	    }
 	    counter = 0;
 	    while(!wrPAA.isEmpty())
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = wrPAA.poll();
-	    	wr.append(counter + ") " + iter.teamName + ": " + df.format(iter.wrStart) + " (" + df.format(iter.wrTotal) + ")\n");
+	    	wr.append(counter + ") " + iter.teamName + ": " + df.format(iter.getPosPAA(iter.wrStarters)) + " (" + df.format(iter.wrPAATotal) + ")\n");
 	    }
 	    counter = 0;
 	    while(!tePAA.isEmpty())
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = tePAA.poll();
-	    	te.append(counter + ") " + iter.teamName + ": " + df.format(iter.teStart) + " (" + df.format(iter.teTotal) + ")\n");
+	    	te.append(counter + ") " + iter.teamName + ": " + df.format(iter.getPosPAA(iter.teStarters)) + " (" + df.format(iter.tePAATotal) + ")\n");
 	    }
 	    counter = 0;
 	    while(!dPAA.isEmpty())
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = dPAA.poll();
-	    	d.append(counter + ") " + iter.teamName + ": " + df.format(iter.dStart) + " (" + df.format(iter.dTotal) + ")\n");
+	    	d.append(counter + ") " + iter.teamName + ": " + df.format(iter.getPosPAA(iter.dStarters)) + " (" + df.format(iter.dPAATotal) + ")\n");
 	    }
 	    counter = 0;
 	    while(!kPAA.isEmpty())
 	    {
 	    	counter++;
 	    	TeamAnalysis iter = kPAA.poll();
-	    	k.append(counter + ") " + iter.teamName + ": " + df.format(iter.kStart) + " (" + df.format(iter.kTotal) + ")\n");
+	    	k.append(counter + ") " + iter.teamName + ": " + df.format(iter.getPosPAA(iter.kStarters)) + " (" + df.format(iter.kPAATotal) + ")\n");
 	    }
 	    List<Map<String, String>>data2 = new ArrayList<Map<String, String>>();
 		SimpleAdapter adapter2 = new SimpleAdapter(ImportLeague.cont, data2, 

@@ -1,13 +1,13 @@
 package com.example.fantasyfootballrankings.MyLeagueSupport;
 
 import java.text.DecimalFormat;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import FileIO.ReadFromFile;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -74,7 +74,7 @@ public class TeamList {
 			Map<String, String> datum = new HashMap<String, String>();
 			datum.put("head", team.teamName);
 			datum.put("main", team.team);
-			datum.put("sub", df.format(team.totalProj) + " Total Projection\n" + df.format(team.starterProj) + " Projection From Starters");
+			datum.put("sub", df.format(team.totalProj) + " Total Projection\n" + df.format(team.getStarterProj()) + " Projection From Starters");
 			data.add(datum);
 		}
 	    list.setAdapter(adapter);
@@ -188,7 +188,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.qbTotal > team.qbTotal)
+			if(iter.qbPAATotal > team.qbPAATotal)
 			{
 				rank++;
 			}
@@ -201,7 +201,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.qbStart > team.qbStart)
+			if(iter.getPosProj(iter.qbStarters) > team.getPosProj(iter.qbStarters))
 			{
 				rank++;
 			}
@@ -221,7 +221,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.rbTotal > team.rbTotal)
+			if(iter.rbPAATotal > team.rbPAATotal)
 			{
 				rank++;
 			}
@@ -234,7 +234,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.rbStart > team.rbStart)
+			if(iter.getPosProj(iter.rbStarters) > team.getPosProj(iter.rbStarters))
 			{
 				rank++;
 			}
@@ -253,7 +253,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.wrTotal > team.wrTotal)
+			if(iter.wrPAATotal > team.wrPAATotal)
 			{
 				rank++;
 			}
@@ -266,7 +266,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.wrStart > team.wrStart)
+			if(iter.getPosProj(iter.wrStarters) > team.getPosProj(iter.wrStarters))
 			{
 				rank++;
 			}
@@ -285,7 +285,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.teTotal > team.teTotal)
+			if(iter.tePAATotal > team.tePAATotal)
 			{
 				rank++;
 			}
@@ -298,7 +298,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.teStart > team.teStart)
+			if(iter.getPosProj(iter.teStarters) > team.getPosProj(iter.teStarters))
 			{
 				rank++;
 			}
@@ -317,7 +317,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.dTotal > team.dTotal)
+			if(iter.dPAATotal > team.dPAATotal)
 			{
 				rank++;
 			}
@@ -330,7 +330,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.dStart > team.dStart)
+			if(iter.getPosProj(iter.dStarters) > team.getPosProj(iter.dStarters))
 			{
 				rank++;
 			}
@@ -349,7 +349,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.kTotal > team.kTotal)
+			if(iter.kPAATotal > team.kPAATotal)
 			{
 				rank++;
 			}
@@ -362,7 +362,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.kStart > team.kStart)
+			if(iter.getPosProj(iter.kStarters) > team.getPosProj(iter.kStarters))
 			{
 				rank++;
 			}
@@ -377,7 +377,7 @@ public class TeamList {
 	 */
 	public double paaStart(TeamAnalysis team)
 	{
-		return team.qbStart + team.rbStart + team.wrStart + team.teStart + team.dStart + team.kStart;
+		return team.getStarterProj();
 	}
 	
 	/**
@@ -387,7 +387,7 @@ public class TeamList {
 	 */
 	public double paaTotal(TeamAnalysis team)
 	{
-		return team.qbTotal + team.rbTotal + team.wrTotal + team.teTotal + team.dTotal + team.kTotal;
+		return team.qbPAATotal + team.rbPAATotal + team.wrPAATotal + team.tePAATotal + team.dPAATotal + team.kPAATotal;
 	}
 	
 	/**
@@ -413,32 +413,9 @@ public class TeamList {
 		String header = headerText.getText().toString();
 		TextView content = (TextView)base.findViewById(R.id.text2);
 		String text = content.getText().toString();
-		Map<String, String[]> rosters = new HashMap<String, String[]>();
-		rosters.put("QB", text.split("Quarterbacks: ")[1].split("\n")[0].split(", "));
-		rosters.put("RB", text.split("Running Backs: ")[1].split("\n")[0].split(", "));
-		rosters.put("WR", text.split("Wide Receivers: ")[1].split("\n")[0].split(", "));
-		rosters.put("TE", text.split("Tight Ends: ")[1].split("\n")[0].split(", "));
-		rosters.put("D/ST", text.split("D/ST: ")[1].split("\n")[0].split(", "));
-		rosters.put("K", text.split("Kickers: ")[1].split("\n")[0].split(", "));
-		List<String>remainingPlayers = new ArrayList<String>();
-		remainingPlayers.addAll(Arrays.asList(rosters.get("QB")));
-		remainingPlayers.addAll(Arrays.asList(rosters.get("RB")));
-		remainingPlayers.addAll(Arrays.asList(rosters.get("WR")));
-		remainingPlayers.addAll(Arrays.asList(rosters.get("TE")));
-		remainingPlayers.addAll(Arrays.asList(rosters.get("D/ST")));
-		remainingPlayers.addAll(Arrays.asList(rosters.get("K")));
+		TeamAnalysis dummy = new TeamAnalysis("", text, ImportLeague.holder, cont, ReadFromFile.readRoster(cont));
 		StringBuilder output = new StringBuilder(1000);
-		TeamAnalysis dummy = new TeamAnalysis();
-		isF = false;
-		isFTE = false;
-		isOP = false;
-		String rb = (dummy.optimalLineup(remainingPlayers, rosters.get("RB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "RB", cont, ImportLeague.holder, newImport.roster));
-		String wr = (dummy.optimalLineup(remainingPlayers, rosters.get("WR"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "WR", cont, ImportLeague.holder, newImport.roster));
-		String qb = (dummy.optimalLineup(remainingPlayers, rosters.get("QB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "QB", cont, ImportLeague.holder, newImport.roster));
-		String te = (dummy.optimalLineup(remainingPlayers, rosters.get("TE"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "TE", cont, ImportLeague.holder, newImport.roster));
-		String d = (dummy.optimalLineup(remainingPlayers, rosters.get("D/ST"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "D/ST", cont, ImportLeague.holder, newImport.roster));
-		String k = (dummy.optimalLineup(remainingPlayers, rosters.get("K"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "K", cont, ImportLeague.holder, newImport.roster));
-		output.append(qb).append(rb).append(wr).append(te).append(d).append(k);
+		output.append(dummy.stringifyLineup());
 		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
 	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		popUp.setContentView(R.layout.team_optimal_lineup);
@@ -491,7 +468,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.starterProj > team.starterProj)
+			if(iter.getStarterProj() > team.getStarterProj())
 			{
 				rank++;
 			}
@@ -505,7 +482,7 @@ public class TeamList {
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
 			
-			if((iter.totalProj - iter.starterProj) > (team.totalProj - team.starterProj))
+			if((iter.totalProj - iter.getStarterProj()) > (team.totalProj - team.getStarterProj()))
 			{
 				rank++;
 			}

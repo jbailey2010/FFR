@@ -337,34 +337,7 @@ public class RosterTips
 		}
 		if(flag == 1)
 		{
-			String text = team.team;
-			Map<String, String[]> rosters = new HashMap<String, String[]>();
-			rosters.put("QB", text.split("Quarterbacks: ")[1].split("\n")[0].split(", "));
-			rosters.put("RB", text.split("Running Backs: ")[1].split("\n")[0].split(", "));
-			rosters.put("WR", text.split("Wide Receivers: ")[1].split("\n")[0].split(", "));
-			rosters.put("TE", text.split("Tight Ends: ")[1].split("\n")[0].split(", "));
-			rosters.put("D/ST", text.split("D/ST: ")[1].split("\n")[0].split(", "));
-			rosters.put("K", text.split("Kickers: ")[1].split("\n")[0].split(", "));
-			StringBuilder output = new StringBuilder(1000);
-			TeamAnalysis dummy = new TeamAnalysis();
-			List<String> remainingPlayers = new ArrayList<String>();
-			remainingPlayers.addAll(Arrays.asList(rosters.get("QB")));
-			remainingPlayers.addAll(Arrays.asList(rosters.get("RB")));
-			remainingPlayers.addAll(Arrays.asList(rosters.get("WR")));
-			remainingPlayers.addAll(Arrays.asList(rosters.get("TE")));
-			remainingPlayers.addAll(Arrays.asList(rosters.get("D/ST")));
-			remainingPlayers.addAll(Arrays.asList(rosters.get("K")));
-			TeamList.isF = false;
-			TeamList.isFTE = false;
-			TeamList.isOP = false;
-			Roster r = ImportLeague.newImport.roster;
-			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("RB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "RB", ImportLeague.cont, ImportLeague.holder, r));
-			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("WR"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "WR", ImportLeague.cont, ImportLeague.holder, r));
-			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("QB"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "QB", ImportLeague.cont, ImportLeague.holder, r));
-			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("TE"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "TE", ImportLeague.cont, ImportLeague.holder, r));
-			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("D/ST"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "D/ST", ImportLeague.cont, ImportLeague.holder, r));
-			output.append(dummy.optimalLineup(remainingPlayers, rosters.get("K"), rosters.get("QB"), rosters.get("RB"), rosters.get("WR"), rosters.get("TE"), "K", ImportLeague.cont, ImportLeague.holder, r));
-			String[] middle = output.toString().split("\n");
+			String[] middle = team.stringifyLineup().toString().split("\n");
 			for(String posIter : middle)
 			{
 				String[] players = posIter.split(": ")[1].split(", ");
