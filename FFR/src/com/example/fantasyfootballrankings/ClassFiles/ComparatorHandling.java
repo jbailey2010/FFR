@@ -103,8 +103,9 @@ public class ComparatorHandling
 		{
 			adapter.add(name);
 		}
+		List<String>adapterSorted = ManageInput.sortSingleList(adapter);
 		ArrayAdapter<String> doubleAdapter = new ArrayAdapter<String>(cont,
-                android.R.layout.simple_dropdown_item_1line, adapter);
+                android.R.layout.simple_dropdown_item_1line, adapterSorted);
 		final AutoCompleteTextView player1 = (AutoCompleteTextView)dialog.findViewById(R.id.player1_input);
 		final AutoCompleteTextView player2 = (AutoCompleteTextView)dialog.findViewById(R.id.player2_input);
 		 WindowManager wm = (WindowManager) cont.getSystemService(Context.WINDOW_SERVICE);

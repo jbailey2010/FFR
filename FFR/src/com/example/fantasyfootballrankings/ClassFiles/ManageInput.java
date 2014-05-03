@@ -90,6 +90,11 @@ public class ManageInput
 		return data;
 	}
 	
+	public static List<String> sortSingleList(List<String> data){
+		Collections.sort(data);
+		return data;
+	}
+	
 	public static void setupAutoCompleteSearch(Storage holder, List<PlayerObject> players, 
 			AutoCompleteTextView input, Context cont)
 	{

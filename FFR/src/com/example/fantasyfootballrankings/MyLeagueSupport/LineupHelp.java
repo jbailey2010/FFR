@@ -64,7 +64,8 @@ public class LineupHelp {
 			}
 			data.add(datum);
 		}
-		 final SimpleAdapter mAdapter = new SimpleAdapter(ImportLeague.cont, data, 
+		final List<Map<String, String>> dataSorted = ManageInput.sortData(data);
+		 final SimpleAdapter mAdapter = new SimpleAdapter(ImportLeague.cont, dataSorted, 
 		    		android.R.layout.simple_list_item_2, 
 		    		new String[] {"main", "sub"}, 
 		    		new int[] {android.R.id.text1, 
