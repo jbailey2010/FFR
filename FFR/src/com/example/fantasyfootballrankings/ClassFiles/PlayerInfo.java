@@ -90,8 +90,7 @@ public class PlayerInfo
 		newImport = it;
 		cont = oCont;
 		isImport = isMyLeague;
-		Rankings.matchedPlayers = new ArrayList<String>(15);
-		ReadFromFile.fetchNames(holder, oCont);
+		//ReadFromFile.fetchNames(holder, oCont);
 		final Dialog dialog = new Dialog(oCont, R.style.RoundCornersFull);
 	    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 	
@@ -103,17 +102,14 @@ public class PlayerInfo
 	    dialog.getWindow().setAttributes(lp);
 	    
 	    Rankings.textView = (AutoCompleteTextView)(dialog).findViewById(R.id.player_input);
-	    if(Rankings.matchedPlayers.size() == 0)
-	    {
-	    	ManageInput.setupAutoCompleteSearch(holder, holder.players, Rankings.textView, oCont);
-	    }
+    	ManageInput.setupAutoCompleteSearch(holder, holder.players, Rankings.textView, oCont);
 	    Button searchDismiss = (Button)dialog.findViewById(R.id.search_cancel);
 		searchDismiss.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(View v) {
 				dialog.dismiss();
 			}
-		});
+		});  
 		Button searchSubmit = (Button)dialog.findViewById(R.id.search_submit);
 		Rankings.textView.setOnItemClickListener(new OnItemClickListener(){
 			@Override
@@ -122,7 +118,7 @@ public class PlayerInfo
 				String text = ((TwoLineListItem)arg1).getText1().getText().toString();
 				Rankings.textView.setText(text + ", " + ((TwoLineListItem)arg1).getText2().getText().toString());
 			}
-		});
+		}); 
 		searchSubmit.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(View v) {
@@ -271,7 +267,6 @@ public class PlayerInfo
 			return;
 		}
 		//Set up the header, and make a mock object with the set name
-		System.out.println(namePlayer);
 		String playerName = namePlayer.split(", ")[0];
 		String pos = "";
 		if(namePlayer.split(", ").length > 1)
@@ -462,7 +457,7 @@ public class PlayerInfo
 			public void onClick(View v) {
 				try {
 					dialog.dismiss();
-					searchCalled(cont, isImport, newImport);
+					searchCalled(act, isImport, newImport);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

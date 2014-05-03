@@ -763,7 +763,7 @@ public class Rankings extends Activity {
 				if(holder.parsedPlayers.contains(input.getText().toString().split(", ")[0]))
 				{
 					dialog.dismiss();
-					new PlayerInfo().outputResults(input.getText().toString(), false, (Activity) cont, holder, false, true);
+					new PlayerInfo().outputResults(input.getText().toString(), true, (Activity) cont, holder, false, true);
 				}
 				else
 				{
