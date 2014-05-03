@@ -10,10 +10,15 @@
         android:showAsAction="ifRoom|withText" 
         android:title="Quantity Shown"/>
     <item
-        android:id="@+id/refresh"
+        android:id="@+id/refresh_ranks"
         android:orderInCategory="100"
 		android:showAsAction="ifRoom|withText" 
-        android:title="Refresh or Reset"/>
+        android:title="Refresh Rankings"/>
+    <item
+        android:id="@+id/refresh_draft"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom|withText"
+        android:title="Reset Draft"/>
     <item
         android:id="@+id/save_draft"
         android:orderInCategory="100"

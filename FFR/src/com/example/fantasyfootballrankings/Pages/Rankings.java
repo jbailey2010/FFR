@@ -89,10 +89,8 @@ public class Rankings extends Activity {
 	Context cont;
 	public static Context context;
 	public static Storage holder = new Storage(null);
-	public static Button voice;
 	public static AutoCompleteTextView textView;
 	static Dialog dialog;
-	public static List<String> matchedPlayers;
 	static Button watch;
 	static Button info;
 	static Button compare;
@@ -108,7 +106,6 @@ public class Rankings extends Activity {
 	public static List<Map<String, String>> data;
 	public static SimpleAdapter adapter;
 	static SwipeDismissListViewTouchListener touchListener;
-	static Scoring scoring = new Scoring();
 	public static boolean isAuction;
 	public static boolean isAsync = false;
 	public static double aucFactor;
@@ -229,8 +226,11 @@ public class Rankings extends Activity {
 		if(menu != null && holder.isRegularSeason)
 		{
 			MenuItem a = (MenuItem)menu.findItem(R.id.save_draft);
+			MenuItem b = (MenuItem)menu.findItem(R.id.refresh_draft);
 			a.setVisible(false);
 			a.setEnabled(false);
+			b.setEnabled(false);
+			b.setVisible(false);
 		}
 		return true;
 	}
@@ -247,8 +247,11 @@ public class Rankings extends Activity {
 			case android.R.id.home:
 		        sideNavigationView.toggleMenu();
 		        return true;
-			case R.id.refresh:
-				refreshRanks(dialog);
+			case R.id.refresh_draft:
+				Draft.resetDraft(holder.draft, holder, context);	
+				return true;
+			case R.id.refresh_ranks:
+				refreshRanks();
 		    	return true;
 			case R.id.filter_topics_rankings:
 				if(holder.players.size() > 10)
@@ -511,58 +514,32 @@ public class Rankings extends Activity {
 	 * Handles the refreshing of the rankings/user input to do so
 	 * @param dialog
 	 */
-	public void refreshRanks(final Dialog dialog)
+	public void refreshRanks()
 	{
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(R.layout.refresh); 
-		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-	    dialog.getWindow().setAttributes(lp);
-		Button refreshDraft = (Button)dialog.findViewById(R.id.reset_draft);
-		refreshDraft.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				Draft.resetDraft(holder.draft, holder, context);	
-				dialog.dismiss();
-			}
-		});
-		Button refreshDismiss = (Button)dialog.findViewById(R.id.refresh_cancel);
-		refreshDismiss.setOnClickListener(new OnClickListener() 
-		{
-			public void onClick(View v) {
-				dialog.dismiss();
-	    	}	
-		});
-		Button refreshSubmit = (Button)dialog.findViewById(R.id.refresh_confirm);
-		refreshSubmit.setOnClickListener(new OnClickListener() 
-		{
-			public void onClick(View v) {
+		try {
+			if(ManageInput.confirmInternet(cont))
+			{
 				refreshed = true;
 				listview.setAdapter(null);
 				dialog.dismiss();
-				try {
-					if(ManageInput.confirmInternet(cont))
-					{
-						isAsync=true;
-						setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-						ParseRankings.runRankings(holder, cont);
-					}
-					else
-					{
-						Toast.makeText(cont, "No Internet Connection Available", Toast.LENGTH_SHORT).show();
-					}
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (XPatherException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
- 				}
-	    	}	
-		});
-    	dialog.show();	
-	}
+				isAsync=true;
+				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+				ParseRankings.runRankings(holder, cont);
+				
+			}
+			else
+			{
+				Toast.makeText(cont, "No Internet Connection Available", Toast.LENGTH_SHORT).show();
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (XPatherException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+   	}	
+
 	
 	/**
 	 * Handles the possible loading of the players
@@ -794,12 +771,10 @@ public class Rankings extends Activity {
 		TextView draftVal = (TextView)dialog.findViewById(R.id.draftValue);
 		TextView paaView = (TextView)dialog.findViewById(R.id.draft_paa);
 		double paa = 0.0;
-		double paapd = 0.0;
 		if(holder.draft.playersDrafted(holder.draft) != 0)
 		{
 			draftVal.setVisibility(View.VISIBLE);
 			paa = Draft.paaTotal(holder.draft);
-			paapd = paa / ((200.0/aucFactor) - holder.draft.remainingSalary);
 			paaView.setVisibility(View.VISIBLE);
 			paaView.setText("PAA total: " + df.format(paa));
 		}
@@ -922,7 +897,6 @@ public class Rankings extends Activity {
 	    TextView rbLeft = (TextView)dialog.findViewById(R.id.rb_paa_left);
 	    TextView wrLeft = (TextView)dialog.findViewById(R.id.wr_paa_left);
 	    TextView teLeft = (TextView)dialog.findViewById(R.id.te_paa_left);
-	    DecimalFormat df = new DecimalFormat("#.##");
 	    Roster r = ReadFromFile.readRoster(context);
 	    if(r.qbs != 0)
 	    {
