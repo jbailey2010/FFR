@@ -390,7 +390,7 @@ public class ParseTrending
 	public static void getPosts(Storage holder, String url) throws IOException
 	{
 		int length = trendingPlayersLength(url);
-		holder.posts.addAll(Arrays.asList(parseForum(length, url)));
+		holder.posts = parseForum(length, url);
 	}
 	
 	/**
@@ -401,25 +401,21 @@ public class ParseTrending
 	 * @return the text from all the responses
 	 * @throws IOException
 	 */
-	public static Post[] parseForum(int length, String url) throws IOException
+	public static List<Post> parseForum(int length, String url) throws IOException
 	{
-		StringBuilder parsedText = new StringBuilder(10000);
-		StringBuilder parsedDates = new StringBuilder(10000);
+		List<Post> posts = new ArrayList<Post>();
 		for(int i = 0; i < length; i++)
 		{
 			String newUrl = url + Integer.toString(i*20);
 			Document doc = Jsoup.connect(newUrl).timeout(0).get();
-			parsedText.append(HandleBasicQueries.handleListsMulti(doc, newUrl, "div.post.entry-content"));
-			parsedDates.append(HandleBasicQueries.handleListsMulti(doc, newUrl, "abbr.published"));
+			String[] pagePost = ManageInput.tokenize(HandleBasicQueries.handleListsMulti(doc, newUrl, "div.post.entry-content"), '\n', 1);
+			String[] datesPost = ManageInput.tokenize(HandleBasicQueries.handleListsMulti(doc, newUrl, "abbr.published"), '\n', 1);
+			System.out.println(pagePost.length);
+			for(int j = 0; j < pagePost.length; j++){
+				posts.add(new Post(pagePost[j], datesPost[j]));
+			}
 		}
-		
-		String[] perPost = ManageInput.tokenize(parsedText.toString(), '\n', 1);
-		String[] datesPost = ManageInput.tokenize(parsedDates.toString(), '\n', 1);
-		Post[] posts = new Post[perPost.length];
-		for(int i =0; i < posts.length; i++)
-		{
-			posts[i] = new Post(perPost[i], datesPost[i]);
-		}
+		System.out.println(posts.size());
 		return posts;
 	}
 	
