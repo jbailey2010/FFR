@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -374,7 +375,7 @@ public class SortHandler
 	 */
 	public static void handleSecSortingOptions(boolean young, boolean wl, boolean cy, boolean healthy,
 			boolean run, boolean pass, int minimum, Context cont) {
-		List<String> posList = new ArrayList<String>();
+		HashSet<String> posList = new HashSet<String>();
 		if(position.equals("All Positions"))
 		{
 			posList.add("QB");
@@ -460,7 +461,7 @@ public class SortHandler
 	 */
 	public static void handleSortingBasic(Context cont)
 	{
-		List<String> posList = new ArrayList<String>();
+		HashSet<String> posList = new HashSet<String>();
 		if(position.equals("All Positions"))
 		{
 			posList.add("QB");
