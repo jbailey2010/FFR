@@ -27,8 +27,10 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysi
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
+import com.example.fantasyfootballrankings.Pages.Rankings;
 
 import FileIO.ReadFromFile;
+import FileIO.WriteToFile;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -52,6 +54,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 /**
  * Handles the player sorting work
@@ -1195,6 +1198,14 @@ public class SortHandler
 		    	{
 		    		hidden = "D";
 		    	}
+		    	if(Rankings.watchList != null && Rankings.watchList.contains(elem.info.name)){
+		    		if(hidden.equals("D")){
+		    			hidden = "DW";
+		    		}
+		    		else{
+		    			hidden = "W";
+		    		}
+		    	}
 		    	if(isHidden && !output.equals(String.valueOf(count) + ") "))
 		    	{
 		    		continue;
@@ -1323,14 +1334,15 @@ public class SortHandler
 	    		new int[] {R.id.text1, 
 	    			R.id.text2, R.id.text3});
 	    results.setAdapter(adapter);
-	    handleOnClicks(results);
+	    handleOnClicks(results, cont);
 	}
 	
 	/**
 	 * Swipte to hide and click for more info
 	 * @param results
+	 * @param cont 
 	 */
-	public static void handleOnClicks(final BounceListView results)
+	public static void handleOnClicks(final BounceListView results, final Context cont)
 	{
 		results.setOnItemClickListener(new OnItemClickListener(){
 			@Override
@@ -1344,6 +1356,60 @@ public class SortHandler
 				obj.outputResults(selected + ", " + tv2, true, (Activity)context, holder, false, false);
 			}
     	 });
+		if(isRankings){
+			 results.setOnItemLongClickListener(new OnItemLongClickListener(){
+					@Override
+					public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+							int arg2, long arg3) {
+						String namePlayer = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
+						String team = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text2)).getText().toString().split("\n")[0].split(" - ")[1];
+						if(namePlayer.contains(":"))
+						{
+							namePlayer = namePlayer.split(": ")[1];
+						}
+						int i = -1;
+						for(String name : Rankings.watchList)
+						{
+							if(name.equals(namePlayer))
+							{
+								i = 1;
+								break;
+							}
+						}
+						if(i == -1)
+						{
+							for(PlayerObject iter : holder.players)
+							{
+								if(iter.info.name.equals(namePlayer))
+								{
+									Rankings.bumpEntityValue(iter, cont);
+									break;
+								}
+							}
+							for(Map<String, String> datum : Rankings.data){
+								if(datum.get("main").contains(namePlayer) && datum.get("sub").contains(team)){
+									datum.put("hidden", "W");
+									Rankings.adapter.notifyDataSetChanged();
+								}
+							}
+							StringBuilder key = new StringBuilder(2);
+							if(Draft.isDrafted(namePlayer, holder.draft)){
+								key.append("D");
+							}
+							key.append("W");
+							((TextView)((RelativeLayout)arg1).findViewById(R.id.text3)).setText(key.toString());
+							Rankings.watchList.add(namePlayer);
+							WriteToFile.writeWatchList(context, Rankings.watchList);
+							Toast.makeText(context, namePlayer + " added to watch list", Toast.LENGTH_SHORT).show();
+						}
+						else
+						{
+							Toast.makeText(context, namePlayer + " already in watch list", Toast.LENGTH_SHORT).show();
+						}
+						return true;
+					}
+			 });
+		}
 		SwipeDismissListViewTouchListener touchListener =
                  new SwipeDismissListViewTouchListener(
                          false, "Irrelevant", results,
