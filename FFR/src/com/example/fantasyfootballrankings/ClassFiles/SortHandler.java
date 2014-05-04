@@ -132,6 +132,9 @@ public class SortHandler
 	    }
 	    topics.add("Projections");
 	    topics.add("PAA");
+	    if(!holder.isRegularSeason){
+	    	topics.add("PAAPD");
+	    }
 	    topics.add("Yard Adjustment");
 	    topics.add("Completion to Int Ratio");
 	    topics.add("Risk");
@@ -160,14 +163,16 @@ public class SortHandler
 	    if(r.rbs != 0 && r.wrs != 0)
 	    {
 	    	positions.add("RB/WR");
+	    	if(r.tes != 0){
+	    		positions.add("RB/WR/TE");
+	    		if(r.qbs != 0){
+	    			positions.add("QB/RB/WR/TE");
+	    		}
+	    	}
 	    }
 	    if(r.tes != 0)
 	    {
 	    	positions.add("TE");
-	    }
-	    if(r.rbs != 0 && r.wrs != 0 && r.tes != 0)
-	    {
-	    	positions.add("RB/WR/TE");
 	    }
 	    if(r.def != 0)
 	    {
@@ -390,6 +395,12 @@ public class SortHandler
 			posList.add("WR");
 			posList.add("TE");
 		}
+		else if(position.equals("QB/RB/WR/TE")){
+			posList.add("QB");
+			posList.add("RB");
+			posList.add("WR");
+			posList.add("TE");
+		}
 		else
 		{
 			posList.add(position);
@@ -470,6 +481,12 @@ public class SortHandler
 			posList.add("WR");
 			posList.add("TE");
 		}
+		else if(position.equals("QB/RB/WR/TE")){
+			posList.add("QB");
+			posList.add("RB");
+			posList.add("WR");
+			posList.add("TE");
+		}
 		else
 		{
 			posList.add(position);
@@ -523,6 +540,9 @@ public class SortHandler
 		else if(subject.equals("PAA"))
 		{
 			paa(cont);
+		}
+		else if(subject.equals("PAAPD")){
+			paapd(cont);
 		}
 		else if(subject.equals("Under Drafted"))
 		{
@@ -905,6 +925,37 @@ public class SortHandler
 				}
 				wrappingUp(sorted, cont);
 	}
+	
+	public static void paapd(Context cont)
+	{
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						double paapdA = a.values.paa / a.values.worth;
+						double paapdB = b.values.paa / b.values.worth;
+						if(paapdA> paapdB)
+						{
+							return -1;
+						}
+						if(paapdA < paapdB)
+						{
+							return 1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && player.values.points != 0.0 && 
+							player.values.worth > 0.0)
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted, cont);
+	}
 
 	
 	/**
@@ -1174,6 +1225,10 @@ public class SortHandler
 		    	{
 		    		datum.put("main", output + df.format(elem.values.paa)+ ": " + elem.info.name);
 		    		datum.put("sub", baseECR + elem.values.ecr);
+		    	}
+		    	else if(subject.equals("PAAPD")){
+		    		datum.put("main", output + df.format(elem.values.paa/elem.values.worth)+ ": " + elem.info.name );
+		    		datum.put("sub", df.format(elem.values.paa) + " PAA, $" + df.format(elem.values.worth) + "\n" + baseECR + elem.values.ecr);
 		    	}
 		    	else if(subject.equals("Risk"))
 		    	{
