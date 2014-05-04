@@ -42,6 +42,7 @@ import com.socialize.Socialize;
 import com.socialize.entity.Entity;
 import com.socialize.error.SocializeException;
 import com.socialize.listener.entity.EntityAddListener;
+import com.socialize.listener.entity.EntityGetListener;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
@@ -1662,28 +1663,39 @@ public class Rankings extends Activity {
     /**
      * Takes the drafted count metadata and increases it by one if it exists, otherwise it's 0
      */
-    public static void bumpEntityValue(PlayerObject player, Context cont)
+    public static void bumpEntityValue(PlayerObject player, final Context cont)
     {
     	String key = "http://www.ffr.com/" + player.info.name + ", " + player.info.position + "/pi" + Home.yearKey;
-    	String name = player.info.name + ", " + player.info.position + " - " + player.info.team;
-    	Entity entity = Entity.newInstance(key, name);
-    	int newVal = 1;
-    	if(entity.getMetaData() != null && entity.getMetaData().length() == 0 && !ManageInput.isInteger(entity.getMetaData()))
-    	{
-    		newVal = Integer.parseInt(entity.getMetaData()) + 1;
-    	}
-    	entity.setMetaData(String.valueOf(newVal));
-
-    	// The "this" argument refers to the current Activity
-    	EntityUtils.saveEntity((Activity)cont , entity, new EntityAddListener() {
-    		
-    		@Override
-    		public void onCreate(Entity result) {
-    		}
-
+		EntityUtils.getEntity((Activity) cont, key, new EntityGetListener() {
+			//The entity was gotten, though an error is still possible
+			@Override
+			public void onGet(Entity entity) {
+				int newVal = 1;
+			   	if(entity.getMetaData() != null && entity.getMetaData().length() != 0)
+			   	{
+			   		newVal = Integer.parseInt(entity.getMetaData()) + 1;
+			   	} 
+			   	entity.setMetaData(String.valueOf(newVal));
+		    	EntityUtils.saveEntity((Activity)cont , entity, new EntityAddListener() {
+		       		@Override
+		    		public void onCreate(Entity result) {
+		       			//If we want to add some kind of handler, here is where to do so
+		    		}
+					@Override
+					public void onError(SocializeException error) {
+						//Some kind of error in saving, collision?
+					}
+		    	});
+			}
 			@Override
 			public void onError(SocializeException error) {
+				if(isNotFoundError(error)) {
+					// No entity found
+				}
+				else {
+					//Some other kind of error
+				}
 			}
-    	});
+		});
     }
 }
