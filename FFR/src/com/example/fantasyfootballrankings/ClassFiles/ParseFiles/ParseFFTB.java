@@ -28,12 +28,12 @@ public class ParseFFTB
 	 */
 	public static void parseFFTBRankingsWrapper(Storage holder) throws MalformedURLException, IOException, XPatherException
 	{
-		parseFFTBPage(holder, "http://www.fftoolbox.com/football/2013/auction-values.cfm?pos=QB&teams=12&budget=200");
-		parseFFTBPage(holder, "http://www.fftoolbox.com/football/2013/auction-values.cfm?pos=RB&teams=12&budget=200");
-		parseFFTBPage(holder, "http://www.fftoolbox.com/football/2013/auction-values.cfm?pos=WR&teams=12&budget=200");
-		parseFFTBPage(holder, "http://www.fftoolbox.com/football/2013/auction-values.cfm?pos=TE&teams=12&budget=200");
-		parseFFTBPage(holder, "http://www.fftoolbox.com/football/2013/auction-values.cfm?pos=PK&teams=12&budget=200");
-		parseFFTBPage(holder, "http://www.fftoolbox.com/football/2013/auction-values.cfm?pos=Def&teams=12&budget=200");
+		parseFFTBPage(holder, "http://www.fftoolbox.com/football/2014/auction-values.cfm?pos=QB&teams=12&budget=200");
+		parseFFTBPage(holder, "http://www.fftoolbox.com/football/2014/auction-values.cfm?pos=RB&teams=12&budget=200");
+		parseFFTBPage(holder, "http://www.fftoolbox.com/football/2014/auction-values.cfm?pos=WR&teams=12&budget=200");
+		parseFFTBPage(holder, "http://www.fftoolbox.com/football/2014/auction-values.cfm?pos=TE&teams=12&budget=200");
+		parseFFTBPage(holder, "http://www.fftoolbox.com/football/2014/auction-values.cfm?pos=PK&teams=12&budget=200");
+		parseFFTBPage(holder, "http://www.fftoolbox.com/football/2014/auction-values.cfm?pos=Def&teams=12&budget=200");
 	}
 	
 	/**

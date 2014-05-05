@@ -410,12 +410,10 @@ public class ParseTrending
 			Document doc = Jsoup.connect(newUrl).timeout(0).get();
 			String[] pagePost = ManageInput.tokenize(HandleBasicQueries.handleListsMulti(doc, newUrl, "div.post.entry-content"), '\n', 1);
 			String[] datesPost = ManageInput.tokenize(HandleBasicQueries.handleListsMulti(doc, newUrl, "abbr.published"), '\n', 1);
-			System.out.println(pagePost.length);
 			for(int j = 0; j < pagePost.length; j++){
 				posts.add(new Post(pagePost[j], datesPost[j]));
 			}
 		}
-		System.out.println(posts.size());
 		return posts;
 	}
 	
