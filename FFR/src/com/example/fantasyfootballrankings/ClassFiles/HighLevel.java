@@ -81,7 +81,7 @@ public class HighLevel
 		String[] allArr = ManageInput.tokenize(data, '\n', 1);
 		String[][] team = new String[allArr.length][];
         HashMap<String, Integer>sos = new HashMap<String, Integer>();
-		for(int i = 0; i  < allArr.length; i++)
+		for(int i = 0; i  < allArr.length; i++) 
 		{  
 			team[i] = ManageInput.tokenize(allArr[i], ' ', 1);
 			String keyBase = ParseRankings.fixTeams(team[i][0]) + ",";
@@ -572,7 +572,7 @@ public class HighLevel
 	 */
 	public static void defProjWeekly(HashMap<String, Double> points, String pos) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/weeklycheatsheets.cfm?player_pos=DEF", "table#proj td");
+		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2014/weeklycheatsheets.cfm?player_pos=DEF", "table#proj td");
 		if(html.split("\n").length < 59 && !html.contains("Week") && !html.contains("will be up"))
 		{
 			defProjAnnual(points, pos);
@@ -597,7 +597,7 @@ public class HighLevel
 	 * @throws IOException
 	 */
 	public static void defProjAnnual(HashMap<String, Double> points, String pos) throws IOException {
-		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2013/cheatsheets.cfm?player_pos=DEF", "table#proj td");
+		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2014/cheatsheets.cfm?player_pos=DEF", "table#proj td");
 		String[] td = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 0; i < td.length; i+=5)
 		{

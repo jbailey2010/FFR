@@ -111,11 +111,11 @@ public class ParseFFTB
 	public static void parseSOSInSeason(Storage holder) throws IOException
 	{
 		HashMap<String, Integer>sos = new HashMap<String, Integer>();
-		parseSOSWorker("http://www.fftoolbox.com/football/2013/points-allowed.cfm?pos=QB", sos, "QB");
-		parseSOSWorker("http://www.fftoolbox.com/football/2013/points-allowed.cfm?pos=RB", sos, "RB");
-		parseSOSWorker("http://www.fftoolbox.com/football/2013/points-allowed.cfm?pos=WR", sos, "WR");
-		parseSOSWorker("http://www.fftoolbox.com/football/2013/points-allowed.cfm?pos=TE", sos, "TE");
-		parseSOSWorker("http://www.fftoolbox.com/football/2013/points-allowed.cfm?pos=K", sos, "K");
+		parseSOSWorker("http://www.fftoolbox.com/football/2014/points-allowed.cfm?pos=QB", sos, "QB");
+		parseSOSWorker("http://www.fftoolbox.com/football/2014/points-allowed.cfm?pos=RB", sos, "RB");
+		parseSOSWorker("http://www.fftoolbox.com/football/2014/points-allowed.cfm?pos=WR", sos, "WR");
+		parseSOSWorker("http://www.fftoolbox.com/football/2014/points-allowed.cfm?pos=TE", sos, "TE");
+		parseSOSWorker("http://www.fftoolbox.com/football/2014/points-allowed.cfm?pos=K", sos, "K");
 		holder.sos = sos;
 	}
 	
