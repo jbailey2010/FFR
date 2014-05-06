@@ -147,6 +147,7 @@ public class ParseRankings
 		teams.put("nyj", "New York Jets");
 		teams.put("jets", "New York Jets");
 		teams.put("ny jets", "New York Jets");
+		teams.put("n.y. jets", "New York Jets");
 		teams.put("buf", "Buffalo Bills");
 		teams.put("buffalo", "Buffalo Bills");
 		teams.put("bills", "Buffalo Bills");
@@ -195,6 +196,7 @@ public class ParseRankings
 		teams.put("green bay", "Green Bay Packers");
 		teams.put("packers", "Green Bay Packers");
 		teams.put("nyg", "New York Giants");
+		teams.put("n.y. giants", "New York Giants");
 		teams.put("giants", "New York Giants");
 		teams.put("ny giants", "New York Giants");
 		teams.put("phi", "Philadelphia Eagles");
