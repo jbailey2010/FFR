@@ -770,6 +770,9 @@ public class PlayerInfo
 			}
 			StringBuilder sub = new StringBuilder(1000);
 			if(searchedPlayer.info.position.length() > 0){
+				if(ParseMath.zMap== null || ParseMath.zMap.size() == 0){
+					ParseMath.initZMap(holder);
+				}
 				sub.append("$" + df.format(ParseMath.avgPAAMap(holder, ReadFromFile.readRoster(cont2), searchedPlayer)) + " according to PAA\n");
 			}
 			if(searchedPlayer.values.ecr > 0.0){

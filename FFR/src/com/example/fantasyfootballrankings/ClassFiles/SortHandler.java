@@ -20,6 +20,7 @@ import com.jjoe64.graphview.GraphView.LegendAlign;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMath;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
@@ -133,6 +134,7 @@ public class SortHandler
 		    topics.add("ADP");
 		    topics.add("Under Drafted");
 		    topics.add("Auction Values");
+		    topics.add("Auction Values per PAA");
 	    }
 	    topics.add("Projections");
 	    topics.add("PAA");
@@ -541,6 +543,9 @@ public class SortHandler
 		{
 			auctionVals(cont);
 		}
+		else if(subject.equals("Auction Values per PAA")){
+			auctionPAA(cont);
+		}
 		else if(subject.equals("PAA"))
 		{
 			paa(cont);
@@ -865,6 +870,37 @@ public class SortHandler
 					}
 				}
 				wrappingUp(sorted, cont);
+	}
+	
+	public static void auctionPAA(Context cont){
+		final Roster r = ReadFromFile.readRoster(cont);
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+		{
+			@Override
+			public int compare(PlayerObject a, PlayerObject b)
+			{
+				double aVal = ParseMath.avgPAAMap(holder, r, a);
+				double bVal = ParseMath.avgPAAMap(holder, r, b);
+				if(aVal > bVal)
+				{
+					return -1;
+				}
+				if(aVal < bVal)
+				{
+					return 1;
+				}
+				return 0;
+			}
+		});
+		ParseMath.initZMap(holder);
+		for(PlayerObject player : players)
+		{
+			if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && player.info.team.length() > 0)
+			{
+				sorted.add(player);
+			}
+		}
+		wrappingUp(sorted, cont);
 	}
 
 	
@@ -1226,6 +1262,10 @@ public class SortHandler
 		    			datum.put("main", output + df.format(elem.values.worth)+ ": " + elem.info.name );
 		    		}
 		    		datum.put("sub", baseECR + elem.values.ecr + ", " + df.format(elem.values.paa) + " PAA");
+		    	}
+		    	else if(subject.equals("Auction Values per PAA")){
+		    		datum.put("main", output + df.format(ParseMath.avgPAAMap(holder, r, elem)) + ": " + elem.info.name);
+		    		datum.put("sub", df.format(elem.values.paa) + " PAA, $" + df.format(elem.values.worth) + "\n" + baseECR + elem.values.ecr);
 		    	}
 		    	else if(subject.equals("Under Drafted"))
 		    	{

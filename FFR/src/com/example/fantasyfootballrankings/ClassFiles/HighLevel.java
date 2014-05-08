@@ -572,9 +572,10 @@ public class HighLevel
 	 */
 	public static void defProjWeekly(HashMap<String, Double> points, String pos) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2014/weeklycheatsheets.cfm?player_pos=DEF", "table#proj td");
+		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2014/weeklycheatsheets.cfm?player_pos=DEF", "table.grid td");
 		if(html.split("\n").length < 59 && !html.contains("Week") && !html.contains("will be up"))
 		{
+			System.out.println("Going to annual");
 			defProjAnnual(points, pos);
 		}
 		else
@@ -597,13 +598,14 @@ public class HighLevel
 	 * @throws IOException
 	 */
 	public static void defProjAnnual(HashMap<String, Double> points, String pos) throws IOException {
-		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2014/cheatsheets.cfm?player_pos=DEF", "table#proj td");
+		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2014/cheatsheets.cfm?player_pos=DEF", "table.grid td");
 		String[] td = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 0; i < td.length; i+=5)
 		{
 			String teamName = ParseRankings.fixDefenses(td[i+1]);
 			String team = ParseRankings.fixTeams(td[i+2]);
 			double proj = Double.valueOf(td[i+4]);
+			System.out.println("Putting " + proj + " for " + teamName);
 			points.put(teamName + "/" + team + "/" + pos, proj);
 		}
 	}

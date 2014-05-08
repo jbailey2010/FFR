@@ -14,6 +14,11 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
  *
  */
 public class ParseMath {
+	public static HashMap<String, Double> zMap;
+	
+	public static void initZMap(Storage holder){
+		zMap = initPAA1Map(holder);
+	}
 	
 	/**
 	 * Averages the two PAA calcs together to give one for playerinfo popup's sake
@@ -21,8 +26,7 @@ public class ParseMath {
 	public static double avgPAAMap(Storage holder, Roster r, PlayerObject player){
 		int rosterSize = getRosterSize(r);
 		double discretOne = discretPAA(r, rosterSize);
-		HashMap<String, Double> zMapOne = initPAA1Map(holder);
-		return paa1Calc(zMapOne, player, discretOne);
+		return paa1Calc(zMap, player, discretOne);
 		
 	}
 	 
@@ -32,7 +36,7 @@ public class ParseMath {
 	public static void convertPAA(Storage holder, Roster r)
 	{
 		double discretCash = discretPAA(r, getRosterSize(r));
-		HashMap<String, Double> zMap = initPAA1Map(holder);
+		initZMap(holder);
 		for(PlayerObject player : holder.players){
 			if(zMap.containsKey(player.info.position)){
 				double possVal = paa1Calc(zMap, player, discretCash);
