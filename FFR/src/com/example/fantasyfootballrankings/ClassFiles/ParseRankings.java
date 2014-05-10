@@ -57,6 +57,7 @@ public class ParseRankings
 	 */
 	public static void handleHashes()
 	{
+		fixes.clear();
 		fixes.put("Chris D. Johnson", "Chris Johnson");
 		fixes.put("Charles D. Johnson", "Charles Johnson");
 		fixes.put("Zach J. Miller", "Zach Miller");
@@ -121,6 +122,7 @@ public class ParseRankings
 		fixes.put("Gio Bernard", "Giovani Bernard");
 		fixes.put("Timothy Wright", "Tim Wright");
 		
+		teams.clear();
 		teams.put("cin", "Cincinnati Bengals");
 		teams.put("cincinnati", "Cincinnati Bengals");
 		teams.put("bengals", "Cincinnati Bengals");

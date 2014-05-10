@@ -9,6 +9,7 @@ import com.ffr.fantasyfootballrankings.R;
 import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
+import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
@@ -487,9 +488,10 @@ public class News extends Activity {
 					headline[headline.length-1] = headline[headline.length-1].replaceAll("\\.", "");
 				}
 				PlayerObject match = new PlayerObject();
+				ParseRankings.handleHashes();
 				for(int i = 0; i < headline.length - 1; i++)
 				{
-					String twoLong = headline[i] + " " + headline[i+1];
+					String twoLong = ParseRankings.fixNames(headline[i] + " " + headline[i+1]);
 					if(Home.holder.parsedPlayers.contains(twoLong))
 					{
 						isName = true;
@@ -504,7 +506,7 @@ public class News extends Activity {
 					}
 					if(i + 2 < headline.length)
 					{
-						String threeLong = twoLong + " " + headline[i+2];
+						String threeLong = ParseRankings.fixNames(twoLong + " " + headline[i+2]);
 						if(Home.holder.parsedPlayers.contains(threeLong))
 						{
 							isName = true;
