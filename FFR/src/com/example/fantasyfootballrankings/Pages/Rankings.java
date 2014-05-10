@@ -524,7 +524,6 @@ public class Rankings extends Activity {
 				listview.setAdapter(null);
 				dialog.dismiss();
 				isAsync=true;
-				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 				ParseRankings.runRankings(holder, cont);
 				
 			}
@@ -584,7 +583,6 @@ public class Rankings extends Activity {
     			if(ManageInput.confirmInternet(cont))
 				{
     				isAsync = true;
-    				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 					ParseRankings.runRankings(holder, cont);
 					refreshed = true;
 				}
@@ -1054,7 +1052,6 @@ public class Rankings extends Activity {
 	public void intermediateHandleRankings(Activity cont)
 	{ 
 		isAsync = false;
-		cont.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		int maxSize = ReadFromFile.readFilterQuantitySize((Context)cont, "Rankings");
 		PriorityQueue<PlayerObject>inter = null;
 		PriorityQueue<PlayerObject> totalList = null;

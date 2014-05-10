@@ -523,7 +523,7 @@ public class Trending extends Activity {
 	public void fetchTrending(final Storage holder)
 	{
 		try {
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 			ParseTrending.trendingPlayers(holder, cont);
 			listview.setAdapter(null);
 		} catch (IOException e) {
@@ -641,7 +641,6 @@ public class Trending extends Activity {
 	 */
 	public void intermediateHandleTrending(Storage holder, Activity cont)
 	{
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		day.setClickable(true);
 		week.setClickable(true);
 		month.setClickable(true);

@@ -256,7 +256,6 @@ public class News extends Activity {
             @Override
             public void onClick(View v) 
             {
-            	((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             	ParseNews.startNewsAsync(cont, rh.isChecked(), rp.isChecked(), th.isChecked(),
             			cbs.isChecked(), si.isChecked());
             	if(rh.isChecked())
@@ -342,7 +341,6 @@ public class News extends Activity {
             @Override
             public void onClick(View v) 
             {
-            	((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             	String selectionFeed = feeds.getSelectedItem().toString();
             	ParseNews.startTwitterAsync(cont, selectionFeed, obj);
             	String[] brokenUp = selectionFeed.split(" \\(");
@@ -402,7 +400,6 @@ public class News extends Activity {
 				}
 				else
 				{
-					((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 					ParseNews.startTwitterSearchAsync(cont, queryTerms, "Twitter Search: " + queryTerms, true, " ", obj);
 					WriteToFile.writeNewsSelection(cont, "Twitter Search: " + queryTerms);
 					setHeader("Twitter Search: " + queryTerms);
@@ -434,7 +431,6 @@ public class News extends Activity {
 	public void handleNewsListView(List<NewsObjects> result, final Activity cont) 
 	{
 		listview = (BounceListView)cont.findViewById(R.id.listview_news);
-		cont.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 	    final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 	    for(NewsObjects newsObj : result)
 	    {

@@ -437,7 +437,6 @@ public class ParsingAsyncTask
 			@Override
 			protected void onPostExecute(Void result){
 				pdia.dismiss();
-				act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 			   super.onPostExecute(result);
 			}
 
@@ -666,7 +665,6 @@ public class ParsingAsyncTask
 			@Override
 			protected void onPostExecute(Void result){
 			   super.onPostExecute(result);
-			   act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 			   pdia.dismiss();
 			   if(isFirstFetch)
 			   {

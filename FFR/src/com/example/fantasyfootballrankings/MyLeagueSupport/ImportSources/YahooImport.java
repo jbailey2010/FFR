@@ -75,7 +75,6 @@ public class YahooImport
 	public void handleYahooParsing(String urlOrig) throws IOException
 	{
 		url = urlOrig;
-		((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		GetTestDoc task1 = this.new GetTestDoc((Activity)cont, this);
 		task1.execute(url);
 	}
@@ -106,7 +105,6 @@ public class YahooImport
 
 		@Override
 		protected void onPostExecute(Document result){
-			act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		   super.onPostExecute(result);
 		   pda.dismiss();
 		   obj.handleTest(result);
@@ -186,7 +184,6 @@ public class YahooImport
 	 */
 	public void handleParsing()
 	{
-		((Activity)cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		HandleParsingAsync task = this.new HandleParsingAsync((Activity)cont, this);
 		task.execute();
 	}
@@ -210,7 +207,6 @@ public class YahooImport
 
 		@Override
 		protected void onPostExecute(List<TeamAnalysis> result){
-			act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		   super.onPostExecute(result);
 		   pda.dismiss();
 		   getLeagueName(result);

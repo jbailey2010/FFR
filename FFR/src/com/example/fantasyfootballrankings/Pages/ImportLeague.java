@@ -159,7 +159,6 @@ public class ImportLeague extends Activity {
                 ActionBar ab = getActionBar();
                 //ab.setDisplayShowHomeEnabled(false);
                 ab.setDisplayShowTitleEnabled(false);
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
                 if(holder.players.size() < 10 || prefs.getBoolean("Home Update Import", false) || prefs.getBoolean("Rankings Update Import", false))
                 {

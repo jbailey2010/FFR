@@ -125,7 +125,6 @@ public class Home extends Activity{
 	    sideNavigationView.setMenuClickCallback(sideNavigationCallback);
 	   // sideNavigationView.setMode(/*SideNavigationView.Mode*/);
 	    getActionBar().setDisplayHomeAsUpEnabled(true);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         rankings = (Button)findViewById(R.id.rankings);
         rankings.setOnClickListener(rankHandler);
         trending = (Button)findViewById(R.id.trending);
@@ -261,7 +260,6 @@ public class Home extends Activity{
 					if(ManageInput.confirmInternet(cont))
 					{
 			        	WriteToFile.writeFirstOpen(cont);
-						setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 						final ParsingAsyncTask stupid = new ParsingAsyncTask();
 						ParseNames task = stupid.new ParseNames((Activity)cont, true);
 					    task.execute(cont);
@@ -340,7 +338,6 @@ public class Home extends Activity{
 			public void onClick(View v) {
 				if(ManageInput.confirmInternet(cont))
 				{
-					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 					dialog.dismiss();
 					ParseNames task = stupid.new ParseNames((Activity)cont, false);
 				    task.execute(cont);	

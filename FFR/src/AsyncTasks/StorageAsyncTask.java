@@ -188,8 +188,7 @@ public class StorageAsyncTask
 		@Override
 		protected void onPostExecute(Void result){
 			pdia.dismiss();
-			((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-		   super.onPostExecute(result);
+			super.onPostExecute(result);
 		}
 
 	    @Override

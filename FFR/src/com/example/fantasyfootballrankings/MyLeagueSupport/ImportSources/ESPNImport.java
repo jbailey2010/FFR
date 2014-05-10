@@ -72,7 +72,6 @@ public class ESPNImport
 		cont = c;
 		System.out.println(urlOrig);
 		url = urlOrig;
-		((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		GetTestDoc task1 = this.new GetTestDoc((Activity)cont, this);
 		task1.execute(url);
 	}
@@ -103,7 +102,6 @@ public class ESPNImport
 
 		@Override
 		protected void onPostExecute(Document result){
-			act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		   super.onPostExecute(result);
 		   pda.dismiss();
 		   obj.handleTest(result);
@@ -176,7 +174,6 @@ public class ESPNImport
 		else
 		{
 			readUnPw(cont);
-			((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 			GetLogInFirst task = this.new GetLogInFirst((Activity)cont, this);
 			task.execute();
 		}
@@ -208,7 +205,6 @@ public class ESPNImport
 
 		@Override
 		protected void onPostExecute(Document result){
-			act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		   super.onPostExecute(result);
 		   pda.dismiss();
 		   obj.handleFirstLogIn(result);
@@ -319,7 +315,6 @@ public class ESPNImport
 
 		@Override
 		protected void onPostExecute(Document result){
-			act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		   super.onPostExecute(result);
 		   pda.dismiss();
 		   if(result == null)
@@ -379,7 +374,6 @@ public class ESPNImport
 
 		@Override
 		protected void onPostExecute(List<TeamAnalysis> result){
-			act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		   super.onPostExecute(result);
 		   pda.dismiss();
 		   getLeagueName(result);
@@ -604,7 +598,6 @@ public class ESPNImport
 	 */
 	public void handleParsing()
 	{
-		((Activity)cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		HandleParsingAsync task = this.new HandleParsingAsync((Activity)cont, this);
 		task.execute();
 	}

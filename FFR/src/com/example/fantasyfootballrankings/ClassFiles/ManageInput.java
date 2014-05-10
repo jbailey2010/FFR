@@ -486,7 +486,6 @@ public class ManageInput
 					{
 						if(ManageInput.confirmInternet(cont))
 						{
-							((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 						    SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 							ParsingAsyncTask stupid = new ParsingAsyncTask();
 						    ParseProjections task = stupid.new ParseProjections((Activity)cont, ((Home)cont).holder);
@@ -627,7 +626,6 @@ public class ManageInput
 				dialog.dismiss();
 				if(doSyncData)
 				{
-					((Activity) cont).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 					StorageAsyncTask obj = new StorageAsyncTask();
 				    WriteNewPAA task2 = obj.new WriteNewPAA(cont, true);
 				    task2.execute(holder, cont);
