@@ -626,6 +626,7 @@ public class ManageInput
 				dialog.dismiss();
 				if(doSyncData)
 				{
+					
 					StorageAsyncTask obj = new StorageAsyncTask();
 				    WriteNewPAA task2 = obj.new WriteNewPAA(cont, true);
 				    task2.execute(holder, cont);

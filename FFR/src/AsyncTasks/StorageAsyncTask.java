@@ -15,6 +15,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
@@ -188,6 +189,9 @@ public class StorageAsyncTask
 		@Override
 		protected void onPostExecute(Void result){
 			pdia.dismiss();
+			if(!Home.holder.isRegularSeason){
+				Toast.makeText(cont, "Note, this changed some auction values. To reflect this, refresh the rankings", Toast.LENGTH_LONG).show();
+			}
 			super.onPostExecute(result);
 		}
 
