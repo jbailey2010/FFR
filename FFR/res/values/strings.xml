@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Fantasy Football Rankings</string>
+    <string name="app_name">Fantasy Football GM</string>
     <string name="title_activity_news">News</string>
     <string name="title_activity_team">Your Team</string>
     <string name="title_activity_trending">Trends</string>
@@ -13,14 +13,14 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:shadowColor">#000000</item>
-        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDx">2</item> 
         <item name="android:shadowDy">2</item>
         <item name="android:shadowRadius">2</item>
     </style>
 
-    <string name="title_activity_draft_history">DraftHistory</string>
+    <string name="title_activity_draft_history">Draft History</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_import_league">ImportLeague</string>
+    <string name="title_activity_import_league">My Leagues</string>
 
 </resources>

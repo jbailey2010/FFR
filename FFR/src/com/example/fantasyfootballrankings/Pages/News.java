@@ -64,10 +64,7 @@ public class News extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news);
-		ActionBar ab = getActionBar();
 		cont = this;
-		//ab.setDisplayShowHomeEnabled(false);
-		ab.setDisplayShowTitleEnabled(false);
 		ISideNavigationCallback sideNavigationCallback = new ISideNavigationCallback() {
 		    @Override
 		    public void onSideNavigationItemClick(int itemId) {
@@ -481,7 +478,7 @@ public class News extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				String[] headline = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString().replaceAll("\\(", "").replaceAll("\\)", "").replaceAll(",", "").replace("'s ", " ").split(" ");
+				String[] headline = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString().replaceAll("\\(", "").replaceAll("\\)", "").replaceAll(",", "").replace("'s ", " ").replaceAll("\"", "").split(" ");
 				boolean isName = false;
 				if(headline[headline.length-1].substring(headline[headline.length-1].length() - 1).equals("."))
 				{

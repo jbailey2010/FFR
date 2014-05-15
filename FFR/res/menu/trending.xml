@@ -8,7 +8,7 @@
         android:id="@+id/filter_topics_menu"
         android:orderInCategory="100"
         android:showAsAction="ifRoom|withText" 
-        android:title="Filter Topics"/> 
+        android:title="Filter"/> 
     <item
         android:id="@+id/help"
         android:orderInCategory="100"

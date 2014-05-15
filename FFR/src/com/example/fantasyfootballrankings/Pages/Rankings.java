@@ -184,9 +184,6 @@ public class Rankings extends Activity {
     	setLists();
 		handleRefresh();
 		handleOnClickButtons();
-		ActionBar ab = getActionBar();
-		//ab.setDisplayShowHomeEnabled(false);
-		ab.setDisplayShowTitleEnabled(false);
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		configSearch();
 	}

@@ -102,10 +102,6 @@ public class DraftHistory extends Activity {
 	   // sideNavigationView.setMode(/*SideNavigationView.Mode*/);
 	    getActionBar().setDisplayHomeAsUpEnabled(true);
 		setUpView();
-		ActionBar ab = getActionBar();
-		//ab.setDisplayShowHomeEnabled(false);
-		ab.setDisplayShowTitleEnabled(false);
-		
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		if(holder.players.size() < 10 || prefs.getBoolean("Home Update Draft", false) || prefs.getBoolean("Rankings Update Draft", false))
 		{

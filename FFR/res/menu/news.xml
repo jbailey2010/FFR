@@ -8,11 +8,10 @@
         android:id="@+id/twitter_feeds"
         android:orderInCategory="100"
 		android:showAsAction="ifRoom|withText" 
-        android:title="Twitter Feeds"/>
+        android:title="Feeds"/>
   	<item
         android:id="@+id/twitter_search"
         android:orderInCategory="100"
-		android:showAsAction="ifRoom|withText" 
         android:title="Search Twitter"/>
   <item
         android:id="@+id/help"

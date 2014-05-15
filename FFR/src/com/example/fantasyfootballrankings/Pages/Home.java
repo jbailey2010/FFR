@@ -78,9 +78,7 @@ public class Home extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
-		ActionBar ab = getActionBar();
 		cont = this;
-		ab.setDisplayShowTitleEnabled(false);
 		ISideNavigationCallback sideNavigationCallback = new ISideNavigationCallback() {
 		    @Override
 		    public void onSideNavigationItemClick(int itemId) {

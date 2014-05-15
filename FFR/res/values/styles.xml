@@ -33,5 +33,6 @@
 
   <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
     <item name="android:textColor">#ffffff</item>
+    <item name="android:textStyle">bold</item>
   </style>
 </resources>

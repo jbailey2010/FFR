@@ -24,11 +24,10 @@
         android:id="@+id/start_scoring"
         android:orderInCategory="100"
         android:showAsAction="ifRoom|withText" 
-        android:title="Scoring Settings"/>
+        android:title="Scoring"/>
     <item
         android:id="@+id/start_roster"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom|withText" 
         android:title="Roster Settings"/>
 
    

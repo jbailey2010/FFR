@@ -88,7 +88,6 @@ public class Trending extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trending);
-		ActionBar ab = getActionBar();
 		cont = this;
 		ISideNavigationCallback sideNavigationCallback = new ISideNavigationCallback() {
 		    @Override
@@ -138,7 +137,6 @@ public class Trending extends Activity {
 	   // sideNavigationView.setMode(/*SideNavigationView.Mode*/);
 	    getActionBar().setDisplayHomeAsUpEnabled(true);
 		//ab.setDisplayShowHomeEnabled(false);
-		ab.setDisplayShowTitleEnabled(false);
 		//Fetch the date of the posts, and convert it to a date
     	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     	listview = (BounceListView)findViewById(R.id.listview_trending);
