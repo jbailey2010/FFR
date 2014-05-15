@@ -1179,10 +1179,14 @@ public class HighLevel
 		int min = 0;
 		for(int i = 0; i < td.length; i++)
 		{ 
-			if(td[i+1].contains("QB") || td[i+1].contains("RB") || td[i+1].contains("WR") || td[i+1].contains("TE"))
-			{
-				min = i;
-				break;
+			try{
+				if(td[i+1].contains("QB") || td[i+1].contains("RB") || td[i+1].contains("WR") || td[i+1].contains("TE"))
+				{
+					min = i;
+					break;
+				}
+			} catch(ArrayIndexOutOfBoundsException notUp){
+				return;
 			}
 		}
 		for(int i = min; i < td.length; i+= 8){

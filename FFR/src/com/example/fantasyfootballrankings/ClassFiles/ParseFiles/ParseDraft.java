@@ -22,16 +22,44 @@ public class ParseDraft
 	public static HashMap<String, String> parseTeamDraft() throws IOException
 	{
 		String html = HandleBasicQueries.handleLists(
-				"http://www.sbnation.com/nfl/2013/4/27/4276432/2013-nfl-draft-full-7-round-results", "td");
+				"http://www.sbnation.com/nfl/2014/5/10/5704890/nfl-draft-results-recap-jadeveon-clowney-johnny-manziel-michael-sam", "td");
 		HashMap<String, String> picks = new HashMap<String, String>();
 		String[] perPick = ManageInput.tokenize(html, '\n', 1);
-		for(int i = 0; i < perPick.length; i+=2)
+		for(int i = 0; i < 25; i++){
+			System.out.println(i + ": " + perPick[i]);
+		}
+		for(int i = 5; i < perPick.length; i+=5)
 		{
-			String round = perPick[i];
-			String overall = perPick[++i];
-			String team = ParseRankings.fixTeams(perPick[++i].replaceAll("[^\\x20-\\x7e]",""));
-			String name = perPick[++i];
-			String position = perPick[++i];
+			if(!ManageInput.isInteger(perPick[i])){
+				continue;
+			}
+			String team = ParseRankings.fixTeams(perPick[i+1]);
+			String name = ParseRankings.fixNames(perPick[i+2]);
+			String position = perPick[i+3];
+			String overall = perPick[i];
+			int j = Integer.parseInt(overall);
+			String round = "";
+			if(j <= 32){
+				round = "1";
+			}
+			else if(j <= 64){
+				round = "2";
+			}
+			else if(j <= 100){
+				round = "3";
+			}
+			else if(j <= 140){
+				round = "4";
+			}
+			else if(j <= 176){
+				round = "5";
+			}
+			else if(j <= 215){
+				round = "6";
+			}
+			else if(j <= 256){
+				round = "7";
+			}
 			String pick = round + " (" + overall + "): " + name + ", " + position + "\n";
 			if(picks.containsKey(team))
 			{
