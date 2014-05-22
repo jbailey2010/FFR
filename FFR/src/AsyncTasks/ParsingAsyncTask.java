@@ -30,7 +30,10 @@ import org.jsoup.select.Elements;
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ComparatorHandling;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
+import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
+import com.example.fantasyfootballrankings.ClassFiles.Simulator;
 import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
@@ -67,6 +70,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
+import android.widget.TextView;
 /**
  * A library of all the asynctasks involving parsing
  * @author Jeff
@@ -1058,4 +1062,60 @@ public class ParsingAsyncTask
 		    	return ecrList;    	
 		    }
 		  }
+		
+		
+		public class ParseADP extends AsyncTask<Object, Void, String> 
+		{
+			ProgressDialog pdia;
+			Activity act;
+			Storage h;
+			TextView view;
+		    public ParseADP(Activity activity, Storage holder, TextView tv) 
+		    {
+		        pdia = new ProgressDialog(activity);
+		        pdia.setCancelable(false);
+		        act = activity;
+		        h = holder;
+		        view = tv;
+		    }
+
+			@Override
+			protected void onPreExecute(){ 
+			   super.onPreExecute();
+			        pdia.setMessage("Please wait, doing fancy math...");
+			        pdia.show();    
+			}
+
+			@Override
+			protected void onPostExecute(String result){
+			   super.onPostExecute(result);
+			   pdia.dismiss();
+			   view.setText(result);
+			}
+
+		    @Override
+		    protected String doInBackground(Object... data) 
+		    {
+		    	int pick = (Integer)data[0];
+		    	String name = (String)data[1];
+		    	Roster r = ReadFromFile.readRoster(act);
+		    	String url = "http://fantasyfootballcalculator.com/scenario.php?format=standard&teams=" + r.teams + "&pick=" + pick;
+		    	ParseRankings.handleHashes();
+		    	try {
+					String tdSet = HandleBasicQueries.handleLists(url, "table.adp td");
+					String[] td = ManageInput.tokenize(tdSet, '\n', 1);
+					for(int i = 0; i < td.length; i++){
+						String elem = td[i];
+						if(ParseRankings.fixNames(elem).equals(name)){
+							return "Odds " + name + " is available at pick " + pick + ": " + td[i+4];
+						}
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		    	return "An error occurred";
+		    }
+		  }
+
 	}

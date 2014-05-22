@@ -144,14 +144,14 @@ public final class R {
 		public static final int com_facebook_usersettingsfragment_logo_image = 0x7f06003f;
 		public static final int com_facebook_usersettingsfragment_profile_name = 0x7f060040;
 		public static final int large = 0x7f060002;
-		public static final int left_item = 0x7f060141;
-		public static final int left_item_icon = 0x7f060142;
-		public static final int left_item_text = 0x7f060143;
+		public static final int left_item = 0x7f060146;
+		public static final int left_item_icon = 0x7f060147;
+		public static final int left_item_text = 0x7f060148;
 		public static final int normal = 0x7f060001;
 		public static final int picker_subtitle = 0x7f06003c;
-		public static final int right_item = 0x7f060144;
-		public static final int right_item_icon = 0x7f060145;
-		public static final int right_item_text = 0x7f060146;
+		public static final int right_item = 0x7f060149;
+		public static final int right_item_icon = 0x7f06014a;
+		public static final int right_item_text = 0x7f06014b;
 		public static final int small = 0x7f060000;
 	}
 	public static final class layout {
@@ -169,8 +169,8 @@ public final class R {
 		public static final int com_facebook_placepickerfragment_list_row = 0x7f030013;
 		public static final int com_facebook_search_bar_layout = 0x7f030014;
 		public static final int com_facebook_usersettingsfragment = 0x7f030015;
-		public static final int st_share_dialog_list = 0x7f030044;
-		public static final int st_share_dialog_row = 0x7f030045;
+		public static final int st_share_dialog_list = 0x7f030045;
+		public static final int st_share_dialog_row = 0x7f030046;
 	}
 	public static final class string {
 		public static final int com_facebook_choose_friends = 0x7f09000f;

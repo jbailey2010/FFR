@@ -5,6 +5,10 @@
         android:showAsAction="ifRoom|withText" 
         android:title="Filters"/>
     <item
+        android:id="@+id/simulator"
+        android:orderInCategory="100"
+        android:title="Simulator" />
+    <item
         android:id="@+id/filter_quantity_menu"
         android:orderInCategory="100"
         android:showAsAction="ifRoom|withText" 

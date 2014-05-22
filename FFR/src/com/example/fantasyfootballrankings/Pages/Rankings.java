@@ -28,6 +28,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
+import com.example.fantasyfootballrankings.ClassFiles.Simulator;
 import com.example.fantasyfootballrankings.ClassFiles.SortHandler;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
@@ -225,10 +226,13 @@ public class Rankings extends Activity {
 		{
 			MenuItem a = (MenuItem)menu.findItem(R.id.save_draft);
 			MenuItem b = (MenuItem)menu.findItem(R.id.refresh_draft);
+			MenuItem c = (MenuItem)menu.findItem(R.id.simulator);
 			a.setVisible(false);
 			a.setEnabled(false);
 			b.setEnabled(false);
 			b.setVisible(false);
+			c.setVisible(false);
+			c.setEnabled(false);
 		}
 		return true;
 	}
@@ -245,6 +249,15 @@ public class Rankings extends Activity {
 			case android.R.id.home:
 		        sideNavigationView.toggleMenu();
 		        return true;
+			case R.id.simulator:
+				if(ManageInput.confirmInternet(cont)){
+					Simulator.simulatorInit(cont, holder);
+				}
+				else
+				{
+					Toast.makeText(cont, "This requires an internet connection", Toast.LENGTH_SHORT).show();
+				}
+				return true;
 			case R.id.refresh_draft:
 				Draft.resetDraft(holder.draft, holder, context);	
 				return true;

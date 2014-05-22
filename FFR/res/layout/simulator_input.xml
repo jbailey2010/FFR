@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/simulator_close"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="100"
+        android:textColor="#CD0000"
+        android:textSize="32sp"
+        android:text="X" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true" 
+        android:layout_marginTop="10dp"
+        android:text="Player Name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ffffff" />
+
+    <AutoCompleteTextView
+        android:id="@+id/simulator_input"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/spinner_well" />
+    
+    <TextView 
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/simulator_input"
+        android:layout_marginTop="15dp"
+        android:textColor="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Round"/>
+
+    <EditText
+        android:id="@+id/rd_input"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:textColor="#000000"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/spinner_well"
+        android:layout_below="@+id/textView2" />
+    
+    <TextView 
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rd_input"
+        android:layout_marginTop="15dp"
+        android:textColor="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Pick"/>
+
+    <EditText
+        android:id="@+id/pick_input"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:textColor="#000000"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/spinner_well"
+        android:layout_below="@+id/textView3" />
+
+    <Button
+        android:id="@+id/simulator_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/ButtonText"
+        android:background="@drawable/btn_red"
+        android:layout_below="@+id/pick_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="Submit" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/simulator_close"
+        android:layout_centerHorizontal="true"
+        android:text="Find the odds a player will be available at a given selection"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

@@ -1,5 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
  
+    <item
+        android:id="@+id/start_roster"
+        android:orderInCategory="100"
+        android:title="Roster Settings"/>
     <item 
    	    android:id="@+id/auction_or_snake"
    	    android:orderInCategory="100"
@@ -25,10 +29,7 @@
         android:orderInCategory="100"
         android:showAsAction="ifRoom|withText" 
         android:title="Scoring"/>
-    <item
-        android:id="@+id/start_roster"
-        android:orderInCategory="100"
-        android:title="Roster Settings"/>
+
 
    
 </menu>

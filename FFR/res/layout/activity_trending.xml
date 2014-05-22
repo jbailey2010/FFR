@@ -93,7 +93,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/content_well"
             android:clickable="true"
-            android:divider="#AAAAAA"
+            android:divider="#888888"
             android:dividerHeight="1dp" >
         </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
     </RelativeLayout>

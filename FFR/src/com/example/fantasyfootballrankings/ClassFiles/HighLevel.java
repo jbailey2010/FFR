@@ -39,7 +39,7 @@ public class HighLevel
 	public static void setContractStatus(Storage holder) throws IOException
 	{
 		HashMap<String, String> cs = new HashMap<String, String>();
-		String html = HandleBasicQueries.handleLists("http://www.kffl.com/static/nfl/features/freeagents/fa.php?option=All", "td");
+		String html = HandleBasicQueries.handleLists("http://www.kffl.com/static/nfl/features/freeagents/fa.php?option=All&y=2015", "td");
 		String[] td = ManageInput.tokenize(html, '\n', 1);
 		for(int i = 20; i < td.length; i+=5)
 		{
