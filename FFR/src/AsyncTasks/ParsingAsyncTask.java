@@ -1100,22 +1100,34 @@ public class ParsingAsyncTask
 		    	String name = (String)data[1];
 		    	Roster r = ReadFromFile.readRoster(act);
 		    	String url = "http://fantasyfootballcalculator.com/scenario.php?format=standard&teams=" + r.teams + "&pick=" + pick;
+		    	Scoring s = ReadFromFile.readScoring(act);
+		    	if(s.catches > 0){
+		    		url = url.replace("standard", "ppr");
+		    	}
 		    	ParseRankings.handleHashes();
-		    	try {
-					String tdSet = HandleBasicQueries.handleLists(url, "table.adp td");
-					String[] td = ManageInput.tokenize(tdSet, '\n', 1);
-					for(int i = 0; i < td.length; i++){
-						String elem = td[i];
-						if(ParseRankings.fixNames(elem).equals(name)){
-							return "Odds " + name + " is available at pick " + pick + ": " + td[i+4];
-						}
-					}
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		    	return "An error occurred";
+		    	String first = checkUrl(url, name, pick);
+		    	if(s.catches > 0 && first.contains("error")){
+		    		first = checkUrl(url.replace("ppr", "standard"), name, pick);
+		    	}
+		    	return first;
 		    }
 		  }
+		
+		public String checkUrl(String url, String name, int pick){
+			try {
+				String tdSet = HandleBasicQueries.handleLists(url, "table.adp td");
+				String[] td = ManageInput.tokenize(tdSet, '\n', 1);
+				for(int i = 0; i < td.length; i++){
+					String elem = td[i];
+					if(ParseRankings.fixNames(elem).equals(name)){
+						return "Odds " + name + " is available at pick " + pick + ": " + td[i+4];
+					}
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	return "An error occurred. Either the data is unavailable, or the internet may have dropped.";
+		}
 
 	}

@@ -575,7 +575,6 @@ public class HighLevel
 		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2014/weeklycheatsheets.cfm?player_pos=DEF", "table.grid td");
 		if(html.split("\n").length < 59 && !html.contains("Week") && !html.contains("will be up"))
 		{
-			System.out.println("Going to annual");
 			defProjAnnual(points, pos);
 		}
 		else
@@ -600,13 +599,16 @@ public class HighLevel
 	public static void defProjAnnual(HashMap<String, Double> points, String pos) throws IOException {
 		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2014/cheatsheets.cfm?player_pos=DEF", "table.grid td");
 		String[] td = ManageInput.tokenize(html, '\n', 1);
-		for(int i = 0; i < td.length; i+=5)
-		{
-			String teamName = ParseRankings.fixDefenses(td[i+1]);
-			String team = ParseRankings.fixTeams(td[i+2]);
-			double proj = Double.valueOf(td[i+4]);
-			System.out.println("Putting " + proj + " for " + teamName);
-			points.put(teamName + "/" + team + "/" + pos, proj);
+		try{
+			for(int i = 0; i < td.length; i+=5)
+			{
+				String teamName = ParseRankings.fixDefenses(td[i+1]);
+				String team = ParseRankings.fixTeams(td[i+2]);
+				double proj = Double.valueOf(td[i+4]);
+				points.put(teamName + "/" + team + "/" + pos, proj);
+			}
+		}catch(NumberFormatException e){
+			System.out.println("There was an error with defproj");
 		}
 	}
 
@@ -1006,13 +1008,14 @@ public class HighLevel
 		HashMap<String, String> adp = new HashMap<String, String>();
 		if(!holder.isRegularSeason)
 		{
-			System.out.println("preseason ecr");
 			String url = "http://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php";
+			int limit = 9;
 			if(ReadFromFile.readScoring(cont).catches == 1)
 			{
 				url = "http://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php";
+				limit = 7;
 			}
-			parseECRWorker(url, holder, ecr, risk, adp, 7);
+			parseECRWorker(url, holder, ecr, risk, adp, limit);
 		}
 		else
 		{
@@ -1189,9 +1192,9 @@ public class HighLevel
 				return;
 			}
 		}
-		for(int i = min; i < td.length; i+= 8){
+		for(int i = min; i < td.length; i+= 10){
 			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i].split(" \\(")[0].split(", ")[0]));
-			String adpStr = td[i+6];
+			String adpStr = td[i+8];
 			String posInd = td[i+1].replaceAll("(\\d+,\\d+)|\\d+", "").replaceAll("DST", "D/ST");
 			adp.put(name + posInd, adpStr);
 		}
