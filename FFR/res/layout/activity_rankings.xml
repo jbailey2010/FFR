@@ -51,8 +51,8 @@
             android:textSize="15sp" />
         
        	<View android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-		    android:background="#990000"
+		    android:layout_width="3dp"
+		    android:background="#770000"
 		    android:layout_marginTop="7dp"
 		    android:layout_marginBottom="7dp"/>
 
@@ -68,8 +68,8 @@
             android:textSize="15sp" />
         
         <View android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-		    android:background="#990000"
+		    android:layout_width="3dp"
+		    android:background="#770000"
 		    android:layout_marginTop="7dp"
 		    android:layout_marginBottom="7dp"/>
 
@@ -85,8 +85,8 @@
             android:textSize="15sp" />
         
         <View android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-		    android:background="#990000"
+		    android:layout_width="3dp"
+		    android:background="#770000"
 		    android:layout_marginTop="7dp"
 		    android:layout_marginBottom="7dp"/>
 
@@ -116,7 +116,7 @@
 	    android:paddingBottom="2dp"
 	    android:background="#222222"> 
 
-	    <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
+	    <com.example.fantasyfootballrankings.InterfaceAugmentations.OutBounceListView
 	        
 	        android:id="@+id/listview_rankings"
 	        android:layout_width="fill_parent"
@@ -124,7 +124,7 @@
 	        android:divider="#888888"
 	        android:background="@drawable/content_well"
 	        android:clickable="true"> 
-	    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
+	    </com.example.fantasyfootballrankings.InterfaceAugmentations.OutBounceListView>
 	            
 	</RelativeLayout>
 <com.devspark.sidenavigation.SideNavigationView

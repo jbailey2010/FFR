@@ -1013,7 +1013,7 @@ public class HighLevel
 			if(ReadFromFile.readScoring(cont).catches == 1)
 			{
 				url = "http://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php";
-				limit = 7;
+				limit = 9;
 			}
 			parseECRWorker(url, holder, ecr, risk, adp, limit);
 		}

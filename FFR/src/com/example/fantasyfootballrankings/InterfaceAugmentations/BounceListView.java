@@ -1,8 +1,16 @@
 package com.example.fantasyfootballrankings.InterfaceAugmentations;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Camera;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LightingColorFilter;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.widget.ListView;
 /**
  * Adds bouncing of the listview

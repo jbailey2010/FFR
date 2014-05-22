@@ -2,12 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    	android:layout_marginTop="6dp"
+    	android:layout_marginLeft="11dp"
+    	android:layout_marginRight="11dp"
+    	android:paddingBottom="4dp"
+    	android:background="@drawable/listview_background">
 	<RelativeLayout
 	    android:layout_width="match_parent"
     	android:layout_height="wrap_content"
-    	android:layout_marginTop="6dp"
-    	android:layout_marginLeft="6dp"
-    	android:layout_marginRight="6dp"
     	android:background="@drawable/listview_elem">
 	    <TextView
 	        android:id="@+id/text1"
@@ -33,6 +38,7 @@
 	       	android:paddingBottom="10dp"
 	       	android:textColor="#111111"
 	        android:textSize="20sp" />
+	</RelativeLayout>
 	</RelativeLayout>
 
 </RelativeLayout>

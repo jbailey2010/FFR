@@ -72,7 +72,7 @@ public final class R {
 		public static final int com_facebook_list_section_header_background = 0x7f020019;
 		public static final int com_facebook_loginbutton_silver = 0x7f02001a;
 		public static final int com_facebook_logo = 0x7f02001b;
-		public static final int com_facebook_picker_default_separator_color = 0x7f020083;
+		public static final int com_facebook_picker_default_separator_color = 0x7f020084;
 		public static final int com_facebook_picker_item_background = 0x7f02001c;
 		public static final int com_facebook_picker_list_focused = 0x7f02001d;
 		public static final int com_facebook_picker_list_longpressed = 0x7f02001e;
@@ -112,15 +112,15 @@ public final class R {
 		public static final int icon_twitter = 0x7f02004f;
 		public static final int icon_twitter_disabled = 0x7f020050;
 		public static final int icon_view = 0x7f020051;
-		public static final int notification_banner = 0x7f02005c;
-		public static final int share_badge = 0x7f020073;
-		public static final int slate = 0x7f020076;
-		public static final int socialize_icon_white = 0x7f020077;
-		public static final int tick_off = 0x7f02007b;
-		public static final int tick_on = 0x7f02007c;
-		public static final int toolbar_bg = 0x7f02007d;
-		public static final int toolbar_close = 0x7f02007e;
-		public static final int user_icon = 0x7f020081;
+		public static final int notification_banner = 0x7f02005d;
+		public static final int share_badge = 0x7f020074;
+		public static final int slate = 0x7f020077;
+		public static final int socialize_icon_white = 0x7f020078;
+		public static final int tick_off = 0x7f02007c;
+		public static final int tick_on = 0x7f02007d;
+		public static final int toolbar_bg = 0x7f02007e;
+		public static final int toolbar_close = 0x7f02007f;
+		public static final int user_icon = 0x7f020082;
 	}
 	public static final class id {
 		public static final int com_facebook_login_activity_progress_bar = 0x7f06002f;
