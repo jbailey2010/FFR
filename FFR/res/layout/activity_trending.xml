@@ -87,7 +87,7 @@
         android:layout_height="match_parent"
         android:background="#444444" >
 
-        <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
+        <com.example.fantasyfootballrankings.InterfaceAugmentations.OutBounceListView
             android:id="@+id/listview_trending"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
@@ -95,13 +95,12 @@
             android:clickable="true"
             android:divider="#888888"
             android:dividerHeight="1dp" >
-        </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
+        </com.example.fantasyfootballrankings.InterfaceAugmentations.OutBounceListView>
     </RelativeLayout>
 
     <com.devspark.sidenavigation.SideNavigationView
         android:id="@+id/side_navigation_view_trending"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/linearLayout1" />
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>

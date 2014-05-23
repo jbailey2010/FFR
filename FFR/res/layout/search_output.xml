@@ -48,8 +48,8 @@
             android:layout_toLeftOf="@+id/search_close"
             android:textColor="#FFFFFF"
             android:background="@drawable/menu_btn_black"
-            android:textSize="13sp"
-            android:text="Watch List" />
+            android:textSize="11sp"
+            android:text="Add To Watch List" />
         
         <View android:id="@+id/add_view"
             android:layout_height="fill_parent"

@@ -1,5 +1,7 @@
 package com.example.fantasyfootballrankings.InterfaceAugmentations;
 
+import com.ffr.fantasyfootballrankings.R;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Camera;
@@ -12,6 +14,8 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class OutBounceListView extends ListView {
 	 private static final int MAX_Y_OVERSCROLL_DISTANCE = 250;
@@ -83,6 +87,8 @@ public class OutBounceListView extends ListView {
     private static final float SHININESS = 200;
     /** The max intensity of the light */
     private static final int MAX_INTENSITY = 0xFF;
+    private static final int MIN_INTENSITY = 160;
+    private static final int MAX_SHININESS = 25;
 
     private final Camera mCamera = new Camera();
     private final Matrix mMatrix = new Matrix();
@@ -146,9 +152,13 @@ public class OutBounceListView extends ListView {
         if (intensity > MAX_INTENSITY) {
             intensity = MAX_INTENSITY;
         }
-        if (highlightIntensity > MAX_INTENSITY) {
-            highlightIntensity = MAX_INTENSITY;
+        if(intensity < MIN_INTENSITY){
+        	intensity = MIN_INTENSITY;
         }
+        if (highlightIntensity > MAX_SHININESS) {
+            highlightIntensity = MAX_SHININESS;
+        }
+
         final int light = Color.rgb(intensity, intensity, intensity);
         final int highlight = Color.rgb(highlightIntensity, highlightIntensity, highlightIntensity);
         return new LightingColorFilter(light, highlight);

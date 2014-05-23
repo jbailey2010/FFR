@@ -8,12 +8,12 @@ package com.sharethis.loopy.sdk;
 
 public final class R {
 	public static final class id {
-		public static final int left_item = 0x7f060146;
-		public static final int left_item_icon = 0x7f060147;
-		public static final int left_item_text = 0x7f060148;
-		public static final int right_item = 0x7f060149;
-		public static final int right_item_icon = 0x7f06014a;
-		public static final int right_item_text = 0x7f06014b;
+		public static final int left_item = 0x7f060145;
+		public static final int left_item_icon = 0x7f060146;
+		public static final int left_item_text = 0x7f060147;
+		public static final int right_item = 0x7f060148;
+		public static final int right_item_icon = 0x7f060149;
+		public static final int right_item_text = 0x7f06014a;
 	}
 	public static final class layout {
 		public static final int st_share_dialog_list = 0x7f030045;
