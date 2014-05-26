@@ -19,57 +19,24 @@ import android.widget.ListView;
 
 
 
+
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.Pages.DraftHistory;
 import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.example.fantasyfootballrankings.Pages.Trending;
- 
-/**
- * A {@link android.view.View.OnTouchListener} that makes the list items in a {@link ListView}
- * dismissable. {@link ListView} is given special treatment because by default it handles touches
- * for its list items... i.e. it's in charge of drawing the pressed state (the list selector),
- * handling list item clicks, etc.
- *
- * <p>After creating the listener, the caller should also call
- * {@link ListView#setOnScrollListener(android.widget.AbsListView.OnScrollListener)}, passing
- * in the scroll listener returned by {@link #makeScrollListener()}. If a scroll listener is
- * already assigned, the caller should still pass scroll changes through to this listener. This will
- * ensure that this {@link SwipeDismissListViewTouchListener} is paused during list view
- * scrolling.</p>
- *
- * <p>Example usage:</p>
- *
- * <pre>
- * SwipeDismissListViewTouchListener touchListener =
- *         new SwipeDismissListViewTouchListener(
- *                 listView,
- *                 new SwipeDismissListViewTouchListener.OnDismissCallback() {
- *                     public void onDismiss(ListView listView, int[] reverseSortedPositions) {
- *                         for (int position : reverseSortedPositions) {
- *                             adapter.remove(adapter.getItem(position));
- *                         }
- *                         adapter.notifyDataSetChanged();
- *                     }
- *                 });
- * listView.setOnTouchListener(touchListener);
- * listView.setOnScrollListener(touchListener.makeScrollListener());
- * </pre>
- *
- * <p>This class Requires API level 12 or later due to use of {@link
- * android.view.ViewPropertyAnimator}.</p>
- *
- * <p>For a generalized {@link android.view.View.OnTouchListener} that makes any view dismissable,
- * see {@link SwipeDismissTouchListener}.</p>
- *
- * @see SwipeDismissTouchListener
- */
-public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
+import com.ffr.fantasyfootballrankings.R;
+
+public class RankingsSwipeDismissListViewTouchListener implements View.OnTouchListener {
     // Cached ViewConfiguration and system-wide constant values
     private int mSlop;
     private int mMinFlingVelocity;
@@ -85,6 +52,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
     private List<PendingDismissData> mPendingDismisses = new ArrayList<PendingDismissData>();
     private int mDismissAnimationRefCount = 0;
     private float mDownX;
+    private float mDownY;
     private boolean mSwiping;
     private VelocityTracker mVelocityTracker;
     private int mDownPosition;
@@ -114,7 +82,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
      * @param callback The callback to trigger when the user has indicated that she would like to
      *                 dismiss one or more list items.
      */
-    public SwipeDismissListViewTouchListener(boolean isSwipe, String source, ListView listView, OnDismissCallback callback) {
+    public RankingsSwipeDismissListViewTouchListener(boolean isSwipe, String source, ListView listView, OnDismissCallback callback) {
         ViewConfiguration vc = ViewConfiguration.get(listView.getContext());
         mSlop = vc.getScaledTouchSlop();
         mMinFlingVelocity = vc.getScaledMinimumFlingVelocity();
@@ -164,13 +132,15 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
             mViewWidth = mListView.getWidth();
         }
         switch (motionEvent.getActionMasked()) {
+
             case MotionEvent.ACTION_DOWN: {
                 if (mPaused) {
                     return false;
                 }
                 else
                 {
-	                Rect rect = new Rect();
+                   	
+                    Rect rect = new Rect();
 	                int childCount = mListView.getChildCount();
 	                int[] listViewCoords = new int[2];
 	                mListView.getLocationOnScreen(listViewCoords);
@@ -182,20 +152,21 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
 	                    child.getHitRect(rect);
 	                    if (rect.contains(x, y)) {
 	                        mDownView = child;
+	                        Rankings.swipedText = ((TextView)((RelativeLayout)child).findViewById(R.id.text1)).getText().toString();
 	                        break;
 	                    }
 	                }
-
 	                if (mDownView != null) {
 	                    mDownX = motionEvent.getRawX();
+	                    mDownY = motionEvent.getRawY();
 	                    mDownPosition = mListView.getPositionForView(mDownView);
-
 	                    mVelocityTracker = VelocityTracker.obtain();
 	                    mVelocityTracker.addMovement(motionEvent);
+	                    Rankings.isSwiping = true;
 	                }
 	                view.onTouchEvent(motionEvent);
                 }
-                return true;
+                return false;
             }
  
             case MotionEvent.ACTION_UP: {
@@ -234,6 +205,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
 	                                    performDismiss(downView, downPosition);
 	                                }
 	                            });
+	                    
 	                } else {
 	                    // cancel
 	                    mDownView.animate()
@@ -241,27 +213,31 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
 	                            .alpha(1)
 	                            .setDuration(mAnimationTime)
 	                            .setListener(null);
+	                    Rankings.isSwiping = false;
 	                }
 	                mVelocityTracker = null;
 	                mDownX = 0;
 	                mDownView = null;
 	                mDownPosition = ListView.INVALID_POSITION;
 	                mSwiping = false;
+	                Rankings.hasSwiped = true;
 	                break;
                 }
             }
  
             case MotionEvent.ACTION_MOVE: {
+                float deltaX = motionEvent.getRawX() - mDownX;
+                float deltaY = -1 * (motionEvent.getRawY() - mDownY);
                 if (mVelocityTracker == null || mPaused) {
+                	Rankings.isSwiping = false;
+                	Rankings.listview.invalidate();
                     break;
                 }
- 
                 mVelocityTracker.addMovement(motionEvent);
-                float deltaX = motionEvent.getRawX() - mDownX;
+
                 if (Math.abs(deltaX) > mSlop) {
                     mSwiping = true;
                     mListView.requestDisallowInterceptTouchEvent(true);
- 
                     // Cancel ListView's touch (un-highlighting the item)
                     MotionEvent cancelEvent = MotionEvent.obtain(motionEvent);
                     cancelEvent.setAction(MotionEvent.ACTION_CANCEL |
@@ -271,10 +247,17 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                 }
  
                 if (mSwiping) {
+                	Rankings.isSwiping = true;
+                	mDownView.invalidate();
                     mDownView.setTranslationX(deltaX);
                     mDownView.setAlpha(Math.max(0f, Math.min(1f,
                             1f - 2f * Math.abs(deltaX) / mViewWidth)));
-                    return true;
+                    return false;
+                }
+                else{
+                	if(deltaX < deltaY){
+                		Rankings.isSwiping = false;
+                	}
                 }
                 break;
             }

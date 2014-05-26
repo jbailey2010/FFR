@@ -55,7 +55,7 @@ import android.widget.Toast;
 public class News extends Activity {
 	public static Context cont;
 	public Dialog dialog;
-	public static String selection = "NFL News";
+	public static String selection = "NFL News";  
 	static TwitterWork obj = new TwitterWork();
 	public static SideNavigationView sideNavigationView;
 	BounceListView listview;
@@ -70,7 +70,7 @@ public class News extends Activity {
 		    public void onSideNavigationItemClick(int itemId) {
 		    	switch (itemId) {
 		    	case R.id.side_navigation_menu_item0:
-	            	listview.smoothScrollToPosition(0);
+	            	listview.smoothScrollToPosition(0);  
 	                break;
 	            case R.id.side_navigation_menu_item1:
 	            	Intent intent = new Intent(cont, Home.class);

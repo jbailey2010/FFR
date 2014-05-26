@@ -1,5 +1,6 @@
 package com.example.fantasyfootballrankings.InterfaceAugmentations;
 
+import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.ffr.fantasyfootballrankings.R;
 
 import android.content.Context;
@@ -98,10 +99,15 @@ public class OutBounceListView extends ListView {
 
     @Override
     protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
+    	String tv = ((TextView)((RelativeLayout)child).findViewById(R.id.text1)).getText().toString();
+    	if((tv.equals(Rankings.swipedText) && Rankings.isSwiping)){
+    		super.drawChild(canvas, child, drawingTime);
+    		return true;
+    	}
         // get top left coordinates
         final int top = child.getTop();
         final int left = child.getLeft();
-        Bitmap bitmap = child.getDrawingCache();
+        Bitmap bitmap = child.getDrawingCache(); 
         if (bitmap == null) {
             child.setDrawingCacheEnabled(true);
             child.buildDrawingCache();
@@ -122,7 +128,7 @@ public class OutBounceListView extends ListView {
         double degree = 90 - (180 / Math.PI) * radians;
 
         mCamera.save();
-        mCamera.translate(0, 0, radius - translateZ);
+        mCamera.translate(0, 0, (radius - translateZ)/4);
         if (distanceY < 0) {
             degree = 360 - degree;
         }

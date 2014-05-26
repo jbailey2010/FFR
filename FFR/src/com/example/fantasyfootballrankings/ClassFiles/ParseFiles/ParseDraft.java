@@ -25,9 +25,6 @@ public class ParseDraft
 				"http://www.sbnation.com/nfl/2014/5/10/5704890/nfl-draft-results-recap-jadeveon-clowney-johnny-manziel-michael-sam", "td");
 		HashMap<String, String> picks = new HashMap<String, String>();
 		String[] perPick = ManageInput.tokenize(html, '\n', 1);
-		for(int i = 0; i < 25; i++){
-			System.out.println(i + ": " + perPick[i]);
-		}
 		for(int i = 5; i < perPick.length; i+=5)
 		{
 			if(!ManageInput.isInteger(perPick[i])){

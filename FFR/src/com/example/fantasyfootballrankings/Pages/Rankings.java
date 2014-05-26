@@ -97,7 +97,7 @@ public class Rankings extends Activity {
 	static Button info;
 	static Button compare;
 	static Button sort;
-	public static ListView listview;
+	public static OutBounceListView listview;
 	static boolean refreshed = false;
 	static int sizeOutput = -1;
 	static String teamFilter = "";
@@ -107,11 +107,14 @@ public class Rankings extends Activity {
 	public static List<String> watchList = new ArrayList<String>();
 	public static List<Map<String, String>> data;
 	public static SimpleAdapter adapter;
-	static SwipeDismissListViewTouchListener touchListener;
+	static RankingsSwipeDismissListViewTouchListener touchListener;
 	public static boolean isAuction;
 	public static boolean isAsync = false;
 	public static double aucFactor;
 	public static SideNavigationView sideNavigationView;
+	public static boolean isSwiping = false;
+	public static boolean hasSwiped = false;
+	public static String swipedText = "";
 	/**
 	 * Sets up the view
 	 */
@@ -177,7 +180,7 @@ public class Rankings extends Activity {
 		info = (Button)findViewById(R.id.draft_info);
 		compare = (Button)findViewById(R.id.player_comparator);
 		sort = (Button)findViewById(R.id.sort_players);
-    	listview = (ListView)findViewById(R.id.listview_rankings);
+    	listview = (OutBounceListView)findViewById(R.id.listview_rankings);
     	//widgetBase = (RelativeLayout)findViewById(R.id.rankings_widget_base);
 		//hideWidget = ReadFromFile.readHideWidget(cont);
     	context = this;
@@ -1322,7 +1325,7 @@ public class Rankings extends Activity {
 			}
 	    	refreshed = false;
 	    }
-	    listview = (ListView) cont.findViewById(R.id.listview_rankings);
+	    listview = (OutBounceListView) cont.findViewById(R.id.listview_rankings);
 	    listview.setAdapter(null);
 	    data = new ArrayList<Map<String, String>>();
 	    adapter = new SimpleAdapter(cont, data, 
@@ -1373,7 +1376,10 @@ public class Rankings extends Activity {
 	        }
 	        if((elem.info.team.length() > 2 &&	!elem.info.team.equals("---") && !elem.info.team.equals("FA")))
 	        {
-	        	sub.append(" - " + elem.info.team + " (Bye: " + holder.bye.get(elem.info.team) + ")");
+	        	sub.append(" - " + elem.info.team);
+	        	if((holder.bye.get(elem.info.team) != null)){
+	        		sub.append(" (Bye: " + holder.bye.get(elem.info.team) + ")");
+	        	}
 	        }
 	        if(elem.values.points > 0.0 && !holder.isRegularSeason)
 	        {
@@ -1440,6 +1446,7 @@ public class Rankings extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				System.out.println("In long click");
 				String namePlayer = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
 				if(namePlayer.contains(":"))
 				{
@@ -1477,9 +1484,9 @@ public class Rankings extends Activity {
 			}
     	 });
     	 touchListener =
-                 new SwipeDismissListViewTouchListener(
+                 new RankingsSwipeDismissListViewTouchListener(
                          true, "Rankings", listview,
-                         new SwipeDismissListViewTouchListener.OnDismissCallback() {
+                         new RankingsSwipeDismissListViewTouchListener.OnDismissCallback() {
                              @Override
                              public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                  listview.setOnTouchListener(null);
@@ -1509,7 +1516,8 @@ public class Rankings extends Activity {
                                  }
                                  adapter.notifyDataSetChanged();
                                  handleDrafted(view, holder, cont, null, index);
-                                 
+                                 Rankings.isSwiping = false;
+                                 swipedText = null;                             	
                              }
                          });
     	 if(!holder.isRegularSeason)
