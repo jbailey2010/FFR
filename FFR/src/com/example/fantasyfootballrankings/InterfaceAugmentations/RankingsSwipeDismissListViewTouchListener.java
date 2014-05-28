@@ -206,13 +206,14 @@ public class RankingsSwipeDismissListViewTouchListener implements View.OnTouchLi
 	                                }
 	                            });
 	                    
-	                } else {
+	                } else { 
 	                    // cancel
 	                    mDownView.animate()
 	                            .translationX(0)
 	                            .alpha(1)
 	                            .setDuration(mAnimationTime)
 	                            .setListener(null);
+	                    mDownView.invalidate();
 	                    Rankings.isSwiping = false;
 	                }
 	                mVelocityTracker = null;

@@ -1566,6 +1566,9 @@ public class Rankings extends Activity {
     	close.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
+				if(watchList.contains(d)){
+					view.put("hidden", "W");
+				}
 				data.add(index, view);
 				adapter.notifyDataSetChanged();
 				popup.dismiss();
