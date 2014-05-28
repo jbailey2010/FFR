@@ -15,6 +15,7 @@ import com.example.fantasyfootballrankings.ClassFiles.HandleExport;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
@@ -141,7 +142,6 @@ public class Home extends Activity{
         	helpPopUp(true);
 			
         }
-
 	}  
 	
 	 
