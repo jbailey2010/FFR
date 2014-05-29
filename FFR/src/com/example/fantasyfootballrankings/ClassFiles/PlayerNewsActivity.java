@@ -45,7 +45,9 @@ public class PlayerNewsActivity {
 		@Override
 		protected void onPostExecute(List<NewsObjects> result){
 			super.onPostExecute(result);
-			PlayerInfo.populateNews(result);
+			if(result.size() > 0){
+				HandleSentiment.sentimentInit(act, result);
+			}
 		}
 
 	    @Override
@@ -53,6 +55,7 @@ public class PlayerNewsActivity {
 	    {
 	    	List<NewsObjects> newsList = new ArrayList<NewsObjects>();
 	    	try {
+	    		urlNews = urlNews.toLowerCase();
 				Document doc = Jsoup.connect(urlNews).userAgent(HandleBasicQueries.ua).get();
 				String tweets = HandleBasicQueries.handleListsMulti(doc, urlNews, "div.tweets");
 				String news = HandleBasicQueries.handleListsMulti(doc, urlNews, "div.notes div.pull-left div.news-title");

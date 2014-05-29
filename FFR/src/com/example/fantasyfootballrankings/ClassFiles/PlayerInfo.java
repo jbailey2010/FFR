@@ -1455,6 +1455,5 @@ public class PlayerInfo
 				adapter.notifyDataSetChanged();
 			}
 		}
-		
 	}
 }
