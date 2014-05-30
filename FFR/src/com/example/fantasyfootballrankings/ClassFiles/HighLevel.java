@@ -1180,23 +1180,25 @@ public class HighLevel
 		String html = HandleBasicQueries.handleLists(adpUrl, "td");
 		String[] td = ManageInput.tokenize(html, '\n', 1);
 		int min = 0;
-		for(int i = 0; i < td.length; i++)
-		{ 
-			try{
+		try{
+			for(int i = 0; i < td.length; i++)
+			{ 
+
 				if(td[i+1].contains("QB") || td[i+1].contains("RB") || td[i+1].contains("WR") || td[i+1].contains("TE"))
 				{
 					min = i;
 					break;
 				}
-			} catch(ArrayIndexOutOfBoundsException notUp){
-				return;
+			} 
+			for(int i = min; i < td.length; i+= 9){
+				String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i].split(" \\(")[0].split(", ")[0]));
+				String adpStr = td[i+8];
+				String posInd = td[i+1].replaceAll("(\\d+,\\d+)|\\d+", "").replaceAll("DST", "D/ST");
+				adp.put(name + posInd, adpStr);
 			}
 		}
-		for(int i = min; i < td.length; i+= 10){
-			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i].split(" \\(")[0].split(", ")[0]));
-			String adpStr = td[i+8];
-			String posInd = td[i+1].replaceAll("(\\d+,\\d+)|\\d+", "").replaceAll("DST", "D/ST");
-			adp.put(name + posInd, adpStr);
+		catch(ArrayIndexOutOfBoundsException notUp){
+			return;
 		}
 	}
 

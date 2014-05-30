@@ -32,7 +32,6 @@ public class ParseRankings
 	public static HashMap<String, String> fixes = new HashMap<String, String>();
 	public static HashMap<String, String> teams = new HashMap<String, String>();
 	public static HashMap<String, String> defenses = new HashMap<String, String>();
-	
 	static Context context;
 	/** 
 	 * This is where the magic happens. This sets the names/fetches them if they're
@@ -142,6 +141,7 @@ public class ParseRankings
 		teams.put("dolphins", "Miami Dolphins");
 		teams.put("nwe", "New England Patriots");
 		teams.put("ne", "New England Patriots");
+		teams.put("nep", "New England Patriots");
 		teams.put("new england", "New England Patriots");
 		teams.put("england", "New England Patriots");
 		teams.put("patriots", "New England Patriots");
@@ -170,6 +170,7 @@ public class ParseRankings
 		teams.put("tennessee", "Tennessee Titans");
 		teams.put("titans", "Tennessee Titans");
 		teams.put("kc", "Kansas City Chiefs");
+		teams.put("kcc", "Kansas City Chiefs");
 		teams.put("kansas", "Kansas City Chiefs");
 		teams.put("kansas city", "Kansas City Chiefs");
 		teams.put("chiefs", "Kansas City Chiefs");
@@ -180,6 +181,7 @@ public class ParseRankings
 		teams.put("denver", "Denver Broncos");
 		teams.put("broncos", "Denver Broncos");
 		teams.put("sd", "San Diego Chargers");
+		teams.put("sdc", "San Diego Chargers");
 		teams.put("san diego", "San Diego Chargers");
 		teams.put("chargers", "San Diego Chargers");
 		teams.put("chi", "Chicago Bears");
@@ -195,6 +197,7 @@ public class ParseRankings
 		teams.put("gb", "Green Bay Packers");
 		teams.put("gb ", "Green Bay Packers");
 		teams.put(" gb", "Green Bay Packers");
+		teams.put("gbp", "Green Bay Packers");
 		teams.put("green bay", "Green Bay Packers");
 		teams.put("packers", "Green Bay Packers");
 		teams.put("nyg", "New York Giants");
@@ -217,9 +220,11 @@ public class ParseRankings
 		teams.put("carolina", "Carolina Panthers");
 		teams.put("panthers", "Carolina Panthers");
 		teams.put("no", "New Orleans Saints");
+		teams.put("nos", "New Orleans Saints");
 		teams.put("new orleans", "New Orleans Saints");
 		teams.put("saints", "New Orleans Saints");
 		teams.put("tb", "Tampa Bay Buccaneers");
+		teams.put("tbb", "Tampa Bay Buccaneers");
 		teams.put("tampa bay", "Tampa Bay Buccaneers");
 		teams.put("buccaneers", "Tampa Bay Buccaneers");
 		teams.put("tampa", "Tampa Bay Buccaneers");
@@ -227,6 +232,7 @@ public class ParseRankings
 		teams.put("seattle", "Seattle Seahawks");
 		teams.put("seahawks", "Seattle Seahawks");
 		teams.put("sf", "San Francisco 49ers");
+		teams.put("sfo", "San Francisco 49ers");
 		teams.put("san francisco", "San Francisco 49ers");
 		teams.put("ers", "San Francisco 49ers");
 		teams.put("49ers", "San Francisco 49ers");
