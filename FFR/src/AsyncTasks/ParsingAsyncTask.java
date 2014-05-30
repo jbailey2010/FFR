@@ -202,14 +202,14 @@ public class ParsingAsyncTask
 					} catch (IOException e11) {
 					}*/
 			        publishProgress("Please wait, fetching the rankings...(10/33)");
-			        System.out.println("Before Yahoo");/*
+			        System.out.println("Before Yahoo");
 					try {
 						ParseYahoo.parseYahooWrapper(holder);
 					} catch (HttpStatusException e2)
 					{
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e9) {
-					}*/
+					}
 			        publishProgress("Please wait, fetching the rankings...(12/33)");
 			        System.out.println("Before Fantasy Pros");/*
 					try {
