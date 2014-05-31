@@ -1,12 +1,12 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseRotoWorldNews;
 import AsyncTasks.ParsingAsyncTask.ParseTwitterFeeds;
@@ -16,8 +16,8 @@ import AsyncTasks.StorageAsyncTask.ReadRotoNews;
 import android.content.Context;
 
 import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
-import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.TwitterWork;
 /**
  * A library to handle the parsing of news
  * @author Jeff

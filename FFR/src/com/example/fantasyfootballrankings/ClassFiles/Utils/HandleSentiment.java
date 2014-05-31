@@ -1,4 +1,4 @@
-package com.example.fantasyfootballrankings.ClassFiles;
+package com.example.fantasyfootballrankings.ClassFiles.Utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 
 public class HandleSentiment {

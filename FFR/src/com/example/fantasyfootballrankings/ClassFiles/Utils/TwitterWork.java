@@ -1,4 +1,4 @@
-package com.example.fantasyfootballrankings.ClassFiles;
+package com.example.fantasyfootballrankings.ClassFiles.Utils;
 
 import java.util.ArrayList;
 

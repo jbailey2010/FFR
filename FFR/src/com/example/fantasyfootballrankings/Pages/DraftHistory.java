@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.text.DecimalFormat;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,9 +10,9 @@ import java.util.Set;
 import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
-import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.ffr.fantasyfootballrankings.R;
 

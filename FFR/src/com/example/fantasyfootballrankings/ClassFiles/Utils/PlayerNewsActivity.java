@@ -1,4 +1,4 @@
-package com.example.fantasyfootballrankings.ClassFiles;
+package com.example.fantasyfootballrankings.ClassFiles.Utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,6 +7,8 @@ import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 
 import android.app.Activity;
@@ -16,14 +18,10 @@ import android.os.AsyncTask;
 public class PlayerNewsActivity {
 	
 	public void startNews(String playerName, Context cont){
-		String[] nameSet = playerName.split(" ");
-		String baseUrl = "http://www.fantasypros.com/nfl/news/";
-		for(String name : nameSet){
-			baseUrl += name + "-";
-		}
-		baseUrl = baseUrl.substring(0, baseUrl.length() - 1) + ".php";
-		ParsePlayerNews obj = new ParsePlayerNews((Activity) cont, baseUrl);
-		obj.execute();
+		FantasyProsUtils obj = new FantasyProsUtils();
+		String baseUrl = "http://www.fantasypros.com/nfl/news/" + obj.playerNameUrl(playerName) + ".php";
+		ParsePlayerNews objParse = new ParsePlayerNews((Activity) cont, baseUrl);
+		objParse.execute();
 	}
 	
 	

@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,6 +47,8 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTea
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.PlayerNewsActivity;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.TwitterWork;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.ActivitySwipeDetector;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;

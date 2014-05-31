@@ -11,14 +11,14 @@ import java.util.Set;
 import com.ffr.fantasyfootballrankings.R;
 import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
-import com.example.fantasyfootballrankings.ClassFiles.HandleExport;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
-import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleExport;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.PlayerInfoActivity;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;

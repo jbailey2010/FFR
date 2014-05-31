@@ -35,7 +35,6 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.Simulator;
-import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
@@ -58,6 +57,8 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseYahoo;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.FantasyProsUtils;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.TwitterWork;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LineupHelp;
 import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
@@ -1021,18 +1022,9 @@ public class ParsingAsyncTask
 		    	{
 		    		baseURL = "http://www.fantasypros.com/nfl/draft/";
 		    	}
+		    	FantasyProsUtils obj = new FantasyProsUtils();
+		    	baseURL += obj.playerNameUrl(player1) + "-" + obj.playerNameUrl(player2) + ".php";
 		    	String firstName = player1;
-		    	String[] p1Set = player1.toLowerCase().split(" ");
-		    	String[] p2Set = player2.toLowerCase().split(" ");
-		    	for(String elem : p1Set)
-		    	{
-		    		baseURL += elem + "-";
-		    	}
-		    	for(String elem : p2Set)
-		    	{
-		    		baseURL += elem + "-";
-		    	}
-		    	baseURL = baseURL.substring(0, baseURL.length() - 1) + ".php";
 		    	if(s.catches == 1)
 		    	{
 		    		baseURL += "?scoring=PPR";

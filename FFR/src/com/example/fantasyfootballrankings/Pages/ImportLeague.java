@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,7 +14,6 @@ import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
-import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.ClassFiles.SortHandler;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
@@ -23,6 +21,7 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTea
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.NDSpinner;
 import com.example.fantasyfootballrankings.MyLeagueSupport.CompareTeams;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LeagueList;

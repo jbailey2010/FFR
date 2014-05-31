@@ -11,11 +11,11 @@ import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
-import com.example.fantasyfootballrankings.ClassFiles.PlayerInfoActivity;
-import com.example.fantasyfootballrankings.ClassFiles.TwitterWork;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.PlayerInfoActivity;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.TwitterWork;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 
