@@ -144,7 +144,7 @@ public class ParsingAsyncTask
 					holder.players.clear();
 			    	holder.parsedPlayers.clear();
 		    		all = System.nanoTime();
-		    		System.out.println("Before WF");/*
+		    		System.out.println("Before WF");
 		    		try {
 						ParseWF.wfRankings(holder);
 					} catch (HttpStatusException e2)
@@ -152,7 +152,7 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e15) {
 	
-					} */
+					} 
 			        publishProgress("Please wait, fetching the rankings...(3/33)");
 					System.out.println("Before CBS");/*
 					try {

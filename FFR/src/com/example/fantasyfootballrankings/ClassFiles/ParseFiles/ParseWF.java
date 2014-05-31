@@ -23,9 +23,9 @@ public class ParseWF
 	 */
 	public static void wfRankings(Storage holder) throws IOException
 	{
-		wfRankingsHelper(holder, "http://walterfootball.com/fantasy2013top250ppr.php");
-		wfRankingsHelper(holder, "http://walterfootball.com/fantasy2013top250.php");
-		wfRankingsHelper(holder, "http://walterfootball.com/fantasy2013top250qb2.php");
+		wfRankingsHelper(holder, "http://walterfootball.com/fantasy2014top250ppr.php");
+		wfRankingsHelper(holder, "http://walterfootball.com/fantasy2014top250.php");
+		wfRankingsHelper(holder, "http://walterfootball.com/fantasy2014top250qb2.php");
 	}
 	
 	/**

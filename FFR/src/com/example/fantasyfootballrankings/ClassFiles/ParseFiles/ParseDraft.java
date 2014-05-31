@@ -77,7 +77,7 @@ public class ParseDraft
 	 */
 	public static HashMap<String, String> parseTeamDraftGPA() throws IOException
 	{
-		String url = "http://www.footballoutsiders.com/nfl-draft/2013/2013-nfl-draft-report-card-report";
+		String url = "http://www.footballoutsiders.com/nfl-draft/2014/2014-draft-report-card-report";
 		HashMap<String, String> gpa = new HashMap<String, String>();
 		String html = HandleBasicQueries.handleLists(url, "td");
 		String[] brokenUp = ManageInput.tokenize(html, '\n', 1);
@@ -87,7 +87,13 @@ public class ParseDraft
 			{
 				String before = brokenUp[i];
 				String team = ParseRankings.fixTeams(before);
+				if(i+3 > brokenUp.length){
+					break;
+				}
 				String grade = brokenUp[i+=3];
+				if(i+2 > brokenUp.length){
+					break;
+				}
 				String rank = brokenUp[i+=2];
 				if(team.equals("High Grade"))
 				{
