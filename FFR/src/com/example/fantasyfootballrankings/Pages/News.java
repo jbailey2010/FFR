@@ -488,6 +488,7 @@ public class News extends Activity {
 				ParseRankings.handleHashes();
 				for(int i = 0; i < headline.length - 1; i++)
 				{
+					boolean isFound = false;
 					String twoLong = ParseRankings.fixNames(headline[i] + " " + headline[i+1]);
 					if(Home.holder.parsedPlayers.contains(twoLong))
 					{
@@ -496,9 +497,13 @@ public class News extends Activity {
 						{
 							if(player.info.name.equals(twoLong))
 							{
+								isFound = true;
 								match = player;
 								break;
 							}
+						}
+						if(isFound){
+							break;
 						}
 					}
 					if(i + 2 < headline.length)
@@ -511,9 +516,13 @@ public class News extends Activity {
 							{
 								if(player.info.name.equals(threeLong))
 								{
+									isFound = true;
 									match = player;
 									break;
 								}
+							}
+							if(isFound){
+								break;
 							}
 						}
 					}
