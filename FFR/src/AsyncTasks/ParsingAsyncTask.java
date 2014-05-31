@@ -58,6 +58,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseYahoo;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.FantasyProsUtils;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.TwitterWork;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LineupHelp;
 import com.example.fantasyfootballrankings.Pages.News;
@@ -301,7 +302,7 @@ public class ParsingAsyncTask
 	    			System.out.println("Setting to false, " + holder.maxProj());
 	    		}
 	    		publishProgress("Please wait, normalizing projections...");
-	    		HighLevel.getPAA(holder, cont);
+	    		MathUtils.getPAA(holder, cont);
 	    		publishProgress("Please wait, calculating relative risk...");
 	    		try {
 					HighLevel.parseECRWrapper(holder, cont);
@@ -367,7 +368,7 @@ public class ParsingAsyncTask
 				try {
 					if(!holder.isRegularSeason)
 					{
-						//HighLevel.getSOS(holder);
+						HighLevel.getSOS(holder);
 					}
 					else
 					{
@@ -476,7 +477,7 @@ public class ParsingAsyncTask
 		    	try {
 					HighLevel.projPointsWrapper(holder, cont);
 					HighLevel.parseECRWrapper(holder, cont);
-					HighLevel.getPAA(holder, cont);
+					MathUtils.getPAA(holder, cont);
 					SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 			    	//Rankings work
 					Set<String> playerData = new HashSet<String>();

@@ -17,12 +17,12 @@ import android.os.AsyncTask;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
 import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
@@ -200,7 +200,7 @@ public class StorageAsyncTask
 	    {
 	    	Context cont = (Context)data[1];
 	    	Storage holder = (Storage)data[0];
-	    	HighLevel.getPAA(holder, cont);
+	    	MathUtils.getPAA(holder, cont);
 	    	WriteToFile.writeTeamData(holder, cont);
 	    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 	    	//Rankings work

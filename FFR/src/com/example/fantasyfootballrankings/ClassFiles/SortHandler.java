@@ -25,6 +25,7 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTea
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
@@ -135,6 +136,7 @@ public class SortHandler
 		    topics.add("Under Drafted");
 		    topics.add("Auction Values");
 		    topics.add("Auction Values per PAA");
+		    topics.add("Leverage");
 	    }
 	    topics.add("Projections");
 	    topics.add("PAA");
@@ -593,6 +595,38 @@ public class SortHandler
 		{
 			rosRank(cont);
 		}
+		else if(subject.equals("Leverage")){
+			leverage(cont);
+		}
+	}
+	
+	public static void leverage(final Context cont) {
+		PriorityQueue<PlayerObject> sorted = new PriorityQueue<PlayerObject>(100, new Comparator<PlayerObject>()
+				{
+					@Override
+					public int compare(PlayerObject a, PlayerObject b)
+					{
+						double aVal = MathUtils.getLeverage(a, holder, cont);
+						double bVal = MathUtils.getLeverage(b, holder, cont);
+						if(aVal > bVal)
+						{
+							return -1;
+						}
+						if(aVal < bVal)
+						{
+							return 1;
+						}
+						return 0;
+					}
+				});
+				for(PlayerObject player : players)
+				{
+					if(player.values.secWorth > 0 && player.values.secWorth < maxVal && player.values.points > 0)
+					{
+						sorted.add(player);
+					}
+				}
+				wrappingUp(sorted, cont);
 	}
 	
 	public static void rosRank(Context cont) {
@@ -1291,6 +1325,11 @@ public class SortHandler
 				{
 					datum.put("main", output + elem.risk + ": " + elem.info.name);
 		    		datum.put("sub", baseECR + elem.values.ecr );
+				}
+				else if(subject.equals("Leverage")){
+					datum.put("main", output + MathUtils.getLeverage(elem, holder, cont) + ": " + elem.info.name);
+					datum.put("sub", baseECR + "$" + df.format(elem.values.worth) + ", " + df.format(elem.values.points) + " projection");
+					
 				}
 				else if(subject.equals("Positional SOS"))
 				{

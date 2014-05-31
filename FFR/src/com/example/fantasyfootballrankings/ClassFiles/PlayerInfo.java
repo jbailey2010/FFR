@@ -47,6 +47,7 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTea
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.PlayerNewsActivity;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.TwitterWork;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.ActivitySwipeDetector;
@@ -892,15 +893,20 @@ public class PlayerInfo
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", df.format(searchedPlayer.values.paa) + " PAA");
+			StringBuilder paaSub = new StringBuilder(100);
+			if(!holder.isRegularSeason){
+				paaSub.append(df.format(searchedPlayer.values.paa / searchedPlayer.values.secWorth)+ " PAA per dollar\n");
+			}
 			if(searchedPlayer.info.position.length() >= 1)
 			{
-				datum.put("sub", "Ranked " + rankPAAPos(searchedPlayer, holder) + " positionally, " + rankPAAAll(searchedPlayer, holder) +
+				paaSub.append("Ranked " + rankPAAPos(searchedPlayer, holder) + " positionally, " + rankPAAAll(searchedPlayer, holder) +
 							 " overall");
 			}
 			else
 			{
-				datum.put("sub", "Ranked " + rankPAAAll(searchedPlayer, holder) + " overall");
+				paaSub.append("Ranked " + rankPAAAll(searchedPlayer, holder) + " overall");
 			}
+			datum.put("sub", paaSub.toString());
 			data.add(datum);
 		} 
 		Scoring s = ReadFromFile.readScoring(cont2);
@@ -916,6 +922,12 @@ public class PlayerInfo
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", searchedPlayer.pointsSoFar(s) + " Points Scored So Far");
 			datum.put("sub", "");
+			data.add(datum);
+		}
+		if(!holder.isRegularSeason){
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "Leverage: " + MathUtils.getLeverage(searchedPlayer, holder, cont2));
+			datum.put("sub", "Leverage relates price and auction value to the top positional scorer");
 			data.add(datum);
 		}
 		//Risk
