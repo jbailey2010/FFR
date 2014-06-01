@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -16,12 +17,12 @@ import org.jsoup.nodes.Document;
 import FileIO.ReadFromFile;
 import android.content.Context;
 
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 /**
  * Parses the NFL stuff
  * @author Jeff
@@ -105,11 +106,10 @@ public class ParseNFL
 	 */
 	public static void parseNFLAAVWorker(Storage holder, String url) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);//html.split("\n");
-		for(int i = 0; i < td.length; i+=4)
+		List<String> td = HandleBasicQueries.handleLists(url, "td");
+		for(int i = 0; i < td.size(); i+=4)
 		{
-			String nameSet[] = td[i].split(" ");
+			String nameSet[] = td.get(i).split(" ");
 			String name = "";
 			int filter = 0;
 			for(int j = 0; j < nameSet.length; j++)
@@ -145,8 +145,8 @@ public class ParseNFL
 				name += nameSet[j] + " ";
 			}
 			name = ParseRankings.fixDefenses(ParseRankings.fixNames(name.substring(0, name.length()-1)));
-			String worth = td[i+3];
-			if(i+3 == td.length - 1)
+			String worth = td.get(i+3);
+			if(i+3 == td.size() - 1)
 			{
 				worth = worth.substring(0, worth.length() - 1);
 			}

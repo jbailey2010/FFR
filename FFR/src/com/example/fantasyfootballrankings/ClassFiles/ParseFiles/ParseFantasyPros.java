@@ -1,14 +1,15 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
+import java.util.List;
 
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
  * Gets an aggregate set of auction values
@@ -34,37 +35,36 @@ public class ParseFantasyPros
 	 */
 	public static void parseFantasyProsWorker(Storage holder, String url, int count) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
+		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
-		for(int i = 0; i < td.length; i++)
+		for(int i = 0; i < td.size(); i++)
 		{
-			if(td[i].contains(" RB ") ||  td[i].contains(" QB ") || td[i].contains(" WR ") || td[i].contains(" TE ") ||
-					td[i].contains(" K ") || td[i].contains(" DST "))
+			if(td.get(i).contains(" RB ") ||  td.get(i).contains(" QB ") || td.get(i).contains(" WR ") || td.get(i).contains(" TE ") ||
+					td.get(i).contains(" K ") || td.get(i).contains(" DST "))
 			{
 				min = i;
 				break;
 			}
 		}
-		for(int i = min; i < td.length; i+=6)
+		for(int i = min; i < td.size(); i+=6)
 		{
-			String name = td[i].split(", ")[0];
-			if(td[i].contains("DST"))
+			String name = td.get(i).split(", ")[0];
+			if(td.get(i).contains("DST"))
 			{
 				String[] fullName = name.split(" ");
 				name = fullName[fullName.length-1] + " D/ST";
 			}
-			int val1 = Integer.parseInt(td[i+1].split("\\$")[1]);
+			int val1 = Integer.parseInt(td.get(i+1).split("\\$")[1]);
 			int ecr = -1;
 			try{
-				ecr = Integer.parseInt(td[i+4]);
+				ecr = Integer.parseInt(td.get(i+4));
 			}
 			catch (NumberFormatException e) {
 				  ecr = -1;
 			} 
 			int adp = -1;
 			try{
-				adp = Integer.parseInt(td[i+5]);
+				adp = Integer.parseInt(td.get(i+5));
 			}
 			catch (NumberFormatException e) {
 				  adp = -1;

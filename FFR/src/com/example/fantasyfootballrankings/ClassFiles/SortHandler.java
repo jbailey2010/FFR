@@ -621,7 +621,8 @@ public class SortHandler
 				});
 				for(PlayerObject player : players)
 				{
-					if(player.values.secWorth > 0 && player.values.secWorth < maxVal && player.values.points > 0)
+					if(player.values.secWorth > 0 &&  player.values.secWorth > minVal && player.values.secWorth < maxVal && player.values.points > 0 && 
+							player.values.points > minProj)
 					{
 						sorted.add(player);
 					}
@@ -1328,7 +1329,8 @@ public class SortHandler
 				}
 				else if(subject.equals("Leverage")){
 					datum.put("main", output + MathUtils.getLeverage(elem, holder, cont) + ": " + elem.info.name);
-					datum.put("sub", baseECR + "$" + df.format(elem.values.worth) + ", " + df.format(elem.values.points) + " projection");
+					datum.put("sub", baseECR + elem.values.ecr + "\n" + 
+					"$" + df.format(elem.values.worth) + ", " + df.format(elem.values.points) + " projection");
 					
 				}
 				else if(subject.equals("Positional SOS"))

@@ -1,11 +1,12 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
+import java.util.List;
 
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
  * A library that handles the parsing
@@ -22,33 +23,32 @@ public class ParseCBS
 	public static void cbsRankings(Storage holder) throws IOException
 	{
 		String url = "http://fantasynews.cbssports.com/fantasyfootball/rankings/yearly";
-		String html = HandleBasicQueries.handleListsNoUA(url, "table.multiColumn td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
+		List<String> td = HandleBasicQueries.handleListsNoUA(url, "table.multiColumn td");
 		int min = 0;
-		for(int i = 0; i < td.length; i++)
+		for(int i = 0; i < td.size(); i++)
 		{
-			if(td[i].equals("Quarterbacks"))
+			if(td.get(i).equals("Quarterbacks"))
 			{
 				min = i+1;
 				break;
 			}
 		}
-		for(int i = min; i < td.length; i+=2)
+		for(int i = min; i < td.size(); i+=2)
 		{
-			if(td[i].equals("Running Backs") || td[i].equals("Wide Receivers") || td[i].equals("Tight Ends") || td[i].equals("Kickers") 
-					|| td[i].equals("Defensive Special Teams"))
+			if(td.get(i).equals("Running Backs") || td.get(i).equals("Wide Receivers") || td.get(i).equals("Tight Ends") || td.get(i).equals("Kickers") 
+					|| td.get(i).equals("Defensive Special Teams"))
 			{
 				i++; 
 			} 
-			if(td[i].split(" ").length > 8 || td[i+1].split(" ").length > 8)
+			if(td.get(i).split(" ").length > 8 || td.get(i+1).split(" ").length > 8)
 			{
 				i += 3;
 			}
-			String nameSet = td[i+1];
+			String nameSet = td.get(i+1);
 			String name = "";
-			String[] valSet = td[i+1].split(" ");
+			String[] valSet = td.get(i+1).split(" ");
 			int limit = 0;
-			if(!td[i+1].contains("$"))
+			if(!td.get(i+1).contains("$"))
 			{
 				if(nameSet.contains("("))
 				{
@@ -85,18 +85,18 @@ public class ParseCBS
 			} 
 			name = ParseRankings.fixNames(name);
 			int val = 0;
-			if(td[i+1].contains("$"))
+			if(td.get(i+1).contains("$"))
 			{
 				int valIndex = 0;
-				for(int j = 0; j < td[i+1].length(); j++)
+				for(int j = 0; j < td.get(i+1).length(); j++)
 				{
-					if(td[i+1].split(" ")[j].contains("$"))
+					if(td.get(i+1).split(" ")[j].contains("$"))
 					{
 						valIndex = j;
 						break;
 					}
 				}
-				String valStr = td[i+1].split(" ")[valIndex];
+				String valStr = td.get(i+1).split(" ")[valIndex];
 				val = Integer.parseInt(valStr.substring(1, valStr.length())) * 2;
 			}
 			ParseRankings.finalStretch(holder, name, val, "", "");

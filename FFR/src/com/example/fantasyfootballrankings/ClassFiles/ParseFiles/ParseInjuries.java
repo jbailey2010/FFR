@@ -2,10 +2,11 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
  * Parses injury data
@@ -22,19 +23,18 @@ public class ParseInjuries
 	public static HashMap<String, String> parseRotoInjuries() throws IOException
 	{
 		HashMap<String, String> injuries = new HashMap<String, String>();
-		String html = HandleBasicQueries.handleLists("http://www.rotoworld.com/teams/injuries/nfl/all/", "td");
-		String[] perRow = ManageInput.tokenize(html, '\n', 1);
-		for(int i = 7; i < perRow.length; i++)
+		List<String> perRow = HandleBasicQueries.handleLists("http://www.rotoworld.com/teams/injuries/nfl/all/", "td");
+		for(int i = 7; i < perRow.size(); i++)
 		{
-			String pos = perRow[i+2];
-			String name = ParseRankings.fixNames(perRow[i]);
-			String status = perRow[i+=3];
-			String injuryType = perRow[i+=2];
+			String pos = perRow.get(i+2);
+			String name = ParseRankings.fixNames(perRow.get(i));
+			String status = perRow.get(i+=3);
+			String injuryType = perRow.get(i+=2);
 			if(injuryType.equals("-"))
 			{
 				injuryType = "Suspended";
 			}
-			String returnDate = perRow[++i];
+			String returnDate = perRow.get(++i);
 			String output = "Injury Status: " + status + "\n" + 
 							"Type of Injury: " + injuryType + "\n" + 
 							"Expected Return: " + returnDate + "\n";

@@ -1,11 +1,12 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
-
 import java.util.HashMap;
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+import java.util.List;
+
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
  * A class to handle all the parsing of draft-related data
@@ -21,19 +22,18 @@ public class ParseDraft
 	 */
 	public static HashMap<String, String> parseTeamDraft() throws IOException
 	{
-		String html = HandleBasicQueries.handleLists(
+		List<String> perPick = HandleBasicQueries.handleLists(
 				"http://www.sbnation.com/nfl/2014/5/10/5704890/nfl-draft-results-recap-jadeveon-clowney-johnny-manziel-michael-sam", "td");
 		HashMap<String, String> picks = new HashMap<String, String>();
-		String[] perPick = ManageInput.tokenize(html, '\n', 1);
-		for(int i = 5; i < perPick.length; i+=5)
+		for(int i = 5; i < perPick.size(); i+=5)
 		{
-			if(!ManageInput.isInteger(perPick[i])){
+			if(!ManageInput.isInteger(perPick.get(i))){
 				continue;
 			}
-			String team = ParseRankings.fixTeams(perPick[i+1]);
-			String name = ParseRankings.fixNames(perPick[i+2]);
-			String position = perPick[i+3];
-			String overall = perPick[i];
+			String team = ParseRankings.fixTeams(perPick.get(i+1));
+			String name = ParseRankings.fixNames(perPick.get(i+2));
+			String position = perPick.get(i+3);
+			String overall = perPick.get(i);
 			int j = Integer.parseInt(overall);
 			String round = "";
 			if(j <= 32){
@@ -79,22 +79,21 @@ public class ParseDraft
 	{
 		String url = "http://www.footballoutsiders.com/nfl-draft/2014/2014-draft-report-card-report";
 		HashMap<String, String> gpa = new HashMap<String, String>();
-		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] brokenUp = ManageInput.tokenize(html, '\n', 1);
-		for(int i = 1; i < brokenUp.length; i+=2)
+		List<String> brokenUp = HandleBasicQueries.handleLists(url, "td");
+		for(int i = 1; i < brokenUp.size(); i+=2)
 		{ 
-			if(!brokenUp[i].contains("2013"))
+			if(!brokenUp.get(i).contains("2013"))
 			{
-				String before = brokenUp[i];
+				String before = brokenUp.get(i);
 				String team = ParseRankings.fixTeams(before);
-				if(i+3 > brokenUp.length){
+				if(i+3 > brokenUp.size()){
 					break;
 				}
-				String grade = brokenUp[i+=3];
-				if(i+2 > brokenUp.length){
+				String grade = brokenUp.get(i+=3);
+				if(i+2 > brokenUp.size()){
 					break;
 				}
-				String rank = brokenUp[i+=2];
+				String rank = brokenUp.get(i+=2);
 				if(team.equals("High Grade"))
 				{
 					break;

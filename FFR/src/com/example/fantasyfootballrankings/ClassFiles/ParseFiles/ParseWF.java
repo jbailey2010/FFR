@@ -3,10 +3,13 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 import java.io.IOException;
 
 
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+
+import java.util.List;
+
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
  * A basic library to handle the parsing of the walter football
@@ -38,17 +41,16 @@ public class ParseWF
 	 */
 	public static void wfRankingsHelper(Storage holder, String url) throws IOException
 	{
-		String text = HandleBasicQueries.handleLists(url, "span");
-		String[] perPlayer = ManageInput.tokenize(text, '\n', 1);
-		String[][] all = new String[perPlayer.length][];
-		for(int i = 0; i < perPlayer.length; i++)
+		List<String> perPlayer = HandleBasicQueries.handleLists(url, "span");
+		String[][] all = new String[perPlayer.size()][];
+		for(int i = 0; i < perPlayer.size(); i++)
 		{
-			if(i+5 < perPlayer.length && perPlayer[i+5].contains("total posts"))
+			if(i+5 < perPlayer.size() && perPlayer.get(i+5).contains("total posts"))
 			{
 				break;
 			}
-			perPlayer[i] = perPlayer[i].replace(". -- ", ", ");
-			all[i] = perPlayer[i].split(", ");
+			perPlayer.set(i, perPlayer.get(i).replace(". -- ", ", "));
+			all[i] = perPlayer.get(i).split(", ");
 			String playerName = all[i][0];
 			if(!playerName.contains(String.valueOf(i+1)))
 			{
@@ -58,7 +60,7 @@ public class ParseWF
 			String team = "";
 			String pos="";
 			int val = 0;
-			if(!perPlayer[i].contains("DEF"))
+			if(!perPlayer.get(i).contains("DEF"))
 			{
 				team = ParseRankings.fixTeams(all[i][2].split(". ")[0]);
 				pos = all[i][1];

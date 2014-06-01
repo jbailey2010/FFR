@@ -1,12 +1,13 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
-
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
  * A library to handle the parsing of
@@ -22,12 +23,11 @@ public class ParseStats
 	 */
 	public static Map<String, String> parseQBStats() throws IOException
 	{
-		String text = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/qb", "tr");
-		String[] rows = ManageInput.tokenize(text, '\n', 1);
+		List<String> rows = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/qb", "tr");
 		Map<String, String>qbPlayers = new HashMap<String, String>();
-		for(int i = 0; i < rows.length; i++)
+		for(int i = 0; i < rows.size(); i++)
 		{
-			String[] player = rows[i].split(" ");
+			String[] player = rows.get(i).split(" ");
 			String name = "";
 			String team = "";
 			StringBuilder data = new StringBuilder(500);
@@ -77,12 +77,11 @@ public class ParseStats
 	 */
 	public static Map<String, String> parseRBStats() throws IOException
 	{
-		String text = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/rb", "tr");
-		String[] rows = ManageInput.tokenize(text, '\n', 1);
+		List<String>rows = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/rb", "tr");
 		Map<String, String>rbPlayers = new HashMap<String, String>();
-		for(int i = 0; i < rows.length; i++)
+		for(int i = 0; i < rows.size(); i++)
 		{
-			String[] player = rows[i].split(" ");
+			String[] player = rows.get(i).split(" ");
 			String name = "";
 			String team = "";
 			StringBuilder data = new StringBuilder(500);
@@ -137,12 +136,11 @@ public class ParseStats
 	 */
 	public static Map<String, String> parseWRStats() throws IOException
 	{
-		String text = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/wr", "tr");
-		String[] rows = ManageInput.tokenize(text, '\n', 1);
+		List<String> rows = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/wr", "tr");
 		Map<String, String>wrPlayers = new HashMap<String, String>();
-		for(int i = 0; i < rows.length; i++)
+		for(int i = 0; i < rows.size(); i++)
 		{
-			String[] player = rows[i].split(" ");
+			String[] player = rows.get(i).split(" ");
 			String name = "";
 			String team = "";
 			StringBuilder data = new StringBuilder(500);
@@ -194,12 +192,11 @@ public class ParseStats
 	 */
 	public static Map<String, String> parseTEStats() throws IOException
 	{
-		String text = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/te", "tr");
-		String[] rows = ManageInput.tokenize(text, '\n', 1);
+		List<String> rows = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/te", "tr");
 		Map<String, String>tePlayers = new HashMap<String, String>();
-		for(int i = 0; i < rows.length; i++)
+		for(int i = 0; i < rows.size(); i++)
 		{
-			String[] player = rows[i].split(" ");
+			String[] player = rows.get(i).split(" ");
 			String name = "";
 			String team = "";
 			StringBuilder data = new StringBuilder(500);

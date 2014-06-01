@@ -1,11 +1,12 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
+import java.util.List;
 
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 /**
  * Handles parsing of the fake football vals
  * @author Jeff
@@ -26,24 +27,23 @@ public class ParseTheFakeFootball {
 	 */
 	public static void parseTheFakeFootballValsWorker(Storage holder, String url) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
+		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
-		for(int i = 0; i < td.length; i++)
+		for(int i = 0; i < td.size(); i++)
 		{
-			if(td[i].contains("-") && i > 0)
+			if(td.get(i).contains("-") && i > 0)
 			{
 				min = i;
 				break;
 			}
 		}
 		int i = min;
-		while(i < td.length)
+		while(i < td.size())
 		{
-			String name = ParseRankings.fixDefenses(ParseRankings.fixNames(td[i].split(" - ")[0]));
+			String name = ParseRankings.fixDefenses(ParseRankings.fixNames(td.get(i).split(" - ")[0]));
 			int val = 0;
 			try{
-				val = Integer.parseInt(td[i+1].replaceAll("\\$", ""));
+				val = Integer.parseInt(td.get(i+1).replaceAll("\\$", ""));
 			} catch(NumberFormatException e)
 			{
 				
@@ -51,7 +51,7 @@ public class ParseTheFakeFootball {
 			ParseRankings.finalStretch(holder, name, val, "", "");
 			try
 			{
-				while(!td[i+1].contains("-"))
+				while(!td.get(i+1).contains("-"))
 				{
 					i++;
 				}

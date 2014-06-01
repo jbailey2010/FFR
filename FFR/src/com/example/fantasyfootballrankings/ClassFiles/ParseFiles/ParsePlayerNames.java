@@ -11,8 +11,8 @@ import org.jsoup.nodes.Document;
 import FileIO.WriteToFile;
 import android.content.Context;
 
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
  * A small library to help manage parsing of player
@@ -204,12 +204,11 @@ public class ParsePlayerNames {
 	 */
 	public static void fetchPlayersHelp(Document doc, HashSet<String> names, Context cont, String full, String params) throws IOException
 	{
-		String playerText = HandleBasicQueries.handleTablesMulti(doc, full, params);
-		String[] perRow = ManageInput.tokenize(playerText, '\n', 1);
-		for(int j = 0; j < perRow.length; j++)
+		List<String> perRow = HandleBasicQueries.handleTablesMulti(doc, full, params);
+		for(int j = 0; j < perRow.size(); j++)
 		{
-			String[][] all = new String[perRow.length][];
-			all[j] = perRow[j].split(" ");
+			String[][] all = new String[perRow.size()][];
+			all[j] = perRow.get(j).split(" ");
 			if(all[j][0].contains(","))
 			{
 				String lastName = all[j][0].substring(0, all[j][0].length() - 1);

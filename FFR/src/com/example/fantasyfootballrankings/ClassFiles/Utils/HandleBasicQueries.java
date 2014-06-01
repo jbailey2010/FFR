@@ -1,8 +1,11 @@
-package com.example.fantasyfootballrankings.ClassFiles;
+package com.example.fantasyfootballrankings.ClassFiles.Utils;
 
 import java.io.IOException;
 
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -25,30 +28,30 @@ public class HandleBasicQueries
 	 * @return the text that was parsed
 	 * @throws IOException
 	 */
-	public static String handleLists(String url, String params) throws IOException
+	public static List<String> handleLists(String url, String params) throws IOException
 	{
-		StringBuilder result = new StringBuilder(5000);
+		List<String> elems = new ArrayList<String>();
 		Document doc = Jsoup.connect(url).userAgent(ua).get();
         Elements links = doc.select(params);
 
         for (Element element : links) 
         {
-        	result.append(element.text() + "\n");
+        	elems.add(element.text());
         }
-        return result.toString();
+        return elems;
 	}
 	
-	public static String handleListsNoUA(String url, String params) throws IOException
+	public static List<String> handleListsNoUA(String url, String params) throws IOException
 	{
-		StringBuilder result = new StringBuilder(5000);
+		List<String> elems = new ArrayList<String>();
 		Document doc = Jsoup.connect(url).get();
         Elements links = doc.select(params);
 
         for (Element element : links) 
         {
-        	result.append(element.text() + "\n");
+        	elems.add(element.text());
         }
-        return result.toString();
+        return elems;
 	}
 	
 	/**
@@ -58,15 +61,15 @@ public class HandleBasicQueries
 	 * @return the text that was parsed
 	 * @throws IOException
 	 */
-	public static String handleListsMulti(Document doc, String url, String params) throws IOException
+	public static List<String> handleListsMulti(Document doc, String url, String params) throws IOException
 	{
-		StringBuilder result = new StringBuilder(5000);
+		List<String> elems = new ArrayList<String>();
         Elements links = doc.select(params);
         for (Element element : links) 
         {
-        	result.append(element.text() + "\n");
+        	elems.add(element.text());
         }
-        return result.toString();
+        return elems;
 	}
 	/**
 	 * Handles the queries to a table
@@ -75,16 +78,16 @@ public class HandleBasicQueries
 	 * @return the text from the table
 	 * @throws IOException
 	 */
-	public static String handleTables(String url, String params) throws IOException
+	public static List<String> handleTables(String url, String params) throws IOException
 	{
-		StringBuilder result = new StringBuilder(5000);
+		List<String> elems = new ArrayList<String>();
 		Document doc = Jsoup.connect(url).userAgent(ua).timeout(0).get();
 		Elements els = doc.getElementsByClass(params);
 		for (Element el : els) 
 		{
-			result.append(el.text() + "\n");
+			elems.add(el.text());
 		}
-		return result.toString();
+		return elems;
 	}
 	 
 	/**
@@ -95,14 +98,14 @@ public class HandleBasicQueries
 	 * @return the text from the table
 	 * @throws IOException
 	 */
-	public static String handleTablesMulti(Document doc,String url, String params) throws IOException
+	public static List<String> handleTablesMulti(Document doc,String url, String params) throws IOException
 	{
-		StringBuilder result = new StringBuilder(5000);
+		List<String> elems = new ArrayList<String>();
 		Elements els = doc.getElementsByClass(params);
 		for (Element el : els)  
 		{
-			result.append(el.text() + "\n");
+			elems.add(el.text());
 		}
-		return result.toString();
+		return elems;
 	}
 }

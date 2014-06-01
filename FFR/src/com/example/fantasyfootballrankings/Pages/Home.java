@@ -13,6 +13,7 @@ import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraftWizardRanks;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;

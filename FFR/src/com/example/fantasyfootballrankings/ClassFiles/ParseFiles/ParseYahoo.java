@@ -3,13 +3,16 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 import java.io.IOException;
 
 
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+
+import java.util.List;
+
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 public class ParseYahoo 
 {
@@ -25,24 +28,23 @@ public class ParseYahoo
 	
 	public static void parseYahoo(Storage holder, String url) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
-		for(int i = 2; i < td.length; i+=4)
+		List<String> td = HandleBasicQueries.handleLists(url, "td");
+		for(int i = 2; i < td.size(); i+=4)
 		{
-			if(td[i].contains("AdChoices"))
+			if(td.get(i).contains("AdChoices"))
 			{
 				break;
 			} 
 			String fName = "";
 			String name = "";
-			if(td[i].split(" \\(")[0].contains("Note"))
+			if(td.get(i).split(" \\(")[0].contains("Note"))
 			{
 				String splitter = "Note ";
-				if(td[i].split(" \\(")[0].contains("Notes"))
+				if(td.get(i).split(" \\(")[0].contains("Notes"))
 				{
 					splitter = "Notes ";
 				}
-				fName = td[i].split(" \\(")[0].split(splitter)[1].split(" - ")[0];
+				fName = td.get(i).split(" \\(")[0].split(splitter)[1].split(" - ")[0];
 				String[] nameSet = fName.split(" ");
 				for(int j = 0; j < nameSet.length - 1; j++)
 				{
@@ -52,23 +54,23 @@ public class ParseYahoo
 			}
 			else
 			{
-				name = td[i].split(" \\(")[0];
+				name = td.get(i).split(" \\(")[0];
 			}
-			if(td[i].contains("DEF"))
+			if(td.get(i).contains("DEF"))
 			{
-				if(td[i].contains("NYG"))
+				if(td.get(i).contains("NYG"))
 				{
 					name = "New York Giants";
 				}
-				else if(td[i].contains("NYJ"))
+				else if(td.get(i).contains("NYJ"))
 				{
 					name = "New York Jets";
 				}
 				name = ParseRankings.fixDefenses(name);
 
 			}
-			String rank = td[i+1].split("\\$")[1];
-			String aavStr = td[i+2].split("\\$")[1];
+			String rank = td.get(i+1).split("\\$")[1];
+			String aavStr = td.get(i+2).split("\\$")[1];
 			double aav = 0.0;
 			int worth = Integer.parseInt(rank);
 			if(!aavStr.equals("-") && !aavStr.equals("0.0"))

@@ -15,8 +15,8 @@ import AsyncTasks.StorageAsyncTask;
 import AsyncTasks.StorageAsyncTask.ReadRotoNews;
 import android.content.Context;
 
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.TwitterWork;
 /**
  * A library to handle the parsing of news
@@ -34,15 +34,12 @@ public class ParseNews
 	{
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
 		Document doc = Jsoup.connect(url).timeout(0).get();
-		String report = HandleBasicQueries.handleListsMulti(doc, url, "div.report");
-		String impact = HandleBasicQueries.handleListsMulti(doc, url, "div.impact");
-		String date = HandleBasicQueries.handleListsMulti(doc, url, "div.date");
-		String[] reportSet = report.split("\n");
-		String[] impactSet = impact.split("\n");
-		String[] dateSet = date.split("\n");
-		for(int i = 0; i < reportSet.length; i++)
+		List<String> reportSet = HandleBasicQueries.handleListsMulti(doc, url, "div.report");
+		List<String> impactSet = HandleBasicQueries.handleListsMulti(doc, url, "div.impact");
+		List<String> dateSet = HandleBasicQueries.handleListsMulti(doc, url, "div.date");
+		for(int i = 0; i < reportSet.size(); i++)
 		{
-			NewsObjects news = new NewsObjects(reportSet[i], impactSet[i+1], dateSet[i]);
+			NewsObjects news = new NewsObjects(reportSet.get(i), impactSet.get(i+1), dateSet.get(i));
 			newsSet.add(news);
 		}
 		return newsSet;
@@ -58,15 +55,12 @@ public class ParseNews
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
 		String url = "http://www.thehuddle.com/fantasy_football_news.php";
 		Document doc = Jsoup.connect(url).timeout(0).get();
-		String report = HandleBasicQueries.handleTablesMulti(doc, url, "news-item");
-		String impact = HandleBasicQueries.handleTablesMulti(doc, url, "news-impact");
-		String date = HandleBasicQueries.handleTablesMulti(doc, url, "news-date");
-		String[] reportSet = report.split("\n");
-		String[] impactSet = impact.split("\n");
-		String[] dateSet = date.split("\n");
-		for(int i = 0; i < reportSet.length; i++)
+		List<String> reportSet = HandleBasicQueries.handleTablesMulti(doc, url, "news-item");
+		List<String> impactSet = HandleBasicQueries.handleTablesMulti(doc, url, "news-impact");
+		List<String> dateSet = HandleBasicQueries.handleTablesMulti(doc, url, "news-date");
+		for(int i = 0; i < reportSet.size(); i++)
 		{
-			NewsObjects news = new NewsObjects(reportSet[i], impactSet[i].replace("Huddle Up: ", ""), dateSet[i]);
+			NewsObjects news = new NewsObjects(reportSet.get(i), impactSet.get(i).replace("Huddle Up: ", ""), dateSet.get(i));
 			newsSet.add(news);
 		}
 		return newsSet;
@@ -82,11 +76,10 @@ public class ParseNews
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
 		String url = "http://fantasynews.cbssports.com/fantasyfootball/playernews";
 		Document doc = Jsoup.connect(url).timeout(0).get();
-		String report = HandleBasicQueries.handleListsMulti(doc, url, "div#newsPage1 table tbody tr td");
-		String[] data = report.split("\n");
-		for(int i = 0; i < data.length; i+=4)
+		List<String> data = HandleBasicQueries.handleListsMulti(doc, url, "div#newsPage1 table tbody tr td");
+		for(int i = 0; i < data.size(); i+=4)
 		{
-			String newsObj = data[i];
+			String newsObj = data.get(i);
 			String date = newsObj.split("\\(")[1].split("\\)")[0];
 			String news = newsObj.substring(newsObj.indexOf(")") + 2, newsObj.length());
 			String header = newsObj.split("by")[0];
@@ -107,20 +100,16 @@ public class ParseNews
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
 		String url = "http://sportsillustrated.cnn.com/fantasy/player_news/nfl/";
 		Document doc = Jsoup.connect(url).timeout(0).get();
-		String report = HandleBasicQueries.handleListsMulti(doc, url, "dt");
-		String impact = HandleBasicQueries.handleListsMulti(doc, url, "dd");
-		String date = HandleBasicQueries.handleListsMulti(doc, url, "ul li div span");
-		String names = HandleBasicQueries.handleListsMulti(doc, url, "ul li div strong a");
-		String[] reportSet = report.split("\n");
-		String[] impactSet = impact.split("\n");
-		String[] dateSet = date.split("\n");
-		String[] namesSet = names.split("\n");
-		int min = Math.min(reportSet.length, impactSet.length);
-		min = Math.min(min, dateSet.length);
-		min = Math.min(min, namesSet.length);
+		List<String> reportSet = HandleBasicQueries.handleListsMulti(doc, url, "dt");
+		List<String> impactSet = HandleBasicQueries.handleListsMulti(doc, url, "dd");
+		List<String> dateSet = HandleBasicQueries.handleListsMulti(doc, url, "ul li div span");
+		List<String> namesSet = HandleBasicQueries.handleListsMulti(doc, url, "ul li div strong a");
+		int min = Math.min(reportSet.size(), impactSet.size());
+		min = Math.min(min, dateSet.size());
+		min = Math.min(min, namesSet.size());
 		for(int i = 0; i < min; i++)
 		{
-			NewsObjects news = new NewsObjects(namesSet[i].replace(":", "-") + " - " + reportSet[i], impactSet[i], dateSet[i]);
+			NewsObjects news = new NewsObjects(namesSet.get(i).replace(":", "-") + " - " + reportSet.get(i), impactSet.get(i), dateSet.get(i));
 			newsSet.add(news);
 		}
 		return newsSet;

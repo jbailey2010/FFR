@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -9,10 +8,10 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 /**
  * Parses the advanced oline numbers
  * @author Jeff
@@ -27,39 +26,38 @@ public class ParseOLineAdvanced
 	 */
 	public static void parsePFOLineData(Storage holder) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/ol", "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
+		List<String> td = HandleBasicQueries.handleLists("http://www.footballoutsiders.com/stats/ol", "td");
 		HashMap<String, String> data = new HashMap<String, String>();
-		for(int i = 18; i < td.length; i+=16)
+		for(int i = 18; i < td.size(); i+=16)
 		{
-			if(td[i].equals("RUN BLOCKING"))
+			if(td.get(i).equals("RUN BLOCKING"))
 			{
 				i+=2;
 			}
-			else if(td[i+1].equals("Team"))
+			else if(td.get(i+1).equals("Team"))
 			{
 				i+=16;
 			}
-			else if(td[i+1].equals("NFL"))
+			else if(td.get(i+1).equals("NFL"))
 			{
 				break;
 			}
 			
-			String team2 = ParseRankings.fixTeams(td[i+12]);
-			String sack = td[i+15];
-			data.put(team2 + "/" + "pass", sack + " adjusted team sack rate (" + td[i+13] + ")\n");
-			data.put(team2 + "/passranks", "Pass Block Ranking: " + td[i+13]);
-			String team1 = ParseRankings.fixTeams(td[i+1]);
-			String adjYPC = td[i+2];
-			String adjYPCRank = td[i];
-			String power = td[i+4];
-			String powerRank = td[i+5];
-			String stuff = td[i+6];
-			String stuffRank = td[i+7];
-			String secLevel = td[i+8];
-			String secLevelRank = td[i+9];
-			String openField = td[i+10];
-			String openFieldRank = td[i+11];
+			String team2 = ParseRankings.fixTeams(td.get(i+12));
+			String sack = td.get(i+15);
+			data.put(team2 + "/" + "pass", sack + " adjusted team sack rate (" + td.get(i+13) + ")\n");
+			data.put(team2 + "/passranks", "Pass Block Ranking: " + td.get(i+13));
+			String team1 = ParseRankings.fixTeams(td.get(i+1));
+			String adjYPC = td.get(i+2);
+			String adjYPCRank = td.get(i);
+			String power = td.get(i+4);
+			String powerRank = td.get(i+5);
+			String stuff = td.get(i+6);
+			String stuffRank = td.get(i+7);
+			String secLevel = td.get(i+8);
+			String secLevelRank = td.get(i+9);
+			String openField = td.get(i+10);
+			String openFieldRank = td.get(i+11);
 			StringBuilder runData = new StringBuilder(1000);
 			runData.append(adjYPC + " adjusted team yards per carry (" + adjYPCRank + ")\n");
 			runData.append(power + " success rate with < 3 yards per go (" + powerRank + ")\n");

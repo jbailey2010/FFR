@@ -792,7 +792,7 @@ public class ComparatorHandling
 		String[] split = holder.draftClasses.get(player.info.team).split("\n");
 		String average = split[0];
 		String rank = average.split("\\(")[1].substring(0, average.split("\\(")[1].length() - 1);
-		return Integer.parseInt(rank);
+		return Integer.parseInt(rank.replaceAll("T-", ""));
 	}
 
 	

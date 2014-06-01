@@ -12,6 +12,7 @@ import java.io.IOException;
 
 
 
+
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +29,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ComparatorHandling;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
@@ -39,6 +39,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraftWizardRanks;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPN;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
@@ -51,13 +52,13 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseOLineAdvanced;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePFF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseSI;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseYahoo;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.FantasyProsUtils;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.TwitterWork;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LineupHelp;
@@ -109,7 +110,7 @@ public class ParsingAsyncTask
 			@Override
 			protected void onPreExecute(){ 
 			   super.onPreExecute();
-			        pdia.setMessage("Please wait, fetching the rankings...(0/33)");
+			        pdia.setMessage("Please wait, fetching the rankings...(0/35)");
 			        pdia.show();    
 			}
 
@@ -155,7 +156,7 @@ public class ParsingAsyncTask
 					} catch (IOException e15) {
 	
 					} 
-			        publishProgress("Please wait, fetching the rankings...(3/33)");
+			        publishProgress("Please wait, fetching the rankings...(3/35)");
 					System.out.println("Before CBS");/*
 					try {
 						ParseCBS.cbsRankings(holder);
@@ -166,7 +167,7 @@ public class ParsingAsyncTask
 	
 					}*/
 					System.out.println("Before ESPN ADV");
-			        publishProgress("Please wait, fetching the rankings...(6/33)");
+			        publishProgress("Please wait, fetching the rankings...(6/35)");
 					/*
 					try {
 						ParseESPNadv.parseESPNAggregate(holder);
@@ -179,7 +180,7 @@ public class ParsingAsyncTask
 						// TODO Auto-generated catch block
 						e13.printStackTrace();
 					}*/
-			        publishProgress("Please wait, fetching the rankings...(7/33)");
+			        publishProgress("Please wait, fetching the rankings...(7/35)");
 			        System.out.println("Before FFTB");
 					try {
 						ParseFFTB.parseFFTBRankingsWrapper(holder);
@@ -194,7 +195,7 @@ public class ParsingAsyncTask
 						// TODO Auto-generated catch block
 						e12.printStackTrace();
 					}
-			        /*publishProgress("Please wait, fetching the rankings...(8/33)");
+			        /*publishProgress("Please wait, fetching the rankings...(8/35)");
 			        System.out.println("Before espn");
 					try {
 						ParseESPN.parseESPN300(holder);
@@ -203,7 +204,7 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e11) {
 					}*/
-			        publishProgress("Please wait, fetching the rankings...(10/33)");
+			        publishProgress("Please wait, fetching the rankings...(10/35)");
 			        System.out.println("Before Yahoo");
 					try {
 						ParseYahoo.parseYahooWrapper(holder);
@@ -212,7 +213,7 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e9) {
 					}
-			        publishProgress("Please wait, fetching the rankings...(12/33)");
+			        publishProgress("Please wait, fetching the rankings...(12/35)");
 			        System.out.println("Before Fantasy Pros");/*
 					try {
 						ParseFantasyPros.parseFantasyProsAgg(holder);
@@ -221,7 +222,7 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e8) {
 					}*/
-					publishProgress("Please wait, fetching the rankings...(18/33)");
+					publishProgress("Please wait, fetching the rankings...(18/35)");
 					System.out.println("Before PFF");
 					try {
 						ParsePFF.parsePFFWrapper(holder);
@@ -232,7 +233,7 @@ public class ParsingAsyncTask
 						// TODO Auto-generated catch block
 						e7.printStackTrace();
 					}
-					publishProgress("Please wait, fetching the rankings...(19/33)");
+					publishProgress("Please wait, fetching the rankings...(19/35)");
 					System.out.println("Before TFF");/*
 					try {
 						ParseTheFakeFootball.parseTheFakeFootballVals(holder);
@@ -241,7 +242,7 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e6) {
 					} */
-					publishProgress("Please wait, fetching the rankings...(21/33)");
+					publishProgress("Please wait, fetching the rankings...(21/35)");
 					System.out.println("Before NFL AAV");
 					/*try {
 						ParseNFL.parseNFLAAVWrapper(holder);
@@ -250,20 +251,11 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e3) {
 					}*//*
-					publishProgress("Please wait, fetching the rankings...(22/33)");
-					System.out.println("Before SI");
-			    	try {
-						ParseSI.parseSIWrapper(holder);
-						publishProgress("Please wait, fetching the rankings...(23/33)");
-					} catch (HttpStatusException e2)
-					{
-						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
-					} catch (IOException e1) {
-					}*/
+					publishProgress("Please wait, fetching the rankings...(22/35)");*/
 					System.out.println("Before NFL Rankings");
 					try {
 						ParseNFL.parseNFLRankingsWrapper(holder, cont);
-						publishProgress("Please wait, fetching the rankings...(24/33)");
+						publishProgress("Please wait, fetching the rankings...(23/35)");
 					} catch (HttpStatusException e2)
 					{
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
@@ -272,10 +264,10 @@ public class ParsingAsyncTask
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					System.out.println("Before Fantasy Sharks Rankings");
+					System.out.println("Before Draft Wizard Rankings");
 					try {
-						ParseFantasySharks.parseFantasySharksRankings(holder);
-						publishProgress("Please wait, fetching the rankings...(25/33)");
+						ParseDraftWizardRanks.parseRanksWrapper(holder);
+						publishProgress("Please wait, fetching the rankings...(27/35)");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -317,13 +309,13 @@ public class ParsingAsyncTask
 			    	ParseMath.convertPAA(holder, r);
 			    	ParseMath.convertPAA(holder, r);
 			    	ParseMath.convertPAA(holder, r);
-			    	publishProgress("Please wait, fetching the rankings...(29/33)");
+			    	publishProgress("Please wait, fetching the rankings...(31/35)");
 			    	ParseMath.convertECR(holder);
 			    	ParseMath.convertECR(holder);
-			    	publishProgress("Please wait, fetching the rankings...(31/33)");
+			    	publishProgress("Please wait, fetching the rankings...(33/35)");
 			    	ParseMath.convertADP(holder);
 			    	ParseMath.convertADP(holder);
-			    	publishProgress("Please wait, fetching the rankings...(33/33)");
+			    	publishProgress("Please wait, fetching the rankings...(35/35)");
 	    		}
 	    		
 		    	publishProgress("Please wait, normalizing auction values...");
@@ -1032,7 +1024,7 @@ public class ParsingAsyncTask
 		    	}
 		    	try {
 					Document doc = Jsoup.connect(baseURL).get();
-					String[] percentages = HandleBasicQueries.handleListsMulti(doc, baseURL, "div div.mpb-col span").split("\n");
+					List<String> percentages = HandleBasicQueries.handleListsMulti(doc, baseURL, "div div.mpb-col span");
 					for(String percent : percentages)
 					{
 						if(percent.contains("%") && (percent.contains("50") || !ecrList.contains(percent)))
@@ -1040,7 +1032,7 @@ public class ParsingAsyncTask
 							ecrList.add(percent);
 						}
 					}
-					if(percentages.length < 2)
+					if(percentages.size() < 2)
 					{
 						return null;
 					}
@@ -1130,12 +1122,11 @@ public class ParsingAsyncTask
 		
 		public String checkUrl(String url, String name, int pick){
 			try {
-				String tdSet = HandleBasicQueries.handleLists(url, "table.adp td");
-				String[] td = ManageInput.tokenize(tdSet, '\n', 1);
-				for(int i = 0; i < td.length; i++){
-					String elem = td[i];
+				List<String> td = HandleBasicQueries.handleLists(url, "table.adp td");
+				for(int i = 0; i < td.size(); i++){
+					String elem = td.get(i);
 					if(ParseRankings.fixNames(elem).equals(name)){
-						return "Odds " + name + " is available at pick " + pick + ": " + td[i+4];
+						return "Odds " + name + " is available at pick " + pick + ": " + td.get(i+4);
 					}
 				}
 			} catch (IOException e) {

@@ -1,11 +1,12 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
+import java.util.List;
 
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
  * Handles parsing of espn's top
@@ -30,12 +31,11 @@ public class ParseESPN
 	/**
 	 * Does the actual espn parsing work
 	 */
-	public static void parseESPN300Worker(String text, Storage holder)
+	public static void parseESPN300Worker(List<String> brokenUp, Storage holder)
 	{
-		String[] brokenUp = ManageInput.tokenize(text, '\n', 1);
-		for(int i = 1; i < brokenUp.length; i+=5)
+		for(int i = 1; i < brokenUp.size(); i+=5)
 		{
-			String namePos = brokenUp[i];
+			String namePos = brokenUp.get(i);
 			String[] nameSplit = namePos.split(", ");
 			String team;
 			String name;
@@ -54,13 +54,13 @@ public class ParseESPN
 			{
 				name = name.replaceAll("D/ST", "").trim() + " D/ST";
 			}
-			String valDS = brokenUp[i+3];
+			String valDS = brokenUp.get(i+3);
 			if(valDS.contains("-"))
 			{
 				valDS = "$1";
 			}
 			int val = Integer.parseInt(valDS.substring(1, valDS.length()));
-			String posRank = brokenUp[i+2];
+			String posRank = brokenUp.get(i+2);
 			pos = posRank.replaceAll("\\d*$", "");
 			ParseRankings.finalStretch(holder, name, val, team, pos);
 		}

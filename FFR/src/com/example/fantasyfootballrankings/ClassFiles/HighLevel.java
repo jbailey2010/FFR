@@ -3,6 +3,7 @@ package com.example.fantasyfootballrankings.ClassFiles;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseInjuries;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 import FileIO.ReadFromFile;
 import android.content.Context;
@@ -36,11 +38,10 @@ public class HighLevel
 	public static void setContractStatus(Storage holder) throws IOException
 	{
 		HashMap<String, String> cs = new HashMap<String, String>();
-		String html = HandleBasicQueries.handleLists("http://www.kffl.com/static/nfl/features/freeagents/fa.php?option=All&y=2015", "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
-		for(int i = 20; i < td.length; i+=5)
+		List<String> td = HandleBasicQueries.handleLists("http://www.kffl.com/static/nfl/features/freeagents/fa.php?option=All&y=2015", "td");
+		for(int i = 20; i < td.size(); i+=5)
 		{
-			String pos = td[i];
+			String pos = td.get(i);
 			if(pos.equals("FB"))
 			{
 				pos = "RB";
@@ -49,8 +50,8 @@ public class HighLevel
 			{
 				pos = "K";
 			}
-			String name = td[i+1];
-			String status = td[i+2];
+			String name = td.get(i+1);
+			String status = td.get(i+2);
 			if(!name.equals("Player") && !status.contains("Signed") && !status.contains("signed"))
 			{
 				cs.put(pos + "/" + name, "In a contract year");
@@ -73,23 +74,25 @@ public class HighLevel
 	 */ 
 	public static void getSOS(Storage holder) throws IOException
 	{
-		String data = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/strength_of_schedule.cfm", "tr.c");
-		data = data.replaceAll("st", "").replaceAll("nd", "").replaceAll("rd", "").replaceAll("th", "");
-		String[] allArr = ManageInput.tokenize(data, '\n', 1);
-		String[][] team = new String[allArr.length][];
+		List<String> allArr = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/strength_of_schedule.cfm", "tr.c");
+		String[][] team = new String[allArr.size()][];
         HashMap<String, Integer>sos = new HashMap<String, Integer>();
-		for(int i = 0; i  < allArr.length; i++) 
+		for(int i = 0; i  < allArr.size(); i++) 
 		{  
-			team[i] = ManageInput.tokenize(allArr[i], ' ', 1);
+			team[i] = ManageInput.tokenize(allArr.get(i), ' ', 1);
 			String keyBase = ParseRankings.fixTeams(team[i][0]) + ",";
-			sos.put(keyBase + "QB", Integer.parseInt(team[i][1]));
-			sos.put(keyBase + "RB", Integer.parseInt(team[i][2]));
-			sos.put(keyBase + "WR", Integer.parseInt(team[i][3]));
-			sos.put(keyBase + "TE", Integer.parseInt(team[i][4]));
-			sos.put(keyBase + "K", Integer.parseInt(team[i][5]));
-			sos.put(keyBase + "D/ST", Integer.parseInt(team[i][6]));
+			sos.put(keyBase + "QB", Integer.parseInt(cleanRanking(team[i][1])));
+			sos.put(keyBase + "RB", Integer.parseInt(cleanRanking(team[i][2])));
+			sos.put(keyBase + "WR", Integer.parseInt(cleanRanking(team[i][3])));
+			sos.put(keyBase + "TE", Integer.parseInt(cleanRanking(team[i][4])));
+			sos.put(keyBase + "K", Integer.parseInt(cleanRanking(team[i][5])));
+			sos.put(keyBase + "D/ST", Integer.parseInt(cleanRanking(team[i][6])));
 		}
 		holder.sos = sos;
+	}
+	
+	public static String cleanRanking(String input){
+		return input.replaceAll("rd", "").replaceAll("st", "").replaceAll("nd", "").replaceAll("th", "");
 	}
 	
 	/**
@@ -350,37 +353,36 @@ public class HighLevel
 	public static void qbProj(String url, HashMap<String, Double> points, Scoring scoring, String pos) throws IOException
 	{
         DecimalFormat df = new DecimalFormat("#.##");
-		String html = HandleBasicQueries.handleLists(url, "td");
+		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		
-		String[] td = ManageInput.tokenize(html, '\n', 1);
 		int min = 0;
 		ParseRankings.handleHashes();
 
-		for(int i = 0; i < td.length; i++)
+		for(int i = 0; i < td.size(); i++)
 		{
-			if(td[i].contains("MISC"))
+			if(td.get(i).contains("MISC"))
 			{
 				min=i+1;
 				break;
 			}
 		}
-		for(int i = min; i < td.length; i+=11)
+		for(int i = min; i < td.size(); i+=11)
 		{
 			double proj = 0;
-			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
+			String name = ParseRankings.fixNames(td.get(i).split(" \\(")[0]);
 			String team = "None";
-			if(td[i].contains("("))
+			if(td.get(i).contains("("))
 			{
-				String inter = td[i].split(" \\(")[1];
+				String inter = td.get(i).split(" \\(")[1];
 				inter = inter.split(",")[0].split("\\)")[0];
 				team = ParseRankings.fixTeams(inter);
 			}
-			double yards = Double.parseDouble(td[i+3].replace(",", ""));
-			double tdRush = Double.parseDouble(td[i+4]);
-			double ints = Double.parseDouble(td[i+5]);
-			double rushYards = Double.parseDouble(td[i+7]);
-			double rushTD = Double.parseDouble(td[i+8]);
-			double fumbles = Double.parseDouble(td[i+9]);
+			double yards = Double.parseDouble(td.get(i+3).replace(",", ""));
+			double tdRush = Double.parseDouble(td.get(i+4));
+			double ints = Double.parseDouble(td.get(i+5));
+			double rushYards = Double.parseDouble(td.get(i+7));
+			double rushTD = Double.parseDouble(td.get(i+8));
+			double fumbles = Double.parseDouble(td.get(i+9));
 			proj += (yards/(scoring.passYards));
 			proj -= ints * scoring.interception;
 			proj += tdRush * scoring.passTD;
@@ -398,35 +400,34 @@ public class HighLevel
 	public static void rbProj(String url, HashMap<String, Double> points, Scoring scoring, String pos) throws IOException
 	{
         DecimalFormat df = new DecimalFormat("#.##");
-		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
+		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		ParseRankings.handleHashes();
-		for(int i = 0; i < td.length; i++)
+		for(int i = 0; i < td.size(); i++)
 		{
-			if(td[i].contains("MISC"))
+			if(td.get(i).contains("MISC"))
 			{
 				min=i+1;
 				break;
 			}
 		}
-		for(int i = min; i < td.length; i+=9)
+		for(int i = min; i < td.size(); i+=9)
 		{
 			double proj = 0;
-			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
+			String name = ParseRankings.fixNames(td.get(i).split(" \\(")[0]);
 			String team = "None";
-			if(td[i].contains("("))
+			if(td.get(i).contains("("))
 			{
-				String inter = td[i].split(" \\(")[1];
+				String inter = td.get(i).split(" \\(")[1];
 				inter = inter.split(",")[0].split("\\)")[0];
 				team = ParseRankings.fixTeams(inter);
 			}
-			double rushYards = Double.parseDouble(td[i+2].replace(",",""));
-			double rushTD = Double.parseDouble(td[i+3]);
-			double catches = Double.parseDouble(td[i+4]);
-			double recYards = Double.parseDouble(td[i+5].replace(",",""));
-			double recTD = Double.parseDouble(td[i+6]);
-			double fumbles = Double.parseDouble(td[i+7]);
+			double rushYards = Double.parseDouble(td.get(i+2).replace(",",""));
+			double rushTD = Double.parseDouble(td.get(i+3));
+			double catches = Double.parseDouble(td.get(i+4));
+			double recYards = Double.parseDouble(td.get(i+5).replace(",",""));
+			double recTD = Double.parseDouble(td.get(i+6));
+			double fumbles = Double.parseDouble(td.get(i+7));
 			proj += (rushYards/(scoring.rushYards));
 			proj += rushTD *scoring.rushTD;
 			proj += catches*scoring.catches;
@@ -444,35 +445,34 @@ public class HighLevel
 	public static void wrProj(String url, HashMap<String, Double> points, Scoring scoring, String pos) throws IOException
 	{
 		DecimalFormat df = new DecimalFormat("#.##");
-		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
+		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		ParseRankings.handleHashes();
-		for(int i = 0; i < td.length; i++)
+		for(int i = 0; i < td.size(); i++)
 		{
-			if(td[i].contains("MISC"))
+			if(td.get(i).contains("MISC"))
 			{
 				min=i+1;
 				break;
 			}
 		}
-		for(int i = min; i < td.length; i+=9)
+		for(int i = min; i < td.size(); i+=9)
 		{
 			double proj = 0;
-			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
+			String name = ParseRankings.fixNames(td.get(i).split(" \\(")[0]);
 			String team = "None";
-			if(td[i].contains("("))
+			if(td.get(i).contains("("))
 			{
-				String inter = td[i].split(" \\(")[1];
+				String inter = td.get(i).split(" \\(")[1];
 				inter = inter.split(",")[0].split("\\)")[0];
 				team = ParseRankings.fixTeams(inter);
 			}
-			double rushYards = Double.parseDouble(td[i+2].replace(",",""));
-			double rushTD = Double.parseDouble(td[i+3]);
-			double catches = Double.parseDouble(td[i+4]);
-			double recYards = Double.parseDouble(td[i+5].replace(",",""));
-			double recTD = Double.parseDouble(td[i+6]);
-			double fumbles = Double.parseDouble(td[i+7]);
+			double rushYards = Double.parseDouble(td.get(i+2).replace(",",""));
+			double rushTD = Double.parseDouble(td.get(i+3));
+			double catches = Double.parseDouble(td.get(i+4));
+			double recYards = Double.parseDouble(td.get(i+5).replace(",",""));
+			double recTD = Double.parseDouble(td.get(i+6));
+			double fumbles = Double.parseDouble(td.get(i+7));
 			proj += (rushYards/(scoring.rushYards));
 			proj += rushTD *scoring.rushTD;
 			proj += catches*scoring.catches;
@@ -490,34 +490,33 @@ public class HighLevel
 	public static void teProj(String url, HashMap<String, Double> points, Scoring scoring, String pos) throws IOException
 	{
 		DecimalFormat df = new DecimalFormat("#.##");
-		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
+		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		ParseRankings.handleHashes();
 
-		for(int i = 0; i < td.length; i++)
+		for(int i = 0; i < td.size(); i++)
 		{
-			if(td[i].contains("MISC"))
+			if(td.get(i).contains("MISC"))
 			{
 				min=i+1;
 				break;
 			}
 		}
-		for(int i = min; i < td.length; i+=6)
+		for(int i = min; i < td.size(); i+=6)
 		{		
 			String team = "None";
 			double proj = 0;
-			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
-			if(td[i].contains("("))
+			String name = ParseRankings.fixNames(td.get(i).split(" \\(")[0]);
+			if(td.get(i).contains("("))
 			{
-				String inter = td[i].split(" \\(")[1];
+				String inter = td.get(i).split(" \\(")[1];
 				inter = inter.split(",")[0].split("\\)")[0];
 				team = ParseRankings.fixTeams(inter);
 			}
-			double catches = Double.parseDouble(td[i+1].replace(",",""));
-			double recTD = Double.parseDouble(td[i+3]);
-			double recYards = Double.parseDouble(td[i+2].replace(",",""));
-			double fumbles = Double.parseDouble(td[i+4]);
+			double catches = Double.parseDouble(td.get(i+1).replace(",",""));
+			double recTD = Double.parseDouble(td.get(i+3));
+			double recYards = Double.parseDouble(td.get(i+2).replace(",",""));
+			double fumbles = Double.parseDouble(td.get(i+4));
 			proj += catches*scoring.catches;
 			proj += (recYards/(scoring.recYards));
 			proj += recTD * scoring.recTD;
@@ -532,31 +531,30 @@ public class HighLevel
 	 */
 	public static void kProj(String url, HashMap<String, Double> points, String pos) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
+		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		ParseRankings.handleHashes();
 
-		for(int i = 0; i < td.length; i++)
+		for(int i = 0; i < td.size(); i++)
 		{
-			if(ManageInput.isDouble(td[i+1]))
+			if(ManageInput.isDouble(td.get(i+1)))
 			{
 				min=i;
 				break;
 			}
 		}
-		for(int i = min; i < td.length; i+=5)
+		for(int i = min; i < td.size(); i+=5)
 		{		
 			String team = "None";
 			double proj = 0;
-			String name = ParseRankings.fixNames(td[i].split(" \\(")[0]);
-			if(td[i].contains("("))
+			String name = ParseRankings.fixNames(td.get(i).split(" \\(")[0]);
+			if(td.get(i).contains("("))
 			{
-				String inter = td[i].split(" \\(")[1];
+				String inter = td.get(i).split(" \\(")[1];
 				inter = inter.split(",")[0].split("\\)")[0];
 				team = ParseRankings.fixTeams(inter);
 			}
-			proj = Double.parseDouble(td[i+4]);
+			proj = Double.parseDouble(td.get(i+4));
 			points.put(name + "/" + team + "/" + pos, proj);
 		}		
 	}
@@ -569,19 +567,31 @@ public class HighLevel
 	 */
 	public static void defProjWeekly(HashMap<String, Double> points, String pos) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2014/weeklycheatsheets.cfm?player_pos=DEF", "table.grid td");
-		if(html.split("\n").length < 59 && !html.contains("Week") && !html.contains("will be up"))
+		List<String> td = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2014/weeklycheatsheets.cfm?player_pos=DEF", "table.grid td");
+		boolean hasWeek = false;
+		boolean hasWill = false;
+		for(String elem : td){
+			if(elem.contains("Week")){
+				hasWeek = true;
+				break;
+			}
+			if(elem.contains("will be up")){
+				hasWill = true;
+				break;
+			}
+		}
+		
+		if(td.size() < 20 && !hasWeek && !hasWill)
 		{
 			defProjAnnual(points, pos);
 		}
 		else
 		{
-			String[] td = ManageInput.tokenize(html, '\n', 1);
-			for(int i = 0; i < td.length; i+=5)
+			for(int i = 0; i < td.size(); i+=5)
 			{
-				String teamName = ParseRankings.fixDefenses(td[i+1]);
-				String team = ParseRankings.fixTeams(td[i+2]);
-				double proj = Double.valueOf(td[i+4]);
+				String teamName = ParseRankings.fixDefenses(td.get(i+1));
+				String team = ParseRankings.fixTeams(td.get(i+2));
+				double proj = Double.valueOf(td.get(i+4));
 				points.put(teamName + "/" + team + "/" + pos, proj);
 			}
 		}
@@ -594,14 +604,13 @@ public class HighLevel
 	 * @throws IOException
 	 */
 	public static void defProjAnnual(HashMap<String, Double> points, String pos) throws IOException {
-		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2014/cheatsheets.cfm?player_pos=DEF", "table.grid td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
+		List<String> td  = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2014/cheatsheets.cfm?player_pos=DEF", "table.grid td");
 		try{
-			for(int i = 0; i < td.length; i+=5)
+			for(int i = 0; i < td.size(); i+=5)
 			{
-				String teamName = ParseRankings.fixDefenses(td[i+1]);
-				String team = ParseRankings.fixTeams(td[i+2]);
-				double proj = Double.valueOf(td[i+4]);
+				String teamName = ParseRankings.fixDefenses(td.get(i+1));
+				String team = ParseRankings.fixTeams(td.get(i+2));
+				double proj = Double.valueOf(td.get(i+4));
 				points.put(teamName + "/" + team + "/" + pos, proj);
 			}
 		}catch(NumberFormatException e){
@@ -683,18 +692,17 @@ public class HighLevel
 	 */
 	public static boolean isValidRankings(String url) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
+		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
-		for(int i = 0; i < td.length; i++)
+		for(int i = 0; i < td.size(); i++)
 		{ 
-			if(td[i+1].contains("QB") || td[i+1].contains("RB") || td[i+1].contains("WR") || td[i+1].contains("TE"))
+			if(td.get(i+1).contains("QB") || td.get(i+1).contains("RB") || td.get(i+1).contains("WR") || td.get(i+1).contains("TE"))
 			{
 				min = i;
 				break;
 			}
 		}
-		if(min != 0 && td.length - min > 15)
+		if(min != 0 && td.size() - min > 15)
 		{
 			return true;
 		}
@@ -708,34 +716,33 @@ public class HighLevel
 	public static void parseECRWeekly(String url, Storage holder, HashMap<String, Double> ecr, 
 			HashMap<String, Double> risk, HashMap<String, String> adp, String pos) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
+		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
-		for(int i = 0; i < td.length; i++)
+		for(int i = 0; i < td.size(); i++)
 		{ 
-			if(td[i+1].contains("(") && td[i+1].contains(")") && ManageInput.isInteger(td[i]))
+			if(td.get(i+1).contains("(") && td.get(i+1).contains(")") && ManageInput.isInteger(td.get(i)))
 			{
 				min = i;
 				break;
 			}
 		}
-		for(int i = min; i < td.length; i+=6)
+		for(int i = min; i < td.size(); i+=6)
 		{
 			String name = "";
 			if(pos.equals("D/ST"))
 			{
-				name = (ParseRankings.fixDefenses(td[i+1].split(" \\(")[0].split(", ")[0]));
+				name = (ParseRankings.fixDefenses(td.get(i+1).split(" \\(")[0].split(", ")[0]));
 			}
 			else
 			{
-				name = ParseRankings.fixNames((td[i+1].split(" \\(")[0].split(", ")[0]));
+				name = ParseRankings.fixNames((td.get(i+1).split(" \\(")[0].split(", ")[0]));
 			}
-			double ecrVal = Double.parseDouble(td[i]);
-			double riskVal = Double.parseDouble(td[i+5]);
-			String team = ParseRankings.fixTeams(td[i+1].split(" \\(")[1].split("\\)")[0]);
+			double ecrVal = Double.parseDouble(td.get(i));
+			double riskVal = Double.parseDouble(td.get(i+5));
+			String team = ParseRankings.fixTeams(td.get(i+1).split(" \\(")[1].split("\\)")[0]);
 			if(!adp.containsKey(team) && !team.contains("FA") && !team.contains(" vs. ") && !team.contains(" at ") && !ManageInput.isInteger(team))
 			{
-				String wholeSet = td[i+1];
+				String wholeSet = td.get(i+1);
 				String opp = "Bye Week";
 				if(wholeSet.contains("vs"))
 				{
@@ -761,51 +768,54 @@ public class HighLevel
 	public static void parseECRWorker(String url, Storage holder, HashMap<String, Double> ecr, 
 			HashMap<String, Double> risk, HashMap<String, String> adp, int loopIter) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
+		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		String adpUrl = "http://www.fantasypros.com/nfl/adp/overall.php";
+		int loopIterAdp = 10;
 		if(url.contains("ppr")){
 			adpUrl = "http://www.fantasypros.com/nfl/adp/ppr-overall.php";
+			loopIterAdp = 9;
 		}
-		parseADPWorker(holder, adp, adpUrl);
-		for(int i = 0; i < td.length; i++)
+		parseADPWorker(holder, adp, adpUrl, loopIterAdp);
+		for(int i = 0; i < td.size(); i++)
 		{ 
-			if(td[i+1].contains("QB") || td[i+1].contains("RB") || td[i+1].contains("WR") || td[i+1].contains("TE"))
+			if(td.get(i+1).contains("QB") || td.get(i+1).contains("RB") || td.get(i+1).contains("WR") || td.get(i+1).contains("TE"))
 			{
 				min = i;
 				break;
 			}
 		}
-		for(int i = min; i < td.length; i+=loopIter)
+		for(int i = min; i < td.size(); i+=loopIter)
 		{
-			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i].split(" \\(")[0].split(", ")[0]));
-			double ecrVal = Double.parseDouble(td[i+4]);
-			double riskVal = Double.parseDouble(td[i+5]);
-			String posInd = td[i+1].replaceAll("(\\d+,\\d+)|\\d+", "").replaceAll("DST", "D/ST");
+			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td.get(i).split(" \\(")[0].split(", ")[0]));
+			double ecrVal = Double.parseDouble(td.get(i+4));
+			double riskVal = Double.parseDouble(td.get(i+5));
+			String posInd = td.get(i+1).replaceAll("(\\d+,\\d+)|\\d+", "").replaceAll("DST", "D/ST");
 			ecr.put(name + posInd, ecrVal);
 			risk.put(name + posInd, riskVal);
 		}
 	}
 	
-	public static void parseADPWorker(Storage holder, HashMap<String, String> adp, String adpUrl) throws IOException{
-		String html = HandleBasicQueries.handleLists(adpUrl, "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
+	public static void parseADPWorker(Storage holder, HashMap<String, String> adp, String adpUrl, int loopIterAdp) throws IOException{
+		List<String> td = HandleBasicQueries.handleLists(adpUrl, "td");
 		int min = 0;
 		try{
-			for(int i = 0; i < td.length; i++)
+			for(int i = 0; i < td.size(); i++)
 			{ 
 
-				if(td[i+1].contains("QB") || td[i+1].contains("RB") || td[i+1].contains("WR") || td[i+1].contains("TE"))
+				if(td.get(i+1).contains("QB") || td.get(i+1).contains("RB") || td.get(i+1).contains("WR") || td.get(i+1).contains("TE"))
 				{
 					min = i;
 					break;
 				}
 			} 
-			for(int i = min; i < td.length; i+= 9){
-				String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td[i].split(" \\(")[0].split(", ")[0]));
-				String adpStr = td[i+8];
-				String posInd = td[i+1].replaceAll("(\\d+,\\d+)|\\d+", "").replaceAll("DST", "D/ST");
+			for(int i = min; i < td.size(); i+= loopIterAdp){
+				String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td.get(i).split(" \\(")[0].split(", ")[0]));
+				if(i + 8 >= td.size()){
+					break;
+				}
+				String adpStr = td.get(i+8);
+				String posInd = td.get(i+1).replaceAll("(\\d+,\\d+)|\\d+", "").replaceAll("DST", "D/ST");
 				adp.put(name + posInd, adpStr);
 			}
 		}
@@ -850,22 +860,21 @@ public class HighLevel
 	 */
 	public static void parseROSRankingsWorker(String url, String pos, HashMap<String, Integer> rankings) throws IOException
 	{
-		String html = HandleBasicQueries.handleLists(url, "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
+		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
-		for(int i = 0; i < td.length; i++)
+		for(int i = 0; i < td.size(); i++)
 		{
-			if(ManageInput.isInteger(td[i]))
+			if(ManageInput.isInteger(td.get(i)))
 			{
 				min = i;
 				break;
 			}
 		}
-		for(int i = min; i < td.length; i+=6)
+		for(int i = min; i < td.size(); i+=6)
 		{
-			int ranking = Integer.parseInt(td[i]);
+			int ranking = Integer.parseInt(td.get(i));
 			String name = "";
-			name = ParseRankings.fixNames(td[i+1].split(" \\(")[0]);
+			name = ParseRankings.fixNames(td.get(i+1).split(" \\(")[0]);
 			if(pos.equals("D/ST"))
 			{
 				name = ParseRankings.fixDefenses(ParseRankings.fixTeams(name));
@@ -877,25 +886,24 @@ public class HighLevel
 	public static void parseQualityDists(Storage holder) throws IOException
 	{
 		HashMap<String, HashMap<String, Integer>> retMap = new HashMap<String, HashMap<String, Integer>>();
-		String html = HandleBasicQueries.handleLists("http://www.fantasypros.com/nfl/players/quality-starts.php", "td");
-		String[] td = ManageInput.tokenize(html, '\n', 1);
+		List<String> td = HandleBasicQueries.handleLists("http://www.fantasypros.com/nfl/players/quality-starts.php", "td");
 		int min = 0;
-		for(int i = 0; i < td.length; i++)
+		for(int i = 0; i < td.size(); i++)
 		{
-			if(ManageInput.isInteger(td[i]))
+			if(ManageInput.isInteger(td.get(i)))
 			{
 				min = i;
 				break;
 			}
 		}
-		for(int i = min; i < td.length; i += 10)
+		for(int i = min; i < td.size(); i += 10)
 		{
-			String nameSet = td[i+1];
+			String nameSet = td.get(i+1);
 			String name = ParseRankings.fixNames(nameSet.split(" \\(")[0]);
 			String pos = nameSet.split(" \\(")[1].split(",")[0];
-			Integer bad = Integer.parseInt(td[i+3].replace("%", ""));
-			Integer good = Integer.parseInt(td[i+5].replace("%", ""));
-			Integer great = Integer.parseInt(td[i+7].replace("%", ""));
+			Integer bad = Integer.parseInt(td.get(i+3).replace("%", ""));
+			Integer good = Integer.parseInt(td.get(i+5).replace("%", ""));
+			Integer great = Integer.parseInt(td.get(i+7).replace("%", ""));
 			HashMap<String, Integer> playerMap = new HashMap<String, Integer>();
 			playerMap.put("Bad", bad);
 			playerMap.put("Good", good);

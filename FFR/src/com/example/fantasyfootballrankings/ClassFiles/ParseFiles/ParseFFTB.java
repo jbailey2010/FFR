@@ -3,14 +3,15 @@ package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
+import java.util.List;
 
 import org.htmlcleaner.XPatherException;
 
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
  * Handles parsing from fantasy football toolbox's rankings
@@ -46,19 +47,18 @@ public class ParseFFTB
 	 */
 	public static void parseFFTBPage(Storage holder, String url) throws MalformedURLException, IOException, XPatherException
 	{
-		String text = HandleBasicQueries.handleLists(url, "td");
-		String[] brokenUp = ManageInput.tokenize(text, '\n', 1);
-		for(int i = 1; i < brokenUp.length; i+=2)
+		List<String> brokenUp = HandleBasicQueries.handleLists(url, "td");
+		for(int i = 1; i < brokenUp.size(); i+=2)
 		{ 
-			String name = brokenUp[i].replace("Defense", "D/ST");
-			String team = brokenUp[++i];
-			String pos = brokenUp[++i];
+			String name = brokenUp.get(i).replace("Defense", "D/ST");
+			String team = brokenUp.get(++i);
+			String pos = brokenUp.get(++i);
 			if(pos.equals("Def"))
 			{
 				pos = "D/ST";
 			}
-			String age = brokenUp[i+=2];
-			String val = brokenUp[i+=2];
+			String age = brokenUp.get(i+=2);
+			String val = brokenUp.get(i+=2);
 			if(team.split(" ").length <= 2)
 			{
 				val = val.substring(1, val.length());
@@ -90,12 +90,11 @@ public class ParseFFTB
 	public static HashMap<String, String> parseByeWeeks() throws IOException
 	{
 		HashMap<String, String> byes = new HashMap<String, String>();
-		String html = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/byeweeks.cfm", "td");
-		String[] brokenUp = ManageInput.tokenize(html, '\n', 1);
-		for(int i = 0; i < brokenUp.length; i+=2)
+		List<String> brokenUp = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/byeweeks.cfm", "td");
+		for(int i = 0; i < brokenUp.size(); i+=2)
 		{
-			String week = brokenUp[i];
-			String[] teamSet = brokenUp[i+1].split(", ");
+			String week = brokenUp.get(i);
+			String[] teamSet = brokenUp.get(i+1).split(", ");
 			for(String team : teamSet)
 			{
 				String newTeam = ParseRankings.fixTeams(team);
@@ -124,11 +123,10 @@ public class ParseFFTB
 	 */
 	public static void parseSOSWorker(String url, HashMap<String, Integer> sos, String pos) throws IOException
 	{
-		String tr = HandleBasicQueries.handleLists(url, "tr");
-		String[] trSet = tr.split("\n");
-		for(int i = 0; i < trSet.length; i++)
+		List<String> trSet = HandleBasicQueries.handleLists(url, "tr");
+		for(int i = 0; i < trSet.size(); i++)
 		{
-			String[]trWords = trSet[i].split(" ");
+			String[]trWords = trSet.get(i).split(" ");
 			if(ManageInput.isInteger(trWords[0]))
 			{
 				StringBuilder team = new StringBuilder(100);

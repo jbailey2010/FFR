@@ -1,16 +1,17 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.htmlcleaner.XPatherException;
 
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
  * A simple library to help parse espn's adv value from
@@ -28,19 +29,18 @@ public class ParseESPNadv
 	 */
 	public static void parseESPNAggregate(Storage holder) throws IOException, XPatherException
 	{
-		String values = HandleBasicQueries.handleLists("http://games.espn.go.com/ffl/livedraftresults",
+		List<String> brokenValues = HandleBasicQueries.handleLists("http://games.espn.go.com/ffl/livedraftresults",
 				"div div div div table tbody tr td");
 		
-		String[] brokenValues = ManageInput.tokenize(values, '\n', 1);
-		for(int i = 13; i < brokenValues.length; i+=8)
+		for(int i = 13; i < brokenValues.size(); i+=8)
 		{ 
-			if(i+1 >= brokenValues.length)
+			if(i+1 >= brokenValues.size())
 			{
 				break;
 			}
-			String name = ParseRankings.fixNames(brokenValues[i+1].split(", ")[0]).replace("*", "");
+			String name = ParseRankings.fixNames(brokenValues.get(i+1).split(", ")[0]).replace("*", "");
 			name = Storage.nameExists(holder, name);
-			String val = brokenValues[i+5];
+			String val = brokenValues.get(i+5);
 			int worth = (int)Double.parseDouble(val);
 			PlayerObject newPlayer = new PlayerObject(name, "", "", worth);
 			PlayerObject match =  Storage.pqExists(holder, name);

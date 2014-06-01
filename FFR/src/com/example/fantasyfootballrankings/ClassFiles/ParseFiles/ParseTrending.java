@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -20,11 +20,12 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
+
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 import com.example.fantasyfootballrankings.Pages.Trending;
 /**
  * A library to allow for parsing of trending players
@@ -408,10 +409,10 @@ public class ParseTrending
 		{
 			String newUrl = url + Integer.toString(i*20);
 			Document doc = Jsoup.connect(newUrl).timeout(0).get();
-			String[] pagePost = ManageInput.tokenize(HandleBasicQueries.handleListsMulti(doc, newUrl, "div.post.entry-content"), '\n', 1);
-			String[] datesPost = ManageInput.tokenize(HandleBasicQueries.handleListsMulti(doc, newUrl, "abbr.published"), '\n', 1);
-			for(int j = 0; j < pagePost.length; j++){
-				posts.add(new Post(pagePost[j], datesPost[j]));
+			List<String> pagePost = HandleBasicQueries.handleListsMulti(doc, newUrl, "div.post.entry-content");
+			List<String> datesPost = HandleBasicQueries.handleListsMulti(doc, newUrl, "abbr.published");
+			for(int j = 0; j < pagePost.size(); j++){
+				posts.add(new Post(pagePost.get(j), datesPost.get(j)));
 			}
 		}
 		return posts;
@@ -427,14 +428,13 @@ public class ParseTrending
 	 */
 	public static int trendingPlayersLength(String url) throws IOException
 	{
-		String text = HandleBasicQueries.handleLists(url, "td div div div ul.ipsList_inline.left.pages li a");
-		String[] pageTotal = text.split("\n");
+		List<String> pageTotal = HandleBasicQueries.handleLists(url, "td div div div ul.ipsList_inline.left.pages li a");
 		String total = "";
-		for(int i = 0; i < pageTotal.length; i++)
+		for(int i = 0; i < pageTotal.size(); i++)
 		{
-			if(pageTotal[i].contains("Page"))
+			if(pageTotal.get(i).contains("Page"))
 			{
-				total = pageTotal[i];
+				total = pageTotal.get(i);
 				break;
 			}
 		}

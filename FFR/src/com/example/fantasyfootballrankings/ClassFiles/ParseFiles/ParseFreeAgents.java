@@ -8,9 +8,9 @@ import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import com.example.fantasyfootballrankings.ClassFiles.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
  * Parses free agency data
@@ -29,25 +29,23 @@ public class ParseFreeAgents
 		HashMap<String, List<String>> faList = new HashMap<String, List<String>>();
 		String url = "http://www.cbssports.com/nfl/transactions/free-agents";
 		Document doc = Jsoup.connect(url).timeout(0).get();
-		String html1 = HandleBasicQueries.handleListsMulti(doc, url, "tr.row1 td");
-		String html2 = HandleBasicQueries.handleListsMulti(doc, url, "tr.row2 td");
-		String[] perRow1 = ManageInput.tokenize(html1, '\n', 1);
-		String[] perRow2 = ManageInput.tokenize(html2, '\n', 1);
+		List<String> perRow1 = HandleBasicQueries.handleListsMulti(doc, url, "tr.row1 td");
+		List<String> perRow2 = HandleBasicQueries.handleListsMulti(doc, url, "tr.row2 td");
 		int floor = 0;
 		for(int i = 0; i < 20; i++){
-			if(ManageInput.isInteger(perRow1[i])){
+			if(ManageInput.isInteger(perRow1.get(i))){
 				floor = i; 
 				break;
 			}
 		}
-		for(int i = floor; i < perRow1.length; i+=10)
+		for(int i = floor; i < perRow1.size(); i+=10)
 		{
-			String name = ParseRankings.fixNames(perRow1[i+1]);
-			String oldTeam = ParseRankings.fixTeams(perRow1[i+7]);
-			if(perRow1[i+8].contains("TBD")){
+			String name = ParseRankings.fixNames(perRow1.get(i+1));
+			String oldTeam = ParseRankings.fixTeams(perRow1.get(i+7));
+			if(perRow1.get(i+8).contains("TBD")){
 				continue;
 			}
-			String newTeam = ParseRankings.fixTeams(perRow1[i+8]);
+			String newTeam = ParseRankings.fixTeams(perRow1.get(i+8));
 			if(!oldTeam.equals(newTeam) && !newTeam.contains("TBD"))
 			{
 				if(!faList.containsKey(oldTeam))
@@ -84,14 +82,14 @@ public class ParseFreeAgents
 				}
 			}	
 		} 
-		for(int i = floor; i < perRow2.length; i+=10)
+		for(int i = floor; i < perRow2.size(); i+=10)
 		{
-			String name = ParseRankings.fixNames(perRow2[i+1]);
-			String oldTeam = ParseRankings.fixTeams(perRow2[i+7]);
-			if(perRow2[i+8].contains("TBD")){
+			String name = ParseRankings.fixNames(perRow2.get(i+1));
+			String oldTeam = ParseRankings.fixTeams(perRow2.get(i+7));
+			if(perRow2.get(i+8).contains("TBD")){
 				continue;
 			}
-			String newTeam = ParseRankings.fixTeams(perRow2[i+8]);
+			String newTeam = ParseRankings.fixTeams(perRow2.get(i+8));
 			if(!oldTeam.equals(newTeam) && !newTeam.contains("TBD"))
 			{
 				if(!faList.containsKey(oldTeam))
