@@ -812,10 +812,10 @@ public class HighLevel
 			} 
 			for(int i = min; i < td.size(); i+= loopIterAdp){
 				String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td.get(i).split(" \\(")[0].split(", ")[0]));
-				if(i + 8 >= td.size()){
+				if(i + 6 >= td.size()){
 					break;
 				}
-				String adpStr = td.get(i+8);
+				String adpStr = td.get(i+6);
 				String posInd = td.get(i+1).replaceAll("(\\d+,\\d+)|\\d+", "").replaceAll("DST", "D/ST");
 				adp.put(name + posInd, adpStr);
 			}

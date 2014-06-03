@@ -290,6 +290,12 @@ public class PlayerInfo
 				searchedPlayer = player;
 				break;
 			}
+			else if(player.info.name.equals(playerName) && team.equals("") && pos.equals("") && player.info.position.equals("D/ST")){
+				System.out.println("Found maybe a match with " + playerName +", " + player.info.name);
+				System.out.println(player.info.name + ", " + player.info.team + ", " + player.info.position);
+				searchedPlayer = player;
+				break;
+			}
 		}
 		final PlayerObject copy = searchedPlayer;
 		final Roster r = ReadFromFile.readRoster(act);
@@ -928,7 +934,7 @@ public class PlayerInfo
 			data.add(datum);
 		} 
 		Scoring s = ReadFromFile.readScoring(cont2);
-		if(!holder.isRegularSeason)
+		if(!holder.isRegularSeason && !searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", searchedPlayer.pointsSoFar(s) + " Points Scored Last Year");
@@ -1286,6 +1292,8 @@ public class PlayerInfo
 			{
 				continue;
 			}
+			System.out.println(iter.info.name + ", " + iter.info.position + " - " + iter.info.team);
+			System.out.println(iter.info.adp);
 			if(iter.info.position.equals(player.info.position) && Double.parseDouble(iter.info.adp)
 					< Double.parseDouble(player.info.adp))
 			{
