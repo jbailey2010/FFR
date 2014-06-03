@@ -32,7 +32,7 @@ public class ParseStats
 			String team = "";
 			StringBuilder data = new StringBuilder(500);
 			//Name
-			name = player[0].replace(".", " ");
+			name = ParseRankings.fixNames(player[0]).replace(".", " ");
 			team = ParseRankings.fixTeams(player[1]);
 			if(name.split(" ").length == 3)
 			{
@@ -89,7 +89,7 @@ public class ParseStats
 			{
 				continue;
 			}
-			name = player[0].replace(".", " ");
+			name = ParseRankings.fixNames(player[0]).replace(".", " ");
 			team = ParseRankings.fixTeams(player[1]);
 			if(name.split(" ").length == 3)
 			{
@@ -148,7 +148,7 @@ public class ParseStats
 			{
 				continue;
 			}
-			name = player[0].replace(".", " ");
+			name = ParseRankings.fixNames(player[0]).replace(".", " ");
 			team = ParseRankings.fixTeams(player[1]);
 			if(name.split(" ").length == 3)
 			{
@@ -204,7 +204,7 @@ public class ParseStats
 			{
 				continue;
 			}
-			name = player[0].replace(".", " ");
+			name = ParseRankings.fixNames(player[0]).replace(".", " ");
 			team = ParseRankings.fixTeams(player[1]);
 			if(name.split(" ").length == 3)
 			{
