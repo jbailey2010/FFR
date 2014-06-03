@@ -1018,6 +1018,7 @@ public class ParsingAsyncTask
 		    	FantasyProsUtils obj = new FantasyProsUtils();
 		    	baseURL += obj.playerNameUrl(player1) + "-" + obj.playerNameUrl(player2) + ".php";
 		    	String firstName = player1;
+		    	String secondName = player2;
 		    	if(s.catches == 1)
 		    	{
 		    		baseURL += "?scoring=PPR";
@@ -1040,11 +1041,17 @@ public class ParsingAsyncTask
 					Element p = null;
 					for(Element elem : elems)
 					{
-						if(elem.text().contains("Points / Game"))
+						if(isStart && elem.text().contains("Points / Game"))
 						{
 							p = elem;
 							ecrList.add(elem.parent().child(1).text());
 							ecrList.add(elem.parent().child(2).text());
+							break;
+						}
+						else if(!isStart && elem.text().contains("ECR")){
+							p = elem;
+							ecrList.add(elem.parent().parent().parent().parent().child(2).child(1).child(1).child(0).text());
+							ecrList.add(elem.parent().parent().parent().parent().child(2).child(2).child(1).child(0).text());
 							break;
 						}
 					}
@@ -1052,7 +1059,7 @@ public class ParsingAsyncTask
 					{
 						Element megaParent = p.parent().parent().parent().parent();//.child(2).child(1).child(1).child(0).text();
 						String name = (megaParent.child(2).child(1).child(1).child(0).text());
-						if(!name.equals(firstName))
+						if(isStart && !name.equals(firstName))
 						{
 							List<String> newEcr = new ArrayList<String>();
 							newEcr.add(ecrList.get(1));
