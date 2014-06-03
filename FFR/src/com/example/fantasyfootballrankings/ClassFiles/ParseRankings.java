@@ -120,6 +120,7 @@ public class ParseRankings
 		fixes.put("Zach K. Brown", "Zach Brown");
 		fixes.put("Gio Bernard", "Giovani Bernard");
 		fixes.put("Timothy Wright", "Tim Wright");
+		fixes.put("Terrence Williams", "Terrance Williams");
 		
 		teams.clear();
 		teams.put("cin", "Cincinnati Bengals");

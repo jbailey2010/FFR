@@ -50,7 +50,7 @@ public class ParseFFTB
 		List<String> brokenUp = HandleBasicQueries.handleLists(url, "td");
 		for(int i = 1; i < brokenUp.size(); i+=2)
 		{ 
-			String name = brokenUp.get(i).replace("Defense", "D/ST");
+			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(brokenUp.get(i)));
 			String team = brokenUp.get(++i);
 			String pos = brokenUp.get(++i);
 			if(pos.equals("Def"))
@@ -62,8 +62,8 @@ public class ParseFFTB
 			if(team.split(" ").length <= 2)
 			{
 				val = val.substring(1, val.length());
-				String validated = ParseRankings.fixNames(name);
-				String newName = Storage.nameExists(holder, validated);
+				//String validated = ParseRankings.fixNames(name);
+				String newName = Storage.nameExists(holder, name);
 				PlayerObject newPlayer = new PlayerObject("", "", "", 0);
 				try{
 					newPlayer = new PlayerObject(newName, team, pos, Integer.parseInt(val));
