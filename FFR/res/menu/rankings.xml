@@ -28,6 +28,11 @@
         android:orderInCategory="100"
         android:showAsAction="never" 
         android:title="Save This Draft"/> 
+    <item
+        android:id="@+id/random_player"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Random Player"/>
 	<item
         android:id="@+id/help"
         android:orderInCategory="100"

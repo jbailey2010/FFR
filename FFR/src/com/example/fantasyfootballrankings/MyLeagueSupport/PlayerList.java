@@ -207,7 +207,7 @@ public class PlayerList {
 				PlayerInfo obj = new PlayerInfo();
 				obj.isImport = true;
 				obj.newImport = newImport;
-				obj.outputResults(name + ", " + posTeam, true, (Activity) cont, ImportLeague.holder, false, false);
+				obj.outputResults(name + ", " + posTeam, true, (Activity) cont, ImportLeague.holder, false, false, false);
 			}
 		});
 	}

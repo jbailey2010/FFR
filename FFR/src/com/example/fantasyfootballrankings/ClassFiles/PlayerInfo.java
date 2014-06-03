@@ -130,7 +130,7 @@ public class PlayerInfo
 				if(holder.parsedPlayers.contains(Rankings.textView.getText().toString().split(", ")[0]))
 				{
 					dialog.dismiss();
-					outputResults(Rankings.textView.getText().toString(), false, (Activity) oCont, holder, false, true);
+					outputResults(Rankings.textView.getText().toString(), false, (Activity) oCont, holder, false, true, false);
 				}
 				else
 				{
@@ -160,9 +160,10 @@ public class PlayerInfo
 	/**
 	 * outputs the results to the search dialog
 	 * @param namePlayer
+	 * @param b 
 	 */
 	public void outputResults(final String namePlayer, boolean flag, 
-			final Activity act, final Storage hold, final boolean watchFlag, boolean draftable)
+			final Activity act, final Storage hold, final boolean watchFlag, boolean draftable, boolean canRand)
 	{
 		newsList = new ArrayList<NewsObjects>();
 		checkIfFirstOpening(act, hold.isRegularSeason);
@@ -351,9 +352,24 @@ public class PlayerInfo
 		if(flag)
 		{
 			Button backButton = (Button)dialog.findViewById(R.id.search_back);
-			backButton.setVisibility(Button.GONE);
 			View backView = (View)dialog.findViewById(R.id.back_view);
-			backView.setVisibility(View.GONE);
+			if(canRand){
+				backButton.setText("Random Player");
+				backButton.setTextSize(12);
+				backButton.setOnClickListener(new OnClickListener(){
+
+					@Override 
+					public void onClick(View v) {
+						dialog.dismiss();
+						Rankings.randomPlayer();
+					}
+					
+				});
+			}
+			else{
+				backButton.setVisibility(Button.GONE);
+				backView.setVisibility(View.GONE);
+			}
 		}
 		//Set the data in the list
 		data = new ArrayList<Map<String, String>>();
@@ -453,19 +469,21 @@ public class PlayerInfo
 	    asd.origin = "Popup";
 	    results.setOnTouchListener(asd);
 		Button back = (Button)dialog.findViewById(R.id.search_back);
-		//If it isn't gone, set that it goes back
-		back.setOnClickListener(new OnClickListener()
-		{
-			public void onClick(View v) {
-				try {
-					dialog.dismiss();
-					searchCalled(act, isImport, newImport);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		if(!canRand){
+			//If it isn't gone, set that it goes back
+			back.setOnClickListener(new OnClickListener()
+			{
+				public void onClick(View v) {
+					try {
+						dialog.dismiss();
+						searchCalled(act, isImport, newImport);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
-			}
-		}); 
+			}); 
+		}
 		//Setting up close
 		Button close = (Button)dialog.findViewById(R.id.search_close);
 		close.setOnClickListener(new OnClickListener()
@@ -894,7 +912,7 @@ public class PlayerInfo
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", df.format(searchedPlayer.values.paa) + " PAA");
 			StringBuilder paaSub = new StringBuilder(100);
-			if(!holder.isRegularSeason){
+			if(!holder.isRegularSeason && searchedPlayer.values.secWorth > 0){
 				paaSub.append(df.format(searchedPlayer.values.paa / searchedPlayer.values.secWorth)+ " PAA per dollar\n");
 			}
 			if(searchedPlayer.info.position.length() >= 1)
@@ -924,7 +942,7 @@ public class PlayerInfo
 			datum.put("sub", "");
 			data.add(datum);
 		}
-		if(!holder.isRegularSeason){
+		if(!holder.isRegularSeason && (searchedPlayer.values.points > 0 && searchedPlayer.values.secWorth > 0)){
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", "Leverage: " + MathUtils.getLeverage(searchedPlayer, holder, cont2));
 			datum.put("sub", "Leverage relates price and auction value to the top positional scorer");

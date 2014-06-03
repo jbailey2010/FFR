@@ -259,7 +259,7 @@ public class HandleWatchList
 				String posTeam = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text2)).getText().toString().split("\n")[0];
 				dialog.dismiss();
 				PlayerInfo obj = new PlayerInfo();
-				obj.outputResults(selected + ", " + posTeam, true,(Activity)cont, holder, true, true);
+				obj.outputResults(selected + ", " + posTeam, true,(Activity)cont, holder, true, true, false);
 			}
 	    });	
 	    SwipeDismissListViewTouchListener touchListener =

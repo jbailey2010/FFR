@@ -70,7 +70,7 @@ public class Home extends Activity{
 	Menu m;
 	public static SideNavigationView sideNavigationView;
 	//UPDATE THIS FOR YEAR CHANGES
-	public static String yearKey = "14/15";
+	public static String yearKey = "2014";
 	//Uniquely identifies player elems
 	  
 	/**  

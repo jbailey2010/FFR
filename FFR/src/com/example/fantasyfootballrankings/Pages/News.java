@@ -530,7 +530,7 @@ public class News extends Activity {
 				if(isName)
 				{
 					PlayerInfo obj = new PlayerInfo();
-					obj.outputResults(match.info.name + ", " + match.info.position + " - " + match.info.team, true, (News)cont, Home.holder, false, false);
+					obj.outputResults(match.info.name + ", " + match.info.position + " - " + match.info.team, true, (News)cont, Home.holder, false, false, false);
 				}
 			}
         	

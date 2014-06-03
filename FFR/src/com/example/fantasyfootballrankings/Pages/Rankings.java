@@ -293,6 +293,9 @@ public class Rankings extends Activity {
 			case R.id.save_draft:
 				holder.draft.saveDraft(holder, cont);
 				return true;
+			case R.id.random_player:
+				Rankings.randomPlayer();
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
@@ -752,7 +755,7 @@ public class Rankings extends Activity {
 				if(holder.parsedPlayers.contains(input.getText().toString().split(", ")[0]))
 				{
 					dialog.dismiss();
-					new PlayerInfo().outputResults(input.getText().toString(), true, (Activity) cont, holder, false, true);
+					new PlayerInfo().outputResults(input.getText().toString(), true, (Activity) cont, holder, false, true, false);
 				}
 				else
 				{
@@ -1438,7 +1441,7 @@ public class Rankings extends Activity {
 					selected = selected.split(": ")[1];
 				}
 				PlayerInfo obj = new PlayerInfo();
-				obj.outputResults(selected + ", " + moreInfo, true, (Rankings)context, holder, false, true);
+				obj.outputResults(selected + ", " + moreInfo, true, (Rankings)context, holder, false, true, false);
 			}
     	 });
     	 listview.setOnItemLongClickListener(new OnItemLongClickListener(){
@@ -1715,5 +1718,13 @@ public class Rankings extends Activity {
 				}
 			}
 		});
+    }
+    
+    public static void randomPlayer(){
+    	int randIndex = (int)(Math.random() * ((holder.players.size()) + 1));
+    	PlayerObject randPlayer = holder.players.get(randIndex);
+    	PlayerInfo obj = new PlayerInfo();
+    	String infoKey = randPlayer.info.name + ", " + randPlayer.info.position + " - " + randPlayer.info.team;
+		obj.outputResults(infoKey, true, (Rankings)context, holder, false, true, true);
     }
 }

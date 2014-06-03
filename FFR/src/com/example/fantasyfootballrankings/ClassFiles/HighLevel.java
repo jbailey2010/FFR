@@ -16,6 +16,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
+import com.example.fantasyfootballrankings.Pages.Home;
 
 import FileIO.ReadFromFile;
 import android.content.Context;
@@ -323,11 +324,11 @@ public class HighLevel
 	{ 
 		HashMap<String, Double> points = new HashMap<String, Double>();
 		Scoring scoring = ReadFromFile.readScoring(cont);
-		qbProj("http://www.fantasypros.com/nfl/projections/qb.php", points, scoring, "QB");
-		rbProj("http://www.fantasypros.com/nfl/projections/rb.php", points, scoring, "RB");
-		wrProj("http://www.fantasypros.com/nfl/projections/wr.php", points, scoring, "WR");
-		teProj("http://www.fantasypros.com/nfl/projections/te.php", points, scoring, "TE");
-		kProj("http://www.fantasypros.com/nfl/projections/k.php", points, "K");
+		qbProj("http://www.fantasypros.com/nfl/projections/qb.php?year=" + Home.yearKey, points, scoring, "QB");
+		rbProj("http://www.fantasypros.com/nfl/projections/rb.php?year=" + Home.yearKey, points, scoring, "RB");
+		wrProj("http://www.fantasypros.com/nfl/projections/wr.php?year=" + Home.yearKey, points, scoring, "WR");
+		teProj("http://www.fantasypros.com/nfl/projections/te.php?year=" + Home.yearKey, points, scoring, "TE");
+		kProj("http://www.fantasypros.com/nfl/projections/k.php?year=" + Home.yearKey, points, "K");
 		try{
 			defProjWeekly(points, "D/ST");
 		}catch(IOException e)

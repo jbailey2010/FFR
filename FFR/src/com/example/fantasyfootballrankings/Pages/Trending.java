@@ -844,7 +844,7 @@ public class Trending extends Activity {
 				else
 				{
 					PlayerInfo obj = new PlayerInfo();
-					obj.outputResults(selected + ", " + match.info.position + " - " + match.info.team, true, (Trending)context, holder, false, false);
+					obj.outputResults(selected + ", " + match.info.position + " - " + match.info.team, true, (Trending)context, holder, false, false, false);
 				}
 			}
 	    });
