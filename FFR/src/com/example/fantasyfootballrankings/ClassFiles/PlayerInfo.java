@@ -163,7 +163,7 @@ public class PlayerInfo
 	 * @param b 
 	 */
 	public void outputResults(final String namePlayer, boolean flag, 
-			final Activity act, final Storage hold, final boolean watchFlag, boolean draftable, boolean canRand)
+			final Activity act, final Storage hold, final boolean watchFlag, final boolean draftable, boolean canRand)
 	{
 		newsList = new ArrayList<NewsObjects>();
 		checkIfFirstOpening(act, hold.isRegularSeason);
@@ -291,8 +291,6 @@ public class PlayerInfo
 				break;
 			}
 			else if(player.info.name.equals(playerName) && team.equals("") && pos.equals("") && player.info.position.equals("D/ST")){
-				System.out.println("Found maybe a match with " + playerName +", " + player.info.name);
-				System.out.println(player.info.name + ", " + player.info.team + ", " + player.info.position);
 				searchedPlayer = player;
 				break;
 			}
@@ -496,6 +494,9 @@ public class PlayerInfo
 		{ 
 			public void onClick(View v) {
 				//If it is called from trending or rankings, dismiss it
+				if(draftable){
+					Rankings.updateView(searchedPlayer);
+				}
 				if(!watchFlag)
 				{
 					dialog.dismiss();
@@ -971,7 +972,6 @@ public class PlayerInfo
 			data.add(datum);
 		}
 		//Positional SOS
-		System.out.println(holder.sos.keySet().size());
 		if(holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position)!= null && 
 				holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position) > 0 && !holder.isRegularSeason)
 		{
@@ -1292,8 +1292,6 @@ public class PlayerInfo
 			{
 				continue;
 			}
-			System.out.println(iter.info.name + ", " + iter.info.position + " - " + iter.info.team);
-			System.out.println(iter.info.adp);
 			if(iter.info.position.equals(player.info.position) && Double.parseDouble(iter.info.adp)
 					< Double.parseDouble(player.info.adp))
 			{

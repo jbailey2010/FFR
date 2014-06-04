@@ -817,7 +817,7 @@ public class HighLevel
 				}
 				String adpStr = td.get(i+6);
 				String posInd = td.get(i+1).replaceAll("(\\d+,\\d+)|\\d+", "").replaceAll("DST", "D/ST");
-				adp.put(name + posInd, adpStr);
+ 				adp.put(name + posInd, adpStr);
 			}
 		}
 		catch(ArrayIndexOutOfBoundsException notUp){

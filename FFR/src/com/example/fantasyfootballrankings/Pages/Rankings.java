@@ -1449,7 +1449,6 @@ public class Rankings extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				System.out.println("In long click");
 				String namePlayer = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
 				if(namePlayer.contains(":"))
 				{
@@ -1727,4 +1726,19 @@ public class Rankings extends Activity {
     	String infoKey = randPlayer.info.name + ", " + randPlayer.info.position + " - " + randPlayer.info.team;
 		obj.outputResults(infoKey, true, (Rankings)context, holder, false, true, true);
     }
+
+
+
+
+	public static void updateView(PlayerObject searchedPlayer) {
+		for(Map<String, String> datum : data){
+			if(datum.get("main").contains(searchedPlayer.info.name) && datum.get("sub").contains(searchedPlayer.info.position)){
+				if(watchList.contains(searchedPlayer.info.name)){
+					datum.put("hidden", "W");
+				}
+				adapter.notifyDataSetChanged();
+				break;
+			}
+		}
+	}
 }

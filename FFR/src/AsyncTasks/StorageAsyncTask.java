@@ -179,18 +179,16 @@ public class StorageAsyncTask
 			if(flag)
 			{
 				pdia.setMessage("Please wait, saving the updated rankings...");
+		        pdia.show();
 			}
-			else
-			{
-				pdia.setMessage("Please wait, saving the note...");
-			}
-	        pdia.show();
 		   super.onPreExecute();   
 		}
 
 		@Override
 		protected void onPostExecute(Void result){
-			pdia.dismiss();
+			if(flag){
+				pdia.dismiss();
+			}
 			if(!Home.holder.isRegularSeason && !isPI){
 				Toast.makeText(cont, "Note, this changed some auction values. To reflect this, refresh the rankings", Toast.LENGTH_LONG).show();
 			}
