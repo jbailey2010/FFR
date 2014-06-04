@@ -563,7 +563,7 @@ public class PlayerInfo
 		TextView text = (TextView)arg1.findViewById(R.id.text1);
 		text.setText("No note entered");
 		StorageAsyncTask obj = new StorageAsyncTask();
-	    WriteNewPAA task2 = obj.new WriteNewPAA(act, false);
+	    WriteNewPAA task2 = obj.new WriteNewPAA(act, false, true);
 	    task2.execute(holder, act);
 	}
 	
@@ -576,7 +576,7 @@ public class PlayerInfo
 		text.setText(note);
 		holder.notes.put(player.info.name + player.info.position, note);
 		StorageAsyncTask obj = new StorageAsyncTask();
-	    WriteNewPAA task2 = obj.new WriteNewPAA(act, false);
+	    WriteNewPAA task2 = obj.new WriteNewPAA(act, false, true);
 	    task2.execute(holder, act);
 	}
 

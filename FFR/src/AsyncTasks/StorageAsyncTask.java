@@ -164,12 +164,14 @@ public class StorageAsyncTask
 		Context cont;
 		ProgressDialog pdia;
 		Boolean flag;
-	    public WriteNewPAA(Context c, Boolean sw) 
+		Boolean isPI;
+	    public WriteNewPAA(Context c, Boolean sw, Boolean isPlayerInfo) 
 	    {
 	    	pdia = new ProgressDialog(c);
 	    	pdia.setCancelable(false);
 	        cont = c;
 	        flag = sw;
+	        isPI = isPlayerInfo;
 	    }
 
 		@Override
@@ -189,7 +191,7 @@ public class StorageAsyncTask
 		@Override
 		protected void onPostExecute(Void result){
 			pdia.dismiss();
-			if(!Home.holder.isRegularSeason){
+			if(!Home.holder.isRegularSeason && !isPI){
 				Toast.makeText(cont, "Note, this changed some auction values. To reflect this, refresh the rankings", Toast.LENGTH_LONG).show();
 			}
 			super.onPostExecute(result);

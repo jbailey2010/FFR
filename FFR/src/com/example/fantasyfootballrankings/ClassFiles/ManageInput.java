@@ -628,7 +628,7 @@ public class ManageInput
 				{
 					
 					StorageAsyncTask obj = new StorageAsyncTask();
-				    WriteNewPAA task2 = obj.new WriteNewPAA(cont, true);
+				    WriteNewPAA task2 = obj.new WriteNewPAA(cont, true, false);
 				    task2.execute(holder, cont);
 				    SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 				    editor.putBoolean("Home Update", true).apply();

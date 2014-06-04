@@ -775,7 +775,7 @@ public class HighLevel
 		int loopIterAdp = 10;
 		if(url.contains("ppr")){
 			adpUrl = "http://www.fantasypros.com/nfl/adp/ppr-overall.php";
-			loopIterAdp = 9;
+			loopIterAdp = 8;
 		}
 		parseADPWorker(holder, adp, adpUrl, loopIterAdp);
 		for(int i = 0; i < td.size(); i++)
