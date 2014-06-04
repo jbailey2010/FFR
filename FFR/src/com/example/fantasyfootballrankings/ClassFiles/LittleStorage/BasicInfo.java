@@ -57,6 +57,10 @@ public class BasicInfo
 		{
 			position="D/ST";
 		}
+		if(returnString.equals("WR,RB"))
+		{
+			returnString = "RB";
+		}
 		if((position.equals("TE") && player2.position.equals("QB")) || (position.equals("QB") && player2.position.equals("TE")))
 		{
 			return returnString + "BAD";
@@ -66,7 +70,7 @@ public class BasicInfo
 			returnString = position;
 		}
 		return returnString;
-	}
+	} 
 
 	
 	/**

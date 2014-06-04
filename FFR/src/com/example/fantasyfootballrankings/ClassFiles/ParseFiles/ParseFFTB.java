@@ -51,7 +51,7 @@ public class ParseFFTB
 		for(int i = 1; i < brokenUp.size(); i+=2)
 		{ 
 			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(brokenUp.get(i)));
-			String team = brokenUp.get(++i);
+			String team = ParseRankings.fixTeams(brokenUp.get(++i));
 			String pos = brokenUp.get(++i);
 			if(pos.equals("Def"))
 			{
