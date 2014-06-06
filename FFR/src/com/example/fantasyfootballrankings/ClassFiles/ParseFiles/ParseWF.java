@@ -57,23 +57,20 @@ public class ParseWF
 				break;
 			}
 			playerName = ParseRankings.fixNames(playerName.split(String.valueOf(i + 1) + "\\. ")[1]);
-			String team = "";
 			String pos="";
 			int val = 0;
 			if(!perPlayer.get(i).contains("DEF"))
 			{
-				team = ParseRankings.fixTeams(all[i][2].split(". ")[0]);
 				pos = all[i][1];
 				val = Integer.parseInt(all[i][3].substring(1, all[i][3].length()));
 			}
 			else
 			{
-				team = ParseRankings.fixTeams(playerName);
 				playerName += " D/ST";
 				pos = "D/ST";
 				val = Integer.parseInt(all[i][3].substring(1, all[i][3].length()));
 			}
-			ParseRankings.finalStretch(holder, playerName, val, team, pos);
+			ParseRankings.finalStretch(holder, playerName, val, "", pos);
 		}
 	}
 } 

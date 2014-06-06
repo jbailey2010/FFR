@@ -27,7 +27,11 @@ public class ParseDraft
 		HashMap<String, String> picks = new HashMap<String, String>();
 		for(int i = 5; i < perPick.size(); i+=5)
 		{
-			if(!ManageInput.isInteger(perPick.get(i))){
+			String pickStr = perPick.get(i);
+			if(pickStr.contains("\\. \\(")){
+				pickStr = pickStr.split("\\.")[0];
+			}
+			if(!ManageInput.isInteger(pickStr)){
 				continue;
 			}
 			String team = ParseRankings.fixTeams(perPick.get(i+1));
