@@ -226,44 +226,39 @@ public class DraftHistory extends Activity {
 	{
 		String team = ((TextView)((RelativeLayout)v).findViewById(R.id.text1)).getText().toString();
 		String sub = ((TextView)((RelativeLayout)v).findViewById(R.id.text2)).getText().toString();
-		if(sub.contains("PAA"))
-		{
-			TeamAnalysis ta = new TeamAnalysis("", team, holder, cont, ReadFromFile.readRoster(cont));
-			DecimalFormat df = new DecimalFormat("#.##");
-			StringBuilder info = new StringBuilder(2000);
-			info.append("Note: this is based on the currently calculated projections/PAA\n");
-			info.append("Set the scoring/roster settings on the home screen to this draft's settings to see accurate versions of these numbers\n\n");
-			info.append("Pos: PAA from starters (PAA total)\n\n");
-			info.append("QB: " + ta.getPosProj(ta.qbStarters) + " (" + ta.qbPAATotal + ")");
-			info.append("\n\nRB: " + ta.getPosPAA(ta.rbStarters) + " (" + ta.rbPAATotal + ")");
-			info.append("\n\nWR: " + ta.getPosPAA(ta.wrStarters) + " (" + ta.wrPAATotal + ")");
-			info.append("\n\nTE: " + ta.getPosPAA(ta.teStarters) + " (" + ta.tePAATotal + ")");
-			info.append("\n\nD/ST: "+ta.getPosPAA(ta.dStarters) +  " (" +  ta.dPAATotal + ")");
-			info.append("\n\nK: " + ta.getPosPAA(ta.kStarters) + " (" + ta.kPAATotal + ")");
-			double paaStart = ta.getStarterPAA();
-			double paaBench = ta.totalPAA - paaStart;
-			info.append("\n\nProjections from starters: " + df.format(paaStart));
-			info.append("\nProjections from bench: " + df.format(paaBench));
-			info.append("\nProjections total: " + df.format(paaStart + paaBench) + "\n");	
-			final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
-		    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
-			popUp.setContentView(R.layout.tweet_popup);
-			WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-		    lp.copyFrom(popUp.getWindow().getAttributes());
-		    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-		    popUp.getWindow().setAttributes(lp);
-		    popUp.show(); 
-		    TextView textView = (TextView)popUp.findViewById(R.id.tweet_field);
-		    textView.setText(info.toString());
-		    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
-		    close.setOnClickListener(new OnClickListener(){
-				@Override
-				public void onClick(View v) {
-					popUp.dismiss();
-				}
-		    });
-		}
+		TeamAnalysis ta = new TeamAnalysis("", team, holder, cont, ReadFromFile.readRoster(cont));
+		DecimalFormat df = new DecimalFormat("#.##");
+		StringBuilder info = new StringBuilder(2000);
+		info.append("Note: this is based on the currently calculated projections/PAA\n");
+		info.append("Set the scoring/roster settings on the home screen to this draft's settings to see accurate versions of these numbers\n\n");
+		info.append("Pos: PAA from starters (PAA total)\n\n");
+		info.append("QB: " + ta.getPosProj(ta.qbStarters) + " (" + ta.qbPAATotal + ")");
+		info.append("\n\nRB: " + ta.getPosPAA(ta.rbStarters) + " (" + ta.rbPAATotal + ")");
+		info.append("\n\nWR: " + ta.getPosPAA(ta.wrStarters) + " (" + ta.wrPAATotal + ")");
+		info.append("\n\nTE: " + ta.getPosPAA(ta.teStarters) + " (" + ta.tePAATotal + ")");
+		info.append("\n\nD/ST: "+ta.getPosPAA(ta.dStarters) +  " (" +  ta.dPAATotal + ")");
+		info.append("\n\nK: " + ta.getPosPAA(ta.kStarters) + " (" + ta.kPAATotal + ")");
+		double paaStart = ta.getStarterPAA();
+		double paaBench = ta.totalPAA - paaStart;
+		info.append("\n\nProjections from starters: " + df.format(paaStart));
+		info.append("\nProjections from bench: " + df.format(paaBench));
+		info.append("\nProjections total: " + df.format(paaStart + paaBench) + "\n");	
+		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
+	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+		popUp.setContentView(R.layout.tweet_popup);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(popUp.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    popUp.getWindow().setAttributes(lp);
+	    popUp.show(); 
+	    TextView textView = (TextView)popUp.findViewById(R.id.tweet_field);
+	    textView.setText(info.toString());
+	    Button close = (Button)popUp.findViewById(R.id.tweet_popup_close);
+	    close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				popUp.dismiss();
+			}
+	    });
 	}
-	
-	
 }

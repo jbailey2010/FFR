@@ -110,7 +110,7 @@ public class ParsingAsyncTask
 			@Override
 			protected void onPreExecute(){ 
 			   super.onPreExecute();
-			        pdia.setMessage("Please wait, fetching the rankings...(0/34)");
+			        pdia.setMessage("Please wait, fetching the rankings...(0/38)");
 			        pdia.show();    
 			}
 
@@ -156,7 +156,7 @@ public class ParsingAsyncTask
 					} catch (IOException e15) {
 	
 					} 
-			        publishProgress("Please wait, fetching the rankings...(3/34)");
+			        publishProgress("Please wait, fetching the rankings...(3/38)");
 					System.out.println("Before CBS");
 					try {
 						ParseCBS.cbsRankings(holder);
@@ -167,7 +167,7 @@ public class ParsingAsyncTask
 	
 					}
 					System.out.println("Before ESPN ADV");
-			        publishProgress("Please wait, fetching the rankings...(5/34)");
+			        publishProgress("Please wait, fetching the rankings...(5/38)");
 					/*
 					try {
 						ParseESPNadv.parseESPNAggregate(holder);
@@ -180,7 +180,7 @@ public class ParsingAsyncTask
 						// TODO Auto-generated catch block
 						e13.printStackTrace();
 					}*/
-			        publishProgress("Please wait, fetching the rankings...(6/34)");
+			        publishProgress("Please wait, fetching the rankings...(6/38)");
 			        System.out.println("Before FFTB");
 					try {
 						ParseFFTB.parseFFTBRankingsWrapper(holder);
@@ -195,7 +195,7 @@ public class ParsingAsyncTask
 						// TODO Auto-generated catch block
 						e12.printStackTrace();
 					}
-			        /*publishProgress("Please wait, fetching the rankings...(7/34)");
+			        /*publishProgress("Please wait, fetching the rankings...(7/38)");
 			        System.out.println("Before espn");
 					try {
 						ParseESPN.parseESPN300(holder);
@@ -204,7 +204,7 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e11) {
 					}*/
-			        publishProgress("Please wait, fetching the rankings...(9/34)");
+			        publishProgress("Please wait, fetching the rankings...(9/38)");
 			        System.out.println("Before Yahoo");
 					try {
 						ParseYahoo.parseYahooWrapper(holder);
@@ -213,7 +213,7 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e9) {
 					}
-			        publishProgress("Please wait, fetching the rankings...(11/34)");
+			        publishProgress("Please wait, fetching the rankings...(11/38)");
 			        System.out.println("Before Fantasy Pros");/*
 					try {
 						ParseFantasyPros.parseFantasyProsAgg(holder);
@@ -222,7 +222,7 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e8) {
 					}*/
-					publishProgress("Please wait, fetching the rankings...(17/34)");
+					publishProgress("Please wait, fetching the rankings...(17/38)");
 					System.out.println("Before PFF");
 					try {
 						ParsePFF.parsePFFWrapper(holder);
@@ -233,7 +233,7 @@ public class ParsingAsyncTask
 						// TODO Auto-generated catch block
 						e7.printStackTrace();
 					}
-					publishProgress("Please wait, fetching the rankings...(18/34)");
+					publishProgress("Please wait, fetching the rankings...(18/38)");
 					System.out.println("Before TFF");/*
 					try {
 						ParseTheFakeFootball.parseTheFakeFootballVals(holder);
@@ -242,7 +242,7 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e6) {
 					} */
-					publishProgress("Please wait, fetching the rankings...(20/34)");
+					publishProgress("Please wait, fetching the rankings...(20/38)");
 					System.out.println("Before NFL AAV");
 					/*try {
 						ParseNFL.parseNFLAAVWrapper(holder);
@@ -251,11 +251,11 @@ public class ParsingAsyncTask
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e3) {
 					}*//*
-					publishProgress("Please wait, fetching the rankings...(21/34)");*/
+					publishProgress("Please wait, fetching the rankings...(21/38)");*/
 					System.out.println("Before NFL Rankings");
 					try {
 						ParseNFL.parseNFLRankingsWrapper(holder, cont);
-						publishProgress("Please wait, fetching the rankings...(22/34)");
+						publishProgress("Please wait, fetching the rankings...(22/38)");
 					} catch (HttpStatusException e2)
 					{
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
@@ -267,7 +267,7 @@ public class ParsingAsyncTask
 					System.out.println("Before Draft Wizard Rankings");
 					try {
 						ParseDraftWizardRanks.parseRanksWrapper(holder);
-						publishProgress("Please wait, fetching the rankings...(26/34)");
+						publishProgress("Please wait, fetching the rankings...(29/38)");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -309,13 +309,14 @@ public class ParsingAsyncTask
 			    	ParseMath.convertPAA(holder, r);
 			    	ParseMath.convertPAA(holder, r);
 			    	ParseMath.convertPAA(holder, r);
-			    	publishProgress("Please wait, fetching the rankings...(30/34)");
+			    	ParseMath.convertPAA(holder, r);
+			    	publishProgress("Please wait, fetching the rankings...(34/38)");
 			    	ParseMath.convertECR(holder);
 			    	ParseMath.convertECR(holder);
-			    	publishProgress("Please wait, fetching the rankings...(32/34)");
+			    	publishProgress("Please wait, fetching the rankings...(36/38)");
 			    	ParseMath.convertADP(holder);
 			    	ParseMath.convertADP(holder);
-			    	publishProgress("Please wait, fetching the rankings...(34/34)");
+			    	publishProgress("Please wait, fetching the rankings...(38/38)");
 	    		}
 	    		
 		    	publishProgress("Please wait, normalizing auction values...");
@@ -582,6 +583,8 @@ public class ParsingAsyncTask
 					{
 						if(mustHave)
 						{
+							//Wish List
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=419610&st=");
 							//Rounds 1 and 2
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=417315&st=");
 					    	//2013 'Must Haves'
@@ -589,11 +592,11 @@ public class ParsingAsyncTask
 							//RB rankings
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=421811&st=");
 							//QB rankings
-							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=329554&st=");
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=444603&st=");
 							//WR rankings
 							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=339910&st=");
 							//TE rankings
-							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=347782&st=");
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=424362&st=");
 						}
 						if(value)
 						{
@@ -613,22 +616,24 @@ public class ParsingAsyncTask
 					 		//Rookie rankings
 				 			//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
 				 			//Draft thread
-				 			//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=345800&st=");
+				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=440599&st=");
 				 		}
 				 		if(dontWant)
 				 		{
+				 			//LVP
+				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=418626&st=");
 				 			//Overvalued
 				 			//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=334675&st=");
 				 			//Don't draft
-				 			//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=345722&st=");
+				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=425387&st=");
 				 			//Busts
 				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=430292&st=");
 				 		}
-					}
+					} 
 					else
 					{
 						if(mustHave)
-						{
+						{ 
 							//Interesting contract years/free agents
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=419241&st=");
 						}

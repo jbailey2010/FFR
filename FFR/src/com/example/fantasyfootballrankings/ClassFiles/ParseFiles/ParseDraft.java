@@ -28,20 +28,21 @@ public class ParseDraft
 		for(int i = 5; i < perPick.size(); i+=5)
 		{
 			String pickStr = perPick.get(i);
-			if(pickStr.contains("\\. \\(")){
-				pickStr = pickStr.split("\\.")[0];
+			if(pickStr.contains(". (")){ 
+				pickStr = pickStr.split("\\)")[0].split("\\(")[1];
+				System.out.println(pickStr + ": " + perPick.get(i+2));
 			}
 			if(!ManageInput.isInteger(pickStr)){
 				continue;
 			}
-			String team = ParseRankings.fixTeams(perPick.get(i+1));
+			String team = ParseRankings.fixTeams(perPick.get(i+1).split(" \\(")[0]);
 			String name = ParseRankings.fixNames(perPick.get(i+2));
 			String position = perPick.get(i+3);
-			String overall = perPick.get(i);
-			int j = Integer.parseInt(overall);
+			//String overall = perPick.get(i);
+			int j = Integer.parseInt(pickStr);
 			String round = "";
 			if(j <= 32){
-				round = "1";
+				round = "1";     
 			}
 			else if(j <= 64){
 				round = "2";
@@ -61,7 +62,7 @@ public class ParseDraft
 			else if(j <= 256){
 				round = "7";
 			}
-			String pick = round + " (" + overall + "): " + name + ", " + position + "\n";
+			String pick = round + " (" + pickStr + "): " + name + ", " + position + "\n";
 			if(picks.containsKey(team))
 			{
 				picks.put(team, picks.get(team) + pick);

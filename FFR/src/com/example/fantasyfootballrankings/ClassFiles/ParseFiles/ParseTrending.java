@@ -283,10 +283,15 @@ public class ParseTrending
 		fixes.put("kaep", "Colin Kaepernick");
 		fixes.put("iii", "iii");
 		fixes.put("payton", "payton");
-		fixes.put("rgiii", "robert Griffin III");
+		fixes.put("rgiii", "Robert Griffin III");
 		fixes.put("rg3", "Robert Griffin III");
 		fixes.put("vick", "Michael Vick");
 		fixes.put("jerry", "jerry");
+		fixes.put("jstew", "Jonathan Stewart");
+		fixes.put("dmc", "Darren McFadden");
+		fixes.put("harvin","Percy Harvin");
+		fixes.put("dola", "Danny Amendola");
+		
 		fixes.put("still", "still");
 		fixes.put("round", "round");
 		fixes.put("i'm", "i'm");

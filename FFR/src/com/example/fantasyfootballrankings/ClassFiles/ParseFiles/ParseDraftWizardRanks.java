@@ -11,9 +11,12 @@ import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 public class ParseDraftWizardRanks {
 	public static void parseRanksWrapper(Storage holder) throws IOException{
 		parseRanksWorker(holder, "http://draftwizard.fantasypros.com/editor/createFromProjections.jsp?sport=nfl&scoringSystem=PPR&showAuction=Y&teams=12");
-		parseRanksWorker(holder, "http://draftwizard.fantasypros.com/editor/createFromProjections.jsp?sport=nfl&scoringSystem=STD&showAuction=Y&teams=12");
+		parseRanksWorker(holder, "http://draftwizard.fantasypros.com/editor/createFromProjections.jsp?sport=nfl&scoringSystem=STD&showAuction=Y&teams=12&WR=2");
 		parseRanksWorker(holder, "http://draftwizard.fantasypros.com/editor/createFromProjections.jsp?sport=nfl&scoringSystem=PPR&showAuction=Y&teams=12&WR=2");
-		parseRanksWorker(holder, "http://draftwizard.fantasypros.com/editor/createFromProjections.jsp?sport=nfl&scoringSystem=PPR&showAuction=Y&teams=12&QB=2");
+		parseRanksWorker(holder, "http://draftwizard.fantasypros.com/editor/createFromProjections.jsp?sport=nfl&scoringSystem=PPR&showAuction=Y&teams=12&QB=2&WR=2");
+		parseRanksWorker(holder, "http://draftwizard.fantasypros.com/editor/createFromProjections.jsp?sport=nfl&scoringSystem=PPRauction=Y&teams=12&WR=2&WR/RB=1");
+		parseRanksWorker(holder, "http://draftwizard.fantasypros.com/editor/createFromProjections.jsp?sport=nfl&scoringSystem=PPR&showAuction=Y&teams=12&WR=2&QB/WR/RB/TE=1");
+		parseRanksWorker(holder, "http://draftwizard.fantasypros.com/editor/createFromProjections.jsp?sport=nfl&scoringSystem=PPR&showAuction=Y&teams=12&WR=2&QB/WR/RB/TE=1&WR/RB=1");
 	}
 	
 	public static void parseRanksWorker(Storage holder, String url) throws IOException{
