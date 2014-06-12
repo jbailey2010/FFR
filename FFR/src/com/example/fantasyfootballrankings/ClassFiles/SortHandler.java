@@ -319,6 +319,8 @@ public class SortHandler
 	    final CheckBox healthy = (CheckBox)dialog.findViewById(R.id.sort_second_healthy);
 	    final CheckBox run = (CheckBox)dialog.findViewById(R.id.sort_second_run);
 	    final CheckBox pass = (CheckBox)dialog.findViewById(R.id.sort_second_pass);
+	    final CheckBox sos = (CheckBox)dialog.findViewById(R.id.sort_second_sos);
+	    final CheckBox dists = (CheckBox)dialog.findViewById(R.id.sort_second_start_dist);
 	    final EditText minRanks = (EditText)dialog.findViewById(R.id.min_rankings);
 	    Button submit = (Button)dialog.findViewById(R.id.sort_second_submit);
 	    if(holder.isRegularSeason)
@@ -367,7 +369,7 @@ public class SortHandler
 						minProj = (int) maxProj;
 					}
 					handleSecSortingOptions(age.isChecked(), wl.isChecked(), cy.isChecked(), healthy.isChecked(),
-							run.isChecked(), pass.isChecked(), minRanksShown, cont);
+							run.isChecked(), pass.isChecked(), sos.isChecked(), dists.isChecked(), minRanksShown, cont);
 				}
 				else
 				{
@@ -379,9 +381,11 @@ public class SortHandler
 	
 	/**
 	 * Handles the positions/booleans, using only the real data
+	 * @param dists 
+	 * @param sos 
 	 */
 	public static void handleSecSortingOptions(boolean young, boolean wl, boolean cy, boolean healthy,
-			boolean run, boolean pass, int minimum, Context cont) {
+			boolean run, boolean pass, boolean sos, boolean dists, int minimum, Context cont) {
 		HashSet<String> posList = new HashSet<String>();
 		if(position.equals("All Positions"))
 		{
@@ -444,11 +448,21 @@ public class SortHandler
 								{
 									if(!pass || (pass && passRank > 0 && passRank < 17))
 									{
-										if(posList.contains(player.info.position))
+										int sosVal = 0;
+										if(holder.sos.get(player.info.team + "," + player.info.position)!= null && 
+												holder.sos.get(player.info.team + "," + player.info.position) > 0 && !holder.isRegularSeason)
 										{
-											if(player.values.count >= minimum)
-											{
-												players.add(player);
+											sosVal =  holder.sos.get(player.info.team + "," + player.info.position);
+										}	 
+										if(!sos || (sos && sosVal < 13)){
+											if(!dists || (dists && player.values.startDists.get("Bad") < 26)){
+												if(posList.contains(player.info.position))
+												{
+													if(player.values.count >= minimum)
+													{
+														players.add(player);
+													}
+												}
 											}
 										}
 									}

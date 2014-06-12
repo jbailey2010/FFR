@@ -22,67 +22,24 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/sort_second_close"
         android:text="Would you like to further narrow down the search?"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <CheckBox
-        android:textColor="#FFFFFF"
-        android:id="@+id/sort_second_contract_year"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:text="Contract year" />
-
-    <CheckBox
-        android:textColor="#FFFFFF"
-        android:id="@+id/sort_second_under_30"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/sort_second_contract_year"
-        android:layout_below="@+id/sort_second_contract_year"
-        android:layout_marginTop="49dp"
-        android:text="Under 30" />
-
-    <CheckBox
-        android:textColor="#FFFFFF"
-        android:id="@+id/sort_second_run"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/sort_second_contract_year"
-        android:layout_below="@+id/sort_second_contract_year"
-        android:text="Good run blocking" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sort_second_watch"
+        android:layout_below="@+id/sort_second_sos"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="How many rankings minimum should a player have shown up in?"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/min_rankings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/spinner_well"
-        android:ems="10"
-        android:textColor="#000000"
-        android:inputType="number"
-        android:text="1" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <CheckBox
         android:id="@+id/sort_second_healthy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/sort_second_run"
+        android:textSize="13sp"
         android:layout_alignParentRight="true"
         android:text="Only healthy"
         android:textColor="#FFFFFF" />
@@ -90,6 +47,7 @@
     <CheckBox
         android:id="@+id/sort_second_watch"
         android:layout_width="wrap_content"
+        android:textSize="13sp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/sort_second_under_30"
         android:layout_alignBottom="@+id/sort_second_under_30"
@@ -103,6 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/sort_second_healthy"
         android:layout_alignTop="@+id/sort_second_run"
+        android:textSize="13sp"
         android:text="Good pass \nblocking"
         android:textColor="#FFFFFF"/>
 
@@ -114,20 +73,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
         android:text="What minimum projection should players have?"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/sort_second_min_projection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/spinner_well"
-        android:text="0"
-        android:textColor="#000000"
-        android:ems="10"
-        android:inputType="number" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Button
         android:id="@+id/sort_second_submit"
@@ -152,5 +98,81 @@
         android:layout_marginLeft="20dp"
         android:background="@drawable/btn_red"
         android:text="Back" />
+
+    <CheckBox
+        android:id="@+id/sort_second_run"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sort_second_contract_year"
+        android:textSize="13sp"
+        android:layout_below="@+id/sort_second_contract_year"
+        android:text="Good run blocking"
+        android:textColor="#FFFFFF" />
+
+    <CheckBox
+        android:id="@+id/sort_second_under_30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sort_second_run"
+        android:layout_below="@+id/sort_second_pass"
+        android:text="Under 30"
+        android:textSize="13sp"
+        android:textColor="#FFFFFF" />
+    
+    <CheckBox
+        android:id="@+id/sort_second_sos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sort_second_run"
+        android:textSize="13sp"
+        android:layout_below="@+id/sort_second_under_30"
+        android:text="Easy SOS"
+        android:textColor="#FFFFFF" />
+    
+     <CheckBox
+        android:id="@+id/sort_second_start_dist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/sort_second_sos"
+        android:textSize="13sp"
+        android:layout_alignBottom="@+id/sort_second_sos"
+        android:layout_alignLeft="@+id/sort_second_healthy"
+        android:text="Consistently\ngood"
+        android:textColor="#FFFFFF" />
+
+    <CheckBox
+        android:id="@+id/sort_second_contract_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sort_second_back"
+        android:layout_below="@+id/textView1"
+        android:textSize="13sp"
+        android:text="Contract year"
+        android:textColor="#FFFFFF" />
+
+    <EditText
+        android:id="@+id/min_rankings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sort_second_min_projection"
+        android:layout_below="@+id/textView2"
+        android:background="@drawable/spinner_well"
+        android:ems="10"
+        android:inputType="number"
+        android:text="1"
+        android:textColor="#000000" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/sort_second_min_projection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/spinner_well"
+        android:ems="10"
+        android:inputType="number"
+        android:text="0"
+        android:textColor="#000000" />
 
 </RelativeLayout>
