@@ -262,9 +262,6 @@ public class ParseRankings
 	 */
 	public static void finalStretch(Storage holder, String playerName, int val, String team, String pos)
 	{
-		if(playerName.equals("Adrian Peterson")){
-			System.out.println(val);
-		}
 		String validated = fixNames(playerName);
 		String newName = Storage.nameExists(holder, validated);
 		PlayerObject newPlayer = new PlayerObject(newName, team, pos, val);
@@ -293,24 +290,24 @@ public class ParseRankings
 					if(iter.info.name.equals(newPlayer.info.name) && ! iter.info.position.equals(match.info.position))
 					{
 						handlePlayer(holder, newPlayer, iter);
-						return;
+						return; 
 					}
 				}
 				newPlayer.info.team = fixTeams(newPlayer.info.team);
 				holder.players.add(newPlayer);
 				holder.parsedPlayers.add(newPlayer.info.name);
 			}
-			Values.handleNewValue(match.values, newPlayer.values.worth);
-			if(newPlayer.info.name.equals("Adrian Peterson"))
+			Values.handleNewValue(match.values, newPlayer.values.worth); 
+			if(newPlayer.info.name.equals("Jimmy Graham"))
 			{
-				System.out.println(newPlayer.values.worth + ", for a new total of " + match.values.worth);
+				System.out.println(newPlayer.values.worth + ", " + match.values.worth + " (" + match.values.count + ")");
 			}
 			match.info.team = fixTeams(match.info.team);
 		}
-		else
+		else 
 		{
 			newPlayer.info.team = fixTeams(newPlayer.info.team);
-			if(newPlayer.info.name.equals("Adrian Peterson"))
+			if(newPlayer.info.name.equals("Jimmy Graham"))
 			{
 				System.out.println(newPlayer.values.worth);
 			}

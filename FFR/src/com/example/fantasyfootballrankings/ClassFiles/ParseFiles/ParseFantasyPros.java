@@ -10,6 +10,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
+import com.example.fantasyfootballrankings.Pages.Home;
 
 /**
  * Gets an aggregate set of auction values
@@ -26,8 +27,8 @@ public class ParseFantasyPros
 	
 	public static void parseFantasyProsAgg(Storage holder) throws IOException
 	{
-		parseFantasyProsWorker(holder, "http://www.fantasypros.com/nfl/auction-values/overall.php?teams=12", 4);
-		parseFantasyProsWorker(holder, "http://www.fantasypros.com/nfl/auction-values/overall.php?teams=10", 2);
+		parseFantasyProsWorker(holder, "http://www.fantasypros.com/nfl/auction-values/overall.php?teams=12&year=" + Home.yearKey, 4);
+		parseFantasyProsWorker(holder, "http://www.fantasypros.com/nfl/auction-values/overall.php?teams=10&year=" + Home.yearKey, 2);
 	}
 	
 	/**
@@ -37,6 +38,9 @@ public class ParseFantasyPros
 	{
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
+		if(td.size() < 5){
+			return;
+		}
 		for(int i = 0; i < td.size(); i++)
 		{
 			if(td.get(i).contains(" RB ") ||  td.get(i).contains(" QB ") || td.get(i).contains(" WR ") || td.get(i).contains(" TE ") ||

@@ -30,7 +30,6 @@ public class ParseDraft
 			String pickStr = perPick.get(i);
 			if(pickStr.contains(". (")){ 
 				pickStr = pickStr.split("\\)")[0].split("\\(")[1];
-				System.out.println(pickStr + ": " + perPick.get(i+2));
 			}
 			if(!ManageInput.isInteger(pickStr)){
 				continue;

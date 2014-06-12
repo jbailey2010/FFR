@@ -934,21 +934,7 @@ public class PlayerInfo
 			datum.put("sub", paaSub.toString());
 			data.add(datum);
 		} 
-		Scoring s = ReadFromFile.readScoring(cont2);
-		if(!holder.isRegularSeason && !searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", searchedPlayer.pointsSoFar(s) + " Points Scored Last Year");
-			datum.put("sub",  "");
-			data.add(datum);
-		}
-		if(holder.isRegularSeason && !searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST"))
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", searchedPlayer.pointsSoFar(s) + " Points Scored So Far");
-			datum.put("sub", "");
-			data.add(datum);
-		}
+		
 		if(!holder.isRegularSeason && (searchedPlayer.values.points > 0 && searchedPlayer.values.secWorth > 0)){
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", "Leverage: " + MathUtils.getLeverage(searchedPlayer, holder, cont2));
@@ -971,15 +957,7 @@ public class PlayerInfo
 			}
 			data.add(datum);
 		}
-		//Positional SOS
-		if(holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position)!= null && 
-				holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position) > 0 && !holder.isRegularSeason)
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("main", "Positional SOS: " + holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position));
-			datum.put("sub", "1 is Easiest, 32 Hardest");
-			data.add(datum);
-		}	
+
 		adapter.notifyDataSetChanged();
 	}
 	
@@ -1002,17 +980,7 @@ public class PlayerInfo
 		}
 		basicDatum.put("sub", sub);
 		data.add(basicDatum);
-		if(searchedPlayer.values.startDists.get("Bad") > 0 || searchedPlayer.values.startDists.get("Good") > 0 || 
-				searchedPlayer.values.startDists.get("Great") > 0)
-		{
-			Map<String, String> datum = new HashMap<String, String>(2);
-			HashMap<String, Integer> map = searchedPlayer.values.startDists;
-			datum.put("main", "Great starts " + map.get("Great") + "% of the time\n" + 
-					"Good starts " + map.get("Good") + "% of the time\n" + 
-					"Bad starts " + map.get("Bad") + "% of the time");
-			datum.put("sub", "Based on standard scoring point distributions from last year");
-			data.add(datum);
-		}
+
 		if(isImport)
 		{
 			String team = "Free Agent";
@@ -1067,6 +1035,21 @@ public class PlayerInfo
 			datum.put("sub", "");
 			data.add(datum);
 		} 
+		Scoring s = ReadFromFile.readScoring(a);
+		if(!holder.isRegularSeason && !searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST") && !(searchedPlayer.pointsSoFar(s) == 0.0))
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", searchedPlayer.pointsSoFar(s) + " Points Scored Last Year");
+			datum.put("sub",  "");
+			data.add(datum);
+		}
+		if(holder.isRegularSeason && !searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST") && !(searchedPlayer.pointsSoFar(s) == 0.0))
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", searchedPlayer.pointsSoFar(s) + " Points Scored So Far");
+			datum.put("sub", "");
+			data.add(datum);
+		}
 		//Injury status and stats
 		if(!searchedPlayer.info.position.equals("K") && !searchedPlayer.info.position.equals("D/ST")
 				&& !searchedPlayer.stats.equals(" ") && searchedPlayer.stats.length() > 5)
@@ -1089,6 +1072,27 @@ public class PlayerInfo
 			data.add(datum);
 
 				}	
+
+		if(searchedPlayer.values.startDists.get("Bad") > 0 || searchedPlayer.values.startDists.get("Good") > 0 || 
+				searchedPlayer.values.startDists.get("Great") > 0)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			HashMap<String, Integer> map = searchedPlayer.values.startDists;
+			datum.put("main", "Great starts " + map.get("Great") + "% of the time\n" + 
+					"Good starts " + map.get("Good") + "% of the time\n" + 
+					"Bad starts " + map.get("Bad") + "% of the time");
+			datum.put("sub", "Based on standard scoring point distributions from last year");
+			data.add(datum);
+		}
+		//Positional SOS
+		if(holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position)!= null && 
+				holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position) > 0 && !holder.isRegularSeason)
+		{
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", "Positional SOS: " + holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position));
+			datum.put("sub", "1 is Easiest, 32 Hardest");
+			data.add(datum);
+		}	
 		if(data.size() == 0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);

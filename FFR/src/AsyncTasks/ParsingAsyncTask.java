@@ -214,14 +214,14 @@ public class ParsingAsyncTask
 					} catch (IOException e9) {
 					}
 			        publishProgress("Please wait, fetching the rankings...(11/38)");
-			        System.out.println("Before Fantasy Pros");/*
+			        System.out.println("Before Fantasy Pros");
 					try {
 						ParseFantasyPros.parseFantasyProsAgg(holder);
 					} catch (HttpStatusException e2)
 					{
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e8) {
-					}*/
+					}
 					publishProgress("Please wait, fetching the rankings...(17/38)");
 					System.out.println("Before PFF");
 					try {
@@ -287,7 +287,7 @@ public class ParsingAsyncTask
 	    		{
 	    			holder.isRegularSeason = true;
 	    			System.out.println("Setting to true");
-	    		}
+	    		} 
 	    		else
 	    		{
 	    			holder.isRegularSeason = false;
@@ -409,7 +409,7 @@ public class ParsingAsyncTask
 					{
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e1) {
-					}
+					} 
 	    		}
 	    		publishProgress("Please wait, getting quality start numbers...");
 	    		try {
