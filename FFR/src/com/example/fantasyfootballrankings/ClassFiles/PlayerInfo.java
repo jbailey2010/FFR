@@ -1092,7 +1092,7 @@ public class PlayerInfo
 			datum.put("main", "Positional SOS: " + holder.sos.get(searchedPlayer.info.team + "," + searchedPlayer.info.position));
 			datum.put("sub", "1 is Easiest, 32 Hardest");
 			data.add(datum);
-		}	
+		}	 
 		if(data.size() == 0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);

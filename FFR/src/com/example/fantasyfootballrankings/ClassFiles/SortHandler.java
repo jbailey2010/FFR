@@ -1045,12 +1045,12 @@ public class SortHandler
 			{
 				int sosa = 0;
 				int sosb = 0;
-				if(holder.isRegularSeason)
+				if(!holder.isRegularSeason)
 				{
 					sosa = holder.sos.get(a.info.team + "," + a.info.position);
 					sosb = holder.sos.get(b.info.team + "," + b.info.position);
 				}
-				else if(!holder.isRegularSeason)
+				else if(holder.isRegularSeason)
 				{
 					sosa = holder.sos.get(a.info.adp + "," + a.info.position);
 					sosb = holder.sos.get(b.info.adp + "," + b.info.position);
