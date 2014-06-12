@@ -782,7 +782,7 @@ public class Trending extends Activity {
 	    } 
 	    //final ArrayAdapter<String> mAdapter = ManageInput.handleArray(trendingPlayers, listview, cont);
 	    mAdapter = new SimpleAdapter(cont, data, 
-	    		R.layout.web_listview_item, 
+	    		R.layout.bold_header_elem_underlined, 
 	    		new String[] {"name", "count"}, 
 	    		new int[] {R.id.text1, 
 	    			R.id.text2});

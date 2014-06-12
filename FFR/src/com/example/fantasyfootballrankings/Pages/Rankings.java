@@ -1327,12 +1327,12 @@ public class Rankings extends Activity {
 				Home.holder = holder;
 			}
 	    	refreshed = false;
-	    }
+	    } 
 	    listview = (OutBounceListView) cont.findViewById(R.id.listview_rankings);
 	    listview.setAdapter(null);
 	    data = new ArrayList<Map<String, String>>();
 	    adapter = new SimpleAdapter(cont, data, 
-	    		R.layout.web_listview_item, 
+	    		R.layout.bold_header_elem_underlined, 
 	    		new String[] {"main", "sub", "hidden"}, 
 	    		new int[] {R.id.text1, 
 	    			R.id.text2, R.id.text3});
