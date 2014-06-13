@@ -42,7 +42,7 @@ public class ParseFFTB
 	 * @param holder the storage unit to write to
 	 * @param url the url to be parsed
 	 * @throws XPatherException 
-	 * @throws IOException 
+	 * @throws IOException  
 	 * @throws MalformedURLException  
 	 */
 	public static void parseFFTBPage(Storage holder, String url) throws MalformedURLException, IOException, XPatherException
@@ -59,7 +59,7 @@ public class ParseFFTB
 			}
 			String age = brokenUp.get(i+=2);
 			String val = brokenUp.get(i+=2);
-			if(team.split(" ").length <= 2)
+			if(team.split(" ").length <= 3)
 			{
 				val = val.substring(1, val.length());
 				//String validated = ParseRankings.fixNames(name);
