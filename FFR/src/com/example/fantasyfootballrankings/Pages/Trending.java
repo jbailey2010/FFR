@@ -210,6 +210,9 @@ public class Trending extends Activity {
 				{
 					Toast.makeText(cont, "Can't limit quantity until the rankings are loaded", Toast.LENGTH_SHORT).show();
 				}
+				else if(holder.posts == null || holder.posts.size() == 0){
+					Toast.makeText(cont, "You have to fetch the posts (press filter) to do this", Toast.LENGTH_SHORT).show(); 
+				}
 				else
 				{
 					filterQuantity();
