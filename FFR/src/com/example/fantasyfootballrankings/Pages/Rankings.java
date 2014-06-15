@@ -759,7 +759,7 @@ public class Rankings extends Activity {
 				}
 				else
 				{
-					Toast.makeText(cont, "Not a valid player name", Toast.LENGTH_SHORT).show();
+					Toast.makeText(cont, "Not a valid player name or improper format. Please use the dropdown to help", Toast.LENGTH_LONG).show();
 				}
 			}
 			
