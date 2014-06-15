@@ -381,7 +381,6 @@ public class PlayerInfo
 		if(searchedPlayer.info.position.length() >= 1 && searchedPlayer.info.team.length() > 1)
 		{
 			Button leftPos = (Button)dialog.findViewById(R.id.dummy_btn_left);
-			System.out.println(searchedPlayer.info.age);
 			leftPos.setText("Age:\n" + searchedPlayer.info.age);
 			Button rightPos = (Button)dialog.findViewById(R.id.dummy_btn_right);
 			rightPos.setText("Bye:\n" + holder.bye.get(searchedPlayer.info.team));
@@ -389,15 +388,6 @@ public class PlayerInfo
 			centerPos.setText(searchedPlayer.info.team + "\n" + searchedPlayer.info.position);
 			if(searchedPlayer.info.position.equals("D/ST") || searchedPlayer.info.age == null || searchedPlayer.info.age.length() <= 1)
 			{
-				if(searchedPlayer.info.position.equals("D/ST")){
-					System.out.println("Position is defense ?!");
-				}
-				if(searchedPlayer.info.age == null){
-					System.out.println("Age is null ?");
-				}
-				if(searchedPlayer.info.age == null && searchedPlayer.info.age.length() <= 1){
-					System.out.println("Age is short ?");
-				}
 				leftPos.setText("Age:\nN/A");
 			}
 			if(searchedPlayer.info.team.equals("None") || searchedPlayer.info.team.equals("---") || searchedPlayer.info.team.equals("FA"))
