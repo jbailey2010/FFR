@@ -838,7 +838,9 @@ public class Trending extends Activity {
 				}
 				if(index == -1 && holder.players.size() > 10)
 				{
-					Toast.makeText(context, "Information not found, player not parsed. Possibly a defensive player?", Toast.LENGTH_SHORT).show();
+					if(!selected.contains("No players mentioned") && !selected.contains("The posts are fetched")){
+						Toast.makeText(context, "Information not found, player not parsed. Possibly a defensive player?", Toast.LENGTH_SHORT).show();
+					}
 				}
 				else if(index == -1)
 				{
