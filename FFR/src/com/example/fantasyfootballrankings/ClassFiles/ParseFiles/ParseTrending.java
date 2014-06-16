@@ -289,8 +289,8 @@ public class ParseTrending
 					lastName = playerName.split(" ")[2];
 				}
 			}
-			fixes.put(firstLetter + "." + lastName, playerName);
-			fixes.put(firstLetter + lastName, playerName);
+			fixes.put((firstLetter + "." + lastName).toLowerCase(), playerName);
+			fixes.put((firstLetter + lastName).toLowerCase(), playerName);
 		}
 		fixes.put("megatron", "Calvin Johnson");
 		fixes.put("calvin", "Calvin Johnson");
