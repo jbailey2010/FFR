@@ -138,8 +138,11 @@ public class Rankings extends Activity {
 	    	        cont.startActivity(intent2);	
 	                break;
 	            case R.id.side_navigation_menu_item3:
+	            	/*
 	            	Intent intent5 = new Intent(cont, ImportLeague.class);
 	    	        cont.startActivity(intent5);
+	    	        */
+	            	Toast.makeText(cont, "Still in development, should be available soon!", Toast.LENGTH_SHORT).show();
 	                break;
 	            case R.id.side_navigation_menu_item4:
 	            	Intent intent3 = new Intent(cont, Trending.class);

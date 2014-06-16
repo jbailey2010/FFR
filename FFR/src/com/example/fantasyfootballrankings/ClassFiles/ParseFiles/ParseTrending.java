@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -158,7 +159,8 @@ public class ParseTrending
 		{
 			ReadFromFile.fetchNames(holder, cont);
 		}
-		
+		HashMap<String, PostedPlayer> playerSet = new HashMap<String, PostedPlayer>();
+		HashSet<String> playerNames = new HashSet<String>();
 		for(int i = 0; i < posts.size(); i++)
 		{
 			Post elem = posts.get(i);
@@ -177,14 +179,14 @@ public class ParseTrending
 				{
 					capFirst = Character.toUpperCase(firstName.charAt(0)) + firstName.substring(1);
 					capLast = Character.toUpperCase(lastName.charAt(0)) + lastName.substring(1);
-				}
-				if(holder.playerNames.contains(firstName + " " + lastName) || 
-						holder.playerNames.contains(capFirst + " " + capLast))
+				} 
+				String nameB = capFirst + " " + capLast;
+				if(holder.playerNames.contains(nameB))
 				{
 					boolean inserted = false;
                     for (PostedPlayer e : holder.postedPlayers)
                     {
-                    	if(e.name.equals(capFirst + " " + capLast))
+                    	if(e.name.equals(nameB))
                         {
                     		holder.postedPlayers.remove(e);
                             e.count++;
@@ -195,7 +197,7 @@ public class ParseTrending
                     }
 					if(inserted == false)
 					{
-						PostedPlayer newPlayer = new PostedPlayer(capFirst + " " + capLast, 1);
+						PostedPlayer newPlayer = new PostedPlayer(nameB, 1);
 						newPlayer.times.add(len);
 						holder.postedPlayers.add(newPlayer);
 					}
