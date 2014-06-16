@@ -111,7 +111,7 @@ public class ParseTrending
 			super.onPreExecute();
 		    pdia.setMessage("Please wait, checking the posts. This could take a few minutes...");
 		    pdia.show();    
-		    setUpFixes();
+		    
 		}
 
 		@Override
@@ -127,6 +127,7 @@ public class ParseTrending
 	    {
 	    	Storage holder = (Storage) data[0];
 	    	Context cont = (Context) data[1];
+	    	setUpFixes(holder);
 	    	inter = cont;
 			try {
 				filterComments(holder, cont);
@@ -157,6 +158,7 @@ public class ParseTrending
 		{
 			ReadFromFile.fetchNames(holder, cont);
 		}
+		
 		for(int i = 0; i < posts.size(); i++)
 		{
 			Post elem = posts.get(i);
@@ -269,9 +271,27 @@ public class ParseTrending
 	
 	/**
 	 * Sets up the fixes hashmap
+	 * @param holder 
 	 */
-	public static void setUpFixes()
+	public static void setUpFixes(Storage holder)
 	{
+		for(String playerName : holder.playerNames){
+			Character firstLetter = playerName.split(" ")[0].charAt(0);
+			String lastName = "";
+			if(playerName.split(" ").length == 2){
+				lastName = playerName.split(" ")[1];
+			}
+			else{
+				if(playerName.split(" ")[2].equals("III")){
+					lastName = playerName.split(" ")[1];
+				}
+				else{
+					lastName = playerName.split(" ")[2];
+				}
+			}
+			fixes.put(firstLetter + "." + lastName, playerName);
+			fixes.put(firstLetter + lastName, playerName);
+		}
 		fixes.put("megatron", "Calvin Johnson");
 		fixes.put("calvin", "Calvin Johnson");
 		fixes.put("matthews", "Ryan Mathews");
