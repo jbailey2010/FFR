@@ -183,23 +183,18 @@ public class ParseTrending
 				String nameB = capFirst + " " + capLast;
 				if(holder.playerNames.contains(nameB))
 				{
-					boolean inserted = false;
-                    for (PostedPlayer e : holder.postedPlayers)
-                    {
-                    	if(e.name.equals(nameB))
-                        {
-                    		holder.postedPlayers.remove(e);
-                            e.count++;
-                            e.times.add(len);
-                            holder.postedPlayers.add(e);
-                            inserted = true;
-                        }
-                    }
-					if(inserted == false)
+					if(playerNames.contains(nameB)){
+						PostedPlayer p = playerSet.get(nameB);
+						p.count += 1;
+						p.times.add(len);
+						playerSet.put(nameB, p);
+					}
+					else
 					{
 						PostedPlayer newPlayer = new PostedPlayer(nameB, 1);
 						newPlayer.times.add(len);
-						holder.postedPlayers.add(newPlayer);
+						playerSet.put(nameB, newPlayer);
+						playerNames.add(nameB);
 					}
 				}
 				else 
@@ -246,28 +241,26 @@ public class ParseTrending
 						}
 						if(found && key != -1)
 						{
-							boolean inserted = false;
-		                    for (PostedPlayer e : holder.postedPlayers)
-		                    {
-		                    	if(e.name.equals(foundKey))
-		                        {
-		                    		holder.postedPlayers.remove(e);
-		                            e.count++;
-		                            e.times.add(len);
-		                            holder.postedPlayers.add(e);
-		                            inserted = true;
-		                        }
-		                    }
-							if(inserted == false && !foundKey.contains("D/ST"))
+							if(playerNames.contains(foundKey)){
+								PostedPlayer p = playerSet.get(foundKey);
+								p.count += 1;
+								p.times.add(len);
+								playerSet.put(foundKey, p);
+							}
+							else if(!foundKey.contains("D/ST"))
 							{
 								PostedPlayer newPlayer = new PostedPlayer(foundKey, 1);
 								newPlayer.times.add(len);
-								holder.postedPlayers.add(newPlayer);
+								playerSet.put(foundKey, newPlayer);
+								playerNames.add(foundKey);
 							}
 						}
 					}
 				}
 			}
+		}
+		for(String name : playerNames){
+			holder.postedPlayers.add(playerSet.get(name));
 		}
 	}
 	
