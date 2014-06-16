@@ -66,6 +66,7 @@ public class ParseTrending
 	public static void setUpLists(Storage holderIn, int length, Context cont) throws ParseException, IOException
 	{
 		holder = holderIn;
+		posts.clear();
 		if(length == 365)
 		{
 			for(Post e:holder.posts)
@@ -396,7 +397,7 @@ public class ParseTrending
 	public static void getPosts(Storage holder, String url) throws IOException
 	{
 		int length = trendingPlayersLength(url);
-		holder.posts = parseForum(length, url);
+		holder.posts.addAll(parseForum(length, url));
 	}
 	
 	/**
@@ -410,7 +411,7 @@ public class ParseTrending
 	public static List<Post> parseForum(int length, String url) throws IOException
 	{
 		List<Post> posts = new ArrayList<Post>();
-		for(int i = 0; i < length; i++)
+		for(int i = 0; i < length; i++) 
 		{
 			String newUrl = url + Integer.toString(i*20);
 			Document doc = Jsoup.connect(newUrl).timeout(0).get();

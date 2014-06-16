@@ -527,7 +527,7 @@ public class ParsingAsyncTask
 		 * @author Jeff
 		 *
 		 */
-		public class FetchTrends extends AsyncTask<Object, Void, Void> 
+		public class FetchTrends extends AsyncTask<Object, String, Void> 
 		{
 			Activity act;
 			ProgressDialog pdia;
@@ -565,6 +565,13 @@ public class ParsingAsyncTask
 			   }
 			   Trending.setContent(act, flag);
 			}
+			
+			@Override
+		    public void onProgressUpdate(String... values)
+		    {
+		    	super.onProgressUpdate(values);
+		    	pdia.setMessage((String) values[0]);
+		    }
 	    	
 		    @Override
 		    protected Void doInBackground(Object... data) 
@@ -656,6 +663,11 @@ public class ParsingAsyncTask
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				}
+				if(holder.posts.size() > 1)
+				{
+					publishProgress("Please wait, saving the posts...");
+					WriteToFile.writePosts(holder, act);
 				}
 				return null;
 		    }
