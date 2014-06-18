@@ -124,20 +124,27 @@ public class StorageAsyncTask
 		
 		List<String> trendingPlayers;
 		Activity act;
+		ProgressDialog pdia;
+		
 	    public WritePostsListAsync(Activity activity, List<String> trend) 
 	    {
 	    	act = activity;
+	    	 pdia = new ProgressDialog(activity);
+		     pdia.setCancelable(false);
 	    	trendingPlayers = trend;
 	    }
 
 	    @Override
 		protected void onPreExecute(){ 
 		   super.onPreExecute();   
+		   pdia.setMessage("Please wait, saving the posts, this should only take a minute...");
+	       pdia.show(); 
 		}
 	    
 		@Override
 		protected void onPostExecute(Void result){
 		   super.onPostExecute(result);
+		   pdia.dismiss();
 		}
 
 	    @Override
@@ -426,6 +433,7 @@ public class StorageAsyncTask
 	    {
 	    	Storage holder = (Storage) data[0];
 	    	cont = (Context) data[1];
+	    	holder.posts.clear();
 	   		//Get the aggregate rankings
 	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 			String checkExists = prefs.getString("Posts", "Not Set");
