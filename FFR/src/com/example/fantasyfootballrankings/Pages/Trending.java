@@ -288,7 +288,7 @@ public class Trending extends Activity {
 			{
 				String[] posts = ManageInput.tokenize(storedPosts, '#', 2);
 				mAdapter = new SimpleAdapter(cont, data, 
-			    		R.layout.web_listview_item, 
+			    		R.layout.bold_header_elem_underlined, 
 			    		new String[] {"name", "count"}, 
 			    		new int[] {R.id.text1, 
 			    			R.id.text2});
@@ -297,51 +297,58 @@ public class Trending extends Activity {
 					try{
 						String[] nameSet = post.split(": mentioned ");
 						Map<String, String> datum = new HashMap<String, String>(2);
-						final String name = nameSet[0];
-						final StringBuilder sec = new StringBuilder();
-						sec.append(nameSet[1].split("//")[1]);
-						datum.put("name", name + "");
-						datum.put("count", sec.toString());
-						PlayerObject match = new PlayerObject();
-						for(PlayerObject player : holder.players)
-						{
-							if(player.info.name.equals(name))
-							{
-								match = player;
-								break;
-							}
+						if(nameSet[0].contains("No players mentioned")){
+							datum.put("name", "No players mentioned in this timeframe");
+							datum.put("count", "Please try something else");
+							data.add(datum);
 						}
-						if(match.info != null && match.info.name != null)
-						{
-							EntityUtils.getEntity(this, "http://www.ffr.com/" + match.info.name + ", " + match.info.position + "/pi" + Home.yearKey, new EntityGetListener() {
-					    		@Override
-					    		public void onError(SocializeException error) {
-					    			if(isNotFoundError(error)) {
-					    				// No entity found
-					    			}
-					    			else {
-					    				// lol at handle error
-					    			}
-					    		}
-	
-								@Override
-								public void onGet(com.socialize.entity.Entity result) {
-									EntityStats es = result.getEntityStats();
-									int views = es.getViews();
-									for(Map<String, String> elem : data)
-									{
-										if(elem.get("name").equals(name))
+						else{
+							final String name = nameSet[0];
+							final StringBuilder sec = new StringBuilder();
+							sec.append(nameSet[1].split("//")[1]);
+							datum.put("name", name + "");
+							datum.put("count", sec.toString());
+							PlayerObject match = new PlayerObject();
+							for(PlayerObject player : holder.players)
+							{
+								if(player.info.name.equals(name))
+								{
+									match = player;
+									break;
+								}
+							}
+							if(match.info != null && match.info.name != null)
+							{
+								EntityUtils.getEntity(this, "http://www.ffr.com/" + match.info.name + ", " + match.info.position + "/pi" + Home.yearKey, new EntityGetListener() {
+						    		@Override
+						    		public void onError(SocializeException error) {
+						    			if(isNotFoundError(error)) {
+						    				// No entity found
+						    			}
+						    			else {
+						    				// lol at handle error
+						    			}
+						    		}
+		
+									@Override
+									public void onGet(com.socialize.entity.Entity result) {
+										EntityStats es = result.getEntityStats();
+										int views = es.getViews();
+										for(Map<String, String> elem : data)
 										{
-											elem.put("count", elem.get("count") + "\n" + views + " total player views");
-											mAdapter.notifyDataSetChanged();
-											break;
+											if(elem.get("name").equals(name))
+											{
+												elem.put("count", elem.get("count") + "\n" + views + " total player views");
+												mAdapter.notifyDataSetChanged();
+												break;
+											}
 										}
 									}
-								}
-					    	});
+						    	});
+							}
+							data.add(datum);
+							postsList.add(post);
 						}
-						data.add(datum);
-						postsList.add(post);
 					} catch(ArrayIndexOutOfBoundsException e)
 					{
 						continue;
@@ -776,7 +783,7 @@ public class Trending extends Activity {
 	    if(data.size() == 0)
 	    {
 	    	Map<String, String> datum = new HashMap<String, String>(2);
-	    	datum.put("name", "No players mentioned in this timeframe\n");
+	    	datum.put("name", "No players mentioned in this timeframe");
 	    	datum.put("count", "Please try something else");
 	    	trendingPlayers.add("No players mentioned in this timeframe" + ": mentioned " + "Please try something else" + " times//");
 	    	data.add(datum);
