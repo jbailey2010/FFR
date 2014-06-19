@@ -57,6 +57,7 @@ public class TeamAnalysis
 		r = roster;
 		teamName = name;
 		team = teamStr;
+		holder = hold;
 		String[] qb = teamStr.split("Quarterbacks: ")[1].split("\n")[0].split(", ");
 		String[] rb = teamStr.split("Running Backs: ")[1].split("\n")[0].split(", ");
 		String[] wr = teamStr.split("Wide Receivers: ")[1].split("\n")[0].split(", ");
@@ -64,7 +65,6 @@ public class TeamAnalysis
 		String[] d = teamStr.split("D/ST: ")[1].split("\n")[0].split(", ");
 		String[] k = teamStr.split("Kickers: ")[1].split("\n")[0].split(", ");
 		manageStarters(qb, rb, wr, te, d, k);
-		holder = hold;
 		qbPAATotal = paaPos(qb);
 		rbPAATotal = paaPos(rb);
 		wrPAATotal = paaPos(wr);
@@ -96,8 +96,9 @@ public class TeamAnalysis
 		String[] posSet = team.team.split("\n");
 		for(String pos : posSet)
 		{
-			if(!pos.contains("None "))
+			if(!pos.contains("None ") && pos.contains(":"))
 			{
+				
 				String position = posFix.get(pos.split(": ")[0]);
 				String[] playerList = pos.split(": ")[1].split(", ");
 				for(String name: playerList)
@@ -387,11 +388,12 @@ public class TeamAnalysis
 	 * Gets the paa of an individual position
 	 */
 	public double getPosPAA(List<PlayerObject> players){
+		DecimalFormat df = new DecimalFormat("#.##");
 		double total = 0.0;
 		for(PlayerObject player : players){
 			total += player.values.paa;
 		}
-		return total;
+		return Double.valueOf(df.format(total));
 	}
 	
 	/**

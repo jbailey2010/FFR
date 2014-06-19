@@ -114,6 +114,7 @@ public class HandleSentiment {
 	    {
 	    	StringBuilder str = new StringBuilder(1000);
 	    	for(NewsObjects news : newsList){
+	    		
 	    		str.append(news.news + " ");
 	    	}
 			String jSon = (sentimentParsing(str.toString()));

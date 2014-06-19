@@ -230,13 +230,13 @@ public class DraftHistory extends Activity {
 	{
 		String team = ((TextView)((RelativeLayout)v).findViewById(R.id.text1)).getText().toString();
 		String sub = ((TextView)((RelativeLayout)v).findViewById(R.id.text2)).getText().toString();
-		TeamAnalysis ta = new TeamAnalysis("", team, holder, cont, ReadFromFile.readRoster(cont));
+		TeamAnalysis ta = new TeamAnalysis("", sub, holder, cont, ReadFromFile.readRoster(cont));
 		DecimalFormat df = new DecimalFormat("#.##");
 		StringBuilder info = new StringBuilder(2000);
 		info.append("Note: this is based on the currently calculated projections/PAA\n");
 		info.append("Set the scoring/roster settings on the home screen to this draft's settings to see accurate versions of these numbers\n\n");
 		info.append("Pos: PAA from starters (PAA total)\n\n");
-		info.append("QB: " + ta.getPosProj(ta.qbStarters) + " (" + ta.qbPAATotal + ")");
+		info.append("QB: " + ta.getPosPAA(ta.qbStarters) + " (" + ta.qbPAATotal + ")");
 		info.append("\n\nRB: " + ta.getPosPAA(ta.rbStarters) + " (" + ta.rbPAATotal + ")");
 		info.append("\n\nWR: " + ta.getPosPAA(ta.wrStarters) + " (" + ta.wrPAATotal + ")");
 		info.append("\n\nTE: " + ta.getPosPAA(ta.teStarters) + " (" + ta.tePAATotal + ")");
