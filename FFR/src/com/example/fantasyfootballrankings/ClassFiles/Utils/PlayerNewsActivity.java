@@ -67,12 +67,11 @@ public class PlayerNewsActivity {
 				}
 				if(indivTweets.size() > 0){
 					for(String tweet : indivTweets){
-						if(!tweet.contains("RT @")){
-							String before = tweet.split(" @")[0];
-							String sub = "@" + tweet.split(" @")[1];
-							NewsObjects obj = new NewsObjects(before, sub, "");
-							newsList.add(obj);
-						}
+						int lastInd = tweet.lastIndexOf('@');
+						String before = tweet.substring(0, lastInd);
+						String sub = tweet.substring(lastInd);
+						NewsObjects obj = new NewsObjects(before, sub, "");
+						newsList.add(obj);
 					}
 				}
 			} catch (IOException e) {

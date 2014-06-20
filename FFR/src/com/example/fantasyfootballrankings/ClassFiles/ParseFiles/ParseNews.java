@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseRotoWorldNews;
@@ -18,6 +20,7 @@ import android.content.Context;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.TwitterWork;
+import com.example.fantasyfootballrankings.Pages.Home;
 /**
  * A library to handle the parsing of news
  * @author Jeff
@@ -114,6 +117,34 @@ public class ParseNews
 		}
 		return newsSet;
 	}
+	
+	public static List<NewsObjects> parseMFL() throws IOException 
+	{
+		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
+		String url = "http://football.myfantasyleague.com/" + Home.yearKey + "/news_articles";
+		Document doc = Jsoup.connect(url).timeout(0).get();
+		List<String> title = HandleBasicQueries.handleListsMulti(doc, url, "td.headline b a");
+		Elements elems = doc.select("tr.oddtablerow");
+		Elements elems2 = doc.select("tr.eventablerow");
+		List<String> news = new ArrayList<String>();
+		for(int i = 0; i < elems.size(); i++){
+			Element odd = elems.get(i).child(2);
+			Element even= elems2.get(i).child(2);
+			news.add(odd.text());
+			news.add(even.text());
+		}
+		List<String> time = HandleBasicQueries.handleListsMulti(doc, url, "td.timestamp");
+		for(int i = 0; i < 75; i++){
+			String newsStr = news.get(i);
+			newsStr = newsStr.substring(newsStr.indexOf(")") + 2);
+			if(newsStr.contains("...")){
+				newsStr = newsStr.split("...")[0];
+			}
+			NewsObjects newsObj = new NewsObjects(title.get(i), newsStr, time.get(i) + " ago");
+			newsSet.add(newsObj);
+		}
+		return newsSet;
+	}
 
 
 	/**
@@ -131,12 +162,13 @@ public class ParseNews
 	/**
 	 * Handles conditionally fetching the news
 	 * @param cont
+	 * @param b 
 	 */
-	public static void startNewsAsync(Context cont, boolean rh, boolean rp, boolean th, boolean cbs, boolean si) 
+	public static void startNewsAsync(Context cont, boolean rh, boolean rp, boolean th, boolean cbs, boolean si, boolean b) 
 	{
 		ParsingAsyncTask stupid = new ParsingAsyncTask();
 		ParseRotoWorldNews news = stupid.new ParseRotoWorldNews(cont);
-		news.execute(cont, rh, rp, th, cbs, si);
+		news.execute(cont, rh, rp, th, cbs, si, b);
 	}
 	
 	/**

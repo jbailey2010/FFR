@@ -765,6 +765,7 @@ public class ParsingAsyncTask
 		    	boolean th = (Boolean)data[3];
 		    	boolean cbs = (Boolean)data[4];
 		    	boolean si = (Boolean)data[5];
+		    	boolean mfl = (Boolean)data[6];
 		    	try {
 		    		List<NewsObjects> news = new ArrayList<NewsObjects>(100);
 		    		if(rh)
@@ -783,14 +784,17 @@ public class ParsingAsyncTask
 		    		{
 		    			news = ParseNews.parseCBS();
 		    		}
-		    		else if(si)
+		    		else if(si) 
 		    		{
 		    			news = ParseNews.parseSI();
 		    		}
-		    		WriteToFile.writeNewsRoto(cont, news, rh, rp, th, cbs, si);
+		    		else if(mfl)
+		    		{
+		    			 news = ParseNews.parseMFL();
+		    		}
+		    		WriteToFile.writeNewsRoto(cont, news, rh, rp, th, cbs, si, mfl);
 					return news;
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				return null;

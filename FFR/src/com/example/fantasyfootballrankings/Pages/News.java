@@ -237,7 +237,8 @@ public class News extends Activity {
 		boolean thCheck = prefs.getBoolean("Use The Huddle", false);
 		boolean cCheck = prefs.getBoolean("Use CBS News", false);
 		boolean siCheck = prefs.getBoolean("Use SI News", false);
-		if(!rpCheck && !rhCheck && !thCheck)
+		boolean mflCheck = prefs.getBoolean("Use MFL News", false);
+		if(!rpCheck && !rhCheck && !thCheck && !mflCheck && !siCheck)
 		{
 			rhCheck = true;
 		}
@@ -246,11 +247,13 @@ public class News extends Activity {
     	final RadioButton th = (RadioButton)dialog.findViewById(R.id.the_huddle_news);
     	final RadioButton cbs = (RadioButton)dialog.findViewById(R.id.cbs_news);
     	final RadioButton si = (RadioButton)dialog.findViewById(R.id.si_news);
+    	final RadioButton mfl = (RadioButton)dialog.findViewById(R.id.mfl_news);
     	rh.setChecked(rhCheck);
     	rp.setChecked(rpCheck);
     	th.setChecked(thCheck);
     	cbs.setChecked(cCheck);
     	si.setChecked(siCheck);
+    	mfl.setChecked(mflCheck);
 		Button submit = (Button)dialog.findViewById(R.id.button_news_confirm);
 		submit.setOnClickListener(new View.OnClickListener()
 		{	
@@ -258,7 +261,7 @@ public class News extends Activity {
             public void onClick(View v) 
             {
             	ParseNews.startNewsAsync(cont, rh.isChecked(), rp.isChecked(), th.isChecked(),
-            			cbs.isChecked(), si.isChecked());
+            			cbs.isChecked(), si.isChecked(), mfl.isChecked());
             	if(rh.isChecked())
             	{
             		selection = "Rotoworld Headline News";
@@ -278,6 +281,9 @@ public class News extends Activity {
             	else if(si.isChecked())
             	{
             		selection = "Sports Illustrated News";
+            	}
+            	else if(mfl.isChecked()){
+            		selection = "My Fantasy League News";
             	}
             	setHeader(selection);
             	WriteToFile.writeNewsSelection(cont, selection);

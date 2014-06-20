@@ -10,7 +10,12 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="91dp" >
-
+		<RadioButton
+            android:id="@+id/mfl_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MFL Player News"
+            android:textColor="#FFFFFF" />
         <RadioButton
             android:id="@+id/rotoworld_headlines"
             android:layout_width="wrap_content"
@@ -43,6 +48,7 @@
             android:layout_height="wrap_content"
             android:text="SI Player News"
             android:textColor="#FFFFFF" />
+        
     </RadioGroup>
 
     <TextView

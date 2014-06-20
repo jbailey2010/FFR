@@ -201,7 +201,7 @@ public class WriteToFile {
 	 * @param news
 	 */
 	public static void writeNewsRoto(Context cont, List<NewsObjects> news, boolean rh, boolean rp, 
-			boolean th, boolean cbs, boolean si)
+			boolean th, boolean cbs, boolean si, boolean mfl)
 	{
     	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
     	StringBuilder newsSet = new StringBuilder(10000);
@@ -215,6 +215,7 @@ public class WriteToFile {
     	editor.putBoolean("Use The Huddle", th);
     	editor.putBoolean("Use CBS News", cbs);
     	editor.putBoolean("Use SI News", si);
+    	editor.putBoolean("Use MFL News", mfl);
     	editor.putString("News RotoWorld", newsSet.toString()).apply();
 	}
 	
