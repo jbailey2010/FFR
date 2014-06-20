@@ -68,6 +68,7 @@ import com.example.fantasyfootballrankings.Pages.Trending;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile; 
+import android.R;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -100,7 +101,7 @@ public class ParsingAsyncTask
 		    public ParseRanks(Activity activity, Storage holder) 
 		    {
 		    	SharedPreferences prefs = activity.getSharedPreferences("FFR", 0); 
-				draftIter = prefs.getInt("Parse Count", 0);
+				draftIter = prefs.getInt("Parse Count", 0); 
 		        pdia = new ProgressDialog(activity);
 		        pdia.setCancelable(false);
 		        act = activity;

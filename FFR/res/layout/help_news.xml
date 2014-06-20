@@ -51,6 +51,16 @@
         android:layout_marginTop="16dp"
         android:text="If you see something show up that&apos;s not relevant, you can swipe it to the side to hide it. Note that this isn&apos;t permanent."
         android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView6"
+        android:layout_marginTop="16dp"
+        android:text="If you click on a news element with a player's name in the bold text, information will pop up. Note that this will not happen if there is a link anywhere in the element."
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/textView4"

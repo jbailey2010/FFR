@@ -38,4 +38,9 @@
         android:orderInCategory="100"
         android:showAsAction="never" 
         android:title="Rankings Help"/> 
+    <item
+        android:id="@+id/stats_help"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Stats Summary"/>
 </menu>

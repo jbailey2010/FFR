@@ -137,8 +137,8 @@ public class ParseNews
 		for(int i = 0; i < 75; i++){
 			String newsStr = news.get(i);
 			newsStr = newsStr.substring(newsStr.indexOf(")") + 2);
-			if(newsStr.contains("...")){
-				newsStr = newsStr.split("...")[0];
+			if(newsStr.contains("... (More)")){
+				newsStr = newsStr.split("\\(More\\)")[0];
 			}
 			NewsObjects newsObj = new NewsObjects(title.get(i), newsStr, time.get(i) + " ago");
 			newsSet.add(newsObj);

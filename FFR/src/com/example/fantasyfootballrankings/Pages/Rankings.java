@@ -299,9 +299,44 @@ public class Rankings extends Activity {
 			case R.id.random_player:
 				Rankings.randomPlayer();
 				return true;
+			case R.id.stats_help:
+				statsHelp();
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	public void statsHelp(){
+		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.one_line_text);
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	    lp.copyFrom(dialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+	    dialog.getWindow().setAttributes(lp);
+	    dialog.show();
+	    Button close = (Button)dialog.findViewById(R.id.player_stats_close);
+	    close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+	    });
+	    TextView text = (TextView)dialog.findViewById(R.id.textView1);
+	    StringBuilder sb = new StringBuilder(1000);
+	    sb.append("ECR is the snake draft type of ranking. It's the aggregation of many different experts for that player.\n\n" +
+	    			"ADP is the aggregate average draft position of a player from a few sources from drafts/mock drafts.\n\n" + 
+	    			"Auction values are the aggregation of multiple expert's projected auction value for a player." + 
+	    			" Some, though, are mathematical mappings based on ECR and ADP, and some based on points above average relative to that of others of the same position." + 
+	    			"\n\nPoints above average, PAA, attempts to normalize projections across positions. It uses roster settings to figure out the projected number " + 
+	    			"of starters in the league in question, then finds the average projection of those and compares individual projection to that. " + 
+	    			"Meaning, first of all, the higher the PAA, the higher the value. In addition to that, the steeper the curve in PAA is, the more valuable those at the top are. " + 
+	    			"PAA per dollar attempts to normalize that across cost as well.\n\n" + 
+	    			"Leverage finds the top scorer at each position, then compares each player at that same position to that player in terms of points and by auction cost. " + 
+	    			"It's the relative projection of a player relative to the top projected, which is divided by the relative cost of that player to the top projected.\n\n" + 
+	    			"Risk is the standard deviation in the aggregation of ECR. The idea is that the more variation in rankings a player had, the riskier a pick he is.\n\n");
+	    text.setText(sb.toString());
 	}
 	
 
