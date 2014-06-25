@@ -600,8 +600,9 @@ public class Rankings extends Activity {
 	{ 
 		
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-    	Set<String> checkExists = prefs.getStringSet("Player Values", null);
-    	if((checkExists != null && holder.players.size() == 0) || prefs.getBoolean("Home Update", false))
+    	
+    	boolean exists = prefs.contains("Player Values");
+    	if((exists && holder.players.size() == 0) || prefs.getBoolean("Home Update", false))
     	{
     		if(Home.holder.players != null && Home.holder.players.size() > 5)
     		{
@@ -610,6 +611,7 @@ public class Rankings extends Activity {
     		}
     		else
     		{
+    			Set<String> checkExists = prefs.getStringSet("Player Values", null);
 				ReadFromFile.fetchPlayers(checkExists, holder,cont, 0);
 				SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 				editor.putBoolean("Home Update", false).apply();
@@ -687,23 +689,6 @@ public class Rankings extends Activity {
 			}
 			
 		});
-		//Handle the search onclick
-		/*search.setOnClickListener(new View.OnClickListener() 
-	    {
-			
-	          @Override
-	          public void onClick(View v) 
-	          {
-	        	  try {
-	        		  PlayerInfo obj = new PlayerInfo();
-	        		  obj.holder = holder;
-	        		  obj.searchCalled(cont, false, null);
-	        	  } catch (IOException e) {
-						// TODO Auto-generated catch block
-	        		  e.printStackTrace();
-	        	  }
-	          }
-	    });  */
 		compare.setOnClickListener(new View.OnClickListener()
 		{
 	          @Override
