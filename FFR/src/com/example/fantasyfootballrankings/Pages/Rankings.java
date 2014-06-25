@@ -184,8 +184,6 @@ public class Rankings extends Activity {
 		compare = (Button)findViewById(R.id.player_comparator);
 		sort = (Button)findViewById(R.id.sort_players);
     	listview = (OutBounceListView)findViewById(R.id.listview_rankings);
-    	//widgetBase = (RelativeLayout)findViewById(R.id.rankings_widget_base);
-		//hideWidget = ReadFromFile.readHideWidget(cont);
     	context = this;
     	isAuction = ReadFromFile.readIsAuction(cont);
     	setLists();
@@ -1108,7 +1106,6 @@ public class Rankings extends Activity {
 		isAsync = false;
 		int maxSize = ReadFromFile.readFilterQuantitySize((Context)cont, "Rankings");
 		PriorityQueue<PlayerObject>inter = null;
-		PriorityQueue<PlayerObject> totalList = null;
 		if(!holder.isRegularSeason)
 		{
 			if(isAuction)
@@ -1129,22 +1126,6 @@ public class Rankings extends Activity {
 					    return 0;
 					}
 				});
-				totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
-						{
-							@Override
-							public int compare(PlayerObject a, PlayerObject b) 
-							{
-								if (a.values.worth > b.values.worth)
-							    {
-							        return -1;
-							    }
-							    if (a.values.worth < b.values.worth)
-							    {
-							    	return 1;
-							    }
-							    return 0;
-							}
-						});
 			}
 			else
 			{
@@ -1184,42 +1165,6 @@ public class Rankings extends Activity {
 							    return 0;
 							}
 				});
-				totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
-						{
-							@Override
-							public int compare(PlayerObject a, PlayerObject b) 
-							{
-								if(a.values.ecr == -1 && b.values.ecr != -1)
-								{
-									return 1;
-								}
-								if(a.values.ecr != -1 && b.values.ecr == -1)
-								{
-									return -1;
-								}
-								if(a.values.ecr == -1 && b.values.ecr == -1)
-								{
-									if(a.values.worth > b.values.worth)
-									{
-										return -1;
-									}
-									if(b.values.worth > a.values.worth)
-									{
-										return 1;
-									}
-									return 0;
-								}
-								if (a.values.ecr > b.values.ecr)
-							    {
-							        return 1;
-							    }
-							    if (a.values.ecr < b.values.ecr)
-							    {
-							    	return -1;
-							    }
-							    return 0;
-							}
-						});
 			}
 		}
 		else
@@ -1260,42 +1205,6 @@ public class Rankings extends Activity {
 					return 0;
 				}
 	 		});
-			totalList = new PriorityQueue<PlayerObject>(300, new Comparator<PlayerObject>() 
-					{
-						@Override
-						public int compare(PlayerObject a, PlayerObject b) 
-						{
-							if(a.values.points <=0 && b.values.points > 0)
-							{
-								return 1;
-							}
-							if(a.values.points > 0 && b.values.points <= 0)
-							{
-								return -1;
-							}
-							if(a.values.points == 0 && b.values.points == 0)
-							{
-								if(a.values.ecr > b.values.ecr)
-								{
-									return 1;
-								}
-								if(b.values.ecr > a.values.ecr)
-								{
-									return -1;
-								}
-								return 0;
-							}
-							if (a.values.paa > b.values.paa)
-							{
-								return -1;
-							}
-							if (a.values.paa < b.values.paa)
-							{
-							  	return 1;
-							}
-							return 0;
-						}
-			 		});
 		}
 		if(posList.size() > 1)
 		{
@@ -1333,24 +1242,21 @@ public class Rankings extends Activity {
 		double newSize = total * fraction;
 		if((int)newSize != total)
 		{
-			for(int i = 0; i < newSize; i++)
-			{
-				totalList.add(inter.poll());
-			}
-			rankingsFetched(totalList, cont);
+			rankingsFetched(inter, cont, newSize);
 		}
 		else
 		{
-			rankingsFetched(inter, cont);
+			rankingsFetched(inter, cont, inter.size());
 		}
 	}
 
 	/**
      * The function that handles what happens when
      * the rankings are all fetched
+	 * @param newSize 
      * @param holder 
      */
-    public void rankingsFetched(PriorityQueue<PlayerObject> playerList, Activity cont)
+    public void rankingsFetched(PriorityQueue<PlayerObject> playerList, Activity cont, double newSize)
     {
 	    if(refreshed)
 	    {
@@ -1376,8 +1282,10 @@ public class Rankings extends Activity {
 	    			R.id.text2, R.id.text3});
 	    listview.setAdapter(adapter);
 	    handleRankingsClick(holder, cont, listview);
-	    while(!playerList.isEmpty())
+	    int removedCt = 0;
+	    while(removedCt < newSize && !playerList.isEmpty())
 	    {
+	    	removedCt++;
 	    	PlayerObject elem = playerList.poll();
 	        DecimalFormat df = new DecimalFormat("#.##");
 	        Map<String, String> datum = new HashMap<String, String>(2);
