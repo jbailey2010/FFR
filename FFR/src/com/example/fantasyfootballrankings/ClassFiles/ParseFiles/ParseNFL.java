@@ -37,17 +37,17 @@ public class ParseNFL
 		    BufferedReader br;
 		    String line;
 		    StringBuilder htmlBuilder = new StringBuilder(10000);
-		    try {
+		    try { 
 		        url = new URL("http://www.nfl.com/fantasyfootball/rankings#tabset=pr-top");
 		        is = url.openStream();  // throws an IOException
 		        br = new BufferedReader(new InputStreamReader(is));
-
 		        while ((line = br.readLine()) != null) {
 		        	htmlBuilder.append(line);
 		        }
 		    } catch (MalformedURLException mue) {
 		         mue.printStackTrace();
 		    } catch (IOException ioe) {
+		    	System.out.println("IOException ");
 		         ioe.printStackTrace();
 		    } finally {
 		        try {

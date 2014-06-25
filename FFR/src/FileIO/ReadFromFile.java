@@ -164,7 +164,7 @@ public class ReadFromFile {
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		if(flag.equals("Rankings"))
 		{
-			return prefs.getInt("Filter Quantity Size Rankings", 100);
+			return prefs.getInt("Filter Quantity Size Rankings", 50);
 		}
 		return prefs.getInt("Filter Quantity Size", 100);
 	}

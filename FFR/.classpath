@@ -12,8 +12,8 @@
 	<classpathentry kind="lib" path="libs/json-simple-1.1.1.jar"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry excluding="SideNavigation-master/ActionBarSherlock/|SideNavigation-master/ActionBarSherlock/" kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry excluding="SideNavigation-master/ActionBarSherlock/|SideNavigation-master/ActionBarSherlock/" kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="FantasyFootballRankings/libs"/>

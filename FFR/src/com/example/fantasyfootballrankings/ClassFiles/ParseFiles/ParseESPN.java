@@ -23,8 +23,8 @@ public class ParseESPN
 	 */
 	public static void parseESPN300(Storage holder) throws IOException
 	{
-		parseESPN300Worker(HandleBasicQueries.handleLists("http://espn.go.com/fantasy/football/story/_/page/2013preseasonFFLranks300PPR/top-300-ppr-point-per-reception", "td"), holder);
-		parseESPN300Worker(HandleBasicQueries.handleLists("http://espn.go.com/fantasy/football/story/_/page/2013preseasonFFLranks250/top-300-position", "td"), holder);
+		parseESPN300Worker(HandleBasicQueries.handleLists("http://espn.go.com/fantasy/football/story/_/page/FFLranks14PPR/2014-fantasy-football-rankings-preseason-top-ppr-rankings-point-per-reception", "td"), holder);
+		parseESPN300Worker(HandleBasicQueries.handleLists("http://espn.go.com/fantasy/football/story/_/page/FFLranks14top300/2014-fantasy-football-rankings-preseason-top-300", "td"), holder);
 
 	}
 	
@@ -39,7 +39,6 @@ public class ParseESPN
 			String[] nameSplit = namePos.split(", ");
 			String team;
 			String name;
-			String pos = "";
 			if(nameSplit.length > 1)
 			{
 				team = nameSplit[1];
@@ -60,9 +59,7 @@ public class ParseESPN
 				valDS = "$1";
 			}
 			int val = Integer.parseInt(valDS.substring(1, valDS.length()));
-			String posRank = brokenUp.get(i+2);
-			pos = posRank.replaceAll("\\d*$", "");
-			ParseRankings.finalStretch(holder, name, val, team, pos);
+			ParseRankings.finalStretch(holder, name, val, team, "");
 		}
 	}
 }

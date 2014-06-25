@@ -196,7 +196,7 @@ public class ParsingAsyncTask
 						// TODO Auto-generated catch block
 						e12.printStackTrace();
 					}
-			        /*publishProgress("Please wait, fetching the rankings...(7/38)");
+			        publishProgress("Please wait, fetching the rankings...(7/38)");
 			        System.out.println("Before espn");
 					try {
 						ParseESPN.parseESPN300(holder);
@@ -204,7 +204,7 @@ public class ParsingAsyncTask
 					{
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e11) {
-					}*/
+					}
 			        publishProgress("Please wait, fetching the rankings...(9/38)");
 			        System.out.println("Before Yahoo");
 					try {

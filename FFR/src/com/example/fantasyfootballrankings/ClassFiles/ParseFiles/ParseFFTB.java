@@ -62,7 +62,6 @@ public class ParseFFTB
 			if(team.split(" ").length <= 3)
 			{
 				val = val.substring(1, val.length());
-				//String validated = ParseRankings.fixNames(name);
 				String newName = Storage.nameExists(holder, name);
 				PlayerObject newPlayer = new PlayerObject("", "", "", 0);
 				try{

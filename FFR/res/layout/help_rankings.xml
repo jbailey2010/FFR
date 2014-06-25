@@ -42,7 +42,7 @@
          android:layout_height="wrap_content"
          android:layout_alignParentLeft="true"
          android:layout_below="@+id/help_rankings_close"
-         android:text="When you click on a name, it&apos;ll pop up with details about that player. You can draft this player by holding down on his name."
+         android:text="When you click on a name, it&apos;ll pop up with details about that player. You can draft this player by holding down on his name in this pop up."
          android:textAppearance="?android:attr/textAppearanceSmall" />
 
      <TextView

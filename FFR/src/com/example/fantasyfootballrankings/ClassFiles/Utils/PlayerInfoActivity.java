@@ -51,7 +51,7 @@ public class PlayerInfoActivity
 	    Button close = (Button)dialog.findViewById(R.id.player_stats_close);
 	    close.setOnClickListener(new OnClickListener(){
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v) { 
 				dialog.dismiss();
 			}
 	    });
@@ -114,6 +114,8 @@ public class PlayerInfoActivity
 			@Override
 			public void onError(SocializeException error) {
 				System.out.println(error.getMessage());
+				System.out.println("-------");
+				error.printStackTrace();
 				output.setText("An error occurred. Do you have an internet connection?");
 			}
 	    });
