@@ -8,10 +8,8 @@
     </item>
     <item>
         <shape>
-            <gradient
-                android:startColor="#242424"
-                android:endColor="#171717"
-                android:angle="270" />
+            <solid
+                android:color="#171717" />
         </shape>
     </item>
 </selector>

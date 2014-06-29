@@ -91,14 +91,14 @@ public class ParseNFL
 	 */
 	public static void parseNFLAAVWrapper(Storage holder) throws IOException
 	{
-		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=0&position=all&sort=draftAveragePosition");
-		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=26&position=all&sort=draftAveragePosition");
-		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=51&position=all&sort=draftAveragePosition");
-		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=76&position=all&sort=draftAveragePosition");
-		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=101&position=all&sort=draftAveragePosition");
-		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=126&position=all&sort=draftAveragePosition");
-		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=151&position=all&sort=draftAveragePosition");
-		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=176&position=all&sort=draftAveragePosition");
+		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=0&sort=draftAveragePosition");
+		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=26&sort=draftAveragePosition");
+		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=51&sort=draftAveragePosition");
+		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=76&sort=draftAveragePosition");
+		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=101&sort=draftAveragePosition");
+		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=126&sort=draftAveragePosition");
+		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=151&sort=draftAveragePosition");
+		parseNFLAAVWorker(holder, "http://fantasy.nfl.com/draftcenter/breakdown?leagueId=&offset=176&sort=draftAveragePosition");
 	}
 	 
 	/**
@@ -146,10 +146,6 @@ public class ParseNFL
 			}
 			name = ParseRankings.fixDefenses(ParseRankings.fixNames(name.substring(0, name.length()-1)));
 			String worth = td.get(i+3);
-			if(i+3 == td.size() - 1)
-			{
-				worth = worth.substring(0, worth.length() - 1);
-			}
 			int val = Integer.parseInt(worth);
 			ParseRankings.finalStretch(holder, name, val, "", "");
 		}

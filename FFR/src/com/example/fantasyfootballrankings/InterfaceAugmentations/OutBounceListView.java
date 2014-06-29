@@ -83,12 +83,12 @@ public class OutBounceListView extends ListView {
     /** Diffuse light intensity */
     private static final int DIFFUSE_LIGHT = 200;
     /** Specular light intensity */
-    private static final float SPECULAR_LIGHT = 70;
+    private static final float SPECULAR_LIGHT = 70; 
     /** Shininess constant */
     private static final float SHININESS = 200;
     /** The max intensity of the light */
     private static final int MAX_INTENSITY = 0xFF;
-    private static final int MIN_INTENSITY = 160;
+    private static final int MIN_INTENSITY = 175;
     private static final int MAX_SHININESS = 25;
 
     private final Camera mCamera = new Camera();

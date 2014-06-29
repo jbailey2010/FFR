@@ -10,7 +10,7 @@
         android:orientation="horizontal"
         android:weightSum="12"
         android:layout_height="wrap_content" 
-        android:background="#252525">
+        android:background="#171717">
 
         <AutoCompleteTextView
             android:id="@+id/ranking_search"

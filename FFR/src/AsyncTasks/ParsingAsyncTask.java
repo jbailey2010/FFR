@@ -83,7 +83,7 @@ import android.widget.TextView;
  *
  */
 public class ParsingAsyncTask 
-{
+{ 
 		/**
 		 * This handles the running of the rankings in the background
 		 * such that the user can't do anything until they're fetched
@@ -104,7 +104,7 @@ public class ParsingAsyncTask
 				draftIter = prefs.getInt("Parse Count", 0); 
 		        pdia = new ProgressDialog(activity);
 		        pdia.setCancelable(false);
-		        act = activity;
+		        act = activity; 
 		        hold = holder;
 		    }
 
@@ -245,14 +245,14 @@ public class ParsingAsyncTask
 					} */
 					publishProgress("Please wait, fetching the rankings...(20/38)");
 					System.out.println("Before NFL AAV");
-					/*try {
+					try {
 						ParseNFL.parseNFLAAVWrapper(holder);
 					} catch (HttpStatusException e2)
 					{
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e3) {
-					}*//*
-					publishProgress("Please wait, fetching the rankings...(21/38)");*/
+					}
+					publishProgress("Please wait, fetching the rankings...(21/38)");
 					System.out.println("Before NFL Rankings");
 					try {
 						ParseNFL.parseNFLRankingsWrapper(holder, cont);

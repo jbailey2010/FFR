@@ -13,12 +13,8 @@
     </item>
     <item>
         <shape>
-            <gradient
-		        android:endColor="#ff3333"
-		        android:centerColor="#ff2222"
-		        android:gradientRadius="800"
-		        android:startColor="#ff4444"
-		        android:type="radial"/>
+            <solid
+		        android:color="#ff3333"/>
             <padding
                 android:left="10dp"
                 android:top="10dp"

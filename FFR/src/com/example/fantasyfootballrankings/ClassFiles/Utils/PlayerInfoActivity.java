@@ -47,7 +47,7 @@ public class PlayerInfoActivity
 	    lp.copyFrom(dialog.getWindow().getAttributes());
 	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
-	    dialog.show();
+	    dialog.show(); 
 	    Button close = (Button)dialog.findViewById(R.id.player_stats_close);
 	    close.setOnClickListener(new OnClickListener(){
 			@Override
@@ -113,8 +113,6 @@ public class PlayerInfoActivity
 
 			@Override
 			public void onError(SocializeException error) {
-				System.out.println(error.getMessage());
-				System.out.println("-------");
 				error.printStackTrace();
 				output.setText("An error occurred. Do you have an internet connection?");
 			}
