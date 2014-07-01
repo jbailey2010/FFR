@@ -205,7 +205,7 @@
                 android:listSelector="@android:color/transparent"
                 android:focusable="false"
                 android:background="@drawable/content_well_import"
-                android:divider="#888888" >
+                android:divider="#999999" >
             </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
            
            </RelativeLayout>
@@ -235,7 +235,7 @@
              android:focusable="false"
              android:layout_below="@+id/team_help_import"
              android:background="@drawable/content_well_import"
-             android:divider="#888888"
+             android:divider="#999999"
              android:paddingBottom="9dp" >
          </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
            </RelativeLayout>
@@ -272,7 +272,7 @@
                android:layout_alignParentLeft="true"
                android:layout_below="@+id/player_list_search"
                android:background="@drawable/content_well_import"
-               android:divider="#888888"
+               android:divider="#999999"
                android:focusable="false"
                android:layout_marginTop="6dp"
                android:listSelector="@android:color/transparent"
@@ -760,7 +760,7 @@
 	            android:layout_height="fill_parent" 
 	            android:layout_weight="25"
 	            android:clickable="false"
-	            android:background="#888888"
+	            android:background="#999999"
 	            android:textColor="#FFFFFF"
 	            android:textSize="13sp" /> 
 	  

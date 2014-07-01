@@ -88,7 +88,7 @@ public class OutBounceListView extends ListView {
     private static final float SHININESS = 200;
     /** The max intensity of the light */
     private static final int MAX_INTENSITY = 0xFF;
-    private static final int MIN_INTENSITY = 175;
+    private static final int MIN_INTENSITY = 185;
     private static final int MAX_SHININESS = 25;
 
     private final Camera mCamera = new Camera();
