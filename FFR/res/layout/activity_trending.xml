@@ -21,13 +21,6 @@
             android:text="Last Day"
             android:textColor="#FFFFFF" />
 
-        <View
-            android:layout_width="2dp"
-            android:layout_height="fill_parent"
-            android:layout_marginBottom="6dp"
-            android:layout_marginTop="6dp"
-            android:background="#FF0000" />
-
         <Button
             android:id="@+id/filter_week"
             style="?android:attr/buttonBarButtonStyle"
@@ -38,13 +31,6 @@
             android:text="Last Week"
             android:textColor="#FFFFFF" />
 
-        <View
-            android:layout_width="2dp"
-            android:layout_height="fill_parent"
-            android:layout_marginBottom="6dp"
-            android:layout_marginTop="6dp"
-            android:background="#FF0000" />
-
         <Button
             android:id="@+id/filter_month"
             style="?android:attr/buttonBarButtonStyle"
@@ -54,13 +40,6 @@
             android:background="@drawable/menu_btn_black"
             android:text="Last month"
             android:textColor="#FFFFFF" />
-
-        <View
-            android:layout_width="2dp"
-            android:layout_height="fill_parent"
-            android:layout_marginBottom="6dp"
-            android:layout_marginTop="6dp"
-            android:background="#FF0000" />
 
         <Button
             android:id="@+id/filter_all"
