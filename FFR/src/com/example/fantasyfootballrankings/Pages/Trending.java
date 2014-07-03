@@ -571,19 +571,19 @@ public class Trending extends Activity {
 		lastFilter = ReadFromFile.readLastFilter(cont);
 		if(lastFilter == 1)
 		{
-			day.setBackgroundColor(Color.BLACK);
+			day.setBackgroundColor(0XFFFF5454);
 		}
 		if(lastFilter == 7)
 		{
-			week.setBackgroundColor(Color.BLACK);
+			week.setBackgroundColor(0XFFFF5454);
 		}		
 		if(lastFilter == 30)
 		{
-			month.setBackgroundColor(Color.BLACK);
+			month.setBackgroundColor(0XFFFF5454);
 		}		
 		if(lastFilter == 365)
 		{
-			all.setBackgroundColor(Color.BLACK);
+			all.setBackgroundColor(0XFFFF5454);
 		}
 	}
 	
@@ -606,7 +606,7 @@ public class Trending extends Activity {
 	            	week.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
 	            	month.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
 	            	all.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
-	            	button.setBackgroundColor(Color.BLACK);
+	            	button.setBackgroundColor(0XFFFF5454);
 					try {
 						WriteToFile.writeLastFilter(cont, filterSize);
 						resetTrendingList(filterSize, cont);
@@ -623,7 +623,7 @@ public class Trending extends Activity {
 					all.setClickable(false);
             	}
             	else
-            	{
+            	{ 
             		Toast.makeText(cont, "Select filter topics to get the posts before you can do this", Toast.LENGTH_SHORT).show();
             	}
             }

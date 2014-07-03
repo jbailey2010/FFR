@@ -52,16 +52,8 @@
             android:textColor="#FFFFFF" />
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:id="@+id/trending_subheader"
-        android:layout_below="@+id/trending_header"
-        android:layout_width="fill_parent"
-        android:layout_height="15dp"
-        android:background="#161616" />
-
     <RelativeLayout
-        android:layout_below="@+id/trending_subheader"
+        android:layout_below="@+id/trending_header"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#444444" >
