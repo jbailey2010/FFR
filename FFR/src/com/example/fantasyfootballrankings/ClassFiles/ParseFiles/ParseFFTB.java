@@ -62,15 +62,14 @@ public class ParseFFTB
 			if(team.split(" ").length <= 3)
 			{
 				val = val.substring(1, val.length());
-				String newName = Storage.nameExists(holder, name);
 				PlayerObject newPlayer = new PlayerObject("", "", "", 0);
 				try{
-					newPlayer = new PlayerObject(newName, team, pos, Integer.parseInt(val));
+					newPlayer = new PlayerObject(name, team, pos, Integer.parseInt(val));
 				} catch(NumberFormatException e)
 				{
 					break;
 				}
-				PlayerObject match =  Storage.pqExists(holder, newName);
+				PlayerObject match =  Storage.pqExists(holder, name);
 				if(match != null)
 				{
 					match.info.age = age;

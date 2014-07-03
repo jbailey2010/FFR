@@ -79,9 +79,8 @@ public class ParsePFF {
 	    	int val = Integer.parseInt(data[data.length - 1]);
 	    	
 	    	String validated = ParseRankings.fixNames(name);
-			String newName = Storage.nameExists(holder, validated);
-			PlayerObject newPlayer = new PlayerObject(newName, team, position, val);
-			PlayerObject match =  Storage.pqExists(holder, newName);
+			PlayerObject newPlayer = new PlayerObject(validated, team, position, val);
+			PlayerObject match =  Storage.pqExists(holder, validated);
 			if(match != null)
 			{
 				BasicInfo.standardAll(newPlayer.info.team, newPlayer.info.position, match.info);

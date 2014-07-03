@@ -262,10 +262,8 @@ public class ParseRankings
 	 */
 	public static void finalStretch(Storage holder, String playerName, int val, String team, String pos)
 	{
-		String validated = fixNames(playerName);
-		String newName = Storage.nameExists(holder, validated);
-		PlayerObject newPlayer = new PlayerObject(newName, team, pos, val);
-		PlayerObject match =  Storage.pqExists(holder, newName);
+		PlayerObject newPlayer = new PlayerObject(playerName, team, pos, val);
+		PlayerObject match =  Storage.pqExists(holder, playerName);
 		handlePlayer(holder, newPlayer, match);
 	}
 	

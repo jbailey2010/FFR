@@ -274,7 +274,7 @@ public class Trending extends Activity {
 		Boolean lastEmpty = prefs.getBoolean("Last Empty", false);
 
 		if(!storedPosts.equals("Not Posted"))
-		{ 
+		{  
 			List<String>postsList = new ArrayList<String>();
 			data = new ArrayList<Map<String, String>>();
 			if(lastEmpty)

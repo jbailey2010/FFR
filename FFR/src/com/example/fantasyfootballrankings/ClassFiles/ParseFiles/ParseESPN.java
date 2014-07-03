@@ -37,16 +37,13 @@ public class ParseESPN
 		{
 			String namePos = brokenUp.get(i);
 			String[] nameSplit = namePos.split(", ");
-			String team;
 			String name;
 			if(nameSplit.length > 1)
 			{
-				team = nameSplit[1];
 				name = nameSplit[0];
 			}
 			else
 			{
-				team = "";
 				name = namePos;
 			}
 			if(name.contains("D/ST"))
@@ -59,7 +56,8 @@ public class ParseESPN
 				valDS = "$1";
 			}
 			int val = Integer.parseInt(valDS.substring(1, valDS.length()));
-			ParseRankings.finalStretch(holder, name, val, team, "");
+			name = ParseRankings.fixDefenses(ParseRankings.fixNames(name));
+			ParseRankings.finalStretch(holder, name, val, "", "");
 		}
 	}
 }

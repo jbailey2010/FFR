@@ -613,13 +613,9 @@ public class Rankings extends Activity {
     		{
     			Set<String> checkExists = prefs.getStringSet("Player Values", null);
 				ReadFromFile.fetchPlayers(checkExists, holder,cont, 0);
-				SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+				SharedPreferences.Editor editor = prefs.edit();
 				editor.putBoolean("Home Update", false).apply();
 			}
-    		if(holder.playerNames == null || holder.playerNames.size() < 5)
-    		{
-    			ReadFromFile.fetchNamesBackEnd(holder, cont);
-    		}
     	}
     	
     	else if(holder.players.size() != 0)
@@ -629,10 +625,6 @@ public class Rankings extends Activity {
     	}
     	else
     	{
-    		if(holder.playerNames == null || holder.playerNames.size() < 5)
-    		{
-    			ReadFromFile.fetchNamesBackEnd(holder, cont);
-    		}
     		try {
     			if(ManageInput.confirmInternet(cont))
 				{

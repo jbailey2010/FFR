@@ -39,7 +39,6 @@ public class ParseESPNadv
 				break;
 			}
 			String name = ParseRankings.fixNames(brokenValues.get(i+1).split(", ")[0]).replace("*", "");
-			name = Storage.nameExists(holder, name);
 			String val = brokenValues.get(i+5);
 			int worth = (int)Double.parseDouble(val);
 			PlayerObject newPlayer = new PlayerObject(name, "", "", worth);

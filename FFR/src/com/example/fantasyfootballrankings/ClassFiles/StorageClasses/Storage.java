@@ -70,26 +70,6 @@ public class Storage
 		parsedPlayers = new HashSet<String>(350);
 		draft = new Draft(cont);
 	}
- 
-	/**
-	 * This checks if a name exists in the parsed list. If so, it 
-	 * returns that for the sake of name continuity throughout all.
-	 * This list is all of the nfl, so if they're not in here, it's
-	 * due to a formatting error. It should also make comparisons through the priority queue
-	 * easy peasy.
-	 * @param holder the storage unit to be checked through
-	 * @param name the name to check through storage
-	 * @return the standardized name
-	 */
-	public static String nameExists(Storage holder, String name)
-	{
-		if(holder.playerNames.contains(name))
-		{
-			return name;
-		}
-		//System.out.println(name + " not found...");
-		return name;
-	}
 	
 	/**
 	 * This iterates through the priority queue and sees
