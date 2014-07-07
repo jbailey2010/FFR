@@ -170,7 +170,6 @@ public class ParsingAsyncTask
 					}
 					System.out.println("Before ESPN ADV");
 			        publishProgress("Please wait, fetching the rankings...(4/31)");
-					/*
 					try {
 						ParseESPNadv.parseESPNAggregate(holder);
 					} catch (HttpStatusException e2)
@@ -181,7 +180,7 @@ public class ParsingAsyncTask
 					} catch (XPatherException e13) {
 						// TODO Auto-generated catch block
 						e13.printStackTrace();
-					}*/
+					}
 			        publishProgress("Please wait, fetching the rankings...(5/31)");
 			        System.out.println("Before FFTB");
 					try {
