@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
@@ -20,9 +21,13 @@ public class ParseCBS
 	 * @param holder the storage to check/write to
 	 * @throws IOException
 	 */
-	public static void cbsRankings(Storage holder) throws IOException
+	public static void cbsRankings(Storage holder, Scoring s) throws IOException
 	{
-		String url = "http://fantasynews.cbssports.com/fantasyfootball/rankings/yearly";
+		String type = "/standard";
+		if(s.catches > 0){
+			type = "/ppr";
+		}
+		String url = "http://fantasynews.cbssports.com/fantasyfootball/rankings/yearly" + type;
 		List<String> td = HandleBasicQueries.handleListsNoUA(url, "table.multiColumn td");
 		int min = 0;
 		for(int i = 0; i < td.size(); i++)
@@ -48,6 +53,7 @@ public class ParseCBS
 			String name = "";
 			String[] valSet = td.get(i+1).split(" ");
 			int limit = 0;
+			int index = Integer.parseInt(td.get(i));
 			if(!td.get(i+1).contains("$"))
 			{
 				if(nameSet.contains("("))
@@ -99,7 +105,9 @@ public class ParseCBS
 				String valStr = td.get(i+1).split(" ")[valIndex];
 				val = Integer.parseInt(valStr.substring(1, valStr.length())) * 2;
 			}
-			ParseRankings.finalStretch(holder, name, val, "", "");
+			if(!(val == 0 && index <= 15)){
+				ParseRankings.finalStretch(holder, name, val, "", "");
+			}
 		}
 	}
 }

@@ -196,9 +196,6 @@ public class Home extends Activity{
 			case android.R.id.home:
 		        sideNavigationView.toggleMenu();
 		        return true;
-			case R.id.credit_home:
-				helpDialog(cont);
-				return true;
 			case R.id.start_scoring:
 				ManageInput.passSettings(cont, new Scoring(), isStored, holder);
 		    	return true;	
@@ -216,28 +213,6 @@ public class Home extends Activity{
 		}
 	}
 
-	
-	/**
-	 * Handles the displaying of the help popup for the home page. Nothing else, very simple
-	 * @param cont2
-	 */
-	private void helpDialog(Context cont2) {
-		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(R.layout.home_credit);
-		dialog.show();
-		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-	    dialog.getWindow().setAttributes(lp);
-		Button close = (Button)dialog.findViewById(R.id.credit_close);
-		close.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
-			}
-		});
-	}
 
 	/**
 	 * Handles the help dialog popup

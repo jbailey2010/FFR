@@ -50,13 +50,21 @@ public class ParseFFTB
 		List<String> brokenUp = HandleBasicQueries.handleLists(url, "td");
 		for(int i = 1; i < brokenUp.size(); i+=2)
 		{ 
-			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(brokenUp.get(i)));
-			String team = ParseRankings.fixTeams(brokenUp.get(++i));
-			String pos = brokenUp.get(++i);
-			if(pos.equals("Def"))
+			String name = "";
+			String team = "";
+			String pos = "";
+			if(brokenUp.get(i+2).equals("Def"))
 			{
 				pos = "D/ST";
+				name = ParseRankings.fixDefenses(ParseRankings.fixTeams(brokenUp.get(i+1)));
+				team = ParseRankings.fixTeams(brokenUp.get(i+1));
 			}
+			else{
+				pos = brokenUp.get(i+2);
+				team = ParseRankings.fixTeams(brokenUp.get(i+1));
+				name = ParseRankings.fixNames(brokenUp.get(i));
+			}
+			i += 2;
 			String age = brokenUp.get(i+=2);
 			String val = brokenUp.get(i+=2);
 			if(team.split(" ").length <= 3)

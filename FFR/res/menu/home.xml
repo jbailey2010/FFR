@@ -21,10 +21,6 @@
         android:orderInCategory="100"
         android:title="Home Help"/>
     <item
-        android:id="@+id/credit_home"
-        android:orderInCategory="100"
-        android:title="Credits"/>
-    <item
         android:id="@+id/start_scoring"
         android:orderInCategory="100"
         android:showAsAction="ifRoom|withText" 

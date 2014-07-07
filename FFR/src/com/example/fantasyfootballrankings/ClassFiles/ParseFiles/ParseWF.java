@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
@@ -24,10 +25,14 @@ public class ParseWF
 	 * @param holder
 	 * @throws IOException
 	 */
-	public static void wfRankings(Storage holder) throws IOException
+	public static void wfRankings(Storage holder, Scoring s) throws IOException
 	{
-		wfRankingsHelper(holder, "http://walterfootball.com/fantasy2014top250ppr.php");
-		wfRankingsHelper(holder, "http://walterfootball.com/fantasy2014top250.php");
+		if(s.catches > 0){
+			wfRankingsHelper(holder, "http://walterfootball.com/fantasy2014top250ppr.php");
+		}
+		else{
+			wfRankingsHelper(holder, "http://walterfootball.com/fantasy2014top250.php");
+		}
 		wfRankingsHelper(holder, "http://walterfootball.com/fantasy2014top250qb2.php");
 	}
 	

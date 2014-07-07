@@ -74,6 +74,7 @@ public class ParseFantasyPros
 				  adp = -1;
 			} 
 			String validated = ParseRankings.fixNames(name);
+			
 			PlayerObject newPlayer = new PlayerObject(validated, "", "", val1);
 			PlayerObject match =  Storage.pqExists(holder, validated);
 			if(match != null)

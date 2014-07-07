@@ -264,7 +264,7 @@ public class ParseRankings
 	{
 		PlayerObject newPlayer = new PlayerObject(playerName, team, pos, val);
 		PlayerObject match =  Storage.pqExists(holder, playerName);
-		handlePlayer(holder, newPlayer, match);
+		handlePlayer(holder, newPlayer, match);     
 	}
 	
 	/**

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
@@ -21,11 +22,14 @@ public class ParseESPN
 	 * @param holder
 	 * @throws IOException
 	 */
-	public static void parseESPN300(Storage holder) throws IOException
+	public static void parseESPN300(Storage holder, Scoring s) throws IOException
 	{
-		parseESPN300Worker(HandleBasicQueries.handleLists("http://espn.go.com/fantasy/football/story/_/page/FFLranks14PPR/2014-fantasy-football-rankings-preseason-top-ppr-rankings-point-per-reception", "td"), holder);
-		parseESPN300Worker(HandleBasicQueries.handleLists("http://espn.go.com/fantasy/football/story/_/page/FFLranks14top300/2014-fantasy-football-rankings-preseason-top-300", "td"), holder);
-
+		if(s.catches > 0){
+			parseESPN300Worker(HandleBasicQueries.handleLists("http://espn.go.com/fantasy/football/story/_/page/FFLranks14PPR/2014-fantasy-football-rankings-preseason-top-ppr-rankings-point-per-reception", "td"), holder);
+		}
+		else {
+			parseESPN300Worker(HandleBasicQueries.handleLists("http://espn.go.com/fantasy/football/story/_/page/FFLranks14top300/2014-fantasy-football-rankings-preseason-top-300", "td"), holder);
+		}
 	}
 	
 	/**

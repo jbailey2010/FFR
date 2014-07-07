@@ -609,7 +609,7 @@ public class HighLevel
 		try{
 			for(int i = 0; i < td.size(); i+=5)
 			{
-				String teamName = ParseRankings.fixDefenses(td.get(i+1));
+				String teamName = ParseRankings.fixDefenses(ParseRankings.fixTeams(td.get(i+2)));
 				String team = ParseRankings.fixTeams(td.get(i+2));
 				double proj = Double.valueOf(td.get(i+4));
 				points.put(teamName + "/" + team + "/" + pos, proj);
