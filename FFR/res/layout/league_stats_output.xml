@@ -87,7 +87,7 @@
         android:id="@+id/category_base"
         android:layout_width="fill_parent"
         android:layout_height="40dp" 
-        android:background="#282828"
+        android:background="#171717"
         android:weightSum="125"> 
 
         <Button
@@ -96,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="25"
-            android:background="#282828"
+            android:background="#171717"
             android:text="Overall Stats"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="25"
-            android:background="#282828"
+            android:background="#171717"
             android:text="Team Stats"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
@@ -131,7 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="25"
-            android:background="#282828"
+            android:background="#171717"
             android:text="Players List"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
@@ -148,7 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="25"
-            android:background="#282828"
+            android:background="#171717"
             android:text="Who to Start?"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
@@ -165,7 +165,7 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="25"
-            android:background="#282828"
+            android:background="#171717"
             android:text="Tips"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
@@ -177,7 +177,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:background="#232323"
+        android:background="#171717"
         android:layout_below="@+id/league_stats_tabs" >
        <RelativeLayout 
             android:id="@+id/category_league_base"
@@ -193,7 +193,7 @@
              android:layout_alignLeft="@+id/imported_league_rankings"
              android:layout_marginTop="10dp"
              android:visibility="visible"
-             android:text="Below are the rankings of the entire lineups, starting lineups, benches, and each position of all of the teams in this league.\n\nClick on one of the elements to see a graphical representation. If it's a positional breakdown, a single click will show starters and a long click the whole set."
+             android:text="Click on one of the elements to see a graphical representation. If it's a positional breakdown, a single click will show starters and a long click the whole set."
              android:textColor="#ffffff" />
 
             <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
@@ -223,7 +223,7 @@
              android:layout_alignLeft="@+id/imported_teams_info"
              android:layout_marginTop="10dp"
              android:visibility="visible"
-             android:text="Below are the individual team breakdowns, with each team's members and PAA breakdowns listed.\n\nClick on a team to see detailed positional breakdowns and rankings\n\nClick and hold to see the best lineup this team can field\nNote: This is based on your roster settings. During the preseason, this is overall, but during the season it's per week."
+             android:text="Click on a team to see detailed positional breakdowns. Click and hold to see the best lineup this team can field\nNote: This is based on your roster settings. During the preseason, this is overall, but during the season it's per week."
              android:textColor="#ffffff" />
 
          <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
@@ -285,7 +285,7 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_centerHorizontal="true"
-               android:text="Below is the players list. You can use the left dropdown to alternate free agents/on teams/all players, and right for positional splits.\n\nPlayers are sorted by points above average, but have projections listed. Click on a name to see more."
+               android:text="Click on a name to see more, or use the below dropdowns to filter. If not sorted in a custom way, projections are listed by names."
                android:textColor="#FFFFFF"
                android:visibility="visible"
                android:textAppearance="?android:attr/textAppearanceSmall" />

@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.MyLeagueSupport;
 
 import java.util.ArrayList;
-
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -21,6 +20,7 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.TeamTradeInfo;
@@ -40,9 +40,6 @@ public class RosterTips
 	public static List<PlayerObject> freeAgents;
 	public static ImportedTeam newImport;
 	public static View res;
-	public static boolean isF = false;
-	public static boolean isFTE = false;
-	public static boolean isOP = false;
 	
 	/**
 	 * Handles the logistics of setting up roster tips
@@ -119,6 +116,7 @@ public class RosterTips
 		trade.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
+				/*
 				trade.setBackgroundResource(R.drawable.selected_tab);
 				fa.setBackgroundResource(R.drawable.not_selected_tab);
 				String teamName = teamsSp.getSelectedItem().toString();
@@ -132,6 +130,8 @@ public class RosterTips
 					}
 				}
 				handleTrades(iter, res);
+				*/
+				Toast.makeText(ImportLeague.cont, "Still in development, should be available soon!", Toast.LENGTH_SHORT).show();
 			} 
 		});
 		teamsSp.setOnItemSelectedListener(new OnItemSelectedListener(){

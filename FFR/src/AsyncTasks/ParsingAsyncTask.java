@@ -38,6 +38,7 @@ import com.example.fantasyfootballrankings.ClassFiles.Simulator;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraftWizardRanks;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPN;
@@ -321,6 +322,7 @@ public class ParsingAsyncTask
 		    	double auctionFactor = ReadFromFile.readAucFactor(cont);
 		    	for(PlayerObject player : holder.players)
 		    	{
+		    		Values.normVals(player.values);
 		    		player.values.secWorth = player.values.worth / auctionFactor;
 		    	}
 	    		 
@@ -1047,7 +1049,7 @@ public class ParsingAsyncTask
 					List<String> percentages = HandleBasicQueries.handleListsMulti(doc, baseURL, "div div.mpb-col span");
 					for(String percent : percentages)
 					{
-						if(percent.contains("%") && (percent.contains("50") || !ecrList.contains(percent)))
+						if(percent.contains("%") && (percent.contains("50") || !ecrList.contains(percent)) && !(ecrList.size() >= 2))
 						{
 							ecrList.add(percent);
 						}
@@ -1071,6 +1073,9 @@ public class ParsingAsyncTask
 							p = elem;
 							ecrList.add(elem.parent().parent().parent().parent().child(2).child(1).child(1).child(0).text());
 							ecrList.add(elem.parent().parent().parent().parent().child(2).child(2).child(1).child(0).text());
+							for(String el : ecrList){
+								System.out.println(el);
+							}
 							break;
 						}
 					}
@@ -1078,6 +1083,7 @@ public class ParsingAsyncTask
 					{
 						Element megaParent = p.parent().parent().parent().parent();//.child(2).child(1).child(1).child(0).text();
 						String name = (megaParent.child(2).child(1).child(1).child(0).text());
+						System.out.println("Name is " + name + ", firstName is " + firstName);
 						if(isStart && !name.equals(firstName))
 						{
 							List<String> newEcr = new ArrayList<String>();

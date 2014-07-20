@@ -125,11 +125,12 @@ public class LineupHelp {
 						break;
 					}
 				}
-				if(isFound1 && isFound2 && pl1.values.points > 0 && pl2.values.points > 0 && pl1.info.team.length() > 2 && pl2.info.team.length() > 0)
+				//NOTE: this needs to not work in regular season
+				if((isFound1 && isFound2 && pl1.values.points > 0 && pl2.values.points > 0 && pl1.info.team.length() > 2 && pl2.info.team.length() > 0))
 				{
 					fillTable(pl1, pl2, table, p1, p2);
 				}
-				else
+				else 
 				{
 					Toast.makeText(ImportLeague.cont, "Input is invalid. Make sure you only select a player via the dropdown, and neither player is on bye.", Toast.LENGTH_LONG).show();
 				}

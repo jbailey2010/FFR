@@ -58,6 +58,7 @@ public class TeamAnalysis
 		teamName = name;
 		team = teamStr;
 		holder = hold;
+		System.out.println(teamStr);
 		String[] qb = teamStr.split("Quarterbacks: ")[1].split("\n")[0].split(", ");
 		String[] rb = teamStr.split("Running Backs: ")[1].split("\n")[0].split(", ");
 		String[] wr = teamStr.split("Wide Receivers: ")[1].split("\n")[0].split(", ");
@@ -253,7 +254,7 @@ public class TeamAnalysis
 		inter.addAll(teNext);
 		int validCt = r.flex.op + r.flex.rbwr + r.flex.rbwrte;
 		List<PlayerObject> topScorers = new ArrayList<PlayerObject>();
-		while(validCt > 0){
+		while(validCt > 0 && inter.size() > 0){
 			PlayerObject iter = inter.poll();
 			if(iter.info.position.equals("QB") && qbConsider > 0){
 				qbConsider--;

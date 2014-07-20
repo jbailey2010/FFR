@@ -152,6 +152,7 @@ public class TeamList {
 		graphView.addSeries(es);
 		
 		counter = 0;
+		
 		dataSet2[counter++] = new GraphViewData(counter, max - rankQBStart(newImport, ta));
 		dataSet2[counter++] = new GraphViewData(counter, max - rankRBStart(newImport, ta));
 		dataSet2[counter++] = new GraphViewData(counter, max - rankWRStart(newImport, ta));
@@ -198,7 +199,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.getPosProj(iter.qbStarters) > team.getPosProj(iter.qbStarters))
+			if(iter.getPosProj(iter.qbStarters) > team.getPosProj(team.qbStarters))
 			{
 				rank++;
 			}
@@ -231,7 +232,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.getPosProj(iter.rbStarters) > team.getPosProj(iter.rbStarters))
+			if(iter.getPosProj(iter.rbStarters) > team.getPosProj(team.rbStarters))
 			{
 				rank++;
 			}
@@ -263,7 +264,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.getPosProj(iter.wrStarters) > team.getPosProj(iter.wrStarters))
+			if(iter.getPosProj(iter.wrStarters) > team.getPosProj(team.wrStarters))
 			{
 				rank++;
 			}
@@ -295,7 +296,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.getPosProj(iter.teStarters) > team.getPosProj(iter.teStarters))
+			if(iter.getPosProj(iter.teStarters) > team.getPosProj(team.teStarters))
 			{
 				rank++;
 			}
@@ -327,7 +328,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.getPosProj(iter.dStarters) > team.getPosProj(iter.dStarters))
+			if(iter.getPosProj(iter.dStarters) > team.getPosProj(team.dStarters))
 			{
 				rank++;
 			}
@@ -359,7 +360,7 @@ public class TeamList {
 		int rank = 1;
 		for(TeamAnalysis iter : leagueSet.teams)
 		{
-			if(iter.getPosProj(iter.kStarters) > team.getPosProj(iter.kStarters))
+			if(iter.getPosProj(iter.kStarters) > team.getPosProj(team.kStarters))
 			{
 				rank++;
 			}

@@ -69,11 +69,8 @@ public class DraftHistory extends Activity {
 	    	        cont.startActivity(intent2);	
 	                break;
 	            case R.id.side_navigation_menu_item3:
-	            	/*
 	            	Intent intent5 = new Intent(cont, ImportLeague.class);
 	    	        cont.startActivity(intent5);
-	    	        */
-	            	Toast.makeText(cont, "Still in development, should be available soon!", Toast.LENGTH_SHORT).show();
 	                break;
 	            case R.id.side_navigation_menu_item4:
 	            	Intent intent3 = new Intent(cont, Trending.class);
@@ -228,7 +225,6 @@ public class DraftHistory extends Activity {
 	 */
 	public void handleDraftInformation(View v)
 	{
-		String team = ((TextView)((RelativeLayout)v).findViewById(R.id.text1)).getText().toString();
 		String sub = ((TextView)((RelativeLayout)v).findViewById(R.id.text2)).getText().toString();
 		TeamAnalysis ta = new TeamAnalysis("", sub, holder, cont, ReadFromFile.readRoster(cont));
 		DecimalFormat df = new DecimalFormat("#.##");
@@ -244,9 +240,9 @@ public class DraftHistory extends Activity {
 		info.append("\n\nK: " + ta.getPosPAA(ta.kStarters) + " (" + ta.kPAATotal + ")");
 		double paaStart = ta.getStarterPAA();
 		double paaBench = ta.totalPAA - paaStart;
-		info.append("\n\nProjections from starters: " + df.format(paaStart));
-		info.append("\nProjections from bench: " + df.format(paaBench));
-		info.append("\nProjections total: " + df.format(paaStart + paaBench) + "\n");	
+		info.append("\n\nPAA from starters: " + df.format(paaStart));
+		info.append("\nPAA from bench: " + df.format(paaBench));
+		info.append("\nPAA total: " + df.format(paaStart + paaBench) + "\n");	
 		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
 	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		popUp.setContentView(R.layout.tweet_popup);

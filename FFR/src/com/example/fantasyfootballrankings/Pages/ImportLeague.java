@@ -124,11 +124,8 @@ public class ImportLeague extends Activity {
         	    	        cont.startActivity(intent2);	
         	                break;
         	            case R.id.side_navigation_menu_item3:
-        	            	/*
         	            	Intent intent5 = new Intent(cont, ImportLeague.class);
         	    	        cont.startActivity(intent5);
-        	    	        */
-        	            	Toast.makeText(cont, "Still in development, should be available soon!", Toast.LENGTH_SHORT).show();
         	                break;
         	            case R.id.side_navigation_menu_item4:
         	            	Intent intent3 = new Intent(cont, Trending.class);
@@ -566,6 +563,7 @@ public class ImportLeague extends Activity {
                 tipsButton.setOnClickListener(new OnClickListener(){
                         @Override
                         public void onClick(View v) {
+                        	if(ImportLeague.holder.isRegularSeason){
                         		if(!isSeenRoster)
                         		{
                         			RosterTips.init(newImport, res);
@@ -586,6 +584,10 @@ public class ImportLeague extends Activity {
                                 tips.setVisibility(View.VISIBLE);
                                 tipsButton.setTextSize(14);
                                 tipsButton.setTypeface(null, Typeface.BOLD);
+                        	}
+                        	else{
+                        		Toast.makeText(cont, "This is a regular season feature, and will be available then", Toast.LENGTH_SHORT).show();
+                        	}
                         }
                 });
                 leagueButton.setOnClickListener(new OnClickListener(){
@@ -664,9 +666,10 @@ public class ImportLeague extends Activity {
                         }
                 });
                 lineupButton.setOnClickListener(new OnClickListener(){
-
+                	
                         @Override
                         public void onClick(View arg0) {
+                        	if(ImportLeague.holder.isRegularSeason){
                         		if(!isSeenLineup)
                         		{
                         			LineupHelp.setLineupInfo(res);
@@ -688,7 +691,10 @@ public class ImportLeague extends Activity {
                                 tipsButton.setTextSize(13);
                                 tipsButton.setTypeface(null, Typeface.NORMAL);
                         }
-                        
+                        	else{
+                        		Toast.makeText(ImportLeague.cont, "This is a regular season feature, and will be available then", Toast.LENGTH_SHORT).show();
+                        	}
+                	}
                 });
             //Handles the back button
             ImageView back = (ImageView)res.findViewById(R.id.back_button_league_stats);

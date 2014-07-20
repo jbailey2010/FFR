@@ -49,10 +49,12 @@ public class Values
 	 */
 	public static void handleNewValue(Values player, double newValue)
 	{
-		double totalSum = player.worth * player.count;
-		totalSum += (1.0 * newValue);
-		player.count += 1.0;
-		player.worth = totalSum / player.count;
+		player.worth += newValue;
+		player.count++;
+	}
+	
+	public static void normVals(Values player){
+		player.worth = player.worth / player.count;
 	}
 
 }

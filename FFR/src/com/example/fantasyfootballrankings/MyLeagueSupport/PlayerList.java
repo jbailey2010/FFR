@@ -89,8 +89,10 @@ public class PlayerList {
 		 List<String> sortFactors = new ArrayList<String>();
 		 sortFactors.add("PAA");
 		 sortFactors.add("Projection");
-		 sortFactors.add("Weekly Ranking");
-		 sortFactors.add("ROS Ranking");
+		 if(ImportLeague.holder.isRegularSeason){
+			 sortFactors.add("Weekly Ranking");
+			 sortFactors.add("ROS Ranking");
+		 }
 		 sortFactors.add("Custom");
 		 ArrayAdapter<String> adapterPos = new ArrayAdapter<String>(cont, 
 					android.R.layout.simple_spinner_dropdown_item, positions);
@@ -459,7 +461,7 @@ public class PlayerList {
 						 {
 							 if(!ImportLeague.holder.isRegularSeason)
 							 {
-								 subInfo.append(" (SOS: " + ImportLeague.holder.sos.get(iter.info.team + "," + iter.info.position) + ")");
+								 subInfo.append("SOS: " + ImportLeague.holder.sos.get(iter.info.team + "," + iter.info.position));
 							 }
 							 if(ImportLeague.holder.isRegularSeason)
 							 {
