@@ -209,31 +209,33 @@ public class ComparatorHandling
 	{
 		StringBuilder p1 = new StringBuilder(10000);
 		StringBuilder p2 = new StringBuilder(10000);
-		int rank1 = posRank(player1, firstPos);
-		int rank2 = posRank(player2, secPos);
-		if(rank1 != rank2)
-		{
-			if(rank1 < rank2)
+		if(!player1.info.position.equals(player2.info.position)){
+			int rank1 = posRank(player1, firstPos);
+			int rank2 = posRank(player2, secPos);
+			if(rank1 != rank2)
 			{
-				if(rank2 - rank1 > 10)
+				if(rank1 < rank2)
 				{
-					p1.append("-Positionally much higher ranked" + "\n");
+					if(rank2 - rank1 > 10)
+					{
+						p1.append("-Positionally much higher ranked" + "\n");
+					}
+					else
+					{
+						p1.append("-Positionally higher ranked\n");
+					}
 				}
 				else
 				{
-					p1.append("-Positionally higher ranked\n");
+					if(rank1 - rank2 > 10)
+					{
+						p2.append("-Positionally much higher ranked" + "\n");
+					}
+					else
+					{
+						p2.append("-Positionally higher ranked\n");
+					}		
 				}
-			}
-			else
-			{
-				if(rank1 - rank2 > 10)
-				{
-					p2.append("-Positionally much higher ranked" + "\n");
-				}
-				else
-				{
-					p2.append("-Positionally higher ranked\n");
-				}		
 			}
 		}
 		double worth1 = player1.values.secWorth;
@@ -334,28 +336,30 @@ public class ComparatorHandling
 				p2.append("-Higher on his team's depth chart" + "\n");
 			}
 		}
-		double cast1 = teamWorth(firstTeam);
-		double cast2 = teamWorth(secTeam);
-		if(cast1 > cast2)
-		{
-			if(cast1 - cast2 > 20.0)
+		if(!(player1.info.position.equals("D/ST") || player2.info.position.equals("D/ST"))){
+			double cast1 = teamWorth(firstTeam);
+			double cast2 = teamWorth(secTeam);
+			if(cast1 > cast2)
 			{
-				p1.append("-Much better supporting cast\n");
+				if(cast1 - cast2 > 20.0)
+				{
+					p1.append("-Much better supporting cast\n");
+				}
+				else
+				{
+					p1.append("-Better supporting cast\n");
+				}
 			}
 			else
 			{
-				p1.append("-Better supporting cast\n");
-			}
-		}
-		else
-		{
-			if(cast2 - cast1 > 20.0)
-			{
-				p2.append("-Much better supporting cast\n");
-			}
-			else
-			{
-				p2.append("-Better supporting cast\n");
+				if(cast2 - cast1 > 20.0)
+				{
+					p2.append("-Much better supporting cast\n");
+				}
+				else
+				{
+					p2.append("-Better supporting cast\n");
+				}
 			}
 		}
 		String cy1 = player1.info.contractStatus;
@@ -567,16 +571,6 @@ public class ComparatorHandling
 					p1.append("-Less left just behind him at his position\n");
 				}
 			}
-		}
-		boolean pos1 = samePos(player1, holder);
-		boolean pos2 = samePos(player2, holder);
-		if(!pos1)
-		{
-			p1.append("-You have not yet drafted a player of this position\n");
-		} 
-		if(!pos2)
-		{
-			p2.append("-You have not yet drafted a player of this position\n");
 		}
 		boolean sameBye1 = teamBye(holder, player1);
 		boolean sameBye2 = teamBye(holder, player2);

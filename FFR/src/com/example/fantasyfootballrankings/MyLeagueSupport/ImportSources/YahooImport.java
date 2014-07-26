@@ -209,7 +209,13 @@ public class YahooImport
 		protected void onPostExecute(List<TeamAnalysis> result){
 		   super.onPostExecute(result);
 		   pda.dismiss();
-		   getLeagueName(result);
+		   System.out.println(result.size());
+		   if((result.size() >= 6)){
+			   getLeagueName(result);
+		   }
+		   else{
+			   Toast.makeText(act, "This feature is only available after you've drafted", Toast.LENGTH_SHORT).show();
+		   }
 		}
 
 	    @Override
@@ -412,6 +418,7 @@ public class YahooImport
 					kStr = kStr.substring(0, kStr.length()-2) + "\n";
 				}
 				TeamAnalysis teamObj = new TeamAnalysis(team, qbStr + rbStr + wrStr + teStr + dStr + kStr, holder, cont, r);
+				System.out.println("Adding teamObj: " + teamObj.team.length() + ", " + team);
 				teamSet.add(teamObj);
 			}
 			return teamSet;
