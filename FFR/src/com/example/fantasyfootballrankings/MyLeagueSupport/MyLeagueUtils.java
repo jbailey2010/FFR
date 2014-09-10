@@ -181,9 +181,16 @@ public class MyLeagueUtils
 		rbwr.setAdapter(spinnerArrayAdapter);
 		rbwrte.setAdapter(spinnerArrayAdapter);
 		op.setAdapter(spinnerArrayAdapter);
-		rbwr.setSelection(quantitiesQBTE.indexOf(String.valueOf(newFlex.rbwr)));
-		rbwrte.setSelection(quantitiesQBTE.indexOf(String.valueOf(newFlex.rbwrte)));
-		op.setSelection(quantitiesQBTE.indexOf(String.valueOf(newFlex.op)));
+		if(newFlex != null){
+			rbwr.setSelection(quantitiesQBTE.indexOf(String.valueOf(newFlex.rbwr)));
+			rbwrte.setSelection(quantitiesQBTE.indexOf(String.valueOf(newFlex.rbwrte)));
+			op.setSelection(quantitiesQBTE.indexOf(String.valueOf(newFlex.op)));
+		}
+		else {
+			rbwr.setSelection(0);
+			rbwrte.setSelection(0);
+			op.setSelection(0);
+		}
 		Button submit = (Button)dialog.findViewById(R.id.roster_submit);
 		submit.setOnClickListener(new OnClickListener(){
 			@Override

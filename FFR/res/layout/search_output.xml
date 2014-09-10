@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#999999"
-    android:orientation="vertical" >
+    android:background="#999999" >
 
     <RelativeLayout
+        android:id="@+id/playerinfo_top"
         android:layout_width="fill_parent"
         android:layout_height="51dp" 
         android:background="@drawable/menu_black">
@@ -77,7 +77,8 @@
         android:id="@+id/category_base"
         android:layout_width="fill_parent"
         android:layout_height="45dp" 
-        android:background="@drawable/category_playerinfo"
+        android:background="@drawable/menu_btn_black"
+        android:layout_below="@+id/playerinfo_top"
         android:weightSum="100"> 
 
         <Button
@@ -86,17 +87,12 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="25"
-            android:background="@drawable/category_playerinfo"
+            android:background="#FF5454"
             android:text="Rankings"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:textSize="14sp" />
-        
-       	<View android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-		    android:background="#FF0000"
-		    android:layout_marginTop="7dp"
-		    android:layout_marginBottom="7dp"/>
+     
 
         <Button
             android:id="@+id/category_info"
@@ -104,16 +100,11 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="25"
-            android:background="@drawable/category_playerinfo"
+            android:background="@drawable/menu_btn_black"
             android:text="Player Info"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
         
-        <View android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-		    android:background="#FF0000"
-		    android:layout_marginTop="7dp"
-		    android:layout_marginBottom="7dp"/>
 
         <Button
             android:id="@+id/category_team"
@@ -121,25 +112,18 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="25"
-            android:background="@drawable/category_playerinfo"
+            android:background="@drawable/menu_btn_black"
             android:text="Team Info"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
         
-        <View android:id="@+id/hidden_view"
-            android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-		    android:background="#FF0000"
-		    android:layout_marginTop="7dp"
-		    android:layout_marginBottom="7dp"/>
-
         <Button
             android:id="@+id/category_other"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="25"
-            android:background="@drawable/category_playerinfo"
+            android:background="@drawable/menu_btn_black"
             android:text="News"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
@@ -149,12 +133,13 @@
         android:id="@+id/info_sub_header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
+        android:layout_alignParentBottom="true"
         android:background="@drawable/info_sub_background"> 
         <View
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:background="#999999"
-            android:layout_alignBottom="@+id/dummy_btn_center"
+            android:layout_alignTop="@+id/dummy_btn_center"
             />
         <Button 
             android:id="@+id/dummy_btn_center"
@@ -191,15 +176,17 @@
 
     </RelativeLayout>
 
-
     <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
         android:id="@+id/listview_search"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
+        android:layout_above="@+id/info_sub_header"
+        android:layout_below="@+id/category_base"
         android:background="@drawable/content_well_popup"
-        android:divider="#999999"
-        android:layout_width="fill_parent" >
+        android:clickable="true"
+        android:divider="#999999" >
+
     </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 
 
-</LinearLayout>
+</RelativeLayout>

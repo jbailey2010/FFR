@@ -18,7 +18,7 @@ import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
  * rankings
  * @author Jeff
  *
- */
+ */ 
 public class ParseWF 
 {
 	/**
@@ -41,43 +41,31 @@ public class ParseWF
 	
 	/**
 	 * This is the relevant code for the walterfootball parsing.
-	 * NOTE: THE NAMES CORRECTIONS SHOULD BE ABSTRACTED AS IT'LL PROBABLY
-	 * COME UP AGAIN LATER
 	 * @param holder
 	 * @param url
 	 * @throws IOException
 	 */
-	public static void wfRankingsHelper(Storage holder, String url) throws IOException
+	public static void wfRankingsHelper(Storage holder, String url) throws IOException, ArrayIndexOutOfBoundsException
 	{
-		List<String> perPlayer = HandleBasicQueries.handleLists(url, "span");
+		List<String> perPlayer = HandleBasicQueries.handleLists(url, "ol.fantasy-board div li");
 		String[][] all = new String[perPlayer.size()][];
 		for(int i = 0; i < perPlayer.size(); i++)
 		{
-			if(i+5 < perPlayer.size() && perPlayer.get(i+5).contains("total posts"))
-			{
-				break;
-			}
-			perPlayer.set(i, perPlayer.get(i).replace(". -- ", ", "));
 			all[i] = perPlayer.get(i).split(", ");
 			String playerName = all[i][0];
-			if(!playerName.contains(String.valueOf(i+1)))
-			{
-				break;
-			}
-			playerName = ParseRankings.fixNames(playerName.split(String.valueOf(i + 1) + "\\. ")[1]);
+			playerName = ParseRankings.fixNames(playerName);
 			String pos="";
 			int val = 0;
 			if(!perPlayer.get(i).contains("DEF"))
 			{
 				pos = all[i][1];
-				val = Integer.parseInt(all[i][3].substring(1, all[i][3].length()));
 			}
 			else
 			{
 				playerName += " D/ST";
 				pos = "D/ST";
-				val = Integer.parseInt(all[i][3].substring(1, all[i][3].length()));
 			}
+			val = Integer.parseInt(perPlayer.get(i).split("\\$")[1].split(" ")[0]);
 			ParseRankings.finalStretch(holder, playerName, val, "", pos);
 		}
 	}

@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.text.DecimalFormat;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -1186,6 +1187,7 @@ public class SortHandler
 			back.setText("Back");
 			back.setTypeface(null, Typeface.NORMAL);
 			back.setTextSize(13);
+			back.setBackgroundDrawable(cont.getResources().getDrawable(R.drawable.menu_btn_black));
 			Button watch = (Button)base2.findViewById(R.id.category_info);
 			Button hidden = (Button)base2.findViewById(R.id.category_team);
 			View backView = (View)dialog.findViewById(R.id.back_view);
@@ -1291,7 +1293,7 @@ public class SortHandler
 		    			hidden = "W";
 		    		}
 		    	}
-		    	if(isHidden && !output.equals(String.valueOf(count) + ") "))
+		    	if(isHidden && hidden.contains("D"))
 		    	{
 		    		continue;
 		    	}  

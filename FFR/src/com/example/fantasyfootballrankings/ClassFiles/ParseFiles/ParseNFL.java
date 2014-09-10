@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -39,7 +40,9 @@ public class ParseNFL
 		    StringBuilder htmlBuilder = new StringBuilder(10000);
 		    try { 
 		        url = new URL("http://www.nfl.com/fantasyfootball/rankings#tabset=pr-top");
-		        is = url.openStream();  // throws an IOException
+		        URLConnection conn = url.openConnection();
+		        conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
+		        is = conn.getInputStream();
 		        br = new BufferedReader(new InputStreamReader(is));
 		        while ((line = br.readLine()) != null) {
 		        	htmlBuilder.append(line);

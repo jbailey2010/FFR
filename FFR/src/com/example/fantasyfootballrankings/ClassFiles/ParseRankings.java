@@ -121,6 +121,7 @@ public class ParseRankings
 		fixes.put("Gio Bernard", "Giovani Bernard");
 		fixes.put("Timothy Wright", "Tim Wright");
 		fixes.put("Terrence Williams", "Terrance Williams");
+		fixes.put("Odell Beckham Jr.", "Odell Beckham");
 		
 		teams.clear();
 		teams.put("cin", "Cincinnati Bengals");
@@ -137,7 +138,7 @@ public class ParseRankings
 		teams.put("blt", "Baltimore Ravens");
 		teams.put("baltimore", "Baltimore Ravens");
 		teams.put("ravens", "Baltimore Ravens");
-		teams.put("mia", "Miami Dolphins");
+		teams.put("mia", "Miami Dolphins"); 
 		teams.put("miami", "Miami Dolphins");
 		teams.put("dolphins", "Miami Dolphins");
 		teams.put("nwe", "New England Patriots");

@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraft;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
@@ -324,11 +327,12 @@ public class HighLevel
 	{ 
 		HashMap<String, Double> points = new HashMap<String, Double>();
 		Scoring scoring = ReadFromFile.readScoring(cont);
-		qbProj("http://www.fantasypros.com/nfl/projections/qb.php?year=" + Home.yearKey, points, scoring, "QB");
-		rbProj("http://www.fantasypros.com/nfl/projections/rb.php?year=" + Home.yearKey, points, scoring, "RB");
-		wrProj("http://www.fantasypros.com/nfl/projections/wr.php?year=" + Home.yearKey, points, scoring, "WR");
-		teProj("http://www.fantasypros.com/nfl/projections/te.php?year=" + Home.yearKey, points, scoring, "TE");
-		kProj("http://www.fantasypros.com/nfl/projections/k.php?year=" + Home.yearKey, points, "K");
+		String suffix = "?year=" + Home.yearKey;
+		qbProj("http://www.fantasypros.com/nfl/projections/qb.php" + suffix, points, scoring, "QB");
+		rbProj("http://www.fantasypros.com/nfl/projections/rb.php" + suffix, points, scoring, "RB");
+		wrProj("http://www.fantasypros.com/nfl/projections/wr.php" + suffix, points, scoring, "WR");
+		teProj("http://www.fantasypros.com/nfl/projections/te.php" + suffix, points, scoring, "TE");
+		kProj("http://www.fantasypros.com/nfl/projections/k.php" + suffix, points, "K");
 		try{
 			defProjWeekly(points, "D/ST");
 		}catch(IOException e)
@@ -571,18 +575,22 @@ public class HighLevel
 		List<String> td = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2014/weeklycheatsheets.cfm?player_pos=DEF", "table.grid td");
 		boolean hasWeek = false;
 		boolean hasWill = false;
+		boolean notYetDone = false;
 		for(String elem : td){
 			if(elem.contains("Week")){
 				hasWeek = true;
 				break;
 			}
-			if(elem.contains("will be up")){
-				hasWill = true;
-				break;
-			}
+		}
+		Document doc = Jsoup.connect("http://www.fftoolbox.com/football/2014/weeklycheatsheets.cfm?player_pos=DEF").get();
+		if(doc.html().contains("will be up")){
+			hasWill = true;
+		}
+		else if(doc.html().contains("for this position yet")){
+			notYetDone = true;
 		}
 		
-		if(td.size() < 20 && !hasWeek && !hasWill)
+		if(td.size() < 20 && !hasWeek && !hasWill && !notYetDone)
 		{
 			defProjAnnual(points, pos);
 		}
@@ -729,6 +737,10 @@ public class HighLevel
 		}
 		for(int i = min; i < td.size(); i+=6)
 		{
+			//Odd case where 50 players in the size changes
+			if(ManageInput.isInteger(td.get(i+1))){
+				i++;
+			}
 			String name = "";
 			if(pos.equals("D/ST"))
 			{
@@ -738,6 +750,8 @@ public class HighLevel
 			{
 				name = ParseRankings.fixNames((td.get(i+1).split(" \\(")[0].split(", ")[0]));
 			}
+			
+
 			double ecrVal = Double.parseDouble(td.get(i));
 			double riskVal = Double.parseDouble(td.get(i+5));
 			String team = ParseRankings.fixTeams(td.get(i+1).split(" \\(")[1].split("\\)")[0]);
@@ -873,6 +887,10 @@ public class HighLevel
 		}
 		for(int i = min; i < td.size(); i+=6)
 		{
+			//Fix the odd case where the row size changes
+			if(ManageInput.isInteger(td.get(i+1))){
+				i++;
+			}
 			int ranking = Integer.parseInt(td.get(i));
 			String name = "";
 			name = ParseRankings.fixNames(td.get(i+1).split(" \\(")[0]);

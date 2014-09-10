@@ -20,6 +20,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 
 import AsyncTasks.StorageAsyncTask;
@@ -538,5 +539,10 @@ public class WriteToFile {
 	{
 		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
 		editor.putBoolean("Is First Player Info", true).apply();
+	}
+
+	public static void writeFirstIsRegularSeason(Context cont) {
+		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		editor.putBoolean("Is regular season new " + Home.yearKey, false).apply();
 	}
 }

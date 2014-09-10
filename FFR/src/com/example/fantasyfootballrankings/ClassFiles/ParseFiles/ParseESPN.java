@@ -59,6 +59,7 @@ public class ParseESPN
 			{
 				valDS = "$1";
 			}
+			System.out.println(name + ": " + valDS);
 			int val = Integer.parseInt(valDS.substring(1, valDS.length()));
 			name = ParseRankings.fixDefenses(ParseRankings.fixNames(name));
 			ParseRankings.finalStretch(holder, name, val, "", "");

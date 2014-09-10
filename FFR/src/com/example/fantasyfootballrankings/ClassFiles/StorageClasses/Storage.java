@@ -47,7 +47,7 @@ public class Storage
 	 */
 	public Storage(Context cont)
 	{
-		isRegularSeason = false;
+		isRegularSeason = true;
 		players = new ArrayList<PlayerObject>(350);
 		postedPlayers = new PriorityQueue<PostedPlayer>(100, new Comparator<PostedPlayer>()
 		{

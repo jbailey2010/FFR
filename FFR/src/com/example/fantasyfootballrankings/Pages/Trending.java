@@ -82,6 +82,7 @@ public class Trending extends Activity {
 	public static SimpleAdapter mAdapter;
 	public static List<Map<String, String>> data;
 	public static SideNavigationView sideNavigationView;
+	public static boolean sourcesUpdated = false;
 	/**
 	 * Sets up the dialog to show up immediately
 	 */
@@ -455,7 +456,7 @@ public class Trending extends Activity {
 		final CheckBox rookie = (CheckBox)dialog.findViewById(R.id.rookies);
 		final CheckBox want = (CheckBox)dialog.findViewById(R.id.must_haves);
 		final CheckBox dontWant = (CheckBox)dialog.findViewById(R.id.dont_want);
-		if(holder.isRegularSeason)
+		if(holder.isRegularSeason && Trending.sourcesUpdated)
 		{
 			value.setText("Buy Low/Sell High");
 			rookie.setText("Dynasty/Keepers");
@@ -637,7 +638,12 @@ public class Trending extends Activity {
 	public void resetTrendingList(int filterSize, Context cont) throws ParseException, IOException
 	{
 		refreshed = true;
-		data.clear();
+		if(data != null){
+			data.clear();
+		}
+		else{
+			data = new ArrayList<Map<String, String>>();
+		}
 		holder.postedPlayers.clear();
 		ParseTrending.setUpLists(holder, filterSize, cont);
 	}
@@ -868,7 +874,7 @@ public class Trending extends Activity {
 	 * @param act
 	 */
 	public static void setNoInfo(Activity act, Storage hold) {
-		if(hold.parsedPlayers.size() > 10)
+		if(hold.parsedPlayers.size() > 10 && data != null && data.size() > 0)
 		{
 			for(Map<String, String> datum : data)
 			{ 

@@ -62,6 +62,7 @@ import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.TwitterWork;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LineupHelp;
+import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.example.fantasyfootballrankings.Pages.Trending;
@@ -153,7 +154,10 @@ public class ParsingAsyncTask
 		    		System.out.println("Before WF");
 		    		try {
 						ParseWF.wfRankings(holder, s, r);
-					} catch (HttpStatusException e2)
+					} catch(ArrayIndexOutOfBoundsException ee){
+						ee.printStackTrace();
+					}
+		    		catch (HttpStatusException e2)
 					{
 						System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 					} catch (IOException e15) {
@@ -254,7 +258,7 @@ public class ParsingAsyncTask
 					} catch (IOException e3) {
 					}
 					publishProgress("Please wait, fetching the rankings...(18/30)");
-					System.out.println("Before NFL Rankings");
+					/*System.out.println("Before NFL Rankings");
 					try {
 						ParseNFL.parseNFLRankingsWrapper(holder, cont);
 						publishProgress("Please wait, fetching the rankings...(19/30)");
@@ -265,7 +269,7 @@ public class ParsingAsyncTask
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
+					}*/
 					System.out.println("Before Draft Wizard Rankings");
 					try {
 						ParseDraftWizardRanks.parseRanksWrapper(holder, s, r);
@@ -586,7 +590,7 @@ public class ParsingAsyncTask
 
 		    	holder = hold;
 				try {
-					if(!holder.isRegularSeason)
+					if(!holder.isRegularSeason || !Trending.sourcesUpdated)
 					{
 						if(mustHave)
 						{
@@ -601,7 +605,7 @@ public class ParsingAsyncTask
 							//QB rankings
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=444603&st=");
 							//WR rankings
-							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=339910&st=");
+							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=453512&st=");
 							//TE rankings
 							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=424362&st=");
 						}
@@ -1040,10 +1044,13 @@ public class ParsingAsyncTask
 		    	baseURL += obj.playerNameUrl(player1) + "-" + obj.playerNameUrl(player2) + ".php";
 		    	String firstName = player1;
 		    	String secondName = player2;
+		    	System.out.println(firstName);
+		    	System.out.println(secondName);
 		    	if(s.catches == 1)
 		    	{
 		    		baseURL += "?scoring=PPR";
 		    	}
+		    	System.out.println(baseURL);
 		    	try {
 					Document doc = Jsoup.connect(baseURL).get();
 					List<String> percentages = HandleBasicQueries.handleListsMulti(doc, baseURL, "div div.mpb-col span");
@@ -1062,7 +1069,7 @@ public class ParsingAsyncTask
 					Element p = null;
 					for(Element elem : elems)
 					{
-						if(isStart && elem.text().contains("Points / Game"))
+						if(isStart && (elem.text().contains("Points / Game") || elem.text().contains("Ave Projection")))
 						{
 							p = elem;
 							ecrList.add(elem.parent().child(1).text());
@@ -1076,12 +1083,22 @@ public class ParsingAsyncTask
 							break;
 						}
 					}
+					for(String elem : ecrList){
+						System.out.println(elem);
+					}
 					if(p != null)
 					{
-						Element megaParent = p.parent().parent().parent().parent();//.child(2).child(1).child(1).child(0).text();
-						String name = (megaParent.child(2).child(1).child(1).child(0).text());
-						System.out.println("Name is " + name + ", firstName is " + firstName);
-						if(isStart && !name.equals(firstName))
+						String name = "";
+						if(!isStart){
+							Element megaParent = p.parent().parent().parent().parent();//.child(2).child(1).child(1).child(0).text();
+							name = (megaParent.child(2).child(1).child(1).child(0).text());
+						}
+						else{
+							Element megaParent = p.parent().parent().parent().parent();
+							name = megaParent.child(2).child(1).child(2).text();
+						}
+						System.out.println(name);
+						if(isStart && !(name.equals(firstName) || name.contains(firstName)))
 						{
 							List<String> newEcr = new ArrayList<String>();
 							newEcr.add(ecrList.get(1));

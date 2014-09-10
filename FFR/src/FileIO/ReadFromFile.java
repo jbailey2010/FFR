@@ -21,6 +21,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.Pages.Home;
 /**
  * A library of all the functions that will read
  * from file
@@ -166,7 +167,7 @@ public class ReadFromFile {
 		{
 			return prefs.getInt("Filter Quantity Size Rankings", 50);
 		}
-		return prefs.getInt("Filter Quantity Size", 100);
+		return prefs.getInt("Filter Quantity Size", 50);
 	}
 	
 	/**
@@ -577,5 +578,14 @@ public class ReadFromFile {
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		return prefs.getBoolean("Is First Player Info", false);
+	}
+
+	public static boolean firstIsRegularSeason(Context cont) {
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		boolean needsRefresh = prefs.getBoolean("Is regular season new " + Home.yearKey, true);
+		if(needsRefresh){
+			WriteToFile.writeFirstIsRegularSeason(cont);
+		}
+		return needsRefresh;
 	}
 }

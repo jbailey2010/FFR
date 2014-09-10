@@ -31,7 +31,7 @@ public class HandleBasicQueries
 	public static List<String> handleLists(String url, String params) throws IOException
 	{
 		List<String> elems = new ArrayList<String>();
-		Document doc = Jsoup.connect(url).userAgent(ua).get();
+		Document doc = Jsoup.connect(url).userAgent(ua).timeout(6000).get();
         Elements links = doc.select(params);
 
         for (Element element : links) 

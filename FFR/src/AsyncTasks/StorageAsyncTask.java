@@ -9,6 +9,7 @@ import java.util.Set;
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -301,6 +302,7 @@ public class StorageAsyncTask
 	{
 		Activity act;
 		int flag;
+		boolean teamFail = false;
 	    public ReadDraft(Activity activity, int i) 
 	    {
 	        act = activity;
@@ -313,10 +315,13 @@ public class StorageAsyncTask
 		}
 		@Override
 		protected void onPostExecute(Storage result){
-			if(result.maxProj() < 65.0)
+			if(teamFail){
+				Toast.makeText(act, "An error occurred in saving. You may need to refresh ranks. Make sure you have a strong internet connection", Toast.LENGTH_LONG).show();
+			}
+			/*if(result.maxProj() < 65.0)
 			{
 				result.isRegularSeason = true;
-			}
+			}*/
 			if(flag == 0)
 			{
 				((Rankings)act).intermediateHandleRankings(act);
@@ -339,7 +344,11 @@ public class StorageAsyncTask
 	   		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
     		holder.players = new ArrayList<PlayerObject>();
     		holder.parsedPlayers = new HashSet<String>();
-    		ReadFromFile.readTeamData(holder, cont);
+    		try{
+    			ReadFromFile.readTeamData(holder, cont);
+    		} catch(ArrayIndexOutOfBoundsException e){
+    			teamFail = true;
+    		}
     		double aucFactor = ReadFromFile.readAucFactor(cont);
 	   		for(String st : checkExists)
 	   		{  

@@ -6,7 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.htmlcleaner.XPatherException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
+import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
@@ -116,6 +119,11 @@ public class ParseFFTB
 	public static void parseSOSInSeason(Storage holder) throws IOException
 	{
 		HashMap<String, Integer>sos = new HashMap<String, Integer>();
+		Document testDoc = Jsoup.connect("http://www.fftoolbox.com/football/2014/points-allowed.cfm?pos=QB").get();
+		if(testDoc.html().contains("Coming Soon")){
+			HighLevel.getSOS(holder);
+			return;
+		}
 		parseSOSWorker("http://www.fftoolbox.com/football/2014/points-allowed.cfm?pos=QB", sos, "QB");
 		parseSOSWorker("http://www.fftoolbox.com/football/2014/points-allowed.cfm?pos=RB", sos, "RB");
 		parseSOSWorker("http://www.fftoolbox.com/football/2014/points-allowed.cfm?pos=WR", sos, "WR");

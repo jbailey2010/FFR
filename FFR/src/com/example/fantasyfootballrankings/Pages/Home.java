@@ -3,6 +3,7 @@ package com.example.fantasyfootballrankings.Pages;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -139,9 +140,18 @@ public class Home extends Activity{
         handleInitialRefresh();
         if(ReadFromFile.readFirstOpen(cont))
         {
+        	WriteToFile.writeFirstIsRegularSeason(cont);
         	//ManageInput.generalHelp(cont);
         	helpPopUp(true);
 			
+        }
+        //Refresh the data on a new isregular season for the year so it doesn't crash on load
+        else if(ReadFromFile.firstIsRegularSeason(cont)){
+        	holder.players = new ArrayList<PlayerObject>();
+        	SharedPreferences prefs = getSharedPreferences("FFR", 0);
+        	prefs.edit().remove("Player Values").apply();
+        	Intent intent = new Intent(this, Rankings.class);
+		    startActivity(intent);	
         }
 	}  
 	

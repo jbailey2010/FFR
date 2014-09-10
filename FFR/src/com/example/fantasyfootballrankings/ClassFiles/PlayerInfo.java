@@ -607,6 +607,10 @@ public class PlayerInfo
 				info.setTextSize(13);
 				team.setTextSize(13);
 				other.setTextSize(13);
+            	info.setBackgroundDrawable(cont.getResources().getDrawable(R.drawable.menu_btn_black));
+            	team.setBackgroundDrawable(cont.getResources().getDrawable(R.drawable.menu_btn_black));
+            	other.setBackgroundDrawable(cont.getResources().getDrawable(R.drawable.menu_btn_black));
+            	ranking.setBackgroundColor(0XFFFF5454);
 			}
 	   	});
 	   	info.setOnClickListener(new OnClickListener(){
@@ -621,6 +625,10 @@ public class PlayerInfo
 				info.setTextSize(14);
 				team.setTextSize(13);
 				other.setTextSize(13);
+				ranking.setBackgroundDrawable(cont.getResources().getDrawable(R.drawable.menu_btn_black));
+            	team.setBackgroundDrawable(cont.getResources().getDrawable(R.drawable.menu_btn_black));
+            	other.setBackgroundDrawable(cont.getResources().getDrawable(R.drawable.menu_btn_black));
+            	info.setBackgroundColor(0XFFFF5454);
 			}
 	   	});
 	   	team.setOnClickListener(new OnClickListener(){
@@ -635,6 +643,10 @@ public class PlayerInfo
 				info.setTextSize(13);
 				team.setTextSize(14);
 				other.setTextSize(13);
+				ranking.setBackgroundDrawable(cont.getResources().getDrawable(R.drawable.menu_btn_black));
+            	info.setBackgroundDrawable(cont.getResources().getDrawable(R.drawable.menu_btn_black));
+            	other.setBackgroundDrawable(cont.getResources().getDrawable(R.drawable.menu_btn_black));
+            	team.setBackgroundColor(0XFFFF5454);
 			}
 	   	});
 	   	other.setOnClickListener(new OnClickListener(){
@@ -649,6 +661,10 @@ public class PlayerInfo
 				info.setTextSize(13);
 				team.setTextSize(13);
 				other.setTextSize(14);
+				ranking.setBackgroundDrawable(cont.getResources().getDrawable(R.drawable.menu_btn_black));
+            	info.setBackgroundDrawable(cont.getResources().getDrawable(R.drawable.menu_btn_black));
+            	team.setBackgroundDrawable(cont.getResources().getDrawable(R.drawable.menu_btn_black));
+            	other.setBackgroundColor(0XFFFF5454);
 			}
 	   	});
 	   	contentRankings(cont);
@@ -667,6 +683,10 @@ public class PlayerInfo
 			info.setTextSize(13);
 			team.setTextSize(13);
 			other.setTextSize(14);
+			ranking.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	info.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	team.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	other.setBackgroundColor(0XFFFF5454);
 		}
 		else if(isMax(info))
 		{
@@ -679,6 +699,10 @@ public class PlayerInfo
 			info.setTextSize(13);
 			team.setTextSize(13);
 			other.setTextSize(13);
+			info.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	team.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	other.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	ranking.setBackgroundColor(0XFFFF5454);
 		}
 		else if(isMax(team))
 		{
@@ -691,6 +715,10 @@ public class PlayerInfo
 			info.setTextSize(14);
 			team.setTextSize(13);
 			other.setTextSize(13);
+			ranking.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	team.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	other.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	info.setBackgroundColor(0XFFFF5454);
 		}
 		else if(isMax(other))
 		{
@@ -703,6 +731,10 @@ public class PlayerInfo
 			info.setTextSize(13);
 			team.setTextSize(14);
 			other.setTextSize(13);
+			ranking.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	info.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	other.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	team.setBackgroundColor(0XFFFF5454);
 		}
 	}
 	
@@ -736,6 +768,10 @@ public class PlayerInfo
 			info.setTextSize(14);
 			team.setTextSize(13);
 			other.setTextSize(13);
+			ranking.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	team.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	other.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	info.setBackgroundColor(0XFFFF5454);
 		}
 		else if(isMax(info))
 		{
@@ -748,6 +784,10 @@ public class PlayerInfo
 			info.setTextSize(13);
 			team.setTextSize(14);
 			other.setTextSize(13);
+			ranking.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	info.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	other.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	team.setBackgroundColor(0XFFFF5454);
 		}
 		else if(isMax(team))
 		{
@@ -760,6 +800,10 @@ public class PlayerInfo
 			info.setTextSize(13);
 			team.setTextSize(13);
 			other.setTextSize(14);
+			info.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	team.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	ranking.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	other.setBackgroundColor(0XFFFF5454);
 		}
 		else if(isMax(other))
 		{
@@ -772,6 +816,10 @@ public class PlayerInfo
 			info.setTextSize(13);
 			team.setTextSize(13);
 			other.setTextSize(13);
+			info.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	team.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	other.setBackgroundDrawable(act.getResources().getDrawable(R.drawable.menu_btn_black));
+        	ranking.setBackgroundColor(0XFFFF5454);
 		}
 	}
 	

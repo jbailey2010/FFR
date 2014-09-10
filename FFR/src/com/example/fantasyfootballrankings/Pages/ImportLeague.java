@@ -571,7 +571,7 @@ public class ImportLeague extends Activity {
                 players.setVisibility(View.GONE);
                 lineup.setVisibility(View.GONE);
                 tips.setVisibility(View.GONE);
-                ll.removeAllViews();
+                ll.removeAllViews(); 
         		LeagueList.setLeagueInfoList(res);
         		isSeenLeague = true;
                 final Button leagueButton = (Button)res.findViewById(R.id.category_league_stats);
@@ -579,6 +579,7 @@ public class ImportLeague extends Activity {
                 final Button playersButton= (Button)res.findViewById(R.id.category_player_list);
                 final Button lineupButton = (Button)res.findViewById(R.id.category_lineup_help);
                 final Button tipsButton = (Button)res.findViewById(R.id.imported_league_tips);
+                leagueButton.setBackgroundColor(0XFFFF5454);
                 tipsButton.setOnClickListener(new OnClickListener(){
                         @Override
                         public void onClick(View v) {
@@ -596,12 +597,18 @@ public class ImportLeague extends Activity {
                                 teamsButton.setTextSize(13);
                                 playersButton.setTextSize(13);
                                 lineupButton.setTextSize(13);
+                                leagueButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                teamsButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                playersButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                lineupButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                tipsButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
                                 leagueButton.setTypeface(null,Typeface.NORMAL);
                                 teamsButton.setTypeface(null, Typeface.NORMAL);
                                 playersButton.setTypeface(null, Typeface.NORMAL);
                                 lineupButton.setTypeface(null, Typeface.NORMAL);
                                 tips.setVisibility(View.VISIBLE);
                                 tipsButton.setTextSize(14);
+                                tipsButton.setBackgroundColor(0XFFFF5454);
                                 tipsButton.setTypeface(null, Typeface.BOLD);
                         	}
                         	else{
@@ -621,7 +628,13 @@ public class ImportLeague extends Activity {
                                 teams.setVisibility(View.GONE);
                                 players.setVisibility(View.GONE);
                                 lineup.setVisibility(View.GONE);
+                                leagueButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                teamsButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                playersButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                lineupButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                tipsButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
                                 leagueButton.setTextSize(14);
+                                leagueButton.setBackgroundColor(0XFFFF5454);
                                 teamsButton.setTextSize(13);
                                 playersButton.setTextSize(13);
                                 lineupButton.setTextSize(13);
@@ -646,7 +659,13 @@ public class ImportLeague extends Activity {
                                 league.setVisibility(View.GONE);
                                 players.setVisibility(View.GONE);
                                 lineup.setVisibility(View.GONE);
+                                leagueButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                teamsButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                playersButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                lineupButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                tipsButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
                                 teamsButton.setTextSize(14);
+                                teamsButton.setBackgroundColor(0XFFFF5454);
                                 leagueButton.setTextSize(13);
                                 playersButton.setTextSize(13);
                                 lineupButton.setTextSize(13);
@@ -671,9 +690,15 @@ public class ImportLeague extends Activity {
                                 teams.setVisibility(View.GONE);
                                 players.setVisibility(View.VISIBLE);
                                 lineup.setVisibility(View.GONE);
+                                leagueButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                teamsButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                playersButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                lineupButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                tipsButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
                                 leagueButton.setTextSize(13);
                                 teamsButton.setTextSize(13);
                                 playersButton.setTextSize(14);
+                                playersButton.setBackgroundColor(0XFFFF5454);
                                 lineupButton.setTextSize(13);
                                 leagueButton.setTypeface(null,Typeface.NORMAL);
                                 teamsButton.setTypeface(null, Typeface.NORMAL);
@@ -698,10 +723,16 @@ public class ImportLeague extends Activity {
                                 teams.setVisibility(View.GONE);
                                 players.setVisibility(View.GONE);
                                 lineup.setVisibility(View.VISIBLE);
+                                leagueButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                teamsButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                playersButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                lineupButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
+                                tipsButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_btn_black));
                                 leagueButton.setTextSize(13);
                                 teamsButton.setTextSize(13);
                                 playersButton.setTextSize(13);
                                 lineupButton.setTextSize(14);
+                                lineupButton.setBackgroundColor(0XFFFF5454);
                                 leagueButton.setTypeface(null,Typeface.NORMAL);
                                 teamsButton.setTypeface(null, Typeface.NORMAL);
                                 playersButton.setTypeface(null, Typeface.NORMAL);

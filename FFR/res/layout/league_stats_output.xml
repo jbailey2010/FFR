@@ -101,12 +101,6 @@
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:textSize="14sp" />
-        
-       	<View android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-		    android:background="#FF0000"
-		    android:layout_marginTop="7dp"
-		    android:layout_marginBottom="7dp"/>
 
         <Button
             android:id="@+id/category_team_stats"
@@ -118,12 +112,6 @@
             android:text="Team Stats"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
-        
-        <View android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-		    android:background="#FF0000"
-		    android:layout_marginTop="7dp"
-		    android:layout_marginBottom="7dp"/>
 
         <Button
             android:id="@+id/category_player_list"
@@ -136,12 +124,6 @@
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
         
-        <View android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-		    android:background="#FF0000"
-		    android:layout_marginTop="7dp"
-		    android:layout_marginBottom="7dp"/>
-        
         <Button
             android:id="@+id/category_lineup_help"
             style="?android:attr/buttonBarButtonStyle"
@@ -153,12 +135,6 @@
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
         
-        <View android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-		    android:background="#FF0000"
-		    android:layout_marginTop="7dp"
-		    android:layout_marginBottom="7dp"/>
-
         <Button
             android:id="@+id/imported_league_tips"
             style="?android:attr/buttonBarButtonStyle"

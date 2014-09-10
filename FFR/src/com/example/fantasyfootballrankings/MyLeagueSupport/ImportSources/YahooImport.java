@@ -228,7 +228,7 @@ public class YahooImport
 			{
 				String playerName = ParseRankings.fixDefenses(ParseRankings.fixNames(elem.text()));
 				String team = "";
-				Elements parent = elem.parent().parent().parent().parent().parent().parent().children();
+				Elements parent = elem.parent().parent().parent().parent().parent().parent().parent().parent().children();
 				for(Element children : parent)
 				{
 					if(children.children().size() > 0)
