@@ -168,7 +168,7 @@
              android:layout_height="wrap_content"
              android:layout_alignLeft="@+id/imported_league_rankings"
              android:layout_marginTop="10dp"
-             android:visibility="visible"
+             android:visibility="gone"
              android:text="Click on one of the elements to see a graphical representation. If it's a positional breakdown, a single click will show starters and a long click the whole set."
              android:textColor="#ffffff" />
 
@@ -198,7 +198,7 @@
              android:layout_height="wrap_content"
              android:layout_alignLeft="@+id/imported_teams_info"
              android:layout_marginTop="10dp"
-             android:visibility="visible"
+             android:visibility="gone"
              android:text="Click on a team to see detailed positional breakdowns. Click and hold to see the best lineup this team can field\nNote: This is based on your roster settings. During the preseason, this is overall, but during the season it's per week."
              android:textColor="#ffffff" />
 
@@ -211,8 +211,7 @@
              android:focusable="false"
              android:layout_below="@+id/team_help_import"
              android:background="@drawable/content_well_import"
-             android:divider="#999999"
-             android:paddingBottom="9dp" >
+             android:divider="#999999" >
          </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
            </RelativeLayout>
            
@@ -251,8 +250,7 @@
                android:divider="#999999"
                android:focusable="false"
                android:layout_marginTop="6dp"
-               android:listSelector="@android:color/transparent"
-               android:paddingBottom="9dp" >
+               android:listSelector="@android:color/transparent" >
 
         </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
            
@@ -263,7 +261,7 @@
                android:layout_centerHorizontal="true"
                android:text="Click on a name to see more, or use the below dropdowns to filter. If not sorted in a custom way, projections are listed by names."
                android:textColor="#FFFFFF"
-               android:visibility="visible"
+               android:visibility="gone"
                android:textAppearance="?android:attr/textAppearanceSmall" />
 
            <Spinner
@@ -317,7 +315,7 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:text="Below are two input fields. Input a player into each, and the table below will fill out, showing how each player compares to the other."
-         android:visibility="visible"/>
+         android:visibility="gone"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -397,7 +395,7 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
-	   			android:background="#555555"
+	   			android:background="#999999"
 	            >
 		            <TextView android:textStyle="bold"
 		            android:id="@+id/player1_name"
@@ -413,7 +411,7 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
-	            android:background="#555555"
+	            android:background="#999999"
 	            >
 	            <TextView android:textStyle="bold"
 		            android:id="@+id/player2_name"

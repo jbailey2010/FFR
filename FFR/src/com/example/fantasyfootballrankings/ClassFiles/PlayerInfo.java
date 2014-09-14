@@ -199,8 +199,6 @@ public class PlayerInfo
 		if(isImport)
 		{
 			addWatch.setVisibility(View.GONE);
-			View av = (View)dialog.findViewById(R.id.add_view);
-			av.setVisibility(View.GONE);
 		}
 		else if(!watchFlag)
 		{
@@ -356,7 +354,6 @@ public class PlayerInfo
 		if(flag)
 		{
 			Button backButton = (Button)dialog.findViewById(R.id.search_back);
-			View backView = (View)dialog.findViewById(R.id.back_view);
 			if(canRand){
 				backButton.setText("Random Player");
 				backButton.setTextSize(12);
@@ -372,12 +369,11 @@ public class PlayerInfo
 			}
 			else{
 				backButton.setVisibility(Button.GONE);
-				backView.setVisibility(View.GONE);
 			}
 		}
 		//Set the data in the list
 		data = new ArrayList<Map<String, String>>();
-		RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header);
+		RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header_dark);
 		if(searchedPlayer.info.position.length() >= 1 && searchedPlayer.info.team.length() > 1)
 		{
 			Button leftPos = (Button)dialog.findViewById(R.id.dummy_btn_left);

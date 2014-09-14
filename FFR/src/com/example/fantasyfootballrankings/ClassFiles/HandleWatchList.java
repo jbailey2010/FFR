@@ -55,8 +55,14 @@ public class HandleWatchList
 		dialog.setContentView(R.layout.search_output);
 		final ListView listWatch = (ListView)dialog.findViewById(R.id.listview_search);
 		dialog.show();
-		RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header);
+		RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header_dark);
+	    Button l = (Button)dialog.findViewById(R.id.dummy_btn_left);
+	    Button r = (Button)dialog.findViewById(R.id.dummy_btn_right);
+	    Button c = (Button)dialog.findViewById(R.id.dummy_btn_center);
 		base.setVisibility(View.GONE);
+		l.setVisibility(View.GONE);
+		r.setVisibility(View.GONE);
+		c.setVisibility(View.GONE);
 		LinearLayout base2 = (LinearLayout)dialog.findViewById(R.id.category_base);
 		base2.setVisibility(View.GONE);
 		if(watchList.size() == 0 || (watchList.size() > 0 && !holder.parsedPlayers.contains(watchList.get(0))))

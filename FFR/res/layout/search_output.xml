@@ -18,14 +18,6 @@
             android:textColor="#FFFFFF"
             android:background="@drawable/menu_btn_black"
             android:text="Back" />
-        <View 
-            android:id="@+id/back_view"
-            android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-            android:layout_toRightOf="@+id/search_back"
-		    android:background="#FF0000"
-		    android:layout_marginTop="5dp"
-		    android:layout_marginBottom="5dp"/>
 
         <Button
             android:id="@+id/search_close"
@@ -50,14 +42,6 @@
             android:background="@drawable/menu_btn_black"
             android:textSize="11sp"
             android:text="Add To Watch List" />
-        
-        <View android:id="@+id/add_view"
-            android:layout_height="fill_parent"
-		    android:layout_width="2dp"
-            android:layout_toLeftOf="@+id/add_watch"
-		    android:background="#FF0000"
-		    android:layout_marginTop="5dp"
-		    android:layout_marginBottom="5dp"/>
 
         <TextView
             android:id="@+id/name"
@@ -129,58 +113,24 @@
             android:textSize="13sp" />
 
     </LinearLayout>
-    <RelativeLayout
-        android:id="@+id/info_sub_header"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/info_sub_background"> 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="#999999"
-            android:layout_alignTop="@+id/dummy_btn_center"
-            />
-        <Button 
-            android:id="@+id/dummy_btn_center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:textColor="#FFFFFF" 
-            android:background="@drawable/player_info_center"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:text="San Francisco 49ers\nRB" />
-        <Button 
-            android:id="@+id/dummy_btn_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/player_info_left"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:text="Age: 30" />
-        <Button 
-            android:id="@+id/dummy_btn_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/player_info_right"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:text="Bye: Week 5" />
-       
 
-    </RelativeLayout>
+	    <RelativeLayout
+	        android:id="@+id/info_sub_header_dark"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="3dp"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignTop="@+id/dummy_btn_center"
+	        android:background="@drawable/info_sub_background" />
+	    
+	           
 
     <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
         android:id="@+id/listview_search"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/info_sub_header"
+        android:layout_above="@+id/info_sub_header_dark"
+        android:layout_marginBottom="-3dp"
         android:layout_below="@+id/category_base"
         android:background="@drawable/content_well_popup"
         android:clickable="true"
@@ -188,5 +138,38 @@
 
     </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
 
+     <Button 
+	            android:id="@+id/dummy_btn_center"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerHorizontal="true"
+	            android:textColor="#FFFFFF" 
+	            android:background="@drawable/player_info_center"
+	            android:textSize="13sp"
+	            android:textStyle="bold"
+	            android:layout_alignParentBottom="true"
+	            android:text="San Francisco 49ers\nRB" />
+	        <Button 
+	            android:id="@+id/dummy_btn_left"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentBottom="true"
+	            android:textColor="#FFFFFF"
+	            android:background="@drawable/player_info_left"
+	            android:textSize="13sp"
+	            android:textStyle="bold"
+	            android:text="Age: 30" />
+	        <Button 
+	            android:id="@+id/dummy_btn_right"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_alignParentBottom="true"
+	            android:textColor="#FFFFFF"
+	            android:background="@drawable/player_info_right"
+	            android:textSize="13sp"
+	            android:textStyle="bold"
+	            android:text="Bye: Week 5" />
 
 </RelativeLayout>

@@ -110,12 +110,20 @@ public class LineupHelp {
 				PlayerObject pl2 = null;
 				for(PlayerObject player : ImportLeague.holder.players)
 				{
-					if(player.info.name.equals(p1Data[0]) && player.info.team.equals(p1Data[1]))
+					if(player.info.name.equals(p1Data[0]) && player.info.position.equals("D/ST")){
+						isFound1 = true;
+						pl1 = player;
+					}
+					else if(player.info.name.equals(p1Data[0]) && player.info.team.equals(p1Data[1]))
 					{
 						isFound1 = true;
 						pl1 = player;
 					}
-					if(player.info.name.equals(p2Data[0]) && player.info.team.equals(p2Data[1]))
+					if(player.info.name.equals(p2Data[0]) && player.info.position.equals("D/ST")){
+						isFound2 = true;
+						pl2 = player;
+					}
+					else if(player.info.name.equals(p2Data[0]) && player.info.team.equals(p2Data[1]))
 					{
 						isFound2 = true;
 						pl2 = player;
@@ -169,13 +177,13 @@ public class LineupHelp {
 		RelativeLayout p2projb = (RelativeLayout)table.findViewById(R.id.player2_points_base);
 		if(pl1.values.points > pl2.values.points)
 		{
-			p1projb.setBackgroundColor((Color.GREEN));
-			p2projb.setBackgroundColor(Color.RED);
+			p1projb.setBackgroundColor(0XFF4DDB4D);
+			p2projb.setBackgroundColor(0XFFFF4D4D);
 		}
 		else if(pl1.values.points < pl2.values.points)
 		{
-			p2projb.setBackgroundColor((Color.GREEN));
-			p1projb.setBackgroundColor(Color.RED);
+			p2projb.setBackgroundColor(0XFF4DDB4D);
+			p1projb.setBackgroundColor(0XFFFF4D4D);
 		}
 		p1proj.setText("Projected: " + pl1.values.points);
 		p2proj.setText("Projected: " + pl2.values.points);
@@ -198,13 +206,13 @@ public class LineupHelp {
 		}
 		if(sos1 > sos2)
 		{
-			p2sosb.setBackgroundColor(Color.GREEN);
-			p1sosb.setBackgroundColor(Color.RED);
+			p2sosb.setBackgroundColor(0XFF4DDB4D);
+			p1sosb.setBackgroundColor(0XFFFF4D4D);
 		}
 		if(sos1 < sos2)
 		{
-			p1sosb.setBackgroundColor(Color.GREEN);
-			p2sosb.setBackgroundColor(Color.RED);
+			p1sosb.setBackgroundColor(0XFF4DDB4D);
+			p2sosb.setBackgroundColor(0XFFFF4D4D);
 		}
 		p1sos.setText("SOS: " + sos1);
 		p2sos.setText("SOS: " + sos2);
@@ -215,13 +223,13 @@ public class LineupHelp {
 		RelativeLayout p2paab = (RelativeLayout)table.findViewById(R.id.player2_paa_base);
 		if(pl1.values.paa > pl2.values.paa)
 		{
-			p1paab.setBackgroundColor((Color.GREEN));
-			p2paab.setBackgroundColor(Color.RED);
+			p1paab.setBackgroundColor(0XFF4DDB4D);
+			p2paab.setBackgroundColor(0XFFFF4D4D);
 		}
 		else if(pl1.values.paa < pl2.values.paa)
 		{
-			p2paab.setBackgroundColor((Color.GREEN));
-			p1paab.setBackgroundColor(Color.RED);
+			p2paab.setBackgroundColor(0XFF4DDB4D);
+			p1paab.setBackgroundColor(0XFFFF4D4D);
 		}
 		p1paa.setText("PAA: " + df.format(pl1.values.paa));
 		p2paa.setText("PAA: " + df.format(pl2.values.paa));
@@ -232,13 +240,13 @@ public class LineupHelp {
 		RelativeLayout p2riskb = (RelativeLayout)table.findViewById(R.id.player2_risk_base);
 		if(pl1.risk > pl2.risk)
 		{
-			p2riskb.setBackgroundColor(Color.GREEN);
-			p1riskb.setBackgroundColor(Color.RED);
+			p2riskb.setBackgroundColor(0XFF4DDB4D);
+			p1riskb.setBackgroundColor(0XFFFF4D4D);
 		}
 		if(pl1.risk < pl2.risk)
 		{
-			p1riskb.setBackgroundColor(Color.GREEN);
-			p2riskb.setBackgroundColor(Color.RED);
+			p1riskb.setBackgroundColor(0XFF4DDB4D);
+			p2riskb.setBackgroundColor(0XFFFF4D4D);
 		}
 		p1risk.setText("Risk: " + pl1.risk);
 		p2risk.setText("Risk: " + pl2.risk);
@@ -249,13 +257,13 @@ public class LineupHelp {
 		RelativeLayout p2rankb = (RelativeLayout)table.findViewById(R.id.player2_weekly_pos_rank_base);
 		if(pl1.values.ecr > pl2.values.ecr)
 		{
-			p2rankb.setBackgroundColor(Color.GREEN);
-			p1rankb.setBackgroundColor(Color.RED);
+			p2rankb.setBackgroundColor(0XFF4DDB4D);
+			p1rankb.setBackgroundColor(0XFFFF4D4D);
 		}
 		if(pl1.values.ecr < pl2.values.ecr)
 		{
-			p1rankb.setBackgroundColor(Color.GREEN);
-			p2rankb.setBackgroundColor(Color.RED);
+			p1rankb.setBackgroundColor(0XFF4DDB4D);
+			p2rankb.setBackgroundColor(0XFFFF4D4D);
 		}
 		p1rank.setText("Positional Rank: " + pl1.values.ecr);
 		p2rank.setText("Positional Rank: " + pl2.values.ecr);
@@ -291,23 +299,23 @@ public class LineupHelp {
 		ppw2.setText("Average Scoring: " + ecrList.get(3));
 		if(Integer.parseInt(ecrList.get(0).substring(0, ecrList.get(0).length() - 1)) > Integer.parseInt(ecrList.get(1).substring(0, ecrList.get(1).length() - 1)))
 		{
-			p1Base.setBackgroundColor(Color.GREEN);
-			p2Base.setBackgroundColor(Color.RED);
+			p1Base.setBackgroundColor(0XFF4DDB4D);
+			p2Base.setBackgroundColor(0XFFFF4D4D);
 		}
 		else
 		{
-			p2Base.setBackgroundColor(Color.GREEN);
-			p1Base.setBackgroundColor(Color.RED);
+			p2Base.setBackgroundColor(0XFF4DDB4D);
+			p1Base.setBackgroundColor(0XFFFF4D4D);
 		}
 		if(Double.parseDouble(ecrList.get(2)) > Double.parseDouble(ecrList.get(3)))
 		{
-			ppw1Base.setBackgroundColor(Color.GREEN);
-			ppw2Base.setBackgroundColor(Color.RED);
+			ppw1Base.setBackgroundColor(0XFF4DDB4D);
+			ppw2Base.setBackgroundColor(0XFFFF4D4D);
 		}
 		else
 		{
-			ppw2Base.setBackgroundColor(Color.GREEN);
-			ppw1Base.setBackgroundColor(Color.RED);
+			ppw2Base.setBackgroundColor(0XFF4DDB4D);
+			ppw1Base.setBackgroundColor(0XFFFF4D4D);
 		}
 	}
 }

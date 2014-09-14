@@ -1173,8 +1173,14 @@ public class SortHandler
 		    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 		    dialog.getWindow().setAttributes(lp);
 		    dialog.show(); 
-		    RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header);
+		    RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header_dark);
+		    Button l = (Button)dialog.findViewById(R.id.dummy_btn_left);
+		    Button r = (Button)dialog.findViewById(R.id.dummy_btn_right);
+		    Button c = (Button)dialog.findViewById(R.id.dummy_btn_center);
 			base.setVisibility(View.GONE);
+			l.setVisibility(View.GONE);
+			r.setVisibility(View.GONE);
+			c.setVisibility(View.GONE);
 			LinearLayout base2 = (LinearLayout)dialog.findViewById(R.id.category_base);
 			Button back = (Button)base2.findViewById(R.id.category_ranking);
 			back.setOnClickListener(new OnClickListener(){
@@ -1190,10 +1196,6 @@ public class SortHandler
 			back.setBackgroundDrawable(cont.getResources().getDrawable(R.drawable.menu_btn_black));
 			Button watch = (Button)base2.findViewById(R.id.category_info);
 			Button hidden = (Button)base2.findViewById(R.id.category_team);
-			View backView = (View)dialog.findViewById(R.id.back_view);
-			View addView = (View)dialog.findViewById(R.id.add_view);
-			backView.setVisibility(View.GONE);
-			addView.setVisibility(View.GONE);
 			hidden.setText("Scroll to Top");
 			hidden.setOnClickListener(new OnClickListener(){
 

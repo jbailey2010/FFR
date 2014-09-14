@@ -345,8 +345,14 @@ public class Draft
 	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
-		RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header);
-		base.setVisibility(View.GONE); 
+		RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header_dark);
+	    Button l = (Button)dialog.findViewById(R.id.dummy_btn_left);
+	    Button r = (Button)dialog.findViewById(R.id.dummy_btn_right);
+	    Button c = (Button)dialog.findViewById(R.id.dummy_btn_center);
+		base.setVisibility(View.GONE);
+		l.setVisibility(View.GONE);
+		r.setVisibility(View.GONE);
+		c.setVisibility(View.GONE);
 		LinearLayout base2 = (LinearLayout)dialog.findViewById(R.id.category_base);
 		base2.setVisibility(View.GONE);
 		if(holder.draft.ignore.size() == 0)
@@ -359,9 +365,7 @@ public class Draft
 		TextView header = (TextView)dialog.findViewById(R.id.name);
 		header.setText("Select the player to undraft");
 		Button add = (Button)dialog.findViewById(R.id.add_watch);
-		View addView = (View)dialog.findViewById(R.id.add_view);
 		add.setVisibility(Button.GONE);
-		addView.setVisibility(View.GONE);
 		close.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {

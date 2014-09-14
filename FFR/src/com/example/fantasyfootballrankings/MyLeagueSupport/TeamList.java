@@ -410,10 +410,15 @@ public class TeamList {
 		TextView headerText = (TextView)base.findViewById(R.id.text1);
 		String header = headerText.getText().toString();
 		TextView content = (TextView)base.findViewById(R.id.text2);
-		String text = content.getText().toString();
-		TeamAnalysis dummy = new TeamAnalysis("", text, ImportLeague.holder, cont, ReadFromFile.readRoster(cont));
+		TeamAnalysis optTeam = null;
+		for(TeamAnalysis team : newImport.teams){
+			if(team.teamName.equals(header)){
+				optTeam = team; 
+				break;
+			}
+		}
 		StringBuilder output = new StringBuilder(1000);
-		output.append(dummy.stringifyLineup());
+		output.append(optTeam.stringifyLineup());
 		final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
 	    popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
 		popUp.setContentView(R.layout.team_optimal_lineup);

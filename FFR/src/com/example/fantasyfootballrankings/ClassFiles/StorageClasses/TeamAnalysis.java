@@ -58,7 +58,6 @@ public class TeamAnalysis
 		teamName = name;
 		team = teamStr;
 		holder = hold;
-		System.out.println(teamStr);
 		String[] qb = teamStr.split("Quarterbacks: ")[1].split("\n")[0].split(", ");
 		String[] rb = teamStr.split("Running Backs: ")[1].split("\n")[0].split(", ");
 		String[] wr = teamStr.split("Wide Receivers: ")[1].split("\n")[0].split(", ");

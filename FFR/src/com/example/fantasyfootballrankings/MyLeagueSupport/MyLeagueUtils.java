@@ -32,6 +32,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
@@ -123,7 +124,11 @@ public class MyLeagueUtils
 				String selection = ((TextView)arg1).getText().toString();
 				if(selection.equals("Yes") && !isFirst)
 				{
+					if(dummyRoster.flex == null){
+						dummyRoster.flex = new Flex();
+					}
 					handleFlexPopUp(cont, dummyRoster.flex);
+					
 				}
 				else if(selection.equals("Yes"))
 				{
@@ -150,8 +155,22 @@ public class MyLeagueUtils
 				{
 					dummyRoster.flex = null;
 				}
+				if(dummyRoster.flex.rbwr == 0 && dummyRoster.flex.rbwrte == 0 && 
+						dummyRoster.flex.op == 0){
+					dummyRoster.flex = null;
+				}
 				WriteToFile.writeRoster(key, cont, dummyRoster);
 				newImport.roster = dummyRoster;
+				Toast.makeText(cont, "Updating starting lineups...", Toast.LENGTH_SHORT).show();
+				for(TeamAnalysis team : newImport.teams){
+					team.r = newImport.roster;
+					team.manageStarters(team.team.split("Quarterbacks: ")[1].split("\n")[0].split(", "), 
+							team.team.split("Running Backs: ")[1].split("\n")[0].split(", "),
+							team.team.split("Wide Receivers: ")[1].split("\n")[0].split(", "), 
+							team.team.split("Tight Ends: ")[1].split("\n")[0].split(", "), 
+							team.team.split("D/ST: ")[1].split("\n")[0].split(", "), 
+							team.team.split("Kickers: ")[1].split("\n")[0].split(", "));
+				}
 				dialog.dismiss();
 			}
 		});

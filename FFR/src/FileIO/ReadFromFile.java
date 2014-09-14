@@ -312,7 +312,6 @@ public class ReadFromFile {
 		roster.flex = readFlex(cont, key);
 		roster.def = prefs.getInt("Starting Defs" + key, 1);
 		roster.k = prefs.getInt("Starting Ks" + key, 1);
-		
 		return roster;
 	}
 	
