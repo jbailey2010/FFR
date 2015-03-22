@@ -1,37 +1,52 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/back_to_league_select"
+        android:showAsAction="never"
+        android:title="League Select"
+        android:visible="false" 
+        android:enabled="false"
+        />
+    <item android:id="@+id/league_stats_help"
+        android:title="Help"
+        android:showAsAction="ifRoom|withText"
+        />
+    <item android:id="@+id/league_selected_help"
+        android:title="Help"
+        android:showAsAction="ifRoom|withText"
+        android:visible="false"
+        android:enabled="false"/>
     <item android:id="@+id/refresh_league"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom|withText"
+        android:showAsAction="never"
         android:title="Refresh"
         android:visible="false"
         android:enabled="false"/>
     <item 
         android:id="@+id/compare_team"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom|withText"
+        android:showAsAction="never"
         android:title="Matchup"
         android:visible="false"
         android:enabled="false"/>
   	<item 
   	    android:id="@+id/change_roster"
-  	    android:showAsAction="ifRoom|withText"
+  	    android:showAsAction="never"
   	    android:title="Change Roster Settings"
   	    android:visible="false"
   	    android:enabled="false"/>
   	<item 
   	    android:id="@+id/change_scoring"
-  	    android:showAsAction="ifRoom|withText"
+  	    android:showAsAction="never"
   	    android:title="Change Scoring Settings"
   	    android:visible="false"
   	    android:enabled="false"/>
     <item
         android:id="@+id/importa_league"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom|withText"
+        android:showAsAction="never"
         android:title="Import" />
     <item
         android:id="@+id/clear_imports"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom|withText"
+        android:showAsAction="never"
         android:title="Clear"/>
 </menu>

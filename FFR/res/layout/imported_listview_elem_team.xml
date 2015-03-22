@@ -5,9 +5,9 @@
 	<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-    	android:layout_marginTop="6dp"
-    	android:layout_marginLeft="11dp"
-    	android:layout_marginRight="11dp"
+    	android:layout_marginTop="5dp"
+    	android:layout_marginLeft="9dp"
+    	android:layout_marginRight="9dp"
     	android:paddingBottom="4dp"
     	android:background="@drawable/listview_background">
 	<RelativeLayout
@@ -21,7 +21,7 @@
 	        android:layout_centerHorizontal="true"
 	        android:layout_marginTop="10dp"
 	        android:text="Text Main"
-	        android:textSize="26sp"
+	        android:textSize="25sp"
 	        android:textColor="#680000"
 	        android:textStyle="bold" />
 	
@@ -36,7 +36,7 @@
 	       	android:paddingRight="15dp"
 	       	android:layout_marginTop="10dp"
 	       	android:textColor="#333333"
-	        android:textSize="20sp" />
+	        android:textSize="19sp" />
 
 	    <TextView
 	        android:id="@+id/text3"

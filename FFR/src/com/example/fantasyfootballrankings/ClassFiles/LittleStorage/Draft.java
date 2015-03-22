@@ -423,21 +423,6 @@ public class Draft
 	}
 	
 	/**
-	 * Sets the display of the watch list
-	 */
-	public static ArrayAdapter<String> display(Dialog dialog, List<String> ignore, Storage holder, ListView listWatch,
-			Context cont)
-	{
-		listWatch.setAdapter(null);
-		List<String> totalList = new ArrayList<String>();
-		for(String player : ignore)
-		{
-			totalList.add(player);
-		}
-	    return ManageInput.handleArray(totalList, listWatch, (Activity) cont);
-	}
-	
-	/**
 	 * Sets the element onclick to show data
 	 * @param data 
 	 */
@@ -638,21 +623,6 @@ public class Draft
 				((Rankings)cont).intermediateHandleRankings((Activity)cont);
 			}
 		}
-    }
-    
-    /**
-     * Finds the quantity drafted at each position
-     * @param set
-     * @return
-     */
-    public static int posDraftedQuantity(List<PlayerObject> set)
-    {
-    	int total = 0;
-    	for(PlayerObject player : set)
-    	{
-    		total++;
-    	}
-    	return total;
     }
     
     /**

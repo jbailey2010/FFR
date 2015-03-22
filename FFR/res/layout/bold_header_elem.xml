@@ -5,9 +5,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-    	android:layout_marginTop="6dp"
-    	android:layout_marginLeft="11dp"
-    	android:layout_marginRight="11dp"
+    	android:layout_marginTop="5dp"
+    	android:layout_marginLeft="9dp"
+    	android:layout_marginRight="9dp"
     	android:paddingBottom="4dp"
     	android:background="@drawable/listview_background">
 	<RelativeLayout
@@ -24,7 +24,7 @@
 	        android:layout_marginLeft="15dp"
 	        android:textStyle="bold"
 	        android:text="Text Main"
-	        android:textSize="24sp" />
+	        android:textSize="23sp" />
     	
 	    <TextView
 	        android:id="@+id/text2"
@@ -36,7 +36,7 @@
 	        android:autoLink="web"
 	        android:layout_marginLeft="15dp"
 	        android:text="Text Main"
-	        android:textSize="18sp" />
+	        android:textSize="17sp" />
 	
 	    <TextView
 	        android:id="@+id/text3"

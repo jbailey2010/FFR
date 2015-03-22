@@ -1,20 +1,14 @@
 package FileIO;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import twitter4j.auth.AccessToken;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Flex;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
@@ -36,7 +30,7 @@ import android.content.SharedPreferences;
  *
  */
 public class WriteToFile {
-	final static StorageAsyncTask asyncObject = new StorageAsyncTask();
+	private final static StorageAsyncTask asyncObject = new StorageAsyncTask();
 
 
 	/**
@@ -61,26 +55,6 @@ public class WriteToFile {
 	{
 	    WriteDraft draftTask = asyncObject.new WriteDraft((Activity) cont);
 	    draftTask.execute(holder, cont);
-	}
-
-	/**
-	 * A tiny helper function that helps add to the returned string
-	 */
-	public static String handleDraftInput(List<PlayerObject> qb, String draft)
-	{
-		for(PlayerObject name : qb)
-		{
-			draft += name.info.name + "~";
-		}
-		if(draft.length() > 2)
-		{
-			draft = draft.substring(0, draft.length() - 1);
-		}
-		else
-		{
-			draft = "None Selected";
-		}
-		return draft;
 	}
 
 	/**
@@ -134,56 +108,7 @@ public class WriteToFile {
     	editor.apply();
 	}
 	
-	/**
-	 * Writes men in box ratios to file
-	 * @param cont
-	 * @param players
-	 */
-	public static void writeMenInBox(Context cont, Map<String, String> players)
-	{
-    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-    	StringBuilder menInBox = new StringBuilder(10000);
-    	Set<String> keys = players.keySet();
-    	for(String elem : keys)
-    	{
-    		menInBox.append(elem + "~~" + players.get(elem) + "@@#");
-    	}
-    	editor.putString("Men In Box", menInBox.toString()).apply();
-    }
-	
-	/**
-	 * Writes pass-run ratio to file
-	 * @param cont
-	 * @param players
-	 */
-	public static void writePassRun(Context cont, Map<String, String> players)
-	{
-    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-    	StringBuilder runPassRatio = new StringBuilder(10000);
-    	Set<String> keys = players.keySet();
-    	for(String elem : keys)
-    	{
-    		runPassRatio.append(elem + "~~" + players.get(elem) + "@@#");
-    	}
-    	editor.putString("Run Pass Ratio", runPassRatio.toString()).apply();
-	}
-	
-	/**
-	 * Writes offensive line ranks to file
-	 * @param cont
-	 * @param players
-	 */
-	public static void writeOLineRanks(Context cont, Map<String, String> players)
-	{
-    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-    	StringBuilder oLineRanks = new StringBuilder(10000);
-    	Set<String> keys = players.keySet();
-    	for(String elem : keys)
-    	{
-    		oLineRanks.append(elem + "~~" + players.get(elem) + "@@#");
-    	}
-    	editor.putString("O Line Ranks", oLineRanks.toString()).apply();
-	}
+
 	
 	/**
 	 * Writes the last filter to file for trending
@@ -196,60 +121,7 @@ public class WriteToFile {
     	editor.putInt("Last Filter", lastFilter).apply();
 	}
 	
-	/**
-	 * Writes the rotoworld news set to file
-	 * @param cont
-	 * @param news
-	 */
-	public static void writeNewsRoto(Context cont, List<NewsObjects> news, boolean rh, boolean rp, 
-			boolean th, boolean cbs, boolean si, boolean mfl)
-	{
-    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-    	StringBuilder newsSet = new StringBuilder(10000);
-    	for(NewsObjects newsObj : news)
-    	{
-    		newsSet.append(newsObj.news + "~~" + newsObj.impact + "~~" + 
-    				newsObj.date + "@@@");
-    	}
-    	editor.putBoolean("Use Headlines", rh);
-    	editor.putBoolean("Use Player News", rp);
-    	editor.putBoolean("Use The Huddle", th);
-    	editor.putBoolean("Use CBS News", cbs);
-    	editor.putBoolean("Use SI News", si);
-    	editor.putBoolean("Use MFL News", mfl);
-    	editor.putString("News RotoWorld", newsSet.toString()).apply();
-	}
-	
-	/**
-	 * Writes the twitter feed data to file
-	 * @param cont
-	 * @param news
-	 * @param selection
-	 */
-	public static void writeNewsTwitter(Context cont, List<NewsObjects> news, String selection)
-	{
-    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-    	StringBuilder newsSet = new StringBuilder(10000);
-    	for(NewsObjects newsObj : news)
-    	{
-    		newsSet.append(newsObj.news + "~~" + newsObj.impact + "~~" + 
-    				newsObj.date + "@@@");
-    	}
-    	editor.putString("News RotoWorld", newsSet.toString()).apply();
-    	editor.putString("Selected Twitter Feed", selection).apply();
-	}
-	
-	/**
-	 * Writes the news selection to file
-	 * @param cont
-	 * @param selection
-	 */
-	public static void writeNewsSelection(Context cont, String selection)
-	{
-    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-    	editor.putString("News Title", selection).apply();
-	}
-	
+
 	/**
 	 * Writes the watch list to file
 	 */
@@ -362,7 +234,7 @@ public class WriteToFile {
 	/**
 	 * A helper for writing rankings to file
 	 */
-	public static String writeDraftHelper(List<PlayerObject> list)
+	private static String writeDraftHelper(List<PlayerObject> list)
 	{
 		StringBuilder retSet = new StringBuilder(5000);
 		int counter = -1;
@@ -532,13 +404,6 @@ public class WriteToFile {
 		}
 		editor.remove("Current Draft");
 		editor.apply();
-	}
-	
-	
-	public static void writeFirstPlayerInfo(Context cont)
-	{
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		editor.putBoolean("Is First Player Info", true).apply();
 	}
 
 	public static void writeFirstIsRegularSeason(Context cont) {

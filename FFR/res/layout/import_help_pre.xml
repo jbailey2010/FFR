@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+   		android:layout_height="fill_parent" >
+     <Button
+        android:id="@+id/help_close"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="X" 
+        android:textSize="28sp"
+        android:textColor="#CD0000"/>
+
+     <TextView
+         android:id="@+id/textView1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/help_close"
+         android:text="Once you select a league, there will be analytics done on each entire team, each starting lineup, each bench, and each positional slot. \n\nNote, upon importing a league, the current roster settings will be linked to it, though they can be changed inside each league individually."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

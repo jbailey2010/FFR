@@ -7,82 +7,10 @@
 	    android:focusable="true" android:focusableInTouchMode="true"
 	    android:layout_width="0px" android:layout_height="0px"/>
     <RelativeLayout
-        android:id="@+id/relativeLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/grey_gradient" >
-
-        <TextView
-            android:id="@+id/hostName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/league_name"
-            android:layout_centerHorizontal="true"
-            android:text="Small Text"
-            android:textColor="#BBBBBB"
-            android:textSize="14sp" />
- 
-        <ImageView
-            android:id="@+id/back_button_league_stats"
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/arrow"/>
-        <View 
-            android:id="@+id/back_view"
-            android:layout_height="wrap_content"
-		    android:layout_width="2dp"
-            android:layout_toRightOf="@+id/back_button_league_stats"
-		    android:background="#FF0000"
-		    android:layout_alignBottom="@+id/back_button_league_stats"
-		    android:layout_alignTop="@+id/back_button_league_stats"
-		    android:layout_centerVertical="true"/>
-
-        <TextView
-            android:id="@+id/league_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:text="Large Text"
-            android:textColor="#FFFFFF"
-            android:textSize="19sp"
-            android:maxWidth="170dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/help_button_league_stats"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="5dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/league_name"
-            android:layout_centerVertical="true"
-            android:text="  ?  "
-            android:textColor="#FFFFFF"
-            android:textSize="40sp"
-            android:textStyle="bold" />
-
-        <View
-            android:id="@+id/help_view"
-            android:layout_width="2dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/help_button_league_stats"
-            android:layout_alignBottom="@+id/help_button_league_stats"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/help_button_league_stats"
-            android:background="#FF0000" />
-
-    </RelativeLayout>
-    <RelativeLayout
         android:id="@+id/league_stats_tabs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/relativeLayout1">
+        android:layout_alignParentBottom="true">
                <LinearLayout
         android:id="@+id/category_base"
         android:layout_width="fill_parent"
@@ -152,37 +80,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:background="#171717"
-        android:layout_below="@+id/league_stats_tabs" >
+        android:layout_above="@+id/league_stats_tabs"
+        android:background="#171717">
        <RelativeLayout 
             android:id="@+id/category_league_base"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             >
-       
-         <TextView
-             android:id="@+id/rankings_help_import"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_alignLeft="@+id/imported_league_rankings"
-             android:layout_marginTop="10dp"
-             android:visibility="gone"
-             android:text="Click on one of the elements to see a graphical representation. If it's a positional breakdown, a single click will show starters and a long click the whole set."
-             android:textColor="#ffffff" />
 
-            <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
+            <ListView
                 android:id="@+id/imported_league_rankings"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/rankings_help_import"
                 android:layout_centerHorizontal="true"
                 android:listSelector="@android:color/transparent"
                 android:focusable="false"
-                android:background="@drawable/content_well_import"
+                android:background="#999999"
                 android:divider="#999999" >
-            </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
+            </ListView>
            
            </RelativeLayout>
            <RelativeLayout
@@ -191,34 +107,25 @@
                android:layout_height="match_parent"
                android:layout_below="@+id/category_league_base"
                android:layout_alignParentBottom="true">
-               
-            <TextView
-             android:id="@+id/team_help_import"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_alignLeft="@+id/imported_teams_info"
-             android:layout_marginTop="10dp"
-             android:visibility="gone"
-             android:text="Click on a team to see detailed positional breakdowns. Click and hold to see the best lineup this team can field\nNote: This is based on your roster settings. During the preseason, this is overall, but during the season it's per week."
-             android:textColor="#ffffff" />
 
-         <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
+
+         <ListView
              android:id="@+id/imported_teams_info"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:layout_alignParentLeft="true"
              android:listSelector="@android:color/transparent"
              android:focusable="false"
-             android:layout_below="@+id/team_help_import"
-             android:background="@drawable/content_well_import"
+             android:background="#999999"
              android:divider="#999999" >
-         </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
+         </ListView>
            </RelativeLayout>
            
            <RelativeLayout
                android:id="@+id/category_player_base"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
+               android:background="#999999"
                android:layout_below="@+id/category_team_base"
                android:layout_alignParentBottom="true">
          <Button 
@@ -226,6 +133,8 @@
              android:layout_alignLeft="@+id/player_status_spinner"
              android:layout_below="@+id/player_status_spinner"
              android:layout_width="wrap_content"
+                            android:layout_marginTop="10dp"
+             
              android:layout_height="wrap_content"
              android:text="Search"
              style="@style/ButtonText"
@@ -237,42 +146,33 @@
              android:layout_below="@+id/player_pos_spinner"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+             
              android:text="Graph"
              style="@style/ButtonText"
         		android:background="@drawable/btn_red"/>
-               <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
+               <ListView
                android:id="@+id/imported_teams_players"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:layout_alignParentLeft="true"
                android:layout_below="@+id/player_list_search"
-               android:background="@drawable/content_well_import"
+               android:background="#999999"
                android:divider="#999999"
                android:focusable="false"
                android:layout_marginTop="6dp"
                android:listSelector="@android:color/transparent" >
 
-        </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
-           
-           <TextView
-               android:id="@+id/player_list_help"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_centerHorizontal="true"
-               android:text="Click on a name to see more, or use the below dropdowns to filter. If not sorted in a custom way, projections are listed by names."
-               android:textColor="#FFFFFF"
-               android:visibility="gone"
-               android:textAppearance="?android:attr/textAppearanceSmall" />
-
+        </ListView>
            <Spinner
                android:id="@+id/player_status_spinner"
                android:layout_width="130dp"
                android:layout_height="30dp"
+               android:layout_marginTop="10dp"
                android:layout_alignParentLeft="true"
                android:layout_marginLeft="5dp"
-               android:layout_below="@+id/player_list_help" 
                android:focusable="false"
-               android:background="@drawable/grey_spinner"/>
+               android:background="@drawable/spinner_well"/>
 
            <com.example.fantasyfootballrankings.InterfaceAugmentations.NDSpinner
                android:id="@+id/player_sort_spinner"
@@ -281,17 +181,18 @@
                android:layout_alignBottom="@+id/player_list_graph"
                android:layout_marginTop="5dp"
                android:layout_centerHorizontal="true"
-               android:background="@drawable/grey_spinner"
+               android:background="@drawable/spinner_well"
                android:focusable="false" />
 
            <Spinner
                android:id="@+id/player_pos_spinner"
                android:layout_width="125dp"
                android:layout_height="30dp"
-               android:layout_below="@+id/player_list_help"
+                              android:layout_marginTop="10dp"
+               
                android:layout_marginRight="5dp"
                android:layout_alignParentRight="true"
-               android:background="@drawable/grey_spinner"
+               android:background="@drawable/spinner_well"
                android:focusable="false" />
 
            </RelativeLayout>
@@ -300,22 +201,13 @@
 </RelativeLayout>
 <LinearLayout
     android:visibility="gone"
-    android:layout_below="@+id/league_stats_tabs"
+    android:layout_above="@+id/league_stats_tabs"
     android:id="@+id/category_lineup_base"
 	android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/content_well_import"
+    android:background="#999999"
     android:orientation="vertical" >
      
-     <TextView
-         android:id="@+id/lineup_help"
-         android:textColor="#000000"
-         android:layout_marginLeft="5dp"
-         android:paddingRight="5dp"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text="Below are two input fields. Input a player into each, and the table below will fill out, showing how each player compares to the other."
-         android:visibility="gone"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -373,21 +265,10 @@
         	android:background="@drawable/btn_red"
         	/>
         
-    </RelativeLayout>
-	<ScrollView
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent">
-    <LinearLayout
-        android:id="@+id/table_base"
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="0dip"
-        android:layout_marginTop="20dp"
-        android:visibility="gone"
-        android:layout_weight="1">
-       
         <LinearLayout
             android:orientation="horizontal"
+            android:layout_below="@+id/compare_clear"
+            android:layout_marginTop="15dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="false">
@@ -405,6 +286,7 @@
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_centerHorizontal="true"
+		            android:visibility="gone"
 		            android:text="Player 1"/>
             </RelativeLayout>
             <RelativeLayout
@@ -418,12 +300,27 @@
 		            style="@style/ButtonText"
 		            android:paddingTop="10dp"
 		            android:paddingBottom="10dp"
+		            android:visibility="gone"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_centerHorizontal="true"
 		            android:text="Player 2"/>
             </RelativeLayout>
         </LinearLayout> 
+        
+    </RelativeLayout>
+	<ScrollView
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/table_base"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:visibility="gone"
+        android:layout_weight="1">
+       
+        
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
@@ -692,11 +589,11 @@
 </LinearLayout>
 <RelativeLayout 
     android:visibility="gone"
-    android:layout_below="@+id/league_stats_tabs"
+    android:layout_above="@+id/league_stats_tabs"
     android:id="@+id/category_tips_base"
 	android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/content_well_import"
+    android:background="#999999"
     >
     <Spinner
         android:id="@+id/team_tips_spinner"

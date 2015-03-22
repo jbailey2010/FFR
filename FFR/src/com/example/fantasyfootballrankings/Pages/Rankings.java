@@ -113,7 +113,6 @@ public class Rankings extends Activity {
 	public static double aucFactor;
 	public static SideNavigationView sideNavigationView;
 	public static boolean isSwiping = false;
-	public static boolean hasSwiped = false;
 	public static String swipedText = "";
 	/**
 	 * Sets up the view
@@ -144,10 +143,6 @@ public class Rankings extends Activity {
 	            case R.id.side_navigation_menu_item4:
 	            	Intent intent3 = new Intent(cont, Trending.class);
 	    	        cont.startActivity(intent3);		
-	                break;
-	            case R.id.side_navigation_menu_item5:
-	            	Intent intent4 = new Intent(cont, News.class);
-	    	        cont.startActivity(intent4);
 	                break;
 	            case R.id.side_navigation_menu_item6:
 	            	Intent intent6 = new Intent(cont, DraftHistory.class);
@@ -964,24 +959,6 @@ public class Rankings extends Activity {
 				moreInfo(new Dialog(context, R.style.RoundCornersFull));
 			}
 	    }); 
-	}
-	
-	/**
-	 * Calculates the paa left of the top x players at position y
-	 */
-	public static double valLeft(Storage holder, String pos, int max) 
-	{
-		double total = 0.0;
-		int counter = 0;
-		for(PlayerObject player : holder.players)
-		{
-			if(player.info.position.equals(pos) && !Draft.isDrafted(player.info.name, holder.draft) && counter < max)
-			{
-				counter++;
-				total += player.values.paa;
-			}
-		}
-		return total;
 	}
 	
     /**

@@ -407,8 +407,8 @@ public class ESPNImport
 								{
 									teamBuilder.append(ManageInput.capitalize(teamIter) + " ");
 								}
-								String intermediate = teamBuilder.toString();
-								team = intermediate.substring(0, intermediate.length() - 1) + "@@@" + child.child(0).html();
+								String intermediate = teamBuilder.toString().replaceAll("[^a-zA-Z0-9\\s]", "");
+								team = (intermediate.substring(0, intermediate.length() - 1) + "@@@" + child.child(0).html());
 							}
 						}  
 					}

@@ -71,24 +71,6 @@ public class HandleBasicQueries
         }
         return elems;
 	}
-	/**
-	 * Handles the queries to a table
-	 * @param url the url to be parsed
-	 * @param params the class of the table to be parsed 
-	 * @return the text from the table
-	 * @throws IOException
-	 */
-	public static List<String> handleTables(String url, String params) throws IOException
-	{
-		List<String> elems = new ArrayList<String>();
-		Document doc = Jsoup.connect(url).userAgent(ua).timeout(0).get();
-		Elements els = doc.getElementsByClass(params);
-		for (Element el : els) 
-		{
-			elems.add(el.text());
-		}
-		return elems;
-	}
 	 
 	/**
 	 * Handles the queries to a table called multiple times

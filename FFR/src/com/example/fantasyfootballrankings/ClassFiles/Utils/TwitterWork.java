@@ -1,13 +1,11 @@
 package com.example.fantasyfootballrankings.ClassFiles.Utils;
 
 import java.util.ArrayList;
-
 import java.util.List;
-import com.ffr.fantasyfootballrankings.R;
 
+import com.ffr.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
-import com.example.fantasyfootballrankings.Pages.News;
 
 import twitter4j.Paging;
 import twitter4j.Query;
@@ -48,34 +46,32 @@ public class TwitterWork
 	RequestToken requestToken;
 	AccessToken accessToken = null;
 	static AccessToken userToken = null;
-	static ListView searchOutput;
-	Dialog searchOutputDialog;
 	/**
 	 * Calls the validation URL asynctask
 	 * @param cont
 	 * @param flag 
 	 * @param b 
 	 */
-	public void twitterInitial(Context cont, int flag, String search, boolean b)
+	public void twitterInitial(Context cont, String search, boolean b)
 	{
 		long check = ReadFromFile.readUseID(cont);
 		//Not yet set
 		if(check == -1)
 		{
 			TwitterWork obj = new TwitterWork();
-		    TwitterConnection task = obj.new TwitterConnection((Activity)cont, flag);
+		    TwitterConnection task = obj.new TwitterConnection((Activity)cont);
 		    task.execute(cont);
 		}
 		else //it IS set, so call a function to 'log in' the user'
 		{
-			logInUser(cont, flag, search, b);
+			logInUser(cont, search, b);
 		}
 	}
 
 	/**
 	 * Logs in the user and makes a pop up asking them what they'd like to do
 	 */
-	public void logInUser(final Context cont, int flag, String search, boolean saveFlag)
+	public void logInUser(final Context cont, String search, boolean saveFlag)
 	{
 		String token = ReadFromFile.readToken(cont);
 		String tokenSecret = ReadFromFile.readTokenSecret(cont);
@@ -90,18 +86,7 @@ public class TwitterWork
 		catch(IllegalStateException e)
 		{
 		}
-		if(flag == 1)
-		{
-			News.twitterFeedsDialog();
-		}
-		if(flag == 2)
-		{
-			News.twitterSearchDialog();
-		}
-		if(flag == 3)
-		{
-			ParseNews.startTwitterSearchAsync(cont, search, "Twitter Search: " + search, saveFlag, search, this);
-		}
+		ParseNews.startTwitterSearchAsync(cont, search, "Twitter Search: " + search, saveFlag, search, this);
 	}
 
 
@@ -116,13 +101,11 @@ public class TwitterWork
 	{
 		ProgressDialog pdia;
 		Activity act;
-		Integer flag;
-	    public TwitterConnection(Activity activity, int i) 
+	    public TwitterConnection(Activity activity) 
 	    {
 	        pdia = new ProgressDialog(activity);
 	        pdia.setCancelable(false);
 	        act = activity;
-	        flag = i;
 	    }
 
 		@Override
@@ -138,7 +121,7 @@ public class TwitterWork
 		   pdia.dismiss();
 		   if(result != null)
 		   {
-			   handleURL(act, result, flag);
+			   handleURL(act, result);
 		   }
 		   else
 		   {
@@ -172,9 +155,8 @@ public class TwitterWork
 	/**
 	 * Creates a dialog to get the user to validate it, then enter the pin
 	 * @param cont
-	 * @param flag 
 	 */
-	public void handleURL(final Activity cont, Twitter twit, final Integer flag)
+	public void handleURL(final Activity cont, Twitter twit)
 	{
 		twitter = twit;
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
@@ -193,7 +175,7 @@ public class TwitterWork
 				i.setData(Uri.parse(validURL));
 				cont.startActivity(i);
 				dialog.dismiss();
-				handlePin(cont, twitter, flag);
+				handlePin(cont, twitter);
 			}
 	    });
 	    dialog.setCancelable(false);
@@ -202,9 +184,8 @@ public class TwitterWork
 	/**
 	 * Gets and fetches the valid pin
 	 * @param cont
-	 * @param flag 
 	 */
-	public void handlePin(final Activity cont, final Twitter twitter, final Integer flag)
+	public void handlePin(final Activity cont, final Twitter twitter)
 	{
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -230,7 +211,7 @@ public class TwitterWork
 					try{
 						pin = Integer.parseInt(text);
 						dialog.dismiss();
-						finalizeValidation(cont, twitter, flag, dialog);
+						finalizeValidation(cont, twitter, dialog);
 					}
 					catch (NumberFormatException e){
 						Toast.makeText(cont, "Please Enter a PIN of Only Numbers", Toast.LENGTH_SHORT).show();
@@ -243,13 +224,12 @@ public class TwitterWork
 	/**
 	 * Calls the authentication asynctask
 	 * @param cont
-	 * @param flag 
 	 * @param dialog 
 	 */
-	public void finalizeValidation(Context cont, Twitter twitter, Integer flag, Dialog dialog)
+	public void finalizeValidation(Context cont, Twitter twitter, Dialog dialog)
 	{
 		TwitterWork obj = new TwitterWork();
-	    TwitterValidate task = obj.new TwitterValidate((Activity)cont, flag, dialog, twitter);
+	    TwitterValidate task = obj.new TwitterValidate((Activity)cont, dialog, twitter);
 	    task.execute(cont, twitter, requestToken, Integer.toString(pin));
 	} 
 
@@ -262,15 +242,13 @@ public class TwitterWork
 	{
 		ProgressDialog pdia;
 		Activity act;
-		Integer flag;
 		Dialog d;
 		Twitter t;
-	    public TwitterValidate(Activity activity, int i, Dialog dialog, Twitter twitter) 
+	    public TwitterValidate(Activity activity, Dialog dialog, Twitter twitter) 
 	    {
 	        pdia = new ProgressDialog(activity);
 	        pdia.setCancelable(false);
 	        act = activity;
-	        flag = i;
 	        t = twitter;
 	        d = dialog;
 	    }
@@ -294,7 +272,7 @@ public class TwitterWork
 		   else
 		   {
 			   d.dismiss();
-			   handleAccessToken(act, result, flag);
+			   handleAccessToken(act, result);
 		   }
 		}
 
@@ -327,9 +305,8 @@ public class TwitterWork
 	 * Saves the rest of it to file
 	 * @param cont
 	 * @param accessToken
-	 * @param flag 
 	 */
-	public void handleAccessToken(Activity cont, AccessToken accessToken, Integer flag)
+	public void handleAccessToken(Activity cont, AccessToken accessToken)
 	{ 
 		if(accessToken == null)
 		{
@@ -339,119 +316,7 @@ public class TwitterWork
 		Toast.makeText(cont, "Successfully set up your account! Please press the menu option again.", Toast.LENGTH_SHORT).show();
 	}
 
-	/**
-	 * Handles twitter parsing for a list instead of a user
-	 * @param obj 
-	 * @return
-	 */
-	public static List<NewsObjects> parseTwitter4jList(String userName, String listName, TwitterWork obj)
-	{
-		/*ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setDebugEnabled(true)
-		  .setOAuthConsumerKey("BCARDaoZRV1VhOVh3Nxq4g")
-		  .setOAuthConsumerSecret("u84R7JlzTNtss0Tut61oSRKYpgo4uW8G1moOlrBOgSg")
-		  .setOAuthAccessToken("734038682-8h2b63A8UM0UoMrlPHKZGa6RIzOZLpx5qsPeZ1Ma")
-		  .setOAuthAccessTokenSecret("Zijqkk2GU4WINIQ67YCnBE6Yz2Ahzk6XIYckMv8zRY");
-	    TwitterFactory factory = new TwitterFactory(cb.build());*/
-	    Twitter twitter = obj.userTwitter;
-		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
-	    Paging paging = new Paging(1, 25);
-	    try {
-	    	int id = -1;
-			ResponseList<UserList> list = twitter.getUserLists(userName);
-			for(UserList listIter : list)
-			{
-				if(listIter.getName().equals(listName))
-				{
-					id = listIter.getId();
-					break;
-				}
-			}
-			ResponseList<Status> listStatuses = twitter.getUserListStatuses(id, paging);
-			for(Status status : listStatuses)
-			{
-				String header = status.getUser().getName() + ": " + status.getText();
-				String date = status.getCreatedAt().toString();
-				StringBuilder replySet = new StringBuilder(1000);
-				int counter = 0;
-				while(status.getInReplyToStatusId() != -1L && counter < 4)
-				{
-					status = twitter.showStatus(status.getInReplyToStatusId());
-					replySet.append("In reply to:  " + status.getUser().getName() + " (" + status.getCreatedAt() + ")\n" 
-							+ status.getText() + "\n\n");
-					counter++;
-				}
-				if(replySet.length() < 5)
-				{
-					replySet.append(" ");
-				}
-				NewsObjects news = new NewsObjects(header, replySet.toString(), date);
-				newsSet.add(news);
-			}
-		} catch (TwitterException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	    if(newsSet.size() == 0)
-	    {
-	    	newsSet.add(new NewsObjects("Rate limit exceeded, try again in a few minutes", " ", " "));
-	    }
-	    return newsSet;
-	}
 
-	/**
-	 * Parses the tweets from the individual accounts
-	 * @param obj 
-	 */
-	public static List<NewsObjects> parseTwitter4j(String accountName, TwitterWork obj)
-	{
-		/*ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setDebugEnabled(true)
-		  .setOAuthConsumerKey("BCARDaoZRV1VhOVh3Nxq4g")
-		  .setOAuthConsumerSecret("u84R7JlzTNtss0Tut61oSRKYpgo4uW8G1moOlrBOgSg")
-		  .setOAuthAccessToken("734038682-8h2b63A8UM0UoMrlPHKZGa6RIzOZLpx5qsPeZ1Ma")
-		  .setOAuthAccessTokenSecret("Zijqkk2GU4WINIQ67YCnBE6Yz2Ahzk6XIYckMv8zRY");
-	    TwitterFactory factory = new TwitterFactory(cb.build());*/
-	    Twitter twitter = obj.userTwitter;//factory.getInstance();
-		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
-	    Paging paging = new Paging(1, 25);
-	    List<Status> statuses = new ArrayList<Status>();
-	    try {
-			statuses = twitter.getUserTimeline(accountName, paging);
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		for(Status status : statuses)
-		{
-			String header = status.getUser().getName() + ": " + status.getText();
-			String date = status.getCreatedAt().toString();
-			StringBuilder replySet = new StringBuilder(1000);
-			int counter = 0;
-			while(status.getInReplyToStatusId() != -1L && counter < 4)
-			{
-				try {
-					status = twitter.showStatus(status.getInReplyToStatusId());
-				} catch (TwitterException e) {
-					break;
-				}
-				replySet.append("In reply to: " + status.getUser().getName() + " (" + status.getCreatedAt() + ")\n" 
-						+ status.getText() + "\n\n");
-				counter++;
-			} 
-			if(replySet.length() < 5)
-			{
-				replySet.append(" ");
-			}
-			NewsObjects news = new NewsObjects(header, replySet.toString(), date);
-			newsSet.add(news);
-		}
-	    if(newsSet.size() < 10)
-	    {
-	    	newsSet.add(new NewsObjects("Rate limit exceeded, try again in a few minutes", " ", " "));
-	    } 
-	    return newsSet;
-	}
 
 	/**
 	 * Parses twitter given a user's input query terms, returning relevant tweets
@@ -459,13 +324,6 @@ public class TwitterWork
 	 */
 	public static List<NewsObjects> searchTweets(String query, Twitter userTwitter2)
 	{
-		/*ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setDebugEnabled(true)
-		  .setOAuthConsumerKey("BCARDaoZRV1VhOVh3Nxq4g")
-		  .setOAuthConsumerSecret("u84R7JlzTNtss0Tut61oSRKYpgo4uW8G1moOlrBOgSg")
-		  .setOAuthAccessToken("734038682-8h2b63A8UM0UoMrlPHKZGa6RIzOZLpx5qsPeZ1Ma")
-		  .setOAuthAccessTokenSecret("Zijqkk2GU4WINIQ67YCnBE6Yz2Ahzk6XIYckMv8zRY");
-        TwitterFactory factory = new TwitterFactory(cb.build());*/
         Twitter twitter = userTwitter2;
 		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
         try {

@@ -29,7 +29,7 @@ import com.example.fantasyfootballrankings.Pages.Home;
  *
  */
 public class ReadFromFile {
-	static StorageAsyncTask readFromFileAsyncObj = new StorageAsyncTask();
+	private static StorageAsyncTask readFromFileAsyncObj = new StorageAsyncTask();
 	
 	/**
 	 * Fetches the names list from file in the back end
@@ -183,43 +183,6 @@ public class ReadFromFile {
 	}
 	
 	/**
-	 * Reads the rotoworld news from file
-	 * @param cont
-	 * @return
-	 */
-	public static List<NewsObjects> readNewsRoto(Context cont)
-	{
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		String newsWhole = prefs.getString("News RotoWorld", "Not Set");
-		List<NewsObjects> newsSet = new ArrayList<NewsObjects>();
-		String[] perHeadline = ManageInput.tokenize(newsWhole, '@', 3);
-		for(int i = 0; i < perHeadline.length; i++)
-		{
-			String[] newsData = ManageInput.tokenize(perHeadline[i], '~', 2);
-			NewsObjects newsObj = new NewsObjects(newsData[0], newsData[1], 
-					newsData[2]);
-			if(newsData.length == 4)
-			{
-				newsObj = new NewsObjects(newsData[0], newsData[1], 
-						newsData[2]);
-			}
-			newsSet.add(newsObj);
-		}
-		return newsSet;
-	}
-	
-	/**
-	 * Reads the news title from file
-	 * @param cont
-	 * @return
-	 */
-	public static String readNewsTitle(Context cont)
-	{
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		return prefs.getString("News Title", "NFL News");
-	}
-	
-	/**
 	 * Reads the watch list from file
 	 * @param cont
 	 * @return
@@ -320,7 +283,7 @@ public class ReadFromFile {
 	 * @param cont
 	 * @return
 	 */
-	public static Flex readFlex(Context cont)
+	private static Flex readFlex(Context cont)
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		int rbwr = prefs.getInt("Starting RB/WRs", 0);
@@ -338,7 +301,7 @@ public class ReadFromFile {
 	 * @param cont
 	 * @return
 	 */
-	public static Flex readFlex(Context cont, String key)
+	private static Flex readFlex(Context cont, String key)
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		int rbwr = prefs.getInt("Starting RB/WRs" + key, 0);
@@ -498,23 +461,13 @@ public class ReadFromFile {
 		return;
 	}
 
-	/**
-	 * Reads whether or not hiding the widget should be done
-	 * @param cont
-	 * @return
-	 */
-	public static boolean readHideWidget(Context cont) {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		return prefs.getBoolean("Hide Widget", false);
-	}
-
 
 	/**
 	 * Reads the current draft
 	 * @param cont
 	 * @return
 	 */
-	public static int readCurrDraft(Context cont) {
+	 static int readCurrDraft(Context cont) {
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		return prefs.getInt("Current Draft", 0);
 	}
@@ -571,12 +524,6 @@ public class ReadFromFile {
 	{
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		return (double)prefs.getFloat("Auction Factor", (float)1.0);
-	}
-	
-	public static boolean readIsFirstPlayerInfo(Context cont)
-	{
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		return prefs.getBoolean("Is First Player Info", false);
 	}
 
 	public static boolean firstIsRegularSeason(Context cont) {

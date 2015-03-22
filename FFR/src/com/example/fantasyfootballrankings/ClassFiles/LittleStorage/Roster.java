@@ -16,23 +16,7 @@ public class Roster
 	public int tes;
 	public int def;
 	public int k;
-	public Flex flex;
-	//public int flex;
-	
-	/**
-	 * Stores the roster numbers
-	 */
-	public Roster(int teamCt, int qbCt, int rbCt, int wrCt, int teCt, Flex flexCt, int defCt, int kCt)
-	{
-		teams = teamCt;
-		qbs = qbCt;
-		rbs = rbCt;
-		wrs = wrCt;
-		tes = teCt;
-		flex = flexCt;
-		def = defCt;
-		k = defCt;
-	}
+	public Flex flex;	
 	
 	/**
 	 * empty constructor for the initial set up

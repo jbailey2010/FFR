@@ -102,10 +102,6 @@ public class Home extends Activity{
 	            	Intent intent3 = new Intent(cont, Trending.class);
 	    	        cont.startActivity(intent3);		
 	                break;
-	            case R.id.side_navigation_menu_item5:
-	            	Intent intent4 = new Intent(cont, News.class);
-	    	        cont.startActivity(intent4);
-	                break;
 	            case R.id.side_navigation_menu_item6:
 	            	Intent intent6 = new Intent(cont, DraftHistory.class);
 	    	        cont.startActivity(intent6);
@@ -130,8 +126,6 @@ public class Home extends Activity{
         rankings.setOnClickListener(rankHandler);
         trending = (Button)findViewById(R.id.trending);
         trending.setOnClickListener(trendHandler);
-        news = (Button)findViewById(R.id.news_button); 
-        news.setOnClickListener(newsHandler);
         drafts = (Button)findViewById(R.id.draft_history);
         drafts.setOnClickListener(draftHandler);
         importLeague = (Button)findViewById(R.id.import_league_btn); 
@@ -355,18 +349,6 @@ public class Home extends Activity{
 		public void onClick(View v) 
 		{
 	        Intent intent = new Intent(cont, Trending.class);
-	        cont.startActivity(intent);		
-		}	
-	};
-	
-	/**
-	 * Sends the news button to the news page
-	 */
-	View.OnClickListener newsHandler = new View.OnClickListener() 
-	{
-		public void onClick(View v) 
-		{
-	        Intent intent = new Intent(cont, News.class);
 	        cont.startActivity(intent);		
 		}	
 	};

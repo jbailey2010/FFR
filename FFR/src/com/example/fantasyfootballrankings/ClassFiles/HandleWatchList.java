@@ -98,7 +98,7 @@ public class HandleWatchList
 			}
 		});
 		Button back = (Button)dialog.findViewById(R.id.search_back);
-		back.setText("Clear Watch List");
+		back.setText("Clear");
 		back.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {

@@ -17,23 +17,6 @@ public class Scoring
 	public int catches;
 	
 	/**
-	 * Sets all of the variables. Super simple.
-	 */
-	public Scoring(int passYardsIn, int passTDin, int intIn, int rushYardsin, int rushTDin, int fumbleIn, 
-			int recYardsin, int recTDin, int catchesIn)
-	{
-		passYards = passYardsIn;
-		passTD = passTDin;
-		interception = intIn;
-		rushYards = rushYardsin;
-		rushTD = rushTDin;
-		fumble = fumbleIn;
-		recYards = recYardsin;
-		recTD = recTDin;
-		catches = catchesIn;
-	}
-	
-	/**
 	 * For the sake of ease later, checks, a default.
 	 */
 	public Scoring()

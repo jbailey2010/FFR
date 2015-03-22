@@ -125,18 +125,18 @@
 	    
 	           
 
-    <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
+    <ListView
         android:id="@+id/listview_search"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/info_sub_header_dark"
         android:layout_marginBottom="-3dp"
         android:layout_below="@+id/category_base"
-        android:background="@drawable/content_well_popup"
+        android:background="#999999"
         android:clickable="true"
         android:divider="#999999" >
 
-    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
+    </ListView>
 
      <Button 
 	            android:id="@+id/dummy_btn_center"

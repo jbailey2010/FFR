@@ -9,6 +9,7 @@
         android:id="@+id/trending_header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/menu_btn_black" >
 
         <Button
@@ -53,16 +54,17 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_below="@+id/trending_header"
+        android:layout_above="@+id/trending_header"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/trending_list_base"
         android:background="#444444" >
 
         <com.example.fantasyfootballrankings.InterfaceAugmentations.OutBounceListView
             android:id="@+id/listview_trending"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/content_well"
+            android:background="#999999"
             android:clickable="true"
             android:divider="#999999"
             android:dividerHeight="1dp" >

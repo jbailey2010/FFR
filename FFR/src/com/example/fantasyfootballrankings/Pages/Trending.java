@@ -23,7 +23,6 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.PlayerInfoActivity;
-import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.OutBounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.socialize.EntityUtils;
@@ -113,10 +112,6 @@ public class Trending extends Activity {
 	            case R.id.side_navigation_menu_item4:
 	            	Intent intent3 = new Intent(cont, Trending.class);
 	    	        cont.startActivity(intent3);		
-	                break;
-	            case R.id.side_navigation_menu_item5:
-	            	Intent intent4 = new Intent(cont, News.class);
-	    	        cont.startActivity(intent4);
 	                break;
 	            case R.id.side_navigation_menu_item6:
 	            	Intent intent6 = new Intent(cont, DraftHistory.class);

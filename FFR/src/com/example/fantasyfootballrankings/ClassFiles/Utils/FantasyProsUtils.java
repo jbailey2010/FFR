@@ -11,15 +11,28 @@ public class FantasyProsUtils {
 		initMap();
 	}
 	
-	public String playerNameUrl(String playerName){
-		String[] nameSet = playerName.toLowerCase().replaceAll("\\.", "").replaceAll("\\'", "").split(" ");
-		StringBuilder nameBuilder = new StringBuilder(100);
-		for(String name : nameSet){
-			nameBuilder.append(name + "-");
+	public String playerNameUrl(String playerName, String teamName){
+		if(!playerName.contains("D/ST")){
+			String[] nameSet = playerName.toLowerCase().replaceAll("\\.", "").replaceAll("\\'", "").split(" ");
+			StringBuilder nameBuilder = new StringBuilder(100);
+			for(String name : nameSet){
+				nameBuilder.append(name + "-");
+			}
+			String base = nameBuilder.toString();
+			base = base.substring(0, base.length() - 1);
+			return base;
 		}
-		String base = nameBuilder.toString();
-		base = base.substring(0, base.length() - 1);
-		return base;
+		else{
+			String teamMascot = playerName.split(" D/ST")[0];
+			String teamCity = teamName.split(teamMascot)[0];
+			String[] nameSet = teamCity.toLowerCase().replaceAll("\\.", "").split(" ");
+			StringBuilder nameBuilder = new StringBuilder(100);
+			for(String name : nameSet){
+				nameBuilder.append(name + "-");
+			}
+			nameBuilder.append("defense");
+			return nameBuilder.toString();
+		}
 	}
 	
 	

@@ -2,17 +2,6 @@ package AsyncTasks;
 
 import java.io.IOException;
 
-
-
-
-
-
-
-
-
-
-
-
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +11,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.htmlcleaner.XPatherException;
-import org.json.simple.parser.ParseException;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -31,10 +19,8 @@ import org.jsoup.select.Elements;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ComparatorHandling;
-import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
-import com.example.fantasyfootballrankings.ClassFiles.Simulator;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
@@ -46,9 +32,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFantasyPros;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMath;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTheFakeFootball;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNews;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseOLineAdvanced;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePFF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
@@ -62,20 +46,16 @@ import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.TwitterWork;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LineupHelp;
-import com.example.fantasyfootballrankings.Pages.Home;
-import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.example.fantasyfootballrankings.Pages.Trending;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile; 
-import android.R;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.widget.TextView;
 /**
@@ -91,14 +71,14 @@ public class ParsingAsyncTask
 		 * @author Jeff
 		 *
 		 */
-		long start;
-		long all;
+		private long start;
+		private long all;
 		public class ParseRanks extends AsyncTask<Object, String, Void> 
 		{
-			ProgressDialog pdia;
-			Activity act;
-			Storage hold;
-			int draftIter;
+			private ProgressDialog pdia;
+			private Activity act;
+			private Storage hold;
+			private int draftIter;
 		    public ParseRanks(Activity activity, Storage holder) 
 		    {
 		    	SharedPreferences prefs = activity.getSharedPreferences("FFR", 0); 
@@ -441,9 +421,9 @@ public class ParsingAsyncTask
 		 */
 		public class ParseProjections extends AsyncTask<Object, String, Void> 
 		{
-			Activity act;
-			Storage hold;
-			ProgressDialog pdia;
+			private Activity act;
+			private Storage hold;
+			private ProgressDialog pdia;
 		    public ParseProjections(Activity activity, Storage holder) 
 		    {
 		    	pdia = new ProgressDialog(activity);
@@ -533,9 +513,9 @@ public class ParsingAsyncTask
 		 */
 		public class FetchTrends extends AsyncTask<Object, String, Void> 
 		{
-			Activity act;
-			ProgressDialog pdia;
-			Storage holder;
+			private Activity act;
+			private ProgressDialog pdia;
+			private Storage holder;
 		    public FetchTrends(Activity activity, Storage hold) 
 		    {
 		        act = activity;
@@ -685,9 +665,9 @@ public class ParsingAsyncTask
 		 */
 		public class ParseNames extends AsyncTask<Object, Void, Void> 
 		{
-			ProgressDialog pdia;
-			Activity act;
-			boolean isFirstFetch;
+			private ProgressDialog pdia;
+			private Activity act;
+			private boolean isFirstFetch;
 		    public ParseNames(Activity activity, boolean iff) 
 		    {
 		        pdia = new ProgressDialog(activity);
@@ -728,198 +708,8 @@ public class ParsingAsyncTask
 		    }
 		  }
 
+	
 		
-
-		/**
-		 * Handles the back-end parsing of the news
-		 * @author Jeff
-		 *
-		 */
-		public class ParseRotoWorldNews extends AsyncTask<Object, Void, List<NewsObjects>> 
-		{
-			ProgressDialog pdia;
-			Activity act;
-		    public ParseRotoWorldNews(Context cont) 
-		    {
-		        pdia = new ProgressDialog(cont);
-		        pdia.setCancelable(false);
-		        act = (Activity)cont;
-		    }
-
-			@Override
-			protected void onPreExecute(){ 
-			   super.onPreExecute();
-			        pdia.setMessage("Please wait, fetching the news...");
-			        pdia.show();    
-			}
-
-			@Override
-			protected void onPostExecute(List<NewsObjects> result){
-			   super.onPostExecute(result);
-			   pdia.dismiss();
-			   ((News) act).handleNewsListView(result, act);
-			}
-
-		    @Override
-		    protected List<NewsObjects> doInBackground(Object... data) 
-		    {
-		    	Context cont = (Context) data[0];
-		    	boolean rh = (Boolean)data[1];
-		    	boolean rp = (Boolean)data[2];
-		    	boolean th = (Boolean)data[3];
-		    	boolean cbs = (Boolean)data[4];
-		    	boolean si = (Boolean)data[5];
-		    	boolean mfl = (Boolean)data[6];
-		    	try {
-		    		List<NewsObjects> news = new ArrayList<NewsObjects>(100);
-		    		if(rh)
-		    		{
-		    			news = ParseNews.parseNewsRoto("http://www.rotoworld.com/headlines/nfl/0/football-headlines");
-		    		}
-		    		else if(rp)
-		    		{
-		    			news = ParseNews.parseNewsRoto("http://www.rotoworld.com/playernews/nfl/football-player-news");
-		    		}
-		    		else if(th)
-		    		{
-		    			news = ParseNews.parseNewsHuddle();
-		    		}
-		    		else if(cbs)
-		    		{
-		    			news = ParseNews.parseCBS();
-		    		}
-		    		else if(si) 
-		    		{
-		    			news = ParseNews.parseSI();
-		    		}
-		    		else if(mfl)
-		    		{
-		    			 news = ParseNews.parseMFL();
-		    		}
-		    		WriteToFile.writeNewsRoto(cont, news, rh, rp, th, cbs, si, mfl);
-					return news;
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				return null;
-		    }
-		  }
-
-		/**
-		 * Handles the back-end parsing of the twitter feeds
-		 * @author Jeff
-		 *
-		 */
-		public class ParseTwitterFeeds extends AsyncTask<Object, Void, List<NewsObjects>> 
-		{
-			ProgressDialog pdia;
-			Activity act;
-		    public ParseTwitterFeeds(Context cont) 
-		    {
-		        pdia = new ProgressDialog(cont);
-		        pdia.setCancelable(false);
-		        act = (Activity)cont;
-		    }
-
-			@Override
-			protected void onPreExecute(){ 
-			   super.onPreExecute();
-			        pdia.setMessage("Please wait, fetching the feeds...");
-			        pdia.show();    
-			}
-
-			@Override
-			protected void onPostExecute(List<NewsObjects> result){
-			   super.onPostExecute(result);
-			   pdia.dismiss();
-			   ((News)act).handleNewsListView(result, act);
-			}
-
-		    @Override
-		    protected List<NewsObjects> doInBackground(Object... data) 
-		    {
-		    	Context cont = (Context) data[0];
-		    	String selection = (String)data[1];
-		    	TwitterWork obj = (TwitterWork)data[2];
-		    	List<NewsObjects> news = new ArrayList<NewsObjects>(100);
-		    	String url = "adamschefter";
-		    	if(selection.contains("Mortenson"))
-		    	{
-		    		url = "mortreport";
-			    	news = TwitterWork.parseTwitter4j(url, obj);
-		    	}
-		    	else if(selection.contains("LaCanfora"))
-		    	{
-		    		url = "jasonlacanfora";
-			    	news = TwitterWork.parseTwitter4j(url, obj);
-		    	}
-		    	else if(selection.contains("Brad Evans"))
-		    	{
-		    		url = "yahoonoise";
-			    	news = TwitterWork.parseTwitter4j(url, obj);
-		    	}
-		    	else if(selection.contains("Glazer"))
-		    	{
-		    		url = "jayglazer";
-			    	news = TwitterWork.parseTwitter4j(url, obj);
-		    	}
-		    	else if(selection.contains("Clay"))
-		    	{
-		    		url = "mikeclaynfl";
-			    	news = TwitterWork.parseTwitter4j(url, obj);
-		    	}
-		    	else if(selection.contains("Douche"))
-		    	{
-		    		url = "fantasydouche";
-			    	news = TwitterWork.parseTwitter4j(url, obj);
-		    	}
-		    	else if(selection.contains("Eric Mack"))
-		    	{
-		    		url = "ericmackfantasy";
-			    	news = TwitterWork.parseTwitter4j(url, obj);
-		    	}
-		    	else if(selection.contains("Late Round"))
-		    	{
-		    		url = "lateroundqb";
-			    	news = TwitterWork.parseTwitter4j(url, obj);
-		    	}
-		    	else if(selection.contains("Wesseling"))
-		    	{
-		    		url = "chriswesseling";
-			    	news = TwitterWork.parseTwitter4j(url, obj);
-		    	}
-		    	else if(selection.contains("Kay Adams"))
-		    	{
-		    		url = "heykayadams";
-		    		news = TwitterWork.parseTwitter4j(url, obj);
-		    	}
-		    	else if(selection.contains("Chet"))
-		    	{
-		    		url = "Chet_G";
-		    		news = TwitterWork.parseTwitter4j(url, obj);
-		    	}
-		    	else if(selection.contains("Sigmund"))
-		    	{
-		    		url = "SigmundBloom";
-		    		news = TwitterWork.parseTwitter4j(url, obj);
-		    	}
-		    	else if(selection.contains("Aggregate") && selection.contains("Fantasy"))
-		    	{
-		    		news = TwitterWork.parseTwitter4jList("chriswesseling", "Fantasy Football Writers", obj);
-		    	}
-		    	else if(selection.contains("Aggregate") && selection.contains("Beat"))
-		    	{
-		    		news = TwitterWork.parseTwitter4jList("Chet_G", "Beat Reporters", obj);
-		    	}
-		    	else if(selection.contains("Schefter"))
-		    	{
-		    		url = "adamschefter";
-		    		news = TwitterWork.parseTwitter4j(url, obj);
-		    	}
-		    	WriteToFile.writeNewsTwitter(cont, news, selection);
-				return news;
-		    }
-		  }
 
 		/**
 		 * Handles the back-end parsing of the twitter feeds
@@ -928,17 +718,15 @@ public class ParsingAsyncTask
 		 */
 		public class ParseTwitterSearch extends AsyncTask<Object, Void, List<NewsObjects>> 
 		{
-			ProgressDialog pdia;
-			Activity act;
-			boolean flag;
-			String query;
-			TwitterWork tw;
-		    public ParseTwitterSearch(Context cont, boolean news, String input, TwitterWork obj) 
+			private ProgressDialog pdia;
+			private Activity act;
+			private String query;
+			private TwitterWork tw;
+		    public ParseTwitterSearch(Context cont, String input, TwitterWork obj) 
 		    {
 		        pdia = new ProgressDialog(cont);
 		        pdia.setCancelable(false);
 		        act = (Activity)cont;
-		        flag = news;
 		        query = input;
 		        tw = obj;
 		    }
@@ -954,29 +742,16 @@ public class ParsingAsyncTask
 			protected void onPostExecute(List<NewsObjects> result){
 				super.onPostExecute(result);
 				pdia.dismiss();
-				if(flag)
-				{
-				    ((News)act).handleNewsListView(result, act);
-				}
-				else
-				{
-					PlayerInfo.playerTweetSearch(result, act, query);
-				}
+				PlayerInfo.playerTweetSearch(result, act, query);
 			}
 
 		    @Override
 		    protected List<NewsObjects> doInBackground(Object... data) 
 		    {
-		    	Context cont = (Context) data[0];
 		    	String selection = (String)data[1];
-		    	String header = (String)data[2];
 		    	TwitterWork obj = (TwitterWork)data[3];
 		    	List<NewsObjects> news = new ArrayList<NewsObjects>(100);
 		    	news = TwitterWork.searchTweets(selection, obj.userTwitter);
-		    	if(flag)
-		    	{
-		    		WriteToFile.writeNewsTwitter(cont, news, header);
-		    	}
 				return news;
 		    }
 		  }
@@ -988,18 +763,23 @@ public class ParsingAsyncTask
 		 */
 		public class ParseFP extends AsyncTask<Object, Void, List<String>> 
 		{
-			ProgressDialog pdia;
-			Activity act;
-			String player1;
-			String player2;
-			boolean isStart;
-		    public ParseFP(Context cont, String p1, String p2, boolean flag) 
+			private ProgressDialog pdia;
+			private Activity act;
+			private String player1;
+			private String player2;
+			private boolean isStart;
+			private String team1; 
+			private String team2;
+			
+		    public ParseFP(Context cont, String p1, String p2, String t1, String t2, boolean flag) 
 		    {
 		        pdia = new ProgressDialog(cont);
 		        pdia.setCancelable(false);
 		        act = (Activity)cont;
 		        player1 = p1;
 		        player2 = p2;
+		        team1 = t1;
+		        team2 = t2;
 		        isStart = flag;
 		    }
 
@@ -1041,16 +821,13 @@ public class ParsingAsyncTask
 		    		baseURL = "http://www.fantasypros.com/nfl/draft/";
 		    	}
 		    	FantasyProsUtils obj = new FantasyProsUtils();
-		    	baseURL += obj.playerNameUrl(player1) + "-" + obj.playerNameUrl(player2) + ".php";
+		    	baseURL += obj.playerNameUrl(player1, team1) + "-" + obj.playerNameUrl(player2, team2) + ".php";
 		    	String firstName = player1;
 		    	String secondName = player2;
-		    	System.out.println(firstName);
-		    	System.out.println(secondName);
 		    	if(s.catches == 1)
 		    	{
 		    		baseURL += "?scoring=PPR";
 		    	}
-		    	System.out.println(baseURL);
 		    	try {
 					Document doc = Jsoup.connect(baseURL).get();
 					List<String> percentages = HandleBasicQueries.handleListsMulti(doc, baseURL, "div div.mpb-col span");
@@ -1083,9 +860,6 @@ public class ParsingAsyncTask
 							break;
 						}
 					}
-					for(String elem : ecrList){
-						System.out.println(elem);
-					}
 					if(p != null)
 					{
 						String name = "";
@@ -1097,9 +871,8 @@ public class ParsingAsyncTask
 							Element megaParent = p.parent().parent().parent().parent();
 							name = megaParent.child(2).child(1).child(2).text();
 						}
-						System.out.println(name);
-						if(isStart && !(name.equals(firstName) || name.contains(firstName)))
-						{
+						if(((isStart && !(name.equals(firstName) || name.contains(firstName))) && !firstName.contains("D/ST")) || 
+							(firstName.contains("D/ST") && !(name.equals(team1) || name.contains(team1) || name.contains(firstName.split(" D/ST")[0])))){
 							List<String> newEcr = new ArrayList<String>();
 							newEcr.add(ecrList.get(1));
 							newEcr.add(ecrList.get(0));
@@ -1119,10 +892,10 @@ public class ParsingAsyncTask
 		
 		public class ParseADP extends AsyncTask<Object, Void, String> 
 		{
-			ProgressDialog pdia;
-			Activity act;
-			Storage h;
-			TextView view;
+			private ProgressDialog pdia;
+			private Activity act;
+			private Storage h;
+			private TextView view;
 		    public ParseADP(Activity activity, Storage holder, TextView tv) 
 		    {
 		        pdia = new ProgressDialog(activity);
@@ -1166,7 +939,7 @@ public class ParsingAsyncTask
 		    }
 		  }
 		
-		public String checkUrl(String url, String name, int pick){
+		private String checkUrl(String url, String name, int pick){
 			try {
 				List<String> td = HandleBasicQueries.handleLists(url, "table.adp td");
 				for(int i = 0; i < td.size(); i++){

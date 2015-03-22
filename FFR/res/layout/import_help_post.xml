@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+   		android:layout_height="fill_parent" >
+     <Button
+        android:id="@+id/help_close"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="X" 
+        android:textSize="28sp"
+        android:textColor="#CD0000"/>
+
+     <TextView
+         android:id="@+id/textView2"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/textView1"
+         android:layout_marginTop="16dp"
+         android:text="HIGH LEVEL TEAM STATS:\n\nClick on a team to see detailed positional breakdowns. Click and hold to see the best lineup this team can field\nNote: This is based on your roster settings. During the preseason, this is overall, but during the season it's per week."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+     <TextView
+         android:id="@+id/textView3"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/textView2"
+         android:layout_marginTop="16dp"
+         android:text="PLAYERS LIST:\n\nClick on a name to see more, or use the below dropdowns to filter. If not sorted in a custom way, projections are listed by names."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+     <TextView
+         android:id="@+id/textView10"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/textView3"
+         android:layout_marginTop="16dp"
+         android:text="WHO TO START:\n\nThere are two input fields. Input a player into each, and the table below will fill out, showing how each player compares to the other."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+     <TextView
+         android:id="@+id/textView1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/help_close"
+         android:text="HIGH LEVEL LEAGUE STATS:\n\nFor positional breakdowns, teams are sorted by projections from the starters at a position, with points above average for those starters listed and for all at the position in parentheses. Click on one of the elements to see a graphical representation. If it&apos;s a positional breakdown, a single click will show starters and a long click the whole set."
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>
+</ScrollView>

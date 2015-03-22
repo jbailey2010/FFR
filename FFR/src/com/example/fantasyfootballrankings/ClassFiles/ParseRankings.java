@@ -31,7 +31,6 @@ public class ParseRankings
 {
 	public static HashMap<String, String> fixes = new HashMap<String, String>();
 	public static HashMap<String, String> teams = new HashMap<String, String>();
-	public static HashMap<String, String> defenses = new HashMap<String, String>();
 	static Context context;
 	/** 
 	 * This is where the magic happens. This sets the names/fetches them if they're

@@ -5,16 +5,16 @@
     android:background="#555555"
     tools:context=".DraftHistory" >
 
-    <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
+    <ListView
         android:id="@+id/draft_history_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:divider="#999999"
         android:layout_alignParentTop="true"
-        android:background="@drawable/content_well">
+        android:background="#999999">
 
-    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
+    </ListView>
 
     <com.devspark.sidenavigation.SideNavigationView
         android:id="@+id/side_navigation_view_draft"

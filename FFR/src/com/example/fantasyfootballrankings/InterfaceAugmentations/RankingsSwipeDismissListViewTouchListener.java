@@ -31,7 +31,6 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.Pages.DraftHistory;
 import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
-import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.example.fantasyfootballrankings.Pages.Trending;
 import com.ffr.fantasyfootballrankings.R;
@@ -221,7 +220,6 @@ public class RankingsSwipeDismissListViewTouchListener implements View.OnTouchLi
 	                mDownView = null;
 	                mDownPosition = ListView.INVALID_POSITION;
 	                mSwiping = false;
-	                Rankings.hasSwiped = true;
 	                break;
                 }
             }

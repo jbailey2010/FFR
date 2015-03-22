@@ -122,28 +122,6 @@ public class ManageInput
 		    			android.R.id.text2});
 		   input.setAdapter(mAdapter);
 	}
-
-	/**
-	 * A function that just handles the checking of voice input
-	 * relative to parsed players, returning only legitimate 
-	 * matches
-	 */
-	public static List<String> voiceInput(ArrayList<String> matches, Context dialog,
-			Storage holder, AutoCompleteTextView textView) 
-	{
-		List<String> results = new ArrayList<String>();
-		for(String e:matches)
-		{
-			for(String players : holder.parsedPlayers)
-			{
-				if(players.contains(e))
-				{
-					results.add(players);
-				}
-			}
-		}
-		return results;
-	}
 	
 	/**
 	 * Handles the addition of an adapter to the listview
@@ -341,17 +319,6 @@ public class ManageInput
 	}
 	
 	/**
-	 * Determines whether to get scoring settings or ask for them, if anything.
-	 */
-	public static void setUpScoring(Context cont, Scoring scoring, boolean doSync, Storage holder)
-	{
-		if(!cont.getSharedPreferences("FFR", 0).getBoolean("Is Scoring Set?", false))
-		{
-			passSettings(cont, scoring, doSync, holder);
-		}
-	}
-	
-	/**
 	 * Sets up pass settings
 	 * @param cont
 	 * @param scoring
@@ -508,17 +475,6 @@ public class ManageInput
 				} 
 			}
 		});
-	}
-	
-	/**
-	 * Determines whether or not to get the roster
-	 */
-	public static void setUpRoster(Context cont, Storage holder)
-	{
-		if(!cont.getSharedPreferences("FFR", 0).getBoolean("Is roster set?", false))
-		{
-			getRoster(cont, false, holder);
-		}
 	}
 	
 	/**
@@ -886,7 +842,6 @@ public class ManageInput
 				+ "Now, in regular season mode, you can no longer draft players. In addition to that, the player information listed differs - it shifts from projections...etc. to aggregate stats that "
 				+ "automatically update with every sync you make through the season and weekly projections/rankings.\n\n"
 				+ "Previous drafts is where you can see the various drafts you've saved, as well as some information about each. This has no difference between regular season and preseason mode.\n\n"
-				+ "NFL News lets you see various news feeds as well as expert twitter feeds. This has no difference between regular season and preseason mode.\n\n" 
 				+ "My Leagues lets you import leagues you have from ESPN or public Yahoo leagues and do some advanced analysis on those leagues. Each league gets mapped to whatever roster and scoring settings are input at import, but these can be changed.\n"
 				+ "Other than that, it's your handy tool to everything you need to manage your team optimally.\nThe only differences between preseason and regular season mode " 
 				+ "is in the list of players, and that's similar to Rankings -- small differences in what output there is in terms of stats\n\n" 

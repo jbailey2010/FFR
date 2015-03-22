@@ -23,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.TeamTradeInfo;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
@@ -116,21 +115,6 @@ public class RosterTips
 		trade.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				/*
-				trade.setBackgroundResource(R.drawable.selected_tab);
-				fa.setBackgroundResource(R.drawable.not_selected_tab);
-				String teamName = teamsSp.getSelectedItem().toString();
-				TeamAnalysis iter = null;
-				for(TeamAnalysis team : newImport.teams)
-				{
-					if(team.teamName.equals(teamName))
-					{
-						iter = team;
-						break;
-					}
-				}
-				handleTrades(iter, res);
-				*/
 				Toast.makeText(ImportLeague.cont, "Still in development, should be available soon!", Toast.LENGTH_SHORT).show();
 			} 
 		});
@@ -160,7 +144,7 @@ public class RosterTips
 				{
 					fa.setBackgroundResource(R.drawable.not_selected_tab);
 					trade.setBackgroundResource(R.drawable.selected_tab);
-					handleTrades(iter, res);
+					Toast.makeText(ImportLeague.cont, "Still in development, stay tuned!", Toast.LENGTH_LONG).show();
 				}
 			}
 
@@ -170,23 +154,6 @@ public class RosterTips
 				
 			}
 		});
-	}
-	
-	public static void handleTrades(TeamAnalysis team, View res)
-	{
-		Spinner topic = (Spinner)res.findViewById(R.id.fa_topics);
-		topic.setVisibility(View.GONE);
-		Map<TeamAnalysis, TeamTradeInfo>leagueMaster = new HashMap<TeamAnalysis, TeamTradeInfo>();
-		for(TeamAnalysis iter : newImport.teams)
-		{
-			leagueMaster.put(iter, new TeamTradeInfo(iter, ImportLeague.cont, ImportLeague.newImport.roster));
-		}
-		TextView output = (TextView)res.findViewById(R.id.fa_content);
-		ScrollView base = (ScrollView)res.findViewById(R.id.fa_scroll);
-		base.setVisibility(View.VISIBLE);
-		output.setVisibility(View.GONE);
-		TextView tradeOutput = (TextView)res.findViewById(R.id.trade_content);
-		tradeOutput.setVisibility(View.VISIBLE);
 	}
 	
 	/**

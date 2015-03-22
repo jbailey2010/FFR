@@ -390,7 +390,11 @@ public class TeamAnalysis
 	public double getPosPAA(List<PlayerObject> players){
 		DecimalFormat df = new DecimalFormat("#.##");
 		double total = 0.0;
+		System.out.println("------");
 		for(PlayerObject player : players){
+			if(player.info.position.equals("QB")){
+				System.out.println(player.info.name + ": " + player.values.paa);
+			}
 			total += player.values.paa;
 		}
 		return Double.valueOf(df.format(total));

@@ -32,61 +32,6 @@ import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 public class ParseNFL 
 {
 	
-	public static void parseNFLRankingsWrapper(Storage holder, Context cont) throws IOException, ParseException{
-		 URL url;
-		    InputStream is = null;
-		    BufferedReader br;
-		    String line;
-		    StringBuilder htmlBuilder = new StringBuilder(10000);
-		    try { 
-		        url = new URL("http://www.nfl.com/fantasyfootball/rankings#tabset=pr-top");
-		        URLConnection conn = url.openConnection();
-		        conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
-		        is = conn.getInputStream();
-		        br = new BufferedReader(new InputStreamReader(is));
-		        while ((line = br.readLine()) != null) {
-		        	htmlBuilder.append(line);
-		        }
-		    } catch (MalformedURLException mue) {
-		         mue.printStackTrace();
-		    } catch (IOException ioe) {
-		    	System.out.println("IOException ");
-		         ioe.printStackTrace();
-		    } finally {
-		        try {
-		            is.close();
-		        } catch (IOException ioe) {
-		            // nothing to see here
-		        }
-		    }  
-		String html = htmlBuilder.toString();
-		String fir = html.split("var players101_200 = ")[1];
-		String sec = html.split("_dataMerged\\[\\'top\\'\\] = ")[1];
-		String firstSet = fir.split("\\[")[1].replaceAll("\\}\\,\\{", "} ,,, {").replaceAll("\\}\\]\\}", "} ,,, }");
-		String playerSet = sec.split("\\[")[1].replaceAll("\\}\\,\\{", "} ,,, {").replaceAll("\\}\\]\\}", "} ,,, }");
-		String[] firstArr = firstSet.split(" ,,, ");
-		String[] playerArr = playerSet.split(" ,,, ");
-		for(int i = 0; i < playerArr.length; i++){
-			String player = playerArr[i];
-			String secPla = firstArr[i];
-			JSONObject json1 =(JSONObject)new JSONParser().parse(secPla);
-			JSONObject json = (JSONObject)new JSONParser().parse(player);
-			String firstName = ParseRankings.fixNames(ParseRankings.fixDefenses(json1.get("firstName") + " " + json1.get("lastName")));
-			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(json.get("firstName") + " " + json.get("lastName")));
-			double val = 0.0;
-			double val2 = 0.0;
-			try{
-				val = Double.parseDouble("" + json.get("auction"));
-				val2 = Double.parseDouble("" + json1.get("auction"));
-			}catch(Exception e){
-				val = 0.0;
-				val2 = 0.0;
-			}
-			ParseRankings.finalStretch(holder, name, (int) val, "", "");
-			ParseRankings.finalStretch(holder, firstName, (int) val2, "", "");
-		}
-	}
-	
 	/**
 	 * Calls the top 200 on the worker 
 	 * @param holder

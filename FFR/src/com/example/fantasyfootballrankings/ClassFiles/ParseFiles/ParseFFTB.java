@@ -146,7 +146,7 @@ public class ParseFFTB
 				StringBuilder team = new StringBuilder(100);
 				for(int j = 1; j < trWords.length; j++)
 				{
-					if(!trWords[j].equals("vs"))
+					if(!ManageInput.isInteger(trWords[j]))
 					{
 						team.append(trWords[j] + " ");
 					}

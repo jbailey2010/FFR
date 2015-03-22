@@ -51,7 +51,6 @@ import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.PlayerNewsActivity;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.TwitterWork;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.ActivitySwipeDetector;
-import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.Rankings;
@@ -66,7 +65,6 @@ import com.socialize.ui.actionbar.ActionBarOptions;
  */ 
 public class PlayerInfo 
 {
-	Rankings obj = new Rankings();
 	double aucFactor;
 	PlayerObject searchedPlayer;
 	static List<Map<String, String>> data;
@@ -405,7 +403,7 @@ public class PlayerInfo
 		}
 		if(ManageInput.confirmInternet(act)){
 			PlayerNewsActivity objNews = new PlayerNewsActivity();
-			objNews.startNews(searchedPlayer.info.name, act);
+			objNews.startNews(searchedPlayer.info.name, searchedPlayer.info.team, act);
 		}
 		adapter = new SimpleAdapter(act, data, 
 	    		R.layout.web_listview_item, 
@@ -415,7 +413,7 @@ public class PlayerInfo
 		setSearchContent(searchedPlayer, data, holder, dialog, adapter, act);
 		//Show the dialog, then set the list
 		dialog.show();
-		BounceListView results = (BounceListView)dialog.findViewById(R.id.listview_search);
+		ListView results = (ListView)dialog.findViewById(R.id.listview_search);
 		results.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -1461,8 +1459,7 @@ public class PlayerInfo
 	public static void playerTweetSearchInit(String name, Activity act)
 	{
 		TwitterWork obj = new TwitterWork();
-		obj.twitterInitial(act, 3, name, false);
-		//ParseNews.startTwitterSearchAsync(act, name, "Twitter Search: " + name, false, name, obj);
+		obj.twitterInitial(act, name, false);
 	}
 
 	/**
@@ -1482,7 +1479,7 @@ public class PlayerInfo
 	    dialog.show();
 	    TextView header = (TextView)dialog.findViewById(R.id.name);
 	    header.setText("Twitter Search: \n" + name);
-	    BounceListView tweetResults = (BounceListView)dialog.findViewById(R.id.listview_search);
+	    ListView tweetResults = (ListView)dialog.findViewById(R.id.listview_search);
 	    Button close = (Button)dialog.findViewById(R.id.search_close);
 	    close.setOnClickListener(new OnClickListener(){
 			@Override

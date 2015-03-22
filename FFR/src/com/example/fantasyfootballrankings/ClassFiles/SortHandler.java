@@ -27,7 +27,6 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObjec
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
-import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.example.fantasyfootballrankings.Pages.Rankings;
@@ -78,7 +77,6 @@ public class SortHandler
 	public static SimpleAdapter adapter;
 	static boolean isHidden = false;
 	public static List<Map<String, String>> data;
-	static HashMap<PlayerObject, Integer> ignore = new HashMap<PlayerObject, Integer>();
 	public static int listViewLookup;
 	public static boolean isRankings;
 	public static int status;
@@ -822,7 +820,8 @@ public class SortHandler
 				{
 					if(player.values.secWorth >= minVal && player.values.secWorth < maxVal && player.values.points >= minProj && 
 							player.stats.contains("Yards") && player.stats.contains("Adjusted Yards") && 
-							!player.stats.split("Adjusted Yards: ")[1].split("\n")[0].contains("%"))
+							!player.stats.split("Adjusted Yards: ")[1].split("\n")[0].contains("%") && 
+							!player.stats.split("Yards: ")[1].split("\n")[0].contains("%"))
 					{
 						sorted.add(player);
 					}
@@ -1162,7 +1161,7 @@ public class SortHandler
 	public static void wrappingUp(PriorityQueue<PlayerObject> sorted, final Context cont)
 	{		
 		DecimalFormat df = new DecimalFormat("#.##");
-		BounceListView results = null;
+		ListView results = null;
 		if(isRankings)
 		{
 			final Dialog dialog = new Dialog(context);
@@ -1201,7 +1200,7 @@ public class SortHandler
 
 				@Override
 				public void onClick(View v) {
-					BounceListView r = (BounceListView)dialog.findViewById(listViewLookup);
+					ListView r = (ListView)dialog.findViewById(listViewLookup);
 					r.smoothScrollToPosition(0);
 				}
 				
@@ -1220,7 +1219,7 @@ public class SortHandler
 		    watch.setText("Hide Drafted");
 		    TextView header = (TextView)dialog.findViewById(R.id.name);
 		    header.setText(subject);
-		    results = (BounceListView)dialog.findViewById(listViewLookup);
+		    results = (ListView)dialog.findViewById(listViewLookup);
 		    Button back2 = (Button)dialog.findViewById(R.id.search_back);
 		    back2.setVisibility(View.GONE);
 		    Button close = (Button)dialog.findViewById(R.id.search_close);
@@ -1251,7 +1250,7 @@ public class SortHandler
 		}
 		else
 		{
-			results = (BounceListView)((Activity)cont).findViewById(listViewLookup);
+			results = (ListView)((Activity)cont).findViewById(listViewLookup);
 			results.setAdapter(null);
 		}
 	    data = new ArrayList<Map<String, String>>();
@@ -1441,7 +1440,7 @@ public class SortHandler
 	 * @param results
 	 * @param cont 
 	 */
-	public static void handleOnClicks(final BounceListView results, final Context cont)
+	public static void handleOnClicks(final ListView results, final Context cont)
 	{
 		results.setOnItemClickListener(new OnItemClickListener(){
 			@Override

@@ -8,16 +8,16 @@ package com.sharethis.loopy.sdk;
 
 public final class R {
 	public static final class id {
-		public static final int left_item = 0x7f060136;
-		public static final int left_item_icon = 0x7f060137;
-		public static final int left_item_text = 0x7f060138;
-		public static final int right_item = 0x7f060139;
-		public static final int right_item_icon = 0x7f06013a;
-		public static final int right_item_text = 0x7f06013b;
+		public static final int left_item = 0x7f06011e;
+		public static final int left_item_icon = 0x7f06011f;
+		public static final int left_item_text = 0x7f060120;
+		public static final int right_item = 0x7f060121;
+		public static final int right_item_icon = 0x7f060122;
+		public static final int right_item_text = 0x7f060123;
 	}
 	public static final class layout {
-		public static final int st_share_dialog_list = 0x7f030042;
-		public static final int st_share_dialog_row = 0x7f030043;
+		public static final int st_share_dialog_list = 0x7f030041;
+		public static final int st_share_dialog_row = 0x7f030042;
 	}
 	public static final class style {
 		public static final int STAppLabelTheme = 0x7f050001;

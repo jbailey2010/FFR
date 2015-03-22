@@ -689,7 +689,7 @@ public class ComparatorHandling
 		name1 = player1.info.name;
 		name2 = player2.info.name;
 		ParsingAsyncTask o = new ParsingAsyncTask();
-		ParseFP task = o.new ParseFP(cont, player1.info.name, player2.info.name, false);
+		ParseFP task = o.new ParseFP(cont, player1.info.name, player2.info.name, player1.info.team, player2.info.team, false);
 		task.execute(cont);
 	}
 	
@@ -720,43 +720,6 @@ public class ComparatorHandling
 			}
 		}
 		return left;
-	}
-	
-	/**
-	 * Determines if you've drafted a player of a certain position
-	 */
-	public static boolean samePos(PlayerObject player, Storage holder)
-	{
-		List<PlayerObject> draft = new ArrayList<PlayerObject>();
-		if(player.info.position.equals("QB"))
-		{
-			draft = holder.draft.qb;
-		}
-		else if(player.info.position.equals("RB"))
-		{
-			draft = holder.draft.rb;
-		}
-		else if(player.info.position.equals("WR"))
-		{
-			draft = holder.draft.wr;
-		}
-		else if(player.info.position.equals("TE"))
-		{
-			draft = holder.draft.te;
-		}
-		else if(player.info.position.equals("D/ST"))
-		{
-			draft = holder.draft.def;
-		}
-		else
-		{
-			draft = holder.draft.k;
-		}
-		if(draft.size() == 0)
-		{
-			return false;
-		}
-		return true;
 	}
 	
 	/**

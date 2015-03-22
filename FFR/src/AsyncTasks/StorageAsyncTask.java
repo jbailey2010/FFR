@@ -9,23 +9,18 @@ import java.util.Set;
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
 import com.example.fantasyfootballrankings.Pages.Home;
-import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.example.fantasyfootballrankings.Pages.Trending;
 /**
@@ -44,7 +39,7 @@ public class StorageAsyncTask
 	 */
 	public class WriteDraft extends AsyncTask<Object, Void, Void> 
 	{
-		ProgressDialog pdia;
+		private ProgressDialog pdia;
 	    public WriteDraft(Activity activity) 
 	    {
 	    	pdia = new ProgressDialog(activity);
@@ -123,9 +118,9 @@ public class StorageAsyncTask
 	public class WritePostsListAsync extends AsyncTask<Object, Void, Void> 
 	{
 		
-		List<String> trendingPlayers;
-		Activity act;
-		ProgressDialog pdia;
+		private List<String> trendingPlayers;
+		private Activity act;
+		private ProgressDialog pdia;
 		
 	    public WritePostsListAsync(Activity activity, List<String> trend) 
 	    {
@@ -169,10 +164,10 @@ public class StorageAsyncTask
 	 */
 	public class WriteNewPAA extends AsyncTask<Object, Void, Void> 
 	{
-		Context cont;
-		ProgressDialog pdia;
-		Boolean flag;
-		Boolean isPI;
+		private Context cont;
+		private ProgressDialog pdia;
+		private Boolean flag;
+		private Boolean isPI;
 	    public WriteNewPAA(Context c, Boolean sw, Boolean isPlayerInfo) 
 	    {
 	    	pdia = new ProgressDialog(c);
@@ -300,9 +295,9 @@ public class StorageAsyncTask
 	 */
 	public class ReadDraft extends AsyncTask<Object, Void, Storage> 
 	{
-		Activity act;
-		int flag;
-		boolean teamFail = false;
+		private Activity act;
+		private int flag;
+		private boolean teamFail = false;
 	    public ReadDraft(Activity activity, int i) 
 	    {
 	        act = activity;
@@ -424,7 +419,7 @@ public class StorageAsyncTask
 	 */
 	public class ReadPosts extends AsyncTask<Object, Void, Storage> 
 	{
-		Context cont;
+		private Context cont;
 	    public ReadPosts() 
 	    {
 	    }
@@ -455,37 +450,6 @@ public class StorageAsyncTask
 				holder.posts.add(newPost);
 			}
 			return holder;
-	    }
-	  }
-
-	/**
-	 * In the back-end fetches the news
-	 * @author Jeff
-	 *
-	 */
-	public class ReadRotoNews extends AsyncTask<Object, Void, List<NewsObjects>> 
-	{
-		Activity act;
-	    public ReadRotoNews(Context cont) 
-	    {
-	    	act = (Activity)cont;
-	    }
-
-		@Override
-		protected void onPreExecute(){ 
-		   super.onPreExecute();
-		}
-		@Override
-		protected void onPostExecute(List<NewsObjects> result)
-		{
-			((News)act).handleNewsListView(result, act);
-		}
-
-	    protected List<NewsObjects> doInBackground(Object... data) 
-	    {
-	    	Context cont = (Context) data[0];
-	   		List<NewsObjects> news = ReadFromFile.readNewsRoto(cont);
-			return news;
 	    }
 	  }
 

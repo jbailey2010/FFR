@@ -694,29 +694,6 @@ public class HighLevel
 		} 
 	}
 	
-	/**
-	 * Does a mock request to see if the regular season rankings are up
-	 * @return
-	 * @throws IOException
-	 */
-	public static boolean isValidRankings(String url) throws IOException
-	{
-		List<String> td = HandleBasicQueries.handleLists(url, "td");
-		int min = 0;
-		for(int i = 0; i < td.size(); i++)
-		{ 
-			if(td.get(i+1).contains("QB") || td.get(i+1).contains("RB") || td.get(i+1).contains("WR") || td.get(i+1).contains("TE"))
-			{
-				min = i;
-				break;
-			}
-		}
-		if(min != 0 && td.size() - min > 15)
-		{
-			return true;
-		}
-		return false;
-	}
 	
 	/**
 	 * Similar to the ecr parser, but handles the minor differences in the weekly set
@@ -879,7 +856,7 @@ public class HighLevel
 		int min = 0;
 		for(int i = 0; i < td.size(); i++)
 		{
-			if(ManageInput.isInteger(td.get(i)))
+			if(ManageInput.isInteger(td.get(i)) && td.get(i+1).contains("("))
 			{
 				min = i;
 				break;

@@ -19,9 +19,9 @@ import android.os.AsyncTask;
 
 public class PlayerNewsActivity {
 	
-	public void startNews(String playerName, Context cont){
+	public void startNews(String playerName, String playerTeam, Context cont){
 		FantasyProsUtils obj = new FantasyProsUtils();
-		String baseUrl = "http://www.fantasypros.com/nfl/news/" + obj.playerNameUrl(playerName) + ".php";
+		String baseUrl = "http://www.fantasypros.com/nfl/news/" + obj.playerNameUrl(playerName, playerTeam) + ".php";
 		ParsePlayerNews objParse = new ParsePlayerNews((Activity) cont, baseUrl);
 		objParse.execute();
 	}

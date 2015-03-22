@@ -26,7 +26,6 @@ import java.util.List;
 import com.example.fantasyfootballrankings.Pages.DraftHistory;
 import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
-import com.example.fantasyfootballrankings.Pages.News;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 import com.example.fantasyfootballrankings.Pages.Trending;
  

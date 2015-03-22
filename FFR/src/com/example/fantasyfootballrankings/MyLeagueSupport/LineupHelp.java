@@ -166,10 +166,13 @@ public class LineupHelp {
 		ppw2.setVisibility(View.GONE);
 		table.setVisibility(View.VISIBLE);
 		//Names
-		TextView p1name = (TextView)table.findViewById(R.id.player1_name);
-		TextView p2name = (TextView)table.findViewById(R.id.player2_name);
+		TextView p1name = (TextView)((Activity) ImportLeague.cont).findViewById(R.id.player1_name);
+		TextView p2name = (TextView)((Activity) ImportLeague.cont).findViewById(R.id.player2_name);
+		p1name.setVisibility(View.VISIBLE);
+		p2name.setVisibility(View.VISIBLE);
 		p1name.setText(pl1.info.name);
 		p2name.setText(pl2.info.name);
+		
 		//Projections
 		TextView p1proj = (TextView)table.findViewById(R.id.player1_proj);
 		TextView p2proj = (TextView)table.findViewById(R.id.player2_points);
@@ -270,7 +273,7 @@ public class LineupHelp {
 		if(ManageInput.confirmInternet(ImportLeague.cont))
 		{
 			ParsingAsyncTask o = new ParsingAsyncTask();
-			ParseFP task = o.new ParseFP(ImportLeague.cont, pl1.info.name, pl2.info.name, true);
+			ParseFP task = o.new ParseFP(ImportLeague.cont, pl1.info.name, pl2.info.name, pl1.info.team, pl2.info.team, true);
 			task.execute(ImportLeague.cont);
 		}
 	}

@@ -95,13 +95,15 @@ public class ImportLeague extends Activity {
         public MenuItem refresh;
         public MenuItem scoring;
         public MenuItem roster;
+        public MenuItem helpPre;
+        public MenuItem helpPost;
+        public MenuItem back;
         public boolean isSeenLeague;
         public boolean isSeenLineup;
         public boolean isSeenPlayer;
         public boolean isSeenRoster;
         public boolean isSeenTeam;
         public static ImportedTeam newImport;
-        public TextView v;
         public static SideNavigationView sideNavigationView;
         /**
          * Sets up the layout of the activity
@@ -130,10 +132,6 @@ public class ImportLeague extends Activity {
         	            case R.id.side_navigation_menu_item4:
         	            	Intent intent3 = new Intent(cont, Trending.class);
         	    	        cont.startActivity(intent3);		
-        	                break;
-        	            case R.id.side_navigation_menu_item5:
-        	            	Intent intent4 = new Intent(cont, News.class);
-        	    	        cont.startActivity(intent4);
         	                break;
         	            case R.id.side_navigation_menu_item6:
         	            	Intent intent6 = new Intent(cont, DraftHistory.class);
@@ -225,6 +223,15 @@ public class ImportLeague extends Activity {
                         case R.id.compare_team:
                                 CompareTeams.compareTeamInit();
                                 return true;
+                        case R.id.league_stats_help:
+                        		preHelp();
+                        		return true;
+                        case R.id.league_selected_help:
+                        		postHelp();
+                        		return true;
+                        case R.id.back_to_league_select:
+                        		handleLayoutInit();
+                        		return true;
                         case R.id.refresh_league:
                                 handleLongClick();
                                 return true;
@@ -238,6 +245,46 @@ public class ImportLeague extends Activity {
                                 return super.onOptionsItemSelected(item);
                 }
         }
+        
+        public void preHelp()
+        {
+                final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
+            popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+                popUp.setContentView(R.layout.import_help_pre);
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+            lp.copyFrom(popUp.getWindow().getAttributes());
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            popUp.getWindow().setAttributes(lp);
+            popUp.show(); 
+            Button close = (Button)popUp.findViewById(R.id.help_close);
+            close.setOnClickListener(new OnClickListener(){
+                        @Override
+                        public void onClick(View v) {
+                                popUp.dismiss();
+                                return;
+                        }
+            });
+        }
+        
+        public void postHelp(){
+            final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
+            popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);       
+                popUp.setContentView(R.layout.import_help_post);
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+            lp.copyFrom(popUp.getWindow().getAttributes());
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            popUp.getWindow().setAttributes(lp);
+            popUp.show(); 
+            Button close = (Button)popUp.findViewById(R.id.help_close);
+            close.setOnClickListener(new OnClickListener(){
+                        @Override
+                        public void onClick(View v) {
+                                popUp.dismiss();
+                                return;
+                        }
+            });
+        }
+        
         
         /**
          * Handles the pop up to store the new roster
@@ -443,9 +490,19 @@ public class ImportLeague extends Activity {
                         roster = (MenuItem)menuObj.findItem(R.id.change_roster);
                         roster.setVisible(false);
                         roster.setEnabled(false);
+                        helpPre = (MenuItem)menuObj.findItem(R.id.league_stats_help);
+                        helpPre.setVisible(true);
+                        helpPre.setEnabled(true);
+                        helpPost= (MenuItem)menuObj.findItem(R.id.league_selected_help);
+                        helpPost.setVisible(false);
+                        helpPost.setEnabled(false);
+                        back = (MenuItem)menuObj.findItem(R.id.back_to_league_select);
+                        back.setVisible(false);
+                        back.setEnabled(false);
                 }
                 SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
                 ll.removeAllViews();
+                setActionBarTitle("My Leagues", null);
                 if(prefs.getInt("Number of Leagues Imported", 0) == 0)
                 {
                         setNoContentLayout();
@@ -497,6 +554,15 @@ public class ImportLeague extends Activity {
                         roster = (MenuItem)menuObj.findItem(R.id.change_roster);
                         roster.setVisible(false);
                         roster.setEnabled(false);
+                        helpPre = (MenuItem)menuObj.findItem(R.id.league_stats_help);
+                        helpPre.setVisible(true);
+                        helpPre.setEnabled(true);
+                        helpPost= (MenuItem)menuObj.findItem(R.id.league_selected_help);
+                        helpPost.setVisible(false);
+                        helpPost.setEnabled(false);
+                        back = (MenuItem)menuObj.findItem(R.id.back_to_league_select);
+                        back.setVisible(false);
+                        back.setEnabled(false);
                 }
             list.setAdapter(adapter);
                 SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
@@ -545,6 +611,15 @@ public class ImportLeague extends Activity {
                 roster = (MenuItem)menuObj.findItem(R.id.change_roster);
                 roster.setVisible(true);
                 roster.setEnabled(true);
+                helpPre = (MenuItem)menuObj.findItem(R.id.league_stats_help);
+                helpPre.setVisible(false);
+                helpPre.setEnabled(false);
+                helpPost= (MenuItem)menuObj.findItem(R.id.league_selected_help);
+                helpPost.setVisible(true);
+                helpPost.setEnabled(true);
+                back = (MenuItem)menuObj.findItem(R.id.back_to_league_select);
+                back.setVisible(true);
+                back.setEnabled(true);
                 SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
                 String leagueDataWhole = prefs.getString(key, "SHIT").split("LEAGUEURLSPLIT")[1];
                 String[] perTeam = ManageInput.tokenize(leagueDataWhole, '@', 3);
@@ -746,46 +821,15 @@ public class ImportLeague extends Activity {
                         	}
                 	}
                 });
-            //Handles the back button
-            ImageView back = (ImageView)res.findViewById(R.id.back_button_league_stats);
-            back.setOnClickListener(new OnClickListener(){
-                        @Override
-                        public void onClick(View v) {
-                                handleLayoutInit();
-                        }
-            });
             //Handles the basic league information
-            TextView name = (TextView)res.findViewById(R.id.league_name);
-            name.setText(newImport.leagueName);
-            v = name;
-            TextView host = (TextView)res.findViewById(R.id.hostName);
-            host.setText("Hosted on " + newImport.leagueHost);
-            //Help work
-            final TextView helpTeams = (TextView)res.findViewById(R.id.team_help_import);
-            final TextView helpRanks = (TextView)res.findViewById(R.id.rankings_help_import);
-            final TextView helpPlayers = (TextView)res.findViewById(R.id.player_list_help);
-            final TextView helpLineup = (TextView)res.findViewById(R.id.lineup_help);
-            TextView help = (TextView)res.findViewById(R.id.help_button_league_stats);
-            help.setOnClickListener(new OnClickListener(){
-                        @Override
-                        public void onClick(View arg0) {
-                                if(!helpTeams.isShown() && !helpPlayers.isShown() && !helpRanks.isShown() && !helpLineup.isShown())
-                                { 
-                                        helpPlayers.setVisibility(View.VISIBLE);
-                                        helpTeams.setVisibility(View.VISIBLE);
-                                        helpRanks.setVisibility(View.VISIBLE);
-                                        helpLineup.setVisibility(View.VISIBLE);
-                                }
-                                else
-                                {
-                                        helpPlayers.setVisibility(View.GONE);
-                                        helpTeams.setVisibility(View.GONE);
-                                        helpRanks.setVisibility(View.GONE);
-                                        helpLineup.setVisibility(View.GONE);
-                                }
-                        }
-            });
+            setActionBarTitle(newImport.leagueName, "Hosted on " + newImport.leagueHost);
             ll.addView(res);
+        }
+        
+        public void setActionBarTitle(String newTitle, String newSubtitle){
+        	ActionBar ab = getActionBar();
+            ab.setTitle(newTitle);
+            ab.setSubtitle(newSubtitle); 
         }
         
         /**
@@ -795,13 +839,14 @@ public class ImportLeague extends Activity {
         {
                 if(ManageInput.confirmInternet(cont))
                 {
-                        if(((TextView)((Activity)cont).findViewById(R.id.hostName)).getText().toString().contains("ESPN"))
+                	String hostName = getActionBar().getSubtitle().toString();
+                        if(hostName.contains("ESPN"))
                         {
-                                clearDataESPNInit((TextView)v, newImport, cont, true);
+                                clearDataESPNInit(newImport, cont, true);
                         }
-                        if(((TextView)((Activity)cont).findViewById(R.id.hostName)).getText().toString().contains("Yahoo"))
+                        if(hostName.contains("Yahoo"))
                         {
-                                clearDataYahooInit((TextView)v, newImport, cont, true);
+                                clearDataYahooInit(newImport, cont, true);
                         }
                 }
                 else
@@ -817,14 +862,16 @@ public class ImportLeague extends Activity {
          * @param cont
          * @param b 
          */
-        public void clearDataESPNInit(TextView name, ImportedTeam newImport, Context cont, boolean b)
+        public void clearDataESPNInit(ImportedTeam newImport, Context cont, boolean b)
         {
+        	String hostName = getActionBar().getSubtitle().toString().split("Hosted on ")[1];
+        	String leagueName  = getActionBar().getTitle().toString();
                 SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
                 SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
                 int numImported = prefs.getInt("Number of Leagues Imported", 1);
                 editor.putInt("Number of Leagues Imported", numImported-1);
-                String keyPart2 = name.getText().toString();
-                String keyPart1 = ((TextView)findViewById(R.id.hostName)).getText().toString().split("Hosted on ")[1];
+                String keyPart2 = leagueName;
+                String keyPart1 = hostName;
                 String key = keyPart1 + "@@@" + keyPart2;
                 String remKey = key + "~~~";
                 String oldKeys = prefs.getString("Imported League Keys", "");
@@ -848,14 +895,16 @@ public class ImportLeague extends Activity {
          * @param cont
          * @param b 
          */
-        public void clearDataYahooInit(TextView name, ImportedTeam newImport, Context cont, boolean b)
+        public void clearDataYahooInit(ImportedTeam newImport, Context cont, boolean b)
         {
+        	String hostName = getActionBar().getSubtitle().toString().split("Hosted on ")[1];
+        	String leagueName  = getActionBar().getTitle().toString();
                 SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
                 SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
                 int numImported = prefs.getInt("Number of Leagues Imported", 1);
                 editor.putInt("Number of Leagues Imported", numImported-1);
-                String keyPart2 = name.getText().toString();
-                String keyPart1 = ((TextView)findViewById(R.id.hostName)).getText().toString().split("Hosted on ")[1];
+                String keyPart2 = leagueName;;
+                String keyPart1 = hostName;
                 String key = keyPart1 + "@@@" + keyPart2;
                 String remKey = key + "~~~";
                 String oldKeys = prefs.getString("Imported League Keys", "");

@@ -45,8 +45,6 @@ import com.ffr.fantasyfootballrankings.R;
 public class YahooImport 
 {
 	public String url;
-	public String username;
-	public String password;
 	public Document doc;
 	public Context cont;
 	public Storage holder;
@@ -220,7 +218,7 @@ public class YahooImport
 
 	    @Override
 	    protected List<TeamAnalysis> doInBackground(Object... data) 
-	    {
+	    { 
 			Elements elements = doc.select("a.name");
 			Map<String, List<String>>players = new HashMap<String, List<String>>(); 
 			ParseRankings.handleHashes();
@@ -241,8 +239,8 @@ public class YahooImport
 						{
 							teamBuilder.append(ManageInput.capitalize(teamIter) + " ");
 						}
-						String intermediate = teamBuilder.toString();
-						team = intermediate.substring(0, intermediate.length() - 1) + "@@@" + child.child(0).html();
+						String intermediate = teamBuilder.toString().replaceAll("[^a-zA-Z0-9\\s]", "");
+						team = (intermediate.substring(0, intermediate.length() - 1) + "@@@" + child.child(0).html());
 					}  
 				}
 				if(players.containsKey(team))

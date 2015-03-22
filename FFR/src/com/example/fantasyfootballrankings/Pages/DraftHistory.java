@@ -13,7 +13,6 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.PlayerInfoActivity;
-import com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView;
 import com.ffr.fantasyfootballrankings.R;
 
 import FileIO.ReadFromFile;
@@ -34,6 +33,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -47,7 +47,7 @@ public class DraftHistory extends Activity {
 	public Context cont;
 	public static Storage holder = new Storage(null);
 	public static SideNavigationView sideNavigationView;
-	BounceListView drafts;
+	ListView drafts;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +75,6 @@ public class DraftHistory extends Activity {
 	            case R.id.side_navigation_menu_item4:
 	            	Intent intent3 = new Intent(cont, Trending.class);
 	    	        cont.startActivity(intent3);		
-	                break;
-	            case R.id.side_navigation_menu_item5:
-	            	Intent intent4 = new Intent(cont, News.class);
-	    	        cont.startActivity(intent4);
 	                break;
 	            case R.id.side_navigation_menu_item6:
 	            	Intent intent6 = new Intent(cont, DraftHistory.class);
@@ -183,7 +179,7 @@ public class DraftHistory extends Activity {
 	 * Sets the listview content
 	 */
 	public void setUpView(){
-		drafts = (BounceListView)findViewById(R.id.draft_history_listview);
+		drafts = (ListView)findViewById(R.id.draft_history_listview);
 		List<String> primary = ReadFromFile.readPrimData(cont);
 		List<String> sec = ReadFromFile.readSecData(cont);
 		List<Map<String, String>>data = new ArrayList<Map<String, String>>();

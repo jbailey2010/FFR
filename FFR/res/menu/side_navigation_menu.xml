@@ -17,10 +17,6 @@
         android:icon="@drawable/trending"
         android:title="Trending Players"/>
     <item
-        android:id="@+id/side_navigation_menu_item5"
-        android:icon="@drawable/news"
-        android:title="NFL News"/>
-    <item
         android:id="@+id/side_navigation_menu_item6"
         android:icon="@drawable/previous"
         android:title="Previous Drafts"/>

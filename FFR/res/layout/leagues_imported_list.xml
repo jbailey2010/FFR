@@ -2,71 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#171717" >
+    android:background="#272727" >
 
-    <RelativeLayout
-        android:id="@+id/league_import_select_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/menu_black" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:text="Select an Imported League Below"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-    <com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView
+    <ListView
         android:id="@+id/leagues_imported_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/relativeLayout1"
-        android:listSelector="@android:color/transparent"
-        android:layout_below="@+id/textView2"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
-        android:background="@drawable/content_well"
-        android:divider="#AAAAAA" >
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="#999999"
+        android:divider="#AAAAAA"
+        android:listSelector="@android:color/transparent" >
 
-    </com.example.fantasyfootballrankings.InterfaceAugmentations.BounceListView>
+    </ListView>
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/info_sub_background"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp" >
+    
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:text=""
-            android:textColor="#FFFFFF"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
-        android:paddingBottom="5dp"
-        android:layout_alignLeft="@+id/leagues_imported_list"
-        android:layout_below="@+id/league_import_select_top"
-        android:text="Once you do so, there will be analytics done on each entire team, each starting lineup, each bench, and each positional slot. \n\nNote, upon importing a league, the current roster settings will be linked to it, though they can be changed inside each league individually."
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
