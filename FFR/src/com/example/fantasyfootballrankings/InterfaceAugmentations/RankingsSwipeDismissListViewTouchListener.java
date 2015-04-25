@@ -28,11 +28,9 @@ import java.util.Collections;
 import java.util.List;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
-import com.example.fantasyfootballrankings.Pages.DraftHistory;
 import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.example.fantasyfootballrankings.Pages.Rankings;
-import com.example.fantasyfootballrankings.Pages.Trending;
 import com.ffr.fantasyfootballrankings.R;
 
 public class RankingsSwipeDismissListViewTouchListener implements View.OnTouchListener {

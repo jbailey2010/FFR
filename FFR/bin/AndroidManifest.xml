@@ -49,24 +49,6 @@
             android:label="@string/title_activity_rankings" >
         </activity>
         <activity
-            android:name="com.example.fantasyfootballrankings.Pages.Trending"
-             android:screenOrientation="portrait"
-		   	android:configChanges="orientation|keyboardHidden"
-            android:label="@string/title_activity_trending" >
-        </activity>
-        <activity
-            android:name="com.example.fantasyfootballrankings.Pages.News"
-             android:screenOrientation="portrait"
-		   	android:configChanges="orientation|keyboardHidden"
-            android:label="@string/title_activity_news" >
-        </activity>
-        <activity
-            android:name="com.example.fantasyfootballrankings.Pages.DraftHistory"
-             android:screenOrientation="portrait"
-		   	android:configChanges="orientation|keyboardHidden"
-            android:label="@string/title_activity_draft_history" >
-        </activity>
-        <activity
             android:name="com.example.fantasyfootballrankings.Pages.ImportLeague"
             android:screenOrientation="portrait"
 		   	android:configChanges="orientation|keyboardHidden"

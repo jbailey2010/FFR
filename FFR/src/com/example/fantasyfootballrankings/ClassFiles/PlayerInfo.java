@@ -451,7 +451,6 @@ public class PlayerInfo
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				String input = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text1)).getText().toString();
 				String sub = ((TextView)((RelativeLayout)arg1).findViewById(R.id.text2)).getText().toString();
 				if(sub.contains("Click and hold to clear"))
 				{
@@ -987,7 +986,6 @@ public class PlayerInfo
 		if(searchedPlayer.risk >= 0.0 && !searchedPlayer.info.adp.equals("Bye Week") && searchedPlayer.values.points > 0.0)
 		{
 			Map<String, String> datum = new HashMap<String, String>(2);
-			double riskVal = posRiskVal(searchedPlayer, holder);
 			datum.put("main", searchedPlayer.risk + " Risk");
 			if(searchedPlayer.info.position.length() >= 1)
 			{
@@ -1256,32 +1254,7 @@ public class PlayerInfo
 		}
 		adapter.notifyDataSetChanged();
 	}
-	
-	/**
-	 * Gets the risk relative to a position
-	 * @param player
-	 * @param holder
-	 * @return
-	 */
-	public static double posRiskVal(PlayerObject player, Storage holder)
-	{
-		double riskPos = 0.0;
-		double posCounter = 0.0;
-		for(PlayerObject iter : holder.players)
-		{
-			if(iter.info.position.equals(player.info.position))
-			{
-				if(iter.risk > 0.0)
-				{
-					riskPos += iter.risk;
-					posCounter++;
-				}
-			}
-		}
-		return player.risk - riskPos/posCounter;
-	}
 
-	
 	/**
 	 * Ranks risk relative to all
 	 */

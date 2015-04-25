@@ -3,7 +3,6 @@ package com.example.fantasyfootballrankings.ClassFiles.StorageClasses;
 import java.text.DecimalFormat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,13 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-import FileIO.ReadFromFile;
 import android.content.Context;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
-import com.example.fantasyfootballrankings.MyLeagueSupport.TeamList;
-import com.example.fantasyfootballrankings.Pages.ImportLeague;
 
 /**
  * Handles the analysis of a team, given the string input of it
@@ -79,7 +74,7 @@ public class TeamAnalysis
 	 * A dummy constructor to handle generic queries without needing storage of data
 	 */
 	public TeamAnalysis() {
-		// TODO Auto-generated constructor stub
+
 	}
 	
 	/**
@@ -390,11 +385,7 @@ public class TeamAnalysis
 	public double getPosPAA(List<PlayerObject> players){
 		DecimalFormat df = new DecimalFormat("#.##");
 		double total = 0.0;
-		System.out.println("------");
 		for(PlayerObject player : players){
-			if(player.info.position.equals("QB")){
-				System.out.println(player.info.name + ": " + player.values.paa);
-			}
 			total += player.values.paa;
 		}
 		return Double.valueOf(df.format(total));

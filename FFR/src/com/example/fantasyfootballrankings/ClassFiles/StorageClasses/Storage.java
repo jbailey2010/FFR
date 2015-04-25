@@ -11,8 +11,6 @@ import java.util.PriorityQueue;
 import java.util.Comparator;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.PostedPlayer;
 
 import android.content.Context;
 
@@ -32,9 +30,7 @@ public class Storage
 	public Draft draft;
 	public List<PlayerObject> players;
 	public HashSet<String> playerNames;
-	public List<Post> posts;
 	public HashSet<String> parsedPlayers;
-	public PriorityQueue<PostedPlayer> postedPlayers;
 	public Map<String, String> oLineAdv = new HashMap<String, String>();
 	public Map<String, String> draftClasses = new HashMap<String, String>();
 	public Map<String, Integer> sos = new HashMap<String, Integer>();
@@ -44,29 +40,12 @@ public class Storage
 	/**
 	 * This sets up the priority queue and it's subsequent comparator.
 	 * No parameters are necessary, and the playerNames array doesn't need initialization.
-	 */
+	 */ 
 	public Storage(Context cont)
 	{
 		isRegularSeason = true;
 		players = new ArrayList<PlayerObject>(350);
-		postedPlayers = new PriorityQueue<PostedPlayer>(100, new Comparator<PostedPlayer>()
-		{
-			@Override
-			public int compare(PostedPlayer a, PostedPlayer b)
-			{
-				if(a.count > b.count)
-				{
-					return -1;
-				}
-				if(a.count < b.count)
-				{
-					return 1;
-				}
-				return 0;
-			}
-		});
 		playerNames = new HashSet<String>(400);
-		posts = new ArrayList<Post>(500);
 		parsedPlayers = new HashSet<String>(350);
 		draft = new Draft(cont);
 	}

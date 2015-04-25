@@ -8,15 +8,12 @@ import java.util.Set;
 
 import AsyncTasks.StorageAsyncTask;
 import AsyncTasks.StorageAsyncTask.ReadDraft;
-import AsyncTasks.StorageAsyncTask.ReadNamesList;
-import AsyncTasks.StorageAsyncTask.ReadPosts;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Flex;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
@@ -31,16 +28,6 @@ import com.example.fantasyfootballrankings.Pages.Home;
 public class ReadFromFile {
 	private static StorageAsyncTask readFromFileAsyncObj = new StorageAsyncTask();
 	
-	/**
-	 * Fetches the names list from file in the back end
-	 * @param holder
-	 * @param cont
-	 */
-    public static void fetchNamesBackEnd(Storage holder, Context cont)
-    {
-	    ReadNamesList values = readFromFileAsyncObj.new ReadNamesList();
-		values.execute(holder, cont);
-    }
     
     /**
      * Only reads the draft from file
@@ -142,18 +129,6 @@ public class ReadFromFile {
 			}
 		}
 	}
-
-	/**
-	 * Fetches the players from local to a local object
-	 * @param holder
-	 * @param cont
-	 */
-	public static void fetchPostsLocal(Storage holder, Context cont) 
-	{
-	    ReadPosts values = readFromFileAsyncObj.new ReadPosts();
-		values.execute(holder, cont);
-	}
-	
 	
 	/**
 	 * Reads the filter quantity size from file
@@ -168,18 +143,6 @@ public class ReadFromFile {
 			return prefs.getInt("Filter Quantity Size Rankings", 50);
 		}
 		return prefs.getInt("Filter Quantity Size", 50);
-	}
-	
-	/**
-	 * Handles reading the last filter used from
-	 * file (for trending)
-	 * @param cont
-	 * @return
-	 */
-	public static int readLastFilter(Context cont)
-	{
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		return prefs.getInt("Last Filter", 365);
 	}
 	
 	/**
@@ -471,49 +434,6 @@ public class ReadFromFile {
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 		return prefs.getInt("Current Draft", 0);
 	}
-	
-	/**
-	 * Reads the secondary data from file
-	 * @param cont
-	 * @return
-	 */
-	public static List<String> readSecData(Context cont)
-	{
-		List<String>secData = new ArrayList<String>();
-		int max = readCurrDraft(cont);
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		for(int i = 0; i < max; i++)
-		{
-			secData.add(prefs.getString("Secondary " + i, "Doesn't matter"));
-		}
-		if(secData.size() == 0)
-		{
-			secData.add("Save a draft to see it here.");
-		}
-		return secData;
-	}
-	
-	/**
-	 * Reads the primary data from file
-	 * @param cont
-	 * @return
-	 */
-	public static List<String> readPrimData(Context cont)
-	{
-		List<String>secData = new ArrayList<String>();
-		int max = readCurrDraft(cont);
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-		for(int i = 0; i < max; i++)
-		{
-			secData.add(prefs.getString("Primary " + i, "Doesn't matter"));
-		}
-		if(secData.size() == 0)
-		{
-			secData.add("No drafts saved.");
-		}
-		return secData;
-	}
-
 	
 	/**
 	 * Returns the auction factor as input by the user, defaulting to 1

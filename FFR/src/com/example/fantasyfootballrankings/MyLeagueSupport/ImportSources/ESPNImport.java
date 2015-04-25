@@ -138,7 +138,7 @@ public class ESPNImport
 			popUp.setContentView(R.layout.tweet_popup);
 			WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 		    lp.copyFrom(popUp.getWindow().getAttributes());
-		    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+		    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 		    popUp.getWindow().setAttributes(lp);
 		    popUp.show(); 
 		    TextView textView = (TextView)popUp.findViewById(R.id.tweet_field);
@@ -253,7 +253,7 @@ public class ESPNImport
 		popUp.setContentView(R.layout.espn_unpw);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(popUp.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    popUp.getWindow().setAttributes(lp);
 	    popUp.show(); 
 	    Button close = (Button)popUp.findViewById(R.id.espn_unpw_close);
@@ -613,7 +613,7 @@ public class ESPNImport
 		popUp.setContentView(R.layout.import_get_league_name);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(popUp.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    popUp.getWindow().setAttributes(lp);
 	    popUp.show(); 
 	    popUp.setCancelable(false);

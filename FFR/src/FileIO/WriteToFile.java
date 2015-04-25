@@ -9,7 +9,6 @@ import twitter4j.auth.AccessToken;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Flex;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Post;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
@@ -19,7 +18,6 @@ import com.example.fantasyfootballrankings.Pages.Rankings;
 
 import AsyncTasks.StorageAsyncTask;
 import AsyncTasks.StorageAsyncTask.WriteDraft;
-import AsyncTasks.StorageAsyncTask.WritePostsListAsync;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -58,38 +56,6 @@ public class WriteToFile {
 	}
 
 	/**
-	 * Stores the posts to file to avoid unnecessary calls
-	 * @param holder
-	 * @param cont
-	 */
-	public static void writePosts(Storage holder, Context cont) 
-	{
-		StringBuilder posts = new StringBuilder(10000);
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		for(Post post : holder.posts)
-		{
-			posts.append(post.text + "~~~" + post.date + "@@@");
-		}
-		editor.putString("Posts", posts.toString());
-		editor.putBoolean("Last Empty", false);
-		editor.apply();
-	}
-
-	
-	/**
-	 * Writes the list of trending players to file
-	 * @param trendingPlayers
-	 * @param cont
-	 */
-	public static void writePostsList(List<String> trendingPlayers, Activity cont) 
-	{
-	    WritePostsListAsync draftTask = asyncObject.new WritePostsListAsync(cont, trendingPlayers);
-	    draftTask.execute();
-	}
-	
-	
-
-	/**
 	 * Just writes the filter size to file for later usage
 	 * @param cont
 	 * @param size
@@ -108,20 +74,6 @@ public class WriteToFile {
     	editor.apply();
 	}
 	
-
-	
-	/**
-	 * Writes the last filter to file for trending
-	 * @param cont
-	 * @param lastFilter
-	 */
-	public static void writeLastFilter(Context cont, int lastFilter)
-	{
-    	SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-    	editor.putInt("Last Filter", lastFilter).apply();
-	}
-	
-
 	/**
 	 * Writes the watch list to file
 	 */
@@ -387,23 +339,6 @@ public class WriteToFile {
     	editor.putString("Primary " + ReadFromFile.readCurrDraft(cont), team.toString());
     	editor.putString("Secondary " + ReadFromFile.readCurrDraft(cont), secondaryData.toString());
 		editor.putInt("Current Draft", nextDraft).apply();
-	}
-	
-	/**
-	 * Clears the draft data
-	 * @param cont
-	 */
-	public static void clearDraftData(Context cont)
-	{
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
-		int max = ReadFromFile.readCurrDraft(cont);
-		for(int i = 0; i < max; i++)
-		{
-			editor.remove("Primary " + i);
-			editor.remove("Secondary " + i);
-		}
-		editor.remove("Current Draft");
-		editor.apply();
 	}
 
 	public static void writeFirstIsRegularSeason(Context cont) {

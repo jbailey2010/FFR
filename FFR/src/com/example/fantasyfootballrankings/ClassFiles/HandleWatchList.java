@@ -175,7 +175,6 @@ public class HandleWatchList
 		}
 		
 		dataSet = new ArrayList<Map<String, String>>();
-	    List<String> listAdapter = new ArrayList<String>();
 	    for(String name : watchList)
 	    {
 	    	for(PlayerObject iter : holder.players)

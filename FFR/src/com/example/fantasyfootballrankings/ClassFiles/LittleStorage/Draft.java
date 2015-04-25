@@ -342,7 +342,7 @@ public class Draft
 		dialog.setContentView(R.layout.search_output);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		RelativeLayout base = (RelativeLayout)dialog.findViewById(R.id.info_sub_header_dark);
@@ -461,7 +461,7 @@ public class Draft
 		dialog.setContentView(R.layout.draft_by_who);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		final boolean isAuction = ReadFromFile.readIsAuction(cont);
@@ -534,7 +534,7 @@ public class Draft
     	popup.setContentView(R.layout.draft_by_me);
     	WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(popup.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    popup.getWindow().setAttributes(lp);
     	popup.show();
     	TextView header = (TextView)popup.findViewById(R.id.name_header);

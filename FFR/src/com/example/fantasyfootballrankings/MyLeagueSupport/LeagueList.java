@@ -498,7 +498,6 @@ public class LeagueList {
 		graphView.setLegendWidth(275); 
 		graphView.setVerticalLabels(valSpaced);
 		((LineGraphView)graphView).setDrawBackground(true);
-		//((LineGraphView) graphView).setBackgroundColor(Color.rgb(131,155,243));
 		LinearLayout layout = (LinearLayout) popUp.findViewById(R.id.plot_base_layout);
 		layout.addView(graphView);
 		 

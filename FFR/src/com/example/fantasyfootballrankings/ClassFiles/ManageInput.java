@@ -20,7 +20,6 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObjec
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.Rankings;
-import com.example.fantasyfootballrankings.Pages.Trending;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.StorageAsyncTask;
@@ -124,18 +123,6 @@ public class ManageInput
 	}
 	
 	/**
-	 * Handles the addition of an adapter to the listview
-	 * on rankings and trending
-	 */
-	public static ArrayAdapter<String> handleArray(List<String> list, ListView listView, Activity cont)
-	{
-	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(cont,
-	            android.R.layout.simple_list_item_1, list);
-	    listView.setAdapter(adapter);
-	    return adapter;
-	}
-	
-	/**
 	 * Handles the filter quantity dialog
 	 * @param cont
 	 */
@@ -146,109 +133,12 @@ public class ManageInput
 		dialog.setContentView(R.layout.filter_quantity);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		int filterSize = ReadFromFile.readFilterQuantitySize(cont, flag);
 		final SeekBar selector = (SeekBar)dialog.findViewById(R.id.seekBar_quantity);
 		final TextView display = (TextView)dialog.findViewById(R.id.quantity_display);
-		if(flag.equals("Rankings"))
-		{
-			rankingsSetContent(dialog, filterSize, selector, display, cont, flag, listSize);
-		}
-		else
-		{
-			trendingSetContent(dialog, filterSize, selector, display, cont, flag, listSize);
-		}
-
-	}
-
-	/**
-	 * Sets the quantity size...etc. for trending
-	 */
-	private static void trendingSetContent(final Dialog dialog, final int filterSize,
-			final SeekBar selector, final TextView display, final Context cont, final String flag,
-			final int listSize) {
-		if(filterSize == 0)
-		{
-			display.setText("None of the players");
-		}
-		else if(filterSize == 100)
-		{
-			display.setText("All of the players");
-		}
-		else
-		{
-			display.setText(filterSize + "% of the players");
-		}
-		selector.setProgress(filterSize);
-		selector.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-			@Override
-			public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
-    	    	int prog = selector.getProgress();
-    	    	String size = "";
-    	    	if(prog == 0)
-    	    	{
-    	    		size = "None of the players";
-    	    	}
-    	    	else if(prog == 100)
-    	    	{
-    	    		size = "All of the players";
-    	    	}
-    	    	else
-    	    	{
-    	    		size = prog + "% of the players";
-    	    	}
-    	    	display.setText(size);	
-				
-			}
-
-			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
-			}
-    	});
-		Button cancel = (Button)dialog.findViewById(R.id.filter_size_cancel);
-		cancel.setOnClickListener(new OnClickListener() 
-		{
-			public void onClick(View v) {
-				dialog.dismiss();
-	    	}	
-		});
-		Button submit = (Button)dialog.findViewById(R.id.filter_size_submit);
-		submit.setOnClickListener(new OnClickListener() 
-		{
-			public void onClick(View v) {
-				WriteToFile.writeFilterSize(cont, selector.getProgress(), flag);
-				dialog.dismiss();
-				try {
-					((Trending)cont).resetTrendingList(ReadFromFile.readLastFilter(cont), cont);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	    	}	
-		});
-		
-	}
-
-	/**
-	 * Same thing as above with trending, except with quantity in rankings
-	 */
-	private static void rankingsSetContent(final Dialog dialog, int filterSize,
-			final SeekBar selector, final TextView display, final Context cont, final String flag,
-			final int listSize) 
-	{
 		if(filterSize == 0)
 		{
 			display.setText("None of the players");
@@ -331,7 +221,7 @@ public class ManageInput
 		dialog.setContentView(R.layout.scoring_pass);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		final EditText yards = (EditText)dialog.findViewById(R.id.scoring_pass_yards);
@@ -372,7 +262,7 @@ public class ManageInput
 		dialog.setContentView(R.layout.scoring_run);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		final EditText yards = (EditText)dialog.findViewById(R.id.scoring_run_yards);
@@ -421,7 +311,7 @@ public class ManageInput
 		dialog.setContentView(R.layout.scoring_rec);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		final EditText yards = (EditText)dialog.findViewById(R.id.scoring_rec_yards);
@@ -453,7 +343,6 @@ public class ManageInput
 					{
 						if(ManageInput.confirmInternet(cont))
 						{
-						    SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
 							ParsingAsyncTask stupid = new ParsingAsyncTask();
 						    ParseProjections task = stupid.new ParseProjections((Activity)cont, ((Home)cont).holder);
 						    task.execute(holder, cont);
@@ -488,7 +377,7 @@ public class ManageInput
 		dialog.setContentView(R.layout.roster_selections);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		List<String>quantitiesQBTE = new ArrayList<String>();
@@ -645,7 +534,7 @@ public class ManageInput
 		dialog.setContentView(R.layout.is_auction);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		Button close = (Button)dialog.findViewById(R.id.auction_close);

@@ -36,7 +36,6 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseOLineAdvanced;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePFF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParsePlayerNames;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseTrending;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseYahoo;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
@@ -47,7 +46,6 @@ import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.TwitterWork;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LineupHelp;
 import com.example.fantasyfootballrankings.Pages.Rankings;
-import com.example.fantasyfootballrankings.Pages.Trending;
 
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile; 
@@ -504,158 +502,6 @@ public class ParsingAsyncTask
 		  }
 
 
-
-
-		/**
-		 * Parses the posts from the forums
-		 * @author Jeff
-		 *
-		 */
-		public class FetchTrends extends AsyncTask<Object, String, Void> 
-		{
-			private Activity act;
-			private ProgressDialog pdia;
-			private Storage holder;
-		    public FetchTrends(Activity activity, Storage hold) 
-		    {
-		        act = activity;
-		        pdia = new ProgressDialog(activity);
-		        pdia.setCancelable(false);
-		        holder = hold;
-		    }
-			@Override
-			protected void onPreExecute(){ 
-			   super.onPreExecute();
-			        pdia = new ProgressDialog(act);
-			        pdia.setCancelable(false);
-			        pdia.setMessage("Please wait, parsing the forums. This could take a few minutes...");
-			        pdia.show();    
-			}
-
-			@Override
-			protected void onPostExecute(Void result){
-			   super.onPostExecute(result);
-			   pdia.dismiss();
-			   boolean flag = false;
-			   if(holder.posts.size() > 1)
-			   {
-				   WriteToFile.writePosts(holder, act);
-			   }
-			   if(holder.posts.size() == 0)
-			   {
-				   SharedPreferences.Editor editor = act.getSharedPreferences("FFR", 0).edit();
-				   editor.putBoolean("Last Empty", true).apply();
-				   flag = true;
-			   }
-			   Trending.setContent(act, flag);
-			}
-			
-			@Override
-		    public void onProgressUpdate(String... values)
-		    {
-		    	super.onProgressUpdate(values);
-		    	pdia.setMessage((String) values[0]);
-		    }
-	    	
-		    @Override
-		    protected Void doInBackground(Object... data) 
-		    {
-		    	Storage hold = (Storage) data[0];
-		    	Context cont = (Context) data[1];
-		    	SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
-				boolean value =  prefs.getBoolean("Value Topic", true);
-				boolean mustHave = prefs.getBoolean("Good Topic", true);
-				boolean rookie = prefs.getBoolean("Rookie Topic", true);
-				boolean dontWant = prefs.getBoolean("Bad Topic", false);
-
-		    	holder = hold;
-				try {
-					if(!holder.isRegularSeason || !Trending.sourcesUpdated)
-					{
-						if(mustHave)
-						{
-							//Wish List
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=419610&st=");
-							//Rounds 1 and 2
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=417315&st=");
-					    	//2013 'Must Haves'
-							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=338991&st=");
-							//RB rankings
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=421811&st=");
-							//QB rankings
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=444603&st=");
-							//WR rankings
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=453512&st=");
-							//TE rankings
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=424362&st=");
-						}
-						if(value)
-						{
-							//Bounce backs
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=418111&st=");
-							//Value picks
-							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=332995&st=");
-							//2014 sleepers
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=418103&st=");
-							//adp steals
-							//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=354905&st=");
-						}
-						if(rookie)
-				 		{
-							//Draft eligible players
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=378836&st=");
-					 		//Rookie rankings
-				 			//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=331665&st=");
-				 			//Draft thread
-				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=440599&st=");
-				 		}
-				 		if(dontWant)
-				 		{
-				 			//LVP
-				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=418626&st=");
-				 			//Overvalued
-				 			//ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=334675&st=");
-				 			//Don't draft
-				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=425387&st=");
-				 			//Busts
-				 			ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=430292&st=");
-				 		}
-					} 
-					else
-					{
-						if(mustHave)
-						{ 
-							//Interesting contract years/free agents
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=419241&st=");
-						}
-						if(value)
-						{
-							//Buy low/sell high
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=377921&st=");
-						}
-						if(rookie)
-						{
-							//Keepers/dynasty central
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=324465&st=");
-						}
-						if(dontWant)
-						{
-							//Trade targets/completed trades
-							ParseTrending.getPosts(holder, "http://forums.rotoworld.com/index.php?showtopic=365820&st=");
-						}
-					}
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if(holder.posts.size() > 1)
-				{
-					publishProgress("Please wait, saving the posts...");
-					WriteToFile.writePosts(holder, act);
-				}
-				return null;
-		    }
-		  }
 
 		/**
 		 * This handles the running of the rankings in the background

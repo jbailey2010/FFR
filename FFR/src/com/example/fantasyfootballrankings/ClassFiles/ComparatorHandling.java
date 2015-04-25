@@ -50,7 +50,7 @@ public class ComparatorHandling
 		dialog.setContentView(R.layout.comparator_view);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		//For when this is called back by the comparing part:
@@ -598,7 +598,7 @@ public class ComparatorHandling
 		dialog.setContentView(R.layout.comparator_output);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 
 		TextView header1 = (TextView)dialog.findViewById(R.id.compare_header_1);

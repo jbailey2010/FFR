@@ -369,36 +369,6 @@ public class TeamList {
 	}
 	
 	/**
-	 * Calculates the total paa of the starters
-	 * @param team
-	 * @return
-	 */
-	public double paaStart(TeamAnalysis team)
-	{
-		return team.getStarterProj();
-	}
-	
-	/**
-	 * Gets the total paa of all players
-	 * @param team
-	 * @return
-	 */
-	public double paaTotal(TeamAnalysis team)
-	{
-		return team.qbPAATotal + team.rbPAATotal + team.wrPAATotal + team.tePAATotal + team.dPAATotal + team.kPAATotal;
-	}
-	
-	/**
-	 * Gets the paa of the bench of a team
-	 * @param team
-	 * @return
-	 */
-	public double paaBench(TeamAnalysis team)
-	{
-		return paaTotal(team) - paaStart(team);
-	}
-	
-	/**
 	 * Comes up with a pop up that shows a specific team's 
 	 * perfect lineup
 	 * @param newImport
@@ -409,7 +379,6 @@ public class TeamList {
 		RelativeLayout base = (RelativeLayout)v;
 		TextView headerText = (TextView)base.findViewById(R.id.text1);
 		String header = headerText.getText().toString();
-		TextView content = (TextView)base.findViewById(R.id.text2);
 		TeamAnalysis optTeam = null;
 		for(TeamAnalysis team : newImport.teams){
 			if(team.teamName.equals(header)){

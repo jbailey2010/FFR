@@ -63,9 +63,6 @@ public class Home extends Activity{
 	Context cont = this;
 	Dialog dialog;
 	Button rankings; 
-	Button trending;
-	Button news;
-	Button drafts;
 	Button importLeague;
 	long start; 
 	Menu m;
@@ -98,14 +95,6 @@ public class Home extends Activity{
 	            	Intent intent5 = new Intent(cont, ImportLeague.class);
 	    	        cont.startActivity(intent5);
 	                break;
-	            case R.id.side_navigation_menu_item4:
-	            	Intent intent3 = new Intent(cont, Trending.class);
-	    	        cont.startActivity(intent3);		
-	                break;
-	            case R.id.side_navigation_menu_item6:
-	            	Intent intent6 = new Intent(cont, DraftHistory.class);
-	    	        cont.startActivity(intent6);
-	                break;
 	            case R.id.side_navigation_menu_item7:
 	            	PlayerInfoActivity.displayStats(cont);
 	            	break;
@@ -124,10 +113,6 @@ public class Home extends Activity{
 	    getActionBar().setDisplayHomeAsUpEnabled(true);
         rankings = (Button)findViewById(R.id.rankings);
         rankings.setOnClickListener(rankHandler);
-        trending = (Button)findViewById(R.id.trending);
-        trending.setOnClickListener(trendHandler);
-        drafts = (Button)findViewById(R.id.draft_history);
-        drafts.setOnClickListener(draftHandler);
         importLeague = (Button)findViewById(R.id.import_league_btn); 
         importLeague.setOnClickListener(importHandler);
         start = System.nanoTime();
@@ -227,7 +212,7 @@ public class Home extends Activity{
 		dialog.show();
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		Button close = (Button)dialog.findViewById(R.id.help_home_close);
 		close.setOnClickListener(new OnClickListener(){
@@ -300,7 +285,7 @@ public class Home extends Activity{
 		dialog.show();
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		Button cancel = (Button)dialog.findViewById(R.id.cancel_list_refresh);
 		Button submit = (Button)dialog.findViewById(R.id.confirm_list_refresh);
@@ -339,30 +324,6 @@ public class Home extends Activity{
 	        Intent intent = new Intent(cont, Rankings.class);
 	        cont.startActivity(intent);		
 		}
-	};	
-	
-	/**
-	 * Sends the trending button to the ranking page
-	 */
-	View.OnClickListener trendHandler = new View.OnClickListener() 
-	{
-		public void onClick(View v) 
-		{
-	        Intent intent = new Intent(cont, Trending.class);
-	        cont.startActivity(intent);		
-		}	
-	};
-	
-	/**
-	 * Sends the user to the draft saved page
-	 */
-	View.OnClickListener draftHandler = new View.OnClickListener() 
-	{
-		public void onClick(View v) 
-		{
-	        Intent intent = new Intent(cont, DraftHistory.class);
-	        cont.startActivity(intent);		
-		}	
 	};
 	
 	/**

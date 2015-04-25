@@ -101,7 +101,7 @@ public class SortHandler
 		dialog.setContentView(R.layout.sort_initial); 
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 	    dialog.show();
 	    Button close = (Button)dialog.findViewById(R.id.sort_cancel);
@@ -293,7 +293,7 @@ public class SortHandler
 		dialog.setContentView(R.layout.sort_second_dialog); 
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 	    dialog.show();
 	    final EditText minProject = (EditText)dialog.findViewById(R.id.sort_second_min_projection);

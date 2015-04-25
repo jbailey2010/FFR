@@ -31,8 +31,7 @@ public class Simulator {
 		dialog.setContentView(R.layout.simulator_input); 
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-	    dialog.getWindow().setAttributes(lp);
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.show();
 	    Button close = (Button)dialog.findViewById(R.id.simulator_close);
 	    close.setOnClickListener(new OnClickListener(){
@@ -86,26 +85,4 @@ public class Simulator {
 			}
 		});
 	}
-
-	public static void displayRes(String result, Activity act) {
-		final Dialog dialog = new Dialog(act, R.style.RoundCornersFull);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(R.layout.one_line_text); 
-		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
-	    dialog.getWindow().setAttributes(lp);
-	    dialog.show();
-	    Button close = (Button)dialog.findViewById(R.id.player_stats_close);
-	    close.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
-				return;
-			}
-	    });
-	    TextView text = (TextView)dialog.findViewById(R.id.textView1);
-	    text.setText(result);
-	}
-
 }

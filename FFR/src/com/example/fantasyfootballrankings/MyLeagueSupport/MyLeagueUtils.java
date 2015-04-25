@@ -52,7 +52,7 @@ public class MyLeagueUtils
 		dialog.setContentView(R.layout.roster_selections);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		List<String>quantitiesQBTE = new ArrayList<String>();
@@ -234,7 +234,7 @@ public class MyLeagueUtils
 		dialog.setContentView(R.layout.scoring_pass);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		final EditText yards = (EditText)dialog.findViewById(R.id.scoring_pass_yards);
@@ -278,7 +278,7 @@ public class MyLeagueUtils
 		dialog.setContentView(R.layout.scoring_run);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		final EditText yards = (EditText)dialog.findViewById(R.id.scoring_run_yards);
@@ -330,7 +330,7 @@ public class MyLeagueUtils
 		dialog.setContentView(R.layout.scoring_rec);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.FILL_PARENT;
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 	    dialog.getWindow().setAttributes(lp);
 		dialog.show();
 		final EditText yards = (EditText)dialog.findViewById(R.id.scoring_rec_yards);

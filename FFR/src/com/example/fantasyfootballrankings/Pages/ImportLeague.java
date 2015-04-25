@@ -129,14 +129,6 @@ public class ImportLeague extends Activity {
         	            	Intent intent5 = new Intent(cont, ImportLeague.class);
         	    	        cont.startActivity(intent5);
         	                break;
-        	            case R.id.side_navigation_menu_item4:
-        	            	Intent intent3 = new Intent(cont, Trending.class);
-        	    	        cont.startActivity(intent3);		
-        	                break;
-        	            case R.id.side_navigation_menu_item6:
-        	            	Intent intent6 = new Intent(cont, DraftHistory.class);
-        	    	        cont.startActivity(intent6);
-        	                break;
         	            case R.id.side_navigation_menu_item7:
         	            	PlayerInfoActivity.displayStats(cont);
         	            	break;

@@ -2,8 +2,6 @@
 <resources>
 
     <string name="app_name">Fantasy Football GM</string>
-    <string name="title_activity_news">News</string>
-    <string name="title_activity_trending">Trends</string>
     <string name="title_activity_rankings">Ranks</string>
 
     <style name="ButtonText">
@@ -17,7 +15,6 @@
         <item name="android:shadowRadius">2</item>
     </style>
 
-    <string name="title_activity_draft_history">Draft History</string>
     <string name="title_activity_import_league">My Leagues</string>
 
 </resources>
