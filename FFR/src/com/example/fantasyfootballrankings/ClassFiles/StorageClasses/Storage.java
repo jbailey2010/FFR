@@ -43,7 +43,7 @@ public class Storage
 	 */ 
 	public Storage(Context cont)
 	{
-		isRegularSeason = true;
+		isRegularSeason = false;
 		players = new ArrayList<PlayerObject>(350);
 		playerNames = new HashSet<String>(400);
 		parsedPlayers = new HashSet<String>(350);

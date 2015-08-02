@@ -374,14 +374,14 @@ public class HighLevel
 		for(int i = min; i < td.size(); i+=11)
 		{
 			double proj = 0;
-			String name = ParseRankings.fixNames(td.get(i).split(" \\(")[0]);
-			String team = "None";
-			if(td.get(i).contains("("))
+			String name = "";
+			String[] nameSet = td.get(i).split(" ");
+			for(int j = 0; j < nameSet.length - 1; j++)
 			{
-				String inter = td.get(i).split(" \\(")[1];
-				inter = inter.split(",")[0].split("\\)")[0];
-				team = ParseRankings.fixTeams(inter);
+				name += nameSet[j] + " ";
 			}
+			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
+			String team = ParseRankings.fixTeams(nameSet[nameSet.length - 1]);
 			double yards = Double.parseDouble(td.get(i+3).replace(",", ""));
 			double tdRush = Double.parseDouble(td.get(i+4));
 			double ints = Double.parseDouble(td.get(i+5));
@@ -419,14 +419,14 @@ public class HighLevel
 		for(int i = min; i < td.size(); i+=9)
 		{
 			double proj = 0;
-			String name = ParseRankings.fixNames(td.get(i).split(" \\(")[0]);
-			String team = "None";
-			if(td.get(i).contains("("))
+			String name = "";
+			String[] nameSet = td.get(i).split(" ");
+			for(int j = 0; j < nameSet.length - 1; j++)
 			{
-				String inter = td.get(i).split(" \\(")[1];
-				inter = inter.split(",")[0].split("\\)")[0];
-				team = ParseRankings.fixTeams(inter);
+				name += nameSet[j] + " ";
 			}
+			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
+			String team = ParseRankings.fixTeams(nameSet[nameSet.length - 1]);
 			double rushYards = Double.parseDouble(td.get(i+2).replace(",",""));
 			double rushTD = Double.parseDouble(td.get(i+3));
 			double catches = Double.parseDouble(td.get(i+4));
@@ -464,14 +464,14 @@ public class HighLevel
 		for(int i = min; i < td.size(); i+=9)
 		{
 			double proj = 0;
-			String name = ParseRankings.fixNames(td.get(i).split(" \\(")[0]);
-			String team = "None";
-			if(td.get(i).contains("("))
+			String name = "";
+			String[] nameSet = td.get(i).split(" ");
+			for(int j = 0; j < nameSet.length - 1; j++)
 			{
-				String inter = td.get(i).split(" \\(")[1];
-				inter = inter.split(",")[0].split("\\)")[0];
-				team = ParseRankings.fixTeams(inter);
+				name += nameSet[j] + " ";
 			}
+			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
+			String team = ParseRankings.fixTeams(nameSet[nameSet.length - 1]);
 			double rushYards = Double.parseDouble(td.get(i+2).replace(",",""));
 			double rushTD = Double.parseDouble(td.get(i+3));
 			double catches = Double.parseDouble(td.get(i+4));
@@ -509,15 +509,15 @@ public class HighLevel
 		}
 		for(int i = min; i < td.size(); i+=6)
 		{		
-			String team = "None";
 			double proj = 0;
-			String name = ParseRankings.fixNames(td.get(i).split(" \\(")[0]);
-			if(td.get(i).contains("("))
+			String name = "";
+			String[] nameSet = td.get(i).split(" ");
+			for(int j = 0; j < nameSet.length - 1; j++)
 			{
-				String inter = td.get(i).split(" \\(")[1];
-				inter = inter.split(",")[0].split("\\)")[0];
-				team = ParseRankings.fixTeams(inter);
+				name += nameSet[j] + " ";
 			}
+			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
+			String team = ParseRankings.fixTeams(nameSet[nameSet.length - 1]);
 			double catches = Double.parseDouble(td.get(i+1).replace(",",""));
 			double recTD = Double.parseDouble(td.get(i+3));
 			double recYards = Double.parseDouble(td.get(i+2).replace(",",""));
@@ -550,15 +550,15 @@ public class HighLevel
 		}
 		for(int i = min; i < td.size(); i+=5)
 		{		
-			String team = "None";
 			double proj = 0;
-			String name = ParseRankings.fixNames(td.get(i).split(" \\(")[0]);
-			if(td.get(i).contains("("))
+			String name = "";
+			String[] nameSet = td.get(i).split(" ");
+			for(int j = 0; j < nameSet.length - 1; j++)
 			{
-				String inter = td.get(i).split(" \\(")[1];
-				inter = inter.split(",")[0].split("\\)")[0];
-				team = ParseRankings.fixTeams(inter);
+				name += nameSet[j] + " ";
 			}
+			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
+			String team = ParseRankings.fixTeams(nameSet[nameSet.length - 1]);
 			proj = Double.parseDouble(td.get(i+4));
 			points.put(name + "/" + team + "/" + pos, proj);
 		}		

@@ -35,7 +35,14 @@ public class ParseDraftWizardRanks {
 	
 	public static void parseRanksWorker(Storage holder, String url, int quantity) throws IOException{
 		List<String> td = HandleBasicQueries.handleLists(url, "table#OverallTable td");
-		for(int i = 0; i < td.size(); i+=3){
+		int startingIndex = 0;
+		for(int i = 0; i < td.size(); i++) {
+			if(td.get(i).contains(" - ") && td.get(i).split(" ").length > 3) {
+				startingIndex = i;
+				break;
+			}
+		}
+		for(int i = startingIndex; i < td.size(); i+=4){
 			int aucVal = Integer.parseInt(td.get(i+2).substring(1, td.get(i+2).length()));
 			String playerName = ParseRankings.fixNames(ParseRankings.fixDefenses(td.get(i).split(" \\(")[0]));
 			String teamPos = td.get(i).split(" \\(")[1];

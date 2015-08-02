@@ -279,8 +279,10 @@ public class PlayerInfo
 		}
 		name.setText(playerName);
 		searchedPlayer = new PlayerObject("","","",0);
+		System.out.println(playerName + ", " + pos + " - " + team);
 		for(PlayerObject player : holder.players)
 		{
+			System.out.println(player.info.name + " +,+ " + player.info.team + " +-+ " + player.info.position);
 			if(player.info.name.equals(playerName) && player.info.team.equals(team) && player.info.position.equals(pos))
 			{
 				searchedPlayer = player;

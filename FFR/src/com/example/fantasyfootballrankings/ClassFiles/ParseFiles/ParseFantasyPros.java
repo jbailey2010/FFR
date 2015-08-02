@@ -27,7 +27,8 @@ public class ParseFantasyPros
 	
 	public static void parseFantasyProsAgg(Storage holder) throws IOException
 	{
-		parseFantasyProsWorker(holder, "http://www.fantasypros.com/nfl/auction-values/overall.php?teams=12&year=" + Home.yearKey, 4);
+		//TODO: The coefficients need updating
+		//parseFantasyProsWorker(holder, "http://www.fantasypros.com/nfl/auction-values/overall.php?teams=12&year=" + Home.yearKey, 4);
 		parseFantasyProsWorker(holder, "http://www.fantasypros.com/nfl/auction-values/overall.php?teams=10&year=" + Home.yearKey, 2);
 	}
 	
@@ -53,12 +54,20 @@ public class ParseFantasyPros
 		for(int i = min; i < td.size(); i+=6)
 		{
 			String name = td.get(i).split(", ")[0];
-			if(td.get(i).contains("DST"))
-			{
+			if(td.get(i).contains("DST")) {
 				String[] fullName = name.split(" ");
-				name = fullName[fullName.length-1] + " D/ST";
+				name = ParseRankings.fixDefenses(ParseRankings.fixTeams(fullName[0]));
 			}
-			int val1 = Integer.parseInt(td.get(i+1).split("\\$")[1]);
+			else{
+				String[] nameSet = name.split(" ");
+				name = "";
+				for(int j = 0; j < nameSet.length - 3; j++)
+				{
+					name += nameSet[j] + " ";
+				}
+				name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
+			}
+			int val1 = Integer.parseInt(td.get(i+3).split("\\$")[1]);
 			int ecr = -1;
 			try{
 				ecr = Integer.parseInt(td.get(i+4));

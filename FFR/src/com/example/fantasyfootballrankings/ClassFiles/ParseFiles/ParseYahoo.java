@@ -29,7 +29,14 @@ public class ParseYahoo
 	public static void parseYahoo(Storage holder, String url) throws IOException
 	{
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
-		for(int i = 2; i < td.size(); i+=4)
+		int startingIndex = 0;
+		for(int i = 0; i < td.size(); i++) {
+			if(td.get(i).contains("Note") || td.get(i).contains("Notes")){
+				startingIndex = i;
+				break;
+			}
+		}
+		for(int i = startingIndex; i < td.size(); i+=4)
 		{
 			if(td.get(i).contains("AdChoices"))
 			{

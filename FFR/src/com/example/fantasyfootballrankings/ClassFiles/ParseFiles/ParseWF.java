@@ -29,13 +29,13 @@ public class ParseWF
 	public static void wfRankings(Storage holder, Scoring s, Roster r) throws IOException
 	{
 		if(r.qbs > 1 || (r.flex != null && r.flex.op == 1)){
-			wfRankingsHelper(holder, "http://walterfootball.com/fantasy2014top250qb2.php");
+			wfRankingsHelper(holder, "http://walterfootball.com/fantasycheatsheet/2015/twoqb");
 		}
 		else if(s.catches > 0){
-			wfRankingsHelper(holder, "http://walterfootball.com/fantasy2014top250ppr.php");
+			wfRankingsHelper(holder, "http://walterfootball.com/fantasycheatsheet/2015/ppr");
 		}
 		else{
-			wfRankingsHelper(holder, "http://walterfootball.com/fantasy2014top250.php");
+			wfRankingsHelper(holder, "http://walterfootball.com/fantasycheatsheet/2015/traditional");
 		}
 	}
 	

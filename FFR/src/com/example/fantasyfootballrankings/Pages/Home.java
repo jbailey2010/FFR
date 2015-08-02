@@ -12,6 +12,7 @@ import java.util.Set;
 import com.ffr.fantasyfootballrankings.R;
 import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
+import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraftWizardRanks;
@@ -68,7 +69,7 @@ public class Home extends Activity{
 	Menu m;
 	public static SideNavigationView sideNavigationView;
 	//UPDATE THIS FOR YEAR CHANGES
-	public static String yearKey = "2014";
+	public static String yearKey = "2015";
 	//Uniquely identifies player elems
 	  
 	/**  
@@ -132,6 +133,18 @@ public class Home extends Activity{
         	Intent intent = new Intent(this, Rankings.class);
 		    startActivity(intent);	
         }
+        
+        /*
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy); 
+        try {
+			HighLevel.projPointsWrapper(holder, cont);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
 	}  
 	
 	 

@@ -33,7 +33,6 @@ public class HandleBasicQueries
 		List<String> elems = new ArrayList<String>();
 		Document doc = Jsoup.connect(url).userAgent(ua).timeout(6000).get();
         Elements links = doc.select(params);
-
         for (Element element : links) 
         {
         	elems.add(element.text());

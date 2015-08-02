@@ -296,19 +296,11 @@ public class ParseRankings
 				holder.parsedPlayers.add(newPlayer.info.name);
 			}
 			Values.handleNewValue(match.values, newPlayer.values.worth); 
-			if(newPlayer.info.name.equals("Jimmy Graham"))
-			{
-				System.out.println(newPlayer.values.worth + ", " + match.values.worth + " (" + match.values.count + ")");
-			}
 			match.info.team = fixTeams(match.info.team);
 		}
 		else 
 		{
 			newPlayer.info.team = fixTeams(newPlayer.info.team);
-			if(newPlayer.info.name.equals("Jimmy Graham"))
-			{
-				System.out.println(newPlayer.values.worth);
-			}
 			holder.players.add(newPlayer);
 			holder.parsedPlayers.add(newPlayer.info.name);
 		}		
