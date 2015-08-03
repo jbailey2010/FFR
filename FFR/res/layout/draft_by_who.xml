@@ -32,8 +32,7 @@
         android:layout_marginTop="95dp"
         android:text="Drafted by Me"
         android:background="@drawable/btn_red"
-        style="@style/ButtonText"
-        android:paddingBottom="15dp" />
+        style="@style/ButtonText"/>
 
     <Button
         android:id="@+id/drafted_by_someone"
