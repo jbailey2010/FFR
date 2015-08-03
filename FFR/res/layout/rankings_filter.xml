@@ -43,7 +43,6 @@
         android:layout_marginTop="20dp"
         android:text="Submit"
         android:background="@drawable/btn_red"
-        style="@style/ButtonText"
-        android:paddingBottom="15dp" />
+        style="@style/ButtonText" />
 
 </RelativeLayout>

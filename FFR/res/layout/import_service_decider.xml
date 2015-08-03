@@ -37,14 +37,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:textColor="#FFFFFF"
             android:text="ESPN" />
 
         <RadioButton
             android:id="@+id/yahoo_import"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
             android:text="Yahoo" />
     </RadioGroup>
 

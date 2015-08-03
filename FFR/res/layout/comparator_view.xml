@@ -79,16 +79,6 @@
     </AutoCompleteTextView>
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/second_player_compare"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="54dp"
-        android:text=" "
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
         android:id="@+id/first_player_compare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

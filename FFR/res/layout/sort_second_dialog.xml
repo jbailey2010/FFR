@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content" >
     
     <Button
         android:id="@+id/sort_second_close"
@@ -39,21 +39,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/sort_second_run"
-        android:textSize="13sp"
+        android:textSize="11sp"
         android:layout_alignParentRight="true"
-        android:text="Only healthy"
-        android:textColor="#FFFFFF" />
+        android:text="Only healthy"/>
 
     <CheckBox
         android:id="@+id/sort_second_watch"
         android:layout_width="wrap_content"
-        android:textSize="13sp"
+        android:textSize="11sp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/sort_second_under_30"
         android:layout_alignBottom="@+id/sort_second_under_30"
         android:layout_alignLeft="@+id/sort_second_healthy"
-        android:text="Watch list"
-        android:textColor="#FFFFFF" />
+        android:text="Watch list" />
 
     <CheckBox
         android:id="@+id/sort_second_pass"
@@ -61,9 +59,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/sort_second_healthy"
         android:layout_alignTop="@+id/sort_second_run"
-        android:textSize="13sp"
-        android:text="Good pass \nblocking"
-        android:textColor="#FFFFFF"/>
+        android:textSize="11sp"
+        android:text="Good pass blocking"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -104,10 +101,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/sort_second_contract_year"
-        android:textSize="13sp"
+        android:textSize="11sp"
         android:layout_below="@+id/sort_second_contract_year"
-        android:text="Good run blocking"
-        android:textColor="#FFFFFF" />
+        android:text="Good run blocking"/>
 
     <CheckBox
         android:id="@+id/sort_second_under_30"
@@ -116,29 +112,26 @@
         android:layout_alignLeft="@+id/sort_second_run"
         android:layout_below="@+id/sort_second_pass"
         android:text="Under 30"
-        android:textSize="13sp"
-        android:textColor="#FFFFFF" />
+        android:textSize="11sp" />
     
     <CheckBox
         android:id="@+id/sort_second_sos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/sort_second_run"
-        android:textSize="13sp"
+        android:textSize="11sp"
         android:layout_below="@+id/sort_second_under_30"
-        android:text="Easy SOS"
-        android:textColor="#FFFFFF" />
+        android:text="Easy SOS"/>
     
      <CheckBox
         android:id="@+id/sort_second_start_dist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/sort_second_sos"
-        android:textSize="13sp"
+        android:textSize="11sp"
         android:layout_alignBottom="@+id/sort_second_sos"
         android:layout_alignLeft="@+id/sort_second_healthy"
-        android:text="Consistently\ngood"
-        android:textColor="#FFFFFF" />
+        android:text="Consistently good" />
 
     <CheckBox
         android:id="@+id/sort_second_contract_year"
@@ -146,9 +139,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/sort_second_back"
         android:layout_below="@+id/textView1"
-        android:textSize="13sp"
-        android:text="Contract year"
-        android:textColor="#FFFFFF" />
+        android:textSize="11sp"
+        android:text="Contract year" />
 
     <EditText
         android:id="@+id/min_rankings"

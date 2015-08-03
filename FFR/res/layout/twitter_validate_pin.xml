@@ -31,16 +31,6 @@
         android:text="Submit" />
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/twitter_pin_go"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text=" "
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
         android:id="@+id/twitter_pin_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

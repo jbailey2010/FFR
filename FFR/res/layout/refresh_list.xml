@@ -14,16 +14,6 @@
         android:paddingBottom="25dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/confirm_list_refresh"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text=" "
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <Button
         android:id="@+id/cancel_list_refresh"
         android:layout_width="wrap_content"

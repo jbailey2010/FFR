@@ -41,7 +41,6 @@
 		    android:layout_below="@+id/team_info_close"
 		    android:layout_centerHorizontal="true"
 		    android:text="Header"
-		    android:textColor="#FFFFFF"
 		    android:textSize="24sp"
 		    android:textStyle="bold" />
 
