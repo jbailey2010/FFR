@@ -23,8 +23,7 @@
         android:layout_marginTop="15dp"
         android:text="Back" 
         android:background="@drawable/btn_red"
-        style="@style/ButtonText"
-        android:paddingBottom="15dp"/>
+        style="@style/ButtonText"/>
 
     <TextView
         android:id="@+id/rb_header"
