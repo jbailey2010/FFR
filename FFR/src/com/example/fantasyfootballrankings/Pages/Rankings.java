@@ -212,11 +212,8 @@ public class Rankings extends Activity {
 		getMenuInflater().inflate(R.menu.rankings, menu);
 		if(menu != null && holder.isRegularSeason)
 		{
-			MenuItem a = (MenuItem)menu.findItem(R.id.save_draft);
 			MenuItem b = (MenuItem)menu.findItem(R.id.refresh_draft);
 			MenuItem c = (MenuItem)menu.findItem(R.id.simulator);
-			a.setVisible(false);
-			a.setEnabled(false);
 			b.setEnabled(false);
 			b.setVisible(false);
 			c.setVisible(false);
@@ -274,9 +271,6 @@ public class Rankings extends Activity {
 				return true;
 			case R.id.help:
 				helpDialog();
-				return true;
-			case R.id.save_draft:
-				holder.draft.saveDraft(holder, cont);
 				return true;
 			case R.id.random_player:
 				Rankings.randomPlayer();

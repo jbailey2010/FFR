@@ -398,7 +398,7 @@ containing a value of this type.
         public static final int filter_topics_rankings=0x7f060136;
         public static final int first_player_compare=0x7f06003b;
         public static final int flex_quantity=0x7f0600d4;
-        public static final int help=0x7f06013d;
+        public static final int help=0x7f06013c;
         public static final int help_close=0x7f060066;
         public static final int help_home=0x7f06012b;
         public static final int help_home_close=0x7f06005b;
@@ -502,7 +502,7 @@ containing a value of this type.
         public static final int qb_quantity=0x7f0600cd;
         public static final int quantity_display=0x7f060053;
         public static final int radioGroup1=0x7f06006a;
-        public static final int random_player=0x7f06013c;
+        public static final int random_player=0x7f06013b;
         public static final int ranking_search=0x7f06000d;
         public static final int rankings=0x7f060006;
         public static final int rankings_filter_close=0x7f0600c5;
@@ -525,7 +525,6 @@ containing a value of this type.
         public static final int right_item_text=0x7f060112;
         public static final int roster_submit=0x7f060058;
         public static final int salValDismiss=0x7f06011f;
-        public static final int save_draft=0x7f06013b;
         public static final int scoring_pass_continue=0x7f0600d8;
         public static final int scoring_pass_int=0x7f0600d7;
         public static final int scoring_pass_td=0x7f0600d5;
@@ -551,11 +550,11 @@ containing a value of this type.
         public static final int side_navigation_item_text=0x7f0600ef;
         public static final int side_navigation_listview=0x7f0600f2;
         public static final int side_navigation_menu=0x7f0600f1;
-        public static final int side_navigation_menu_item0=0x7f060143;
-        public static final int side_navigation_menu_item1=0x7f06013f;
-        public static final int side_navigation_menu_item2=0x7f060140;
-        public static final int side_navigation_menu_item3=0x7f060141;
-        public static final int side_navigation_menu_item7=0x7f060142;
+        public static final int side_navigation_menu_item0=0x7f060142;
+        public static final int side_navigation_menu_item1=0x7f06013e;
+        public static final int side_navigation_menu_item2=0x7f06013f;
+        public static final int side_navigation_menu_item3=0x7f060140;
+        public static final int side_navigation_menu_item7=0x7f060141;
         public static final int side_navigation_outside_view=0x7f0600f0;
         public static final int side_navigation_view=0x7f060008;
         public static final int side_navigation_view_import=0x7f06000a;
@@ -585,7 +584,7 @@ containing a value of this type.
         public static final int sort_submit=0x7f0600fc;
         public static final int start_roster=0x7f060127;
         public static final int start_scoring=0x7f06012c;
-        public static final int stats_help=0x7f06013e;
+        public static final int stats_help=0x7f06013d;
         public static final int sw_game_venueinfo=0x7f0600ac;
         public static final int table_base=0x7f06008b;
         public static final int te_header=0x7f06004a;

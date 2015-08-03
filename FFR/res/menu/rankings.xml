@@ -22,12 +22,7 @@
         android:id="@+id/refresh_draft"
         android:orderInCategory="100"
         android:showAsAction="ifRoom|withText"
-        android:title="Reset Draft"/>
-    <item
-        android:id="@+id/save_draft"
-        android:orderInCategory="100"
-        android:showAsAction="never" 
-        android:title="Save This Draft"/> 
+        android:title="Clear Draft"/>
     <item
         android:id="@+id/random_player"
         android:orderInCategory="100"
