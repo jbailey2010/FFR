@@ -10,99 +10,92 @@ import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
  * A class to handle all the parsing of draft-related data
+ * 
  * @author Jeff
- *
+ * 
  */
-public class ParseDraft 
-{
+public class ParseDraft {
 	/**
 	 * Parses the drafts themselves.
+	 * 
 	 * @return
 	 * @throws IOException
 	 */
-	public static HashMap<String, String> parseTeamDraft() throws IOException
-	{
-		List<String> perPick = HandleBasicQueries.handleLists(
-				"http://www.sbnation.com/nfl/2014/5/10/5704890/nfl-draft-results-recap-jadeveon-clowney-johnny-manziel-michael-sam", "td");
+	public static HashMap<String, String> parseTeamDraft() throws IOException {
+		List<String> perPick = HandleBasicQueries
+				.handleLists(
+						"http://www.sbnation.com/nfl/2014/5/10/5704890/nfl-draft-results-recap-jadeveon-clowney-johnny-manziel-michael-sam",
+						"td");
 		HashMap<String, String> picks = new HashMap<String, String>();
-		for(int i = 5; i < perPick.size(); i+=5)
-		{
+		for (int i = 5; i < perPick.size(); i += 5) {
 			String pickStr = perPick.get(i);
-			if(pickStr.contains(". (")){ 
+			if (pickStr.contains(". (")) {
 				pickStr = pickStr.split("\\)")[0].split("\\(")[1];
 			}
-			if(!ManageInput.isInteger(pickStr)){
+			if (!ManageInput.isInteger(pickStr)) {
 				continue;
 			}
-			String team = ParseRankings.fixTeams(perPick.get(i+1).split(" \\(")[0]);
-			String name = ParseRankings.fixNames(perPick.get(i+2));
-			String position = perPick.get(i+3);
-			//String overall = perPick.get(i);
+			String team = ParseRankings.fixTeams(perPick.get(i + 1).split(
+					" \\(")[0]);
+			String name = ParseRankings.fixNames(perPick.get(i + 2));
+			String position = perPick.get(i + 3);
+			// String overall = perPick.get(i);
 			int j = Integer.parseInt(pickStr);
 			String round = "";
-			if(j <= 32){
-				round = "1";     
-			}
-			else if(j <= 64){
+			if (j <= 32) {
+				round = "1";
+			} else if (j <= 64) {
 				round = "2";
-			}
-			else if(j <= 100){
+			} else if (j <= 100) {
 				round = "3";
-			}
-			else if(j <= 140){
+			} else if (j <= 140) {
 				round = "4";
-			}
-			else if(j <= 176){
+			} else if (j <= 176) {
 				round = "5";
-			}
-			else if(j <= 215){
+			} else if (j <= 215) {
 				round = "6";
-			}
-			else if(j <= 256){
+			} else if (j <= 256) {
 				round = "7";
 			}
-			String pick = round + " (" + pickStr + "): " + name + ", " + position + "\n";
-			if(picks.containsKey(team))
-			{
+			String pick = round + " (" + pickStr + "): " + name + ", "
+					+ position + "\n";
+			if (picks.containsKey(team)) {
 				picks.put(team, picks.get(team) + pick);
-			}
-			else
-			{
+			} else {
 				picks.put(team, pick);
 			}
 		}
 		return picks;
 	}
-	
+
 	/**
 	 * Parses the gpa and rank in gpa to each team
+	 * 
 	 * @return
 	 * @throws IOException
 	 */
-	public static HashMap<String, String> parseTeamDraftGPA() throws IOException
-	{
+	public static HashMap<String, String> parseTeamDraftGPA()
+			throws IOException {
 		String url = "http://www.footballoutsiders.com/nfl-draft/2014/2014-draft-report-card-report";
 		HashMap<String, String> gpa = new HashMap<String, String>();
 		List<String> brokenUp = HandleBasicQueries.handleLists(url, "td");
-		for(int i = 1; i < brokenUp.size(); i+=2)
-		{ 
-			if(!brokenUp.get(i).contains("2013"))
-			{
+		for (int i = 1; i < brokenUp.size(); i += 2) {
+			if (!brokenUp.get(i).contains("2013")) {
 				String before = brokenUp.get(i);
 				String team = ParseRankings.fixTeams(before);
-				if(i+3 > brokenUp.size()){
+				if (i + 3 > brokenUp.size()) {
 					break;
 				}
-				String grade = brokenUp.get(i+=3);
-				if(i+2 > brokenUp.size()){
+				String grade = brokenUp.get(i += 3);
+				if (i + 2 > brokenUp.size()) {
 					break;
 				}
-				String rank = brokenUp.get(i+=2);
-				if(team.equals("High Grade"))
-				{
+				String rank = brokenUp.get(i += 2);
+				if (team.equals("High Grade")) {
 					break;
 				}
-				gpa.put(team, "Average Draft Grade: " + grade + " (" + rank + ")\n");
+				gpa.put(team, "Average Draft Grade: " + grade + " (" + rank
+						+ ")\n");
 			}
 		}
 		return gpa;

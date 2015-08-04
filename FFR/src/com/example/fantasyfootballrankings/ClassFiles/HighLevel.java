@@ -25,64 +25,63 @@ import FileIO.ReadFromFile;
 import android.content.Context;
 
 /**
- * Handles operations done on all of the players
- * These are to be done all at once, once all of the rankings are fetched
+ * Handles operations done on all of the players These are to be done all at
+ * once, once all of the rankings are fetched
+ * 
  * @author Jeff
- *
+ * 
  */
 
-public class HighLevel 
-{
-	
+public class HighLevel {
+
 	/**
 	 * Sets a contract status for players on the fftoolbox list
+	 * 
 	 * @param holder
 	 * @throws IOException
 	 */
-	public static void setContractStatus(Storage holder) throws IOException
-	{
+	public static void setContractStatus(Storage holder) throws IOException {
 		HashMap<String, String> cs = new HashMap<String, String>();
-		List<String> td = HandleBasicQueries.handleLists("http://www.kffl.com/static/nfl/features/freeagents/fa.php?option=All&y=2015", "td");
-		for(int i = 20; i < td.size(); i+=5)
-		{
+		List<String> td = HandleBasicQueries
+				.handleLists(
+						"http://www.kffl.com/static/nfl/features/freeagents/fa.php?option=All&y=2015",
+						"td");
+		for (int i = 20; i < td.size(); i += 5) {
 			String pos = td.get(i);
-			if(pos.equals("FB"))
-			{
+			if (pos.equals("FB")) {
 				pos = "RB";
-			}
-			else if(pos.equals("PK"))
-			{
+			} else if (pos.equals("PK")) {
 				pos = "K";
 			}
-			String name = td.get(i+1);
-			String status = td.get(i+2);
-			if(!name.equals("Player") && !status.contains("Signed") && !status.contains("signed"))
-			{
+			String name = td.get(i + 1);
+			String status = td.get(i + 2);
+			if (!name.equals("Player") && !status.contains("Signed")
+					&& !status.contains("signed")) {
 				cs.put(pos + "/" + name, "In a contract year");
 			}
 		}
-		for(PlayerObject player : holder.players)
-		{
-			if(cs.containsKey(player.info.position + "/" + player.info.name))
-			{
-				player.info.contractStatus = cs.get(player.info.position + "/" + player.info.name);
+		for (PlayerObject player : holder.players) {
+			if (cs.containsKey(player.info.position + "/" + player.info.name)) {
+				player.info.contractStatus = cs.get(player.info.position + "/"
+						+ player.info.name);
 			}
 		}
 	}
-	
+
 	/**
-	 * A function that gets the strength of schedule for each team
-	 * and specific positions per.
+	 * A function that gets the strength of schedule for each team and specific
+	 * positions per.
+	 * 
 	 * @param holder
 	 * @throws IOException
-	 */ 
-	public static void getSOS(Storage holder) throws IOException
-	{
-		List<String> allArr = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/strength_of_schedule.cfm", "tr.c");
+	 */
+	public static void getSOS(Storage holder) throws IOException {
+		List<String> allArr = HandleBasicQueries.handleLists(
+				"http://www.fftoolbox.com/football/strength_of_schedule.cfm",
+				"tr.c");
 		String[][] team = new String[allArr.size()][];
-        HashMap<String, Integer>sos = new HashMap<String, Integer>();
-		for(int i = 0; i  < allArr.size(); i++) 
-		{  
+		HashMap<String, Integer> sos = new HashMap<String, Integer>();
+		for (int i = 0; i < allArr.size(); i++) {
 			team[i] = ManageInput.tokenize(allArr.get(i), ' ', 1);
 			String keyBase = ParseRankings.fixTeams(team[i][0]) + ",";
 			sos.put(keyBase + "QB", Integer.parseInt(cleanRanking(team[i][1])));
@@ -90,68 +89,72 @@ public class HighLevel
 			sos.put(keyBase + "WR", Integer.parseInt(cleanRanking(team[i][3])));
 			sos.put(keyBase + "TE", Integer.parseInt(cleanRanking(team[i][4])));
 			sos.put(keyBase + "K", Integer.parseInt(cleanRanking(team[i][5])));
-			sos.put(keyBase + "D/ST", Integer.parseInt(cleanRanking(team[i][6])));
+			sos.put(keyBase + "D/ST",
+					Integer.parseInt(cleanRanking(team[i][6])));
 		}
 		holder.sos = sos;
 	}
-	
-	public static String cleanRanking(String input){
-		return input.replaceAll("rd", "").replaceAll("st", "").replaceAll("nd", "").replaceAll("th", "");
+
+	public static String cleanRanking(String input) {
+		return input.replaceAll("rd", "").replaceAll("st", "")
+				.replaceAll("nd", "").replaceAll("th", "");
 	}
-	
+
 	/**
 	 * Sets the team data for players
+	 * 
 	 * @param holder
 	 * @param cont
 	 * @throws IOException
 	 */
-	public static void setTeamInfo(Storage holder, Context cont) throws IOException
-	{
-		//Fetch the draft data
+	public static void setTeamInfo(Storage holder, Context cont)
+			throws IOException {
+		// Fetch the draft data
 		HashMap<String, String> drafts = ParseDraft.parseTeamDraft();
 		HashMap<String, String> gpas = ParseDraft.parseTeamDraftGPA();
-		Set<String>teams = drafts.keySet();
-		for(String team : teams)
-		{
+		Set<String> teams = drafts.keySet();
+		for (String team : teams) {
 			holder.draftClasses.put(team, gpas.get(team) + drafts.get(team));
 		}
-		//Parse free agency data
+		// Parse free agency data
 		holder.fa = ParseFreeAgents.parseFA();
 	}
-	
+
 	/**
 	 * Parse player specific data that aren't stats
+	 * 
 	 * @param holder
 	 * @param cont
 	 * @throws IOException
 	 */
-	public static void parseSpecificData(Storage holder, Context cont) throws IOException
-	{
+	public static void parseSpecificData(Storage holder, Context cont)
+			throws IOException {
 		HashMap<String, String> injuries = ParseInjuries.parseRotoInjuries();
 		HashMap<String, String> byes = ParseFFTB.parseByeWeeks();
 		holder.bye = byes;
-		for(PlayerObject player : holder.players)
-		{
-			if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
-			{
-				if(injuries.containsKey(player.info.name + "/" + player.info.position))
-				{
-					player.injuryStatus = injuries.get(player.info.name + "/" + player.info.position);
+		for (PlayerObject player : holder.players) {
+			if (!player.info.position.equals("K")
+					&& !player.info.position.equals("D/ST")) {
+				if (injuries.containsKey(player.info.name + "/"
+						+ player.info.position)) {
+					player.injuryStatus = injuries.get(player.info.name + "/"
+							+ player.info.position);
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * Sets the stats of a player
+	 * 
 	 * @param holder
 	 * @param cont
 	 * @throws IOException
 	 */
-	public static void setStats(Storage holder, Context cont) throws IOException
-	{
-		try{
-			//Fetch the stats
+	public static void setStats(Storage holder, Context cont)
+			throws IOException {
+		try {
+			// Fetch the stats
 			Map<String, String> qbs = ParseStats.parseQBStats();
 			Set<String> qbKeys = qbs.keySet();
 			Map<String, String> rbs = ParseStats.parseRBStats();
@@ -160,235 +163,187 @@ public class HighLevel
 			Set<String> wrKeys = wrs.keySet();
 			Map<String, String> tes = ParseStats.parseTEStats();
 			Set<String> teKeys = tes.keySet();
-			for(PlayerObject player : holder.players)
-			{ 
-				if(!player.info.position.equals("K") && !player.info.position.equals("D/ST"))
-				{
-					//else if testname in keyset
+			for (PlayerObject player : holder.players) {
+				if (!player.info.position.equals("K")
+						&& !player.info.position.equals("D/ST")) {
+					// else if testname in keyset
 					String[] name = player.info.name.split(" ");
 					String testName = name[0].charAt(0) + " " + name[1];
 					testName = testName.toLowerCase();
-					if(player.info.position.equals("QB"))
-					{
-						if(qbs.containsKey(testName + "/" + player.info.team))
-						{
-							player.stats = qbs.get(testName + "/" + player.info.team);
-						}
-						else if(player.info.team.length() < 2)
-						{
-							for(String key : qbKeys) 
-							{
-								if(key.contains(testName))
-								{
+					if (player.info.position.equals("QB")) {
+						if (qbs.containsKey(testName + "/" + player.info.team)) {
+							player.stats = qbs.get(testName + "/"
+									+ player.info.team);
+						} else if (player.info.team.length() < 2) {
+							for (String key : qbKeys) {
+								if (key.contains(testName)) {
 									player.stats = qbs.get(key);
 									break;
 								}
 							}
-						}
-						else
-						{
+						} else {
 							int found = 0;
 							String statHolder = "";
-							for(String key : qbKeys)
-							{
-								if(key.contains(testName))
-								{
+							for (String key : qbKeys) {
+								if (key.contains(testName)) {
 									found++;
 									statHolder = qbs.get(key);
 								}
 							}
-							if(found == 1)
-							{
+							if (found == 1) {
 								player.stats = statHolder;
 							}
 						}
-					}
-					else if(player.info.position.equals("RB"))
-					{
-						if(rbs.containsKey(testName + "/" + player.info.team))
-						{
-							player.stats = rbs.get(testName + "/" + player.info.team);
-						}
-						else if(player.info.team.length() < 2)
-						{
-							for(String key : rbKeys)
-							{
-								if(key.contains(testName))
-								{
+					} else if (player.info.position.equals("RB")) {
+						if (rbs.containsKey(testName + "/" + player.info.team)) {
+							player.stats = rbs.get(testName + "/"
+									+ player.info.team);
+						} else if (player.info.team.length() < 2) {
+							for (String key : rbKeys) {
+								if (key.contains(testName)) {
 									player.stats = rbs.get(key);
 									break;
 								}
 							}
-						}
-						else
-						{
+						} else {
 							int found = 0;
 							String statHolder = "";
-							for(String key : rbKeys)
-							{
-								if(key.contains(testName))
-								{
+							for (String key : rbKeys) {
+								if (key.contains(testName)) {
 									found++;
 									statHolder = rbs.get(key);
 								}
 							}
-							if(found == 1)
-							{
+							if (found == 1) {
 								player.stats = statHolder;
 							}
 						}
-					}
-					else if(player.info.position.equals("WR"))
-					{
-						if(wrs.containsKey(testName + "/" + player.info.team))
-						{
-							player.stats = wrs.get(testName + "/" + player.info.team);
-						}
-						else if(player.info.team.length() < 2)
-						{
-							for(String key : wrKeys)
-							{
-								if(key.contains(testName))
-								{
+					} else if (player.info.position.equals("WR")) {
+						if (wrs.containsKey(testName + "/" + player.info.team)) {
+							player.stats = wrs.get(testName + "/"
+									+ player.info.team);
+						} else if (player.info.team.length() < 2) {
+							for (String key : wrKeys) {
+								if (key.contains(testName)) {
 									player.stats = wrs.get(key);
 									break;
 								}
 							}
-						}
-						else
-						{
+						} else {
 							int found = 0;
 							String statHolder = "";
-							for(String key : wrKeys)
-							{
-								if(key.contains(testName))
-								{
+							for (String key : wrKeys) {
+								if (key.contains(testName)) {
 									found++;
 									statHolder = wrs.get(key);
 								}
 							}
-							if(found == 1)
-							{
+							if (found == 1) {
 								player.stats = statHolder;
 							}
 						}
-					}
-					else if(player.info.position.equals("TE"))
-					{
-						if(tes.containsKey(testName + "/" + player.info.team))
-						{
-							player.stats = tes.get(testName + "/" + player.info.team);
-						}
-						else if(player.info.team.length() < 2)
-						{
-							for(String key : teKeys)
-							{
-								if(key.contains(testName))
-								{
-									
+					} else if (player.info.position.equals("TE")) {
+						if (tes.containsKey(testName + "/" + player.info.team)) {
+							player.stats = tes.get(testName + "/"
+									+ player.info.team);
+						} else if (player.info.team.length() < 2) {
+							for (String key : teKeys) {
+								if (key.contains(testName)) {
+
 									player.stats = tes.get(key);
 									break;
 								}
 							}
-						}
-						else
-						{
+						} else {
 							int found = 0;
 							String statHolder = "";
-							for(String key : teKeys)
-							{
-								if(key.contains(testName))
-								{
+							for (String key : teKeys) {
+								if (key.contains(testName)) {
 									found++;
 									statHolder = tes.get(key);
 								}
 							}
-							if(found == 1)
-							{
+							if (found == 1) {
 								player.stats = statHolder;
 							}
 						}
 					}
 				}
 			}
-		}catch(ArrayIndexOutOfBoundsException e1)
-		{
-			
-		}catch(NumberFormatException e2)
-		{
-			
+		} catch (ArrayIndexOutOfBoundsException e1) {
+
+		} catch (NumberFormatException e2) {
+
 		}
 	}
-	
+
 	/**
 	 * Calls the specific parsers and sets the projections
 	 */
-	public static void projPointsWrapper(Storage holder, Context cont) throws IOException
-	{ 
+	public static void projPointsWrapper(Storage holder, Context cont)
+			throws IOException {
 		HashMap<String, Double> points = new HashMap<String, Double>();
 		Scoring scoring = ReadFromFile.readScoring(cont);
 		String suffix = "?year=" + Home.yearKey;
-		qbProj("http://www.fantasypros.com/nfl/projections/qb.php" + suffix, points, scoring, "QB");
-		rbProj("http://www.fantasypros.com/nfl/projections/rb.php" + suffix, points, scoring, "RB");
-		wrProj("http://www.fantasypros.com/nfl/projections/wr.php" + suffix, points, scoring, "WR");
-		teProj("http://www.fantasypros.com/nfl/projections/te.php" + suffix, points, scoring, "TE");
-		kProj("http://www.fantasypros.com/nfl/projections/k.php" + suffix, points, "K");
-		try{
+		qbProj("http://www.fantasypros.com/nfl/projections/qb.php" + suffix,
+				points, scoring, "QB");
+		rbProj("http://www.fantasypros.com/nfl/projections/rb.php" + suffix,
+				points, scoring, "RB");
+		wrProj("http://www.fantasypros.com/nfl/projections/wr.php" + suffix,
+				points, scoring, "WR");
+		teProj("http://www.fantasypros.com/nfl/projections/te.php" + suffix,
+				points, scoring, "TE");
+		kProj("http://www.fantasypros.com/nfl/projections/k.php" + suffix,
+				points, "K");
+		try {
 			defProjWeekly(points, "D/ST");
-		}catch(IOException e)
-		{
-			
+		} catch (IOException e) {
+
 		}
-		for(PlayerObject player : holder.players)
-		{
-			if(points.containsKey(player.info.name + "/" + player.info.team + "/" + player.info.position))
-			{
-				player.values.points = points.get(player.info.name + "/" + player.info.team + "/" + player.info.position);
-			}
-			else
-			{
+		for (PlayerObject player : holder.players) {
+			if (points.containsKey(player.info.name + "/" + player.info.team
+					+ "/" + player.info.position)) {
+				player.values.points = points.get(player.info.name + "/"
+						+ player.info.team + "/" + player.info.position);
+			} else {
 				player.values.points = 0;
 			}
 		}
 	}
-	
+
 	/**
 	 * Gets the qb projections
 	 */
-	public static void qbProj(String url, HashMap<String, Double> points, Scoring scoring, String pos) throws IOException
-	{
-        DecimalFormat df = new DecimalFormat("#.##");
+	public static void qbProj(String url, HashMap<String, Double> points,
+			Scoring scoring, String pos) throws IOException {
+		DecimalFormat df = new DecimalFormat("#.##");
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
-		
+
 		int min = 0;
 		ParseRankings.handleHashes();
 
-		for(int i = 0; i < td.size(); i++)
-		{
-			if(td.get(i).contains("MISC"))
-			{
-				min=i+1;
+		for (int i = 0; i < td.size(); i++) {
+			if (td.get(i).contains("MISC")) {
+				min = i + 1;
 				break;
 			}
 		}
-		for(int i = min; i < td.size(); i+=11)
-		{
+		for (int i = min; i < td.size(); i += 11) {
 			double proj = 0;
 			String name = "";
 			String[] nameSet = td.get(i).split(" ");
-			for(int j = 0; j < nameSet.length - 1; j++)
-			{
+			for (int j = 0; j < nameSet.length - 1; j++) {
 				name += nameSet[j] + " ";
 			}
 			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
 			String team = ParseRankings.fixTeams(nameSet[nameSet.length - 1]);
-			double yards = Double.parseDouble(td.get(i+3).replace(",", ""));
-			double tdRush = Double.parseDouble(td.get(i+4));
-			double ints = Double.parseDouble(td.get(i+5));
-			double rushYards = Double.parseDouble(td.get(i+7));
-			double rushTD = Double.parseDouble(td.get(i+8));
-			double fumbles = Double.parseDouble(td.get(i+9));
-			proj += (yards/(scoring.passYards));
+			double yards = Double.parseDouble(td.get(i + 3).replace(",", ""));
+			double tdRush = Double.parseDouble(td.get(i + 4));
+			double ints = Double.parseDouble(td.get(i + 5));
+			double rushYards = Double.parseDouble(td.get(i + 7));
+			double rushTD = Double.parseDouble(td.get(i + 8));
+			double fumbles = Double.parseDouble(td.get(i + 9));
+			proj += (yards / (scoring.passYards));
 			proj -= ints * scoring.interception;
 			proj += tdRush * scoring.passTD;
 			proj += (rushYards / (scoring.rushYards));
@@ -398,262 +353,254 @@ public class HighLevel
 			points.put(name + "/" + team + "/" + pos, proj);
 		}
 	}
-	
+
 	/**
 	 * Gets the running back projections
 	 */
-	public static void rbProj(String url, HashMap<String, Double> points, Scoring scoring, String pos) throws IOException
-	{
-        DecimalFormat df = new DecimalFormat("#.##");
+	public static void rbProj(String url, HashMap<String, Double> points,
+			Scoring scoring, String pos) throws IOException {
+		DecimalFormat df = new DecimalFormat("#.##");
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		ParseRankings.handleHashes();
-		for(int i = 0; i < td.size(); i++)
-		{
-			if(td.get(i).contains("MISC"))
-			{
-				min=i+1;
+		for (int i = 0; i < td.size(); i++) {
+			if (td.get(i).contains("MISC")) {
+				min = i + 1;
 				break;
 			}
 		}
-		for(int i = min; i < td.size(); i+=9)
-		{
+		for (int i = min; i < td.size(); i += 9) {
 			double proj = 0;
 			String name = "";
 			String[] nameSet = td.get(i).split(" ");
-			for(int j = 0; j < nameSet.length - 1; j++)
-			{
+			for (int j = 0; j < nameSet.length - 1; j++) {
 				name += nameSet[j] + " ";
 			}
 			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
 			String team = ParseRankings.fixTeams(nameSet[nameSet.length - 1]);
-			double rushYards = Double.parseDouble(td.get(i+2).replace(",",""));
-			double rushTD = Double.parseDouble(td.get(i+3));
-			double catches = Double.parseDouble(td.get(i+4));
-			double recYards = Double.parseDouble(td.get(i+5).replace(",",""));
-			double recTD = Double.parseDouble(td.get(i+6));
-			double fumbles = Double.parseDouble(td.get(i+7));
-			proj += (rushYards/(scoring.rushYards));
-			proj += rushTD *scoring.rushTD;
-			proj += catches*scoring.catches;
-			proj += (recYards/(scoring.recYards));
+			double rushYards = Double.parseDouble(td.get(i + 2)
+					.replace(",", ""));
+			double rushTD = Double.parseDouble(td.get(i + 3));
+			double catches = Double.parseDouble(td.get(i + 4));
+			double recYards = Double
+					.parseDouble(td.get(i + 5).replace(",", ""));
+			double recTD = Double.parseDouble(td.get(i + 6));
+			double fumbles = Double.parseDouble(td.get(i + 7));
+			proj += (rushYards / (scoring.rushYards));
+			proj += rushTD * scoring.rushTD;
+			proj += catches * scoring.catches;
+			proj += (recYards / (scoring.recYards));
 			proj += recTD * scoring.recTD;
 			proj -= fumbles * scoring.fumble;
 			proj = Double.parseDouble(df.format(proj));
 			points.put(name + "/" + team + "/" + pos, proj);
 		}
 	}
-	
+
 	/**
 	 * Gets the wide receiver projections
 	 */
-	public static void wrProj(String url, HashMap<String, Double> points, Scoring scoring, String pos) throws IOException
-	{
+	public static void wrProj(String url, HashMap<String, Double> points,
+			Scoring scoring, String pos) throws IOException {
 		DecimalFormat df = new DecimalFormat("#.##");
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		ParseRankings.handleHashes();
-		for(int i = 0; i < td.size(); i++)
-		{
-			if(td.get(i).contains("MISC"))
-			{
-				min=i+1;
+		for (int i = 0; i < td.size(); i++) {
+			if (td.get(i).contains("MISC")) {
+				min = i + 1;
 				break;
 			}
 		}
-		for(int i = min; i < td.size(); i+=9)
-		{
+		for (int i = min; i < td.size(); i += 9) {
 			double proj = 0;
 			String name = "";
 			String[] nameSet = td.get(i).split(" ");
-			for(int j = 0; j < nameSet.length - 1; j++)
-			{
+			for (int j = 0; j < nameSet.length - 1; j++) {
 				name += nameSet[j] + " ";
 			}
 			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
 			String team = ParseRankings.fixTeams(nameSet[nameSet.length - 1]);
-			double rushYards = Double.parseDouble(td.get(i+2).replace(",",""));
-			double rushTD = Double.parseDouble(td.get(i+3));
-			double catches = Double.parseDouble(td.get(i+4));
-			double recYards = Double.parseDouble(td.get(i+5).replace(",",""));
-			double recTD = Double.parseDouble(td.get(i+6));
-			double fumbles = Double.parseDouble(td.get(i+7));
-			proj += (rushYards/(scoring.rushYards));
-			proj += rushTD *scoring.rushTD;
-			proj += catches*scoring.catches;
-			proj += (recYards/(scoring.recYards));
+			double rushYards = Double.parseDouble(td.get(i + 2)
+					.replace(",", ""));
+			double rushTD = Double.parseDouble(td.get(i + 3));
+			double catches = Double.parseDouble(td.get(i + 4));
+			double recYards = Double
+					.parseDouble(td.get(i + 5).replace(",", ""));
+			double recTD = Double.parseDouble(td.get(i + 6));
+			double fumbles = Double.parseDouble(td.get(i + 7));
+			proj += (rushYards / (scoring.rushYards));
+			proj += rushTD * scoring.rushTD;
+			proj += catches * scoring.catches;
+			proj += (recYards / (scoring.recYards));
 			proj += recTD * scoring.recTD;
 			proj -= fumbles * scoring.fumble;
 			proj = Double.parseDouble(df.format(proj));
 			points.put(name + "/" + team + "/" + pos, proj);
 		}
 	}
-	
+
 	/**
 	 * Gets the tight end projections
 	 */
-	public static void teProj(String url, HashMap<String, Double> points, Scoring scoring, String pos) throws IOException
-	{
+	public static void teProj(String url, HashMap<String, Double> points,
+			Scoring scoring, String pos) throws IOException {
 		DecimalFormat df = new DecimalFormat("#.##");
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		ParseRankings.handleHashes();
 
-		for(int i = 0; i < td.size(); i++)
-		{
-			if(td.get(i).contains("MISC"))
-			{
-				min=i+1;
+		for (int i = 0; i < td.size(); i++) {
+			if (td.get(i).contains("MISC")) {
+				min = i + 1;
 				break;
 			}
 		}
-		for(int i = min; i < td.size(); i+=6)
-		{		
+		for (int i = min; i < td.size(); i += 6) {
 			double proj = 0;
 			String name = "";
 			String[] nameSet = td.get(i).split(" ");
-			for(int j = 0; j < nameSet.length - 1; j++)
-			{
+			for (int j = 0; j < nameSet.length - 1; j++) {
 				name += nameSet[j] + " ";
 			}
 			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
 			String team = ParseRankings.fixTeams(nameSet[nameSet.length - 1]);
-			double catches = Double.parseDouble(td.get(i+1).replace(",",""));
-			double recTD = Double.parseDouble(td.get(i+3));
-			double recYards = Double.parseDouble(td.get(i+2).replace(",",""));
-			double fumbles = Double.parseDouble(td.get(i+4));
-			proj += catches*scoring.catches;
-			proj += (recYards/(scoring.recYards));
+			double catches = Double.parseDouble(td.get(i + 1).replace(",", ""));
+			double recTD = Double.parseDouble(td.get(i + 3));
+			double recYards = Double
+					.parseDouble(td.get(i + 2).replace(",", ""));
+			double fumbles = Double.parseDouble(td.get(i + 4));
+			proj += catches * scoring.catches;
+			proj += (recYards / (scoring.recYards));
 			proj += recTD * scoring.recTD;
 			proj -= fumbles * scoring.fumble;
 			proj = Double.parseDouble(df.format(proj));
 			points.put(name + "/" + team + "/" + pos, proj);
-		}		
+		}
 	}
-	
+
 	/**
 	 * Gets the kicker projections
 	 */
-	public static void kProj(String url, HashMap<String, Double> points, String pos) throws IOException
-	{
+	public static void kProj(String url, HashMap<String, Double> points,
+			String pos) throws IOException {
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		ParseRankings.handleHashes();
 
-		for(int i = 0; i < td.size(); i++)
-		{
-			if(ManageInput.isDouble(td.get(i+1)))
-			{
-				min=i;
+		for (int i = 0; i < td.size(); i++) {
+			if (ManageInput.isDouble(td.get(i + 1))) {
+				min = i;
 				break;
 			}
 		}
-		for(int i = min; i < td.size(); i+=5)
-		{		
+		for (int i = min; i < td.size(); i += 5) {
 			double proj = 0;
 			String name = "";
 			String[] nameSet = td.get(i).split(" ");
-			for(int j = 0; j < nameSet.length - 1; j++)
-			{
+			for (int j = 0; j < nameSet.length - 1; j++) {
 				name += nameSet[j] + " ";
 			}
 			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
 			String team = ParseRankings.fixTeams(nameSet[nameSet.length - 1]);
-			proj = Double.parseDouble(td.get(i+4));
+			proj = Double.parseDouble(td.get(i + 4));
 			points.put(name + "/" + team + "/" + pos, proj);
-		}		
+		}
 	}
-	
+
 	/**
 	 * Handles the weekly defensive projections
+	 * 
 	 * @param points
 	 * @param pos
 	 * @throws IOException
 	 */
-	public static void defProjWeekly(HashMap<String, Double> points, String pos) throws IOException
-	{
-		List<String> td = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2014/weeklycheatsheets.cfm?player_pos=DEF", "table.grid td");
+	public static void defProjWeekly(HashMap<String, Double> points, String pos)
+			throws IOException {
+		List<String> td = HandleBasicQueries
+				.handleLists(
+						"http://www.fftoolbox.com/football/2014/weeklycheatsheets.cfm?player_pos=DEF",
+						"table.grid td");
 		boolean hasWeek = false;
 		boolean hasWill = false;
 		boolean notYetDone = false;
-		for(String elem : td){
-			if(elem.contains("Week")){
+		for (String elem : td) {
+			if (elem.contains("Week")) {
 				hasWeek = true;
 				break;
 			}
 		}
-		Document doc = Jsoup.connect("http://www.fftoolbox.com/football/2014/weeklycheatsheets.cfm?player_pos=DEF").get();
-		if(doc.html().contains("will be up")){
+		Document doc = Jsoup
+				.connect(
+						"http://www.fftoolbox.com/football/2014/weeklycheatsheets.cfm?player_pos=DEF")
+				.get();
+		if (doc.html().contains("will be up")) {
 			hasWill = true;
-		}
-		else if(doc.html().contains("for this position yet")){
+		} else if (doc.html().contains("for this position yet")) {
 			notYetDone = true;
 		}
-		
-		if(td.size() < 20 && !hasWeek && !hasWill && !notYetDone)
-		{
+
+		if (td.size() < 20 && !hasWeek && !hasWill && !notYetDone) {
 			defProjAnnual(points, pos);
-		}
-		else
-		{
-			for(int i = 0; i < td.size(); i+=5)
-			{
-				String teamName = ParseRankings.fixDefenses(td.get(i+1));
-				String team = ParseRankings.fixTeams(td.get(i+2));
-				double proj = Double.valueOf(td.get(i+4));
+		} else {
+			for (int i = 0; i < td.size(); i += 5) {
+				String teamName = ParseRankings.fixDefenses(td.get(i + 1));
+				String team = ParseRankings.fixTeams(td.get(i + 2));
+				double proj = Double.valueOf(td.get(i + 4));
 				points.put(teamName + "/" + team + "/" + pos, proj);
 			}
 		}
 	}
-	
+
 	/**
 	 * Handles the defensive projection parsing on an annual basis
+	 * 
 	 * @param points
 	 * @param pos
 	 * @throws IOException
 	 */
-	public static void defProjAnnual(HashMap<String, Double> points, String pos) throws IOException {
-		List<String> td  = HandleBasicQueries.handleLists("http://www.fftoolbox.com/football/2014/cheatsheets.cfm?player_pos=DEF", "table.grid td");
-		try{
-			for(int i = 0; i < td.size(); i+=5)
-			{
-				String teamName = ParseRankings.fixDefenses(ParseRankings.fixTeams(td.get(i+2)));
-				String team = ParseRankings.fixTeams(td.get(i+2));
-				double proj = Double.valueOf(td.get(i+4));
+	public static void defProjAnnual(HashMap<String, Double> points, String pos)
+			throws IOException {
+		List<String> td = HandleBasicQueries
+				.handleLists(
+						"http://www.fftoolbox.com/football/2014/cheatsheets.cfm?player_pos=DEF",
+						"table.grid td");
+		try {
+			for (int i = 0; i < td.size(); i += 5) {
+				String teamName = ParseRankings.fixDefenses(ParseRankings
+						.fixTeams(td.get(i + 2)));
+				String team = ParseRankings.fixTeams(td.get(i + 2));
+				double proj = Double.valueOf(td.get(i + 4));
 				points.put(teamName + "/" + team + "/" + pos, proj);
 			}
-		}catch(NumberFormatException e){
+		} catch (NumberFormatException e) {
 			System.out.println("There was an error with defproj");
 		}
 	}
 
 	/**
 	 * Calls the parser and gets the functionsn
-	 * @param cont 
+	 * 
+	 * @param cont
 	 */
-	public static void parseECRWrapper(Storage holder, Context cont) throws IOException
-	{
+	public static void parseECRWrapper(Storage holder, Context cont)
+			throws IOException {
 		HashMap<String, Double> ecr = new HashMap<String, Double>();
 		HashMap<String, Double> risk = new HashMap<String, Double>();
 		HashMap<String, String> adp = new HashMap<String, String>();
-		if(!holder.isRegularSeason)
-		{
+		if (!holder.isRegularSeason) {
 			String url = "http://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php";
 			int limit = 9;
-			if(ReadFromFile.readScoring(cont).catches == 1)
-			{
+			if (ReadFromFile.readScoring(cont).catches == 1) {
 				url = "http://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php";
 				limit = 9;
 			}
 			parseECRWorker(url, holder, ecr, risk, adp, limit);
-		}
-		else
-		{
+		} else {
 			StringBuilder urlBase = new StringBuilder(100);
 			urlBase.append("http://www.fantasypros.com/nfl/rankings/");
 			String url = urlBase.toString();
-			if(ReadFromFile.readScoring(cont).catches > 0)
-			{
+			if (ReadFromFile.readScoring(cont).catches > 0) {
 				urlBase.append("ppr-");
 			}
 			String urlRec = urlBase.toString();
@@ -664,87 +611,77 @@ public class HighLevel
 			parseECRWeekly(url + "dst.php", holder, ecr, risk, adp, "D/ST");
 			parseECRWeekly(url + "k.php", holder, ecr, risk, adp, "K");
 		}
-		for(PlayerObject player : holder.players)
-		{
-			if(ecr.containsKey(player.info.name + player.info.position))
-			{
-				player.values.ecr = ecr.get(player.info.name + player.info.position);
+		for (PlayerObject player : holder.players) {
+			if (ecr.containsKey(player.info.name + player.info.position)) {
+				player.values.ecr = ecr.get(player.info.name
+						+ player.info.position);
 				player.risk = risk.get(player.info.name + player.info.position);
 			}
-			if(holder.isRegularSeason && player.values.points > 0)
-			{
-				if(adp.containsKey(player.info.team))
-				{
+			if (holder.isRegularSeason && player.values.points > 0) {
+				if (adp.containsKey(player.info.team)) {
 					player.info.adp = adp.get(player.info.team);
 				}
-			}
-			else if(holder.isRegularSeason && player.values.points == 0)
-			{
+			} else if (holder.isRegularSeason && player.values.points == 0) {
 				player.info.adp = "Bye Week";
 				player.values.ecr = -1.0;
-			}
-			else
-			{
-				if(adp.containsKey(player.info.name + player.info.position))
-				{
-					player.info.adp = (adp.get(player.info.name + player.info.position));
+			} else {
+				if (adp.containsKey(player.info.name + player.info.position)) {
+					player.info.adp = (adp.get(player.info.name
+							+ player.info.position));
 				}
 			}
 
-		} 
+		}
 	}
-	
-	
+
 	/**
-	 * Similar to the ecr parser, but handles the minor differences in the weekly set
-	 * @param pos 
+	 * Similar to the ecr parser, but handles the minor differences in the
+	 * weekly set
+	 * 
+	 * @param pos
 	 */
-	public static void parseECRWeekly(String url, Storage holder, HashMap<String, Double> ecr, 
-			HashMap<String, Double> risk, HashMap<String, String> adp, String pos) throws IOException
-	{
+	public static void parseECRWeekly(String url, Storage holder,
+			HashMap<String, Double> ecr, HashMap<String, Double> risk,
+			HashMap<String, String> adp, String pos) throws IOException {
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
-		for(int i = 0; i < td.size(); i++)
-		{ 
-			if(td.get(i+1).contains("(") && td.get(i+1).contains(")") && ManageInput.isInteger(td.get(i)))
-			{
+		for (int i = 0; i < td.size(); i++) {
+			if (td.get(i + 1).contains("(") && td.get(i + 1).contains(")")
+					&& ManageInput.isInteger(td.get(i))) {
 				min = i;
 				break;
 			}
 		}
-		for(int i = min; i < td.size(); i+=6)
-		{
-			//Odd case where 50 players in the size changes
-			if(ManageInput.isInteger(td.get(i+1))){
+		for (int i = min; i < td.size(); i += 6) {
+			// Odd case where 50 players in the size changes
+			if (ManageInput.isInteger(td.get(i + 1))) {
 				i++;
 			}
 			String name = "";
-			if(pos.equals("D/ST"))
-			{
-				name = (ParseRankings.fixDefenses(td.get(i+1).split(" \\(")[0].split(", ")[0]));
+			if (pos.equals("D/ST")) {
+				name = (ParseRankings
+						.fixDefenses(td.get(i + 1).split(" \\(")[0].split(", ")[0]));
+			} else {
+				name = ParseRankings.fixNames((td.get(i + 1).split(" \\(")[0]
+						.split(", ")[0]));
 			}
-			else
-			{
-				name = ParseRankings.fixNames((td.get(i+1).split(" \\(")[0].split(", ")[0]));
-			}
-			
 
 			double ecrVal = Double.parseDouble(td.get(i));
-			double riskVal = Double.parseDouble(td.get(i+5));
-			String team = ParseRankings.fixTeams(td.get(i+1).split(" \\(")[1].split("\\)")[0]);
-			if(!adp.containsKey(team) && !team.contains("FA") && !team.contains(" vs. ") && !team.contains(" at ") && !ManageInput.isInteger(team))
-			{
-				String wholeSet = td.get(i+1);
+			double riskVal = Double.parseDouble(td.get(i + 5));
+			String team = ParseRankings.fixTeams(td.get(i + 1).split(" \\(")[1]
+					.split("\\)")[0]);
+			if (!adp.containsKey(team) && !team.contains("FA")
+					&& !team.contains(" vs. ") && !team.contains(" at ")
+					&& !ManageInput.isInteger(team)) {
+				String wholeSet = td.get(i + 1);
 				String opp = "Bye Week";
-				if(wholeSet.contains("vs"))
-				{
-					opp = ParseRankings.fixTeams(wholeSet.split("vs. ")[1].split(" Start /")[0]);
-				}
-				else
-				{
-					if(wholeSet.contains("at "))
-					{
-						opp = ParseRankings.fixTeams(wholeSet.split("at ")[1].split(" Start /")[0]);
+				if (wholeSet.contains("vs")) {
+					opp = ParseRankings.fixTeams(wholeSet.split("vs. ")[1]
+							.split(" Start /")[0]);
+				} else {
+					if (wholeSet.contains("at ")) {
+						opp = ParseRankings.fixTeams(wholeSet.split("at ")[1]
+								.split(" Start /")[0]);
 					}
 				}
 				adp.put(team, opp);
@@ -753,164 +690,182 @@ public class HighLevel
 			risk.put(name + pos, riskVal);
 		}
 	}
-	
+
 	/**
 	 * Gets the ECR Data for players
 	 */
-	public static void parseECRWorker(String url, Storage holder, HashMap<String, Double> ecr, 
-			HashMap<String, Double> risk, HashMap<String, String> adp, int loopIter) throws IOException
-	{
+	public static void parseECRWorker(String url, Storage holder,
+			HashMap<String, Double> ecr, HashMap<String, Double> risk,
+			HashMap<String, String> adp, int loopIter) throws IOException {
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		String adpUrl = "http://www.fantasypros.com/nfl/adp/overall.php";
 		int loopIterAdp = 10;
-		if(url.contains("ppr")){
+		if (url.contains("ppr")) {
 			adpUrl = "http://www.fantasypros.com/nfl/adp/ppr-overall.php";
 			loopIterAdp = 8;
 		}
 		parseADPWorker(holder, adp, adpUrl, loopIterAdp);
-		for(int i = 0; i < td.size(); i++)
-		{ 
-			if(td.get(i+1).contains("QB") || td.get(i+1).contains("RB") || td.get(i+1).contains("WR") || td.get(i+1).contains("TE"))
-			{
+		for (int i = 0; i < td.size(); i++) {
+			if (td.get(i + 1).contains("QB") || td.get(i + 1).contains("RB")
+					|| td.get(i + 1).contains("WR")
+					|| td.get(i + 1).contains("TE")) {
 				min = i;
 				break;
 			}
 		}
-		for(int i = min; i < td.size(); i+=loopIter)
-		{
-			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td.get(i).split(" \\(")[0].split(", ")[0]));
-			double ecrVal = Double.parseDouble(td.get(i+4));
-			double riskVal = Double.parseDouble(td.get(i+5));
-			String posInd = td.get(i+1).replaceAll("(\\d+,\\d+)|\\d+", "").replaceAll("DST", "D/ST");
+		for (int i = min; i < td.size(); i += loopIter) {
+			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td
+					.get(i).split(" \\(")[0].split(", ")[0]));
+			double ecrVal = Double.parseDouble(td.get(i + 4));
+			double riskVal = Double.parseDouble(td.get(i + 5));
+			String posInd = td.get(i + 1).replaceAll("(\\d+,\\d+)|\\d+", "")
+					.replaceAll("DST", "D/ST");
 			ecr.put(name + posInd, ecrVal);
 			risk.put(name + posInd, riskVal);
 		}
 	}
-	
-	public static void parseADPWorker(Storage holder, HashMap<String, String> adp, String adpUrl, int loopIterAdp) throws IOException{
+
+	public static void parseADPWorker(Storage holder,
+			HashMap<String, String> adp, String adpUrl, int loopIterAdp)
+			throws IOException {
 		List<String> td = HandleBasicQueries.handleLists(adpUrl, "td");
 		int min = 0;
-		try{
-			for(int i = 0; i < td.size(); i++)
-			{ 
+		try {
+			for (int i = 0; i < td.size(); i++) {
 
-				if(td.get(i+1).contains("QB") || td.get(i+1).contains("RB") || td.get(i+1).contains("WR") || td.get(i+1).contains("TE"))
-				{
+				if (td.get(i + 1).contains("QB")
+						|| td.get(i + 1).contains("RB")
+						|| td.get(i + 1).contains("WR")
+						|| td.get(i + 1).contains("TE")) {
 					min = i;
 					break;
 				}
-			} 
-			for(int i = min; i < td.size(); i+= loopIterAdp){
-				String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td.get(i).split(" \\(")[0].split(", ")[0]));
-				if(i + 6 >= td.size()){
+			}
+			for (int i = min; i < td.size(); i += loopIterAdp) {
+				String name = ParseRankings
+						.fixNames(ParseRankings.fixDefenses(td.get(i).split(
+								" \\(")[0].split(", ")[0]));
+				if (i + 6 >= td.size()) {
 					break;
 				}
-				String adpStr = td.get(i+6);
-				String posInd = td.get(i+1).replaceAll("(\\d+,\\d+)|\\d+", "").replaceAll("DST", "D/ST");
- 				adp.put(name + posInd, adpStr);
+				String adpStr = td.get(i + 6);
+				String posInd = td.get(i + 1)
+						.replaceAll("(\\d+,\\d+)|\\d+", "")
+						.replaceAll("DST", "D/ST");
+				adp.put(name + posInd, adpStr);
 			}
-		}
-		catch(ArrayIndexOutOfBoundsException notUp){
+		} catch (ArrayIndexOutOfBoundsException notUp) {
 			return;
 		}
 	}
 
 	/**
-	 * Calls the worker thread with the appropriate URL then sets it to the players' storage
+	 * Calls the worker thread with the appropriate URL then sets it to the
+	 * players' storage
 	 */
-	public static void getROSRankingsWrapper(Storage holder, Context cont) throws IOException 
-	{
+	public static void getROSRankingsWrapper(Storage holder, Context cont)
+			throws IOException {
 		HashMap<String, Integer> rankings = new HashMap<String, Integer>();
-		parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-qb.php","QB", rankings);
+		parseROSRankingsWorker(
+				"http://www.fantasypros.com/nfl/rankings/ros-qb.php", "QB",
+				rankings);
 		Scoring s = ReadFromFile.readScoring(cont);
-		if(s.catches == 0)
-		{
-			parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-rb.php","RB", rankings);
-			parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-wr.php","WR", rankings);
-			parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-te.php","TE", rankings);
+		if (s.catches == 0) {
+			parseROSRankingsWorker(
+					"http://www.fantasypros.com/nfl/rankings/ros-rb.php", "RB",
+					rankings);
+			parseROSRankingsWorker(
+					"http://www.fantasypros.com/nfl/rankings/ros-wr.php", "WR",
+					rankings);
+			parseROSRankingsWorker(
+					"http://www.fantasypros.com/nfl/rankings/ros-te.php", "TE",
+					rankings);
+		} else {
+			parseROSRankingsWorker(
+					"http://www.fantasypros.com/nfl/rankings/ros-ppr-rb.php",
+					"RB", rankings);
+			parseROSRankingsWorker(
+					"http://www.fantasypros.com/nfl/rankings/ros-ppr-wr.php",
+					"WR", rankings);
+			parseROSRankingsWorker(
+					"http://www.fantasypros.com/nfl/rankings/ros-ppr-te.php",
+					"TE", rankings);
 		}
-		else
-		{
-			parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-ppr-rb.php","RB", rankings);
-			parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-ppr-wr.php","WR", rankings);
-			parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-ppr-te.php","TE", rankings);
-		}
-		parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-dst.php","D/ST", rankings);
-		parseROSRankingsWorker("http://www.fantasypros.com/nfl/rankings/ros-k.php","K", rankings);
-		for(PlayerObject player : holder.players)
-		{
-			if(rankings.containsKey(player.info.name + "," + player.info.position))
-			{
-				player.values.rosRank = rankings.get(player.info.name + "," + player.info.position);
+		parseROSRankingsWorker(
+				"http://www.fantasypros.com/nfl/rankings/ros-dst.php", "D/ST",
+				rankings);
+		parseROSRankingsWorker(
+				"http://www.fantasypros.com/nfl/rankings/ros-k.php", "K",
+				rankings);
+		for (PlayerObject player : holder.players) {
+			if (rankings.containsKey(player.info.name + ","
+					+ player.info.position)) {
+				player.values.rosRank = rankings.get(player.info.name + ","
+						+ player.info.position);
 			}
 		}
 	}
-	
+
 	/**
-	 * Does the per page parsing, getting the ranking and the name and putting them in the hash
+	 * Does the per page parsing, getting the ranking and the name and putting
+	 * them in the hash
 	 */
-	public static void parseROSRankingsWorker(String url, String pos, HashMap<String, Integer> rankings) throws IOException
-	{
+	public static void parseROSRankingsWorker(String url, String pos,
+			HashMap<String, Integer> rankings) throws IOException {
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
-		for(int i = 0; i < td.size(); i++)
-		{
-			if(ManageInput.isInteger(td.get(i)) && td.get(i+1).contains("("))
-			{
+		for (int i = 0; i < td.size(); i++) {
+			if (ManageInput.isInteger(td.get(i)) && td.get(i + 1).contains("(")) {
 				min = i;
 				break;
 			}
 		}
-		for(int i = min; i < td.size(); i+=6)
-		{
-			//Fix the odd case where the row size changes
-			if(ManageInput.isInteger(td.get(i+1))){
+		for (int i = min; i < td.size(); i += 6) {
+			// Fix the odd case where the row size changes
+			if (ManageInput.isInteger(td.get(i + 1))) {
 				i++;
 			}
 			int ranking = Integer.parseInt(td.get(i));
 			String name = "";
-			name = ParseRankings.fixNames(td.get(i+1).split(" \\(")[0]);
-			if(pos.equals("D/ST"))
-			{
+			name = ParseRankings.fixNames(td.get(i + 1).split(" \\(")[0]);
+			if (pos.equals("D/ST")) {
 				name = ParseRankings.fixDefenses(ParseRankings.fixTeams(name));
 			}
-			rankings.put(name+","+pos, ranking);
+			rankings.put(name + "," + pos, ranking);
 		}
 	}
-	
-	public static void parseQualityDists(Storage holder) throws IOException
-	{
+
+	public static void parseQualityDists(Storage holder) throws IOException {
 		HashMap<String, HashMap<String, Integer>> retMap = new HashMap<String, HashMap<String, Integer>>();
-		List<String> td = HandleBasicQueries.handleLists("http://www.fantasypros.com/nfl/players/quality-starts.php", "td");
+		List<String> td = HandleBasicQueries.handleLists(
+				"http://www.fantasypros.com/nfl/players/quality-starts.php",
+				"td");
 		int min = 0;
-		for(int i = 0; i < td.size(); i++)
-		{
-			if(ManageInput.isInteger(td.get(i)))
-			{
+		for (int i = 0; i < td.size(); i++) {
+			if (ManageInput.isInteger(td.get(i))) {
 				min = i;
 				break;
 			}
 		}
-		for(int i = min; i < td.size(); i += 10)
-		{
-			String nameSet = td.get(i+1);
+		for (int i = min; i < td.size(); i += 10) {
+			String nameSet = td.get(i + 1);
 			String name = ParseRankings.fixNames(nameSet.split(" \\(")[0]);
 			String pos = nameSet.split(" \\(")[1].split(",")[0];
-			Integer bad = Integer.parseInt(td.get(i+3).replace("%", ""));
-			Integer good = Integer.parseInt(td.get(i+5).replace("%", ""));
-			Integer great = Integer.parseInt(td.get(i+7).replace("%", ""));
+			Integer bad = Integer.parseInt(td.get(i + 3).replace("%", ""));
+			Integer good = Integer.parseInt(td.get(i + 5).replace("%", ""));
+			Integer great = Integer.parseInt(td.get(i + 7).replace("%", ""));
 			HashMap<String, Integer> playerMap = new HashMap<String, Integer>();
 			playerMap.put("Bad", bad);
 			playerMap.put("Good", good);
 			playerMap.put("Great", great);
 			retMap.put(name + "," + pos, playerMap);
 		}
-		for(PlayerObject player : holder.players)
-		{
-			if(retMap.containsKey(player.info.name + "," + player.info.position))
-			{
-				player.values.startDists = retMap.get(player.info.name + "," + player.info.position);
+		for (PlayerObject player : holder.players) {
+			if (retMap.containsKey(player.info.name + ","
+					+ player.info.position)) {
+				player.values.startDists = retMap.get(player.info.name + ","
+						+ player.info.position);
 			}
 		}
 	}

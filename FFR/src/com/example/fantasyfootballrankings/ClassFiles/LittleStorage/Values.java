@@ -3,13 +3,13 @@ package com.example.fantasyfootballrankings.ClassFiles.LittleStorage;
 import java.util.HashMap;
 
 /**
- * Just stores some basic information on the values of a player
- * and a mini library that handles basic operations on the values
+ * Just stores some basic information on the values of a player and a mini
+ * library that handles basic operations on the values
+ * 
  * @author Jeff
- *
+ * 
  */
-public class Values 
-{
+public class Values {
 	public double count;
 	public double worth;
 	public Double ecr;
@@ -18,13 +18,15 @@ public class Values
 	public double secWorth;
 	public int rosRank;
 	public HashMap<String, Integer> startDists;
+
 	/**
-	 * Just initializes the values stored in the object,
-	 * count to one (obviously)
-	 * @param firstWorth the first value set to the player
+	 * Just initializes the values stored in the object, count to one
+	 * (obviously)
+	 * 
+	 * @param firstWorth
+	 *            the first value set to the player
 	 */
-	public Values(int firstWorth)
-	{
+	public Values(int firstWorth) {
 		worth = firstWorth * 1.0;
 		count = 1.0;
 		ecr = -1.0;
@@ -43,17 +45,19 @@ public class Values
 
 	/**
 	 * Takes in a new value and re-calculates the worth based on it
-	 * @param player the Values object being worked with
-	 * @param newValue the new value to work into the above parameter
-	 * return is void as it just adjusts the value passed in
+	 * 
+	 * @param player
+	 *            the Values object being worked with
+	 * @param newValue
+	 *            the new value to work into the above parameter return is void
+	 *            as it just adjusts the value passed in
 	 */
-	public static void handleNewValue(Values player, double newValue)
-	{
+	public static void handleNewValue(Values player, double newValue) {
 		player.worth += newValue;
 		player.count++;
 	}
-	
-	public static void normVals(Values player){
+
+	public static void normVals(Values player) {
 		player.worth = player.worth / player.count;
 	}
 

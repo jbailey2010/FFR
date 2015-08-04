@@ -18,55 +18,57 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 public class PlayerNewsActivity {
-	
-	public void startNews(String playerName, String playerTeam, Context cont){
+
+	public void startNews(String playerName, String playerTeam, Context cont) {
 		FantasyProsUtils obj = new FantasyProsUtils();
-		String baseUrl = "http://www.fantasypros.com/nfl/news/" + obj.playerNameUrl(playerName, playerTeam) + ".php";
+		String baseUrl = "http://www.fantasypros.com/nfl/news/"
+				+ obj.playerNameUrl(playerName, playerTeam) + ".php";
 		ParsePlayerNews objParse = new ParsePlayerNews((Activity) cont, baseUrl);
 		objParse.execute();
 	}
-	
-	
-	public class ParsePlayerNews extends AsyncTask<Object, String, List<NewsObjects>> 
-	{
+
+	public class ParsePlayerNews extends
+			AsyncTask<Object, String, List<NewsObjects>> {
 		Activity act;
 		String urlNews;
-	    public ParsePlayerNews(Activity activity, String url) 
-	    {
-	        act = activity;
-	        urlNews = url;
-	    }
 
-		@Override
-		protected void onPreExecute(){ 
-		   super.onPreExecute();   
+		public ParsePlayerNews(Activity activity, String url) {
+			act = activity;
+			urlNews = url;
 		}
 
 		@Override
-		protected void onPostExecute(List<NewsObjects> result){
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		@Override
+		protected void onPostExecute(List<NewsObjects> result) {
 			super.onPostExecute(result);
-			if(result.size() > 0){
+			if (result.size() > 0) {
 				PlayerInfo.populateNews(result);
 			}
 		}
 
-	    @Override
-	    protected List<NewsObjects> doInBackground(Object... data) 
-	    {
-	    	List<NewsObjects> newsList = new ArrayList<NewsObjects>();
-	    	try { 
-	    		urlNews = urlNews.toLowerCase();
-				Document doc = Jsoup.connect(urlNews).userAgent(HandleBasicQueries.ua).get();
-				List<String> indivTweets = HandleBasicQueries.handleListsMulti(doc, urlNews, "div.tweets");
-				List<String> indivNews = HandleBasicQueries.handleListsMulti(doc, urlNews, "div.notes div.news-title");
+		@Override
+		protected List<NewsObjects> doInBackground(Object... data) {
+			List<NewsObjects> newsList = new ArrayList<NewsObjects>();
+			try {
+				urlNews = urlNews.toLowerCase();
+				Document doc = Jsoup.connect(urlNews)
+						.userAgent(HandleBasicQueries.ua).get();
+				List<String> indivTweets = HandleBasicQueries.handleListsMulti(
+						doc, urlNews, "div.tweets");
+				List<String> indivNews = HandleBasicQueries.handleListsMulti(
+						doc, urlNews, "div.notes div.news-title");
 				List<String> indivNewsElems = new ArrayList<String>();
 				Elements elems = doc.select("div.notes");
-				for(Element el : elems){
+				for (Element el : elems) {
 					Element nonTitle = el.child(2);
 					indivNewsElems.add(nonTitle.child(2).text());
 				}
-				if(indivNews.size() > 0){
-					for(int i = 0; i < indivNews.size(); i++){
+				if (indivNews.size() > 0) {
+					for (int i = 0; i < indivNews.size(); i++) {
 						String title = indivNews.get(i);
 						String newsElem = indivNewsElems.get(i);
 						NewsObjects obj = new NewsObjects(newsElem, title, "");
@@ -74,9 +76,9 @@ public class PlayerNewsActivity {
 					}
 				}
 				int counter = 0;
-				if(indivTweets.size() > 0){
-					for(String tweet : indivTweets){
-						if(counter > 20){
+				if (indivTweets.size() > 0) {
+					for (String tweet : indivTweets) {
+						if (counter > 20) {
 							break;
 						}
 						int lastInd = tweet.lastIndexOf('@');
@@ -89,12 +91,12 @@ public class PlayerNewsActivity {
 				}
 			} catch (IOException e) {
 				return newsList;
-			} catch(ArrayIndexOutOfBoundsException e){
+			} catch (ArrayIndexOutOfBoundsException e) {
 				return newsList;
 			}
-	    	return newsList;
-	    }
+			return newsList;
+		}
 
-	  }
+	}
 
 }

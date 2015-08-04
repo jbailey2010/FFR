@@ -2,41 +2,40 @@ package com.example.fantasyfootballrankings.ClassFiles.Utils;
 
 import java.util.HashMap;
 
-
 public class FantasyProsUtils {
-	
+
 	public HashMap<String, String> teamMap = new HashMap<String, String>();
-	
-	public FantasyProsUtils(){
+
+	public FantasyProsUtils() {
 		initMap();
 	}
-	
-	public String playerNameUrl(String playerName, String teamName){
-		if(!playerName.contains("D/ST")){
-			String[] nameSet = playerName.toLowerCase().replaceAll("\\.", "").replaceAll("\\'", "").split(" ");
+
+	public String playerNameUrl(String playerName, String teamName) {
+		if (!playerName.contains("D/ST")) {
+			String[] nameSet = playerName.toLowerCase().replaceAll("\\.", "")
+					.replaceAll("\\'", "").split(" ");
 			StringBuilder nameBuilder = new StringBuilder(100);
-			for(String name : nameSet){
+			for (String name : nameSet) {
 				nameBuilder.append(name + "-");
 			}
 			String base = nameBuilder.toString();
 			base = base.substring(0, base.length() - 1);
 			return base;
-		}
-		else{
+		} else {
 			String teamMascot = playerName.split(" D/ST")[0];
 			String teamCity = teamName.split(teamMascot)[0];
-			String[] nameSet = teamCity.toLowerCase().replaceAll("\\.", "").split(" ");
+			String[] nameSet = teamCity.toLowerCase().replaceAll("\\.", "")
+					.split(" ");
 			StringBuilder nameBuilder = new StringBuilder(100);
-			for(String name : nameSet){
+			for (String name : nameSet) {
 				nameBuilder.append(name + "-");
 			}
 			nameBuilder.append("defense");
 			return nameBuilder.toString();
 		}
 	}
-	
-	
-	public void initMap(){
+
+	public void initMap() {
 		teamMap.put("Denver Broncos", "den");
 		teamMap.put("Green Bay Packers", "gb");
 		teamMap.put("New Orleans Saints", "no");

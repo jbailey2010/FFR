@@ -1,11 +1,8 @@
 package com.example.fantasyfootballrankings.Pages;
 
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-
 
 import java.util.Set;
 
@@ -51,103 +48,101 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
- 
+
 /**
- * The home class, sets up the three main buttons to go to 
- * trending players, team view, and/or rankings themselves
+ * The home class, sets up the three main buttons to go to trending players,
+ * team view, and/or rankings themselves
+ * 
  * @author Jeff
- *
- */ 
-public class Home extends Activity{
-	//Some global variables, context and a few buttons
+ * 
+ */
+public class Home extends Activity {
+	// Some global variables, context and a few buttons
 	public static Storage holder = new Storage(null);
 	Context cont = this;
 	Dialog dialog;
-	Button rankings; 
+	Button rankings;
 	Button importLeague;
-	long start; 
+	long start;
 	Menu m;
 	public static SideNavigationView sideNavigationView;
-	//UPDATE THIS FOR YEAR CHANGES
+	// UPDATE THIS FOR YEAR CHANGES
 	public static String yearKey = "2015";
-	//Uniquely identifies player elems
-	  
-	/**  
+
+	// Uniquely identifies player elems
+
+	/**
 	 * Makes the buttons and sets the listeners for them
-	 */   
-	@Override  
+	 */
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		cont = this;
 		ISideNavigationCallback sideNavigationCallback = new ISideNavigationCallback() {
-		    @Override
-		    public void onSideNavigationItemClick(int itemId) {
-		    	switch (itemId) {
-	            case R.id.side_navigation_menu_item1:
-	            	Intent intent = new Intent(cont, Home.class);
-	    	        cont.startActivity(intent);	
-	                break;
-	            case R.id.side_navigation_menu_item2:
-	            	Intent intent2 = new Intent(cont, Rankings.class);
-	    	        cont.startActivity(intent2);	
-	                break;
-	            case R.id.side_navigation_menu_item3:
-	            	Intent intent5 = new Intent(cont, ImportLeague.class);
-	    	        cont.startActivity(intent5);
-	                break;
-	            case R.id.side_navigation_menu_item7:
-	            	PlayerInfoActivity.displayStats(cont);
-	            	break;
-	            case R.id.help:
-	            	ManageInput.generalHelp(cont);
-	            	break;
-	            default:
-	                return;
-		    	}
-		    }
+			@Override
+			public void onSideNavigationItemClick(int itemId) {
+				switch (itemId) {
+				case R.id.side_navigation_menu_item1:
+					Intent intent = new Intent(cont, Home.class);
+					cont.startActivity(intent);
+					break;
+				case R.id.side_navigation_menu_item2:
+					Intent intent2 = new Intent(cont, Rankings.class);
+					cont.startActivity(intent2);
+					break;
+				case R.id.side_navigation_menu_item3:
+					Intent intent5 = new Intent(cont, ImportLeague.class);
+					cont.startActivity(intent5);
+					break;
+				case R.id.side_navigation_menu_item7:
+					PlayerInfoActivity.displayStats(cont);
+					break;
+				case R.id.help:
+					ManageInput.generalHelp(cont);
+					break;
+				default:
+					return;
+				}
+			}
 		};
 		sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view);
-	    sideNavigationView.setMenuItems(R.menu.side_navigation_menu);
-	    sideNavigationView.setMenuClickCallback(sideNavigationCallback);
-	   // sideNavigationView.setMode(/*SideNavigationView.Mode*/);
-	    getActionBar().setDisplayHomeAsUpEnabled(true);
-        rankings = (Button)findViewById(R.id.rankings);
-        rankings.setOnClickListener(rankHandler);
-        importLeague = (Button)findViewById(R.id.import_league_btn); 
-        importLeague.setOnClickListener(importHandler);
-        start = System.nanoTime();
-        handleInitialRefresh();
-        if(ReadFromFile.readFirstOpen(cont))
-        {
-        	WriteToFile.writeFirstIsRegularSeason(cont);
-        	//ManageInput.generalHelp(cont);
-        	helpPopUp(true);
-			
-        }
-        //Refresh the data on a new isregular season for the year so it doesn't crash on load
-        else if(ReadFromFile.firstIsRegularSeason(cont)){
-        	holder.players = new ArrayList<PlayerObject>();
-        	SharedPreferences prefs = getSharedPreferences("FFR", 0);
-        	prefs.edit().remove("Player Values").apply();
-        	Intent intent = new Intent(this, Rankings.class);
-		    startActivity(intent);	
-        }
-        
-        /*
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		sideNavigationView.setMenuItems(R.menu.side_navigation_menu);
+		sideNavigationView.setMenuClickCallback(sideNavigationCallback);
+		// sideNavigationView.setMode(/*SideNavigationView.Mode*/);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		rankings = (Button) findViewById(R.id.rankings);
+		rankings.setOnClickListener(rankHandler);
+		importLeague = (Button) findViewById(R.id.import_league_btn);
+		importLeague.setOnClickListener(importHandler);
+		start = System.nanoTime();
+		handleInitialRefresh();
+		if (ReadFromFile.readFirstOpen(cont)) {
+			WriteToFile.writeFirstIsRegularSeason(cont);
+			// ManageInput.generalHelp(cont);
+			helpPopUp(true);
 
-        StrictMode.setThreadPolicy(policy); 
-        try {
-			HighLevel.projPointsWrapper(holder, cont);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		*/
-	}  
-	
-	 
+		// Refresh the data on a new isregular season for the year so it doesn't
+		// crash on load
+		else if (ReadFromFile.firstIsRegularSeason(cont)) {
+			holder.players = new ArrayList<PlayerObject>();
+			SharedPreferences prefs = getSharedPreferences("FFR", 0);
+			prefs.edit().remove("Player Values").apply();
+			Intent intent = new Intent(this, Rankings.class);
+			startActivity(intent);
+		}
+
+		/*
+		 * StrictMode.ThreadPolicy policy = new
+		 * StrictMode.ThreadPolicy.Builder().permitAll().build();
+		 * 
+		 * StrictMode.setThreadPolicy(policy); try {
+		 * HighLevel.projPointsWrapper(holder, cont); } catch (IOException e) {
+		 * // TODO Auto-generated catch block e.printStackTrace(); }
+		 */
+	}
+
 	/**
 	 * Sets up the menu
 	 */
@@ -157,197 +152,182 @@ public class Home extends Activity{
 		m = menu;
 		return true;
 	}
-	
+
 	/**
 	 * Runs the on selection part of the menu
 	 */
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{  
+	public boolean onOptionsItemSelected(MenuItem item) {
 		dialog = new Dialog(cont, R.style.RoundCornersFull);
 		boolean isStored = false;
-		if(holder.players.size() > 0)
-		{
+		if (holder.players.size() > 0) {
 			isStored = true;
 		}
-		switch (item.getItemId()) 
-		{
-			case R.id.export_names:
-				if(isStored)
-				{ 
-					if(!holder.isRegularSeason)
-					{
-						callExport();
-					}
-					else
-					{
-						Toast.makeText(cont, "This is a preseason only feature", Toast.LENGTH_SHORT).show();
-					}
+		switch (item.getItemId()) {
+		case R.id.export_names:
+			if (isStored) {
+				if (!holder.isRegularSeason) {
+					callExport();
+				} else {
+					Toast.makeText(cont, "This is a preseason only feature",
+							Toast.LENGTH_SHORT).show();
 				}
-				else
-				{
-					Toast.makeText(cont, "Can't export rankings until they are fetched", Toast.LENGTH_SHORT).show(); 
-				}
-				return true;
-			case R.id.refresh_names:
-				nameRefresh(dialog);
-		    	return true;	
-			case android.R.id.home:
-		        sideNavigationView.toggleMenu();
-		        return true;
-			case R.id.start_scoring:
-				ManageInput.passSettings(cont, new Scoring(), isStored, holder);
-		    	return true;	
-			case R.id.start_roster:
-				ManageInput.getRoster(cont, isStored, holder);
-				return true;
-			case R.id.auction_or_snake:
-				ManageInput.isAuctionOrSnake(cont, holder);
-				return true;
-			case R.id.help_home:
-				helpPopUp(false);
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
+			} else {
+				Toast.makeText(cont,
+						"Can't export rankings until they are fetched",
+						Toast.LENGTH_SHORT).show();
+			}
+			return true;
+		case R.id.refresh_names:
+			nameRefresh(dialog);
+			return true;
+		case android.R.id.home:
+			sideNavigationView.toggleMenu();
+			return true;
+		case R.id.start_scoring:
+			ManageInput.passSettings(cont, new Scoring(), isStored, holder);
+			return true;
+		case R.id.start_roster:
+			ManageInput.getRoster(cont, isStored, holder);
+			return true;
+		case R.id.auction_or_snake:
+			ManageInput.isAuctionOrSnake(cont, holder);
+			return true;
+		case R.id.help_home:
+			helpPopUp(false);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 
-
 	/**
 	 * Handles the help dialog popup
-	 * @param b 
+	 * 
+	 * @param b
 	 */
-	public void helpPopUp(final boolean b)
-	{
+	public void helpPopUp(final boolean b) {
 		final Dialog dialog = new Dialog(cont, R.style.RoundCornersFull);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.help_home);
 		dialog.show();
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-	    dialog.getWindow().setAttributes(lp);
-		Button close = (Button)dialog.findViewById(R.id.help_home_close);
-		close.setOnClickListener(new OnClickListener(){
+		lp.copyFrom(dialog.getWindow().getAttributes());
+		lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+		dialog.getWindow().setAttributes(lp);
+		Button close = (Button) dialog.findViewById(R.id.help_home_close);
+		close.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				if(b){
-					if(ManageInput.confirmInternet(cont))
-					{
-			        	WriteToFile.writeFirstOpen(cont);
+				if (b) {
+					if (ManageInput.confirmInternet(cont)) {
+						WriteToFile.writeFirstOpen(cont);
 						final ParsingAsyncTask stupid = new ParsingAsyncTask();
-						ParseNames task = stupid.new ParseNames((Activity)cont, true);
-					    task.execute(cont);
-					}
-					else
-					{
-						Toast.makeText(cont, "No Internet Connection Available. The Names List Must Be Fetched, So Please Connect and Refresh it Manually to Avoid Problems With The Rankings", Toast.LENGTH_LONG).show();
+						ParseNames task = stupid.new ParseNames(
+								(Activity) cont, true);
+						task.execute(cont);
+					} else {
+						Toast.makeText(
+								cont,
+								"No Internet Connection Available. The Names List Must Be Fetched, So Please Connect and Refresh it Manually to Avoid Problems With The Rankings",
+								Toast.LENGTH_LONG).show();
 					}
 				}
 			}
 		});
 	}
-	
+
 	/**
 	 * Calls the handle export fn
 	 */
-	public void callExport()
-	{
-		HandleExport.driveInit(HandleExport.orderPlayers(holder, cont), dialog, cont, holder);
-	} 
-	
+	public void callExport() {
+		HandleExport.driveInit(HandleExport.orderPlayers(holder, cont), dialog,
+				cont, holder);
+	}
+
 	/**
-	 * Handles the initial fetching of player names
-	 * and permanent data if they haven't been
-	 * fetched (initial opening of the app)
+	 * Handles the initial fetching of player names and permanent data if they
+	 * haven't been fetched (initial opening of the app)
 	 */
-	public void handleInitialRefresh()
-	{
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0); 
+	public void handleInitialRefresh() {
+		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
 		Set<String> checkExists = prefs.getStringSet("Player Values", null);
-		if(checkExists != null &&( prefs.getBoolean("Rankings Update Home", false) || holder.players.size() < 5))
-		{
-			ReadFromFile.fetchPlayers(checkExists, holder,cont, 1);
-			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0).edit();
+		if (checkExists != null
+				&& (prefs.getBoolean("Rankings Update Home", false) || holder.players
+						.size() < 5)) {
+			ReadFromFile.fetchPlayers(checkExists, holder, cont, 1);
+			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR",
+					0).edit();
 			editor.putBoolean("Rankings Update Home", false).apply();
 		}
 	}
-	
+
 	/**
-	 * Comes back here after re-loading the data to see if the menu needs altering
+	 * Comes back here after re-loading the data to see if the menu needs
+	 * altering
 	 */
-	public void seeIfInvalid()
-	{
-		if(m != null && holder.isRegularSeason)
-		{
-			MenuItem a = (MenuItem)m.findItem(R.id.auction_or_snake);
+	public void seeIfInvalid() {
+		if (m != null && holder.isRegularSeason) {
+			MenuItem a = (MenuItem) m.findItem(R.id.auction_or_snake);
 			a.setVisible(false);
 			a.setEnabled(false);
 		}
 	}
-	
+
 	/**
 	 * Handles the name refreshing given the prompt
+	 * 
 	 * @param dialog
 	 */
-	public void nameRefresh(final Dialog dialog)
-	{
+	public void nameRefresh(final Dialog dialog) {
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.refresh_list);
 		dialog.show();
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-	    lp.copyFrom(dialog.getWindow().getAttributes());
-	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-	    dialog.getWindow().setAttributes(lp);
-		Button cancel = (Button)dialog.findViewById(R.id.cancel_list_refresh);
-		Button submit = (Button)dialog.findViewById(R.id.confirm_list_refresh);
+		lp.copyFrom(dialog.getWindow().getAttributes());
+		lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+		dialog.getWindow().setAttributes(lp);
+		Button cancel = (Button) dialog.findViewById(R.id.cancel_list_refresh);
+		Button submit = (Button) dialog.findViewById(R.id.confirm_list_refresh);
 		final ParsingAsyncTask stupid = new ParsingAsyncTask();
-		cancel.setOnClickListener(new OnClickListener() 
-		{
+		cancel.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				dialog.dismiss();
-	    	}	
+			}
 		});
-		submit.setOnClickListener(new OnClickListener() 
-		{
+		submit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				if(ManageInput.confirmInternet(cont))
-				{
+				if (ManageInput.confirmInternet(cont)) {
 					dialog.dismiss();
-					ParseNames task = stupid.new ParseNames((Activity)cont, false);
-				    task.execute(cont);	
+					ParseNames task = stupid.new ParseNames((Activity) cont,
+							false);
+					task.execute(cont);
+				} else {
+					Toast.makeText(cont, "No Internet Connection",
+							Toast.LENGTH_SHORT).show();
 				}
-				else
-				{
-					Toast.makeText(cont, "No Internet Connection", Toast.LENGTH_SHORT).show();
-				}
-	    	}	
-		});	
+			}
+		});
 	}
-	
 
 	/**
 	 * Sends the rank button to the ranking page
 	 */
-	View.OnClickListener rankHandler = new View.OnClickListener() 
-	{
-		public void onClick(View v) 
-		{
-	        Intent intent = new Intent(cont, Rankings.class);
-	        cont.startActivity(intent);		
+	View.OnClickListener rankHandler = new View.OnClickListener() {
+		public void onClick(View v) {
+			Intent intent = new Intent(cont, Rankings.class);
+			cont.startActivity(intent);
 		}
 	};
-	
+
 	/**
 	 * Sends the user to the import league page
 	 */
-	View.OnClickListener importHandler = new View.OnClickListener()
-	{
-		public void onClick(View v)
-		{
-        	Intent intent5 = new Intent(cont, ImportLeague.class);
-	        cont.startActivity(intent5);
+	View.OnClickListener importHandler = new View.OnClickListener() {
+		public void onClick(View v) {
+			Intent intent5 = new Intent(cont, ImportLeague.class);
+			cont.startActivity(intent5);
 		}
 	};
 }

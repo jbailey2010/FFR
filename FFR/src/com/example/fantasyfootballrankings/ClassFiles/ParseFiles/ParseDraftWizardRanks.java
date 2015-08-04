@@ -11,13 +11,15 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 public class ParseDraftWizardRanks {
-	public static void parseRanksWrapper(Storage holder, Scoring s, Roster r) throws IOException{
+	public static void parseRanksWrapper(Storage holder, Scoring s, Roster r)
+			throws IOException {
 		String type = "STD";
-		if(s.catches > 0){
+		if (s.catches > 0) {
 			type = "PPR";
 		}
 		int quantity = 4;
-		String url = "http://draftwizard.fantasypros.com/editor/createFromProjections.jsp?sport=nfl&scoringSystem=" + type + "&showAuction=Y";
+		String url = "http://draftwizard.fantasypros.com/editor/createFromProjections.jsp?sport=nfl&scoringSystem="
+				+ type + "&showAuction=Y";
 		url += "&teams=" + r.teams;
 		url += "&QB=" + r.qbs;
 		url += "&WR=" + r.wrs;
@@ -25,35 +27,40 @@ public class ParseDraftWizardRanks {
 		url += "&TE=" + r.tes;
 		url += "&DST=" + r.def;
 		url += "&K=" + r.k;
-		if(r.flex != null){
+		if (r.flex != null) {
 			url += "&WR/RB=" + r.flex.rbwr;
 			url += "&WR/RB/TE=" + r.flex.rbwrte;
 			url += "&QB/WR/RB/TE=" + r.flex.op;
 		}
 		parseRanksWorker(holder, url, quantity);
 	}
-	
-	public static void parseRanksWorker(Storage holder, String url, int quantity) throws IOException{
-		List<String> td = HandleBasicQueries.handleLists(url, "table#OverallTable td");
+
+	public static void parseRanksWorker(Storage holder, String url, int quantity)
+			throws IOException {
+		List<String> td = HandleBasicQueries.handleLists(url,
+				"table#OverallTable td");
 		int startingIndex = 0;
-		for(int i = 0; i < td.size(); i++) {
-			if(td.get(i).contains(" - ") && td.get(i).split(" ").length > 3) {
+		for (int i = 0; i < td.size(); i++) {
+			if (td.get(i).contains(" - ") && td.get(i).split(" ").length > 3) {
 				startingIndex = i;
 				break;
 			}
 		}
-		for(int i = startingIndex; i < td.size(); i+=4){
-			int aucVal = Integer.parseInt(td.get(i+2).substring(1, td.get(i+2).length()));
-			String playerName = ParseRankings.fixNames(ParseRankings.fixDefenses(td.get(i).split(" \\(")[0]));
+		for (int i = startingIndex; i < td.size(); i += 4) {
+			int aucVal = Integer.parseInt(td.get(i + 2).substring(1,
+					td.get(i + 2).length()));
+			String playerName = ParseRankings.fixNames(ParseRankings
+					.fixDefenses(td.get(i).split(" \\(")[0]));
 			String teamPos = td.get(i).split(" \\(")[1];
 			String team = ParseRankings.fixTeams(teamPos.split(" - ")[0]);
 			String pos = teamPos.split(" - ")[1];
 			pos = pos.substring(0, pos.length() - 1);
-			if(pos.equals("DST")){
+			if (pos.equals("DST")) {
 				pos = "D/ST";
 			}
-			for(int j = 0; j < quantity; j++){
-				ParseRankings.finalStretch(holder, playerName, aucVal, team, pos);
+			for (int j = 0; j < quantity; j++) {
+				ParseRankings.finalStretch(holder, playerName, aucVal, team,
+						pos);
 			}
 		}
 	}
