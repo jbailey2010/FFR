@@ -724,19 +724,15 @@ public class ManageInput
 		StringBuilder helpStr = new StringBuilder(1000);
 		helpStr.append("There are two aspects to this app - the preseason mode and the regular season mode. The regular season mode automatically kicks in as week 1 approaches, and is persistent through the year.\n\n");
 		helpStr.append("In the preseason mode, you can draft players (through Rankings you swipe players to the side or through the player info pop up)"
-				+ ", and once you're done you can save that draft for future viewing, at which point the rankings reset. To ideally do this, you should"  
-				+ " set your scoring settings and roster settings through the home screen, as these are used in calculations.\n" 
+				+ ", and once you're done the rankings reset. To ideally do this, you should set your scoring settings and roster settings through the home screen, "
+				+ "as these are used in calculations.\n" 
 				+ "There are many features in Rankings to help you with this, such as a Who should I draft?, advanced sorting, draft info to help you keep up, " 
 				+ "a widget to do the same, a search (with the same output as clicking on a player), and a dynamic watch list.\n\n"  
 				+ "Now, in regular season mode, you can no longer draft players. In addition to that, the player information listed differs - it shifts from projections...etc. to aggregate stats that "
 				+ "automatically update with every sync you make through the season and weekly projections/rankings.\n\n"
-				+ "Previous drafts is where you can see the various drafts you've saved, as well as some information about each. This has no difference between regular season and preseason mode.\n\n"
 				+ "My Leagues lets you import leagues you have from ESPN or public Yahoo leagues and do some advanced analysis on those leagues. Each league gets mapped to whatever roster and scoring settings are input at import, but these can be changed.\n"
 				+ "Other than that, it's your handy tool to everything you need to manage your team optimally.\nThe only differences between preseason and regular season mode " 
-				+ "is in the list of players, and that's similar to Rankings -- small differences in what output there is in terms of stats\n\n" 
-				+ "Lastly there's trending players. This scrapes forums based on your selected contexts to see which player is mentioned the most over what timeframe."
-				+ " This differs between regular season and preseason mode in what contexts are available. In the preseason, it's player rankings, sleepers...etc., but "
-				+ "in the regular season it's trade targets, keeper/dynasty guys, and impending free agents.");
+				+ "is in the list of players, and that's similar to Rankings -- small differences in what output there is in terms of stats");
 		help.setText(helpStr.toString());
 				
 	}
