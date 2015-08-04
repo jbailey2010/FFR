@@ -11,8 +11,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:background="#999999"
-        android:divider="#AAAAAA"
+        android:background="#ffffff"
+        android:clickable="true"
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1dp"
         android:listSelector="@android:color/transparent" >
 
     </ListView>

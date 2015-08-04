@@ -96,8 +96,10 @@
                 android:layout_centerHorizontal="true"
                 android:listSelector="@android:color/transparent"
                 android:focusable="false"
-                android:background="#999999"
-                android:divider="#999999" >
+                android:background="#ffffff"
+        android:clickable="true"
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1dp">
             </ListView>
            
            </RelativeLayout>
@@ -116,8 +118,10 @@
              android:layout_alignParentLeft="true"
              android:listSelector="@android:color/transparent"
              android:focusable="false"
-             android:background="#999999"
-             android:divider="#999999" >
+             android:background="#ffffff"
+        android:clickable="true"
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1dp" >
          </ListView>
            </RelativeLayout>
            
@@ -157,8 +161,10 @@
                android:layout_height="match_parent"
                android:layout_alignParentLeft="true"
                android:layout_below="@+id/player_list_search"
-               android:background="#999999"
-               android:divider="#999999"
+               android:background="#ffffff"
+        android:clickable="true"
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1dp"
                android:focusable="false"
                android:layout_marginTop="6dp"
                android:listSelector="@android:color/transparent" >

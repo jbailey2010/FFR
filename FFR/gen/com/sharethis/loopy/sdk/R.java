@@ -16,8 +16,8 @@ public final class R {
 		public static final int right_item_text = 0x7f060112;
 	}
 	public static final class layout {
-		public static final int st_share_dialog_list = 0x7f03003b;
-		public static final int st_share_dialog_row = 0x7f03003c;
+		public static final int st_share_dialog_list = 0x7f03003a;
+		public static final int st_share_dialog_row = 0x7f03003b;
 	}
 	public static final class style {
 		public static final int STAppLabelTheme = 0x7f050001;

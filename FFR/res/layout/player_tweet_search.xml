@@ -39,9 +39,10 @@
     <ListView
         android:id="@+id/listview_search"
         android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:clickable="true"
-        android:divider="#999999"
-        android:background="#999999"
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1dp"
         android:layout_width="fill_parent" >
     </ListView>
 

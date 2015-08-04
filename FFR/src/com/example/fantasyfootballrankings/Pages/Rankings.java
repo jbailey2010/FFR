@@ -92,7 +92,7 @@ public class Rankings extends Activity {
 	static Button info;
 	static Button compare;
 	static Button sort;
-	public static OutBounceListView listview;
+	public static ListView listview;
 	static boolean refreshed = false;
 	static int sizeOutput = -1;
 	static String teamFilter = "";
@@ -162,7 +162,7 @@ public class Rankings extends Activity {
 		info = (Button) findViewById(R.id.draft_info);
 		compare = (Button) findViewById(R.id.player_comparator);
 		sort = (Button) findViewById(R.id.sort_players);
-		listview = (OutBounceListView) findViewById(R.id.listview_rankings);
+		listview = (ListView) findViewById(R.id.listview_rankings);
 		context = this;
 		isAuction = ReadFromFile.readIsAuction(cont);
 		setLists();
@@ -1102,12 +1102,13 @@ public class Rankings extends Activity {
 			}
 			refreshed = false;
 		}
-		listview = (OutBounceListView) cont
+		listview = (ListView) cont
 				.findViewById(R.id.listview_rankings);
 		listview.setAdapter(null);
 		data = new ArrayList<Map<String, String>>();
 		adapter = new SimpleAdapter(cont, data,
-				R.layout.bold_header_elem_underlined, new String[] { "main",
+ R.layout.web_listview_item,
+				new String[] { "main",
 						"sub", "hidden" }, new int[] { R.id.text1, R.id.text2,
 						R.id.text3 });
 		listview.setAdapter(adapter);

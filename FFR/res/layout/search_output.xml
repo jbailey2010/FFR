@@ -132,9 +132,10 @@
         android:layout_above="@+id/info_sub_header_dark"
         android:layout_marginBottom="-3dp"
         android:layout_below="@+id/category_base"
-        android:background="#999999"
+        android:background="#ffffff"
         android:clickable="true"
-        android:divider="#999999" >
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1dp">
 
     </ListView>
 

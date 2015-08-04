@@ -86,16 +86,17 @@
 
     </LinearLayout>
 
-    <com.example.fantasyfootballrankings.InterfaceAugmentations.OutBounceListView
+    <ListView
         android:id="@+id/listview_rankings"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/rankings_search_base"
-        android:background="#999999"
+        android:background="#ffffff"
         android:clickable="true"
-        android:divider="#999999" >
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1dp" >
  
-    </com.example.fantasyfootballrankings.InterfaceAugmentations.OutBounceListView>
+    </ListView>
 	            
 <com.devspark.sidenavigation.SideNavigationView
         android:id="@+id/side_navigation_view_rankings"
