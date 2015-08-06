@@ -48,7 +48,6 @@
     android:layout_below="@+id/search_cancel"
     android:layout_centerHorizontal="true"
     android:text="Enter the player&apos;s name below"
-    android:textAppearance="?android:attr/textAppearanceLarge"
-    android:textStyle="bold" />
+    style="@+style/PopupMainText" />
 
 </RelativeLayout>

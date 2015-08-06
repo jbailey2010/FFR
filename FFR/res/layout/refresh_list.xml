@@ -9,10 +9,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:text="This should be done if a player was traded/cut/drafted...etc"
         android:paddingBottom="25dp"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@+style/PopupSubText" />
 
     <Button
         android:id="@+id/cancel_list_refresh"
@@ -43,7 +43,6 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/cancel_list_refresh"
         android:text="Are you sure you want to refresh the player list?"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
+        style="@+style/PopupMainText" />
 
 </RelativeLayout>

@@ -24,7 +24,7 @@
 	        android:layout_below="@+id/textView1"
 	        android:layout_marginTop="22dp"
 	        android:text="Through here, you can set up the roster settings of your league, the scoring settings of your league, export the rankings, and refresh the list of player names."
-	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	        style="@+style/PopupSubText" />
 	
 	    <TextView
 	        android:id="@+id/textView3"
@@ -34,7 +34,7 @@
 	        android:layout_below="@+id/textView2"
 	        android:layout_marginTop="20dp"
 	        android:text="The first time you open the app, upon closing this pop up, a names list will be downloaded. This is used later to normalize names in rankings and to know what to look for in trending. This can also be refreshed through the menu."
-	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	        style="@+style/PopupSubText" />
 	
 	    <TextView
 	        android:id="@+id/textView4"
@@ -45,7 +45,7 @@
 	        android:layout_marginTop="19dp"
 	         android:textStyle="bold"
 	        android:text="NOTE: I HIGHLY recommend you enter your scoring settings and league settings early -- the roster settings affect points above average, and the scoring settings projections."
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	        style="@+style/PopupMainText" />
 	
 	    <TextView
 	        android:id="@+id/textView1"
@@ -54,7 +54,7 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_below="@+id/help_home_close"
 	        android:text="This is the home page. From here, you can get to the main aspects of the app: rankings and your leagues. This can also be done through the menu that appears upon clicking on the icon at the top left."
-	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	        style="@+style/PopupSubText" />
 
 	</RelativeLayout>
 </ScrollView>

@@ -37,4 +37,8 @@
   <style name="MyButtonBarStyle" parent="@android:style/Widget.Holo.Button.Borderless" >
       <item name="android:textSize">25sp</item>
   </style>
+  
+  <style name="MyButtonBarStyleBack" parent="@android:style/Widget.Holo.Button.Borderless" >
+      <item name="android:textSize">20sp</item>
+  </style>
 </resources>

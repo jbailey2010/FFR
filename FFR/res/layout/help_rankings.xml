@@ -24,7 +24,7 @@
          android:layout_below="@+id/textView1"
          android:layout_marginTop="16dp"
          android:text="Another way to draft a player is to swipe them to the side in the rankings list, and another way to add them to the watch list is to click and hold on their name."
-         android:textAppearance="?android:attr/textAppearanceSmall" />
+         style="@+style/PopupSubText" />
 
      <TextView
          android:id="@+id/textView3"
@@ -34,7 +34,7 @@
          android:layout_below="@+id/textView2"
          android:layout_marginTop="16dp"
          android:text="Draft info will give you detailed information about your draft thus far, including statistics, a list of your players drafted by position thus far, the PAA x players remaining at each position, and the ability to undraft someone."
-         android:textAppearance="?android:attr/textAppearanceSmall" />
+         style="@+style/PopupSubText" />
 
      <TextView
          android:id="@+id/textView1"
@@ -43,7 +43,7 @@
          android:layout_alignParentLeft="true"
          android:layout_below="@+id/help_rankings_close"
          android:text="When you click on a name, it&apos;ll pop up with details about that player. You can draft this player by holding down on his name in this pop up."
-         android:textAppearance="?android:attr/textAppearanceSmall" />
+         style="@+style/PopupSubText" />
 
      <TextView
          android:id="@+id/textView10"
@@ -53,7 +53,7 @@
          android:layout_below="@+id/textView3"
          android:layout_marginTop="16dp"
          android:text="Through refresh or reset, you can clear your draft thus far (which also can be done through undraft), or re-fetch the rankings."
-         android:textAppearance="?android:attr/textAppearanceSmall" />
+         style="@+style/PopupSubText" />
      
      <TextView
          android:id="@+id/textView11"
@@ -63,7 +63,7 @@
          android:layout_below="@+id/textView10"
          android:layout_marginTop="16dp"
          android:text="To use the search, begin typing and click the appropriate dropdown element. To clear a search, click and hold on the input field."
-         android:textAppearance="?android:attr/textAppearanceSmall" />
+         style="@+style/PopupSubText" />
 
 </RelativeLayout>
 </ScrollView>

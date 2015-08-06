@@ -20,7 +20,7 @@
         android:layout_below="@+id/compare_close"
         android:layout_centerHorizontal="true"
         android:text="Select the Two Teams Below"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@+style/PopupMainText" />
 
     <Spinner
         android:id="@+id/team1_spinner"

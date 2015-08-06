@@ -22,7 +22,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
         android:text="Press the button below to open a webpage to allow the use of twitter"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
+        style="@+style/PopupMainText" />
 
 </RelativeLayout>

@@ -55,7 +55,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="Salary Left: 200"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        style="@+style/PopupMainText"/>
 
     <TextView
         android:id="@+id/draftValue"
@@ -65,7 +65,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
         android:text="Value Thus Far: 0"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        style="@+style/PopupMainText"/>
 
     <TextView
         android:id="@+id/draft_paa"
@@ -75,7 +75,7 @@
         android:layout_below="@+id/draftValue"
         android:layout_marginTop="10dp"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        style="@+style/PopupMainText"
         android:visibility="invisible" />
 
     <Button

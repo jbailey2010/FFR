@@ -16,8 +16,7 @@
 		        android:layout_marginLeft="15dp"
 		        android:text="Text Main"
 		        android:focusable="false"
-		        android:textSize="20sp"
-		        android:textStyle="bold" />
+		        style="@+style/ListTextMedium" />
 		
 		    <TextView
 		        android:id="@+id/text2"
@@ -31,8 +30,7 @@
 		       	android:layout_marginTop="15dp"
 		       	android:paddingBottom="10dp"
 		       	android:focusable="false"
-		        android:textAppearance="?android:attr/textAppearanceSmall"
-		        android:textColor="#444444" />
+		        style="@+style/ListTextSmall" />
 	
 		    <TextView
 		        android:id="@+id/text3"
@@ -42,8 +40,7 @@
 		        android:layout_alignTop="@+id/text1"
 		        android:text=""
 		        android:layout_marginRight="10dp"
-		        android:textColor="#444444"
-		        android:textAppearance="?android:attr/textAppearanceSmall" />
+		        style="@+style/ListTextSmall" />
 	
 		</RelativeLayout>
 

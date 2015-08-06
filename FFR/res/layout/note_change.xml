@@ -13,22 +13,6 @@
                         style="@+style/MyButtonBarStyle"
         android:text="X" />
 
-<AutoCompleteTextView
-    android:id="@+id/player_input"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="115dp"
-    android:ems="10"
-    android:textColor="#000000"
-    android:dropDownHeight="200dp"
-    android:background="@drawable/spinner_well"
-    android:dropDownSelector="#FF0000">
-
-    <requestFocus />
-</AutoCompleteTextView>
-
 <Button
     android:id="@+id/search_submit"
     style="@style/ButtonText"
@@ -47,7 +31,19 @@
     android:layout_below="@+id/search_cancel"
     android:layout_centerHorizontal="true"
     android:text="Enter the new note below"
-    android:textAppearance="?android:attr/textAppearanceLarge"
-    android:textStyle="bold" />
+    style="@+style/PopupMainText"/>
+
+<AutoCompleteTextView
+    android:id="@+id/player_input"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/textView1"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="38dp"
+    android:background="@drawable/spinner_well"
+    android:dropDownHeight="200dp"
+    android:dropDownSelector="#FF0000"
+    android:ems="10"
+    android:textColor="#000000" />
 
 </RelativeLayout>

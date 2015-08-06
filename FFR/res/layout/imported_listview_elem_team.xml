@@ -13,9 +13,8 @@
 	        android:layout_centerHorizontal="true"
 	        android:layout_marginTop="10dp"
 	        android:text="Text Main"
-	        android:textSize="25sp"
-	        android:textColor="#680000"
-	        android:textStyle="bold" />
+	        style="@+style/ListTextHeader"
+	        android:textColor="#680000" />
 	
 	    <TextView
 	        android:id="@+id/text2"
@@ -27,8 +26,7 @@
 	       	android:layout_marginLeft="15dp"
 	       	android:paddingRight="15dp"
 	       	android:layout_marginTop="10dp"
-	       	android:textColor="#333333"
-	        android:textSize="19sp" />
+	       	style="@+style/ListTextMedium" />
 
 	    <TextView
 	        android:id="@+id/text3"
@@ -39,8 +37,7 @@
 	        android:layout_below="@+id/text2"
 	        android:text="Small Text"
 	        android:paddingBottom="10dp"
-	        android:textColor="#464646"
-	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	        style="@+style/ListTextSmall" />
 
 	</RelativeLayout>
 </RelativeLayout>

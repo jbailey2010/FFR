@@ -10,10 +10,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
-        android:textStyle="bold"
         android:textColor="#660000"
         android:text="No leagues have yet been imported"
-        android:textSize="24sp" />
+        style="@+style/PopupHeader" />
 
     <TextView
         android:id="@+id/none_imported_sub"
@@ -22,8 +21,7 @@
         android:layout_below="@+id/none_imported_header"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="23dp"
-        android:textStyle="bold"
         android:text="To see league data, import one above"
-        android:textSize="20sp"/>
+        style="@+style/PopupMainText"/>
 
 </RelativeLayout>

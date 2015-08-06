@@ -21,7 +21,7 @@
         android:layout_below="@+id/espn_unpw_close"
         android:layout_centerHorizontal="true"
         android:text="This league requires you to login"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@+style/PopupMainText" />
 
     <TextView
         android:id="@+id/textView2"
@@ -31,7 +31,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="23dp"
         android:text="Enter your password"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@+style/PopupSubText"/>
 
     <EditText
         android:id="@+id/password_input"
@@ -76,6 +76,6 @@
         android:layout_below="@+id/textView1"
         android:layout_marginTop="26dp"
         android:text="Enter your username"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@+style/PopupSubText"/>
 
 </RelativeLayout>

@@ -15,7 +15,7 @@
 
     <Button
         android:id="@+id/clear_compare"
-        style="@+style/MyButtonBarStyle"
+        style="@+style/MyButtonBarStyleBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -84,7 +84,6 @@
         android:layout_below="@+id/compare_close"
         android:layout_centerHorizontal="true"
         android:text="Enter 2 Players Below"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
+        style="@+style/PopupMainText" />
 
 </RelativeLayout>

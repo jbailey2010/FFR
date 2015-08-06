@@ -24,7 +24,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="How many passing yards per fantasy point?"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@+style/PopupSubText" />
 
     <EditText
         android:id="@+id/scoring_pass_yards"
@@ -50,7 +50,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="How many points are lost per interception?"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@+style/PopupSubText" />
 
     <EditText
         android:id="@+id/scoring_pass_int"
@@ -85,7 +85,7 @@
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:text="How many points per passing touchdown?"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@+style/PopupSubText"/>
 
     <TextView
         android:id="@+id/textView4"
@@ -96,7 +96,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="Please enter your league's scoring settings"
-        android:textStyle="bold"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        style="@+style/PopupMainText" />
 
 </RelativeLayout>

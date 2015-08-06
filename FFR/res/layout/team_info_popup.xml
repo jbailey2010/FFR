@@ -30,8 +30,7 @@
 		    android:layout_centerHorizontal="true"
 		    android:layout_below="@+id/team_info_popup_header"
 		    android:text="X-Axis: Position, Y-Axis: League Rank"
-		    android:textStyle=""
-		    android:textAppearance="?android:attr/textAppearanceSmall" />
+		    style="@+style/PopupSubText"/>
 
 		<TextView
 		    android:id="@+id/team_info_popup_header"
@@ -40,7 +39,6 @@
 		    android:layout_below="@+id/team_info_close"
 		    android:layout_centerHorizontal="true"
 		    android:text="Header"
-		    android:textSize="24sp"
-		    android:textStyle="bold" />
+		    style="@+style/PopupHeader" />
 
     </RelativeLayout>

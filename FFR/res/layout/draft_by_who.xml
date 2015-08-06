@@ -41,7 +41,6 @@
         android:layout_below="@+id/draft_who_close"
         android:layout_centerHorizontal="true"
         android:text="Header"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
+        style="@+style/PopupMainText" />
 
 </RelativeLayout>

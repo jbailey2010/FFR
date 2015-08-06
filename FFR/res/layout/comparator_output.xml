@@ -21,7 +21,7 @@
 
     <Button
         android:id="@+id/compare_back"
-        style="@+style/MyButtonBarStyle"
+        style="@+style/MyButtonBarStyleBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -36,8 +36,7 @@
         android:layout_above="@+id/compare_output_1"
         android:layout_alignLeft="@+id/compare_output_2"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
+        style="@+style/PopupMainText" />
 
     <TextView
         android:id="@+id/compare_header_1"
@@ -47,8 +46,7 @@
         android:layout_below="@+id/compare_back"
         android:layout_marginTop="40dp"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
+        style="@+style/PopupMainText"/>
 
     <TextView
         android:id="@+id/compare_output_2"
@@ -60,7 +58,7 @@
         android:maxWidth="140dp"
         android:paddingBottom="35dp"
         android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        style="@+style/PopupSubText" />
 
     <TextView
         android:id="@+id/compare_output_1"
@@ -72,7 +70,7 @@
         android:maxWidth="140dp"
         android:paddingBottom="35dp"
         android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        style="@+style/PopupSubText" />
 
     <Button
         android:id="@+id/add_comparator_1"
@@ -104,7 +102,7 @@
         android:layout_below="@+id/compare_back"
         android:layout_centerHorizontal="true"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        style="@+style/PopupMainText" />
 
 </RelativeLayout>
     </ScrollView>

@@ -870,7 +870,7 @@ public class Rankings extends Activity {
 		} else {
 			teLeft.setVisibility(View.GONE);
 		}
-		Button back = (Button) dialog.findViewById(R.id.val_left_back);
+		Button back = (Button) dialog.findViewById(R.id.paa_left_back);
 		back.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -878,6 +878,13 @@ public class Rankings extends Activity {
 				moreInfo(new Dialog(context, R.style.RoundCornersFull));
 			}
 		});
+		dialog.findViewById(R.id.paa_left_close).setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+					}
+				});
 	}
 
 	/**
@@ -930,13 +937,20 @@ public class Rankings extends Activity {
 			k.setVisibility(View.GONE);
 		}
 		dialog.show();
-		Button back = (Button) dialog.findViewById(R.id.back);
+		Button back = (Button) dialog.findViewById(R.id.draft_status_back);
 		back.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				dialog.dismiss();
 				moreInfo(new Dialog(context, R.style.RoundCornersFull));
 			}
 		});
+		dialog.findViewById(R.id.draft_status_close).setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+					}
+				});
 	}
 
 	/**

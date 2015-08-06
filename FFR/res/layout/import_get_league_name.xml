@@ -11,7 +11,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
         android:text="Enter the league name below"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        style="@+style/PopupMainText"/>
 
     <Button
         android:id="@+id/import_league_name_submit"
@@ -31,7 +31,7 @@
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
         android:text="Make sure this name is the only one from this host, otherwise it will overwrite the previous"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        style="@+style/PopupSubText" />
 
     <EditText
         android:id="@+id/league_name_input"

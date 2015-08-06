@@ -20,6 +20,6 @@
          android:layout_alignParentLeft="true"
          android:layout_below="@+id/help_close"
          android:text="Once you select a league, there will be analytics done on each entire team, each starting lineup, each bench, and each positional slot. \n\nNote, upon importing a league, the current roster settings will be linked to it, though they can be changed inside each league individually."
-         android:textAppearance="?android:attr/textAppearanceSmall" />
+         style="@+style/PopupSubText"/>
 
 </RelativeLayout>

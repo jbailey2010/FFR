@@ -38,7 +38,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="Enter the PIN you got online here"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
+        style="@+style/PopupMainText" />
 
 </RelativeLayout>

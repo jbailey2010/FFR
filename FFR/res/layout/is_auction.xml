@@ -26,12 +26,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
+            style="@+style/PopupSubText"
             android:text="Auction Draft" />
 
         <RadioButton
             android:id="@+id/is_snake"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@+style/PopupSubText"
             android:text="Snake Draft" />
     </RadioGroup>
 
@@ -42,7 +44,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/auction_close"
         android:text="Is your draft an auction or snake draft?"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        style="@+style/PopupMainText" />
 
     <EditText
         android:id="@+id/auction_salary_input"
@@ -64,7 +66,7 @@
         android:layout_below="@+id/radioGroup1"
         android:layout_centerHorizontal="true"
         android:text="What is the team salary?"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        style="@+style/PopupSubText" />
 
     <Button
         android:id="@+id/is_auction_submit"

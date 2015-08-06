@@ -22,7 +22,7 @@
         android:layout_centerHorizontal="true" 
         android:layout_marginTop="10dp"
         android:text="Player Name"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
+        style="@+style/PopupSubText"/>
 
     <AutoCompleteTextView
         android:id="@+id/simulator_input"
@@ -40,7 +40,7 @@
         android:layout_below="@+id/simulator_input"
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        style="@+style/PopupSubText"
         android:text="Round"/>
 
     <EditText
@@ -60,7 +60,7 @@
         android:layout_below="@+id/rd_input"
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        style="@+style/PopupSubText"
         android:text="Pick"/>
 
     <EditText
@@ -91,6 +91,6 @@
         android:layout_below="@+id/simulator_close"
         android:layout_centerHorizontal="true"
         android:text="Find the odds a player will be available at a given selection"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@+style/PopupMainText"/>
 
 </RelativeLayout>

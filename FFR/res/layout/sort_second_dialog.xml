@@ -21,7 +21,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/sort_second_close"
         android:text="Would you like to further narrow down the search?"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        style="@+style/PopupSubText"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -31,7 +31,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="How many rankings minimum should a player have shown up in?"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        style="@+style/PopupSubText" />
 
     <CheckBox
         android:id="@+id/sort_second_healthy"
@@ -69,7 +69,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
         android:text="What minimum projection should players have?"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        style="@+style/PopupSubText" />
 
     <Button
         android:id="@+id/sort_second_submit"

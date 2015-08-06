@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
 		android:text="Please Wait"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        style="@+style/PopupSubText" />
 	</ScrollView>
 
 

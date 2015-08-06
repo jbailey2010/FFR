@@ -5,12 +5,12 @@
 
     <Button
         android:id="@+id/draft_who_close"
-        style="@+style/MyButtonBarStyle"
+        style="@+style/MyButtonBarStyleBack"
+        android:textColor="#000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_weight="100"
         android:text="Back"/>
 
     <AutoCompleteTextView
@@ -37,7 +37,6 @@
         android:layout_alignBottom="@+id/draft_who_close"
         android:layout_centerHorizontal="true"
         android:text="Header"
-        android:textStyle="bold"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@+style/PopupMainText" />
 
 </RelativeLayout>

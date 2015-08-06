@@ -21,7 +21,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/import_decider_close"
         android:text="From where would you like to import a league?"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        style="@+style/PopupMainText" />
 
     <RadioGroup
         android:id="@+id/radioGroup1"
@@ -36,12 +36,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
+            style="@+style/PopupSubText"
             android:text="ESPN" />
 
         <RadioButton
             android:id="@+id/yahoo_import"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@+style/PopupSubText"
             android:text="Yahoo" />
     </RadioGroup>
 

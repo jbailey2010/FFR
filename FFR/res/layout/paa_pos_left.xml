@@ -11,7 +11,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        style="@+style/PopupSubText" />
     
     <TextView
         android:id="@+id/rb_paa_left"
@@ -21,7 +21,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        style="@+style/PopupSubText"/>
     
     <TextView
         android:id="@+id/wr_paa_left"
@@ -31,7 +31,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        style="@+style/PopupSubText"/>
     
     <TextView
         android:id="@+id/te_paa_left"
@@ -41,28 +41,36 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Button
-        android:id="@+id/val_left_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/te_paa_left"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="17dp"
-        android:text="Back" 
-        android:background="@drawable/btn_red"
-        style="@style/ButtonText"/>
+        style="@+style/PopupSubText" />
 
     <TextView
         android:id="@+id/textView1"
+        style="@+style/PopupMainText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/paa_left_close"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="Position: 3 back, 5 back, 10 back" />
+    
+    <Button
+        android:id="@+id/paa_left_close"
+        style="@+style/MyButtonBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textColor="#CD0000"
+        android:text="X" />
+
+    <Button
+        android:id="@+id/paa_left_back"
+        style="@+style/MyButtonBarStyleBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
-        android:text="Position: 3 back, 5 back, 10 back"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
+        android:textColor="#000000"
+        android:text="Back"/>
 
 </RelativeLayout>

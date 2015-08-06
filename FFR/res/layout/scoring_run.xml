@@ -24,7 +24,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="How many points per rushing touchdown?"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@+style/PopupSubText" />
 
     <TextView
         android:id="@+id/textView2"
@@ -34,7 +34,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="How many rushing yards per fantasy point?"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@+style/PopupSubText" />
 
     <EditText
         android:id="@+id/scoring_run_yards"
@@ -58,7 +58,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="How many points are lost per fumble?"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@+style/PopupSubText" />
 
     <EditText
         android:id="@+id/scoring_run_int"

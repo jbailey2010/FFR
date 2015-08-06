@@ -23,7 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:text="All of the players"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@+style/PopupSubText"/>
 
     <Button
         android:id="@+id/filter_size_cancel"
@@ -53,7 +53,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/filter_size_cancel"
         android:text="Use the slider to set how many players to display"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
+        style="@+style/PopupMainText" />
 
 </RelativeLayout>

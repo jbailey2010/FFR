@@ -21,8 +21,7 @@
         android:layout_below="@+id/optimal_close"
         android:layout_centerHorizontal="true"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
+        style="@+style/PopupHeader" />
 
     <TextView
         android:id="@+id/textView1"
@@ -31,7 +30,7 @@
         android:layout_below="@+id/team_name_optimal"
         android:layout_centerHorizontal="true"
         android:text="Optimal Lineup"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        style="@+style/PopupSubText" />
 
     <TextView
         android:id="@+id/team_roster_optimal"
@@ -42,6 +41,6 @@
         android:layout_marginLeft="21dp"
         android:layout_marginTop="16dp"
         android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@+style/PopupMainText"/>
 
 </RelativeLayout>

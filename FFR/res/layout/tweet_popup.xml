@@ -24,7 +24,7 @@
 	        android:layout_below="@+id/tweet_popup_close"
 	        android:layout_alignParentLeft="true"
 	        android:text="Medium Text"
-	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        style="@+style/PopupMainText"
 	        android:textIsSelectable="true" />
 	
 	</RelativeLayout>

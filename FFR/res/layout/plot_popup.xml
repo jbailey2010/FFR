@@ -23,8 +23,7 @@
 	    android:layout_alignBottom="@+id/plot_close"
 	    android:layout_centerHorizontal="true"
 	    android:text="Header"
-	    android:textSize="24sp"
-	    android:textStyle="bold" />
+	    style="@+style/PopupHeader"/>
 
 	<LinearLayout
 	    android:id="@+id/plot_base_layout"
