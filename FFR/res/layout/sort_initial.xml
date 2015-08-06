@@ -47,28 +47,9 @@
          android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:textColor="#CD0000"
-        android:textSize="28sp"
-        style="?android:attr/buttonBarButtonStyle"
+                style="@+style/MyButtonBarStyle"
+        
         android:text="X"/>
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="What stat would you like to search by?"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Spinner
-        android:id="@+id/sort_stat_spinner"
-        android:layout_width="300dp"
-        android:layout_height="35dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/sort_cancel"
-        android:layout_marginTop="7dp"
-        android:background="@drawable/spinner_well" />
 
     <TextView
         android:id="@+id/textView5"
@@ -122,5 +103,22 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_red"
         android:text="Advanced" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textView5"
+        android:layout_below="@+id/sort_cancel"
+        android:text="What stat would you like to search by?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/sort_stat_spinner"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_alignLeft="@+id/sort_pos_spinner"
+        android:layout_below="@+id/textView1"
+        android:background="@drawable/spinner_well" />
 
 </RelativeLayout>

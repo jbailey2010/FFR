@@ -10,8 +10,8 @@
           android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:textColor="#CD0000"
-        android:textSize="28sp"
-        style="?android:attr/buttonBarButtonStyle"
+                        style="@+style/MyButtonBarStyle"
+
         android:text="X" />
 
 <AutoCompleteTextView
@@ -30,17 +30,6 @@
     <requestFocus />
 </AutoCompleteTextView>
 
-<TextView
-    android:id="@+id/textView1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="45dp"
-    android:text="Enter the player's name below"
-    android:textStyle="bold"
-    android:textAppearance="?android:attr/textAppearanceLarge" />
-
 <Button
     android:id="@+id/search_submit"
     style="@style/ButtonText"
@@ -51,5 +40,15 @@
     android:layout_marginTop="35dp"
     android:background="@drawable/btn_red"
     android:text="Submit" />
+
+<TextView
+    android:id="@+id/textView1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/search_cancel"
+    android:layout_centerHorizontal="true"
+    android:text="Enter the player&apos;s name below"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:textStyle="bold" />
 
 </RelativeLayout>

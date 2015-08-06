@@ -33,4 +33,8 @@
     <item name="android:textColor">#ffffff</item>
     <item name="android:textStyle">bold</item>
   </style>
+  
+  <style name="MyButtonBarStyle" parent="@android:style/Widget.Holo.Button.Borderless" >
+      <item name="android:textSize">25sp</item>
+  </style>
 </resources>

@@ -13,19 +13,16 @@
 	          android:layout_alignParentRight="true"
 	        android:layout_alignParentTop="true"
 	        android:textColor="#CD0000"
-	        android:textSize="28sp"
-	        style="?android:attr/buttonBarButtonStyle"
+	                        style="@+style/MyButtonBarStyle"
+
 	        android:text="X" />
-	
-	 
-	
+
 	    <TextView
 	        android:id="@+id/tweet_field"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
+	        android:layout_below="@+id/tweet_popup_close"
 	        android:layout_alignParentLeft="true"
-	        android:layout_marginTop="40dp"
 	        android:text="Medium Text"
 	        android:textAppearance="?android:attr/textAppearanceMedium"
 	        android:textIsSelectable="true" />

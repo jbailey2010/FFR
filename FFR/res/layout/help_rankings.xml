@@ -7,13 +7,13 @@
    		android:layout_height="fill_parent" >
      <Button
         android:id="@+id/help_rankings_close"
-        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="X" 
-        android:textSize="28sp"
+                                style="@+style/MyButtonBarStyle"
+
         android:textColor="#CD0000"/>
 
      <TextView

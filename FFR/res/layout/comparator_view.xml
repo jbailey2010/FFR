@@ -5,34 +5,23 @@
 
     <Button
         android:id="@+id/compare_close"
-        style="?android:attr/buttonBarButtonStyle"
+        style="@+style/MyButtonBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:textColor="#CD0000"
-        android:textSize="28sp"
         android:text="X" />
 
     <Button
         android:id="@+id/clear_compare"
-        style="?android:attr/buttonBarButtonStyle"
+        style="@+style/MyButtonBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:textColor="#000000"
         android:layout_alignParentTop="true"
-        android:text="Clear"
-        android:textSize="24sp"/>
-
-    <TextView
-        android:id="@+id/player_comparator_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/compare_close"
-        android:layout_centerHorizontal="true"
-        android:text="Enter 2 Players Below"
-        android:textStyle="bold"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="Clear"/>
 
     <AutoCompleteTextView
         android:id="@+id/player2_input"
@@ -87,5 +76,15 @@
         android:layout_marginLeft="35dp"
         android:text="First Player: "
         android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/player_comparator_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/compare_close"
+        android:layout_centerHorizontal="true"
+        android:text="Enter 2 Players Below"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
 
 </RelativeLayout>

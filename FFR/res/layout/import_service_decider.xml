@@ -5,15 +5,14 @@
 
     <Button
         android:id="@+id/import_decider_close"
-        style="?android:attr/buttonBarButtonStyle"
+                        style="@+style/MyButtonBarStyle"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_weight="100"
         android:text="X"
-        android:textColor="#CD0000"
-        android:textSize="28sp" />
+        android:textColor="#CD0000" />
 
     <TextView
         android:id="@+id/textView1"

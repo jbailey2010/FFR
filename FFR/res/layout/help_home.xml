@@ -8,13 +8,12 @@
 
 	    <Button
 	    	android:id="@+id/help_home_close"
-	        style="?android:attr/buttonBarButtonStyle"
+        	style="@+style/MyButtonBarStyle"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentRight="true"
 	        android:layout_alignParentTop="true"
 	        android:text="X" 
-	        android:textSize="28sp"
 	        android:textColor="#CD0000" />
 	
 	    <TextView

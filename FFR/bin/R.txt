@@ -251,7 +251,7 @@ int id filter_rankings_submit 0x7f0600c6
 int id filter_size_cancel 0x7f060051
 int id filter_size_submit 0x7f060052
 int id filter_topics_rankings 0x7f060136
-int id first_player_compare 0x7f060038
+int id first_player_compare 0x7f060037
 int id flex_quantity 0x7f0600d4
 int id help 0x7f06013c
 int id help_close 0x7f060063
@@ -307,7 +307,7 @@ int id pick_input 0x7f0600f7
 int id picker_subtitle 0x7f060024
 int id player1_fp 0x7f06008d
 int id player1_fp_base 0x7f06008c
-int id player1_input 0x7f060037
+int id player1_input 0x7f060036
 int id player1_name 0x7f060089
 int id player1_paa 0x7f06009d
 int id player1_paa_base 0x7f06009c
@@ -323,7 +323,7 @@ int id player1_weekly_pos_rank 0x7f0600a5
 int id player1_weekly_pos_rank_base 0x7f0600a4
 int id player2_fp 0x7f06008f
 int id player2_fp_base 0x7f06008e
-int id player2_input 0x7f060035
+int id player2_input 0x7f060034
 int id player2_name 0x7f06008a
 int id player2_paa 0x7f06009f
 int id player2_paa_base 0x7f06009e
@@ -338,7 +338,7 @@ int id player2_sos_base 0x7f06009a
 int id player2_weekly_pos_rank 0x7f0600a7
 int id player2_weekly_pos_rank_base 0x7f0600a6
 int id player_comparator 0x7f060011
-int id player_comparator_header 0x7f060034
+int id player_comparator_header 0x7f060038
 int id player_input 0x7f0600b4
 int id player_list_graph 0x7f060083
 int id player_list_search 0x7f060081
@@ -350,7 +350,7 @@ int id playerinfo_top 0x7f0600e3
 int id plot_base_layout 0x7f0600c2
 int id plot_close 0x7f0600c0
 int id plot_popup_header 0x7f0600c1
-int id position_spinner 0x7f0600c4
+int id position_spinner 0x7f0600c3
 int id progressBar1 0x7f060123
 int id qb_header 0x7f060042
 int id qb_paa_left 0x7f0600b8
@@ -398,8 +398,8 @@ int id search_back 0x7f0600e4
 int id search_cancel 0x7f0600b3
 int id search_close 0x7f0600bd
 int id search_submit 0x7f0600b5
-int id second_player_compare 0x7f060036
-int id seekBar_quantity 0x7f06004f
+int id second_player_compare 0x7f060035
+int id seekBar_quantity 0x7f06004e
 int id shadow 0x7f0600f3
 int id side_navigation_item_icon 0x7f0600ee
 int id side_navigation_item_text 0x7f0600ef
@@ -452,7 +452,7 @@ int id team_info_popup_header 0x7f060114
 int id team_name_optimal 0x7f060116
 int id team_quantity 0x7f0600d3
 int id team_roster_optimal 0x7f060117
-int id team_spinner 0x7f0600c3
+int id team_spinner 0x7f0600c4
 int id team_tips_spinner 0x7f0600a9
 int id text1 0x7f06006b
 int id text2 0x7f06006c
@@ -480,7 +480,7 @@ int id username_input 0x7f06004a
 int id val_left_back 0x7f0600bc
 int id value_left 0x7f060122
 int id watch 0x7f060010
-int id what_filtered 0x7f06004e
+int id what_filtered 0x7f06004f
 int id wr_header 0x7f060046
 int id wr_paa_left 0x7f0600ba
 int id wr_quantity 0x7f0600cb
@@ -589,6 +589,7 @@ int style AppBaseTheme 0x7f050005
 int style AppTheme 0x7f050006
 int style ButtonText 0x7f050004
 int style MyActionBar 0x7f050008
+int style MyButtonBarStyle 0x7f05000a
 int style MyTheme_ActionBar_TitleTextStyle 0x7f050009
 int style RoundCornersFull 0x7f050007
 int style STAppLabelTheme 0x7f050001

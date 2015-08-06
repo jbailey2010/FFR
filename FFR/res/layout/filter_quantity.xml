@@ -3,17 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/what_filtered"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="56dp"
-        android:text="Use the slider to set how many players to display"
-        android:textStyle="bold"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
   
     <SeekBar
         android:id="@+id/seekBar_quantity"
@@ -43,8 +32,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:textColor="#CD0000"
-        android:textSize="28sp"
-        style="?android:attr/buttonBarButtonStyle"
+        style="@+style/MyButtonBarStyle"
         android:text="X" />
 
     <Button
@@ -57,5 +45,15 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/btn_red"
         android:text="Submit" />
+
+    <TextView
+        android:id="@+id/what_filtered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/filter_size_cancel"
+        android:text="Use the slider to set how many players to display"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
 </RelativeLayout>

@@ -5,13 +5,12 @@
 
     <Button
         android:id="@+id/compare_close"
-        style="?android:attr/buttonBarButtonStyle"
+        style="@+style/MyButtonBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:textColor="#CD0000"
-        android:textSize="28sp"
         android:text="X" />
 
     <TextView

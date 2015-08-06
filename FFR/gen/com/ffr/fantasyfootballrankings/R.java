@@ -394,7 +394,7 @@ containing a value of this type.
         public static final int filter_size_cancel=0x7f060051;
         public static final int filter_size_submit=0x7f060052;
         public static final int filter_topics_rankings=0x7f060136;
-        public static final int first_player_compare=0x7f060038;
+        public static final int first_player_compare=0x7f060037;
         public static final int flex_quantity=0x7f0600d4;
         public static final int help=0x7f06013c;
         public static final int help_close=0x7f060063;
@@ -450,7 +450,7 @@ containing a value of this type.
         public static final int picker_subtitle=0x7f060024;
         public static final int player1_fp=0x7f06008d;
         public static final int player1_fp_base=0x7f06008c;
-        public static final int player1_input=0x7f060037;
+        public static final int player1_input=0x7f060036;
         public static final int player1_name=0x7f060089;
         public static final int player1_paa=0x7f06009d;
         public static final int player1_paa_base=0x7f06009c;
@@ -466,7 +466,7 @@ containing a value of this type.
         public static final int player1_weekly_pos_rank_base=0x7f0600a4;
         public static final int player2_fp=0x7f06008f;
         public static final int player2_fp_base=0x7f06008e;
-        public static final int player2_input=0x7f060035;
+        public static final int player2_input=0x7f060034;
         public static final int player2_name=0x7f06008a;
         public static final int player2_paa=0x7f06009f;
         public static final int player2_paa_base=0x7f06009e;
@@ -481,7 +481,7 @@ containing a value of this type.
         public static final int player2_weekly_pos_rank=0x7f0600a7;
         public static final int player2_weekly_pos_rank_base=0x7f0600a6;
         public static final int player_comparator=0x7f060011;
-        public static final int player_comparator_header=0x7f060034;
+        public static final int player_comparator_header=0x7f060038;
         public static final int player_input=0x7f0600b4;
         public static final int player_list_graph=0x7f060083;
         public static final int player_list_search=0x7f060081;
@@ -493,7 +493,7 @@ containing a value of this type.
         public static final int plot_base_layout=0x7f0600c2;
         public static final int plot_close=0x7f0600c0;
         public static final int plot_popup_header=0x7f0600c1;
-        public static final int position_spinner=0x7f0600c4;
+        public static final int position_spinner=0x7f0600c3;
         public static final int progressBar1=0x7f060123;
         public static final int qb_header=0x7f060042;
         public static final int qb_paa_left=0x7f0600b8;
@@ -541,8 +541,8 @@ containing a value of this type.
         public static final int search_cancel=0x7f0600b3;
         public static final int search_close=0x7f0600bd;
         public static final int search_submit=0x7f0600b5;
-        public static final int second_player_compare=0x7f060036;
-        public static final int seekBar_quantity=0x7f06004f;
+        public static final int second_player_compare=0x7f060035;
+        public static final int seekBar_quantity=0x7f06004e;
         public static final int shadow=0x7f0600f3;
         public static final int side_navigation_item_icon=0x7f0600ee;
         public static final int side_navigation_item_text=0x7f0600ef;
@@ -595,7 +595,7 @@ containing a value of this type.
         public static final int team_name_optimal=0x7f060116;
         public static final int team_quantity=0x7f0600d3;
         public static final int team_roster_optimal=0x7f060117;
-        public static final int team_spinner=0x7f0600c3;
+        public static final int team_spinner=0x7f0600c4;
         public static final int team_tips_spinner=0x7f0600a9;
         public static final int text1=0x7f06006b;
         public static final int text2=0x7f06006c;
@@ -623,7 +623,7 @@ containing a value of this type.
         public static final int val_left_back=0x7f0600bc;
         public static final int value_left=0x7f060122;
         public static final int watch=0x7f060010;
-        public static final int what_filtered=0x7f06004e;
+        public static final int what_filtered=0x7f06004f;
         public static final int wr_header=0x7f060046;
         public static final int wr_paa_left=0x7f0600ba;
         public static final int wr_quantity=0x7f0600cb;
@@ -764,6 +764,7 @@ containing a value of this type.
         public static final int AppTheme=0x7f050006;
         public static final int ButtonText=0x7f050004;
         public static final int MyActionBar=0x7f050008;
+        public static final int MyButtonBarStyle=0x7f05000a;
         public static final int MyTheme_ActionBar_TitleTextStyle=0x7f050009;
         public static final int RoundCornersFull=0x7f050007;
         public static final int STAppLabelTheme=0x7f050001;

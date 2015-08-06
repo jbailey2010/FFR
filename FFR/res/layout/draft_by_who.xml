@@ -4,24 +4,13 @@
     android:layout_height="fill_parent" >
     <Button
         android:id="@+id/draft_who_close"
-        style="?android:attr/buttonBarButtonStyle"
+        style="@+style/MyButtonBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="X" 
-        android:textSize="28sp"
         android:textColor="#CD0000"/>
-
-    <TextView
-        android:id="@+id/name_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/draft_who_close"
-        android:layout_centerHorizontal="true"
-        android:text="Header"
-        android:textStyle="bold"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
         android:id="@+id/drafted_by_me"
@@ -44,5 +33,15 @@
         android:background="@drawable/btn_red"
         style="@style/ButtonText"
         android:text="Drafted by Someone" />
+
+    <TextView
+        android:id="@+id/name_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/draft_who_close"
+        android:layout_centerHorizontal="true"
+        android:text="Header"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
 
 </RelativeLayout>

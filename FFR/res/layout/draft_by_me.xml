@@ -5,14 +5,13 @@
 
     <Button
         android:id="@+id/draft_who_close"
-        style="?android:attr/buttonBarButtonStyle"
+        style="@+style/MyButtonBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_weight="100"
-        android:text="Back"
-        android:textSize="24sp"/>
+        android:text="Back"/>
 
     <AutoCompleteTextView
         android:id="@+id/amount_paid"

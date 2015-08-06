@@ -5,14 +5,13 @@
 
         <Button
 	        android:id="@+id/team_info_close"
-	        style="?android:attr/buttonBarButtonStyle"
-	        android:layout_width="wrap_content"
+	        	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentRight="true"
 	        android:layout_alignParentTop="true"
-	        android:layout_weight="100"
 	        android:textColor="#CD0000"
-	        android:textSize="32sp"
+	                        style="@+style/MyButtonBarStyle"
+
 	        android:text="X" />
         
 		<LinearLayout

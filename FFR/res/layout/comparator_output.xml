@@ -11,26 +11,23 @@
     
     <Button
         android:id="@+id/compare_close"
-        style="?android:attr/buttonBarButtonStyle"
+        style="@+style/MyButtonBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_weight="100"
         android:textColor="#CD0000"
-        android:textSize="28sp"
         android:text="X" />
 
     <Button
         android:id="@+id/compare_back"
-        style="?android:attr/buttonBarButtonStyle"
+        style="@+style/MyButtonBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_weight="100"
-        android:text="Back"
-        android:textSize="24sp"/>
+        android:textColor="#000000"
+        android:text="Back"/>
 
     <TextView
         android:id="@+id/compare_header_2"

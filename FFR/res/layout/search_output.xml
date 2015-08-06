@@ -21,7 +21,7 @@
 
         <Button
             android:id="@+id/search_close"
-            style="?android:attr/buttonBarButtonStyle"
+        style="@+style/MyButtonBarStyle"
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

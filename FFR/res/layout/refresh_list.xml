@@ -21,8 +21,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:textColor="#CD0000"
-        android:textSize="28sp"
-        style="?android:attr/buttonBarButtonStyle"
+                        style="@+style/MyButtonBarStyle"
+
         android:text="X"/>
 
     <Button
