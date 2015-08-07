@@ -7,7 +7,7 @@
     <style name="ButtonText">
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">15sp</item>
     </style>
     
     <style name="ListTextSmall">

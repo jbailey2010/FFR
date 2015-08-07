@@ -109,7 +109,10 @@ public class ParseMath {
 		double coeff = player.values.paa / map.get(player.info.position);
 		double possVal = discretCash * coeff + 1.0;
 		if (player.info.position.equals("RB")) {
-			possVal *= 1.08;
+			possVal *= 1.1;
+		}
+		if (player.info.position.equals("QB")) {
+			possVal *= 1.05;
 		}
 		if (player.info.position.equals("D/ST")) {
 			possVal /= 10;
@@ -117,6 +120,7 @@ public class ParseMath {
 		if (player.info.position.equals("K")) {
 			possVal /= 20;
 		}
+		possVal *= 1.1;
 		if (possVal < 0.0) {
 			possVal = 0.0;
 		}
