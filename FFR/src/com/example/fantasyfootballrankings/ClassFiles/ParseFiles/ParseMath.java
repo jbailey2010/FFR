@@ -29,7 +29,7 @@ public class ParseMath {
 	public static double avgPAAMap(Storage holder, Roster r, PlayerObject player) {
 		int rosterSize = getRosterSize(r);
 		double discretOne = discretPAA(r, rosterSize);
-		return paa1Calc(zMap, player, discretOne);
+		return paa1Calc(zMap, player, discretOne, r);
 
 	}
 
@@ -41,7 +41,7 @@ public class ParseMath {
 		initZMap(holder);
 		for (PlayerObject player : holder.players) {
 			if (zMap.containsKey(player.info.position)) {
-				double possVal = paa1Calc(zMap, player, discretCash);
+				double possVal = paa1Calc(zMap, player, discretCash, r);
 				ParseRankings.finalStretch(holder, player.info.name,
 						(int) possVal, player.info.team, player.info.position);
 			}
@@ -103,15 +103,18 @@ public class ParseMath {
 
 	/**
 	 * Does the individual calculation for the first paa method
+	 * 
+	 * @param r
 	 */
 	public static double paa1Calc(HashMap<String, Double> map,
-			PlayerObject player, double discretCash) {
+			PlayerObject player, double discretCash, Roster r) {
 		double coeff = player.values.paa / map.get(player.info.position);
 		double possVal = discretCash * coeff + 1.0;
 		if (player.info.position.equals("RB")) {
 			possVal *= 1.1;
 		}
-		if (player.info.position.equals("QB")) {
+		if (player.info.position.equals("QB")
+				&& (r.qbs > 1 || (r.flex != null && r.flex.op > 0))) {
 			possVal *= 1.05;
 		}
 		if (player.info.position.equals("D/ST")) {
