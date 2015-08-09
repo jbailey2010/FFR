@@ -3,7 +3,6 @@ package com.example.fantasyfootballrankings.Pages;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-
 import java.util.Set;
 
 import com.ffr.fantasyfootballrankings.R;
@@ -11,6 +10,7 @@ import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
+import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraftWizardRanks;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
@@ -135,11 +135,12 @@ public class Home extends Activity {
 
 		/*
 		 * StrictMode.ThreadPolicy policy = new
-		 * StrictMode.ThreadPolicy.Builder().permitAll().build();
+		 * StrictMode.ThreadPolicy.Builder() .permitAll().build();
 		 * 
 		 * StrictMode.setThreadPolicy(policy); try {
-		 * HighLevel.projPointsWrapper(holder, cont); } catch (IOException e) {
-		 * // TODO Auto-generated catch block e.printStackTrace(); }
+		 * ParseRankings.handleHashes(); HighLevel.setTeamInfo(holder, cont); }
+		 * catch (IOException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); }
 		 */
 	}
 

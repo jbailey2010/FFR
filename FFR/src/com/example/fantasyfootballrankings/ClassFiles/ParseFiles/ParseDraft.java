@@ -24,10 +24,10 @@ public class ParseDraft {
 	public static HashMap<String, String> parseTeamDraft() throws IOException {
 		List<String> perPick = HandleBasicQueries
 				.handleLists(
-						"http://www.sbnation.com/nfl/2014/5/10/5704890/nfl-draft-results-recap-jadeveon-clowney-johnny-manziel-michael-sam",
+						"http://www.sbnation.com/nfl/2015/4/30/8525229/2015-nfl-draft-results-pick-by-pick",
 						"td");
 		HashMap<String, String> picks = new HashMap<String, String>();
-		for (int i = 5; i < perPick.size(); i += 5) {
+		for (int i = 4; i < perPick.size(); i += 4) {
 			String pickStr = perPick.get(i);
 			if (pickStr.contains(". (")) {
 				pickStr = pickStr.split("\\)")[0].split("\\(")[1];
@@ -39,7 +39,6 @@ public class ParseDraft {
 					" \\(")[0]);
 			String name = ParseRankings.fixNames(perPick.get(i + 2));
 			String position = perPick.get(i + 3);
-			// String overall = perPick.get(i);
 			int j = Integer.parseInt(pickStr);
 			String round = "";
 			if (j <= 32) {
@@ -76,22 +75,15 @@ public class ParseDraft {
 	 */
 	public static HashMap<String, String> parseTeamDraftGPA()
 			throws IOException {
-		String url = "http://www.footballoutsiders.com/nfl-draft/2014/2014-draft-report-card-report";
+		String url = "http://www.footballoutsiders.com/stat-analysis/2015/2015-nfl-draft-report-card-report";
 		HashMap<String, String> gpa = new HashMap<String, String>();
 		List<String> brokenUp = HandleBasicQueries.handleLists(url, "td");
-		for (int i = 1; i < brokenUp.size(); i += 2) {
-			if (!brokenUp.get(i).contains("2013")) {
-				String before = brokenUp.get(i);
-				String team = ParseRankings.fixTeams(before);
-				if (i + 3 > brokenUp.size()) {
-					break;
-				}
-				String grade = brokenUp.get(i += 3);
-				if (i + 2 > brokenUp.size()) {
-					break;
-				}
-				String rank = brokenUp.get(i += 2);
-				if (team.equals("High Grade")) {
+		for (int i = 0; i < brokenUp.size(); i += 7) {
+			if (!brokenUp.get(i).contains("2014")) {
+				String team = ParseRankings.fixTeams(brokenUp.get(i));
+				String grade = brokenUp.get(i + 3);
+				String rank = brokenUp.get(i + 4);
+				if (team.split(" ").length == 1) {
 					break;
 				}
 				gpa.put(team, "Average Draft Grade: " + grade + " (" + rank
