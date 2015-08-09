@@ -69,14 +69,25 @@ public class Simulator {
 				}
 				int rd = Integer.parseInt(rdStr);
 				int sel = Integer.parseInt(pickStr);
-				if (sel > ReadFromFile.readRoster(cont).teams) {
+				if (rd <= 0 || sel <= 0) {
 					Toast.makeText(
 							cont,
-							"The selection can't be later than the number of teams",
+							"Invalid round/selection, must be a positive number",
+							Toast.LENGTH_SHORT).show();
+				}
+				int teams = ReadFromFile.readRoster(cont).teams;
+				if (sel > teams) {
+					Toast.makeText(
+							cont,
+							"The selection "
+									+ sel
+									+ " can't be greater than the number of teams, "
+									+ teams,
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
-				if (rd * sel > 200) {
+				int pick = ((rd - 1) * teams) + sel;
+				if (pick > 200) {
 					Toast.makeText(
 							cont,
 							"Pick too high, please enter a selection of at highest 200",
@@ -92,7 +103,7 @@ public class Simulator {
 				ParsingAsyncTask stupid = new ParsingAsyncTask();
 				ParseADP task = stupid.new ParseADP((Activity) cont, holder,
 						header);
-				task.execute(rd * sel, name);
+				task.execute(pick, name);
 			}
 		});
 	}

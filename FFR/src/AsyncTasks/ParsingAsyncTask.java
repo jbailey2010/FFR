@@ -687,12 +687,16 @@ public class ParsingAsyncTask {
 			int pick = (Integer) data[0];
 			String name = (String) data[1];
 			Roster r = ReadFromFile.readRoster(act);
-			String url = "http://fantasyfootballcalculator.com/scenario.php?format=standard&teams="
-					+ r.teams + "&pick=" + pick;
 			Scoring s = ReadFromFile.readScoring(act);
+			String type = "standard";
 			if (s.catches > 0) {
-				url = url.replace("standard", "ppr");
+				type = "ppr";
 			}
+			if (r.qbs > 1 || (r.flex != null && r.flex.op > 0)) {
+				type = "2qb";
+			}
+			String url = "https://fantasyfootballcalculator.com/scenario-calculator?format="
+					+ type + "&num_teams=" + r.teams + "&draft_pick=" + pick;
 			ParseRankings.handleHashes();
 			String first = checkUrl(url, name, pick);
 			if (s.catches > 0 && first.contains("error")) {
