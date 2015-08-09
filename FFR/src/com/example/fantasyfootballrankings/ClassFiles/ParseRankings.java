@@ -222,6 +222,7 @@ public class ParseRankings {
 		teams.put("nos", "New Orleans Saints");
 		teams.put("new orleans", "New Orleans Saints");
 		teams.put("saints", "New Orleans Saints");
+		teams.put("bucs", "Tampa Bay Buccaneers");
 		teams.put("tb", "Tampa Bay Buccaneers");
 		teams.put("tbb", "Tampa Bay Buccaneers");
 		teams.put("tampa bay", "Tampa Bay Buccaneers");
