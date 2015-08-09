@@ -74,6 +74,7 @@ public class Simulator {
 							cont,
 							"Invalid round/selection, must be a positive number",
 							Toast.LENGTH_SHORT).show();
+					return;
 				}
 				int teams = ReadFromFile.readRoster(cont).teams;
 				if (sel > teams) {
