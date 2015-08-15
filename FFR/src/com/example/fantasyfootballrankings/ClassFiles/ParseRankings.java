@@ -119,6 +119,8 @@ public class ParseRankings {
 		fixes.put("Terrence Williams", "Terrance Williams");
 		fixes.put("Odell Beckham Jr.", "Odell Beckham");
 		fixes.put("Steve Smith Sr.", "Steve Smith");
+		fixes.put("Duke Johnson Jr.", "Duke Johnson");
+		fixes.put("Roy Helu Jr.", "Roy Helu");
 
 		teams.clear();
 		teams.put("cin", "Cincinnati Bengals");
