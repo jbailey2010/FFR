@@ -185,6 +185,7 @@ public class Rankings extends Activity {
 	protected void onResume() {
 		super.onResume();
 
+		handleRefresh();
 		configSearch();
 		// Call Socialize in onResume
 		Socialize.onResume(this);
@@ -542,8 +543,6 @@ public class Rankings extends Activity {
 	public void handleRefresh() {
 
 		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
-		System.out.println(holder.players.size());
-		System.out.println(prefs.contains("Player Values"));
 		boolean exists = prefs.contains("Player Values");
 		if ((exists && holder.players.size() == 0)
 				|| prefs.getBoolean("Home Update", false)) {
