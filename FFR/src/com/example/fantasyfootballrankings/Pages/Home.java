@@ -13,6 +13,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraftWizardRanks;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
@@ -138,8 +139,8 @@ public class Home extends Activity {
 		 * StrictMode.ThreadPolicy.Builder() .permitAll().build();
 		 * 
 		 * StrictMode.setThreadPolicy(policy); try {
-		 * ParseRankings.handleHashes(); HighLevel.setTeamInfo(holder, cont); }
-		 * catch (IOException e) { // TODO Auto-generated catch block
+		 * ParseRankings.handleHashes(); ParseFFTB.parseByeWeeks(); } catch
+		 * (IOException e) { // TODO Auto-generated catch block
 		 * e.printStackTrace(); }
 		 */
 	}

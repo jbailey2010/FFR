@@ -113,7 +113,14 @@ public class ParseFFTB {
 		HashMap<String, String> byes = new HashMap<String, String>();
 		List<String> brokenUp = HandleBasicQueries.handleLists(
 				"http://www.fftoolbox.com/football/byeweeks.cfm", "td");
-		for (int i = 0; i < brokenUp.size(); i += 2) {
+		int floor = 0;
+		for (int i = 0; i < brokenUp.size(); i++) {
+			if (brokenUp.get(i).contains("Week")) {
+				floor = i;
+				break;
+			}
+		}
+		for (int i = floor; i < brokenUp.size(); i += 2) {
 			String week = brokenUp.get(i);
 			String[] teamSet = brokenUp.get(i + 1).split(", ");
 			for (String team : teamSet) {
