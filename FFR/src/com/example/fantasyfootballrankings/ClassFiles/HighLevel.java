@@ -851,7 +851,7 @@ public class HighLevel {
 		for (int i = min; i < td.size(); i += 10) {
 			String nameSet = td.get(i + 1);
 			String name = ParseRankings.fixNames(nameSet.split(" \\(")[0]);
-			String pos = nameSet.split(" \\(")[1].split(",")[0];
+			String pos = nameSet.split(" \\(")[1].split(" - ")[0];
 			Integer bad = Integer.parseInt(td.get(i + 3).replace("%", ""));
 			Integer good = Integer.parseInt(td.get(i + 5).replace("%", ""));
 			Integer great = Integer.parseInt(td.get(i + 7).replace("%", ""));

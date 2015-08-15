@@ -1217,8 +1217,6 @@ public class Rankings extends Activity {
 				} else if (selected.contains(": ")) {
 					selected = selected.split(": ")[1];
 				}
-				System.out.println(selected);
-				System.out.println(moreInfo);
 				PlayerInfo obj = new PlayerInfo();
 				obj.outputResults(selected + ", " + moreInfo, true,
 						(Rankings) context, holder, false, true, false);
