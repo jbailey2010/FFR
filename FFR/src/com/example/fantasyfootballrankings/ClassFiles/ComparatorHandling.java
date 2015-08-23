@@ -542,7 +542,15 @@ public class ComparatorHandling {
 	 */
 	public void setResult(List<String> results) {
 		result.setVisibility(View.VISIBLE);
-		result.setText(results.get(0) + " of experts prefer " + results.get(2));
+		if (Integer.parseInt(results.get(0).substring(0,
+				results.get(0).length() - 1)) > Integer.parseInt(results.get(1)
+				.substring(0, results.get(1).length() - 1))) {
+			result.setText(results.get(0) + " of experts prefer "
+					+ results.get(2));
+		} else {
+			result.setText(results.get(1) + " of experts prefer "
+					+ results.get(3));
+		}
 	}
 
 	/**

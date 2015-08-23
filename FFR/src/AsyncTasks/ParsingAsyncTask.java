@@ -588,26 +588,22 @@ public class ParsingAsyncTask {
 			}
 			try {
 				Document doc = Jsoup.connect(baseURL).get();
-				System.out.println("Got doc");
 				List<String> percentages = HandleBasicQueries.handleListsMulti(
-						doc, baseURL, "div div.mpb-col span");
+						doc, baseURL, "div div.fpcol-5 span");
 				for (String percent : percentages) {
 					if (percent.contains("%")
 							&& (percent.contains("50") || !ecrList
 									.contains(percent))
 							&& !(ecrList.size() >= 2)) {
-						System.out.println("Adding " + percent + " to ecrList");
 						ecrList.add(percent);
 					}
 				}
 				if (percentages.size() < 2) {
-					System.out.println("Returning null :(");
 					return null;
 				}
-				Elements elems = doc.select("div.mpb-left");
+				Elements elems = doc.select("div.fpcol-2");
 				Element p = null;
 				for (Element elem : elems) {
-					System.out.println("Iterating with " + elem.text());
 					if (isStart
 							&& (elem.text().contains("Points / Game") || elem
 									.text().contains("Ave Projection"))) {
@@ -617,21 +613,21 @@ public class ParsingAsyncTask {
 						break;
 					} else if (!isStart && elem.text().contains("ECR")) {
 						p = elem;
-						ecrList.add(elem.parent().parent().parent().parent()
-								.child(2).child(1).child(1).child(0).text());
-						ecrList.add(elem.parent().parent().parent().parent()
-								.child(2).child(2).child(1).child(0).text());
+						Element megaParent = p.parent().parent().parent()
+								.parent();// .child(2).child(1).child(1).child(0).text();
+						ecrList.add(megaParent.child(2).child(0).child(1)
+								.child(0).text());
+						ecrList.add(megaParent.child(2).child(2).child(1)
+								.child(0).text());
 						break;
 					}
 				}
-				System.out.println("Through average with a total size of "
-						+ ecrList.size());
 				if (p != null) {
 					String name = "";
 					if (!isStart) {
 						Element megaParent = p.parent().parent().parent()
 								.parent();// .child(2).child(1).child(1).child(0).text();
-						name = (megaParent.child(2).child(1).child(1).child(0)
+						name = (megaParent.child(2).child(0).child(1).child(0)
 								.text());
 					} else {
 						Element megaParent = p.parent().parent().parent()
