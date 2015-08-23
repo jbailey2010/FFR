@@ -139,7 +139,9 @@ public class Home extends Activity {
 		 * StrictMode.ThreadPolicy.Builder() .permitAll().build();
 		 * 
 		 * StrictMode.setThreadPolicy(policy); try {
-		 * ParseRankings.handleHashes(); HighLevel.parseQualityDists(holder); }
+		 * ParseRankings.handleHashes();
+		 * ParseDraftWizardRanks.parseRanksWrapper(holder,
+		 * ReadFromFile.readScoring(cont), ReadFromFile.readRoster(cont)); }
 		 * catch (IOException e) { // TODO Auto-generated catch block
 		 * e.printStackTrace(); }
 		 */

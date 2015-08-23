@@ -46,7 +46,7 @@ public class ParseDraftWizardRanks {
 				break;
 			}
 		}
-		for (int i = startingIndex; i < td.size(); i += 4) {
+		for (int i = startingIndex; i < td.size(); i += 5) {
 			int aucVal = Integer.parseInt(td.get(i + 2).substring(1,
 					td.get(i + 2).length()));
 			String playerName = ParseRankings.fixNames(ParseRankings

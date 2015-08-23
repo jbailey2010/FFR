@@ -185,8 +185,6 @@ public class Rankings extends Activity {
 	protected void onResume() {
 		super.onResume();
 
-		handleRefresh();
-		configSearch();
 		// Call Socialize in onResume
 		Socialize.onResume(this);
 	}
