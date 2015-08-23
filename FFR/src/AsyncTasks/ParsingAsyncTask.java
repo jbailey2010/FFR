@@ -588,6 +588,7 @@ public class ParsingAsyncTask {
 			}
 			try {
 				Document doc = Jsoup.connect(baseURL).get();
+				System.out.println("Got doc");
 				List<String> percentages = HandleBasicQueries.handleListsMulti(
 						doc, baseURL, "div div.mpb-col span");
 				for (String percent : percentages) {
@@ -595,15 +596,18 @@ public class ParsingAsyncTask {
 							&& (percent.contains("50") || !ecrList
 									.contains(percent))
 							&& !(ecrList.size() >= 2)) {
+						System.out.println("Adding " + percent + " to ecrList");
 						ecrList.add(percent);
 					}
 				}
 				if (percentages.size() < 2) {
+					System.out.println("Returning null :(");
 					return null;
 				}
 				Elements elems = doc.select("div.mpb-left");
 				Element p = null;
 				for (Element elem : elems) {
+					System.out.println("Iterating with " + elem.text());
 					if (isStart
 							&& (elem.text().contains("Points / Game") || elem
 									.text().contains("Ave Projection"))) {
@@ -620,6 +624,8 @@ public class ParsingAsyncTask {
 						break;
 					}
 				}
+				System.out.println("Through average with a total size of "
+						+ ecrList.size());
 				if (p != null) {
 					String name = "";
 					if (!isStart) {

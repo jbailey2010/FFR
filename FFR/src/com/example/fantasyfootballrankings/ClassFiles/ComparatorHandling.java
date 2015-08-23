@@ -114,28 +114,6 @@ public class ComparatorHandling {
 				.findViewById(R.id.player1_input);
 		final AutoCompleteTextView player2 = (AutoCompleteTextView) dialog
 				.findViewById(R.id.player2_input);
-		WindowManager wm = (WindowManager) cont
-				.getSystemService(Context.WINDOW_SERVICE);
-		Display display = wm.getDefaultDisplay();
-		@SuppressWarnings("deprecation")
-		Resources r = cont.getResources();
-		int width = display.getWidth();
-		int newWidth = 0;
-		if (width < 500) {
-			newWidth = 140;
-		} else if (width < 780) {
-			newWidth = 170;
-		} else {
-			newWidth = 240;
-		}
-		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-				newWidth, r.getDisplayMetrics());
-		android.view.ViewGroup.LayoutParams params1 = player1.getLayoutParams();
-		params1.width = (int) px;
-		player1.setLayoutParams(params1);
-		android.view.ViewGroup.LayoutParams params2 = player2.getLayoutParams();
-		params2.width = (int) px;
-		player2.setLayoutParams(params2);
 		player1.setAdapter(doubleAdapter);
 		player1.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -506,28 +484,6 @@ public class ComparatorHandling {
 				.findViewById(R.id.compare_output_1);
 		TextView output2 = (TextView) dialog
 				.findViewById(R.id.compare_output_2);
-		WindowManager wm = (WindowManager) cont
-				.getSystemService(Context.WINDOW_SERVICE);
-		Display display = wm.getDefaultDisplay();
-		@SuppressWarnings("deprecation")
-		int width = display.getWidth();
-		Resources r = cont.getResources();
-		int newWidth = 0;
-		if (width < 500) {
-			newWidth = 140;
-		} else if (width < 780) {
-			newWidth = 170;
-		} else {
-			newWidth = 240;
-		}
-		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-				newWidth, r.getDisplayMetrics());
-		android.view.ViewGroup.LayoutParams params1 = output1.getLayoutParams();
-		params1.width = (int) px;
-		output1.setLayoutParams(params1);
-		android.view.ViewGroup.LayoutParams params2 = output2.getLayoutParams();
-		params2.width = (int) px;
-		output2.setLayoutParams(params2);
 		output1.setText(p1.toString());
 		output2.setText(p2.toString());
 		Button close = (Button) dialog.findViewById(R.id.compare_close);
