@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.MyLeagueSupport;
 
 import java.text.DecimalFormat;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -11,6 +10,7 @@ import java.util.PriorityQueue;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -379,6 +379,9 @@ public class LeagueList {
 		double minFirst = 1000000000.0;
 		GraphViewStyle gvs = new GraphViewStyle();
 		gvs.setTextSize(13);
+		gvs.setVerticalLabelsColor(Color.BLACK);
+		gvs.setHorizontalLabelsColor(Color.BLACK);
+		gvs.setGridColor(Color.GRAY);
 		GraphView graphView = new LineGraphView(ImportLeague.cont, "");
 		graphView.setGraphViewStyle(gvs);
 		List<String> teamList = new ArrayList<String>();

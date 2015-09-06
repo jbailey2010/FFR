@@ -1561,6 +1561,9 @@ public class SortHandler {
 		popUp.show();
 		GraphViewStyle gvs = new GraphViewStyle();
 		gvs.setTextSize(12);
+		gvs.setVerticalLabelsColor(Color.BLACK);
+		gvs.setHorizontalLabelsColor(Color.BLACK);
+		gvs.setGridColor(Color.GRAY);
 		GraphView graphView = new LineGraphView(cont, "");
 		graphView.setGraphViewStyle(gvs);
 		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[a

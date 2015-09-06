@@ -216,6 +216,15 @@ public class YahooImport {
 			for (Element elem : elements) {
 				String playerName = ParseRankings.fixDefenses(ParseRankings
 						.fixNames(elem.text()));
+				String metadata = elem.parent().child(1).text();
+				if (playerName.equals("New York")) {
+					if (metadata.contains("NYJ")) {
+						playerName = "Jets D/ST";
+					}
+					if (metadata.contains("NYG")) {
+						playerName = "Giants D/ST";
+					}
+				}
 				String team = "";
 				Elements parent = elem.parent().parent().parent().parent()
 						.parent().parent().parent().children();

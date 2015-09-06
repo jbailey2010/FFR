@@ -574,13 +574,13 @@ containing a value of this type.
         public static final int sort_second_contract_year=0x7f06010c;
         public static final int sort_second_healthy=0x7f060103;
         public static final int sort_second_min_projection=0x7f06010b;
-        public static final int sort_second_pass=0x7f060107;
-        public static final int sort_second_run=0x7f060104;
+        public static final int sort_second_pass=0x7f060104;
+        public static final int sort_second_run=0x7f060105;
         public static final int sort_second_sos=0x7f060102;
         public static final int sort_second_start_dist=0x7f06010d;
         public static final int sort_second_submit=0x7f060109;
         public static final int sort_second_under_30=0x7f060106;
-        public static final int sort_second_watch=0x7f060105;
+        public static final int sort_second_watch=0x7f060107;
         public static final int sort_stat_spinner=0x7f0600fd;
         public static final int sort_submit=0x7f0600ff;
         public static final int start_roster=0x7f060128;

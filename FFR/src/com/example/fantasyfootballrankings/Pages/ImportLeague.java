@@ -1,28 +1,20 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
 import java.util.Set;
 
 import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
-import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
-import com.example.fantasyfootballrankings.ClassFiles.SortHandler;
-import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
-import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.PlayerInfoActivity;
-import com.example.fantasyfootballrankings.InterfaceAugmentations.NDSpinner;
 import com.example.fantasyfootballrankings.MyLeagueSupport.CompareTeams;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LeagueList;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LineupHelp;
@@ -33,16 +25,8 @@ import com.example.fantasyfootballrankings.MyLeagueSupport.TeamList;
 import com.example.fantasyfootballrankings.MyLeagueSupport.ImportSources.ESPNImport;
 import com.example.fantasyfootballrankings.MyLeagueSupport.ImportSources.YahooImport;
 import com.ffr.fantasyfootballrankings.R;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GraphView.LegendAlign;
-import com.jjoe64.graphview.GraphViewDataInterface;
-import com.jjoe64.graphview.GraphViewSeries;
-import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
-import com.jjoe64.graphview.GraphViewStyle;
-import com.jjoe64.graphview.LineGraphView;
 
 import FileIO.ReadFromFile;
-import FileIO.WriteToFile;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -50,37 +34,24 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.TwoLineListItem;
-
-import com.jjoe64.graphview.GraphView.GraphViewData;
 
 /**
  * Handles the importing of leagues
