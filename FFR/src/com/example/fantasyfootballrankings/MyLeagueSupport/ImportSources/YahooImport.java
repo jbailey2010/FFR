@@ -127,11 +127,7 @@ public class YahooImport {
 	 * @param test
 	 */
 	public void handleTest(Document test) {
-		// if(isSignIn(test))
-		{
-			// Need to sign in here
-		}
-		/* else */if (!isRosters(test)) {
+		if (!isRosters(test)) {
 			final Dialog popUp = new Dialog(cont, R.style.RoundCornersFull);
 			popUp.requestWindowFeature(Window.FEATURE_NO_TITLE);
 			popUp.setContentView(R.layout.tweet_popup);
@@ -222,7 +218,7 @@ public class YahooImport {
 						.fixNames(elem.text()));
 				String team = "";
 				Elements parent = elem.parent().parent().parent().parent()
-						.parent().parent().parent().parent().children();
+						.parent().parent().parent().children();
 				for (Element children : parent) {
 					if (children.children().size() > 0) {
 						Element child = parent.get(0);

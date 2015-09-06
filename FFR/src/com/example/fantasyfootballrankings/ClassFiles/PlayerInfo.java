@@ -283,10 +283,7 @@ public class PlayerInfo {
 		}
 		name.setText(playerName);
 		searchedPlayer = new PlayerObject("", "", "", 0);
-		System.out.println(playerName + ", " + pos + " - " + team);
 		for (PlayerObject player : holder.players) {
-			System.out.println(player.info.name + " +,+ " + player.info.team
-					+ " +-+ " + player.info.position);
 			if (player.info.name.equals(playerName)
 					&& player.info.team.equals(team)
 					&& player.info.position.equals(pos)) {
@@ -308,8 +305,12 @@ public class PlayerInfo {
 						String nameStr = name.getText().toString();
 						if (!Draft.isDrafted(nameStr, holder.draft)) {
 							int index = 0;
+							boolean notShown = false;
 							for (int i = 0; i < holder.players.size(); i++) {
-
+								if (i >= Rankings.data.size()) {
+									notShown = true;
+									break;
+								}
 								if (Rankings.data.get(i).get("main")
 										.contains(namePlayer.split(", ")[0])) {
 									index = i;
@@ -317,8 +318,10 @@ public class PlayerInfo {
 								}
 							}
 							DecimalFormat df = new DecimalFormat("#.##");
-							Rankings.data.remove(index);
-							Rankings.adapter.notifyDataSetChanged();
+							if (!notShown) {
+								Rankings.data.remove(index);
+								Rankings.adapter.notifyDataSetChanged();
+							}
 							Map<String, String> datum = new HashMap<String, String>();
 							boolean isAuction = ReadFromFile.readIsAuction(act);
 							if (isAuction) {
@@ -331,11 +334,11 @@ public class PlayerInfo {
 							} else if (!isAuction && copy.values.ecr == -1) {
 								datum.put("main", copy.info.name);
 							}
-							datum.put("sub", copy.info.position + " - "
-									+ copy.info.team + "\n" + "Bye: "
-									+ holder.bye.get(copy.info.team));
+							datum.put("sub", Rankings.generateOutputSubtext(
+									copy, holder, df));
 							Rankings.handleDrafted(datum, holder,
-									(Activity) Rankings.context, dialog, index);
+									(Activity) Rankings.context, dialog, index,
+									notShown);
 							return true;
 						} else {
 							Toast.makeText(act,

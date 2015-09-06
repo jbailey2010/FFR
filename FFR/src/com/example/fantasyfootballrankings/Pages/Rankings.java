@@ -1151,38 +1151,9 @@ public class Rankings extends Activity {
 				datum.put("main", df.format(elem.values.points) + ":  "
 						+ elem.info.name);
 			}
-			StringBuilder sub = new StringBuilder(1000);
-			if (elem.info.position.length() > 0) {
-				sub.append(elem.info.position);
-			}
-			if ((elem.info.team.length() > 2 && !elem.info.team.equals("---") && !elem.info.team
-					.equals("FA"))) {
-				sub.append(" - " + elem.info.team);
-				if ((holder.bye.get(elem.info.team) != null)) {
-					sub.append(" (Bye: " + holder.bye.get(elem.info.team) + ")");
-				}
-			}
-			if (elem.values.points > 0.0 && !holder.isRegularSeason) {
-				sub.append("\nProjection: " + df.format(elem.values.points));
-			}
-			if (holder.isRegularSeason) {
-				if (!elem.info.adp.equals("Not set")
-						&& !(elem.info.adp.equals("Bye Week") || elem.values.points == 0.0)) {
-					sub.append("\nOpponent: " + elem.info.adp);
-					if (!elem.info.position.equals("D/ST")
-							&& !elem.info.adp.equals("Bye Week")) {
-						sub.append(" (SOS: "
-								+ holder.sos.get(elem.info.adp + ","
-										+ elem.info.position) + ")");
-					}
-				}
-				if (elem.values.rosRank > 0) {
-					sub.append("\nROS Positional Ranking: "
-							+ elem.values.rosRank);
-				}
-			}
 
-			datum.put("sub", sub.toString());
+
+			datum.put("sub", generateOutputSubtext(elem, holder, df));
 			if (watchList.contains(elem.info.name)) {
 				datum.put("hidden", "W");
 			} else {
@@ -1192,6 +1163,40 @@ public class Rankings extends Activity {
 			adapter.notifyDataSetChanged();
 
 		}
+	}
+
+	public static String generateOutputSubtext(PlayerObject elem,
+			Storage holder, DecimalFormat df) {
+		StringBuilder sub = new StringBuilder(1000);
+		if (elem.info.position.length() > 0) {
+			sub.append(elem.info.position);
+		}
+		if ((elem.info.team.length() > 2 && !elem.info.team.equals("---") && !elem.info.team
+				.equals("FA"))) {
+			sub.append(" - " + elem.info.team);
+			if ((holder.bye.get(elem.info.team) != null)) {
+				sub.append(" (Bye: " + holder.bye.get(elem.info.team) + ")");
+			}
+		}
+		if (elem.values.points > 0.0 && !holder.isRegularSeason) {
+			sub.append("\nProjection: " + df.format(elem.values.points));
+		}
+		if (holder.isRegularSeason) {
+			if (!elem.info.adp.equals("Not set")
+					&& !(elem.info.adp.equals("Bye Week") || elem.values.points == 0.0)) {
+				sub.append("\nOpponent: " + elem.info.adp);
+				if (!elem.info.position.equals("D/ST")
+						&& !elem.info.adp.equals("Bye Week")) {
+					sub.append(" (SOS: "
+							+ holder.sos.get(elem.info.adp + ","
+									+ elem.info.position) + ")");
+				}
+			}
+			if (elem.values.rosRank > 0) {
+				sub.append("\nROS Positional Ranking: " + elem.values.rosRank);
+			}
+		}
+		return sub.toString();
 	}
 
 	/**
@@ -1290,7 +1295,7 @@ public class Rankings extends Activity {
 							index = position;
 						}
 						adapter.notifyDataSetChanged();
-						handleDrafted(view, holder, cont, null, index);
+						handleDrafted(view, holder, cont, null, index, false);
 						Rankings.isSwiping = false;
 						swipedText = null;
 					}
@@ -1306,7 +1311,7 @@ public class Rankings extends Activity {
 	 */
 	public static void handleDrafted(final Map<String, String> view,
 			final Storage holder, final Activity cont, final Dialog dialog,
-			final int index) {
+			final int index, final boolean notShown) {
 		listview.setOnTouchListener(touchListener);
 		listview.setOnScrollListener(touchListener.makeScrollListener());
 		final Dialog popup = new Dialog(cont, R.style.RoundCornersFull);
@@ -1337,11 +1342,13 @@ public class Rankings extends Activity {
 		close.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (watchList.contains(d)) {
-					view.put("hidden", "W");
+				if (!notShown) {
+					if (watchList.contains(d)) {
+						view.put("hidden", "W");
+					}
+					data.add(index, view);
+					adapter.notifyDataSetChanged();
 				}
-				data.add(index, view);
-				adapter.notifyDataSetChanged();
 				popup.dismiss();
 				return;
 			}
@@ -1367,7 +1374,7 @@ public class Rankings extends Activity {
 			public void onClick(View v) {
 				if (isAuction) {
 					draftedByMe(d, view, holder, cont, listview, popup, dialog,
-							index);
+							index, notShown);
 				} else {
 					for (PlayerObject player : holder.players) {
 						if (player.info.name.equals(d)) {
@@ -1393,7 +1400,7 @@ public class Rankings extends Activity {
 	public static void draftedByMe(final String name,
 			final Map<String, String> view, final Storage holder,
 			final Activity cont, final ListView listview, final Dialog popup,
-			final Dialog dialog, final int index) {
+			final Dialog dialog, final int index, final boolean notShown) {
 		popup.setContentView(R.layout.draft_by_me);
 		TextView header = (TextView) popup.findViewById(R.id.name_header);
 		header.setText("How much did " + name + " cost?");
@@ -1403,7 +1410,7 @@ public class Rankings extends Activity {
 			@Override
 			public void onClick(View v) {
 				popup.dismiss();
-				handleDrafted(view, holder, cont, dialog, index);
+				handleDrafted(view, holder, cont, dialog, index, notShown);
 			}
 		});
 		List<String> possResults = new ArrayList<String>();
