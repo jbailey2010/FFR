@@ -519,7 +519,8 @@ public class HighLevel {
 			throws IOException {
 		List<String> td = HandleBasicQueries
 				.handleLists(
-						"http://www.fftoolbox.com/football/2014/weeklycheatsheets.cfm?player_pos=DEF",
+				"http://www.fftoolbox.com/football/" + Home.yearKey
+						+ "/weeklycheatsheets.cfm?player_pos=DEF",
 						"table.grid td");
 		boolean hasWeek = false;
 		boolean hasWill = false;
@@ -532,7 +533,8 @@ public class HighLevel {
 		}
 		Document doc = Jsoup
 				.connect(
-						"http://www.fftoolbox.com/football/2014/weeklycheatsheets.cfm?player_pos=DEF")
+				"http://www.fftoolbox.com/football/" + Home.yearKey
+						+ "/weeklycheatsheets.cfm?player_pos=DEF")
 				.get();
 		if (doc.html().contains("will be up")) {
 			hasWill = true;
@@ -563,7 +565,8 @@ public class HighLevel {
 			throws IOException {
 		List<String> td = HandleBasicQueries
 				.handleLists(
-						"http://www.fftoolbox.com/football/2014/cheatsheets.cfm?player_pos=DEF",
+				"http://www.fftoolbox.com/football/" + Home.yearKey
+						+ "/cheatsheets.cfm?player_pos=DEF",
 						"table.grid td");
 		try {
 			for (int i = 0; i < td.size(); i += 5) {

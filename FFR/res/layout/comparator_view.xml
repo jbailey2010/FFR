@@ -27,7 +27,7 @@
         android:id="@+id/player2_input"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/second_player_compare"
+        android:layout_alignBottom="@+id/player1_input"
         android:layout_alignParentRight="true"
         android:ems="10"
         android:layout_marginRight="10dp"
@@ -37,17 +37,6 @@
     	android:background="@drawable/spinner_well"
     	android:textColor="#000000" >
     </AutoCompleteTextView>
-
-    <TextView
-        android:id="@+id/second_player_compare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/player1_input"
-        android:layout_marginRight="35dp"
-        android:layout_marginTop="32dp"
-        android:text="Second Player: "
-        android:visibility="invisible" />
  
     <AutoCompleteTextView
         android:id="@+id/player1_input" 
@@ -65,17 +54,6 @@
     	android:textColor="#000000" >
         <requestFocus />
     </AutoCompleteTextView>
-
-    <TextView
-        android:id="@+id/first_player_compare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/second_player_compare"
-        android:layout_alignBottom="@+id/second_player_compare"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="35dp"
-        android:text="First Player: "
-        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/player_comparator_header"

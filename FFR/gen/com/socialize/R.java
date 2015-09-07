@@ -144,14 +144,14 @@ public final class R {
 		public static final int com_facebook_usersettingsfragment_logo_image = 0x7f060027;
 		public static final int com_facebook_usersettingsfragment_profile_name = 0x7f060028;
 		public static final int large = 0x7f060002;
-		public static final int left_item = 0x7f06010e;
-		public static final int left_item_icon = 0x7f06010f;
-		public static final int left_item_text = 0x7f060110;
+		public static final int left_item = 0x7f06010c;
+		public static final int left_item_icon = 0x7f06010d;
+		public static final int left_item_text = 0x7f06010e;
 		public static final int normal = 0x7f060001;
 		public static final int picker_subtitle = 0x7f060024;
-		public static final int right_item = 0x7f060111;
-		public static final int right_item_icon = 0x7f060112;
-		public static final int right_item_text = 0x7f060113;
+		public static final int right_item = 0x7f06010f;
+		public static final int right_item_icon = 0x7f060110;
+		public static final int right_item_text = 0x7f060111;
 		public static final int small = 0x7f060000;
 	}
 	public static final class layout {

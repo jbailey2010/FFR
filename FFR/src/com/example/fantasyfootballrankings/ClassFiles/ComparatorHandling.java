@@ -61,14 +61,6 @@ public class ComparatorHandling {
 				.findViewById(R.id.player2_input);
 		player1Input.setText("");
 		player2Input.setText("");
-		final TextView player1 = (TextView) dialog
-				.findViewById(R.id.first_player_compare);
-		final TextView player2 = (TextView) dialog
-				.findViewById(R.id.second_player_compare);
-		player1.setText("First Player: ");
-		player2.setText("Second Player: ");
-		player1.setVisibility(TextView.INVISIBLE);
-		player2.setVisibility(TextView.INVISIBLE);
 		// Get rid of dialog
 		Button close = (Button) dialog.findViewById(R.id.compare_close);
 		close.setOnClickListener(new OnClickListener() {
@@ -81,10 +73,6 @@ public class ComparatorHandling {
 		Button clear = (Button) dialog.findViewById(R.id.clear_compare);
 		clear.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				player1.setText("First Player: ");
-				player2.setText("Second Player: ");
-				player1.setVisibility(TextView.INVISIBLE);
-				player2.setVisibility(TextView.INVISIBLE);
 				final AutoCompleteTextView player1Input = (AutoCompleteTextView) dialog
 						.findViewById(R.id.player1_input);
 				final AutoCompleteTextView player2Input = (AutoCompleteTextView) dialog
@@ -119,12 +107,16 @@ public class ComparatorHandling {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				TextView list2 = (TextView) dialog
-						.findViewById(R.id.second_player_compare);
-				showInput(player1, dialog, cont, holder,
-						R.id.first_player_compare, "First Player: ");
-				if (list2.getText().toString().contains("\n")) {
+				if (player2.getText().toString().length() > 3
+						&& holder.parsedPlayers.contains(player2.getText()
+								.toString())) {
 					startBackEnd(dialog, cont, holder);
+				}
+ else {
+					Toast.makeText(
+							cont,
+							"Please enter two valid player names, using the dropdown to help",
+							Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -133,26 +125,19 @@ public class ComparatorHandling {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				TextView list1 = (TextView) dialog
-						.findViewById(R.id.first_player_compare);
-				showInput(player2, dialog, cont, holder,
-						R.id.second_player_compare, "Second Player: ");
-				if (list1.getText().toString().contains("\n")) {
+				if (player1.getText().toString().length() > 3
+						&& holder.parsedPlayers.contains(player1.getText()
+								.toString())) {
 					startBackEnd(dialog, cont, holder);
+				}
+ else {
+					Toast.makeText(
+							cont,
+							"Please enter two valid player names, using the dropdown to help",
+							Toast.LENGTH_LONG).show();
 				}
 			}
 		});
-	}
-
-	/**
-	 * Sets the textview at the bottom to be the inputted player
-	 */
-	public static void showInput(AutoCompleteTextView player, Dialog dialog,
-			Context cont, Storage holder, int id, String text) {
-		String input = player.getText().toString();
-		TextView list = (TextView) dialog.findViewById(id);
-		list.setText(text + input + "\n");
-		list.setVisibility(TextView.VISIBLE);
 	}
 
 	/**
