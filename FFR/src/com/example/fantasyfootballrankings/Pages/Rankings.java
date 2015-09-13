@@ -1186,7 +1186,9 @@ public class Rankings extends Activity {
 					&& !(elem.info.adp.equals("Bye Week") || elem.values.points == 0.0)) {
 				sub.append("\nOpponent: " + elem.info.adp);
 				if (!elem.info.position.equals("D/ST")
-						&& !elem.info.adp.equals("Bye Week")) {
+						&& !elem.info.adp.equals("Bye Week")
+						&& holder.sos.get(elem.info.adp + ","
+								+ elem.info.position) != null) {
 					sub.append(" (SOS: "
 							+ holder.sos.get(elem.info.adp + ","
 									+ elem.info.position) + ")");

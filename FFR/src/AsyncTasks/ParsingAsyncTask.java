@@ -594,8 +594,7 @@ public class ParsingAsyncTask {
 				Element p = null;
 				for (Element elem : elems) {
 					if (isStart
-							&& (elem.text().contains("Points / Game") || elem
-									.text().contains("Ave Projection"))) {
+ && elem.text().contains("Points / Game")) {
 						p = elem;
 						ecrList.add(elem.parent().child(0).text());
 						ecrList.add(elem.parent().child(2).text());
@@ -635,8 +634,10 @@ public class ParsingAsyncTask {
 						List<String> newEcr = new ArrayList<String>();
 						newEcr.add(ecrList.get(1));
 						newEcr.add(ecrList.get(0));
-						newEcr.add(ecrList.get(3));
-						newEcr.add(ecrList.get(2));
+						if (ecrList.size() > 2) {
+							newEcr.add(ecrList.get(3));
+							newEcr.add(ecrList.get(2));
+						}
 						return newEcr;
 					}
 				}

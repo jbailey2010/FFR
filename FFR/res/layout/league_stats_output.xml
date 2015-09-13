@@ -341,13 +341,13 @@
                 android:visibility="gone"
                 android:paddingTop="20dp" android:paddingBottom="20dp">
 
-                <TextView android:textStyle="bold"
+                <TextView 
                     android:id="@+id/player1_fp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text="X Points"
-                    android:textSize="17sp" />
+                    style="@+style/PopupMainText"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -358,9 +358,9 @@
 	            android:visibility="gone"
 	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            >
-	            <TextView android:textStyle="bold"
+	            <TextView 
 		            android:id="@+id/player2_fp"
-		            android:textSize="17sp"
+		            style="@+style/PopupMainText"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_centerHorizontal="true"
@@ -378,16 +378,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:visibility="gone"
-                android:paddingTop="20dp" android:paddingBottom="20dp">
+                android:visibility="gone">
 
-                <TextView android:textStyle="bold"
+                <TextView 
                     android:id="@+id/player1_ppw"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text="X Points"
-                    android:textSize="17sp" />
+                    
+                android:paddingTop="20dp" android:paddingBottom="20dp"
+                    style="@+style/PopupMainText" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -396,11 +397,12 @@
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
 	            android:visibility="gone"
-	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            >
-	            <TextView android:textStyle="bold"
+	            <TextView 
 		            android:id="@+id/player2_ppw"
-		            android:textSize="17sp"
+		            
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
+		            style="@+style/PopupMainText"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_centerHorizontal="true"
@@ -417,16 +419,17 @@
                 android:id="@+id/player1_points_base"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="20dp" android:paddingBottom="20dp">
+                android:layout_weight="1">
 
-                <TextView android:textStyle="bold"
+                <TextView 
                     android:id="@+id/player1_proj"
                     android:layout_width="wrap_content"
+                    
+                android:paddingTop="20dp" android:paddingBottom="20dp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text="X Points"
-                    android:textSize="17sp" />
+                    style="@+style/PopupMainText" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -434,11 +437,12 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
-	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            >
-	            <TextView android:textStyle="bold"
+	            <TextView
 		            android:id="@+id/player2_points"
-		            android:textSize="17sp"
+		            	            android:paddingTop="20dp" android:paddingBottom="20dp"
+		            
+		            style="@+style/PopupMainText"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_centerHorizontal="true"
@@ -453,15 +457,16 @@
 	        <RelativeLayout
 	            android:id="@+id/player1_sos_base"
 	            android:layout_width="match_parent"
-	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
 	            >
-		            <TextView android:textStyle="bold"
+		            <TextView 
 		            android:id="@+id/player1_sos"
-		            android:textSize="17sp"
+		            style="@+style/PopupMainText"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
+		            	            android:paddingTop="20dp" android:paddingBottom="20dp"
+		            
 		            android:layout_centerHorizontal="true"
 		            android:text="SOS: 1"/>
             </RelativeLayout>
@@ -470,12 +475,13 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
-	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            >
-	            <TextView android:textStyle="bold"
+	            <TextView
 		            android:id="@+id/player2_sos"
-		            android:textSize="17sp"
+		            style="@+style/PopupMainText"
 		            android:layout_width="wrap_content"
+		            	            android:paddingTop="20dp" android:paddingBottom="20dp"
+		            
 		            android:layout_height="wrap_content"
 		            android:layout_centerHorizontal="true"
 		            android:text="SOS: 32"/>
@@ -490,13 +496,14 @@
 	            android:id="@+id/player1_paa_base"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            android:layout_weight="1"
 	            >
-		            <TextView android:textStyle="bold"
+		            <TextView 
 		            android:id="@+id/player1_paa"
-		            android:textSize="17sp"
+		            style="@+style/PopupMainText"
 		            android:layout_width="wrap_content"
+		            
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
 		            android:layout_height="wrap_content"
 		            android:layout_centerHorizontal="true"
 		            android:text="X PAA"/>
@@ -505,12 +512,13 @@
                 android:id="@+id/player2_paa_base"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            android:layout_weight="1"
 	            >
-	            <TextView android:textStyle="bold"
+	            <TextView
 		            android:id="@+id/player2_paa"
-		            android:textSize="17sp"
+		            
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
+		           style="@+style/PopupMainText"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_centerHorizontal="true"
@@ -526,13 +534,14 @@
 	            android:id="@+id/player1_risk_base"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            android:layout_weight="1"
 	            >
-		            <TextView android:textStyle="bold"
+		            <TextView 
 		            android:id="@+id/player1_risk"
-		            android:textSize="17sp"
+		            style="@+style/PopupMainText"
 		            android:layout_width="wrap_content"
+		            
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
 		            android:layout_height="wrap_content"
 		            android:layout_centerHorizontal="true"
 		            android:text="Risk: 0"/>
@@ -541,12 +550,13 @@
                 android:id="@+id/player2_risk_base"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            android:layout_weight="1"
 	            >
-	            <TextView android:textStyle="bold"
+	            <TextView 
 		            android:id="@+id/player2_risk"
-		            android:textSize="17sp"
+		            
+	            android:paddingTop="20dp" android:paddingBottom="20dp"
+		            style="@+style/PopupMainText"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_centerHorizontal="true"
@@ -562,13 +572,14 @@
 	            android:id="@+id/player1_weekly_pos_rank_base"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            android:layout_weight="1"
 	            >
-		            <TextView android:textStyle="bold"
+		            <TextView
 		            android:id="@+id/player1_weekly_pos_rank"
-		            android:textSize="17sp"
+		            style="@+style/PopupMainText"
 		            android:layout_width="wrap_content"
+		            	            android:paddingTop="20dp" android:paddingBottom="20dp"
+		            
 		            android:layout_height="wrap_content"
 		            android:layout_centerHorizontal="true"
 		            android:text="Ranked: X Positionally"/>
@@ -577,12 +588,13 @@
                 android:id="@+id/player2_weekly_pos_rank_base"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:paddingTop="20dp" android:paddingBottom="20dp"
 	            android:layout_weight="1"
 	            >
-	            <TextView android:textStyle="bold"
+	            <TextView 
 		            android:id="@+id/player2_weekly_pos_rank"
-		            android:textSize="17sp"
+		            style="@+style/PopupMainText"
+		            	            android:paddingTop="20dp" android:paddingBottom="20dp"
+		            
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_centerHorizontal="true"

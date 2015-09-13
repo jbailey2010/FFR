@@ -230,8 +230,8 @@ public class LineupHelp {
 					+ pl2.info.position);
 		}
 		if (mightBeWeekOne) {
-			p1sos.setText(" - ");
-			p2sos.setText(" - ");
+			p1sos.setVisibility(View.GONE);
+			p2sos.setVisibility(View.GONE);
 		}
  else {
 			if (sos1 > sos2) {
@@ -329,8 +329,6 @@ public class LineupHelp {
 		TextView ppw2 = (TextView) t.findViewById(R.id.player2_ppw);
 		p1.setText("Percentage of Experts: " + ecrList.get(0));
 		p2.setText("Percentage of Experts: " + ecrList.get(1));
-		ppw1.setText("Average Scoring: " + ecrList.get(2));
-		ppw2.setText("Average Scoring: " + ecrList.get(3));
 		if (Integer.parseInt(ecrList.get(0).substring(0,
 				ecrList.get(0).length() - 1)) > Integer.parseInt(ecrList.get(1)
 				.substring(0, ecrList.get(1).length() - 1))) {
@@ -340,13 +338,20 @@ public class LineupHelp {
 			p2Base.setBackgroundColor(0XFF4DDB4D);
 			p1Base.setBackgroundColor(0XFFFF4D4D);
 		}
-		if (Double.parseDouble(ecrList.get(2)) > Double.parseDouble(ecrList
-				.get(3))) {
-			ppw1Base.setBackgroundColor(0XFF4DDB4D);
-			ppw2Base.setBackgroundColor(0XFFFF4D4D);
+		if (ecrList.size() > 2) {
+			ppw1.setText("Average Scoring: " + ecrList.get(2));
+			ppw2.setText("Average Scoring: " + ecrList.get(3));
+			if (Double.parseDouble(ecrList.get(2)) > Double.parseDouble(ecrList
+					.get(3))) {
+				ppw1Base.setBackgroundColor(0XFF4DDB4D);
+				ppw2Base.setBackgroundColor(0XFFFF4D4D);
+			} else {
+				ppw2Base.setBackgroundColor(0XFF4DDB4D);
+				ppw1Base.setBackgroundColor(0XFFFF4D4D);
+			}
 		} else {
-			ppw2Base.setBackgroundColor(0XFF4DDB4D);
-			ppw1Base.setBackgroundColor(0XFFFF4D4D);
+			ppw1.setVisibility(View.GONE);
+			ppw2.setVisibility(View.GONE);
 		}
 	}
 }

@@ -30,7 +30,7 @@
     </style>
     
     <style name="PopupMainText">
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">#000000</item>
     </style>
     
