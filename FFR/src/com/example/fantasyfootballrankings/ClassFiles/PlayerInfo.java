@@ -135,7 +135,8 @@ public class PlayerInfo {
 						.toString().split(", ")[0])) {
 					dialog.dismiss();
 					outputResults(Rankings.textView.getText().toString(),
-							false, (Activity) oCont, holder, false, true, false);
+							false, (Activity) oCont, holder, false, false,
+							false);
 				} else {
 					Toast.makeText(oCont, "Not a valid player name",
 							Toast.LENGTH_SHORT).show();
