@@ -649,42 +649,42 @@ public class HighLevel {
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		for (int i = 0; i < td.size(); i++) {
-			if (td.get(i + 1).contains("(") && td.get(i + 1).contains(")")
+			if (td.get(i + 1).split(" ").length > 2
 					&& ManageInput.isInteger(td.get(i))) {
 				min = i;
 				break;
 			}
 		}
-		for (int i = min; i < td.size(); i += 6) {
+		for (int i = min; i < td.size(); i += 7) {
 			// Odd case where 50 players in the size changes
 			if (ManageInput.isInteger(td.get(i + 1))) {
 				i++;
 			}
 			String name = "";
+			String team = "";
 			if (pos.equals("D/ST")) {
-				name = (ParseRankings
-						.fixDefenses(td.get(i + 1).split(" \\(")[0].split(", ")[0]));
+				team = ParseRankings.fixTeams(td.get(i + 1).split(" \\(")[0]);
+				name = ParseRankings.fixDefenses(team);
 			} else {
-				name = ParseRankings.fixNames((td.get(i + 1).split(" \\(")[0]
-						.split(", ")[0]));
+				String[] nameArr = td.get(i + 1).split(", ")[0].split(" ");
+				for (int namePieceIndex = 0; namePieceIndex < nameArr.length - 1; namePieceIndex++) {
+					name += nameArr[namePieceIndex] + " ";
+				}
+				name = name.substring(0, name.length() - 1);
+				name = ParseRankings.fixNames(name);
+				team = ParseRankings.fixTeams(nameArr[nameArr.length - 1]);
 			}
 
-			double ecrVal = Double.parseDouble(td.get(i));
-			double riskVal = Double.parseDouble(td.get(i + 5));
-			String team = ParseRankings.fixTeams(td.get(i + 1).split(" \\(")[1]
-					.split("\\)")[0]);
-			if (!adp.containsKey(team) && !team.contains("FA")
-					&& !team.contains(" vs. ") && !team.contains(" at ")
-					&& !ManageInput.isInteger(team)) {
-				String wholeSet = td.get(i + 1);
+			double ecrVal = Double.parseDouble(td.get(i + 5));
+			double riskVal = Double.parseDouble(td.get(i + 6));
+			if (!adp.containsKey(team) && !team.contains("FA")) {
+				String wholeSet = td.get(i + 2);
 				String opp = "Bye Week";
 				if (wholeSet.contains("vs")) {
-					opp = ParseRankings.fixTeams(wholeSet.split("vs. ")[1]
-							.split(" Start /")[0]);
+					opp = ParseRankings.fixTeams(wholeSet.split("vs. ")[1]);
 				} else {
 					if (wholeSet.contains("at ")) {
-						opp = ParseRankings.fixTeams(wholeSet.split("at ")[1]
-								.split(" Start /")[0]);
+						opp = ParseRankings.fixTeams(wholeSet.split("at ")[1]);
 					}
 				}
 				adp.put(team, opp);
@@ -836,40 +836,6 @@ public class HighLevel {
 				name = ParseRankings.fixDefenses(ParseRankings.fixTeams(name));
 			}
 			rankings.put(name + "," + pos, ranking);
-		}
-	}
-
-	public static void parseQualityDists(Storage holder) throws IOException {
-		HashMap<String, HashMap<String, Integer>> retMap = new HashMap<String, HashMap<String, Integer>>();
-		List<String> td = HandleBasicQueries.handleLists(
-				"http://www.fantasypros.com/nfl/players/quality-starts.php",
-				"td");
-		int min = 0;
-		for (int i = 0; i < td.size(); i++) {
-			if (ManageInput.isInteger(td.get(i))) {
-				min = i;
-				break;
-			}
-		}
-		for (int i = min; i < td.size(); i += 10) {
-			String nameSet = td.get(i + 1);
-			String name = ParseRankings.fixNames(nameSet.split(" \\(")[0]);
-			String pos = nameSet.split(" \\(")[1].split(" - ")[0];
-			Integer bad = Integer.parseInt(td.get(i + 3).replace("%", ""));
-			Integer good = Integer.parseInt(td.get(i + 5).replace("%", ""));
-			Integer great = Integer.parseInt(td.get(i + 7).replace("%", ""));
-			HashMap<String, Integer> playerMap = new HashMap<String, Integer>();
-			playerMap.put("Bad", bad);
-			playerMap.put("Good", good);
-			playerMap.put("Great", great);
-			retMap.put(name + "," + pos, playerMap);
-		}
-		for (PlayerObject player : holder.players) {
-			if (retMap.containsKey(player.info.name + ","
-					+ player.info.position)) {
-				player.values.startDists = retMap.get(player.info.name + ","
-						+ player.info.position);
-			}
 		}
 	}
 }

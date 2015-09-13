@@ -256,17 +256,6 @@ public class ImportLeague extends Activity {
 			MyLeagueUtils.getRoster(cont, holder, newImport.roster,
 					newImport.leagueHost + newImport.leagueName, newImport);
 		} catch (NullPointerException e) {
-			if (newImport == null) {
-				System.out.println("New Import is null");
-
-			}
-			if (newImport.roster == null) {
-				System.out.println("New import roster was null");
-
-			}
-			if (newImport.leagueHost == null || newImport.leagueName == null) {
-				System.out.println("Data strings were null");
-			}
 			Toast.makeText(
 					cont,
 					"An error occurred. Please make sure your league has already drafted, and if so, try to re-import",

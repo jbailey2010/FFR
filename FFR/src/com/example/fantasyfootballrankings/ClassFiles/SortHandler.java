@@ -345,8 +345,6 @@ public class SortHandler {
 				.findViewById(R.id.sort_second_under_30);
 		final CheckBox wl = (CheckBox) dialog
 				.findViewById(R.id.sort_second_watch);
-		final CheckBox cy = (CheckBox) dialog
-				.findViewById(R.id.sort_second_contract_year);
 		final CheckBox healthy = (CheckBox) dialog
 				.findViewById(R.id.sort_second_healthy);
 		final CheckBox run = (CheckBox) dialog
@@ -355,8 +353,6 @@ public class SortHandler {
 				.findViewById(R.id.sort_second_pass);
 		final CheckBox sos = (CheckBox) dialog
 				.findViewById(R.id.sort_second_sos);
-		final CheckBox dists = (CheckBox) dialog
-				.findViewById(R.id.sort_second_start_dist);
 		final EditText minRanks = (EditText) dialog
 				.findViewById(R.id.min_rankings);
 		Button submit = (Button) dialog.findViewById(R.id.sort_second_submit);
@@ -399,9 +395,10 @@ public class SortHandler {
 						minProj = (int) maxProj;
 					}
 					handleSecSortingOptions(age.isChecked(), wl.isChecked(),
-							cy.isChecked(), healthy.isChecked(),
+							healthy.isChecked(),
 							run.isChecked(), pass.isChecked(), sos.isChecked(),
-							dists.isChecked(), minRanksShown, cont);
+ minRanksShown,
+							cont);
 				} else {
 					Toast.makeText(context, "Please enter a number",
 							Toast.LENGTH_SHORT).show();
@@ -417,8 +414,8 @@ public class SortHandler {
 	 * @param sos
 	 */
 	public static void handleSecSortingOptions(boolean young, boolean wl,
-			boolean cy, boolean healthy, boolean run, boolean pass,
-			boolean sos, boolean dists, int minimum, Context cont) {
+			boolean healthy, boolean run, boolean pass, boolean sos,
+			int minimum, Context cont) {
 		HashSet<String> posList = new HashSet<String>();
 		if (position.equals("All Positions")) {
 			posList.add("QB");
@@ -452,56 +449,46 @@ public class SortHandler {
 					List<String> watchList = ReadFromFile
 							.readWatchList(context);
 					if (!wl || (wl && watchList.contains(player.info.name))) {
-						if (!cy
-								|| (cy && !player.info.contractStatus
-										.equals("Under Contract"))) {
-							if (!healthy
-									|| (healthy && player.injuryStatus
-											.equals("Injury Status: Healthy"))) {
-								if ((run || pass)
-										&& !holder.oLineAdv
-												.containsKey(player.info.team)) {
-									continue;
-								}
-								String oLine = holder.oLineAdv.get(
-										player.info.team).split("~~~~")[1];
-
-								int runRank = -1;
-								int passRank = -1;
-								if (oLine != null && !oLine.equals("")
-										&& oLine.contains("\n")) {
-									runRank = Integer.parseInt(oLine
-											.split(": ")[2].split("\n")[0]);
-									passRank = Integer.parseInt(oLine
-											.split(": ")[1].split("\n")[0]);
-								}
-								if (!run
-										|| (run && runRank > 0 && runRank < 17)) {
-									if (!pass
-											|| (pass && passRank > 0 && passRank < 17)) {
-										int sosVal = 0;
-										if (holder.sos.get(player.info.team
-												+ "," + player.info.position) != null
-												&& holder.sos
-														.get(player.info.team
-																+ ","
-																+ player.info.position) > 0
-												&& !holder.isRegularSeason) {
-											sosVal = holder.sos
+						if (!healthy
+								|| (healthy && player.injuryStatus
+										.equals("Injury Status: Healthy"))) {
+							if ((run || pass)
+									&& !holder.oLineAdv
+											.containsKey(player.info.team)) {
+								continue;
+							}
+							String oLine = holder.oLineAdv
+									.get(player.info.team).split("~~~~")[1];
+							int runRank = -1;
+							int passRank = -1;
+							if (oLine != null && !oLine.equals("")
+									&& oLine.contains("\n")) {
+								runRank = Integer.parseInt(oLine.split(": ")[2]
+										.split("\n")[0]);
+								passRank = Integer
+										.parseInt(oLine.split(": ")[1]
+												.split("\n")[0]);
+							}
+							if (!run || (run && runRank > 0 && runRank < 17)) {
+								if (!pass
+										|| (pass && passRank > 0 && passRank < 17)) {
+									int sosVal = 0;
+									if (holder.sos.get(player.info.team + ","
+											+ player.info.position) != null
+											&& holder.sos
 													.get(player.info.team
 															+ ","
-															+ player.info.position);
-										}
-										if (!sos || (sos && sosVal < 13)) {
-											if (!dists
-													|| (dists && player.values.startDists
-															.get("Bad") < 26)) {
-												if (posList
-														.contains(player.info.position)) {
-													if (player.values.count >= minimum) {
-														players.add(player);
-													}
-												}
+													+ player.info.position) > 0
+											&& !holder.isRegularSeason) {
+										sosVal = holder.sos
+												.get(player.info.team + ","
+														+ player.info.position);
+									}
+									if (!sos || (sos && sosVal < 13)) {
+										if (posList
+												.contains(player.info.position)) {
+											if (player.values.count >= minimum) {
+												players.add(player);
 											}
 										}
 									}

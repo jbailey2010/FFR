@@ -366,6 +366,7 @@ public class ReadFromFile {
 			}
 
 		} catch (ArrayIndexOutOfBoundsException e) {
+			e.printStackTrace();
 			// OLine Advanced
 			String[] perLevel = totalSet[1].split("%%%");
 			for (String team : perLevel) {

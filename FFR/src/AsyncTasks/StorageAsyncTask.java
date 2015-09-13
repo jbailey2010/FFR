@@ -98,10 +98,6 @@ public class StorageAsyncTask {
 				players.append(player.values.paa);
 				players.append("&&");
 				players.append(player.values.rosRank);
-				players.append("&&");
-				players.append(player.values.startDists.get("Bad") + ","
-						+ player.values.startDists.get("Good") + ","
-						+ player.values.startDists.get("Great"));
 				playerData.add(players.toString());
 			}
 			editor.putStringSet("Player Values", playerData).apply();
@@ -194,10 +190,6 @@ public class StorageAsyncTask {
 				players.append(player.values.paa);
 				players.append("&&");
 				players.append(player.values.rosRank);
-				players.append("&&");
-				players.append(player.values.startDists.get("Bad") + ","
-						+ player.values.startDists.get("Good") + ","
-						+ player.values.startDists.get("Great"));
 				playerData.add(players.toString());
 			}
 			editor.putStringSet("Player Values", playerData).apply();
@@ -259,13 +251,6 @@ public class StorageAsyncTask {
 				String[] allData = ManageInput.tokenize(st, '&', 2);
 				PlayerObject newPlayer = new PlayerObject(allData[2],
 						allData[3], allData[4], 0);
-				String[] distSet = allData[15].split(",");
-				newPlayer.values.startDists.put("Bad",
-						Integer.parseInt(distSet[0]));
-				newPlayer.values.startDists.put("Good",
-						Integer.parseInt(distSet[1]));
-				newPlayer.values.startDists.put("Great",
-						Integer.parseInt(distSet[2]));
 				newPlayer.values.rosRank = Integer.parseInt(allData[14]);
 				newPlayer.values.paa = Double.parseDouble(allData[13]);
 				newPlayer.values.points = Double.parseDouble(allData[12]);
@@ -282,7 +267,10 @@ public class StorageAsyncTask {
 				holder.parsedPlayers.add(newPlayer.info.name);
 				holder.players.add(newPlayer);
 			}
+			// A default, then adjust in the below condition
+			holder.isRegularSeason = true;
 			if (holder.maxProj() > 65) {
+				holder.isRegularSeason = false;
 				String set = prefs.getString("Draft Information",
 						"Doesn't matter");
 				String[] perSet = ManageInput.tokenize(set, '@', 1);

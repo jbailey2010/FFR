@@ -951,13 +951,17 @@ public class PlayerInfo {
 			} else if (!searchedPlayer.info.adp.equals("Bye Week")) {
 				if (!searchedPlayer.info.position.equals("D/ST")) {
 					datum.put("main", "Playing The " + searchedPlayer.info.adp);
-					datum.put(
-							"sub",
-							"Positional SOS: "
-									+ holder.sos.get(searchedPlayer.info.adp
-											+ ","
-											+ searchedPlayer.info.position)
-									+ "\n1 is Easiest, 32 Hardest");
+					if (holder.sos.get(searchedPlayer.info.adp + ","
+							+ searchedPlayer.info.position) != null) {
+						datum.put(
+								"sub",
+								"Positional SOS: "
+										+ holder.sos
+												.get(searchedPlayer.info.adp
+														+ ","
+														+ searchedPlayer.info.position)
+										+ "\n1 is Easiest, 32 Hardest");
+					}
 					data.add(datum);
 				} else {
 					datum.put("main", searchedPlayer.info.adp);
@@ -1154,19 +1158,6 @@ public class PlayerInfo {
 
 		}
 
-		if (searchedPlayer.values.startDists.get("Bad") > 0
-				|| searchedPlayer.values.startDists.get("Good") > 0
-				|| searchedPlayer.values.startDists.get("Great") > 0) {
-			Map<String, String> datum = new HashMap<String, String>(2);
-			HashMap<String, Integer> map = searchedPlayer.values.startDists;
-			datum.put("main", "Great starts " + map.get("Great")
-					+ "% of the time\n" + "Good starts " + map.get("Good")
-					+ "% of the time\n" + "Bad starts " + map.get("Bad")
-					+ "% of the time");
-			datum.put("sub",
-					"Based on standard scoring point distributions from last year");
-			data.add(datum);
-		}
 		// Positional SOS
 		if (holder.sos.get(searchedPlayer.info.team + ","
 				+ searchedPlayer.info.position) != null

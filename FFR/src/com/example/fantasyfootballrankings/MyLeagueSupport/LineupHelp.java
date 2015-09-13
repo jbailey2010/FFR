@@ -142,10 +142,15 @@ public class LineupHelp {
 						&& pl2.values.points > 0 && pl1.info.team.length() > 2 && pl2.info.team
 						.length() > 0)) {
 					fillTable(pl1, pl2, table, p1, p2);
+				} else if (pl1.values.points == 0 || pl2.values.points == 0) {
+					Toast.makeText(
+							ImportLeague.cont,
+							"Please enter players who are not on bye, injured, or out for any reason",
+							Toast.LENGTH_LONG).show();
 				} else {
 					Toast.makeText(
 							ImportLeague.cont,
-							"Input is invalid. Make sure you only select a player via the dropdown, and neither player is on bye.",
+							"Input is invalid. Use the dropdown to help format input.",
 							Toast.LENGTH_LONG).show();
 				}
 			}
@@ -211,27 +216,35 @@ public class LineupHelp {
 				.findViewById(R.id.player2_sos_base);
 		int sos1 = 0;
 		int sos2 = 0;
+		boolean mightBeWeekOne = ImportLeague.holder.isRegularSeason
+				&& ImportLeague.holder.sos.size() == 0;
 		if (!ImportLeague.holder.isRegularSeason) {
 			sos1 = ImportLeague.holder.sos.get(pl1.info.team + ","
 					+ pl1.info.position);
 			sos2 = ImportLeague.holder.sos.get(pl2.info.team + ","
 					+ pl2.info.position);
-		} else {
+		} else if (!mightBeWeekOne) {
 			sos1 = ImportLeague.holder.sos.get(pl1.info.adp + ","
 					+ pl1.info.position);
 			sos2 = ImportLeague.holder.sos.get(pl2.info.adp + ","
 					+ pl2.info.position);
 		}
-		if (sos1 > sos2) {
-			p2sosb.setBackgroundColor(0XFF4DDB4D);
-			p1sosb.setBackgroundColor(0XFFFF4D4D);
+		if (mightBeWeekOne) {
+			p1sos.setText(" - ");
+			p2sos.setText(" - ");
 		}
-		if (sos1 < sos2) {
-			p1sosb.setBackgroundColor(0XFF4DDB4D);
-			p2sosb.setBackgroundColor(0XFFFF4D4D);
+ else {
+			if (sos1 > sos2) {
+				p2sosb.setBackgroundColor(0XFF4DDB4D);
+				p1sosb.setBackgroundColor(0XFFFF4D4D);
+			}
+			if (sos1 < sos2) {
+				p1sosb.setBackgroundColor(0XFF4DDB4D);
+				p2sosb.setBackgroundColor(0XFFFF4D4D);
+			}
+			p1sos.setText("SOS: " + sos1);
+			p2sos.setText("SOS: " + sos2);
 		}
-		p1sos.setText("SOS: " + sos1);
-		p2sos.setText("SOS: " + sos2);
 		// PAA
 		TextView p1paa = (TextView) table.findViewById(R.id.player1_paa);
 		TextView p2paa = (TextView) table.findViewById(R.id.player2_paa);

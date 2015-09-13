@@ -15,6 +15,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
+import com.example.fantasyfootballrankings.Pages.Home;
 
 /**
  * Handles parsing from fantasy football toolbox's rankings
@@ -145,19 +146,24 @@ public class ParseFFTB {
 			return;
 		}
 		parseSOSWorker(
-				"http://www.fftoolbox.com/football/2014/points-allowed.cfm?pos=QB",
+"http://www.fftoolbox.com/football/" + Home.yearKey
+				+ "/points-allowed.cfm?pos=QB",
 				sos, "QB");
 		parseSOSWorker(
-				"http://www.fftoolbox.com/football/2014/points-allowed.cfm?pos=RB",
+"http://www.fftoolbox.com/football/" + Home.yearKey
+				+ "/points-allowed.cfm?pos=RB",
 				sos, "RB");
 		parseSOSWorker(
-				"http://www.fftoolbox.com/football/2014/points-allowed.cfm?pos=WR",
+"http://www.fftoolbox.com/football/" + Home.yearKey
+				+ "/points-allowed.cfm?pos=WR",
 				sos, "WR");
 		parseSOSWorker(
-				"http://www.fftoolbox.com/football/2014/points-allowed.cfm?pos=TE",
+"http://www.fftoolbox.com/football/" + Home.yearKey
+				+ "/points-allowed.cfm?pos=TE",
 				sos, "TE");
 		parseSOSWorker(
-				"http://www.fftoolbox.com/football/2014/points-allowed.cfm?pos=K",
+"http://www.fftoolbox.com/football/" + Home.yearKey
+				+ "/points-allowed.cfm?pos=K",
 				sos, "K");
 		holder.sos = sos;
 	}

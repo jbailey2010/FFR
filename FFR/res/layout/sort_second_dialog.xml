@@ -33,34 +33,6 @@
         android:text="How many rankings minimum should a player have shown up in?"
         style="@+style/PopupSubText" />
 
-    <CheckBox
-        android:id="@+id/sort_second_healthy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/sort_second_pass"
-        android:textSize="10sp"
-        android:layout_alignLeft="@+id/sort_second_pass"
-        android:text="Only healthy"/>
-
-    <CheckBox
-        android:id="@+id/sort_second_run"
-        android:layout_width="wrap_content"
-        android:textSize="10sp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/sort_second_under_30"
-        android:layout_alignBottom="@+id/sort_second_under_30"
-        android:layout_alignLeft="@+id/sort_second_healthy"
-        android:text="Good run blocking" />
-
-    <CheckBox
-        android:id="@+id/sort_second_pass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/sort_second_watch"
-        android:textSize="10sp"
-        android:text="Good pass blocking"/>
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -99,29 +71,10 @@
         android:id="@+id/sort_second_watch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/sort_second_contract_year"
-        android:textSize="10sp"
-        android:layout_below="@+id/sort_second_contract_year"
-        android:text="Watch List"/>
-    
-     <CheckBox
-        android:id="@+id/sort_second_start_dist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/sort_second_sos"
-        android:textSize="10sp"
-        android:layout_alignBottom="@+id/sort_second_sos"
-        android:layout_alignLeft="@+id/sort_second_healthy"
-        android:text="Consistently good" />
-
-    <CheckBox
-        android:id="@+id/sort_second_contract_year"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/sort_second_back"
         android:layout_below="@+id/textView1"
-        android:textSize="10sp"
-        android:text="Contract year" />
+        android:text="Watch List"
+        android:textSize="10sp" />
 
     <EditText
         android:id="@+id/min_rankings"
@@ -164,6 +117,33 @@
         android:layout_alignLeft="@+id/sort_second_under_30"
         android:layout_below="@+id/sort_second_under_30"
         android:text="Easy SOS"
+        android:textSize="10sp" />
+
+    <CheckBox
+        android:id="@+id/sort_second_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/sort_second_close"
+        android:layout_below="@+id/sort_second_healthy"
+        android:text="Good pass blocking"
+        android:textSize="10sp" />
+
+    <CheckBox
+        android:id="@+id/sort_second_run"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sort_second_pass"
+        android:layout_below="@+id/sort_second_under_30"
+        android:text="Good run blocking"
+        android:textSize="10sp" />
+
+    <CheckBox
+        android:id="@+id/sort_second_healthy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sort_second_under_30"
+        android:layout_alignLeft="@+id/sort_second_pass"
+        android:text="Only healthy"
         android:textSize="10sp" />
 
 </RelativeLayout>

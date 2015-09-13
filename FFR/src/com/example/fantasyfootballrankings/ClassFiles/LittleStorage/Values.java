@@ -17,7 +17,6 @@ public class Values {
 	public double paa;
 	public double secWorth;
 	public int rosRank;
-	public HashMap<String, Integer> startDists;
 
 	/**
 	 * Just initializes the values stored in the object, count to one
@@ -33,10 +32,6 @@ public class Values {
 		points = 0.0;
 		paa = 0.0;
 		rosRank = 0;
-		startDists = new HashMap<String, Integer>();
-		startDists.put("Bad", 0);
-		startDists.put("Good", 0);
-		startDists.put("Great", 0);
 	}
 
 	public Values() {

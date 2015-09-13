@@ -319,13 +319,6 @@ public class ParsingAsyncTask {
 				} catch (IOException e1) {
 				}
 			}
-			publishProgress("Please wait, getting quality start numbers...");
-			try {
-				HighLevel.parseQualityDists(holder);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
 			return null;
 		}
@@ -412,10 +405,6 @@ public class ParsingAsyncTask {
 					players.append(player.values.paa);
 					players.append("&&");
 					players.append(player.values.rosRank);
-					players.append("&&");
-					players.append(player.values.startDists.get("Bad") + ","
-							+ player.values.startDists.get("Good") + ","
-							+ player.values.startDists.get("Great"));
 					playerData.add(players.toString());
 				}
 				editor.putStringSet("Player Values", playerData).apply();
@@ -608,7 +597,7 @@ public class ParsingAsyncTask {
 							&& (elem.text().contains("Points / Game") || elem
 									.text().contains("Ave Projection"))) {
 						p = elem;
-						ecrList.add(elem.parent().child(1).text());
+						ecrList.add(elem.parent().child(0).text());
 						ecrList.add(elem.parent().child(2).text());
 						break;
 					} else if (!isStart && elem.text().contains("ECR")) {
@@ -626,13 +615,16 @@ public class ParsingAsyncTask {
 					String name = "";
 					if (!isStart) {
 						Element megaParent = p.parent().parent().parent()
-								.parent();// .child(2).child(1).child(1).child(0).text();
-						name = (megaParent.child(2).child(0).child(1).child(0)
-								.text());
+								.parent();
+						name = megaParent.child(2).child(0).child(1).child(0)
+								.text();
 					} else {
 						Element megaParent = p.parent().parent().parent()
 								.parent();
-						name = megaParent.child(2).child(1).child(2).text();
+						megaParent.child(1);
+						megaParent.child(0);
+						name = megaParent.child(2).child(0).child(1).child(0)
+								.text();
 					}
 					if (((isStart && !(name.equals(firstName) || name
 							.contains(firstName))) && !firstName

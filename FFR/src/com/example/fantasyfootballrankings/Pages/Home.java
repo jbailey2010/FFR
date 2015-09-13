@@ -2,6 +2,7 @@ package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 
@@ -140,9 +141,8 @@ public class Home extends Activity {
 		 * 
 		 * StrictMode.setThreadPolicy(policy); try {
 		 * ParseRankings.handleHashes();
-		 * ParseDraftWizardRanks.parseRanksWrapper(holder,
-		 * ReadFromFile.readScoring(cont), ReadFromFile.readRoster(cont)); }
-		 * catch (IOException e) { // TODO Auto-generated catch block
+		 * 
+		 * } catch (IOException e) { // TODO Auto-generated catch block
 		 * e.printStackTrace(); }
 		 */
 	}

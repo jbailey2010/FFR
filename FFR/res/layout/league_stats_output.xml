@@ -223,7 +223,7 @@
 	        android:layout_width="275dp"
 	        android:layout_height="wrap_content"
 	        android:layout_centerHorizontal="true"
-	        android:layout_marginTop="25dp"
+	        android:layout_marginTop="15dp"
 	        android:ems="10"
 	        android:background="@drawable/spinner_well"
 	    	android:dropDownSelector="#FF0000"
@@ -274,7 +274,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_below="@+id/compare_clear"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="false">
