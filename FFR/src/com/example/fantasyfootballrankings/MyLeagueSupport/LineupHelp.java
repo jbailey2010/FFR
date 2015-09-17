@@ -27,6 +27,7 @@ import android.widget.TwoLineListItem;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
+import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
@@ -175,7 +176,8 @@ public class LineupHelp {
 	/**
 	 * Populates the table of the lineup decider with data
 	 */
-	public static void fillTable(PlayerObject pl1, PlayerObject pl2,
+	public static void fillTable(final PlayerObject pl1,
+			final PlayerObject pl2,
 			LinearLayout table, AutoCompleteTextView p1, AutoCompleteTextView p2) {
 		InputMethodManager imm = (InputMethodManager) ImportLeague.cont
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -205,6 +207,27 @@ public class LineupHelp {
 		p2name.setVisibility(View.VISIBLE);
 		p1name.setText(pl1.info.name);
 		p2name.setText(pl2.info.name);
+		final PlayerInfo obj = new PlayerInfo();
+		obj.isImport = true;
+		obj.newImport = ImportLeague.newImport;
+		p1name.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				obj.outputResults(pl1.info.name + ", " + pl1.info.position
+						+ " - " + pl1.info.team, true,
+						(Activity) ImportLeague.cont, ImportLeague.holder,
+						false, false, false);
+			}
+		});
+		p2name.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				obj.outputResults(pl2.info.name + ", " + pl2.info.position
+						+ " - " + pl2.info.team, true,
+						(Activity) ImportLeague.cont, ImportLeague.holder,
+						false, false, false);
+			}
+		});
 
 		// Projections
 		TextView p1proj = (TextView) table.findViewById(R.id.player1_proj);
@@ -342,8 +365,8 @@ public class LineupHelp {
 		TextView p2 = (TextView) t.findViewById(R.id.player2_fp);
 		TextView ppw1 = (TextView) t.findViewById(R.id.player1_ppw);
 		TextView ppw2 = (TextView) t.findViewById(R.id.player2_ppw);
-		p1.setText("Percentage of Experts: " + ecrList.get(0));
-		p2.setText("Percentage of Experts: " + ecrList.get(1));
+		p1.setText(ecrList.get(0) + " of Experts");
+		p2.setText(ecrList.get(1) + " of Experts");
 		if (Integer.parseInt(ecrList.get(0).substring(0,
 				ecrList.get(0).length() - 1)) > Integer.parseInt(ecrList.get(1)
 				.substring(0, ecrList.get(1).length() - 1))) {
