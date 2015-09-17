@@ -819,21 +819,31 @@ public class HighLevel {
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		for (int i = 0; i < td.size(); i++) {
-			if (ManageInput.isInteger(td.get(i)) && td.get(i + 1).contains("(")) {
+			if (td.get(i + 1).split(" ").length > 2
+					&& ManageInput.isInteger(td.get(i))) {
 				min = i;
 				break;
 			}
 		}
-		for (int i = min; i < td.size(); i += 6) {
+		for (int i = min; i < td.size(); i += 7) {
 			// Fix the odd case where the row size changes
 			if (ManageInput.isInteger(td.get(i + 1))) {
 				i++;
 			}
 			int ranking = Integer.parseInt(td.get(i));
 			String name = "";
-			name = ParseRankings.fixNames(td.get(i + 1).split(" \\(")[0]);
+			String team = "";
 			if (pos.equals("D/ST")) {
-				name = ParseRankings.fixDefenses(ParseRankings.fixTeams(name));
+				team = ParseRankings.fixTeams(td.get(i + 1).split(" \\(")[0]);
+				name = ParseRankings.fixDefenses(team);
+			} else {
+				String[] nameArr = td.get(i + 1).split(", ")[0].split(" ");
+				for (int namePieceIndex = 0; namePieceIndex < nameArr.length - 1; namePieceIndex++) {
+					name += nameArr[namePieceIndex] + " ";
+				}
+				name = name.substring(0, name.length() - 1);
+				name = ParseRankings.fixNames(name);
+				team = ParseRankings.fixTeams(nameArr[nameArr.length - 1]);
 			}
 			rankings.put(name + "," + pos, ranking);
 		}

@@ -139,7 +139,8 @@ public class ParseFFTB {
 		HashMap<String, Integer> sos = new HashMap<String, Integer>();
 		Document testDoc = Jsoup
 				.connect(
-						"http://www.fftoolbox.com/football/2014/points-allowed.cfm?pos=QB")
+				"http://www.fftoolbox.com/football/" + Home.yearKey
+						+ "/points-allowed.cfm?pos=QB")
 				.get();
 		if (testDoc.html().contains("Coming Soon")) {
 			HighLevel.getSOS(holder);
