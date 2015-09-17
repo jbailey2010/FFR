@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.MyLeagueSupport;
 
 import java.text.DecimalFormat;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +13,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -85,6 +85,13 @@ public class LineupHelp {
 				p1.setText(name + " - " + team);
 			}
 		});
+		p1.setOnLongClickListener(new OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				p1.setText("");
+				return true;
+			}
+		});
 		p2.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -94,6 +101,13 @@ public class LineupHelp {
 				String team = (((TwoLineListItem) arg1)).getText2().getText()
 						.toString();
 				p2.setText(name + " - " + team);
+			}
+		});
+		p2.setOnLongClickListener(new OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				p2.setText("");
+				return true;
 			}
 		});
 		clear.setOnClickListener(new OnClickListener() {
@@ -142,7 +156,8 @@ public class LineupHelp {
 						&& pl2.values.points > 0 && pl1.info.team.length() > 2 && pl2.info.team
 						.length() > 0)) {
 					fillTable(pl1, pl2, table, p1, p2);
-				} else if (pl1.values.points == 0 || pl2.values.points == 0) {
+				} else if (isFound1 && isFound2
+						&& (pl1.values.points == 0 || pl2.values.points == 0)) {
 					Toast.makeText(
 							ImportLeague.cont,
 							"Please enter players who are not on bye, injured, or out for any reason",
