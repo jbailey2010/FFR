@@ -31,6 +31,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
@@ -570,6 +571,8 @@ public class ESPNImport {
 				String namePossible = input.getText().toString();
 				if (namePossible.length() > 0) {
 					writeToFile(namePossible, "ESPN", teamSet);
+					Intent intent = new Intent(cont, ImportLeague.class);
+					cont.startActivity(intent);
 					popUp.dismiss();
 				} else {
 					Toast.makeText(cont, "Please input a name",
