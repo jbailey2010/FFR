@@ -260,6 +260,7 @@ public class ImportLeague extends Activity {
 					cont,
 					"An error occurred. Please make sure your league has already drafted, and if so, try to re-import",
 					Toast.LENGTH_SHORT).show();
+			e.printStackTrace();
 		}
 	}
 

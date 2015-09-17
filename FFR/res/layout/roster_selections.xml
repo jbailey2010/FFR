@@ -147,7 +147,7 @@
         android:layout_below="@+id/textView5"
         android:background="@drawable/spinner_well" />
 
-    <Spinner
+    <com.example.fantasyfootballrankings.InterfaceAugmentations.NDSpinner
         android:id="@+id/flex_quantity"
         android:layout_width="130dp"
         android:layout_height="50dp"

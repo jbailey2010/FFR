@@ -3,16 +3,10 @@ package com.example.fantasyfootballrankings.MyLeagueSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-import AsyncTasks.ParsingAsyncTask;
-import AsyncTasks.StorageAsyncTask;
-import AsyncTasks.ParsingAsyncTask.ParseProjections;
-import AsyncTasks.StorageAsyncTask.WriteNewPAA;
 import FileIO.WriteToFile;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
+import android.content.Intent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -33,13 +27,13 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
-import com.example.fantasyfootballrankings.Pages.Home;
+import com.example.fantasyfootballrankings.InterfaceAugmentations.NDSpinner;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
 
 public class MyLeagueUtils {
-	static boolean isFirst;
 
+	static boolean isFirst;
 	/**
 	 * Gets the roster/teams input from the user
 	 * 
@@ -95,7 +89,8 @@ public class MyLeagueUtils {
 		spinnerArrayAdapter = new ArrayAdapter<String>(cont,
 				android.R.layout.simple_spinner_dropdown_item, quantitiesTeam);
 		team.setAdapter(spinnerArrayAdapter);
-		final Spinner flex = (Spinner) dialog.findViewById(R.id.flex_quantity);
+		final NDSpinner flex = (NDSpinner) dialog
+				.findViewById(R.id.flex_quantity);
 		final Spinner def = (Spinner) dialog
 				.findViewById(R.id.defense_quantity);
 		final Spinner k = (Spinner) dialog.findViewById(R.id.kicker_quantity);
@@ -106,11 +101,6 @@ public class MyLeagueUtils {
 				android.R.layout.simple_spinner_dropdown_item, quantitiesK);
 		def.setAdapter(spinnerArrayAdapter);
 		k.setAdapter(spinnerArrayAdapter);
-		if (dummyRoster.flex == null) {
-			flex.setSelection(1);
-		} else {
-			flex.setSelection(0);
-		}
 		team.setSelection(quantitiesTeam.indexOf(String
 				.valueOf(dummyRoster.teams)));
 		wr.setSelection(quantitiesRBWR.indexOf(String.valueOf(dummyRoster.rbs)));
@@ -129,8 +119,8 @@ public class MyLeagueUtils {
 						dummyRoster.flex = new Flex();
 					}
 					handleFlexPopUp(cont, dummyRoster.flex);
-
-				} else if (selection.equals("Yes")) {
+				}
+ else if (isFirst) {
 					isFirst = !isFirst;
 				}
 			}
@@ -139,6 +129,11 @@ public class MyLeagueUtils {
 			public void onNothingSelected(AdapterView<?> arg0) {
 			}
 		});
+		if (dummyRoster.flex == null) {
+			flex.setSelection(1);
+		} else {
+			flex.setSelection(0);
+		}
 		Button submit = (Button) dialog.findViewById(R.id.roster_submit);
 		submit.setOnClickListener(new OnClickListener() {
 			@Override
@@ -183,6 +178,8 @@ public class MyLeagueUtils {
 									.split(", "));
 				}
 				dialog.dismiss();
+				Intent intent = new Intent(cont, ImportLeague.class);
+				cont.startActivity(intent);
 			}
 		});
 	}
