@@ -231,7 +231,7 @@ public class ManageInput {
 				if (isInteger(yardStr) && isInteger(tdStr) && isInteger(intStr)) {
 					dummyScoring.passYards = Integer.parseInt(yardStr);
 					dummyScoring.passTD = Integer.parseInt(tdStr);
-					dummyScoring.interception = Integer.parseInt(intStr);
+					dummyScoring.interception = Integer.parseInt(intStr) * -1;
 					dialog.dismiss();
 					runSettings(cont, scoring, doSync, holder);
 				} else {
@@ -283,7 +283,7 @@ public class ManageInput {
 				if (isInteger(yardStr) && isInteger(tdStr) && isInteger(intStr)) {
 					dummyScoring.rushYards = Integer.parseInt(yardStr);
 					dummyScoring.rushTD = Integer.parseInt(tdStr);
-					dummyScoring.fumble = Integer.parseInt(intStr);
+					dummyScoring.fumble = Integer.parseInt(intStr) * -1;
 					dialog.dismiss();
 					recSettings(cont, scoring, doSync, holder);
 				} else {

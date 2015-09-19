@@ -274,7 +274,7 @@ public class MyLeagueUtils {
 						&& ManageInput.isInteger(intStr)) {
 					dummyScoring.passYards = Integer.parseInt(yardStr);
 					dummyScoring.passTD = Integer.parseInt(tdStr);
-					dummyScoring.interception = Integer.parseInt(intStr);
+					dummyScoring.interception = Integer.parseInt(intStr) * -1;
 					dialog.dismiss();
 					runSettings(cont, holder, dummyScoring, key);
 				} else {
@@ -334,7 +334,7 @@ public class MyLeagueUtils {
 						&& ManageInput.isInteger(intStr)) {
 					dummyScoring.rushYards = Integer.parseInt(yardStr);
 					dummyScoring.rushTD = Integer.parseInt(tdStr);
-					dummyScoring.fumble = Integer.parseInt(intStr);
+					dummyScoring.fumble = Integer.parseInt(intStr) * -1;
 					dialog.dismiss();
 					recSettings(cont, holder, dummyScoring, key);
 				} else {

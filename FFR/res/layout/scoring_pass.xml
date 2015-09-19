@@ -23,7 +23,7 @@
         android:layout_below="@+id/scoring_pass_td"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="How many passing yards per fantasy point?"
+        android:text="Passing yards per point"
         style="@+style/PopupSubText" />
 
     <EditText
@@ -49,7 +49,7 @@
         android:layout_below="@+id/scoring_pass_yards"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="How many points are lost per interception?"
+        android:text="Interceptions"
         style="@+style/PopupSubText" />
 
     <EditText
@@ -61,7 +61,7 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:textColor="#000000"
-        android:text="2"
+        android:text="-2"
         android:background="@drawable/spinner_well"
         android:inputType="number" />
 
@@ -84,7 +84,7 @@
         android:layout_marginTop="65dp"
         android:gravity="center"
         android:layout_centerHorizontal="true"
-        android:text="How many points per passing touchdown?"
+        android:text="Passing touchdown"
         style="@+style/PopupSubText"/>
 
     <TextView

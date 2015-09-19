@@ -23,7 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="How many points per rushing touchdown?"
+        android:text="Rushing touchdown"
         style="@+style/PopupSubText" />
 
     <TextView
@@ -33,7 +33,7 @@
         android:layout_below="@+id/scoring_run_td"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="How many rushing yards per fantasy point?"
+        android:text="Rushing yards per point"
         style="@+style/PopupSubText" />
 
     <EditText
@@ -57,7 +57,7 @@
         android:layout_below="@+id/scoring_run_yards"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="How many points are lost per fumble?"
+        android:text="Fumbles"
         style="@+style/PopupSubText" />
 
     <EditText
@@ -69,7 +69,7 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:textColor="#000000"
-        android:text="2"
+        android:text="-2"
         android:background="@drawable/spinner_well"
         android:inputType="number" />
 

@@ -23,7 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="How many points per receiving touchdown?"
+        android:text="Receiving touchdown"
         style="@+style/PopupSubText" />
 
     <TextView
@@ -33,7 +33,7 @@
         android:layout_below="@+id/scoring_rec_td"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="How many receiving yards per fantasy point?"
+        android:text="Receiving yards per point"
         style="@+style/PopupSubText" />
 
     <EditText
@@ -59,7 +59,7 @@
         android:layout_below="@+id/scoring_rec_yards"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="How many points per catch?"
+        android:text="Receptions"
         style="@+style/PopupSubText" />
 
     <EditText
