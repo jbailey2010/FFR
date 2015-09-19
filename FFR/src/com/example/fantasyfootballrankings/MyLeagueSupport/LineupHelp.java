@@ -130,12 +130,20 @@ public class LineupHelp {
 				boolean isFound2 = false;
 				PlayerObject pl2 = null;
 				for (PlayerObject player : ImportLeague.holder.players) {
+					String team1 = "";
+					String team2 = "";
+					if (p1Data.length > 1) {
+						team1 = p1Data[1];
+					}
+					if (p2Data.length > 1) {
+						team2 = p2Data[1];
+					}
 					if (player.info.name.equals(p1Data[0])
 							&& player.info.position.equals("D/ST")) {
 						isFound1 = true;
 						pl1 = player;
 					} else if (player.info.name.equals(p1Data[0])
-							&& player.info.team.equals(p1Data[1])) {
+							&& player.info.team.equals(team1)) {
 						isFound1 = true;
 						pl1 = player;
 					}
@@ -144,7 +152,7 @@ public class LineupHelp {
 						isFound2 = true;
 						pl2 = player;
 					} else if (player.info.name.equals(p2Data[0])
-							&& player.info.team.equals(p2Data[1])) {
+							&& player.info.team.equals(team2)) {
 						isFound2 = true;
 						pl2 = player;
 					}
