@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView3"
         android:layout_alignLeft="@+id/rb_quantity"
-        android:text="How many TEs start?"
+        android:text="Starting TEs"
         style="@+style/PopupSubText" />
 
     <Spinner
@@ -41,7 +41,7 @@
         android:layout_alignLeft="@+id/qb_quantity"
         android:layout_below="@+id/qb_quantity"
         android:layout_marginTop="10dp"
-        android:text="How many WRs start?"
+        android:text="Starting WRs"
         style="@+style/PopupSubText" />
 
     <TextView
@@ -51,7 +51,7 @@
         android:layout_alignLeft="@+id/qb_quantity"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
-        android:text="How many QBs start?"
+        android:text="Starting QBs"
         style="@+style/PopupSubText" />
 
     <TextView
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/qb_quantity"
         android:layout_alignLeft="@+id/rb_quantity"
-        android:text="How many RBs start?"
+        android:text="Starting RBs"
         style="@+style/PopupSubText" />
 
     <Spinner
@@ -89,7 +89,7 @@
         android:layout_alignLeft="@+id/wr_quantity"
         android:layout_below="@+id/wr_quantity"
         android:layout_marginTop="10dp"
-        android:text="How many Ks start?"
+        android:text="Starting Ks"
         style="@+style/PopupSubText" />
 
     <TextView
@@ -99,7 +99,7 @@
         android:layout_alignBaseline="@+id/TextView01"
         android:layout_alignBottom="@+id/TextView01"
         android:layout_alignLeft="@+id/te_quantity"
-        android:text="How many Ds start?"
+        android:text="Starting D/STs"
         style="@+style/PopupSubText" />
 
     <TextView
@@ -108,7 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView5"
         android:layout_alignLeft="@+id/TextView02"
-        android:text="Do you use flexes?"
+        android:text="Flex Positions"
         style="@+style/PopupSubText" />
 
     <Spinner
@@ -136,7 +136,7 @@
         android:layout_below="@+id/kicker_quantity"
         android:layout_marginTop="10dp"
         android:maxWidth="130dp"
-        android:text="How many teams?"
+        android:text="Teams"
         style="@+style/PopupSubText" />
 
     <Spinner
