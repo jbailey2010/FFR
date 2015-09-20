@@ -28,6 +28,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.GraphingUtils;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
 import com.jjoe64.graphview.GraphView;
@@ -377,13 +378,10 @@ public class LeagueList {
 		int counter = 0;
 		double maxFirst = -10000000.0;
 		double minFirst = 1000000000.0;
-		GraphViewStyle gvs = new GraphViewStyle();
-		gvs.setTextSize(13);
-		gvs.setVerticalLabelsColor(Color.BLACK);
-		gvs.setHorizontalLabelsColor(Color.BLACK);
-		gvs.setGridColor(Color.GRAY);
-		GraphView graphView = new LineGraphView(ImportLeague.cont, "");
-		graphView.setGraphViewStyle(gvs);
+
+		GraphView graphView = GraphingUtils
+				.generateGraphView(ImportLeague.cont);
+
 		List<String> teamList = new ArrayList<String>();
 		String test = teamSet[0];
 		boolean flag = false;
@@ -438,11 +436,11 @@ public class LeagueList {
 				minFirst = value;
 			}
 			dataSet[counter] = new GraphViewData(++counter, value);
-			GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();
-			seriesStyle.thickness = 5;
-			GraphViewSeries exampleSeries = new GraphViewSeries(teamCt + " "
-					+ teams[counter - 1].split("\\) ")[1], seriesStyle, dataSet);
-			graphView.addSeries(exampleSeries);
+
+			GraphingUtils
+					.addSeries(graphView,
+							teamCt + " " + teams[counter - 1].split("\\) ")[1],
+					GraphingUtils.getGraphSeriesStyle(null, 5), dataSet);
 		}
 		final double max = maxFirst;
 		final double min = minFirst;
@@ -466,7 +464,7 @@ public class LeagueList {
 				popUp.dismiss();
 			}
 		});
-		graphView.setScrollable(true);
+
 		double space = max - min;
 		DecimalFormat df = new DecimalFormat("#.#");
 		String[] valSpaced = { df.format(max),
@@ -476,16 +474,15 @@ public class LeagueList {
 				df.format(min + (space * 3.0) / 7.0),
 				df.format(min + (space * 2.0) / 7.0),
 				df.format(min + (space * 1.0) / 7.0), df.format(min) };
-		graphView.setManualYAxisBounds(max, min);
+
 		int maxLoop = newImport.teams.size() + 1;
 		for (int i = 1; i < maxLoop; i++) {
 			valSet[i - 1] = String.valueOf(i);
 		}
-		graphView.setHorizontalLabels(valSet);
-		graphView.setShowLegend(true);
-		graphView.setLegendAlign(LegendAlign.TOP);
-		graphView.setLegendWidth(275);
-		graphView.setVerticalLabels(valSpaced);
+
+		GraphingUtils.configureLegend(graphView);
+		GraphingUtils.configureAxes(graphView, valSet, valSpaced, min, max);
+
 		((LineGraphView) graphView).setDrawBackground(true);
 		LinearLayout layout = (LinearLayout) popUp
 				.findViewById(R.id.plot_base_layout);

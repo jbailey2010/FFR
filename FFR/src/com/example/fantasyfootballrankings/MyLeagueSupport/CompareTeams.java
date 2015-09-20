@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.GraphingUtils;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
 import com.jjoe64.graphview.GraphView;
@@ -133,18 +134,14 @@ public class CompareTeams {
 		});
 		popUp.getWindow().setAttributes(lp);
 		popUp.show();
-		GraphViewStyle gvs = new GraphViewStyle();
-		gvs.setTextSize(12);
-		gvs.setVerticalLabelsColor(Color.BLACK);
-		gvs.setHorizontalLabelsColor(Color.BLACK);
-		gvs.setGridColor(Color.GRAY);
-		GraphView graphView = new LineGraphView(ImportLeague.cont, "");
-		graphView.setGraphViewStyle(gvs);
+
+		GraphView graphView = GraphingUtils
+				.generateGraphView(ImportLeague.cont);
+
 		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[7];
 		int max = ImportLeague.newImport.teams.size() + 1;
 		String[] horizLabels = { "Starters", "QB", "RB", "WR", "TE", "D", "K" };
 		String[] vertLabels = new String[max - 1];
-		GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();
 		for (int i = 1; i < max; i++) {
 			vertLabels[i - 1] = String.valueOf(i);
 		}
@@ -163,11 +160,10 @@ public class CompareTeams {
 				- TeamList.rankDStart(ImportLeague.newImport, t1));
 		dataSet[counter++] = new GraphViewData(counter, max
 				- TeamList.rankKStart(ImportLeague.newImport, t1));
-		GraphViewSeries es = new GraphViewSeries(t1.teamName + " Starters",
-				seriesStyle, dataSet);
-		graphView.addSeries(es);
-		GraphViewSeriesStyle seriesStyle2 = new GraphViewSeriesStyle();
-		seriesStyle2.color = Color.RED;
+
+		GraphingUtils.addSeries(graphView, t1.teamName + " Starters",
+				GraphingUtils.getGraphSeriesStyle(null, null), dataSet);
+
 		GraphViewDataInterface[] dataSet2 = new GraphViewDataInterface[7];
 		counter = 0;
 		dataSet2[counter++] = new GraphViewData(counter, max
@@ -184,16 +180,14 @@ public class CompareTeams {
 				- TeamList.rankDStart(ImportLeague.newImport, t2));
 		dataSet2[counter++] = new GraphViewData(counter, max
 				- TeamList.rankKStart(ImportLeague.newImport, t2));
-		es = new GraphViewSeries(t2.teamName + " Starters", seriesStyle2,
-				dataSet2);
-		graphView.addSeries(es);
-		graphView.setHorizontalLabels(horizLabels);
-		graphView.setVerticalLabels(vertLabels);
-		graphView.setScrollable(true);
-		graphView.setShowLegend(true);
-		graphView.setLegendAlign(LegendAlign.TOP);
-		graphView.setLegendWidth(250);
-		graphView.setManualYAxisBounds(max - 1, 1);
+
+		GraphingUtils.addSeries(graphView, t2.teamName + " Starters",
+				GraphingUtils.getGraphSeriesStyle(Color.RED, null), dataSet2);
+
+		GraphingUtils.configureLegend(graphView);
+		GraphingUtils.configureAxes(graphView, horizLabels, vertLabels, 1,
+				max - 1);
+
 		LinearLayout layout = (LinearLayout) popUp
 				.findViewById(R.id.plot_base_layout);
 		layout.addView(graphView);

@@ -30,6 +30,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.GraphingUtils;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
 import com.jjoe64.graphview.GraphView;
@@ -128,26 +129,20 @@ public class TeamList {
 		});
 		popUp.getWindow().setAttributes(lp);
 		popUp.show();
-		GraphViewStyle gvs = new GraphViewStyle();
-		gvs.setTextSize(12);
-		gvs.setVerticalLabelsColor(Color.BLACK);
-		gvs.setHorizontalLabelsColor(Color.BLACK);
-		gvs.setGridColor(Color.GRAY);
-		GraphView graphView = new LineGraphView(cont, "");
-		graphView.setGraphViewStyle(gvs);
+
+		GraphView graphView = GraphingUtils
+				.generateGraphView(ImportLeague.cont);
+
 		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[9];
 		int max = newImport.teams.size() + 1;
 		String[] horizLabels = { "QB", "RB", "WR", "TE", "D", "K", "All",
 				"Start", "Rest" };
 		String[] vertLabels = new String[max - 1];
-		GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();
 		for (int i = 1; i < max; i++) {
 			vertLabels[i - 1] = String.valueOf(i);
 		}
 
 		int counter = 0;
-		GraphViewSeriesStyle seriesStyle2 = new GraphViewSeriesStyle();
-		seriesStyle2.color = Color.CYAN;
 		GraphViewDataInterface[] dataSet2 = new GraphViewDataInterface[6];
 		dataSet[counter++] = new GraphViewData(counter, max
 				- rankQBs(newImport, ta));
@@ -167,9 +162,10 @@ public class TeamList {
 				- rankPAAStart(newImport, ta));
 		dataSet[counter++] = new GraphViewData(counter, max
 				- rankPAABench(newImport, ta));
-		GraphViewSeries es = new GraphViewSeries("Whole Roster Rank",
-				seriesStyle, dataSet);
-		graphView.addSeries(es);
+
+		GraphingUtils.addSeries(graphView, "Whole Roster Rank",
+				GraphingUtils.getGraphSeriesStyle(null, null),
+				dataSet);
 
 		counter = 0;
 
@@ -185,16 +181,15 @@ public class TeamList {
 				- rankDStart(newImport, ta));
 		dataSet2[counter++] = new GraphViewData(counter, max
 				- rankKStart(newImport, ta));
-		es = new GraphViewSeries("Starters Rank", seriesStyle2, dataSet2);
-		graphView.addSeries(es);
 
-		graphView.setHorizontalLabels(horizLabels);
-		graphView.setVerticalLabels(vertLabels);
-		graphView.setScrollable(true);
-		graphView.setShowLegend(true);
-		graphView.setLegendAlign(LegendAlign.TOP);
-		graphView.setLegendWidth(250);
-		graphView.setManualYAxisBounds(max - 1, 1);
+		GraphingUtils.addSeries(graphView, "Starters Rank",
+				GraphingUtils.getGraphSeriesStyle(Color.CYAN, null),
+				dataSet2);
+
+		GraphingUtils.configureLegend(graphView);
+		GraphingUtils.configureAxes(graphView, horizLabels, vertLabels, 1,
+				max - 1);
+
 		LinearLayout layout = (LinearLayout) popUp
 				.findViewById(R.id.plot_base_layout);
 		layout.addView(graphView);

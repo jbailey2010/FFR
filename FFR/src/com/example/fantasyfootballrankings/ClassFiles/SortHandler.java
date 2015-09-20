@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.text.DecimalFormat;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -26,6 +25,7 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTea
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.GraphingUtils;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
@@ -1546,19 +1546,15 @@ public class SortHandler {
 		});
 		popUp.getWindow().setAttributes(lp);
 		popUp.show();
-		GraphViewStyle gvs = new GraphViewStyle();
-		gvs.setTextSize(12);
-		gvs.setVerticalLabelsColor(Color.BLACK);
-		gvs.setHorizontalLabelsColor(Color.BLACK);
-		gvs.setGridColor(Color.GRAY);
-		GraphView graphView = new LineGraphView(cont, "");
-		graphView.setGraphViewStyle(gvs);
+
+		GraphView graphView = GraphingUtils
+				.generateGraphView(ImportLeague.cont);
+
 		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[a
 				.getCount()];
-		GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();
 		for (int i = 0; i < a.getCount(); i++) {
 			@SuppressWarnings("unchecked")
-			Map<String, String> datum = (Map<String, String>) a.getItem(i);// data.get(i);
+			Map<String, String> datum = (Map<String, String>) a.getItem(i);
 			if (datum.get("main").contains(")")) {
 				dataSet[i] = new GraphViewData(i, Double.valueOf(datum.get(
 						"main").split(":")[0].split("\\)")[1]));
@@ -1567,8 +1563,10 @@ public class SortHandler {
 						"main").split(":")[0]));
 			}
 		}
-		GraphViewSeries es = new GraphViewSeries(subject, seriesStyle, dataSet);
-		graphView.addSeries(es);
+
+		GraphingUtils.addSeries(graphView, subject,
+				GraphingUtils.getGraphSeriesStyle(null, null), dataSet);
+
 		((LineGraphView) graphView).setDrawBackground(true);
 		LinearLayout layout = (LinearLayout) popUp
 				.findViewById(R.id.plot_base_layout);

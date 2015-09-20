@@ -622,8 +622,9 @@ public class Rankings extends Activity {
 							context,
 							"This is a drafting tool and won't be of much use during the regular season.",
 							Toast.LENGTH_LONG).show();
+				} else {
+					ComparatorHandling.handleComparingInit(holder, cont);
 				}
-				ComparatorHandling.handleComparingInit(holder, cont);
 			}
 		});
 		// sort pop up on click
