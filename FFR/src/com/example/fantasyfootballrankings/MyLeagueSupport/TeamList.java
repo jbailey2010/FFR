@@ -206,7 +206,7 @@ public class TeamList {
 	public static int rankQBs(ImportedTeam leagueSet, TeamAnalysis team) {
 		int rank = 1;
 		for (TeamAnalysis iter : leagueSet.teams) {
-			if (iter.qbPAATotal > team.qbPAATotal) {
+			if (iter.qbProjTotal > team.qbProjTotal) {
 				rank++;
 			}
 		}
@@ -216,8 +216,8 @@ public class TeamList {
 	public static int rankQBStart(ImportedTeam leagueSet, TeamAnalysis team) {
 		int rank = 1;
 		for (TeamAnalysis iter : leagueSet.teams) {
-			if (iter.getPosProj(iter.qbStarters) > team
-					.getPosProj(team.qbStarters)) {
+			if (iter.getProjSum(iter.qbStarters) > team
+					.getProjSum(team.qbStarters)) {
 				rank++;
 			}
 		}
@@ -234,7 +234,7 @@ public class TeamList {
 	public static int rankRBs(ImportedTeam leagueSet, TeamAnalysis team) {
 		int rank = 1;
 		for (TeamAnalysis iter : leagueSet.teams) {
-			if (iter.rbPAATotal > team.rbPAATotal) {
+			if (iter.rbProjTotal > team.rbProjTotal) {
 				rank++;
 			}
 		}
@@ -244,8 +244,8 @@ public class TeamList {
 	public static int rankRBStart(ImportedTeam leagueSet, TeamAnalysis team) {
 		int rank = 1;
 		for (TeamAnalysis iter : leagueSet.teams) {
-			if (iter.getPosProj(iter.rbStarters) > team
-					.getPosProj(team.rbStarters)) {
+			if (iter.getProjSum(iter.rbStarters) > team
+					.getProjSum(team.rbStarters)) {
 				rank++;
 			}
 		}
@@ -262,7 +262,7 @@ public class TeamList {
 	public static int rankWRs(ImportedTeam leagueSet, TeamAnalysis team) {
 		int rank = 1;
 		for (TeamAnalysis iter : leagueSet.teams) {
-			if (iter.wrPAATotal > team.wrPAATotal) {
+			if (iter.wrProjTotal > team.wrProjTotal) {
 				rank++;
 			}
 		}
@@ -272,8 +272,8 @@ public class TeamList {
 	public static int rankWRStart(ImportedTeam leagueSet, TeamAnalysis team) {
 		int rank = 1;
 		for (TeamAnalysis iter : leagueSet.teams) {
-			if (iter.getPosProj(iter.wrStarters) > team
-					.getPosProj(team.wrStarters)) {
+			if (iter.getProjSum(iter.wrStarters) > team
+					.getProjSum(team.wrStarters)) {
 				rank++;
 			}
 		}
@@ -290,7 +290,7 @@ public class TeamList {
 	public static int rankTEs(ImportedTeam leagueSet, TeamAnalysis team) {
 		int rank = 1;
 		for (TeamAnalysis iter : leagueSet.teams) {
-			if (iter.tePAATotal > team.tePAATotal) {
+			if (iter.teProjTotal > team.teProjTotal) {
 				rank++;
 			}
 		}
@@ -300,8 +300,8 @@ public class TeamList {
 	public static int rankTEStart(ImportedTeam leagueSet, TeamAnalysis team) {
 		int rank = 1;
 		for (TeamAnalysis iter : leagueSet.teams) {
-			if (iter.getPosProj(iter.teStarters) > team
-					.getPosProj(team.teStarters)) {
+			if (iter.getProjSum(iter.teStarters) > team
+					.getProjSum(team.teStarters)) {
 				rank++;
 			}
 		}
@@ -318,7 +318,7 @@ public class TeamList {
 	public static int rankDs(ImportedTeam leagueSet, TeamAnalysis team) {
 		int rank = 1;
 		for (TeamAnalysis iter : leagueSet.teams) {
-			if (iter.dPAATotal > team.dPAATotal) {
+			if (iter.dProjTotal > team.dProjTotal) {
 				rank++;
 			}
 		}
@@ -328,8 +328,8 @@ public class TeamList {
 	public static int rankDStart(ImportedTeam leagueSet, TeamAnalysis team) {
 		int rank = 1;
 		for (TeamAnalysis iter : leagueSet.teams) {
-			if (iter.getPosProj(iter.dStarters) > team
-					.getPosProj(team.dStarters)) {
+			if (iter.getProjSum(iter.dStarters) > team
+					.getProjSum(team.dStarters)) {
 				rank++;
 			}
 		}
@@ -346,7 +346,7 @@ public class TeamList {
 	public static int rankKs(ImportedTeam leagueSet, TeamAnalysis team) {
 		int rank = 1;
 		for (TeamAnalysis iter : leagueSet.teams) {
-			if (iter.kPAATotal > team.kPAATotal) {
+			if (iter.kProjTotal > team.kProjTotal) {
 				rank++;
 			}
 		}
@@ -356,8 +356,8 @@ public class TeamList {
 	public static int rankKStart(ImportedTeam leagueSet, TeamAnalysis team) {
 		int rank = 1;
 		for (TeamAnalysis iter : leagueSet.teams) {
-			if (iter.getPosProj(iter.kStarters) > team
-					.getPosProj(team.kStarters)) {
+			if (iter.getProjSum(iter.kStarters) > team
+					.getProjSum(team.kStarters)) {
 				rank++;
 			}
 		}

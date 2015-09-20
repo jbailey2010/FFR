@@ -98,91 +98,91 @@ public class LeagueList {
 						return 0;
 					}
 				});
-		PriorityQueue<TeamAnalysis> qbPAA = new PriorityQueue<TeamAnalysis>(
+		PriorityQueue<TeamAnalysis> qbProj = new PriorityQueue<TeamAnalysis>(
 				300, new Comparator<TeamAnalysis>() {
 					@Override
 					public int compare(TeamAnalysis a, TeamAnalysis b) {
-						if (a.getPosProj(a.qbStarters) > b
-								.getPosProj(b.qbStarters)) {
+						if (a.getProjSum(a.qbStarters) > b
+								.getProjSum(b.qbStarters)) {
 							return -1;
 						}
-						if (a.getPosProj(a.qbStarters) < b
-								.getPosProj(b.qbStarters)) {
+						if (a.getProjSum(a.qbStarters) < b
+								.getProjSum(b.qbStarters)) {
 							return 1;
 						}
 						return 0;
 					}
 				});
-		PriorityQueue<TeamAnalysis> rbPAA = new PriorityQueue<TeamAnalysis>(
+		PriorityQueue<TeamAnalysis> rbProj = new PriorityQueue<TeamAnalysis>(
 				300, new Comparator<TeamAnalysis>() {
 					@Override
 					public int compare(TeamAnalysis a, TeamAnalysis b) {
-						if (a.getPosProj(a.rbStarters) > b
-								.getPosProj(b.rbStarters)) {
+						if (a.getProjSum(a.rbStarters) > b
+								.getProjSum(b.rbStarters)) {
 							return -1;
 						}
-						if (a.getPosProj(a.rbStarters) < b
-								.getPosProj(b.rbStarters)) {
+						if (a.getProjSum(a.rbStarters) < b
+								.getProjSum(b.rbStarters)) {
 							return 1;
 						}
 						return 0;
 					}
 				});
-		PriorityQueue<TeamAnalysis> wrPAA = new PriorityQueue<TeamAnalysis>(
+		PriorityQueue<TeamAnalysis> wrProj = new PriorityQueue<TeamAnalysis>(
 				300, new Comparator<TeamAnalysis>() {
 					@Override
 					public int compare(TeamAnalysis a, TeamAnalysis b) {
-						if (a.getPosProj(a.wrStarters) > b
-								.getPosProj(b.wrStarters)) {
+						if (a.getProjSum(a.wrStarters) > b
+								.getProjSum(b.wrStarters)) {
 							return -1;
 						}
-						if (a.getPosProj(a.wrStarters) < b
-								.getPosProj(b.wrStarters)) {
+						if (a.getProjSum(a.wrStarters) < b
+								.getProjSum(b.wrStarters)) {
 							return 1;
 						}
 						return 0;
 					}
 				});
-		PriorityQueue<TeamAnalysis> tePAA = new PriorityQueue<TeamAnalysis>(
+		PriorityQueue<TeamAnalysis> teProj = new PriorityQueue<TeamAnalysis>(
 				300, new Comparator<TeamAnalysis>() {
 					@Override
 					public int compare(TeamAnalysis a, TeamAnalysis b) {
-						if (a.getPosProj(a.teStarters) > b
-								.getPosProj(b.teStarters)) {
+						if (a.getProjSum(a.teStarters) > b
+								.getProjSum(b.teStarters)) {
 							return -1;
 						}
-						if (a.getPosProj(a.teStarters) < b
-								.getPosProj(b.teStarters)) {
+						if (a.getProjSum(a.teStarters) < b
+								.getProjSum(b.teStarters)) {
 							return 1;
 						}
 						return 0;
 					}
 				});
-		PriorityQueue<TeamAnalysis> dPAA = new PriorityQueue<TeamAnalysis>(300,
+		PriorityQueue<TeamAnalysis> dProj = new PriorityQueue<TeamAnalysis>(300,
 				new Comparator<TeamAnalysis>() {
 					@Override
 					public int compare(TeamAnalysis a, TeamAnalysis b) {
-						if (a.getPosProj(a.dStarters) > b
-								.getPosProj(b.dStarters)) {
+						if (a.getProjSum(a.dStarters) > b
+								.getProjSum(b.dStarters)) {
 							return -1;
 						}
-						if (a.getPosProj(a.dStarters) < b
-								.getPosProj(b.dStarters)) {
+						if (a.getProjSum(a.dStarters) < b
+								.getProjSum(b.dStarters)) {
 							return 1;
 						}
 						return 0;
 					}
 				});
-		PriorityQueue<TeamAnalysis> kPAA = new PriorityQueue<TeamAnalysis>(300,
+		PriorityQueue<TeamAnalysis> kProj = new PriorityQueue<TeamAnalysis>(300,
 				new Comparator<TeamAnalysis>() {
 					@Override
 					public int compare(TeamAnalysis a, TeamAnalysis b) {
-						if (a.getPosProj(a.kStarters) > b
-								.getPosProj(b.kStarters)) {
+						if (a.getProjSum(a.kStarters) > b
+								.getProjSum(b.kStarters)) {
 							return -1;
 						}
-						if (a.getPosProj(a.kStarters) < b
-								.getPosProj(b.kStarters)) {
+						if (a.getProjSum(a.kStarters) < b
+								.getProjSum(b.kStarters)) {
 							return 1;
 						}
 						return 0;
@@ -201,12 +201,12 @@ public class LeagueList {
 			totalPAA.add(team);
 			startPAA.add(team);
 			benchPAA.add(team);
-			qbPAA.add(team);
-			rbPAA.add(team);
-			wrPAA.add(team);
-			tePAA.add(team);
-			dPAA.add(team);
-			kPAA.add(team);
+			qbProj.add(team);
+			rbProj.add(team);
+			wrProj.add(team);
+			teProj.add(team);
+			dProj.add(team);
+			kProj.add(team);
 		}
 		int counter = 0;
 		while (!totalPAA.isEmpty()) {
@@ -230,52 +230,52 @@ public class LeagueList {
 					+ df.format(iter.totalProj - iter.getStarterProj()) + "\n");
 		}
 		counter = 0;
-		while (!qbPAA.isEmpty()) {
+		while (!qbProj.isEmpty()) {
 			counter++;
-			TeamAnalysis iter = qbPAA.poll();
+			TeamAnalysis iter = qbProj.poll();
 			qb.append(counter + ") " + iter.teamName + ": "
-					+ df.format(iter.getPosPAA(iter.qbStarters)) + " ("
-					+ df.format(iter.qbPAATotal) + ")\n");
+					+ df.format(iter.getProjSum(iter.qbStarters)) + " ("
+					+ df.format(iter.qbProjTotal) + ")\n");
 		}
 		counter = 0;
-		while (!rbPAA.isEmpty()) {
+		while (!rbProj.isEmpty()) {
 			counter++;
-			TeamAnalysis iter = rbPAA.poll();
+			TeamAnalysis iter = rbProj.poll();
 			rb.append(counter + ") " + iter.teamName + ": "
-					+ df.format(iter.getPosPAA(iter.rbStarters)) + " ("
-					+ df.format(iter.rbPAATotal) + ")\n");
+					+ df.format(iter.getProjSum(iter.rbStarters)) + " ("
+					+ df.format(iter.rbProjTotal) + ")\n");
 		}
 		counter = 0;
-		while (!wrPAA.isEmpty()) {
+		while (!wrProj.isEmpty()) {
 			counter++;
-			TeamAnalysis iter = wrPAA.poll();
+			TeamAnalysis iter = wrProj.poll();
 			wr.append(counter + ") " + iter.teamName + ": "
-					+ df.format(iter.getPosPAA(iter.wrStarters)) + " ("
-					+ df.format(iter.wrPAATotal) + ")\n");
+					+ df.format(iter.getProjSum(iter.wrStarters)) + " ("
+					+ df.format(iter.wrProjTotal) + ")\n");
 		}
 		counter = 0;
-		while (!tePAA.isEmpty()) {
+		while (!teProj.isEmpty()) {
 			counter++;
-			TeamAnalysis iter = tePAA.poll();
+			TeamAnalysis iter = teProj.poll();
 			te.append(counter + ") " + iter.teamName + ": "
-					+ df.format(iter.getPosPAA(iter.teStarters)) + " ("
-					+ df.format(iter.tePAATotal) + ")\n");
+					+ df.format(iter.getProjSum(iter.teStarters)) + " ("
+					+ df.format(iter.teProjTotal) + ")\n");
 		}
 		counter = 0;
-		while (!dPAA.isEmpty()) {
+		while (!dProj.isEmpty()) {
 			counter++;
-			TeamAnalysis iter = dPAA.poll();
+			TeamAnalysis iter = dProj.poll();
 			d.append(counter + ") " + iter.teamName + ": "
-					+ df.format(iter.getPosPAA(iter.dStarters)) + " ("
-					+ df.format(iter.dPAATotal) + ")\n");
+					+ df.format(iter.getProjSum(iter.dStarters)) + " ("
+					+ df.format(iter.dProjTotal) + ")\n");
 		}
 		counter = 0;
-		while (!kPAA.isEmpty()) {
+		while (!kProj.isEmpty()) {
 			counter++;
-			TeamAnalysis iter = kPAA.poll();
+			TeamAnalysis iter = kProj.poll();
 			k.append(counter + ") " + iter.teamName + ": "
-					+ df.format(iter.getPosPAA(iter.kStarters)) + " ("
-					+ df.format(iter.kPAATotal) + ")\n");
+					+ df.format(iter.getProjSum(iter.kStarters)) + " ("
+					+ df.format(iter.kProjTotal) + ")\n");
 		}
 		List<Map<String, String>> data2 = new ArrayList<Map<String, String>>();
 		SimpleAdapter adapter2 = new SimpleAdapter(ImportLeague.cont, data2,
@@ -297,27 +297,27 @@ public class LeagueList {
 		datum.put("sub", paaBench.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
-		datum.put("main", "QB PAA Rankings");
+		datum.put("main", "QB Projections");
 		datum.put("sub", qb.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
-		datum.put("main", "RB PAA Rankings");
+		datum.put("main", "RB Projections");
 		datum.put("sub", rb.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
-		datum.put("main", "WR PAA Rankings");
+		datum.put("main", "WR Projections");
 		datum.put("sub", wr.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
-		datum.put("main", "TE PAA Rankings");
+		datum.put("main", "TE Projections");
 		datum.put("sub", te.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
-		datum.put("main", "D/ST PAA Rankings");
+		datum.put("main", "D/ST Projections");
 		datum.put("sub", d.toString());
 		data2.add(datum);
 		datum = new HashMap<String, String>();
-		datum.put("main", "K PAA Rankings");
+		datum.put("main", "K Projections");
 		datum.put("sub", k.toString());
 		data2.add(datum);
 		adapter2.notifyDataSetChanged();

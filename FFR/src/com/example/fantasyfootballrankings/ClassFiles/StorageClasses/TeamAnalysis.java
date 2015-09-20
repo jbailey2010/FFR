@@ -28,12 +28,12 @@ public class TeamAnalysis {
 	Context cont;
 	public double totalProj;
 	public double totalPAA;
-	public double qbPAATotal;
-	public double rbPAATotal;
-	public double wrPAATotal;
-	public double tePAATotal;
-	public double dPAATotal;
-	public double kPAATotal;
+	public double qbProjTotal;
+	public double rbProjTotal;
+	public double wrProjTotal;
+	public double teProjTotal;
+	public double dProjTotal;
+	public double kProjTotal;
 	public List<PlayerObject> qbStarters;
 	public List<PlayerObject> rbStarters;
 	public List<PlayerObject> wrStarters;
@@ -55,6 +55,9 @@ public class TeamAnalysis {
 		teamName = name;
 		team = teamStr;
 		holder = hold;
+		cont = c;
+
+		// Break the input blob into positional arrays for easier management
 		String[] qb = teamStr.split("Quarterbacks: ")[1].split("\n")[0]
 				.split(", ");
 		String[] rb = teamStr.split("Running Backs: ")[1].split("\n")[0]
@@ -65,15 +68,26 @@ public class TeamAnalysis {
 				.split(", ");
 		String[] d = teamStr.split("D/ST: ")[1].split("\n")[0].split(", ");
 		String[] k = teamStr.split("Kickers: ")[1].split("\n")[0].split(", ");
+
+		// Break out the starters and build the team list of players
 		manageStarters(qb, rb, wr, te, d, k);
-		qbPAATotal = paaPos(qb);
-		rbPAATotal = paaPos(rb);
-		wrPAATotal = paaPos(wr);
-		tePAATotal = paaPos(te);
-		dPAATotal = paaPos(d);
-		kPAATotal = paaPos(k);
-		cont = c;
 		populateTeamsList(this);
+
+		// Update the projections for all by each position
+		populateTotals(qb);
+		populateTotals(rb);
+		populateTotals(wr);
+		populateTotals(te);
+		populateTotals(d);
+		populateTotals(k);
+
+		// Set the individual positional projections
+		qbProjTotal = getPosProj(players, "QB");
+		rbProjTotal = getPosProj(players, "RB");
+		wrProjTotal = getPosProj(players, "WR");
+		teProjTotal = getPosProj(players, "TE");
+		dProjTotal = getPosProj(players, "D/ST");
+		kProjTotal = getPosProj(players, "K");
 	}
 
 	/**
@@ -119,15 +133,12 @@ public class TeamAnalysis {
 	 * @param pos
 	 * @return
 	 */
-	public double paaPos(String[] pos) {
-		double total = 0.0;
-		DecimalFormat df = new DecimalFormat("#.##");
+	private void populateTotals(String[] pos) {
 		for (int i = 0; i < pos.length; i++) {
 			if (this.holder.parsedPlayers.contains(pos[i])) {
 				for (PlayerObject player : this.holder.players) {
 					if (player.info.name.equals(pos[i])) {
 						if (player.values.paa > 0 || player.values.paa < 0) {
-							total += player.values.paa;
 							totalProj += player.values.points;
 							totalPAA += player.values.paa;
 							break;
@@ -136,7 +147,6 @@ public class TeamAnalysis {
 				}
 			}
 		}
-		return Double.valueOf(df.format(total));
 	}
 
 	/**
@@ -390,9 +400,9 @@ public class TeamAnalysis {
 	 * Gets the total starters projection of a team
 	 */
 	public double getStarterProj() {
-		return getPosProj(qbStarters) + getPosProj(rbStarters)
-				+ getPosProj(wrStarters) + getPosProj(teStarters)
-				+ getPosProj(dStarters) + getPosProj(kStarters);
+		return getProjSum(qbStarters) + getProjSum(rbStarters)
+				+ getProjSum(wrStarters) + getProjSum(teStarters)
+				+ getProjSum(dStarters) + getProjSum(kStarters);
 	}
 
 	/**
@@ -401,10 +411,20 @@ public class TeamAnalysis {
 	 * @param players
 	 * @return
 	 */
-	public double getPosProj(List<PlayerObject> players) {
+	public double getProjSum(List<PlayerObject> players) {
 		double total = 0.0;
 		for (PlayerObject player : players) {
 			total += player.values.points;
+		}
+		return total;
+	}
+
+	public double getPosProj(List<PlayerObject> players, String position) {
+		double total = 0.0;
+		for (PlayerObject player : players) {
+			if (player.info.position.equals(position)) {
+				total += player.values.points;
+			}
 		}
 		return total;
 	}

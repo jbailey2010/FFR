@@ -35,7 +35,7 @@ public class GraphingUtils {
 			String[] vertLabels, double yMin, double yMax) {
 		graphView.setHorizontalLabels(horizLabels);
 		graphView.setVerticalLabels(vertLabels);
-		graphView.setManualYAxisBounds(yMin, yMax);
+		graphView.setManualYAxisBounds(yMax, yMin);
 	}
 
 	public static void addSeries(GraphView graphView, String title,
