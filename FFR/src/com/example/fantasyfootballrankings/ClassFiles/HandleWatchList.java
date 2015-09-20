@@ -81,21 +81,25 @@ public class HandleWatchList {
 		TextView header = (TextView) dialog.findViewById(R.id.name);
 		header.setText("Watch List");
 		Button add = (Button) dialog.findViewById(R.id.add_watch);
-		add.setText("Hide Drafted");
-		add.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				selected = !selected;
-				if (!selected) {
-					Toast.makeText(cont, "Showing drafted players",
-							Toast.LENGTH_SHORT).show();
-				} else {
-					Toast.makeText(cont, "Hiding drafted players",
-							Toast.LENGTH_SHORT).show();
+		if (!holder.isRegularSeason) {
+			add.setText("Hide Drafted");
+			add.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					selected = !selected;
+					if (!selected) {
+						Toast.makeText(cont, "Showing drafted players",
+								Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(cont, "Hiding drafted players",
+								Toast.LENGTH_SHORT).show();
+					}
+					display(dialog, watchList, holder, listWatch, cont);
 				}
-				display(dialog, watchList, holder, listWatch, cont);
-			}
-		});
+			});
+		} else {
+			add.setVisibility(View.GONE);
+		}
 		close.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

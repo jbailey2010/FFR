@@ -514,7 +514,7 @@ public class ComparatorHandling {
 			public void onClick(View v) {
 				obj.outputResults(player1.info.name + ", "
 						+ player1.info.position + " - " + player1.info.team,
-						true, (Activity) cont, holder, false, false, false);
+						true, (Activity) cont, holder, false, true, false);
 			}
 		});
 		header2.setOnClickListener(new OnClickListener() {
@@ -522,7 +522,7 @@ public class ComparatorHandling {
 			public void onClick(View v) {
 				obj.outputResults(player2.info.name + ", "
 						+ player2.info.position + " - " + player2.info.team,
-						true, (Activity) cont, holder, false, false, false);
+						true, (Activity) cont, holder, false, true, false);
 			}
 		});
 
