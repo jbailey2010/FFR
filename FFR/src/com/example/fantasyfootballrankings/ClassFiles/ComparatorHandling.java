@@ -16,6 +16,7 @@ import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseFP;
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
@@ -506,6 +507,25 @@ public class ComparatorHandling {
 		TextView header2 = (TextView) dialog
 				.findViewById(R.id.compare_header_2);
 		header2.setText(player2.info.name);
+		final PlayerInfo obj = new PlayerInfo();
+		obj.isImport = false;
+		header1.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				obj.outputResults(player1.info.name + ", "
+						+ player1.info.position + " - " + player1.info.team,
+						true, (Activity) cont, holder, false, false, false);
+			}
+		});
+		header2.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				obj.outputResults(player2.info.name + ", "
+						+ player2.info.position + " - " + player2.info.team,
+						true, (Activity) cont, holder, false, false, false);
+			}
+		});
+
 		result = (TextView) dialog.findViewById(R.id.comparator_result);
 		result.setVisibility(View.INVISIBLE);
 		Button back = (Button) dialog.findViewById(R.id.compare_back);

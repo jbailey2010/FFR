@@ -166,7 +166,7 @@ public class PlayerInfo {
 	 * @param namePlayer
 	 * @param b
 	 */
-	public void outputResults(final String namePlayer, boolean flag,
+	public void outputResults(final String namePlayer, boolean hideBack,
 			final Activity act, final Storage hold, final boolean watchFlag,
 			final boolean draftable, boolean canRand) {
 		newsList = new ArrayList<NewsObjects>();
@@ -358,7 +358,7 @@ public class PlayerInfo {
 			});
 		}
 		// If it's called from trending or watch list, ignore back
-		if (flag) {
+		if (hideBack) {
 			Button backButton = (Button) dialog.findViewById(R.id.search_back);
 			if (canRand) {
 				backButton.setText("Random Player");
