@@ -620,10 +620,12 @@ public class Rankings extends Activity {
 				if (holder.isRegularSeason) {
 					Toast.makeText(
 							context,
-							"Note, This is a drafting tool and won't be of much use during the regular season.",
+							"This is a drafting tool and won't be of much use during the regular season.",
 							Toast.LENGTH_LONG).show();
 				}
-				ComparatorHandling.handleComparingInit(holder, cont);
+ else {
+					ComparatorHandling.handleComparingInit(holder, cont);
+				}
 			}
 		});
 		// sort pop up on click

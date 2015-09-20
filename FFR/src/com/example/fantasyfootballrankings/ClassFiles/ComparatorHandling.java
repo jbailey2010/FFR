@@ -1,9 +1,12 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.ffr.fantasyfootballrankings.R;
+import com.socialize.util.StringUtils;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
@@ -27,8 +30,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TwoLineListItem;
 import android.widget.AdapterView.OnItemClickListener;
 
 /**
@@ -91,28 +96,47 @@ public class ComparatorHandling {
 	 */
 	public static void setAdapter(final Storage holder, final Context cont,
 			final Dialog dialog) {
-		List<String> adapter = new ArrayList<String>(700);
-		for (String name : holder.parsedPlayers) {
-			adapter.add(name);
+		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+		for (PlayerObject player : holder.players) {
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("main", player.info.name);
+			if (!player.info.name.contains("D/ST")
+					&& player.info.position.length() >= 1
+					&& player.info.team.length() > 2) {
+				datum.put("sub", player.info.position + " - "
+						+ player.info.team);
+			} else {
+				datum.put("sub", "");
+			}
+			data.add(datum);
 		}
-		List<String> adapterSorted = ManageInput.sortSingleList(adapter);
-		ArrayAdapter<String> doubleAdapter = new ArrayAdapter<String>(cont,
-				android.R.layout.simple_dropdown_item_1line, adapterSorted);
+		List<Map<String, String>> dataSorted = ManageInput.sortData(data);
+		final SimpleAdapter mAdapter = new SimpleAdapter(cont, dataSorted,
+				android.R.layout.simple_list_item_2, new String[] { "main",
+						"sub" }, new int[] { android.R.id.text1,
+						android.R.id.text2 });
+
 		final AutoCompleteTextView player1 = (AutoCompleteTextView) dialog
 				.findViewById(R.id.player1_input);
 		final AutoCompleteTextView player2 = (AutoCompleteTextView) dialog
 				.findViewById(R.id.player2_input);
-		player1.setAdapter(doubleAdapter);
+		player1.setAdapter(mAdapter);
 		player1.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+				String text = ((TwoLineListItem) arg1).getText1().getText()
+						.toString();
+				player1.setText(text
+						+ ", "
+						+ ((TwoLineListItem) arg1).getText2().getText()
+								.toString());
 				if (player2.getText().toString().length() > 3
 						&& holder.parsedPlayers.contains(player2.getText()
-								.toString())) {
+								.toString().split(", ")[0])) {
 					startBackEnd(dialog, cont, holder);
 				}
- else {
+ else if (player2.getText().toString().length() > 0) {
 					Toast.makeText(
 							cont,
 							"Please enter two valid player names, using the dropdown to help",
@@ -120,17 +144,23 @@ public class ComparatorHandling {
 				}
 			}
 		});
-		player2.setAdapter(doubleAdapter);
+		player2.setAdapter(mAdapter);
 		player2.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+				String text = ((TwoLineListItem) arg1).getText1().getText()
+						.toString();
+				player2.setText(text
+						+ ", "
+						+ ((TwoLineListItem) arg1).getText2().getText()
+								.toString());
 				if (player1.getText().toString().length() > 3
 						&& holder.parsedPlayers.contains(player1.getText()
-								.toString())) {
+								.toString().split(", ")[0])) {
 					startBackEnd(dialog, cont, holder);
 				}
- else {
+ else if (player1.getText().toString().length() > 0) {
 					Toast.makeText(
 							cont,
 							"Please enter two valid player names, using the dropdown to help",
@@ -148,19 +178,39 @@ public class ComparatorHandling {
 				.findViewById(R.id.player1_input);
 		AutoCompleteTextView player2 = (AutoCompleteTextView) dialog
 				.findViewById(R.id.player2_input);
-		String name1 = player1.getText().toString();
-		String name2 = player2.getText().toString();
+		String team1 = "";
+		String nameData1 = player1.getText().toString();
+		String name1 = nameData1.split(", ")[0];
+		String pos1 = "";
+		if (nameData1.split(", ").length > 1) {
+			pos1 = nameData1.split(", ")[1].split(" - ")[0];
+		}
+		if (nameData1.split(", ").length > 1
+				&& nameData1.split(", ")[1].split(" - ").length > 1) {
+			team1 = nameData1.split(", ")[1].split(" - ")[1];
+		}
+		String team2 = "";
+		String nameData2 = player2.getText().toString();
+		String name2 = nameData2.split(", ")[0];
+		String pos2 = "";
+		if (nameData2.split(", ").length > 1) {
+			pos2 = nameData2.split(", ")[1].split(" - ")[0];
+		}
+		if (nameData2.split(", ").length > 1
+				&& nameData2.split(", ")[1].split(" - ").length > 1) {
+			team2 = nameData2.split(", ")[1].split(" - ")[1];
+		}
 		if (name1.equals(name2)) {
 			Toast.makeText(cont, "Please enter 2 different players",
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
 		// First player fetching and other lists
-		PlayerObject firstPlayer = getPlayer(name1, holder);
+		PlayerObject firstPlayer = getPlayer(name1, team1, pos1, holder);
 		List<PlayerObject> firstTeam = getPlayerTeam(holder, firstPlayer);
 		List<PlayerObject> firstPos = getPlayerPosition(holder, firstPlayer);
 		// Fetch second player and other lists
-		PlayerObject secondPlayer = getPlayer(name2, holder);
+		PlayerObject secondPlayer = getPlayer(name2, team2, pos2, holder);
 		List<PlayerObject> secTeam = getPlayerTeam(holder, secondPlayer);
 		List<PlayerObject> secPos = getPlayerPosition(holder, secondPlayer);
 		// Get the stats
@@ -571,6 +621,9 @@ public class ComparatorHandling {
 	 * Parses draft rank
 	 */
 	public static int draftRank(PlayerObject player, Storage holder) {
+		if (StringUtils.isEmpty(player.info.team)) {
+			return 33;
+		}
 		String[] split = holder.draftClasses.get(player.info.team).split("\n");
 		String average = split[0];
 		String rank = average.split("\\(")[1].substring(0,
@@ -659,10 +712,15 @@ public class ComparatorHandling {
 
 	/**
 	 * Gets the player given a name
+	 * 
+	 * @param pos
+	 * @param team
 	 */
-	public static PlayerObject getPlayer(String name, Storage holder) {
+	public static PlayerObject getPlayer(String name, String team, String pos,
+			Storage holder) {
 		for (PlayerObject player : holder.players) {
-			if (player.info.name.equals(name)) {
+			if (name.equals(player.info.name) && team.equals(player.info.team)
+					&& pos.equals(player.info.position)) {
 				return player;
 			}
 		}

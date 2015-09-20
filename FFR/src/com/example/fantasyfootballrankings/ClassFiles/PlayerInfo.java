@@ -221,6 +221,7 @@ public class PlayerInfo {
 					if (i == -1) {
 						for (PlayerObject iter : holder.players) {
 							if (iter.info.name.equals(namePlayer.split(", ")[0])
+									&& namePlayer.split(" - ").length > 1
 									&& iter.info.team.equals(namePlayer
 											.split(" - ")[1])) {
 								Rankings.bumpEntityValue(iter, act);
