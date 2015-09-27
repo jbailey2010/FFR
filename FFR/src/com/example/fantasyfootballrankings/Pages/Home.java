@@ -20,8 +20,6 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObjec
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleExport;
-import com.example.fantasyfootballrankings.ClassFiles.Utils.PlayerInfoActivity;
-
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
 import AsyncTasks.StorageAsyncTask;
@@ -96,9 +94,6 @@ public class Home extends Activity {
 				case R.id.side_navigation_menu_item3:
 					Intent intent5 = new Intent(cont, ImportLeague.class);
 					cont.startActivity(intent5);
-					break;
-				case R.id.side_navigation_menu_item7:
-					PlayerInfoActivity.displayStats(cont);
 					break;
 				case R.id.help:
 					ManageInput.generalHelp(cont);

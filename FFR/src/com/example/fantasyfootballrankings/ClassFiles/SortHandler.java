@@ -1439,12 +1439,6 @@ public class SortHandler {
 						}
 					}
 					if (i == -1) {
-						for (PlayerObject iter : holder.players) {
-							if (iter.info.name.equals(namePlayer)) {
-								Rankings.bumpEntityValue(iter, cont);
-								break;
-							}
-						}
 						for (Map<String, String> datum : Rankings.data) {
 							if (datum.get("main").contains(namePlayer)
 									&& datum.get("sub").contains(team)) {

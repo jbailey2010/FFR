@@ -18,10 +18,6 @@
         android:icon="@drawable/import_league"
         android:title="My Leagues"/>
     <item
-        android:id="@+id/side_navigation_menu_item7"
-        android:icon="@drawable/heart"
-        android:title="Most Viewed Players"/>
-    <item
         android:id="@+id/help"
         android:icon="@drawable/help"
         android:title="General Help"/>

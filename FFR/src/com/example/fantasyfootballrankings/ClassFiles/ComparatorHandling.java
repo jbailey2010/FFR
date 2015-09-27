@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.ffr.fantasyfootballrankings.R;
-import com.socialize.util.StringUtils;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
@@ -641,7 +640,7 @@ public class ComparatorHandling {
 	 * Parses draft rank
 	 */
 	public static int draftRank(PlayerObject player, Storage holder) {
-		if (StringUtils.isEmpty(player.info.team)) {
+		if (player.info.team == null || "".equals(player.info.team)) {
 			return 33;
 		}
 		String[] split = holder.draftClasses.get(player.info.team).split("\n");

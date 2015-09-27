@@ -30,15 +30,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMath;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
-import com.example.fantasyfootballrankings.ClassFiles.Utils.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.*;
-import com.socialize.EntityUtils;
-import com.socialize.Socialize;
-import com.socialize.entity.Entity;
-import com.socialize.error.SocializeException;
-import com.socialize.listener.entity.EntityAddListener;
-import com.socialize.listener.entity.EntityGetListener;
-
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.os.Bundle;
@@ -136,9 +128,6 @@ public class Rankings extends Activity {
 					Intent intent5 = new Intent(cont, ImportLeague.class);
 					cont.startActivity(intent5);
 					break;
-				case R.id.side_navigation_menu_item7:
-					PlayerInfoActivity.displayStats(cont);
-					break;
 				case R.id.help:
 					ManageInput.generalHelp(cont);
 					break;
@@ -171,30 +160,6 @@ public class Rankings extends Activity {
 		this.getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		configSearch();
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-
-		// Call Socialize in onPause
-		Socialize.onPause(this);
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-
-		// Call Socialize in onResume
-		Socialize.onResume(this);
-	}
-
-	@Override
-	protected void onDestroy() {
-		// Call Socialize in onDestroy before the activity is destroyed
-		Socialize.onDestroy(this);
-
-		super.onDestroy();
 	}
 
 	/**
@@ -1246,12 +1211,6 @@ public class Rankings extends Activity {
 					}
 				}
 				if (i == -1) {
-					for (PlayerObject iter : holder.players) {
-						if (iter.info.name.equals(namePlayer)) {
-							Rankings.bumpEntityValue(iter, cont);
-							break;
-						}
-					}
 					((TextView) ((RelativeLayout) arg1)
 							.findViewById(R.id.text3)).setText("W");
 					watchList.add(namePlayer);
@@ -1452,49 +1411,6 @@ public class Rankings extends Activity {
 					}
 				}
 				popup.dismiss();
-			}
-		});
-	}
-
-	/**
-	 * Takes the drafted count metadata and increases it by one if it exists,
-	 * otherwise it's 0
-	 */
-	public static void bumpEntityValue(PlayerObject player, final Context cont) {
-		String key = "http://www.ffr.com/" + player.info.name + ", "
-				+ player.info.position + "/pi" + Home.yearKey;
-		EntityUtils.getEntity((Activity) cont, key, new EntityGetListener() {
-			// The entity was gotten, though an error is still possible
-			@Override
-			public void onGet(Entity entity) {
-				int newVal = 1;
-				if (entity.getMetaData() != null
-						&& entity.getMetaData().length() != 0) {
-					newVal = Integer.parseInt(entity.getMetaData()) + 1;
-				}
-				entity.setMetaData(String.valueOf(newVal));
-				EntityUtils.saveEntity((Activity) cont, entity,
-						new EntityAddListener() {
-							@Override
-							public void onCreate(Entity result) {
-								// If we want to add some kind of handler, here
-								// is where to do so
-							}
-
-							@Override
-							public void onError(SocializeException error) {
-								// Some kind of error in saving, collision?
-							}
-						});
-			}
-
-			@Override
-			public void onError(SocializeException error) {
-				if (isNotFoundError(error)) {
-					// No entity found
-				} else {
-					// Some other kind of error
-				}
 			}
 		});
 	}

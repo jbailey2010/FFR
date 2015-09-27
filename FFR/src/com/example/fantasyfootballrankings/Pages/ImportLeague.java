@@ -14,7 +14,6 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
-import com.example.fantasyfootballrankings.ClassFiles.Utils.PlayerInfoActivity;
 import com.example.fantasyfootballrankings.MyLeagueSupport.CompareTeams;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LeagueList;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LineupHelp;
@@ -102,9 +101,6 @@ public class ImportLeague extends Activity {
 				case R.id.side_navigation_menu_item3:
 					Intent intent5 = new Intent(cont, ImportLeague.class);
 					cont.startActivity(intent5);
-					break;
-				case R.id.side_navigation_menu_item7:
-					PlayerInfoActivity.displayStats(cont);
 					break;
 				case R.id.help:
 					ManageInput.generalHelp(cont);

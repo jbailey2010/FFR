@@ -17,720 +17,420 @@ public final class R {
         public static final int side_navigation_out_to_right=0x7f040005;
     }
     public static final class attr {
-        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int confirm_logout=0x7f01000c;
-        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-         */
-        public static final int done_button_background=0x7f010006;
-        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int done_button_text=0x7f010004;
-        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int extra_fields=0x7f010001;
-        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int fetch_user_info=0x7f01000d;
-        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int is_cropped=0x7f010011;
-        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int login_text=0x7f01000e;
-        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int logout_text=0x7f01000f;
-        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int multi_select=0x7f010007;
-        /** <p>Must be one of the following constant values.</p>
-<table>
-<colgroup align="left" />
-<colgroup align="left" />
-<colgroup align="left" />
-<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-<tr><td><code>small</code></td><td>-2</td><td> Keep in sync with constants in ProfilePictureView </td></tr>
-<tr><td><code>normal</code></td><td>-3</td><td></td></tr>
-<tr><td><code>large</code></td><td>-4</td><td></td></tr>
-</table>
-         */
-        public static final int preset_size=0x7f010010;
-        /** <p>Must be an integer value, such as "<code>100</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int radius_in_meters=0x7f010008;
-        /** <p>Must be an integer value, such as "<code>100</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int results_limit=0x7f010009;
-        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int search_text=0x7f01000a;
-        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int show_pictures=0x7f010000;
-        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int show_search_box=0x7f01000b;
-        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int show_title_bar=0x7f010002;
-        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-         */
-        public static final int title_bar_background=0x7f010005;
-        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int title_text=0x7f010003;
     }
     public static final class color {
-        public static final int com_facebook_blue=0x7f080002;
-        public static final int com_facebook_loginview_text_color=0x7f080006;
-        public static final int com_facebook_picker_search_bar_background=0x7f080000;
-        public static final int com_facebook_picker_search_bar_text=0x7f080001;
-        public static final int com_facebook_usersettingsfragment_connected_shadow_color=0x7f080004;
-        public static final int com_facebook_usersettingsfragment_connected_text_color=0x7f080003;
-        public static final int com_facebook_usersettingsfragment_not_connected_text_color=0x7f080005;
-        public static final int side_navigation_background=0x7f080007;
-        public static final int side_navigation_item_text_color=0x7f08000a;
-        public static final int side_navigation_list_divider_color=0x7f080009;
-        public static final int side_navigation_outside_background=0x7f080008;
+        public static final int side_navigation_background=0x7f050000;
+        public static final int side_navigation_item_text_color=0x7f050003;
+        public static final int side_navigation_list_divider_color=0x7f050002;
+        public static final int side_navigation_outside_background=0x7f050001;
     }
     public static final class dimen {
-        public static final int com_facebook_loginview_compound_drawable_padding=0x7f070008;
-        public static final int com_facebook_loginview_padding_bottom=0x7f070007;
-        public static final int com_facebook_loginview_padding_left=0x7f070004;
-        public static final int com_facebook_loginview_padding_right=0x7f070005;
-        public static final int com_facebook_loginview_padding_top=0x7f070006;
-        public static final int com_facebook_loginview_text_size=0x7f070009;
-        public static final int com_facebook_picker_divider_width=0x7f070001;
-        public static final int com_facebook_picker_place_image_size=0x7f070000;
-        public static final int com_facebook_profilepictureview_preset_size_large=0x7f07000c;
-        public static final int com_facebook_profilepictureview_preset_size_normal=0x7f07000b;
-        public static final int com_facebook_profilepictureview_preset_size_small=0x7f07000a;
-        public static final int com_facebook_usersettingsfragment_profile_picture_height=0x7f070003;
-        public static final int com_facebook_usersettingsfragment_profile_picture_width=0x7f070002;
-        public static final int side_navigation_item_image_height=0x7f070010;
-        public static final int side_navigation_item_image_padding=0x7f070012;
-        public static final int side_navigation_item_image_width=0x7f070011;
-        public static final int side_navigation_item_padding_leftright=0x7f07000f;
-        public static final int side_navigation_item_padding_topbottom=0x7f07000e;
-        public static final int side_navigation_item_text_padding_left=0x7f070014;
-        public static final int side_navigation_item_text_size=0x7f070013;
-        public static final int side_navigation_width=0x7f07000d;
+        public static final int side_navigation_item_image_height=0x7f060003;
+        public static final int side_navigation_item_image_padding=0x7f060005;
+        public static final int side_navigation_item_image_width=0x7f060004;
+        public static final int side_navigation_item_padding_leftright=0x7f060002;
+        public static final int side_navigation_item_padding_topbottom=0x7f060001;
+        public static final int side_navigation_item_text_padding_left=0x7f060007;
+        public static final int side_navigation_item_text_size=0x7f060006;
+        public static final int side_navigation_width=0x7f060000;
     }
     public static final class drawable {
-        public static final int action_bar_button=0x7f020000;
-        public static final int arrow=0x7f020001;
-        public static final int auth_badge=0x7f020002;
-        public static final int btn_red=0x7f020003;
-        public static final int btn_red_home_middle=0x7f020004;
-        public static final int btn_red_home_top=0x7f020005;
-        public static final int checkbox_bg=0x7f020006;
-        public static final int checked=0x7f020007;
-        public static final int com_facebook_button_blue=0x7f020008;
-        public static final int com_facebook_button_blue_focused=0x7f020009;
-        public static final int com_facebook_button_blue_normal=0x7f02000a;
-        public static final int com_facebook_button_blue_pressed=0x7f02000b;
-        public static final int com_facebook_button_check=0x7f02000c;
-        public static final int com_facebook_button_check_off=0x7f02000d;
-        public static final int com_facebook_button_check_on=0x7f02000e;
-        public static final int com_facebook_button_grey_focused=0x7f02000f;
-        public static final int com_facebook_button_grey_normal=0x7f020010;
-        public static final int com_facebook_button_grey_pressed=0x7f020011;
-        public static final int com_facebook_close=0x7f020012;
-        public static final int com_facebook_inverse_icon=0x7f020013;
-        public static final int com_facebook_list_divider=0x7f020014;
-        public static final int com_facebook_list_section_header_background=0x7f020015;
-        public static final int com_facebook_loginbutton_silver=0x7f020016;
-        public static final int com_facebook_logo=0x7f020017;
-        public static final int com_facebook_picker_default_separator_color=0x7f02006b;
-        public static final int com_facebook_picker_item_background=0x7f020018;
-        public static final int com_facebook_picker_list_focused=0x7f020019;
-        public static final int com_facebook_picker_list_longpressed=0x7f02001a;
-        public static final int com_facebook_picker_list_pressed=0x7f02001b;
-        public static final int com_facebook_picker_list_selector=0x7f02001c;
-        public static final int com_facebook_picker_list_selector_background_transition=0x7f02001d;
-        public static final int com_facebook_picker_list_selector_disabled=0x7f02001e;
-        public static final int com_facebook_picker_magnifier=0x7f02001f;
-        public static final int com_facebook_picker_top_button=0x7f020020;
-        public static final int com_facebook_place_default_icon=0x7f020021;
-        public static final int com_facebook_profile_default_icon=0x7f020022;
-        public static final int com_facebook_profile_picture_blank_portrait=0x7f020023;
-        public static final int com_facebook_profile_picture_blank_square=0x7f020024;
-        public static final int com_facebook_top_background=0x7f020025;
-        public static final int com_facebook_top_button=0x7f020026;
-        public static final int com_facebook_usersettingsfragment_background_gradient=0x7f020027;
-        public static final int content_well_home=0x7f020028;
-        public static final int crosshatch=0x7f020029;
-        public static final int custom_checkbox=0x7f02002a;
-        public static final int default_user_icon=0x7f02002b;
-        public static final int divider=0x7f02002c;
-        public static final int export=0x7f02002d;
-        public static final int fb=0x7f02002e;
-        public static final int header=0x7f02002f;
-        public static final int heart=0x7f020030;
-        public static final int help=0x7f020031;
-        public static final int home=0x7f020032;
-        public static final int ic_menu_preferences=0x7f020033;
-        public static final int ic_menu_refresh=0x7f020034;
-        public static final int icon_comment=0x7f020035;
-        public static final int icon_email=0x7f020036;
-        public static final int icon_facebook=0x7f020037;
-        public static final int icon_facebook_disabled=0x7f020038;
-        public static final int icon_googleplus=0x7f020039;
-        public static final int icon_like=0x7f02003a;
-        public static final int icon_like_hi=0x7f02003b;
-        public static final int icon_location=0x7f02003c;
-        public static final int icon_location_disabled=0x7f02003d;
-        public static final int icon_location_pin=0x7f02003e;
-        public static final int icon_notify=0x7f02003f;
-        public static final int icon_notify_disabled=0x7f020040;
-        public static final int icon_share=0x7f020041;
-        public static final int icon_sms=0x7f020042;
-        public static final int icon_twitter=0x7f020043;
-        public static final int icon_twitter_disabled=0x7f020044;
-        public static final int icon_view=0x7f020045;
-        public static final int import_league=0x7f020046;
-        public static final int info_sub_background=0x7f020047;
-        public static final int list_divider=0x7f020048;
-        public static final int menu_black=0x7f020049;
-        public static final int menu_btn_black=0x7f02004a;
-        public static final int not_selected_tab=0x7f02004b;
-        public static final int notification_banner=0x7f02004c;
-        public static final int player_info_center=0x7f02004d;
-        public static final int player_info_left=0x7f02004e;
-        public static final int player_info_right=0x7f02004f;
-        public static final int progress_custom=0x7f020050;
-        public static final int rankings=0x7f020051;
-        public static final int red_scrubber_control=0x7f020052;
-        public static final int red_scrubber_control_disabled_holo=0x7f020053;
-        public static final int red_scrubber_control_focused_holo=0x7f020054;
-        public static final int red_scrubber_control_normal_holo=0x7f020055;
-        public static final int red_scrubber_control_pressed_holo=0x7f020056;
-        public static final int red_scrubber_primary_holo=0x7f020057;
-        public static final int red_scrubber_progress=0x7f020058;
-        public static final int red_scrubber_secondary_holo=0x7f020059;
-        public static final int red_scrubber_track_holo_light=0x7f02005a;
-        public static final int search_ranks=0x7f02005b;
-        public static final int selected_tab=0x7f02005c;
-        public static final int share_badge=0x7f02005d;
-        public static final int side_navigation_shadow_left=0x7f02005e;
-        public static final int side_navigation_shadow_right=0x7f02005f;
-        public static final int slate=0x7f020060;
-        public static final int socialize_icon_white=0x7f020061;
-        public static final int spinner_well=0x7f020062;
-        public static final int spinner_well_grey=0x7f020063;
-        public static final int stadium=0x7f020064;
-        public static final int tick_off=0x7f020065;
-        public static final int tick_on=0x7f020066;
-        public static final int toolbar_bg=0x7f020067;
-        public static final int toolbar_close=0x7f020068;
-        public static final int unchecked=0x7f020069;
-        public static final int user_icon=0x7f02006a;
+        public static final int arrow=0x7f020000;
+        public static final int btn_red=0x7f020001;
+        public static final int btn_red_home_middle=0x7f020002;
+        public static final int btn_red_home_top=0x7f020003;
+        public static final int checked=0x7f020004;
+        public static final int content_well_home=0x7f020005;
+        public static final int custom_checkbox=0x7f020006;
+        public static final int export=0x7f020007;
+        public static final int fb=0x7f020008;
+        public static final int heart=0x7f020009;
+        public static final int help=0x7f02000a;
+        public static final int home=0x7f02000b;
+        public static final int import_league=0x7f02000c;
+        public static final int info_sub_background=0x7f02000d;
+        public static final int list_divider=0x7f02000e;
+        public static final int menu_black=0x7f02000f;
+        public static final int menu_btn_black=0x7f020010;
+        public static final int not_selected_tab=0x7f020011;
+        public static final int player_info_center=0x7f020012;
+        public static final int player_info_left=0x7f020013;
+        public static final int player_info_right=0x7f020014;
+        public static final int progress_custom=0x7f020015;
+        public static final int rankings=0x7f020016;
+        public static final int red_scrubber_control=0x7f020017;
+        public static final int red_scrubber_control_disabled_holo=0x7f020018;
+        public static final int red_scrubber_control_focused_holo=0x7f020019;
+        public static final int red_scrubber_control_normal_holo=0x7f02001a;
+        public static final int red_scrubber_control_pressed_holo=0x7f02001b;
+        public static final int red_scrubber_primary_holo=0x7f02001c;
+        public static final int red_scrubber_progress=0x7f02001d;
+        public static final int red_scrubber_secondary_holo=0x7f02001e;
+        public static final int red_scrubber_track_holo_light=0x7f02001f;
+        public static final int search_ranks=0x7f020020;
+        public static final int selected_tab=0x7f020021;
+        public static final int side_navigation_shadow_left=0x7f020022;
+        public static final int side_navigation_shadow_right=0x7f020023;
+        public static final int spinner_well=0x7f020024;
+        public static final int spinner_well_grey=0x7f020025;
+        public static final int stadium=0x7f020026;
+        public static final int unchecked=0x7f020027;
     }
     public static final class id {
-        public static final int TextView01=0x7f0600cd;
-        public static final int TextView02=0x7f0600ce;
-        public static final int add_comparator_1=0x7f060030;
-        public static final int add_comparator_2=0x7f060031;
-        public static final int add_watch=0x7f0600e4;
-        public static final int amount_paid=0x7f06003c;
-        public static final int auction_close=0x7f06006d;
-        public static final int auction_or_snake=0x7f060125;
-        public static final int auction_salary_input=0x7f060070;
-        public static final int auction_salary_prompt=0x7f060071;
-        public static final int back_to_league_select=0x7f06012a;
-        public static final int cancel_list_refresh=0x7f0600c7;
-        public static final int category_base=0x7f060075;
-        public static final int category_info=0x7f0600e6;
-        public static final int category_league_base=0x7f06007b;
-        public static final int category_league_stats=0x7f060076;
-        public static final int category_lineup_base=0x7f060086;
-        public static final int category_lineup_help=0x7f060079;
-        public static final int category_other=0x7f0600e8;
-        public static final int category_player_base=0x7f06007f;
-        public static final int category_player_list=0x7f060078;
-        public static final int category_ranking=0x7f0600e5;
-        public static final int category_sub_base=0x7f0600a9;
-        public static final int category_team=0x7f0600e7;
-        public static final int category_team_base=0x7f06007d;
-        public static final int category_team_stats=0x7f060077;
-        public static final int category_tips_base=0x7f0600a7;
-        public static final int change_roster=0x7f06012f;
-        public static final int change_scoring=0x7f060130;
-        public static final int clear_compare=0x7f060033;
-        public static final int clear_imports=0x7f060132;
-        public static final int com_facebook_login_activity_progress_bar=0x7f060017;
-        public static final int com_facebook_picker_activity_circle=0x7f060016;
-        public static final int com_facebook_picker_checkbox=0x7f060019;
-        public static final int com_facebook_picker_checkbox_stub=0x7f06001d;
-        public static final int com_facebook_picker_divider=0x7f060021;
-        public static final int com_facebook_picker_done_button=0x7f060020;
-        public static final int com_facebook_picker_image=0x7f06001a;
-        public static final int com_facebook_picker_list_section_header=0x7f06001e;
-        public static final int com_facebook_picker_list_view=0x7f060015;
-        public static final int com_facebook_picker_profile_pic_stub=0x7f06001b;
-        public static final int com_facebook_picker_row_activity_circle=0x7f060018;
-        public static final int com_facebook_picker_search_text=0x7f060026;
-        public static final int com_facebook_picker_title=0x7f06001c;
-        public static final int com_facebook_picker_title_bar=0x7f060023;
-        public static final int com_facebook_picker_title_bar_stub=0x7f060022;
-        public static final int com_facebook_picker_top_bar=0x7f06001f;
-        public static final int com_facebook_search_bar_view=0x7f060025;
-        public static final int com_facebook_usersettingsfragment_login_button=0x7f060029;
-        public static final int com_facebook_usersettingsfragment_logo_image=0x7f060027;
-        public static final int com_facebook_usersettingsfragment_profile_name=0x7f060028;
-        public static final int comparator_result=0x7f060032;
-        public static final int compare_back=0x7f06002b;
-        public static final int compare_clear=0x7f060087;
-        public static final int compare_close=0x7f06002a;
-        public static final int compare_header_1=0x7f06002f;
-        public static final int compare_header_2=0x7f06002c;
-        public static final int compare_output_1=0x7f06002d;
-        public static final int compare_output_2=0x7f06002e;
-        public static final int compare_submit=0x7f060039;
-        public static final int compare_team=0x7f06012e;
-        public static final int confirm_list_refresh=0x7f0600c8;
-        public static final int d_header=0x7f060045;
-        public static final int defense_quantity=0x7f0600d0;
-        public static final int draftValue=0x7f060122;
-        public static final int draft_info=0x7f06000f;
-        public static final int draft_paa=0x7f060123;
-        public static final int draft_status_back=0x7f060040;
-        public static final int draft_status_close=0x7f06003f;
-        public static final int draft_who_close=0x7f06003a;
-        public static final int drafted_by_me=0x7f06003d;
-        public static final int drafted_by_someone=0x7f06003e;
-        public static final int dummy_btn_center=0x7f0600ea;
-        public static final int dummy_btn_left=0x7f0600eb;
-        public static final int dummy_btn_right=0x7f0600ec;
-        public static final int dummy_scroll=0x7f0600b6;
-        public static final int espn_id_input_submit=0x7f06005f;
-        public static final int espn_import=0x7f060067;
-        public static final int espn_unpw_close=0x7f060047;
-        public static final int espn_unpw_submit=0x7f06004b;
-        public static final int export_names=0x7f060126;
-        public static final int fa_content=0x7f0600af;
-        public static final int fa_scroll=0x7f0600ae;
-        public static final int fa_tips=0x7f0600aa;
-        public static final int fa_topics=0x7f0600ad;
-        public static final int filter_quantity_menu=0x7f060135;
-        public static final int filter_rankings_submit=0x7f0600c6;
-        public static final int filter_size_cancel=0x7f060050;
-        public static final int filter_size_submit=0x7f060051;
-        public static final int filter_topics_rankings=0x7f060133;
-        public static final int flex_quantity=0x7f0600d3;
-        public static final int help=0x7f060139;
-        public static final int help_close=0x7f060062;
-        public static final int help_home=0x7f060128;
-        public static final int help_home_close=0x7f060057;
-        public static final int help_rankings_close=0x7f060059;
-        public static final int home_base=0x7f060003;
-        public static final int home_well=0x7f060004;
-        public static final int import_base=0x7f060009;
-        public static final int import_base_second=0x7f060073;
-        public static final int import_decide_submit=0x7f060069;
-        public static final int import_decider_close=0x7f060065;
-        public static final int import_espnid_back=0x7f06005d;
-        public static final int import_espnid_close=0x7f06005c;
-        public static final int import_league_btn=0x7f060007;
-        public static final int import_league_name_submit=0x7f060060;
-        public static final int importa_league=0x7f060131;
-        public static final int imported_league_rankings=0x7f06007c;
-        public static final int imported_league_tips=0x7f06007a;
-        public static final int imported_teams_info=0x7f06007e;
-        public static final int imported_teams_players=0x7f060084;
-        public static final int info_sub_header_dark=0x7f0600e9;
-        public static final int is_auction=0x7f06006e;
-        public static final int is_auction_submit=0x7f060072;
-        public static final int is_snake=0x7f06006f;
-        public static final int k_header=0x7f060046;
-        public static final int kicker_quantity=0x7f0600d1;
-        public static final int large=0x7f060002;
-        public static final int league_id_espn_input=0x7f06005e;
-        public static final int league_name_input=0x7f060061;
-        public static final int league_selected_help=0x7f06012c;
-        public static final int league_stats_help=0x7f06012b;
-        public static final int league_stats_tabs=0x7f060074;
-        public static final int leagues_imported_list=0x7f0600b1;
-        public static final int left_item=0x7f06010a;
-        public static final int left_item_icon=0x7f06010b;
-        public static final int left_item_text=0x7f06010c;
-        public static final int listview_rankings=0x7f060013;
-        public static final int listview_search=0x7f0600bf;
-        public static final int maxVal=0x7f0600f8;
-        public static final int minVal=0x7f0600f9;
-        public static final int min_rankings=0x7f060101;
-        public static final int more_info=0x7f06011e;
-        public static final int name=0x7f0600be;
-        public static final int name_header=0x7f06003b;
-        public static final int none_imported_header=0x7f060063;
-        public static final int none_imported_sub=0x7f060064;
-        public static final int normal=0x7f060001;
-        public static final int op_quantity=0x7f060052;
-        public static final int optimal_close=0x7f060112;
-        public static final int paa_left_back=0x7f0600bc;
-        public static final int paa_left_close=0x7f0600bb;
-        public static final int password_input=0x7f06004a;
-        public static final int pick_input=0x7f0600f6;
-        public static final int picker_subtitle=0x7f060024;
-        public static final int player1_fp=0x7f06008c;
-        public static final int player1_fp_base=0x7f06008b;
-        public static final int player1_input=0x7f060035;
-        public static final int player1_name=0x7f060088;
-        public static final int player1_paa=0x7f06009c;
-        public static final int player1_paa_base=0x7f06009b;
-        public static final int player1_points_base=0x7f060093;
-        public static final int player1_ppw=0x7f060090;
-        public static final int player1_ppw_base=0x7f06008f;
-        public static final int player1_proj=0x7f060094;
-        public static final int player1_risk=0x7f0600a0;
-        public static final int player1_risk_base=0x7f06009f;
-        public static final int player1_sos=0x7f060098;
-        public static final int player1_sos_base=0x7f060097;
-        public static final int player1_weekly_pos_rank=0x7f0600a4;
-        public static final int player1_weekly_pos_rank_base=0x7f0600a3;
-        public static final int player2_fp=0x7f06008e;
-        public static final int player2_fp_base=0x7f06008d;
-        public static final int player2_input=0x7f060034;
-        public static final int player2_name=0x7f060089;
-        public static final int player2_paa=0x7f06009e;
-        public static final int player2_paa_base=0x7f06009d;
-        public static final int player2_points=0x7f060096;
-        public static final int player2_points_base=0x7f060095;
-        public static final int player2_ppw=0x7f060092;
-        public static final int player2_ppw_base=0x7f060091;
-        public static final int player2_risk=0x7f0600a2;
-        public static final int player2_risk_base=0x7f0600a1;
-        public static final int player2_sos=0x7f06009a;
-        public static final int player2_sos_base=0x7f060099;
-        public static final int player2_weekly_pos_rank=0x7f0600a6;
-        public static final int player2_weekly_pos_rank_base=0x7f0600a5;
-        public static final int player_comparator=0x7f060011;
-        public static final int player_comparator_header=0x7f060036;
-        public static final int player_input=0x7f0600b4;
-        public static final int player_list_graph=0x7f060082;
-        public static final int player_list_search=0x7f060080;
-        public static final int player_pos_spinner=0x7f060083;
-        public static final int player_sort_spinner=0x7f060085;
-        public static final int player_stats_close=0x7f0600b5;
-        public static final int player_status_spinner=0x7f060081;
-        public static final int playerinfo_top=0x7f0600e2;
-        public static final int plot_base_layout=0x7f0600c2;
-        public static final int plot_close=0x7f0600c0;
-        public static final int plot_popup_header=0x7f0600c1;
-        public static final int position_spinner=0x7f0600c3;
-        public static final int progressBar1=0x7f060120;
-        public static final int qb_header=0x7f060041;
-        public static final int qb_paa_left=0x7f0600b7;
-        public static final int qb_quantity=0x7f0600cc;
-        public static final int quantity_display=0x7f06004f;
-        public static final int radioGroup1=0x7f060066;
-        public static final int random_player=0x7f060138;
-        public static final int ranking_search=0x7f06000d;
-        public static final int rankings=0x7f060006;
-        public static final int rankings_filter_close=0x7f0600c5;
-        public static final int rankings_header_layout=0x7f06000c;
-        public static final int rankings_search_base=0x7f06000b;
-        public static final int rankings_search_submit=0x7f06000e;
-        public static final int rb_header=0x7f060042;
-        public static final int rb_paa_left=0x7f0600b8;
-        public static final int rb_quantity=0x7f0600c9;
-        public static final int rb_wr_quantity=0x7f060055;
-        public static final int rb_wr_te_quantity=0x7f060056;
-        public static final int rd_input=0x7f0600f5;
-        public static final int refresh_draft=0x7f060137;
-        public static final int refresh_league=0x7f06012d;
-        public static final int refresh_names=0x7f060127;
-        public static final int refresh_ranks=0x7f060136;
-        public static final int remSalary=0x7f060121;
-        public static final int right_item=0x7f06010d;
-        public static final int right_item_icon=0x7f06010e;
-        public static final int right_item_text=0x7f06010f;
-        public static final int roster_submit=0x7f060054;
-        public static final int salValDismiss=0x7f06011c;
-        public static final int scoring_pass_continue=0x7f0600d7;
-        public static final int scoring_pass_int=0x7f0600d6;
-        public static final int scoring_pass_td=0x7f0600d4;
-        public static final int scoring_pass_yards=0x7f0600d5;
-        public static final int scoring_rec_back=0x7f0600dc;
-        public static final int scoring_rec_catch=0x7f0600da;
-        public static final int scoring_rec_continue=0x7f0600db;
-        public static final int scoring_rec_td=0x7f0600d8;
-        public static final int scoring_rec_yards=0x7f0600d9;
-        public static final int scoring_run_back=0x7f0600e1;
-        public static final int scoring_run_continue=0x7f0600e0;
-        public static final int scoring_run_int=0x7f0600df;
-        public static final int scoring_run_td=0x7f0600dd;
-        public static final int scoring_run_yards=0x7f0600de;
-        public static final int search_back=0x7f0600e3;
-        public static final int search_cancel=0x7f0600b2;
-        public static final int search_close=0x7f0600bd;
-        public static final int search_submit=0x7f0600b3;
-        public static final int seekBar_quantity=0x7f06004d;
-        public static final int shadow=0x7f0600f2;
-        public static final int side_navigation_item_icon=0x7f0600ed;
-        public static final int side_navigation_item_text=0x7f0600ee;
-        public static final int side_navigation_listview=0x7f0600f1;
-        public static final int side_navigation_menu=0x7f0600f0;
-        public static final int side_navigation_menu_item0=0x7f06013f;
-        public static final int side_navigation_menu_item1=0x7f06013b;
-        public static final int side_navigation_menu_item2=0x7f06013c;
-        public static final int side_navigation_menu_item3=0x7f06013d;
-        public static final int side_navigation_menu_item7=0x7f06013e;
-        public static final int side_navigation_outside_view=0x7f0600ef;
-        public static final int side_navigation_view=0x7f060008;
-        public static final int side_navigation_view_import=0x7f06000a;
-        public static final int side_navigation_view_rankings=0x7f060014;
-        public static final int simulator=0x7f060134;
-        public static final int simulator_close=0x7f0600f3;
-        public static final int simulator_input=0x7f0600f4;
-        public static final int simulator_submit=0x7f0600f7;
-        public static final int small=0x7f060000;
-        public static final int sort_advanced=0x7f0600fe;
-        public static final int sort_cancel=0x7f0600fa;
-        public static final int sort_players=0x7f060012;
-        public static final int sort_pos_spinner=0x7f0600fc;
-        public static final int sort_second_back=0x7f060103;
-        public static final int sort_second_close=0x7f0600ff;
-        public static final int sort_second_healthy=0x7f060108;
-        public static final int sort_second_min_projection=0x7f060104;
-        public static final int sort_second_pass=0x7f060107;
-        public static final int sort_second_run=0x7f060109;
-        public static final int sort_second_sos=0x7f060100;
-        public static final int sort_second_submit=0x7f060102;
-        public static final int sort_second_under_30=0x7f060106;
-        public static final int sort_second_watch=0x7f060105;
-        public static final int sort_stat_spinner=0x7f0600fb;
-        public static final int sort_submit=0x7f0600fd;
-        public static final int start_roster=0x7f060124;
-        public static final int start_scoring=0x7f060129;
-        public static final int stats_help=0x7f06013a;
-        public static final int sw_game_venueinfo=0x7f0600ab;
-        public static final int table_base=0x7f06008a;
-        public static final int te_header=0x7f060044;
-        public static final int te_paa_left=0x7f0600ba;
-        public static final int te_quantity=0x7f0600ca;
-        public static final int team1_spinner=0x7f060037;
-        public static final int team2_spinner=0x7f060038;
-        public static final int team_info_close=0x7f060110;
-        public static final int team_info_popup_header=0x7f060111;
-        public static final int team_name_optimal=0x7f060113;
-        public static final int team_quantity=0x7f0600d2;
-        public static final int team_roster_optimal=0x7f060114;
-        public static final int team_spinner=0x7f0600c4;
-        public static final int team_tips_spinner=0x7f0600a8;
-        public static final int text1=0x7f06006a;
-        public static final int text2=0x7f06006b;
-        public static final int text3=0x7f06006c;
-        public static final int textView1=0x7f060005;
-        public static final int textView10=0x7f06005a;
-        public static final int textView11=0x7f06005b;
-        public static final int textView2=0x7f060048;
-        public static final int textView3=0x7f06004c;
-        public static final int textView4=0x7f060058;
-        public static final int textView5=0x7f0600cf;
-        public static final int textView6=0x7f060053;
-        public static final int trade_content=0x7f0600b0;
-        public static final int trade_tips=0x7f0600ac;
-        public static final int tweet_field=0x7f060116;
-        public static final int tweet_popup_close=0x7f060115;
-        public static final int twitter_confirm_go=0x7f060117;
-        public static final int twitter_confirm_prompt=0x7f060118;
-        public static final int twitter_pin_field=0x7f060119;
-        public static final int twitter_pin_go=0x7f06011b;
-        public static final int twitter_pin_prompt=0x7f06011a;
-        public static final int undraft=0x7f06011d;
-        public static final int username_input=0x7f060049;
-        public static final int value_left=0x7f06011f;
-        public static final int watch=0x7f060010;
-        public static final int what_filtered=0x7f06004e;
-        public static final int wr_header=0x7f060043;
-        public static final int wr_paa_left=0x7f0600b9;
-        public static final int wr_quantity=0x7f0600cb;
-        public static final int yahoo_import=0x7f060068;
+        public static final int TextView01=0x7f0a00b5;
+        public static final int TextView02=0x7f0a00b6;
+        public static final int add_comparator_1=0x7f0a0018;
+        public static final int add_comparator_2=0x7f0a0019;
+        public static final int add_watch=0x7f0a00cc;
+        public static final int amount_paid=0x7f0a0024;
+        public static final int auction_close=0x7f0a0055;
+        public static final int auction_or_snake=0x7f0a0107;
+        public static final int auction_salary_input=0x7f0a0058;
+        public static final int auction_salary_prompt=0x7f0a0059;
+        public static final int back_to_league_select=0x7f0a010c;
+        public static final int cancel_list_refresh=0x7f0a00af;
+        public static final int category_base=0x7f0a005d;
+        public static final int category_info=0x7f0a00ce;
+        public static final int category_league_base=0x7f0a0063;
+        public static final int category_league_stats=0x7f0a005e;
+        public static final int category_lineup_base=0x7f0a006e;
+        public static final int category_lineup_help=0x7f0a0061;
+        public static final int category_other=0x7f0a00d0;
+        public static final int category_player_base=0x7f0a0067;
+        public static final int category_player_list=0x7f0a0060;
+        public static final int category_ranking=0x7f0a00cd;
+        public static final int category_sub_base=0x7f0a0091;
+        public static final int category_team=0x7f0a00cf;
+        public static final int category_team_base=0x7f0a0065;
+        public static final int category_team_stats=0x7f0a005f;
+        public static final int category_tips_base=0x7f0a008f;
+        public static final int change_roster=0x7f0a0111;
+        public static final int change_scoring=0x7f0a0112;
+        public static final int clear_compare=0x7f0a001b;
+        public static final int clear_imports=0x7f0a0114;
+        public static final int comparator_result=0x7f0a001a;
+        public static final int compare_back=0x7f0a0013;
+        public static final int compare_clear=0x7f0a006f;
+        public static final int compare_close=0x7f0a0012;
+        public static final int compare_header_1=0x7f0a0017;
+        public static final int compare_header_2=0x7f0a0014;
+        public static final int compare_output_1=0x7f0a0015;
+        public static final int compare_output_2=0x7f0a0016;
+        public static final int compare_submit=0x7f0a0021;
+        public static final int compare_team=0x7f0a0110;
+        public static final int confirm_list_refresh=0x7f0a00b0;
+        public static final int d_header=0x7f0a002d;
+        public static final int defense_quantity=0x7f0a00b8;
+        public static final int draftValue=0x7f0a0104;
+        public static final int draft_info=0x7f0a000c;
+        public static final int draft_paa=0x7f0a0105;
+        public static final int draft_status_back=0x7f0a0028;
+        public static final int draft_status_close=0x7f0a0027;
+        public static final int draft_who_close=0x7f0a0022;
+        public static final int drafted_by_me=0x7f0a0025;
+        public static final int drafted_by_someone=0x7f0a0026;
+        public static final int dummy_btn_center=0x7f0a00d2;
+        public static final int dummy_btn_left=0x7f0a00d3;
+        public static final int dummy_btn_right=0x7f0a00d4;
+        public static final int dummy_scroll=0x7f0a009e;
+        public static final int espn_id_input_submit=0x7f0a0047;
+        public static final int espn_import=0x7f0a004f;
+        public static final int espn_unpw_close=0x7f0a002f;
+        public static final int espn_unpw_submit=0x7f0a0033;
+        public static final int export_names=0x7f0a0108;
+        public static final int fa_content=0x7f0a0097;
+        public static final int fa_scroll=0x7f0a0096;
+        public static final int fa_tips=0x7f0a0092;
+        public static final int fa_topics=0x7f0a0095;
+        public static final int filter_quantity_menu=0x7f0a0117;
+        public static final int filter_rankings_submit=0x7f0a00ae;
+        public static final int filter_size_cancel=0x7f0a0038;
+        public static final int filter_size_submit=0x7f0a0039;
+        public static final int filter_topics_rankings=0x7f0a0115;
+        public static final int flex_quantity=0x7f0a00bb;
+        public static final int help=0x7f0a011b;
+        public static final int help_close=0x7f0a004a;
+        public static final int help_home=0x7f0a010a;
+        public static final int help_home_close=0x7f0a003f;
+        public static final int help_rankings_close=0x7f0a0041;
+        public static final int home_base=0x7f0a0000;
+        public static final int home_well=0x7f0a0001;
+        public static final int import_base=0x7f0a0006;
+        public static final int import_base_second=0x7f0a005b;
+        public static final int import_decide_submit=0x7f0a0051;
+        public static final int import_decider_close=0x7f0a004d;
+        public static final int import_espnid_back=0x7f0a0045;
+        public static final int import_espnid_close=0x7f0a0044;
+        public static final int import_league_btn=0x7f0a0004;
+        public static final int import_league_name_submit=0x7f0a0048;
+        public static final int importa_league=0x7f0a0113;
+        public static final int imported_league_rankings=0x7f0a0064;
+        public static final int imported_league_tips=0x7f0a0062;
+        public static final int imported_teams_info=0x7f0a0066;
+        public static final int imported_teams_players=0x7f0a006c;
+        public static final int info_sub_header_dark=0x7f0a00d1;
+        public static final int is_auction=0x7f0a0056;
+        public static final int is_auction_submit=0x7f0a005a;
+        public static final int is_snake=0x7f0a0057;
+        public static final int k_header=0x7f0a002e;
+        public static final int kicker_quantity=0x7f0a00b9;
+        public static final int league_id_espn_input=0x7f0a0046;
+        public static final int league_name_input=0x7f0a0049;
+        public static final int league_selected_help=0x7f0a010e;
+        public static final int league_stats_help=0x7f0a010d;
+        public static final int league_stats_tabs=0x7f0a005c;
+        public static final int leagues_imported_list=0x7f0a0099;
+        public static final int listview_rankings=0x7f0a0010;
+        public static final int listview_search=0x7f0a00a7;
+        public static final int maxVal=0x7f0a00e0;
+        public static final int minVal=0x7f0a00e1;
+        public static final int min_rankings=0x7f0a00e9;
+        public static final int more_info=0x7f0a0100;
+        public static final int name=0x7f0a00a6;
+        public static final int name_header=0x7f0a0023;
+        public static final int none_imported_header=0x7f0a004b;
+        public static final int none_imported_sub=0x7f0a004c;
+        public static final int op_quantity=0x7f0a003a;
+        public static final int optimal_close=0x7f0a00f4;
+        public static final int paa_left_back=0x7f0a00a4;
+        public static final int paa_left_close=0x7f0a00a3;
+        public static final int password_input=0x7f0a0032;
+        public static final int pick_input=0x7f0a00de;
+        public static final int player1_fp=0x7f0a0074;
+        public static final int player1_fp_base=0x7f0a0073;
+        public static final int player1_input=0x7f0a001d;
+        public static final int player1_name=0x7f0a0070;
+        public static final int player1_paa=0x7f0a0084;
+        public static final int player1_paa_base=0x7f0a0083;
+        public static final int player1_points_base=0x7f0a007b;
+        public static final int player1_ppw=0x7f0a0078;
+        public static final int player1_ppw_base=0x7f0a0077;
+        public static final int player1_proj=0x7f0a007c;
+        public static final int player1_risk=0x7f0a0088;
+        public static final int player1_risk_base=0x7f0a0087;
+        public static final int player1_sos=0x7f0a0080;
+        public static final int player1_sos_base=0x7f0a007f;
+        public static final int player1_weekly_pos_rank=0x7f0a008c;
+        public static final int player1_weekly_pos_rank_base=0x7f0a008b;
+        public static final int player2_fp=0x7f0a0076;
+        public static final int player2_fp_base=0x7f0a0075;
+        public static final int player2_input=0x7f0a001c;
+        public static final int player2_name=0x7f0a0071;
+        public static final int player2_paa=0x7f0a0086;
+        public static final int player2_paa_base=0x7f0a0085;
+        public static final int player2_points=0x7f0a007e;
+        public static final int player2_points_base=0x7f0a007d;
+        public static final int player2_ppw=0x7f0a007a;
+        public static final int player2_ppw_base=0x7f0a0079;
+        public static final int player2_risk=0x7f0a008a;
+        public static final int player2_risk_base=0x7f0a0089;
+        public static final int player2_sos=0x7f0a0082;
+        public static final int player2_sos_base=0x7f0a0081;
+        public static final int player2_weekly_pos_rank=0x7f0a008e;
+        public static final int player2_weekly_pos_rank_base=0x7f0a008d;
+        public static final int player_comparator=0x7f0a000e;
+        public static final int player_comparator_header=0x7f0a001e;
+        public static final int player_input=0x7f0a009c;
+        public static final int player_list_graph=0x7f0a006a;
+        public static final int player_list_search=0x7f0a0068;
+        public static final int player_pos_spinner=0x7f0a006b;
+        public static final int player_sort_spinner=0x7f0a006d;
+        public static final int player_stats_close=0x7f0a009d;
+        public static final int player_status_spinner=0x7f0a0069;
+        public static final int playerinfo_top=0x7f0a00ca;
+        public static final int plot_base_layout=0x7f0a00aa;
+        public static final int plot_close=0x7f0a00a8;
+        public static final int plot_popup_header=0x7f0a00a9;
+        public static final int position_spinner=0x7f0a00ab;
+        public static final int progressBar1=0x7f0a0102;
+        public static final int qb_header=0x7f0a0029;
+        public static final int qb_paa_left=0x7f0a009f;
+        public static final int qb_quantity=0x7f0a00b4;
+        public static final int quantity_display=0x7f0a0037;
+        public static final int radioGroup1=0x7f0a004e;
+        public static final int random_player=0x7f0a011a;
+        public static final int ranking_search=0x7f0a000a;
+        public static final int rankings=0x7f0a0003;
+        public static final int rankings_filter_close=0x7f0a00ad;
+        public static final int rankings_header_layout=0x7f0a0009;
+        public static final int rankings_search_base=0x7f0a0008;
+        public static final int rankings_search_submit=0x7f0a000b;
+        public static final int rb_header=0x7f0a002a;
+        public static final int rb_paa_left=0x7f0a00a0;
+        public static final int rb_quantity=0x7f0a00b1;
+        public static final int rb_wr_quantity=0x7f0a003d;
+        public static final int rb_wr_te_quantity=0x7f0a003e;
+        public static final int rd_input=0x7f0a00dd;
+        public static final int refresh_draft=0x7f0a0119;
+        public static final int refresh_league=0x7f0a010f;
+        public static final int refresh_names=0x7f0a0109;
+        public static final int refresh_ranks=0x7f0a0118;
+        public static final int remSalary=0x7f0a0103;
+        public static final int roster_submit=0x7f0a003c;
+        public static final int salValDismiss=0x7f0a00fe;
+        public static final int scoring_pass_continue=0x7f0a00bf;
+        public static final int scoring_pass_int=0x7f0a00be;
+        public static final int scoring_pass_td=0x7f0a00bc;
+        public static final int scoring_pass_yards=0x7f0a00bd;
+        public static final int scoring_rec_back=0x7f0a00c4;
+        public static final int scoring_rec_catch=0x7f0a00c2;
+        public static final int scoring_rec_continue=0x7f0a00c3;
+        public static final int scoring_rec_td=0x7f0a00c0;
+        public static final int scoring_rec_yards=0x7f0a00c1;
+        public static final int scoring_run_back=0x7f0a00c9;
+        public static final int scoring_run_continue=0x7f0a00c8;
+        public static final int scoring_run_int=0x7f0a00c7;
+        public static final int scoring_run_td=0x7f0a00c5;
+        public static final int scoring_run_yards=0x7f0a00c6;
+        public static final int search_back=0x7f0a00cb;
+        public static final int search_cancel=0x7f0a009a;
+        public static final int search_close=0x7f0a00a5;
+        public static final int search_submit=0x7f0a009b;
+        public static final int seekBar_quantity=0x7f0a0035;
+        public static final int shadow=0x7f0a00da;
+        public static final int side_navigation_item_icon=0x7f0a00d5;
+        public static final int side_navigation_item_text=0x7f0a00d6;
+        public static final int side_navigation_listview=0x7f0a00d9;
+        public static final int side_navigation_menu=0x7f0a00d8;
+        public static final int side_navigation_menu_item0=0x7f0a0120;
+        public static final int side_navigation_menu_item1=0x7f0a011d;
+        public static final int side_navigation_menu_item2=0x7f0a011e;
+        public static final int side_navigation_menu_item3=0x7f0a011f;
+        public static final int side_navigation_outside_view=0x7f0a00d7;
+        public static final int side_navigation_view=0x7f0a0005;
+        public static final int side_navigation_view_import=0x7f0a0007;
+        public static final int side_navigation_view_rankings=0x7f0a0011;
+        public static final int simulator=0x7f0a0116;
+        public static final int simulator_close=0x7f0a00db;
+        public static final int simulator_input=0x7f0a00dc;
+        public static final int simulator_submit=0x7f0a00df;
+        public static final int sort_advanced=0x7f0a00e6;
+        public static final int sort_cancel=0x7f0a00e2;
+        public static final int sort_players=0x7f0a000f;
+        public static final int sort_pos_spinner=0x7f0a00e4;
+        public static final int sort_second_back=0x7f0a00eb;
+        public static final int sort_second_close=0x7f0a00e7;
+        public static final int sort_second_healthy=0x7f0a00f0;
+        public static final int sort_second_min_projection=0x7f0a00ec;
+        public static final int sort_second_pass=0x7f0a00ef;
+        public static final int sort_second_run=0x7f0a00f1;
+        public static final int sort_second_sos=0x7f0a00e8;
+        public static final int sort_second_submit=0x7f0a00ea;
+        public static final int sort_second_under_30=0x7f0a00ee;
+        public static final int sort_second_watch=0x7f0a00ed;
+        public static final int sort_stat_spinner=0x7f0a00e3;
+        public static final int sort_submit=0x7f0a00e5;
+        public static final int start_roster=0x7f0a0106;
+        public static final int start_scoring=0x7f0a010b;
+        public static final int stats_help=0x7f0a011c;
+        public static final int sw_game_venueinfo=0x7f0a0093;
+        public static final int table_base=0x7f0a0072;
+        public static final int te_header=0x7f0a002c;
+        public static final int te_paa_left=0x7f0a00a2;
+        public static final int te_quantity=0x7f0a00b2;
+        public static final int team1_spinner=0x7f0a001f;
+        public static final int team2_spinner=0x7f0a0020;
+        public static final int team_info_close=0x7f0a00f2;
+        public static final int team_info_popup_header=0x7f0a00f3;
+        public static final int team_name_optimal=0x7f0a00f5;
+        public static final int team_quantity=0x7f0a00ba;
+        public static final int team_roster_optimal=0x7f0a00f6;
+        public static final int team_spinner=0x7f0a00ac;
+        public static final int team_tips_spinner=0x7f0a0090;
+        public static final int text1=0x7f0a0052;
+        public static final int text2=0x7f0a0053;
+        public static final int text3=0x7f0a0054;
+        public static final int textView1=0x7f0a0002;
+        public static final int textView10=0x7f0a0042;
+        public static final int textView11=0x7f0a0043;
+        public static final int textView2=0x7f0a0030;
+        public static final int textView3=0x7f0a0034;
+        public static final int textView4=0x7f0a0040;
+        public static final int textView5=0x7f0a00b7;
+        public static final int textView6=0x7f0a003b;
+        public static final int trade_content=0x7f0a0098;
+        public static final int trade_tips=0x7f0a0094;
+        public static final int tweet_field=0x7f0a00f8;
+        public static final int tweet_popup_close=0x7f0a00f7;
+        public static final int twitter_confirm_go=0x7f0a00f9;
+        public static final int twitter_confirm_prompt=0x7f0a00fa;
+        public static final int twitter_pin_field=0x7f0a00fb;
+        public static final int twitter_pin_go=0x7f0a00fd;
+        public static final int twitter_pin_prompt=0x7f0a00fc;
+        public static final int undraft=0x7f0a00ff;
+        public static final int username_input=0x7f0a0031;
+        public static final int value_left=0x7f0a0101;
+        public static final int watch=0x7f0a000d;
+        public static final int what_filtered=0x7f0a0036;
+        public static final int wr_header=0x7f0a002b;
+        public static final int wr_paa_left=0x7f0a00a1;
+        public static final int wr_quantity=0x7f0a00b3;
+        public static final int yahoo_import=0x7f0a0050;
     }
     public static final class layout {
         public static final int activity_home=0x7f030000;
         public static final int activity_import_league=0x7f030001;
         public static final int activity_rankings=0x7f030002;
-        public static final int com_facebook_friendpickerfragment=0x7f030003;
-        public static final int com_facebook_login_activity_layout=0x7f030004;
-        public static final int com_facebook_picker_activity_circle_row=0x7f030005;
-        public static final int com_facebook_picker_checkbox=0x7f030006;
-        public static final int com_facebook_picker_image=0x7f030007;
-        public static final int com_facebook_picker_list_row=0x7f030008;
-        public static final int com_facebook_picker_list_section_header=0x7f030009;
-        public static final int com_facebook_picker_search_box=0x7f03000a;
-        public static final int com_facebook_picker_title_bar=0x7f03000b;
-        public static final int com_facebook_picker_title_bar_stub=0x7f03000c;
-        public static final int com_facebook_placepickerfragment=0x7f03000d;
-        public static final int com_facebook_placepickerfragment_list_row=0x7f03000e;
-        public static final int com_facebook_search_bar_layout=0x7f03000f;
-        public static final int com_facebook_usersettingsfragment=0x7f030010;
-        public static final int comparator_output=0x7f030011;
-        public static final int comparator_view=0x7f030012;
-        public static final int compare_teams_popup=0x7f030013;
-        public static final int draft_by_me=0x7f030014;
-        public static final int draft_by_who=0x7f030015;
-        public static final int draft_team_status=0x7f030016;
-        public static final int espn_unpw=0x7f030017;
-        public static final int filter_quantity=0x7f030018;
-        public static final int flex_layout_roster=0x7f030019;
-        public static final int help_home=0x7f03001a;
-        public static final int help_rankings=0x7f03001b;
-        public static final int import_espn_league_id=0x7f03001c;
-        public static final int import_get_league_name=0x7f03001d;
-        public static final int import_help_post=0x7f03001e;
-        public static final int import_help_pre=0x7f03001f;
-        public static final int import_none_imported=0x7f030020;
-        public static final int import_service_decider=0x7f030021;
-        public static final int imported_listview_elem_stats=0x7f030022;
-        public static final int imported_listview_elem_team=0x7f030023;
-        public static final int is_auction=0x7f030024;
-        public static final int league_stats_output=0x7f030025;
-        public static final int leagues_imported_list=0x7f030026;
-        public static final int note_change=0x7f030027;
-        public static final int one_line_text=0x7f030028;
-        public static final int paa_pos_left=0x7f030029;
-        public static final int player_tweet_search=0x7f03002a;
-        public static final int plot_popup=0x7f03002b;
-        public static final int rankings_filter=0x7f03002c;
-        public static final int refresh_list=0x7f03002d;
-        public static final int roster_selections=0x7f03002e;
-        public static final int scoring_pass=0x7f03002f;
-        public static final int scoring_rec=0x7f030030;
-        public static final int scoring_run=0x7f030031;
-        public static final int search_output=0x7f030032;
-        public static final int search_players=0x7f030033;
-        public static final int side_navigation_item=0x7f030034;
-        public static final int side_navigation_left=0x7f030035;
-        public static final int side_navigation_right=0x7f030036;
-        public static final int simulator_input=0x7f030037;
-        public static final int sort_initial=0x7f030038;
-        public static final int sort_second_dialog=0x7f030039;
-        public static final int st_share_dialog_list=0x7f03003a;
-        public static final int st_share_dialog_row=0x7f03003b;
-        public static final int team_info_popup=0x7f03003c;
-        public static final int team_optimal_lineup=0x7f03003d;
-        public static final int tweet_popup=0x7f03003e;
-        public static final int twitter_login=0x7f03003f;
-        public static final int twitter_validate_pin=0x7f030040;
-        public static final int value_salary=0x7f030041;
-        public static final int web_listview_item=0x7f030042;
+        public static final int comparator_output=0x7f030003;
+        public static final int comparator_view=0x7f030004;
+        public static final int compare_teams_popup=0x7f030005;
+        public static final int draft_by_me=0x7f030006;
+        public static final int draft_by_who=0x7f030007;
+        public static final int draft_team_status=0x7f030008;
+        public static final int espn_unpw=0x7f030009;
+        public static final int filter_quantity=0x7f03000a;
+        public static final int flex_layout_roster=0x7f03000b;
+        public static final int help_home=0x7f03000c;
+        public static final int help_rankings=0x7f03000d;
+        public static final int import_espn_league_id=0x7f03000e;
+        public static final int import_get_league_name=0x7f03000f;
+        public static final int import_help_post=0x7f030010;
+        public static final int import_help_pre=0x7f030011;
+        public static final int import_none_imported=0x7f030012;
+        public static final int import_service_decider=0x7f030013;
+        public static final int imported_listview_elem_stats=0x7f030014;
+        public static final int imported_listview_elem_team=0x7f030015;
+        public static final int is_auction=0x7f030016;
+        public static final int league_stats_output=0x7f030017;
+        public static final int leagues_imported_list=0x7f030018;
+        public static final int note_change=0x7f030019;
+        public static final int one_line_text=0x7f03001a;
+        public static final int paa_pos_left=0x7f03001b;
+        public static final int player_tweet_search=0x7f03001c;
+        public static final int plot_popup=0x7f03001d;
+        public static final int rankings_filter=0x7f03001e;
+        public static final int refresh_list=0x7f03001f;
+        public static final int roster_selections=0x7f030020;
+        public static final int scoring_pass=0x7f030021;
+        public static final int scoring_rec=0x7f030022;
+        public static final int scoring_run=0x7f030023;
+        public static final int search_output=0x7f030024;
+        public static final int search_players=0x7f030025;
+        public static final int side_navigation_item=0x7f030026;
+        public static final int side_navigation_left=0x7f030027;
+        public static final int side_navigation_right=0x7f030028;
+        public static final int simulator_input=0x7f030029;
+        public static final int sort_initial=0x7f03002a;
+        public static final int sort_second_dialog=0x7f03002b;
+        public static final int team_info_popup=0x7f03002c;
+        public static final int team_optimal_lineup=0x7f03002d;
+        public static final int tweet_popup=0x7f03002e;
+        public static final int twitter_login=0x7f03002f;
+        public static final int twitter_validate_pin=0x7f030030;
+        public static final int value_salary=0x7f030031;
+        public static final int web_listview_item=0x7f030032;
     }
     public static final class menu {
-        public static final int home=0x7f0a0000;
-        public static final int import_league=0x7f0a0001;
-        public static final int rankings=0x7f0a0002;
-        public static final int side_navigation_menu=0x7f0a0003;
-        public static final int side_navigation_view=0x7f0a0004;
+        public static final int home=0x7f090000;
+        public static final int import_league=0x7f090001;
+        public static final int rankings=0x7f090002;
+        public static final int side_navigation_menu=0x7f090003;
+        public static final int side_navigation_view=0x7f090004;
     }
     public static final class string {
-        public static final int app_name=0x7f090019;
-        public static final int com_facebook_choose_friends=0x7f09000f;
-        public static final int com_facebook_dialogloginactivity_ok_button=0x7f090000;
-        public static final int com_facebook_internet_permission_error_message=0x7f090013;
-        public static final int com_facebook_internet_permission_error_title=0x7f090012;
-        public static final int com_facebook_loading=0x7f090011;
-        public static final int com_facebook_loginview_cancel_action=0x7f090006;
-        public static final int com_facebook_loginview_log_in_button=0x7f090002;
-        public static final int com_facebook_loginview_log_out_action=0x7f090005;
-        public static final int com_facebook_loginview_log_out_button=0x7f090001;
-        public static final int com_facebook_loginview_logged_in_as=0x7f090003;
-        public static final int com_facebook_loginview_logged_in_using_facebook=0x7f090004;
-        public static final int com_facebook_logo_content_description=0x7f090007;
-        public static final int com_facebook_nearby=0x7f090010;
-        public static final int com_facebook_picker_done_button_text=0x7f09000e;
-        public static final int com_facebook_placepicker_subtitle_catetory_only_format=0x7f09000c;
-        public static final int com_facebook_placepicker_subtitle_format=0x7f09000b;
-        public static final int com_facebook_placepicker_subtitle_were_here_only_format=0x7f09000d;
-        public static final int com_facebook_requesterror_password_changed=0x7f090016;
-        public static final int com_facebook_requesterror_permissions=0x7f090018;
-        public static final int com_facebook_requesterror_reconnect=0x7f090017;
-        public static final int com_facebook_requesterror_relogin=0x7f090015;
-        public static final int com_facebook_requesterror_web_login=0x7f090014;
-        public static final int com_facebook_usersettingsfragment_log_in_button=0x7f090008;
-        public static final int com_facebook_usersettingsfragment_logged_in=0x7f090009;
-        public static final int com_facebook_usersettingsfragment_not_logged_in=0x7f09000a;
-        public static final int title_activity_import_league=0x7f09001b;
-        public static final int title_activity_rankings=0x7f09001a;
+        public static final int app_name=0x7f070000;
+        public static final int title_activity_import_league=0x7f070002;
+        public static final int title_activity_rankings=0x7f070001;
     }
     public static final class style {
         /** 
@@ -754,368 +454,22 @@ containing a value of this type.
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f05000b;
+        public static final int AppBaseTheme=0x7f080007;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f05000c;
-        public static final int ButtonText=0x7f050004;
-        public static final int ListTextHeader=0x7f050007;
-        public static final int ListTextMedium=0x7f050006;
-        public static final int ListTextSmall=0x7f050005;
-        public static final int MyActionBar=0x7f05000e;
-        public static final int MyButtonBarStyle=0x7f050010;
-        public static final int MyButtonBarStyleBack=0x7f050011;
-        public static final int MyTheme_ActionBar_TitleTextStyle=0x7f05000f;
-        public static final int PopupHeader=0x7f050008;
-        public static final int PopupMainText=0x7f050009;
-        public static final int PopupSubText=0x7f05000a;
-        public static final int RoundCornersFull=0x7f05000d;
-        public static final int STAppLabelTheme=0x7f050001;
-        public static final int STDialogTheme=0x7f050000;
-        public static final int com_facebook_loginview_default_style=0x7f050002;
-        public static final int com_facebook_loginview_silver_style=0x7f050003;
+        public static final int AppTheme=0x7f080008;
+        public static final int ButtonText=0x7f080000;
+        public static final int ListTextHeader=0x7f080003;
+        public static final int ListTextMedium=0x7f080002;
+        public static final int ListTextSmall=0x7f080001;
+        public static final int MyActionBar=0x7f08000a;
+        public static final int MyButtonBarStyle=0x7f08000c;
+        public static final int MyButtonBarStyleBack=0x7f08000d;
+        public static final int MyTheme_ActionBar_TitleTextStyle=0x7f08000b;
+        public static final int PopupHeader=0x7f080004;
+        public static final int PopupMainText=0x7f080005;
+        public static final int PopupSubText=0x7f080006;
+        public static final int RoundCornersFull=0x7f080009;
     }
-    public static final class styleable {
-        /** Attributes that can be used with a com_facebook_friend_picker_fragment.
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #com_facebook_friend_picker_fragment_multi_select com.ffr.fantasyfootballrankings:multi_select}</code></td><td></td></tr>
-           </table>
-           @see #com_facebook_friend_picker_fragment_multi_select
-         */
-        public static final int[] com_facebook_friend_picker_fragment = {
-            0x7f010007
-        };
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#multi_select}
-          attribute's value can be found in the {@link #com_facebook_friend_picker_fragment} array.
-
-
-          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.ffr.fantasyfootballrankings:multi_select
-        */
-        public static final int com_facebook_friend_picker_fragment_multi_select = 0;
-        /** Attributes that can be used with a com_facebook_login_view.
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #com_facebook_login_view_confirm_logout com.ffr.fantasyfootballrankings:confirm_logout}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_facebook_login_view_fetch_user_info com.ffr.fantasyfootballrankings:fetch_user_info}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_facebook_login_view_login_text com.ffr.fantasyfootballrankings:login_text}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_facebook_login_view_logout_text com.ffr.fantasyfootballrankings:logout_text}</code></td><td></td></tr>
-           </table>
-           @see #com_facebook_login_view_confirm_logout
-           @see #com_facebook_login_view_fetch_user_info
-           @see #com_facebook_login_view_login_text
-           @see #com_facebook_login_view_logout_text
-         */
-        public static final int[] com_facebook_login_view = {
-            0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f
-        };
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#confirm_logout}
-          attribute's value can be found in the {@link #com_facebook_login_view} array.
-
-
-          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.ffr.fantasyfootballrankings:confirm_logout
-        */
-        public static final int com_facebook_login_view_confirm_logout = 0;
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#fetch_user_info}
-          attribute's value can be found in the {@link #com_facebook_login_view} array.
-
-
-          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.ffr.fantasyfootballrankings:fetch_user_info
-        */
-        public static final int com_facebook_login_view_fetch_user_info = 1;
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#login_text}
-          attribute's value can be found in the {@link #com_facebook_login_view} array.
-
-
-          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.ffr.fantasyfootballrankings:login_text
-        */
-        public static final int com_facebook_login_view_login_text = 2;
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#logout_text}
-          attribute's value can be found in the {@link #com_facebook_login_view} array.
-
-
-          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.ffr.fantasyfootballrankings:logout_text
-        */
-        public static final int com_facebook_login_view_logout_text = 3;
-        /** Attributes that can be used with a com_facebook_picker_fragment.
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #com_facebook_picker_fragment_done_button_background com.ffr.fantasyfootballrankings:done_button_background}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_facebook_picker_fragment_done_button_text com.ffr.fantasyfootballrankings:done_button_text}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_facebook_picker_fragment_extra_fields com.ffr.fantasyfootballrankings:extra_fields}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_facebook_picker_fragment_show_pictures com.ffr.fantasyfootballrankings:show_pictures}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_facebook_picker_fragment_show_title_bar com.ffr.fantasyfootballrankings:show_title_bar}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_facebook_picker_fragment_title_bar_background com.ffr.fantasyfootballrankings:title_bar_background}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_facebook_picker_fragment_title_text com.ffr.fantasyfootballrankings:title_text}</code></td><td></td></tr>
-           </table>
-           @see #com_facebook_picker_fragment_done_button_background
-           @see #com_facebook_picker_fragment_done_button_text
-           @see #com_facebook_picker_fragment_extra_fields
-           @see #com_facebook_picker_fragment_show_pictures
-           @see #com_facebook_picker_fragment_show_title_bar
-           @see #com_facebook_picker_fragment_title_bar_background
-           @see #com_facebook_picker_fragment_title_text
-         */
-        public static final int[] com_facebook_picker_fragment = {
-            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
-            0x7f010004, 0x7f010005, 0x7f010006
-        };
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#done_button_background}
-          attribute's value can be found in the {@link #com_facebook_picker_fragment} array.
-
-
-          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.ffr.fantasyfootballrankings:done_button_background
-        */
-        public static final int com_facebook_picker_fragment_done_button_background = 6;
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#done_button_text}
-          attribute's value can be found in the {@link #com_facebook_picker_fragment} array.
-
-
-          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.ffr.fantasyfootballrankings:done_button_text
-        */
-        public static final int com_facebook_picker_fragment_done_button_text = 4;
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#extra_fields}
-          attribute's value can be found in the {@link #com_facebook_picker_fragment} array.
-
-
-          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.ffr.fantasyfootballrankings:extra_fields
-        */
-        public static final int com_facebook_picker_fragment_extra_fields = 1;
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#show_pictures}
-          attribute's value can be found in the {@link #com_facebook_picker_fragment} array.
-
-
-          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.ffr.fantasyfootballrankings:show_pictures
-        */
-        public static final int com_facebook_picker_fragment_show_pictures = 0;
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#show_title_bar}
-          attribute's value can be found in the {@link #com_facebook_picker_fragment} array.
-
-
-          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.ffr.fantasyfootballrankings:show_title_bar
-        */
-        public static final int com_facebook_picker_fragment_show_title_bar = 2;
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#title_bar_background}
-          attribute's value can be found in the {@link #com_facebook_picker_fragment} array.
-
-
-          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.ffr.fantasyfootballrankings:title_bar_background
-        */
-        public static final int com_facebook_picker_fragment_title_bar_background = 5;
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#title_text}
-          attribute's value can be found in the {@link #com_facebook_picker_fragment} array.
-
-
-          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.ffr.fantasyfootballrankings:title_text
-        */
-        public static final int com_facebook_picker_fragment_title_text = 3;
-        /** Attributes that can be used with a com_facebook_place_picker_fragment.
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #com_facebook_place_picker_fragment_radius_in_meters com.ffr.fantasyfootballrankings:radius_in_meters}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_facebook_place_picker_fragment_results_limit com.ffr.fantasyfootballrankings:results_limit}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_facebook_place_picker_fragment_search_text com.ffr.fantasyfootballrankings:search_text}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_facebook_place_picker_fragment_show_search_box com.ffr.fantasyfootballrankings:show_search_box}</code></td><td></td></tr>
-           </table>
-           @see #com_facebook_place_picker_fragment_radius_in_meters
-           @see #com_facebook_place_picker_fragment_results_limit
-           @see #com_facebook_place_picker_fragment_search_text
-           @see #com_facebook_place_picker_fragment_show_search_box
-         */
-        public static final int[] com_facebook_place_picker_fragment = {
-            0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b
-        };
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#radius_in_meters}
-          attribute's value can be found in the {@link #com_facebook_place_picker_fragment} array.
-
-
-          <p>Must be an integer value, such as "<code>100</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.ffr.fantasyfootballrankings:radius_in_meters
-        */
-        public static final int com_facebook_place_picker_fragment_radius_in_meters = 0;
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#results_limit}
-          attribute's value can be found in the {@link #com_facebook_place_picker_fragment} array.
-
-
-          <p>Must be an integer value, such as "<code>100</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.ffr.fantasyfootballrankings:results_limit
-        */
-        public static final int com_facebook_place_picker_fragment_results_limit = 1;
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#search_text}
-          attribute's value can be found in the {@link #com_facebook_place_picker_fragment} array.
-
-
-          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.ffr.fantasyfootballrankings:search_text
-        */
-        public static final int com_facebook_place_picker_fragment_search_text = 2;
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#show_search_box}
-          attribute's value can be found in the {@link #com_facebook_place_picker_fragment} array.
-
-
-          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.ffr.fantasyfootballrankings:show_search_box
-        */
-        public static final int com_facebook_place_picker_fragment_show_search_box = 3;
-        /** Attributes that can be used with a com_facebook_profile_picture_view.
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #com_facebook_profile_picture_view_is_cropped com.ffr.fantasyfootballrankings:is_cropped}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_facebook_profile_picture_view_preset_size com.ffr.fantasyfootballrankings:preset_size}</code></td><td></td></tr>
-           </table>
-           @see #com_facebook_profile_picture_view_is_cropped
-           @see #com_facebook_profile_picture_view_preset_size
-         */
-        public static final int[] com_facebook_profile_picture_view = {
-            0x7f010010, 0x7f010011
-        };
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#is_cropped}
-          attribute's value can be found in the {@link #com_facebook_profile_picture_view} array.
-
-
-          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.ffr.fantasyfootballrankings:is_cropped
-        */
-        public static final int com_facebook_profile_picture_view_is_cropped = 1;
-        /**
-          <p>This symbol is the offset where the {@link com.ffr.fantasyfootballrankings.R.attr#preset_size}
-          attribute's value can be found in the {@link #com_facebook_profile_picture_view} array.
-
-
-          <p>Must be one of the following constant values.</p>
-<table>
-<colgroup align="left" />
-<colgroup align="left" />
-<colgroup align="left" />
-<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-<tr><td><code>small</code></td><td>-2</td><td> Keep in sync with constants in ProfilePictureView </td></tr>
-<tr><td><code>normal</code></td><td>-3</td><td></td></tr>
-<tr><td><code>large</code></td><td>-4</td><td></td></tr>
-</table>
-          @attr name com.ffr.fantasyfootballrankings:preset_size
-        */
-        public static final int com_facebook_profile_picture_view_preset_size = 0;
-    };
 }

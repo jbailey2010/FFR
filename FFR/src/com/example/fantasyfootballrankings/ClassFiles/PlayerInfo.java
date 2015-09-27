@@ -54,9 +54,6 @@ import com.example.fantasyfootballrankings.InterfaceAugmentations.ActivitySwipeD
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.Rankings;
-import com.socialize.ActionBarUtils;
-import com.socialize.entity.Entity;
-import com.socialize.ui.actionbar.ActionBarOptions;
 
 /**
  * Handles the player info function
@@ -177,29 +174,7 @@ public class PlayerInfo {
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.search_output);
 		aucFactor = ReadFromFile.readAucFactor(act);
-		if (ManageInput.confirmInternet(act)) {
-			// Your entity key. May be passed as a Bundle parameter to your
-			// activity
-			String entityKey = "http://www.ffr.com/"
-					+ namePlayer.split(" - ")[0] + "/pi" + Home.yearKey;
 
-			Entity entity = Entity.newInstance(entityKey, namePlayer);
-
-			// Create an options instance to disable comments
-			ActionBarOptions options = new ActionBarOptions();
-
-			// Hide sharing
-			options.setHideShare(true);
-			options.setFillColor(Color.parseColor("#272727"));
-			options.setBackgroundColor(Color.parseColor("#191919"));
-			options.setAccentColor(Color.parseColor("#ff0000"));
-
-			View actionBarWrapped = ActionBarUtils.showActionBar(act,
-					R.layout.search_output, entity, options);
-
-			// Now set the view for your activity to be the wrapped view.
-			dialog.setContentView(actionBarWrapped);
-		}
 		Button addWatch = (Button) dialog.findViewById(R.id.add_watch);
 		// If the add to list boolean exists
 		if (isImport) {
@@ -219,15 +194,6 @@ public class PlayerInfo {
 
 					// if not, add him on the click of the button
 					if (i == -1) {
-						for (PlayerObject iter : holder.players) {
-							if (iter.info.name.equals(namePlayer.split(", ")[0])
-									&& namePlayer.split(" - ").length > 1
-									&& iter.info.team.equals(namePlayer
-											.split(" - ")[1])) {
-								Rankings.bumpEntityValue(iter, act);
-								break;
-							}
-						}
 						Rankings.watchList.add(namePlayer.split(", ")[0]);
 						WriteToFile.writeWatchList(act, Rankings.watchList);
 						Toast.makeText(act,
