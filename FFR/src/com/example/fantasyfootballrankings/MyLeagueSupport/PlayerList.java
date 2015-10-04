@@ -414,7 +414,8 @@ public class PlayerList {
 				subInfo.append(iter.info.position + " - " + iter.info.team
 						+ "\n");
 				if (ImportLeague.holder.isRegularSeason
-						&& iter.values.points > 0.0) {
+						&& (iter.values.points > 0.0 || iter.info.adp
+								.equals("Bye Week"))) {
 					if (iter.values.rosRank > 0) {
 						subInfo.append("ROS Positional Rank: "
 								+ iter.values.rosRank + "\n");
