@@ -667,7 +667,14 @@ public class HighLevel {
 				name = ParseRankings.fixDefenses(team);
 			} else {
 				String[] nameArr = td.get(i + 1).split(", ")[0].split(" ");
-				for (int namePieceIndex = 0; namePieceIndex < nameArr.length - 1; namePieceIndex++) {
+				// Trim of the team from the row. If they're injured, an extra
+				// letter is there, so check
+				int trimLength = 1;
+				if (nameArr[nameArr.length - 1].length() == 1) {
+					trimLength = 2;
+				}
+				for (int namePieceIndex = 0; namePieceIndex < nameArr.length
+						- trimLength; namePieceIndex++) {
 					name += nameArr[namePieceIndex] + " ";
 				}
 				name = name.substring(0, name.length() - 1);
@@ -838,7 +845,14 @@ public class HighLevel {
 				name = ParseRankings.fixDefenses(team);
 			} else {
 				String[] nameArr = td.get(i + 1).split(", ")[0].split(" ");
-				for (int namePieceIndex = 0; namePieceIndex < nameArr.length - 1; namePieceIndex++) {
+				// Trim of the team from the row. If they're injured, an extra
+				// letter is there, so check
+				int trimLength = 1;
+				if (nameArr[nameArr.length - 1].length() == 1) {
+					trimLength = 2;
+				}
+				for (int namePieceIndex = 0; namePieceIndex < nameArr.length
+						- trimLength; namePieceIndex++) {
 					name += nameArr[namePieceIndex] + " ";
 				}
 				name = name.substring(0, name.length() - 1);

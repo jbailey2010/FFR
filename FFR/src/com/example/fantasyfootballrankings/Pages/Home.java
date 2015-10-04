@@ -135,9 +135,9 @@ public class Home extends Activity {
 		 * StrictMode.ThreadPolicy.Builder() .permitAll().build();
 		 * 
 		 * StrictMode.setThreadPolicy(policy); try {
-		 * ParseRankings.handleHashes();
-		 * 
-		 * } catch (IOException e) { // TODO Auto-generated catch block
+		 * System.out.println(holder.isRegularSeason); holder.isRegularSeason =
+		 * true; ParseRankings.handleHashes(); HighLevel.parseECRWrapper(holder,
+		 * cont); } catch (IOException e) { // TODO Auto-generated catch block
 		 * e.printStackTrace(); }
 		 */
 	}

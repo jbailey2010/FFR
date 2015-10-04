@@ -269,6 +269,7 @@ public class StorageAsyncTask {
 			}
 			// A default, then adjust in the below condition
 			holder.isRegularSeason = true;
+
 			if (holder.maxProj() > 65) {
 				holder.isRegularSeason = false;
 				String set = prefs.getString("Draft Information",
