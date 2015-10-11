@@ -19,7 +19,7 @@
     <Spinner
         android:id="@+id/te_quantity"
         android:layout_width="130dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_alignLeft="@+id/textView4"
         android:layout_marginRight="10dp"
         android:layout_alignTop="@+id/wr_quantity"
@@ -28,7 +28,7 @@
     <Spinner
         android:id="@+id/rb_quantity"
         android:layout_width="130dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_above="@+id/textView3"
         android:layout_alignParentRight="true"
         android:layout_marginRight="18dp"
@@ -66,7 +66,7 @@
     <Spinner
         android:id="@+id/wr_quantity"
         android:layout_width="130dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_alignLeft="@+id/textView3"
         android:layout_below="@+id/textView3"
         android:layout_marginTop="5dp"
@@ -75,7 +75,7 @@
     <Spinner
         android:id="@+id/qb_quantity"
         android:layout_width="130dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="5dp"
@@ -114,7 +114,7 @@
     <Spinner
         android:id="@+id/defense_quantity"
         android:layout_width="130dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_alignLeft="@+id/TextView02"
         android:layout_alignTop="@+id/kicker_quantity"
         android:background="@drawable/spinner_well" />
@@ -122,7 +122,7 @@
     <Spinner
         android:id="@+id/kicker_quantity"
         android:layout_width="130dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_alignLeft="@+id/TextView01"
         android:layout_below="@+id/TextView02"
         android:layout_marginTop="5dp"
@@ -142,7 +142,7 @@
     <Spinner
         android:id="@+id/team_quantity"
         android:layout_width="130dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_alignLeft="@+id/textView5"
         android:layout_below="@+id/textView5"
         android:background="@drawable/spinner_well" />
@@ -150,7 +150,7 @@
     <com.example.fantasyfootballrankings.InterfaceAugmentations.NDSpinner
         android:id="@+id/flex_quantity"
         android:layout_width="130dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_alignLeft="@+id/textView6"
         android:layout_below="@+id/textView6"
         android:background="@drawable/spinner_well" />

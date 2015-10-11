@@ -580,20 +580,21 @@ public class ImportLeague extends Activity {
 				"LEAGUEURLSPLIT")[1];
 		String[] perTeam = ManageInput.tokenize(leagueDataWhole, '@', 3);
 		List<TeamAnalysis> teamList = new ArrayList<TeamAnalysis>();
+		String[] keySet = key.split("@@@");
 		Roster r = ReadFromFile.readRoster(cont,
-				key.split("@@@")[0] + key.split("@@@")[1]);
+ keySet[0] + keySet[1]);
+		newImport = new ImportedTeam(null, keySet[1], keySet[0]);
+		newImport.roster = ReadFromFile.readRoster(cont, newImport.leagueHost
+				+ newImport.leagueName);
+		newImport.scoring = ReadFromFile.readScoring(cont, newImport.leagueHost
+				+ newImport.leagueName);
 		for (String teamSet : perTeam) {
 			String[] teamArr = ManageInput.tokenize(teamSet, '~', 2);
 			TeamAnalysis teamData = new TeamAnalysis(teamArr[0], teamArr[1],
 					holder, cont, r);
 			teamList.add(teamData);
 		}
-		String[] keySet = key.split("@@@");
-		newImport = new ImportedTeam(teamList, keySet[1], keySet[0]);
-		newImport.roster = ReadFromFile.readRoster(cont, newImport.leagueHost
-				+ newImport.leagueName);
-		newImport.scoring = ReadFromFile.readScoring(cont, newImport.leagueHost
-				+ newImport.leagueName);
+		newImport.teams = teamList;
 		final View res = ((Activity) cont).getLayoutInflater().inflate(
 				R.layout.league_stats_output, ll, false);
 		final RelativeLayout league = (RelativeLayout) res

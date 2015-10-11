@@ -143,8 +143,6 @@ public class RosterTips {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
-
 			}
 		});
 	}
@@ -177,31 +175,55 @@ public class RosterTips {
 				base.setVisibility(View.VISIBLE);
 				output.setVisibility(View.VISIBLE);
 				if (arg2 == 0) {
-					parseFAData(faMoves(team, "QB", arg2), outputS, "QBs",
-							" has a ROS ranking of ", arg2);
-					parseFAData(faMoves(team, "RB", arg2), outputS, "RBs",
-							" has a ROS ranking of ", arg2);
-					parseFAData(faMoves(team, "WR", arg2), outputS, "WRs",
-							" has a ROS ranking of ", arg2);
-					parseFAData(faMoves(team, "TE", arg2), outputS, "TEs",
-							" has a ROS ranking of ", arg2);
-					parseFAData(faMoves(team, "D/ST", arg2), outputS, "D/STs",
-							" has a ROS ranking of ", arg2);
-					parseFAData(faMoves(team, "K", arg2), outputS, "Ks",
-							" has a ROS ranking of ", arg2);
+					if (ImportLeague.newImport.doesLeagueAllowPosition("QB")) {
+						parseFAData(faMoves(team, "QB", arg2), outputS, "QBs",
+								" has a ROS ranking of ", arg2);
+					}
+					if (ImportLeague.newImport.doesLeagueAllowPosition("RB")) {
+						parseFAData(faMoves(team, "RB", arg2), outputS, "RBs",
+								" has a ROS ranking of ", arg2);
+					}
+					if (ImportLeague.newImport.doesLeagueAllowPosition("WR")) {
+						parseFAData(faMoves(team, "WR", arg2), outputS, "WRs",
+								" has a ROS ranking of ", arg2);
+					}
+					if (ImportLeague.newImport.doesLeagueAllowPosition("TE")) {
+						parseFAData(faMoves(team, "TE", arg2), outputS, "TEs",
+								" has a ROS ranking of ", arg2);
+					}
+					if (ImportLeague.newImport.doesLeagueAllowPosition("D/ST")) {
+						parseFAData(faMoves(team, "D/ST", arg2), outputS,
+								"D/STs", " has a ROS ranking of ", arg2);
+					}
+					if (ImportLeague.newImport.doesLeagueAllowPosition("K")) {
+						parseFAData(faMoves(team, "K", arg2), outputS, "Ks",
+								" has a ROS ranking of ", arg2);
+					}
 				} else if (arg2 == 1) {
-					parseFAData(faMoves(team, "QB", arg2), outputS, "QBs",
-							" has a weekly ranking of ", arg2);
-					parseFAData(faMoves(team, "RB", arg2), outputS, "RBs",
-							" has a weekly ranking of ", arg2);
-					parseFAData(faMoves(team, "WR", arg2), outputS, "WRs",
-							" has a weekly ranking of ", arg2);
-					parseFAData(faMoves(team, "TE", arg2), outputS, "TEs",
-							" has a weekly ranking of ", arg2);
-					parseFAData(faMoves(team, "D/ST", arg2), outputS, "D/STs",
-							" has a weekly ranking of ", arg2);
-					parseFAData(faMoves(team, "K", arg2), outputS, "Ks",
-							" has a weekly ranking of ", arg2);
+					if (ImportLeague.newImport.doesLeagueAllowPosition("QB")) {
+						parseFAData(faMoves(team, "QB", arg2), outputS, "QBs",
+								" has a weekly ranking of ", arg2);
+					}
+					if (ImportLeague.newImport.doesLeagueAllowPosition("RB")) {
+						parseFAData(faMoves(team, "RB", arg2), outputS, "RBs",
+								" has a weekly ranking of ", arg2);
+					}
+					if (ImportLeague.newImport.doesLeagueAllowPosition("WR")) {
+						parseFAData(faMoves(team, "WR", arg2), outputS, "WRs",
+								" has a weekly ranking of ", arg2);
+					}
+					if (ImportLeague.newImport.doesLeagueAllowPosition("TE")) {
+						parseFAData(faMoves(team, "TE", arg2), outputS, "TEs",
+								" has a weekly ranking of ", arg2);
+					}
+					if (ImportLeague.newImport.doesLeagueAllowPosition("D/ST")) {
+						parseFAData(faMoves(team, "D/ST", arg2), outputS,
+								"D/STs", " has a weekly ranking of ", arg2);
+					}
+					if (ImportLeague.newImport.doesLeagueAllowPosition("K")) {
+						parseFAData(faMoves(team, "K", arg2), outputS, "Ks",
+								" has a weekly ranking of ", arg2);
+					}
 				}
 				output.setText(outputS.toString());
 			}

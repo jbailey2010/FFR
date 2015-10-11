@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles.StorageClasses;
 
 import java.text.DecimalFormat;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -13,6 +12,7 @@ import java.util.PriorityQueue;
 import android.content.Context;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
+import com.example.fantasyfootballrankings.Pages.ImportLeague;
 
 /**
  * Handles the analysis of a team, given the string input of it
@@ -88,6 +88,26 @@ public class TeamAnalysis {
 		teProjTotal = getPosProj(players, "TE");
 		dProjTotal = getPosProj(players, "D/ST");
 		kProjTotal = getPosProj(players, "K");
+
+		// Finally, clean up the string to only show what rosters dictate
+		if (ImportLeague.newImport.doesLeagueAllowPosition("QB")) {
+			team = team.replace("Quarterbacks: None Selected\n", "");
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("RB")) {
+			team = team.replace("Running Backs: None Selected\n", "");
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("WR")) {
+			team = team.replace("Wide Receivers: None Selected\n", "");
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("TE")) {
+			team = team.replace("Tight Ends: None Selected\n", "");
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("D/ST")) {
+			team = team.replace("D/ST: None Selected\n", "");
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("K")) {
+			team = team.replace("Kickers: None Selected\n", "");
+		}
 	}
 
 	/**
@@ -366,12 +386,24 @@ public class TeamAnalysis {
 	 */
 	public String stringifyLineup() {
 		StringBuilder lineup = new StringBuilder(1000);
-		lineup.append(stringifyPos(qbStarters, "Quarterback"));
-		lineup.append(stringifyPos(rbStarters, "Running Back"));
-		lineup.append(stringifyPos(wrStarters, "Wide Receiver"));
-		lineup.append(stringifyPos(teStarters, "Tight End"));
-		lineup.append(stringifyPos(dStarters, "D/ST"));
-		lineup.append(stringifyPos(kStarters, "Kicker"));
+		if (ImportLeague.newImport.doesLeagueAllowPosition("QB")) {
+			lineup.append(stringifyPos(qbStarters, "Quarterback"));
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("RB")) {
+			lineup.append(stringifyPos(rbStarters, "Running Back"));
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("WR")) {
+			lineup.append(stringifyPos(wrStarters, "Wide Receiver"));
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("TE")) {
+			lineup.append(stringifyPos(teStarters, "Tight End"));
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("D/ST")) {
+			lineup.append(stringifyPos(dStarters, "D/ST"));
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("K")) {
+			lineup.append(stringifyPos(kStarters, "Kicker"));
+		}
 		return lineup.toString();
 	}
 

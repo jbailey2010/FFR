@@ -230,52 +230,64 @@ public class LeagueList {
 					+ df.format(iter.totalProj - iter.getStarterProj()) + "\n");
 		}
 		counter = 0;
-		while (!qbProj.isEmpty()) {
-			counter++;
-			TeamAnalysis iter = qbProj.poll();
-			qb.append(counter + ") " + iter.teamName + ": "
-					+ df.format(iter.getProjSum(iter.qbStarters)) + " ("
-					+ df.format(iter.qbProjTotal) + ")\n");
+		if (ImportLeague.newImport.doesLeagueAllowPosition("QB")) {
+			while (!qbProj.isEmpty()) {
+				counter++;
+				TeamAnalysis iter = qbProj.poll();
+				qb.append(counter + ") " + iter.teamName + ": "
+						+ df.format(iter.getProjSum(iter.qbStarters)) + " ("
+						+ df.format(iter.qbProjTotal) + ")\n");
+			}
 		}
 		counter = 0;
-		while (!rbProj.isEmpty()) {
-			counter++;
-			TeamAnalysis iter = rbProj.poll();
-			rb.append(counter + ") " + iter.teamName + ": "
-					+ df.format(iter.getProjSum(iter.rbStarters)) + " ("
-					+ df.format(iter.rbProjTotal) + ")\n");
+		if (ImportLeague.newImport.doesLeagueAllowPosition("RB")) {
+			while (!rbProj.isEmpty()) {
+				counter++;
+				TeamAnalysis iter = rbProj.poll();
+				rb.append(counter + ") " + iter.teamName + ": "
+						+ df.format(iter.getProjSum(iter.rbStarters)) + " ("
+						+ df.format(iter.rbProjTotal) + ")\n");
+			}
 		}
 		counter = 0;
-		while (!wrProj.isEmpty()) {
-			counter++;
-			TeamAnalysis iter = wrProj.poll();
-			wr.append(counter + ") " + iter.teamName + ": "
-					+ df.format(iter.getProjSum(iter.wrStarters)) + " ("
-					+ df.format(iter.wrProjTotal) + ")\n");
+		if (ImportLeague.newImport.doesLeagueAllowPosition("WR")) {
+			while (!wrProj.isEmpty()) {
+				counter++;
+				TeamAnalysis iter = wrProj.poll();
+				wr.append(counter + ") " + iter.teamName + ": "
+						+ df.format(iter.getProjSum(iter.wrStarters)) + " ("
+						+ df.format(iter.wrProjTotal) + ")\n");
+			}
 		}
 		counter = 0;
-		while (!teProj.isEmpty()) {
-			counter++;
-			TeamAnalysis iter = teProj.poll();
-			te.append(counter + ") " + iter.teamName + ": "
-					+ df.format(iter.getProjSum(iter.teStarters)) + " ("
-					+ df.format(iter.teProjTotal) + ")\n");
+		if (ImportLeague.newImport.doesLeagueAllowPosition("TE")) {
+			while (!teProj.isEmpty()) {
+				counter++;
+				TeamAnalysis iter = teProj.poll();
+				te.append(counter + ") " + iter.teamName + ": "
+						+ df.format(iter.getProjSum(iter.teStarters)) + " ("
+						+ df.format(iter.teProjTotal) + ")\n");
+			}
 		}
 		counter = 0;
-		while (!dProj.isEmpty()) {
-			counter++;
-			TeamAnalysis iter = dProj.poll();
-			d.append(counter + ") " + iter.teamName + ": "
-					+ df.format(iter.getProjSum(iter.dStarters)) + " ("
-					+ df.format(iter.dProjTotal) + ")\n");
+		if (ImportLeague.newImport.doesLeagueAllowPosition("D/ST")) {
+			while (!dProj.isEmpty()) {
+				counter++;
+				TeamAnalysis iter = dProj.poll();
+				d.append(counter + ") " + iter.teamName + ": "
+						+ df.format(iter.getProjSum(iter.dStarters)) + " ("
+						+ df.format(iter.dProjTotal) + ")\n");
+			}
 		}
 		counter = 0;
-		while (!kProj.isEmpty()) {
-			counter++;
-			TeamAnalysis iter = kProj.poll();
-			k.append(counter + ") " + iter.teamName + ": "
-					+ df.format(iter.getProjSum(iter.kStarters)) + " ("
-					+ df.format(iter.kProjTotal) + ")\n");
+		if (ImportLeague.newImport.doesLeagueAllowPosition("K")) {
+			while (!kProj.isEmpty()) {
+				counter++;
+				TeamAnalysis iter = kProj.poll();
+				k.append(counter + ") " + iter.teamName + ": "
+						+ df.format(iter.getProjSum(iter.kStarters)) + " ("
+						+ df.format(iter.kProjTotal) + ")\n");
+			}
 		}
 		List<Map<String, String>> data2 = new ArrayList<Map<String, String>>();
 		SimpleAdapter adapter2 = new SimpleAdapter(ImportLeague.cont, data2,
@@ -296,30 +308,42 @@ public class LeagueList {
 		datum.put("main", "Projection From Backups");
 		datum.put("sub", paaBench.toString());
 		data2.add(datum);
-		datum = new HashMap<String, String>();
-		datum.put("main", "QB Projections");
-		datum.put("sub", qb.toString());
-		data2.add(datum);
-		datum = new HashMap<String, String>();
-		datum.put("main", "RB Projections");
-		datum.put("sub", rb.toString());
-		data2.add(datum);
-		datum = new HashMap<String, String>();
-		datum.put("main", "WR Projections");
-		datum.put("sub", wr.toString());
-		data2.add(datum);
-		datum = new HashMap<String, String>();
-		datum.put("main", "TE Projections");
-		datum.put("sub", te.toString());
-		data2.add(datum);
-		datum = new HashMap<String, String>();
-		datum.put("main", "D/ST Projections");
-		datum.put("sub", d.toString());
-		data2.add(datum);
-		datum = new HashMap<String, String>();
-		datum.put("main", "K Projections");
-		datum.put("sub", k.toString());
-		data2.add(datum);
+		if (qb.toString().length() > 5) {
+			datum = new HashMap<String, String>();
+			datum.put("main", "QB Projections");
+			datum.put("sub", qb.toString());
+			data2.add(datum);
+		}
+		if (rb.toString().length() > 5) {
+			datum = new HashMap<String, String>();
+			datum.put("main", "RB Projections");
+			datum.put("sub", rb.toString());
+			data2.add(datum);
+		}
+		if (wr.toString().length() > 5) {
+			datum = new HashMap<String, String>();
+			datum.put("main", "WR Projections");
+			datum.put("sub", wr.toString());
+			data2.add(datum);
+		}
+		if (te.toString().length() > 5) {
+			datum = new HashMap<String, String>();
+			datum.put("main", "TE Projections");
+			datum.put("sub", te.toString());
+			data2.add(datum);
+		}
+		if (d.toString().length() > 5) {
+			datum = new HashMap<String, String>();
+			datum.put("main", "D/ST Projections");
+			datum.put("sub", d.toString());
+			data2.add(datum);
+		}
+		if (k.toString().length() > 5) {
+			datum = new HashMap<String, String>();
+			datum.put("main", "K Projections");
+			datum.put("sub", k.toString());
+			data2.add(datum);
+		}
 		adapter2.notifyDataSetChanged();
 		list2.setAdapter(adapter2);
 		handleListOnItemClick(list2, ImportLeague.newImport);
