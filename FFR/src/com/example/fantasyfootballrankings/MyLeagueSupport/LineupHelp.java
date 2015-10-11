@@ -11,6 +11,7 @@ import AsyncTasks.ParsingAsyncTask.ParseFP;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -240,26 +241,18 @@ public class LineupHelp {
 		// Projections
 		TextView p1proj = (TextView) table.findViewById(R.id.player1_proj);
 		TextView p2proj = (TextView) table.findViewById(R.id.player2_points);
-		RelativeLayout p1projb = (RelativeLayout) table
-				.findViewById(R.id.player1_points_base);
-		RelativeLayout p2projb = (RelativeLayout) table
-				.findViewById(R.id.player2_points_base);
 		if (pl1.values.points > pl2.values.points) {
-			p1projb.setBackgroundColor(0XFF4DDB4D);
-			p2projb.setBackgroundColor(0XFFFF4D4D);
+			p1proj.setTypeface(null, Typeface.BOLD);
+			p2proj.setTypeface(Typeface.DEFAULT);
 		} else if (pl1.values.points < pl2.values.points) {
-			p2projb.setBackgroundColor(0XFF4DDB4D);
-			p1projb.setBackgroundColor(0XFFFF4D4D);
+			p2proj.setTypeface(null, Typeface.BOLD);
+			p1proj.setTypeface(Typeface.DEFAULT);
 		}
 		p1proj.setText("Projected: " + pl1.values.points);
 		p2proj.setText("Projected: " + pl2.values.points);
 		// Positional SOS
 		TextView p1sos = (TextView) table.findViewById(R.id.player1_sos);
 		TextView p2sos = (TextView) table.findViewById(R.id.player2_sos);
-		RelativeLayout p1sosb = (RelativeLayout) table
-				.findViewById(R.id.player1_sos_base);
-		RelativeLayout p2sosb = (RelativeLayout) table
-				.findViewById(R.id.player2_sos_base);
 		int sos1 = 0;
 		int sos2 = 0;
 		boolean mightBeWeekOne = ImportLeague.holder.isRegularSeason
@@ -281,12 +274,12 @@ public class LineupHelp {
 		}
  else {
 			if (sos1 > sos2) {
-				p2sosb.setBackgroundColor(0XFF4DDB4D);
-				p1sosb.setBackgroundColor(0XFFFF4D4D);
+				p2sos.setTypeface(Typeface.DEFAULT);
+				p1sos.setTypeface(null, Typeface.BOLD);
 			}
 			if (sos1 < sos2) {
-				p1sosb.setBackgroundColor(0XFF4DDB4D);
-				p2sosb.setBackgroundColor(0XFFFF4D4D);
+				p1sos.setTypeface(Typeface.DEFAULT);
+				p2sos.setTypeface(null, Typeface.BOLD);
 			}
 			p1sos.setText("SOS: " + sos1);
 			p2sos.setText("SOS: " + sos2);
@@ -294,33 +287,25 @@ public class LineupHelp {
 		// PAA
 		TextView p1paa = (TextView) table.findViewById(R.id.player1_paa);
 		TextView p2paa = (TextView) table.findViewById(R.id.player2_paa);
-		RelativeLayout p1paab = (RelativeLayout) table
-				.findViewById(R.id.player1_paa_base);
-		RelativeLayout p2paab = (RelativeLayout) table
-				.findViewById(R.id.player2_paa_base);
 		if (pl1.values.paa > pl2.values.paa) {
-			p1paab.setBackgroundColor(0XFF4DDB4D);
-			p2paab.setBackgroundColor(0XFFFF4D4D);
+			p1paa.setTypeface(null, Typeface.BOLD);
+			p2paa.setTypeface(Typeface.DEFAULT);
 		} else if (pl1.values.paa < pl2.values.paa) {
-			p2paab.setBackgroundColor(0XFF4DDB4D);
-			p1paab.setBackgroundColor(0XFFFF4D4D);
+			p2paa.setTypeface(null, Typeface.BOLD);
+			p1paa.setTypeface(Typeface.DEFAULT);
 		}
 		p1paa.setText("PAA: " + df.format(pl1.values.paa));
 		p2paa.setText("PAA: " + df.format(pl2.values.paa));
 		// Risk
 		TextView p1risk = (TextView) table.findViewById(R.id.player1_risk);
 		TextView p2risk = (TextView) table.findViewById(R.id.player2_risk);
-		RelativeLayout p1riskb = (RelativeLayout) table
-				.findViewById(R.id.player1_risk_base);
-		RelativeLayout p2riskb = (RelativeLayout) table
-				.findViewById(R.id.player2_risk_base);
 		if (pl1.risk > pl2.risk) {
-			p2riskb.setBackgroundColor(0XFF4DDB4D);
-			p1riskb.setBackgroundColor(0XFFFF4D4D);
+			p2risk.setTypeface(null, Typeface.BOLD);
+			p1risk.setTypeface(Typeface.DEFAULT);
 		}
 		if (pl1.risk < pl2.risk) {
-			p1riskb.setBackgroundColor(0XFF4DDB4D);
-			p2riskb.setBackgroundColor(0XFFFF4D4D);
+			p1risk.setTypeface(null, Typeface.BOLD);
+			p2risk.setTypeface(Typeface.DEFAULT);
 		}
 		p1risk.setText("Risk: " + pl1.risk);
 		p2risk.setText("Risk: " + pl2.risk);
@@ -329,17 +314,13 @@ public class LineupHelp {
 				.findViewById(R.id.player1_weekly_pos_rank);
 		TextView p2rank = (TextView) table
 				.findViewById(R.id.player2_weekly_pos_rank);
-		RelativeLayout p1rankb = (RelativeLayout) table
-				.findViewById(R.id.player1_weekly_pos_rank_base);
-		RelativeLayout p2rankb = (RelativeLayout) table
-				.findViewById(R.id.player2_weekly_pos_rank_base);
 		if (pl1.values.ecr > pl2.values.ecr) {
-			p2rankb.setBackgroundColor(0XFF4DDB4D);
-			p1rankb.setBackgroundColor(0XFFFF4D4D);
+			p2rank.setTypeface(null, Typeface.BOLD);
+			p1rank.setTypeface(Typeface.DEFAULT);
 		}
 		if (pl1.values.ecr < pl2.values.ecr) {
-			p1rankb.setBackgroundColor(0XFF4DDB4D);
-			p2rankb.setBackgroundColor(0XFFFF4D4D);
+			p1rank.setTypeface(null, Typeface.BOLD);
+			p2rank.setTypeface(Typeface.DEFAULT);
 		}
 		p1rank.setText("Positional Rank: " + pl1.values.ecr);
 		p2rank.setText("Positional Rank: " + pl2.values.ecr);
@@ -378,22 +359,22 @@ public class LineupHelp {
 		if (Integer.parseInt(ecrList.get(0).substring(0,
 				ecrList.get(0).length() - 1)) > Integer.parseInt(ecrList.get(1)
 				.substring(0, ecrList.get(1).length() - 1))) {
-			p1Base.setBackgroundColor(0XFF4DDB4D);
-			p2Base.setBackgroundColor(0XFFFF4D4D);
+			p1.setTypeface(null, Typeface.BOLD);
+			p2.setTypeface(Typeface.DEFAULT);
 		} else {
-			p2Base.setBackgroundColor(0XFF4DDB4D);
-			p1Base.setBackgroundColor(0XFFFF4D4D);
+			p2.setTypeface(null, Typeface.BOLD);
+			p1.setTypeface(Typeface.DEFAULT);
 		}
 		if (ecrList.size() > 2) {
 			ppw1.setText("Average Scoring: " + ecrList.get(2));
 			ppw2.setText("Average Scoring: " + ecrList.get(3));
 			if (Double.parseDouble(ecrList.get(2)) > Double.parseDouble(ecrList
 					.get(3))) {
-				ppw1Base.setBackgroundColor(0XFF4DDB4D);
-				ppw2Base.setBackgroundColor(0XFFFF4D4D);
+				ppw1.setTypeface(null, Typeface.BOLD);
+				ppw2.setTypeface(Typeface.DEFAULT);
 			} else {
-				ppw2Base.setBackgroundColor(0XFF4DDB4D);
-				ppw1Base.setBackgroundColor(0XFFFF4D4D);
+				ppw2.setTypeface(null, Typeface.BOLD);
+				ppw1.setTypeface(Typeface.DEFAULT);
 			}
 		} else {
 			ppw1.setVisibility(View.GONE);
