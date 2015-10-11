@@ -88,26 +88,6 @@ public class TeamAnalysis {
 		teProjTotal = getPosProj(players, "TE");
 		dProjTotal = getPosProj(players, "D/ST");
 		kProjTotal = getPosProj(players, "K");
-
-		// Finally, clean up the string to only show what rosters dictate
-		if (ImportLeague.newImport.doesLeagueAllowPosition("QB")) {
-			team = team.replace("Quarterbacks: None Selected\n", "");
-		}
-		if (ImportLeague.newImport.doesLeagueAllowPosition("RB")) {
-			team = team.replace("Running Backs: None Selected\n", "");
-		}
-		if (ImportLeague.newImport.doesLeagueAllowPosition("WR")) {
-			team = team.replace("Wide Receivers: None Selected\n", "");
-		}
-		if (ImportLeague.newImport.doesLeagueAllowPosition("TE")) {
-			team = team.replace("Tight Ends: None Selected\n", "");
-		}
-		if (ImportLeague.newImport.doesLeagueAllowPosition("D/ST")) {
-			team = team.replace("D/ST: None Selected\n", "");
-		}
-		if (ImportLeague.newImport.doesLeagueAllowPosition("K")) {
-			team = team.replace("Kickers: None Selected\n", "");
-		}
 	}
 
 	/**
@@ -379,6 +359,29 @@ public class TeamAnalysis {
 			counter++;
 		}
 		return posList;
+	}
+
+	public String stringifyTeam() {
+		String newTeam = team;
+		if (!ImportLeague.newImport.doesLeagueAllowPosition("QB")) {
+			newTeam = newTeam.replace("Quarterbacks: None Selected\n", "");
+		}
+		if (!ImportLeague.newImport.doesLeagueAllowPosition("RB")) {
+			newTeam = newTeam.replace("Running Backs: None Selected\n", "");
+		}
+		if (!ImportLeague.newImport.doesLeagueAllowPosition("WR")) {
+			newTeam = newTeam.replace("Wide Receivers: None Selected\n", "");
+		}
+		if (!ImportLeague.newImport.doesLeagueAllowPosition("TE")) {
+			newTeam = newTeam.replace("Tight Ends: None Selected\n", "");
+		}
+		if (!ImportLeague.newImport.doesLeagueAllowPosition("D/ST")) {
+			newTeam = newTeam.replace("D/ST: None Selected\n", "");
+		}
+		if (!ImportLeague.newImport.doesLeagueAllowPosition("K")) {
+			newTeam = newTeam.replace("Kickers: None Selected\n", "");
+		}
+		return newTeam;
 	}
 
 	/**

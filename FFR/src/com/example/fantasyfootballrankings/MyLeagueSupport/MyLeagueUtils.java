@@ -162,29 +162,6 @@ public class MyLeagueUtils {
 				newImport.roster = dummyRoster;
 				Toast.makeText(cont, "Updating starting lineups...",
 						Toast.LENGTH_SHORT).show();
-				for (TeamAnalysis team : newImport.teams) {
-					team.r = newImport.roster;
-					team.manageStarters(
-							newImport.doesLeagueAllowPosition("QB") ? team.team
-									.split("Quarterbacks: ")[1].split("\n")[0]
-									.split(", ") : new String[0],
-							newImport.doesLeagueAllowPosition("RB") ? team.team
-									.split("Running Backs: ")[1].split("\n")[0]
-									.split(", ") : new String[0],
-							newImport.doesLeagueAllowPosition("WR") ? team.team
-									.split("Wide Receivers: ")[1].split("\n")[0]
-									.split(", ")
-									: new String[0],
-							newImport.doesLeagueAllowPosition("TE") ? team.team
-									.split("Tight Ends: ")[1].split("\n")[0]
-									.split(", ") : new String[0],
-							newImport.doesLeagueAllowPosition("D/ST") ? team.team
-									.split("D/ST: ")[1].split("\n")[0]
-									.split(", ") : new String[0],
-							newImport.doesLeagueAllowPosition("K") ? team.team
-									.split("Kickers: ")[1].split("\n")[0]
-									.split(", ") : new String[0]);
-				}
 				dialog.dismiss();
 				Intent intent = new Intent(cont, ImportLeague.class);
 				cont.startActivity(intent);

@@ -72,7 +72,7 @@ public class TeamList {
 		for (TeamAnalysis team : newImport.teams) {
 			Map<String, String> datum = new HashMap<String, String>();
 			datum.put("head", team.teamName);
-			datum.put("main", team.team);
+			datum.put("main", team.stringifyTeam());
 			datum.put("sub", df.format(team.totalProj) + " Total Projection\n"
 					+ df.format(team.getStarterProj())
 					+ " Projection From Starters");

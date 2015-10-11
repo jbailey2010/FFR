@@ -584,8 +584,7 @@ public class ImportLeague extends Activity {
 		Roster r = ReadFromFile.readRoster(cont,
  keySet[0] + keySet[1]);
 		newImport = new ImportedTeam(null, keySet[1], keySet[0]);
-		newImport.roster = ReadFromFile.readRoster(cont, newImport.leagueHost
-				+ newImport.leagueName);
+		newImport.roster = r;
 		newImport.scoring = ReadFromFile.readScoring(cont, newImport.leagueHost
 				+ newImport.leagueName);
 		for (String teamSet : perTeam) {
