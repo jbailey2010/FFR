@@ -20,6 +20,21 @@ public class ImportedTeam {
 	}
 
 	public boolean doesLeagueAllowPosition(String position) {
+		if ("RB/WR".equals(position)) {
+			return doesLeagueAllowPosition("RB")
+					&& doesLeagueAllowPosition("WR");
+		}
+		if ("RB/WR/TE".equals(position)) {
+			return doesLeagueAllowPosition("RB")
+					&& doesLeagueAllowPosition("WR")
+					&& doesLeagueAllowPosition("TE");
+		}
+		if ("QB/RB/WR/TE".equals(position)) {
+			return doesLeagueAllowPosition("RB")
+					&& doesLeagueAllowPosition("WR")
+					&& doesLeagueAllowPosition("TE")
+					&& doesLeagueAllowPosition("QB");
+		}
 		if ("QB".equals(position)) {
 			return (roster.qbs > 0 || (roster.flex != null && roster.flex.op > 0));
 		} else if ("RB".equals(position)) {

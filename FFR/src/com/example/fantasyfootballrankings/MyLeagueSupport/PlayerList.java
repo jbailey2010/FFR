@@ -77,15 +77,33 @@ public class PlayerList {
 		sortSp.clearFocus();
 		List<String> positions = new ArrayList<String>();
 		positions.add("All Positions");
-		positions.add("QB");
-		positions.add("RB");
-		positions.add("WR");
-		positions.add("RB/WR");
-		positions.add("TE");
-		positions.add("RB/WR/TE");
-		positions.add("QB/RB/WR/TE");
-		positions.add("D/ST");
-		positions.add("K");
+		if (newImport.doesLeagueAllowPosition("QB")) {
+			positions.add("QB");
+		}
+		if (newImport.doesLeagueAllowPosition("RB")) {
+			positions.add("RB");
+		}
+		if (newImport.doesLeagueAllowPosition("WR")) {
+			positions.add("WR");
+		}
+		if (newImport.doesLeagueAllowPosition("RB/WR")) {
+			positions.add("RB/WR");
+		}
+		if (newImport.doesLeagueAllowPosition("TE")) {
+			positions.add("TE");
+		}
+		if (newImport.doesLeagueAllowPosition("RB/WR/TE")) {
+			positions.add("RB/WR/TE");
+		}
+		if (newImport.doesLeagueAllowPosition("QB/RB/WR/TE")) {
+			positions.add("QB/RB/WR/TE");
+		}
+		if (newImport.doesLeagueAllowPosition("D/ST")) {
+			positions.add("D/ST");
+		}
+		if (newImport.doesLeagueAllowPosition("K")) {
+			positions.add("K");
+		}
 		List<String> playerStatus = new ArrayList<String>();
 		playerStatus.add("All Players");
 		playerStatus.add("Free Agents");
@@ -381,6 +399,8 @@ public class PlayerList {
 			}
 			for (PlayerObject player : ImportLeague.holder.players) {
 				if (posList.contains(player.info.position)
+						&& newImport
+								.doesLeagueAllowPosition(player.info.position)
 						&& !(player.info.team.length() == 0
 								|| player.info.team.length() == 1 || player.info.position
 								.length() == 0)) {
