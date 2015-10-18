@@ -274,12 +274,12 @@ public class LineupHelp {
 		}
  else {
 			if (sos1 > sos2) {
-				p2sos.setTypeface(Typeface.DEFAULT);
-				p1sos.setTypeface(null, Typeface.BOLD);
-			}
-			if (sos1 < sos2) {
 				p1sos.setTypeface(Typeface.DEFAULT);
 				p2sos.setTypeface(null, Typeface.BOLD);
+			}
+			if (sos1 < sos2) {
+				p2sos.setTypeface(Typeface.DEFAULT);
+				p1sos.setTypeface(null, Typeface.BOLD);
 			}
 			p1sos.setText("SOS: " + sos1);
 			p2sos.setText("SOS: " + sos2);
