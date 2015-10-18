@@ -61,38 +61,14 @@
 
     <TextView
         android:id="@+id/compare_output_1"
+        style="@+style/PopupSubText"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/add_comparator_1"
         android:layout_below="@+id/compare_header_1"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="15dp"
         android:maxWidth="140dp"
         android:paddingBottom="35dp"
-        android:text="Medium Text"
-        style="@+style/PopupSubText" />
-
-    <Button
-        android:id="@+id/add_comparator_1"
-        style="@style/ButtonText"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/compare_header_1"
-        android:layout_marginLeft="12dp"
-        android:background="@drawable/btn_red"
-        android:text="Add to Watch List"
-        android:textSize="15sp" />
-
-    <Button
-        android:id="@+id/add_comparator_2"
-        style="@style/ButtonText"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/compare_header_2"
-        android:layout_below="@+id/compare_header_2"
-        android:background="@drawable/btn_red"
-        android:text="Add to Watch List"
-        android:textSize="15sp" />
+        android:text="Medium Text" />
 
     <TextView
         android:id="@+id/comparator_result"

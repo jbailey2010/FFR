@@ -546,40 +546,7 @@ public class ComparatorHandling {
 				dialog.dismiss();
 			}
 		});
-		Button add1 = (Button) dialog.findViewById(R.id.add_comparator_1);
-		Button add2 = (Button) dialog.findViewById(R.id.add_comparator_2);
-		add1.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				List<String> watch = ReadFromFile.readWatchList(cont);
-				if (!watch.contains(player1.info.name)) {
-					Toast.makeText(cont,
-							player1.info.name + " added to the watch list",
-							Toast.LENGTH_SHORT).show();
-					watch.add(player1.info.name);
-					WriteToFile.writeWatchList(cont, watch);
-				} else {
-					Toast.makeText(cont,
-							player1.info.name + " already in the watch list",
-							Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
-		add2.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				List<String> watch = ReadFromFile.readWatchList(cont);
-				if (!watch.contains(player2.info.name)) {
-					Toast.makeText(cont,
-							player2.info.name + " added to the watch list",
-							Toast.LENGTH_SHORT).show();
-					watch.add(player2.info.name);
-					WriteToFile.writeWatchList(cont, watch);
-				} else {
-					Toast.makeText(cont,
-							player2.info.name + " already in the watch list",
-							Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
+
 		dialog.show();
 		name1 = player1.info.name;
 		name2 = player2.info.name;
