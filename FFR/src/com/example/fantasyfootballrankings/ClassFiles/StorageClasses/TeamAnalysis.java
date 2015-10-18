@@ -58,16 +58,31 @@ public class TeamAnalysis {
 		cont = c;
 
 		// Break the input blob into positional arrays for easier management
-		String[] qb = teamStr.split("Quarterbacks: ")[1].split("\n")[0]
-				.split(", ");
-		String[] rb = teamStr.split("Running Backs: ")[1].split("\n")[0]
-				.split(", ");
-		String[] wr = teamStr.split("Wide Receivers: ")[1].split("\n")[0]
-				.split(", ");
-		String[] te = teamStr.split("Tight Ends: ")[1].split("\n")[0]
-				.split(", ");
-		String[] d = teamStr.split("D/ST: ")[1].split("\n")[0].split(", ");
-		String[] k = teamStr.split("Kickers: ")[1].split("\n")[0].split(", ");
+		String[] qb = new String[0];
+		String[] rb = new String[0];
+		String[] wr = new String[0];
+		String[] te = new String[0];
+		String[] d = new String[0];
+		String[] k = new String[0];
+		if (teamStr.contains("Quarterbacks")) {
+			qb = teamStr.split("Quarterbacks: ")[1].split("\n")[0].split(", ");
+		}
+		if (teamStr.contains("Running Back")) {
+			rb = teamStr.split("Running Backs: ")[1].split("\n")[0].split(", ");
+		}
+		if (teamStr.contains("Wide Receivers")) {
+			wr = teamStr.split("Wide Receivers: ")[1].split("\n")[0]
+					.split(", ");
+		}
+		if (teamStr.contains("Tight Ends")) {
+			te = teamStr.split("Tight Ends: ")[1].split("\n")[0].split(", ");
+		}
+		if (teamStr.contains("D/ST")) {
+			d = teamStr.split("D/ST: ")[1].split("\n")[0].split(", ");
+		}
+		if (teamStr.contains("Kickers")) {
+			k = teamStr.split("Kickers: ")[1].split("\n")[0].split(", ");
+		}
 
 		// Break out the starters and build the team list of players
 		manageStarters(qb, rb, wr, te, d, k);

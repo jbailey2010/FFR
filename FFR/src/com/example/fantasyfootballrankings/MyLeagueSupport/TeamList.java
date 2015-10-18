@@ -133,29 +133,42 @@ public class TeamList {
 		GraphView graphView = GraphingUtils
 				.generateGraphView(ImportLeague.cont);
 
-		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[9];
 		int max = newImport.teams.size() + 1;
-		String[] horizLabels = { "QB", "RB", "WR", "TE", "D", "K", "All",
-				"Start", "Rest" };
+		String[] horizLabels = { "QB", "RB", "WR", "TE", "D/ST", "K", "All",
+				"Start", "Bench" };
+		horizLabels = GraphingUtils.filterHorizontalAxis(horizLabels,
+				ImportLeague.newImport);
+		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[horizLabels.length];
 		String[] vertLabels = new String[max - 1];
 		for (int i = 1; i < max; i++) {
 			vertLabels[i - 1] = String.valueOf(i);
 		}
 
 		int counter = 0;
-		GraphViewDataInterface[] dataSet2 = new GraphViewDataInterface[6];
-		dataSet[counter++] = new GraphViewData(counter, max
-				- rankQBs(newImport, ta));
-		dataSet[counter++] = new GraphViewData(counter, max
-				- rankRBs(newImport, ta));
-		dataSet[counter++] = new GraphViewData(counter, max
-				- rankWRs(newImport, ta));
-		dataSet[counter++] = new GraphViewData(counter, max
-				- rankTEs(newImport, ta));
-		dataSet[counter++] = new GraphViewData(counter, max
-				- rankDs(newImport, ta));
-		dataSet[counter++] = new GraphViewData(counter, max
-				- rankKs(newImport, ta));
+		if (ImportLeague.newImport.doesLeagueAllowPosition("QB")) {
+			dataSet[counter++] = new GraphViewData(counter, max
+					- rankQBStart(newImport, ta));
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("RB")) {
+			dataSet[counter++] = new GraphViewData(counter, max
+					- rankRBStart(newImport, ta));
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("WR")) {
+			dataSet[counter++] = new GraphViewData(counter, max
+					- rankWRStart(newImport, ta));
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("TE")) {
+			dataSet[counter++] = new GraphViewData(counter, max
+					- rankTEStart(newImport, ta));
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("D/ST")) {
+			dataSet[counter++] = new GraphViewData(counter, max
+					- rankDStart(newImport, ta));
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("K")) {
+			dataSet[counter++] = new GraphViewData(counter, max
+					- rankKStart(newImport, ta));
+		}
 		dataSet[counter++] = new GraphViewData(counter, max
 				- rankPAATot(newImport, ta));
 		dataSet[counter++] = new GraphViewData(counter, max
@@ -163,28 +176,9 @@ public class TeamList {
 		dataSet[counter++] = new GraphViewData(counter, max
 				- rankPAABench(newImport, ta));
 
-		GraphingUtils.addSeries(graphView, "Whole Roster Rank",
+		GraphingUtils.addSeries(graphView, "League Rank",
 				GraphingUtils.getGraphSeriesStyle(null, null),
 				dataSet);
-
-		counter = 0;
-
-		dataSet2[counter++] = new GraphViewData(counter, max
-				- rankQBStart(newImport, ta));
-		dataSet2[counter++] = new GraphViewData(counter, max
-				- rankRBStart(newImport, ta));
-		dataSet2[counter++] = new GraphViewData(counter, max
-				- rankWRStart(newImport, ta));
-		dataSet2[counter++] = new GraphViewData(counter, max
-				- rankTEStart(newImport, ta));
-		dataSet2[counter++] = new GraphViewData(counter, max
-				- rankDStart(newImport, ta));
-		dataSet2[counter++] = new GraphViewData(counter, max
-				- rankKStart(newImport, ta));
-
-		GraphingUtils.addSeries(graphView, "Starters Rank",
-				GraphingUtils.getGraphSeriesStyle(Color.CYAN, null),
-				dataSet2);
 
 		GraphingUtils.configureLegend(graphView);
 		GraphingUtils.configureAxes(graphView, horizLabels, vertLabels, 1,

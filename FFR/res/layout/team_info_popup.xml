@@ -29,7 +29,7 @@
 		    android:layout_height="wrap_content"
 		    android:layout_centerHorizontal="true"
 		    android:layout_below="@+id/team_info_popup_header"
-		    android:text="X-Axis: Position, Y-Axis: League Rank"
+		    android:text="X-Axis: Position (Starters), Y-Axis: League Rank"
 		    style="@+style/PopupSubText"/>
 
 		<TextView

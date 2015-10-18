@@ -138,48 +138,23 @@ public class CompareTeams {
 		GraphView graphView = GraphingUtils
 				.generateGraphView(ImportLeague.cont);
 
-		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[7];
 		int max = ImportLeague.newImport.teams.size() + 1;
-		String[] horizLabels = { "Starters", "QB", "RB", "WR", "TE", "D", "K" };
+		String[] horizLabels = { "Starters", "QB", "RB", "WR", "TE", "D/ST",
+				"K" };
+		horizLabels = GraphingUtils.filterHorizontalAxis(horizLabels,
+				ImportLeague.newImport);
 		String[] vertLabels = new String[max - 1];
 		for (int i = 1; i < max; i++) {
 			vertLabels[i - 1] = String.valueOf(i);
 		}
-		int counter = 0;
-		dataSet[counter++] = new GraphViewData(counter, max
-				- TeamList.rankPAAStart(ImportLeague.newImport, t1));
-		dataSet[counter++] = new GraphViewData(counter, max
-				- TeamList.rankQBStart(ImportLeague.newImport, t1));
-		dataSet[counter++] = new GraphViewData(counter, max
-				- TeamList.rankRBStart(ImportLeague.newImport, t1));
-		dataSet[counter++] = new GraphViewData(counter, max
-				- TeamList.rankWRStart(ImportLeague.newImport, t1));
-		dataSet[counter++] = new GraphViewData(counter, max
-				- TeamList.rankTEStart(ImportLeague.newImport, t1));
-		dataSet[counter++] = new GraphViewData(counter, max
-				- TeamList.rankDStart(ImportLeague.newImport, t1));
-		dataSet[counter++] = new GraphViewData(counter, max
-				- TeamList.rankKStart(ImportLeague.newImport, t1));
+		GraphViewDataInterface[] dataSet = getTeamData(max, t1,
+				horizLabels.length);
 
 		GraphingUtils.addSeries(graphView, t1.teamName + " Starters",
 				GraphingUtils.getGraphSeriesStyle(null, null), dataSet);
 
-		GraphViewDataInterface[] dataSet2 = new GraphViewDataInterface[7];
-		counter = 0;
-		dataSet2[counter++] = new GraphViewData(counter, max
-				- TeamList.rankPAAStart(ImportLeague.newImport, t2));
-		dataSet2[counter++] = new GraphViewData(counter, max
-				- TeamList.rankQBStart(ImportLeague.newImport, t2));
-		dataSet2[counter++] = new GraphViewData(counter, max
-				- TeamList.rankRBStart(ImportLeague.newImport, t2));
-		dataSet2[counter++] = new GraphViewData(counter, max
-				- TeamList.rankWRStart(ImportLeague.newImport, t2));
-		dataSet2[counter++] = new GraphViewData(counter, max
-				- TeamList.rankTEStart(ImportLeague.newImport, t2));
-		dataSet2[counter++] = new GraphViewData(counter, max
-				- TeamList.rankDStart(ImportLeague.newImport, t2));
-		dataSet2[counter++] = new GraphViewData(counter, max
-				- TeamList.rankKStart(ImportLeague.newImport, t2));
+		GraphViewDataInterface[] dataSet2 = getTeamData(max, t2,
+				horizLabels.length);
 
 		GraphingUtils.addSeries(graphView, t2.teamName + " Starters",
 				GraphingUtils.getGraphSeriesStyle(Color.RED, null), dataSet2);
@@ -193,4 +168,36 @@ public class CompareTeams {
 		layout.addView(graphView);
 	}
 
+	private static GraphViewDataInterface[] getTeamData(int max,
+			TeamAnalysis t, int size) {
+		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[size];
+		int counter = 0;
+		dataSet[counter++] = new GraphViewData(counter, max
+				- TeamList.rankPAAStart(ImportLeague.newImport, t));
+		if (ImportLeague.newImport.doesLeagueAllowPosition("QB")) {
+			dataSet[counter++] = new GraphViewData(counter, max
+					- TeamList.rankQBStart(ImportLeague.newImport, t));
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("RB")) {
+			dataSet[counter++] = new GraphViewData(counter, max
+					- TeamList.rankRBStart(ImportLeague.newImport, t));
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("WR")) {
+			dataSet[counter++] = new GraphViewData(counter, max
+					- TeamList.rankWRStart(ImportLeague.newImport, t));
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("TE")) {
+			dataSet[counter++] = new GraphViewData(counter, max
+					- TeamList.rankTEStart(ImportLeague.newImport, t));
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("D/ST")) {
+			dataSet[counter++] = new GraphViewData(counter, max
+					- TeamList.rankDStart(ImportLeague.newImport, t));
+		}
+		if (ImportLeague.newImport.doesLeagueAllowPosition("K")) {
+			dataSet[counter++] = new GraphViewData(counter, max
+					- TeamList.rankKStart(ImportLeague.newImport, t));
+		}
+		return dataSet;
+	}
 }

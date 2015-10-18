@@ -1,8 +1,14 @@
 package com.example.fantasyfootballrankings.ClassFiles.Utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.Color;
 
+import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphViewDataInterface;
 import com.jjoe64.graphview.GraphViewSeries;
@@ -54,5 +60,25 @@ public class GraphingUtils {
 			style.thickness = thickness;
 		}
 		return style;
+	}
+
+	public static String[] filterHorizontalAxis(String[] input,
+			ImportedTeam team) {
+		List<String> axis = new LinkedList<String>(Arrays.asList(input));
+		filterPositionFromAxis(axis, "QB", team);
+		filterPositionFromAxis(axis, "RB", team);
+		filterPositionFromAxis(axis, "WR", team);
+		filterPositionFromAxis(axis, "TE", team);
+		filterPositionFromAxis(axis, "D/ST", team);
+		filterPositionFromAxis(axis, "K", team);
+		return axis.toArray(new String[axis.size()]);
+	}
+
+	private static List<String> filterPositionFromAxis(List<String> input,
+			String position, ImportedTeam team) {
+		if (!team.doesLeagueAllowPosition(position)) {
+			input.remove(position);
+		}
+		return input;
 	}
 }
