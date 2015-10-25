@@ -200,26 +200,30 @@ public class RosterTips {
 	 * Handles the iterating through the map/pq and stringbuffering
 	 * 
 	 * @param leadStr
-	 * @param map
+	 * @param faType
 	 */
 	public static void parseFAData(
-			Map<PlayerObject, PriorityQueue<PlayerObject>> qb,
-			StringBuilder outputS, String pos, String typeKey, int map) {
+			Map<PlayerObject, PriorityQueue<PlayerObject>> improvementMappings,
+			StringBuilder outputS, String pos, String typeKey, int faType) {
 		if (ImportLeague.newImport.doesLeagueAllowPosition(pos)) {
 			String leadStr = " has a " + typeKey + " of ";
 			outputS.append(pos + "s\n\n");
-			if (qb != null && qb.size() > 0) {
-				for (PlayerObject old : qb.keySet()) {
+			if (improvementMappings != null && improvementMappings.size() > 0) {
+				for (PlayerObject old : improvementMappings.keySet()) {
 					StringBuilder outputStr = new StringBuilder(100);
-					if (map == 0) {
+					if (old.info.name.equals("None")) {
+						outputStr
+								.append("No players of this position are owned. ");
+					} else if (faType == 0) {
 						outputStr.append(old.info.name + leadStr
 								+ old.values.rosRank + ", but ");
 					}
-					if (map == 1) {
+ else if (faType == 1) {
 						outputStr.append(old.info.name + leadStr
 								+ old.values.ecr + ", but ");
 					}
-					PriorityQueue<PlayerObject> better = qb.get(old);
+					PriorityQueue<PlayerObject> better = improvementMappings
+							.get(old);
 					int counter = 12;
 					boolean flag = false;
 					if (better.size() == 2) {
@@ -228,7 +232,7 @@ public class RosterTips {
 					while (!better.isEmpty() && counter > 0) {
 						counter--;
 						PlayerObject iter = better.poll();
-						if (map == 0) {
+						if (faType == 0) {
 							if (!flag) {
 								outputStr.append(iter.info.name + " ("
 										+ iter.values.rosRank + "), ");
@@ -237,7 +241,7 @@ public class RosterTips {
 										+ iter.values.rosRank + ") ");
 							}
 						}
-						if (map == 1) {
+						if (faType == 1) {
 							if (!flag) {
 								outputStr.append(iter.info.name + " ("
 										+ iter.values.ecr + "), ");
@@ -297,6 +301,17 @@ public class RosterTips {
 			}
 		}
 		Map<PlayerObject, PriorityQueue<PlayerObject>> improvements = new HashMap<PlayerObject, PriorityQueue<PlayerObject>>();
+		// If no players are owned of this position and the position is allowed
+		// (to be output it must be),
+		// a dummy player with crappy rankings is used to get all FAs.
+		if (iter.size() == 0) {
+			PlayerObject noneOwned = new PlayerObject();
+			noneOwned.info.name = "None";
+			noneOwned.values.rosRank = 300;
+			noneOwned.values.ecr = 300.0;
+			noneOwned.info.position = pos;
+			iter.add(noneOwned);
+		}
 		for (PlayerObject player : iter) {
 			if (player.info.position.equals(pos)) {
 				int rosRank = 0;
