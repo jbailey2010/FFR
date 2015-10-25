@@ -814,6 +814,9 @@ public class HighLevel {
 				player.values.rosRank = rankings.get(player.info.name + ","
 						+ player.info.position);
 			}
+ else {
+				player.values.rosRank = 300;
+			}
 		}
 	}
 

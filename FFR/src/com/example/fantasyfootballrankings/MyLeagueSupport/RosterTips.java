@@ -174,57 +174,19 @@ public class RosterTips {
 				tradeOutput.setVisibility(View.GONE);
 				base.setVisibility(View.VISIBLE);
 				output.setVisibility(View.VISIBLE);
-				if (arg2 == 0) {
-					if (ImportLeague.newImport.doesLeagueAllowPosition("QB")) {
-						parseFAData(faMoves(team, "QB", arg2), outputS, "QBs",
-								" has a ROS ranking of ", arg2);
-					}
-					if (ImportLeague.newImport.doesLeagueAllowPosition("RB")) {
-						parseFAData(faMoves(team, "RB", arg2), outputS, "RBs",
-								" has a ROS ranking of ", arg2);
-					}
-					if (ImportLeague.newImport.doesLeagueAllowPosition("WR")) {
-						parseFAData(faMoves(team, "WR", arg2), outputS, "WRs",
-								" has a ROS ranking of ", arg2);
-					}
-					if (ImportLeague.newImport.doesLeagueAllowPosition("TE")) {
-						parseFAData(faMoves(team, "TE", arg2), outputS, "TEs",
-								" has a ROS ranking of ", arg2);
-					}
-					if (ImportLeague.newImport.doesLeagueAllowPosition("D/ST")) {
-						parseFAData(faMoves(team, "D/ST", arg2), outputS,
-								"D/STs", " has a ROS ranking of ", arg2);
-					}
-					if (ImportLeague.newImport.doesLeagueAllowPosition("K")) {
-						parseFAData(faMoves(team, "K", arg2), outputS, "Ks",
-								" has a ROS ranking of ", arg2);
-					}
-				} else if (arg2 == 1) {
-					if (ImportLeague.newImport.doesLeagueAllowPosition("QB")) {
-						parseFAData(faMoves(team, "QB", arg2), outputS, "QBs",
-								" has a weekly ranking of ", arg2);
-					}
-					if (ImportLeague.newImport.doesLeagueAllowPosition("RB")) {
-						parseFAData(faMoves(team, "RB", arg2), outputS, "RBs",
-								" has a weekly ranking of ", arg2);
-					}
-					if (ImportLeague.newImport.doesLeagueAllowPosition("WR")) {
-						parseFAData(faMoves(team, "WR", arg2), outputS, "WRs",
-								" has a weekly ranking of ", arg2);
-					}
-					if (ImportLeague.newImport.doesLeagueAllowPosition("TE")) {
-						parseFAData(faMoves(team, "TE", arg2), outputS, "TEs",
-								" has a weekly ranking of ", arg2);
-					}
-					if (ImportLeague.newImport.doesLeagueAllowPosition("D/ST")) {
-						parseFAData(faMoves(team, "D/ST", arg2), outputS,
-								"D/STs", " has a weekly ranking of ", arg2);
-					}
-					if (ImportLeague.newImport.doesLeagueAllowPosition("K")) {
-						parseFAData(faMoves(team, "K", arg2), outputS, "Ks",
-								" has a weekly ranking of ", arg2);
-					}
-				}
+				String faTypeKey = arg2 == 0 ? "ROS" : "weekly";
+				parseFAData(faMoves(team, "QB", arg2), outputS, "QB",
+						faTypeKey, arg2);
+				parseFAData(faMoves(team, "RB", arg2), outputS, "RB",
+						faTypeKey, arg2);
+				parseFAData(faMoves(team, "WR", arg2), outputS, "WR",
+						faTypeKey, arg2);
+				parseFAData(faMoves(team, "TE", arg2), outputS, "TE",
+						faTypeKey, arg2);
+				parseFAData(faMoves(team, "D/ST", arg2), outputS, "D/ST",
+						faTypeKey, arg2);
+				parseFAData(faMoves(team, "K", arg2), outputS, "K", faTypeKey,
+						arg2);
 				output.setText(outputS.toString());
 			}
 
@@ -242,63 +204,66 @@ public class RosterTips {
 	 */
 	public static void parseFAData(
 			Map<PlayerObject, PriorityQueue<PlayerObject>> qb,
-			StringBuilder outputS, String pos, String leadStr, int map) {
-		outputS.append(pos + "\n\n");
-		if (qb != null && qb.size() > 0) {
-			for (PlayerObject old : qb.keySet()) {
-				StringBuilder outputStr = new StringBuilder(100);
-				if (map == 0) {
-					outputStr.append(old.info.name + leadStr
-							+ old.values.rosRank + ", but ");
-				}
-				if (map == 1) {
-					outputStr.append(old.info.name + leadStr + old.values.ecr
-							+ ", but ");
-				}
-				PriorityQueue<PlayerObject> better = qb.get(old);
-				int counter = 12;
-				boolean flag = false;
-				if (better.size() == 2) {
-					flag = true;
-				}
-				while (!better.isEmpty() && counter > 0) {
-					counter--;
-					PlayerObject iter = better.poll();
+			StringBuilder outputS, String pos, String typeKey, int map) {
+		if (ImportLeague.newImport.doesLeagueAllowPosition(pos)) {
+			String leadStr = " has a " + typeKey + " of ";
+			outputS.append(pos + "s\n\n");
+			if (qb != null && qb.size() > 0) {
+				for (PlayerObject old : qb.keySet()) {
+					StringBuilder outputStr = new StringBuilder(100);
 					if (map == 0) {
-						if (!flag) {
-							outputStr.append(iter.info.name + " ("
-									+ iter.values.rosRank + "), ");
-						} else {
-							outputStr.append(iter.info.name + " ("
-									+ iter.values.rosRank + ") ");
-						}
+						outputStr.append(old.info.name + leadStr
+								+ old.values.rosRank + ", but ");
 					}
 					if (map == 1) {
-						if (!flag) {
-							outputStr.append(iter.info.name + " ("
-									+ iter.values.ecr + "), ");
-						} else {
-							outputStr.append(iter.info.name + " ("
-									+ iter.values.ecr + ") ");
+						outputStr.append(old.info.name + leadStr
+								+ old.values.ecr + ", but ");
+					}
+					PriorityQueue<PlayerObject> better = qb.get(old);
+					int counter = 12;
+					boolean flag = false;
+					if (better.size() == 2) {
+						flag = true;
+					}
+					while (!better.isEmpty() && counter > 0) {
+						counter--;
+						PlayerObject iter = better.poll();
+						if (map == 0) {
+							if (!flag) {
+								outputStr.append(iter.info.name + " ("
+										+ iter.values.rosRank + "), ");
+							} else {
+								outputStr.append(iter.info.name + " ("
+										+ iter.values.rosRank + ") ");
+							}
+						}
+						if (map == 1) {
+							if (!flag) {
+								outputStr.append(iter.info.name + " ("
+										+ iter.values.ecr + "), ");
+							} else {
+								outputStr.append(iter.info.name + " ("
+										+ iter.values.ecr + ") ");
+							}
+						}
+						if (better.size() == 1 || counter == 1) {
+							outputStr.append("and ");
 						}
 					}
-					if (better.size() == 1 || counter == 1) {
-						outputStr.append("and ");
+					String inter = outputStr.toString();
+					inter = inter.substring(0, inter.length() - 2);
+					if (counter <= 9) {
+						outputS.append(inter + " are all available\n\n");
+					} else if (counter <= 10) {
+						outputS.append(inter + ") are available\n\n");
+					} else if (counter <= 11) {
+						outputS.append(inter + " is available\n\n");
 					}
 				}
-				String inter = outputStr.toString();
-				inter = inter.substring(0, inter.length() - 2);
-				if (counter <= 9) {
-					outputS.append(inter + " are all available\n\n");
-				} else if (counter <= 10) {
-					outputS.append(inter + ") are available\n\n");
-				} else if (counter <= 11) {
-					outputS.append(inter + " is available\n\n");
-				}
+				outputS.append("\n\n");
+			} else {
+				outputS.append("No obvious improvements available in free agency\n\n\n");
 			}
-			outputS.append("\n\n");
-		} else {
-			outputS.append("No obvious improvements available in free agency\n\n\n");
 		}
 	}
 
