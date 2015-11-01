@@ -232,7 +232,7 @@ public class SortHandler {
 											.equals("K"))) {
 							Toast.makeText(
 									context,
-									"That subject is not available for that position",
+									"That is not available for the selected position",
 									Toast.LENGTH_SHORT).show();
 						} else {
 							dialog.dismiss();
