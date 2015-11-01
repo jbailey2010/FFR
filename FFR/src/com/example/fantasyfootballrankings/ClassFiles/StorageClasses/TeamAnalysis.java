@@ -12,6 +12,7 @@ import java.util.PriorityQueue;
 import android.content.Context;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 
 /**
@@ -64,24 +65,29 @@ public class TeamAnalysis {
 		String[] te = new String[0];
 		String[] d = new String[0];
 		String[] k = new String[0];
-		if (teamStr.contains("Quarterbacks")) {
-			qb = teamStr.split("Quarterbacks: ")[1].split("\n")[0].split(", ");
+		if (teamStr.contains(Constants.ML_QB)) {
+			qb = teamStr.split(Constants.ML_QB_HEADER)[1]
+					.split(Constants.LINE_BREAK)[0].split(", ");
 		}
-		if (teamStr.contains("Running Back")) {
-			rb = teamStr.split("Running Backs: ")[1].split("\n")[0].split(", ");
+		if (teamStr.contains(Constants.ML_RB)) {
+			rb = teamStr.split(Constants.ML_RB_HEADER)[1]
+					.split(Constants.LINE_BREAK)[0].split(", ");
 		}
-		if (teamStr.contains("Wide Receivers")) {
-			wr = teamStr.split("Wide Receivers: ")[1].split("\n")[0]
-					.split(", ");
+		if (teamStr.contains(Constants.ML_WR)) {
+			wr = teamStr.split(Constants.ML_WR_HEADER)[1]
+					.split(Constants.LINE_BREAK)[0].split(", ");
 		}
-		if (teamStr.contains("Tight Ends")) {
-			te = teamStr.split("Tight Ends: ")[1].split("\n")[0].split(", ");
+		if (teamStr.contains(Constants.ML_TE)) {
+			te = teamStr.split(Constants.ML_TE_HEADER)[1]
+					.split(Constants.LINE_BREAK)[0].split(", ");
 		}
-		if (teamStr.contains("D/ST")) {
-			d = teamStr.split("D/ST: ")[1].split("\n")[0].split(", ");
+		if (teamStr.contains(Constants.DST)) {
+			d = teamStr.split(Constants.ML_DEF_HEADER)[1]
+					.split(Constants.LINE_BREAK)[0].split(", ");
 		}
-		if (teamStr.contains("Kickers")) {
-			k = teamStr.split("Kickers: ")[1].split("\n")[0].split(", ");
+		if (teamStr.contains(Constants.ML_K)) {
+			k = teamStr.split(Constants.ML_K_HEADER)[1]
+					.split(Constants.LINE_BREAK)[0].split(", ");
 		}
 
 		// Break out the starters and build the team list of players
@@ -97,12 +103,12 @@ public class TeamAnalysis {
 		populateTotals(k);
 
 		// Set the individual positional projections
-		qbProjTotal = getPosProj(players, "QB");
-		rbProjTotal = getPosProj(players, "RB");
-		wrProjTotal = getPosProj(players, "WR");
-		teProjTotal = getPosProj(players, "TE");
-		dProjTotal = getPosProj(players, "D/ST");
-		kProjTotal = getPosProj(players, "K");
+		qbProjTotal = getPosProj(players, Constants.QB);
+		rbProjTotal = getPosProj(players, Constants.RB);
+		wrProjTotal = getPosProj(players, Constants.WR);
+		teProjTotal = getPosProj(players, Constants.TE);
+		dProjTotal = getPosProj(players, Constants.DST);
+		kProjTotal = getPosProj(players, Constants.K);
 	}
 
 	/**
@@ -118,12 +124,12 @@ public class TeamAnalysis {
 	 */
 	public void populateTeamsList(TeamAnalysis team) {
 		Map<String, String> posFix = new HashMap<String, String>();
-		posFix.put("Quarterbacks", "QB");
-		posFix.put("Running Backs", "RB");
-		posFix.put("Wide Receivers", "WR");
-		posFix.put("Tight Ends", "TE");
-		posFix.put("Kickers", "K");
-		String[] posSet = team.team.split("\n");
+		posFix.put(Constants.ML_QB, Constants.QB);
+		posFix.put(Constants.ML_RB, Constants.RB);
+		posFix.put(Constants.ML_WR, Constants.WR);
+		posFix.put(Constants.ML_TE, Constants.TE);
+		posFix.put(Constants.ML_K, Constants.K);
+		String[] posSet = team.team.split(Constants.LINE_BREAK);
 		for (String pos : posSet) {
 			if (!pos.contains("None ") && pos.contains(":")) {
 
@@ -170,12 +176,12 @@ public class TeamAnalysis {
 	public void manageStarters(String[] qb, String[] rb, String[] wr,
 			String[] te, String[] d, String[] k) {
 		HashSet<PlayerObject> ignore = new HashSet<PlayerObject>();
-		List<PlayerObject> qbBasic = startersList(r.qbs, qb, "QB");
-		List<PlayerObject> rbBasic = startersList(r.rbs, rb, "RB");
-		List<PlayerObject> wrBasic = startersList(r.wrs, wr, "WR");
-		List<PlayerObject> teBasic = startersList(r.tes, te, "TE");
-		List<PlayerObject> dfBasic = startersList(r.def, d, "D/ST");
-		List<PlayerObject> kBasic = startersList(r.k, k, "K");
+		List<PlayerObject> qbBasic = startersList(r.qbs, qb, Constants.QB);
+		List<PlayerObject> rbBasic = startersList(r.rbs, rb, Constants.RB);
+		List<PlayerObject> wrBasic = startersList(r.wrs, wr, Constants.WR);
+		List<PlayerObject> teBasic = startersList(r.tes, te, Constants.TE);
+		List<PlayerObject> dfBasic = startersList(r.def, d, Constants.DST);
+		List<PlayerObject> kBasic = startersList(r.k, k, Constants.K);
 		ignore.addAll(qbBasic);
 		ignore.addAll(rbBasic);
 		ignore.addAll(wrBasic);
@@ -208,30 +214,30 @@ public class TeamAnalysis {
 			List<PlayerObject> wrNext = new ArrayList<PlayerObject>();
 			List<PlayerObject> teNext = new ArrayList<PlayerObject>();
 			if (qbConsider > 0) {
-				qbNext = getNextBest(qbConsider, ignore, qb, "QB");
+				qbNext = getNextBest(qbConsider, ignore, qb, Constants.QB);
 			}
 			if (rbConsider > 0) {
-				rbNext = getNextBest(rbConsider, ignore, rb, "RB");
+				rbNext = getNextBest(rbConsider, ignore, rb, Constants.RB);
 			}
 			if (wrConsider > 0) {
-				wrNext = getNextBest(wrConsider, ignore, wr, "WR");
+				wrNext = getNextBest(wrConsider, ignore, wr, Constants.WR);
 			}
 			if (teConsider > 0) {
-				teNext = getNextBest(teConsider, ignore, te, "TE");
+				teNext = getNextBest(teConsider, ignore, te, Constants.TE);
 			}
 			List<PlayerObject> best = getFlexOptions(qbNext, rbNext, wrNext,
 					teNext, qbConsider, rbConsider, wrConsider, teConsider);
 			for (PlayerObject player : best) {
-				if (player.info.position.equals("QB")) {
+				if (player.info.position.equals(Constants.QB)) {
 					qbBasic.add(player);
 				}
-				if (player.info.position.equals("RB")) {
+				if (player.info.position.equals(Constants.RB)) {
 					rbBasic.add(player);
 				}
-				if (player.info.position.equals("WR")) {
+				if (player.info.position.equals(Constants.WR)) {
 					wrBasic.add(player);
 				}
-				if (player.info.position.equals("TE")) {
+				if (player.info.position.equals(Constants.TE)) {
 					teBasic.add(player);
 				}
 			}
@@ -272,19 +278,19 @@ public class TeamAnalysis {
 		List<PlayerObject> topScorers = new ArrayList<PlayerObject>();
 		while (validCt > 0 && inter.size() > 0) {
 			PlayerObject iter = inter.poll();
-			if (iter.info.position.equals("QB") && qbConsider > 0) {
+			if (iter.info.position.equals(Constants.QB) && qbConsider > 0) {
 				qbConsider--;
 				validCt--;
 				topScorers.add(iter);
-			} else if (iter.info.position.equals("RB") && rbConsider > 0) {
+			} else if (iter.info.position.equals(Constants.RB) && rbConsider > 0) {
 				rbConsider--;
 				validCt--;
 				topScorers.add(iter);
-			} else if (iter.info.position.equals("WR") && wrConsider > 0) {
+			} else if (iter.info.position.equals(Constants.WR) && wrConsider > 0) {
 				wrConsider--;
 				validCt--;
 				topScorers.add(iter);
-			} else if (iter.info.position.equals("TE") && teConsider > 0) {
+			} else if (iter.info.position.equals(Constants.TE) && teConsider > 0) {
 				teConsider--;
 				validCt--;
 				topScorers.add(iter);
@@ -378,23 +384,29 @@ public class TeamAnalysis {
 
 	public String stringifyTeam() {
 		String newTeam = team;
-		if (!ImportLeague.newImport.doesLeagueAllowPosition("QB")) {
-			newTeam = newTeam.replace("Quarterbacks: None Selected\n", "");
+		if (!ImportLeague.newImport.doesLeagueAllowPosition(Constants.QB)) {
+			newTeam = newTeam.replace(Constants.ML_QB_HEADER
+					+ Constants.ML_NONE_SELECTED + Constants.LINE_BREAK, "");
 		}
-		if (!ImportLeague.newImport.doesLeagueAllowPosition("RB")) {
-			newTeam = newTeam.replace("Running Backs: None Selected\n", "");
+		if (!ImportLeague.newImport.doesLeagueAllowPosition(Constants.RB)) {
+			newTeam = newTeam.replace(Constants.ML_RB_HEADER
+					+ Constants.ML_NONE_SELECTED + Constants.LINE_BREAK, "");
 		}
-		if (!ImportLeague.newImport.doesLeagueAllowPosition("WR")) {
-			newTeam = newTeam.replace("Wide Receivers: None Selected\n", "");
+		if (!ImportLeague.newImport.doesLeagueAllowPosition(Constants.WR)) {
+			newTeam = newTeam.replace(Constants.ML_WR_HEADER
+					+ Constants.ML_NONE_SELECTED + Constants.LINE_BREAK, "");
 		}
-		if (!ImportLeague.newImport.doesLeagueAllowPosition("TE")) {
-			newTeam = newTeam.replace("Tight Ends: None Selected\n", "");
+		if (!ImportLeague.newImport.doesLeagueAllowPosition(Constants.TE)) {
+			newTeam = newTeam.replace(Constants.ML_TE_HEADER
+					+ Constants.ML_NONE_SELECTED + Constants.LINE_BREAK, "");
 		}
-		if (!ImportLeague.newImport.doesLeagueAllowPosition("D/ST")) {
-			newTeam = newTeam.replace("D/ST: None Selected\n", "");
+		if (!ImportLeague.newImport.doesLeagueAllowPosition(Constants.DST)) {
+			newTeam = newTeam.replace(Constants.ML_DEF_HEADER
+					+ Constants.ML_NONE_SELECTED + Constants.LINE_BREAK, "");
 		}
-		if (!ImportLeague.newImport.doesLeagueAllowPosition("K")) {
-			newTeam = newTeam.replace("Kickers: None Selected\n", "");
+		if (!ImportLeague.newImport.doesLeagueAllowPosition(Constants.K)) {
+			newTeam = newTeam.replace(Constants.ML_K_HEADER
+					+ Constants.ML_NONE_SELECTED + Constants.LINE_BREAK, "");
 		}
 		return newTeam;
 	}
@@ -404,23 +416,23 @@ public class TeamAnalysis {
 	 */
 	public String stringifyLineup() {
 		StringBuilder lineup = new StringBuilder(1000);
-		if (ImportLeague.newImport.doesLeagueAllowPosition("QB")) {
-			lineup.append(stringifyPos(qbStarters, "Quarterback"));
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.QB)) {
+			lineup.append(stringifyPos(qbStarters, Constants.ML_QB_SINGULAR));
 		}
-		if (ImportLeague.newImport.doesLeagueAllowPosition("RB")) {
-			lineup.append(stringifyPos(rbStarters, "Running Back"));
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.RB)) {
+			lineup.append(stringifyPos(rbStarters, Constants.ML_RB_SINGULAR));
 		}
-		if (ImportLeague.newImport.doesLeagueAllowPosition("WR")) {
-			lineup.append(stringifyPos(wrStarters, "Wide Receiver"));
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.WR)) {
+			lineup.append(stringifyPos(wrStarters, Constants.ML_WR_SINGULAR));
 		}
-		if (ImportLeague.newImport.doesLeagueAllowPosition("TE")) {
-			lineup.append(stringifyPos(teStarters, "Tight End"));
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.TE)) {
+			lineup.append(stringifyPos(teStarters, Constants.ML_TE_SINGULAR));
 		}
-		if (ImportLeague.newImport.doesLeagueAllowPosition("D/ST")) {
-			lineup.append(stringifyPos(dStarters, "D/ST"));
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.DST)) {
+			lineup.append(stringifyPos(dStarters, Constants.DST));
 		}
-		if (ImportLeague.newImport.doesLeagueAllowPosition("K")) {
-			lineup.append(stringifyPos(kStarters, "Kicker"));
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.K)) {
+			lineup.append(stringifyPos(kStarters, Constants.ML_K_SINGULAR));
 		}
 		return lineup.toString();
 	}
@@ -438,7 +450,7 @@ public class TeamAnalysis {
 	 * Gets the paa of an individual position
 	 */
 	public double getPosPAA(List<PlayerObject> players) {
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		double total = 0.0;
 		for (PlayerObject player : players) {
 			total += player.values.paa;
@@ -492,7 +504,8 @@ public class TeamAnalysis {
 				lineup.append(player.info.name + ", ");
 			}
 			String starters = lineup.toString();
-			return starters.substring(0, starters.length() - 2) + "\n";
+			return starters.substring(0, starters.length() - 2)
+					+ Constants.LINE_BREAK;
 		}
 	}
 }

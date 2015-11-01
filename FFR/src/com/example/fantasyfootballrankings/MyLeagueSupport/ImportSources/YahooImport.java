@@ -38,6 +38,7 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTea
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.MyLeagueSupport.ImportSources.ESPNImport.GetTestDoc;
 import com.example.fantasyfootballrankings.MyLeagueSupport.ImportSources.ESPNImport.HandleParsingAsync;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
@@ -273,31 +274,31 @@ public class YahooImport {
 				StringBuilder d = new StringBuilder(1000);
 				StringBuilder k = new StringBuilder(1000);
 				team = team.split("@@@")[0];
-				qb.append("Quarterbacks: ");
-				rb.append("Running Backs: ");
-				wr.append("Wide Receivers: ");
-				te.append("Tight Ends: ");
-				d.append("D/ST: ");
-				k.append("Kickers: ");
+				qb.append(Constants.ML_QB_HEADER);
+				rb.append(Constants.ML_RB_HEADER);
+				wr.append(Constants.ML_WR_HEADER);
+				te.append(Constants.ML_TE_HEADER);
+				d.append(Constants.ML_DEF_HEADER);
+				k.append(Constants.ML_K_HEADER);
 				for (String member : onTeam) {
 					for (PlayerObject player : holder.players) {
 						if (player.info.name.equals(member)) {
-							if (player.info.position.equals("QB")) {
+							if (player.info.position.equals(Constants.QB)) {
 								qbs.add(member);
 							}
-							if (player.info.position.equals("RB")) {
+							if (player.info.position.equals(Constants.RB)) {
 								rbs.add(member);
 							}
-							if (player.info.position.equals("WR")) {
+							if (player.info.position.equals(Constants.WR)) {
 								wrs.add(member);
 							}
-							if (player.info.position.equals("TE")) {
+							if (player.info.position.equals(Constants.TE)) {
 								tes.add(member);
 							}
-							if (player.info.position.equals("D/ST")) {
+							if (player.info.position.equals(Constants.DST)) {
 								def.add(member);
 							}
-							if (player.info.position.equals("K")) {
+							if (player.info.position.equals(Constants.K)) {
 								ks.add(member);
 							}
 							break;
@@ -307,70 +308,70 @@ public class YahooImport {
 				}
 
 				if (qbs.size() == 0) {
-					qb.append("None Selected\n");
+					qb.append(Constants.ML_NONE_SELECTED + Constants.LINE_BREAK);
 				} else {
 					for (String name : qbs) {
 						qb.append(name + ", ");
 					}
 				}
 				if (rbs.size() == 0) {
-					rb.append("None Selected\n");
+					rb.append(Constants.ML_NONE_SELECTED + Constants.LINE_BREAK);
 				} else {
 					for (String name : rbs) {
 						rb.append(name + ", ");
 					}
 				}
 				if (wrs.size() == 0) {
-					wr.append("None Selected\n");
+					wr.append(Constants.ML_NONE_SELECTED + Constants.LINE_BREAK);
 				} else {
 					for (String name : wrs) {
 						wr.append(name + ", ");
 					}
 				}
 				if (tes.size() == 0) {
-					te.append("None Selected\n");
+					te.append(Constants.ML_NONE_SELECTED + Constants.LINE_BREAK);
 				} else {
 					for (String name : tes) {
 						te.append(name + ", ");
 					}
 				}
 				if (def.size() == 0) {
-					d.append("None Selected\n");
+					d.append(Constants.ML_NONE_SELECTED + Constants.LINE_BREAK);
 				} else {
 					for (String name : def) {
 						d.append(name + ", ");
 					}
 				}
 				if (ks.size() == 0) {
-					k.append("None Selected\n");
+					k.append(Constants.ML_NONE_SELECTED + Constants.LINE_BREAK);
 				} else {
 					for (String name : ks) {
 						k.append(name + ", ");
 					}
 				}
 				String qbStr = qb.toString();
-				if (!qbStr.contains("None Selected")) {
-					qbStr = qbStr.substring(0, qbStr.length() - 2) + "\n";
+				if (!qbStr.contains(Constants.ML_NONE_SELECTED)) {
+					qbStr = qbStr.substring(0, qbStr.length() - 2) + Constants.LINE_BREAK;
 				}
 				String rbStr = rb.toString();
-				if (!rbStr.contains("None Selected")) {
-					rbStr = rbStr.substring(0, rbStr.length() - 2) + "\n";
+				if (!rbStr.contains(Constants.ML_NONE_SELECTED)) {
+					rbStr = rbStr.substring(0, rbStr.length() - 2) + Constants.LINE_BREAK;
 				}
 				String wrStr = wr.toString();
-				if (!wrStr.contains("None Selected")) {
-					wrStr = wrStr.substring(0, wrStr.length() - 2) + "\n";
+				if (!wrStr.contains(Constants.ML_NONE_SELECTED)) {
+					wrStr = wrStr.substring(0, wrStr.length() - 2) + Constants.LINE_BREAK;
 				}
 				String teStr = te.toString();
-				if (!teStr.contains("None Selected")) {
-					teStr = teStr.substring(0, teStr.length() - 2) + "\n";
+				if (!teStr.contains(Constants.ML_NONE_SELECTED)) {
+					teStr = teStr.substring(0, teStr.length() - 2) + Constants.LINE_BREAK;
 				}
 				String dStr = d.toString();
-				if (!dStr.contains("None Selected")) {
-					dStr = dStr.substring(0, dStr.length() - 2) + "\n";
+				if (!dStr.contains(Constants.ML_NONE_SELECTED)) {
+					dStr = dStr.substring(0, dStr.length() - 2) + Constants.LINE_BREAK;
 				}
 				String kStr = k.toString();
-				if (!kStr.contains("None Selected")) {
-					kStr = kStr.substring(0, kStr.length() - 2) + "\n";
+				if (!kStr.contains(Constants.ML_NONE_SELECTED)) {
+					kStr = kStr.substring(0, kStr.length() - 2) + Constants.LINE_BREAK;
 				}
 				TeamAnalysis teamObj = new TeamAnalysis(team, qbStr + rbStr
 						+ wrStr + teStr + dStr + kStr, holder, cont, r);
@@ -424,9 +425,9 @@ public class YahooImport {
 	 */
 	public void writeToFile(String namePossible, String string,
 			List<TeamAnalysis> teamSet) {
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		int oldCount = prefs.getInt("Number of Leagues Imported", 0);
 		editor.putInt("Number of Leagues Imported", oldCount + 1);
 		ImportedTeam newImport = new ImportedTeam(teamSet, namePossible, string);

@@ -10,6 +10,7 @@ import org.jsoup.nodes.Document;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
@@ -51,25 +52,25 @@ public class ParseFreeAgents {
 				if (!faList.containsKey(oldTeam)) {
 					List<String> list = new ArrayList<String>();
 					list.add("Signed: ");
-					list.add("Departing: " + name + "\n");
+					list.add("Departing: " + name + Constants.LINE_BREAK);
 					faList.put(oldTeam, list);
 				} else {
 					List<String> list = faList.get(oldTeam);
 					String outgoing = list.get(1);
-					outgoing += name + "\n";
+					outgoing += name + Constants.LINE_BREAK;
 					list.remove(1);
 					list.add(1, outgoing);
 					faList.put(oldTeam, list);
 				}
 				if (!faList.containsKey(newTeam)) {
 					List<String> list = new ArrayList<String>();
-					list.add("Signed: " + name + "\n");
+					list.add("Signed: " + name + Constants.LINE_BREAK);
 					list.add("Departing: ");
 					faList.put(newTeam, list);
 				} else {
 					List<String> list = faList.get(newTeam);
 					String incoming = list.get(0);
-					incoming += name + "\n";
+					incoming += name + Constants.LINE_BREAK;
 					list.remove(0);
 					list.add(0, incoming);
 					faList.put(newTeam, list);

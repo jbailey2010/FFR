@@ -13,6 +13,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 
@@ -41,7 +42,7 @@ public class WriteToFile {
 	 *            used to be allowed to write to file in android
 	 */
 	public static void storePlayerNames(HashSet<String> names, Context cont) {
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		editor.putStringSet("Player Names", names);
 		editor.apply();
@@ -65,7 +66,7 @@ public class WriteToFile {
 	 * @param size
 	 */
 	public static void writeFilterSize(Context cont, int size, String flag) {
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		if (flag.equals("Rankings")) {
 			editor.putInt("Filter Quantity Size Rankings", size);
@@ -79,7 +80,7 @@ public class WriteToFile {
 	 * Writes the watch list to file
 	 */
 	public static void writeWatchList(Context cont, List<String> watch) {
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		StringBuilder newsSet = new StringBuilder(10000);
 		for (String name : watch) {
@@ -94,7 +95,7 @@ public class WriteToFile {
 	 * Writes the draft to file (supplementary to writing rankings to file)
 	 */
 	public static void writeDraft(Draft draft, Context cont) {
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		String draftList = "";
 		draftList += writeDraftHelper(draft.qb) + "@";
@@ -112,7 +113,7 @@ public class WriteToFile {
 		}
 		draftList += inter.toString() + "@";
 		draftList += draft.remainingSalary + "@" + draft.value;
-		editor.putString("Draft Information", draftList).apply();
+		editor.putString(Constants.DRAFT_STATUS_KEY, draftList).apply();
 	}
 
 	/**
@@ -121,7 +122,7 @@ public class WriteToFile {
 	 * @param key
 	 */
 	public static void writeScoring(String key, Context cont, Scoring scoring) {
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		editor.putInt("Pass Yards" + key, scoring.passYards);
 		editor.putInt("Pass Touchdowns" + key, scoring.passTD);
@@ -140,7 +141,7 @@ public class WriteToFile {
 	 * Writes roster to file
 	 */
 	public static void writeRoster(String key, Context cont, Roster roster) {
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		editor.putInt("Number of teams" + key, roster.teams);
 		if (roster.flex == null) {
@@ -165,7 +166,7 @@ public class WriteToFile {
 	 * @param cont
 	 */
 	public static void writeFirstOpen(Context cont) {
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		editor.putBoolean("First Open", false).apply();
 	}
@@ -178,7 +179,7 @@ public class WriteToFile {
 	 */
 	public static void writeIsAuction(Boolean isAuction, Context cont,
 			double aucFactor, Storage holder) {
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		editor.putBoolean("Is Auction", isAuction).apply();
 		editor.putFloat("Auction Factor", (float) aucFactor).apply();
@@ -204,7 +205,7 @@ public class WriteToFile {
 	 * Writes the use ID to file
 	 */
 	public static void storeID(long l, Context cont) {
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		editor.putLong("Use ID", l);
 		editor.apply();
@@ -214,7 +215,7 @@ public class WriteToFile {
 	 * Writes the token data to file to be read later
 	 */
 	public static void storeToken(AccessToken token, Context cont) {
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		editor.putString("Token", token.getToken());
 		editor.putString("Token Secret", token.getTokenSecret());
@@ -228,7 +229,7 @@ public class WriteToFile {
 	 * @param cont
 	 */
 	public static void writeTeamData(Storage holder, Context cont) {
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		StringBuilder oLineRanks = new StringBuilder(10000);
 
@@ -273,7 +274,7 @@ public class WriteToFile {
 				oLineRanks
 						.append("Signed Free Agents: &&Departing Free Agents: ");
 			} else {
-				oLineRanks.append(key + "##" + fa.get(0) + "&&" + fa.get(1)
+				oLineRanks.append(key + "##" + fa.get(0) + Constants.RANKINGS_DELIMITER + fa.get(1)
 						+ "%%%");
 			}
 		}
@@ -301,10 +302,10 @@ public class WriteToFile {
 	 */
 	public static void writeDraftData(Storage holder, Context cont,
 			String teamName, int teamCount, String noteStr) {
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		int nextDraft = ReadFromFile.readCurrDraft(cont) + 1;
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		StringBuilder secondaryData = new StringBuilder(1000);
 		secondaryData.append("PAA: " + df.format(Draft.paaTotal(holder.draft)));
 		if (ReadFromFile.readIsAuction(cont)) {
@@ -321,13 +322,13 @@ public class WriteToFile {
 			noteStr = "Comment: " + noteStr;
 		}
 		team.append(teamName + ": " + teamCount + " team league\n" + noteStr
-				+ "\n");
-		team.append("Quarterbacks: " + qbs + "\n");
-		team.append("Running Backs: " + rbs + "\n");
-		team.append("Wide Receivers: " + wrs + "\n");
-		team.append("Tight Ends: " + tes + "\n");
-		team.append("D/ST: " + ds + "\n");
-		team.append("Kickers: " + ks + "\n");
+				+ Constants.LINE_BREAK);
+		team.append(Constants.ML_QB_HEADER + qbs + Constants.LINE_BREAK);
+		team.append(Constants.ML_RB_HEADER + rbs + Constants.LINE_BREAK);
+		team.append(Constants.ML_WR_HEADER + wrs + Constants.LINE_BREAK);
+		team.append(Constants.ML_TE_HEADER + tes + Constants.LINE_BREAK);
+		team.append(Constants.ML_DEF_HEADER + ds + Constants.LINE_BREAK);
+		team.append(Constants.ML_K_HEADER + ks + Constants.LINE_BREAK);
 		editor.putString("Primary " + ReadFromFile.readCurrDraft(cont),
 				team.toString());
 		editor.putString("Secondary " + ReadFromFile.readCurrDraft(cont),
@@ -336,7 +337,7 @@ public class WriteToFile {
 	}
 
 	public static void writeFirstIsRegularSeason(Context cont) {
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		editor.putBoolean("Is regular season new " + Home.yearKey, false)
 				.apply();

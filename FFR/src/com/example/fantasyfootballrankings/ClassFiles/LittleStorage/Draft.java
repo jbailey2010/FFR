@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.app.Activity;
@@ -26,10 +27,12 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+
 import com.ffr.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 
@@ -127,19 +130,19 @@ public class Draft {
 	 */
 	public void draftPlayer(PlayerObject player, Draft draft, int paid,
 			Context cont) {
-		if (player.info.position.equals("QB")) {
+		if (player.info.position.equals(Constants.QB)) {
 			draft.qb.add(player);
 			newPick(player.values.secWorth, paid);
-		} else if (player.info.position.equals("RB")) {
+		} else if (player.info.position.equals(Constants.RB)) {
 			draft.rb.add(player);
 			newPick(player.values.secWorth, paid);
-		} else if (player.info.position.equals("WR")) {
+		} else if (player.info.position.equals(Constants.WR)) {
 			draft.wr.add(player);
 			newPick(player.values.secWorth, paid);
-		} else if (player.info.position.equals("TE")) {
+		} else if (player.info.position.equals(Constants.TE)) {
 			draft.te.add(player);
 			newPick(player.values.secWorth, paid);
-		} else if (player.info.position.equals("D/ST")) {
+		} else if (player.info.position.equals(Constants.DST)) {
 			draft.def.add(player);
 			newPick(player.values.secWorth, paid);
 		} else {
@@ -329,7 +332,7 @@ public class Draft {
 		ListView listWatch = (ListView) dialog
 				.findViewById(R.id.listview_search);
 		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		boolean isAuction = ReadFromFile.readIsAuction(cont);
 		for (String name : holder.draft.ignore) {
 			PlayerObject p = null;
@@ -414,7 +417,7 @@ public class Draft {
 			@Override
 			public void onClick(View v) {
 				Map<String, String> datum = new HashMap<String, String>();
-				DecimalFormat df = new DecimalFormat("#.##");
+				DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 				for (PlayerObject player : holder.players) {
 					if (player.info.name.equals(name)) {
 						if (isAuction) {
@@ -525,15 +528,15 @@ public class Draft {
 			Context cont, Dialog popup) {
 		for (PlayerObject player : holder.players) {
 			if (player.info.name.equals(name)) {
-				if (player.info.position.equals("QB")) {
+				if (player.info.position.equals(Constants.QB)) {
 					holder.draft.qb.remove(player);
-				} else if (player.info.position.equals("RB")) {
+				} else if (player.info.position.equals(Constants.RB)) {
 					holder.draft.rb.remove(player);
-				} else if (player.info.position.equals("WR")) {
+				} else if (player.info.position.equals(Constants.WR)) {
 					holder.draft.wr.remove(player);
-				} else if (player.info.position.equals("TE")) {
+				} else if (player.info.position.equals(Constants.TE)) {
 					holder.draft.te.remove(player);
-				} else if (player.info.position.equals("D/ST")) {
+				} else if (player.info.position.equals(Constants.DST)) {
 					holder.draft.def.remove(player);
 				} else {
 					holder.draft.k.remove(player);

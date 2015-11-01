@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
 import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.Rankings;
@@ -63,44 +64,44 @@ public class StorageAsyncTask {
 			Storage holder = (Storage) data[0];
 			Context cont = (Context) data[1];
 			WriteToFile.writeTeamData(holder, cont);
-			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR",
+			SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY,
 					0).edit();
 			// Rankings work
 			Set<String> playerData = new HashSet<String>();
 			for (PlayerObject player : holder.players) {
 				StringBuilder players = new StringBuilder(10000);
 				players.append(Double.toString(player.values.worth));
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(Double.toString(player.values.count));
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.info.name);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.info.team);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.info.position);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.info.adp);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.info.contractStatus);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.info.age);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.stats);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.injuryStatus);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.values.ecr);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.risk);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.values.points);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.values.paa);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.values.rosRank);
 				playerData.add(players.toString());
 			}
-			editor.putStringSet("Player Values", playerData).apply();
+			editor.putStringSet(Constants.PLAYER_RANKINGS_KEY, playerData).apply();
 			editor.apply();
 			return null;
 		}
@@ -155,44 +156,44 @@ public class StorageAsyncTask {
 			Storage holder = (Storage) data[0];
 			MathUtils.getPAA(holder, cont);
 			WriteToFile.writeTeamData(holder, cont);
-			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR",
+			SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY,
 					0).edit();
 			// Rankings work
 			Set<String> playerData = new HashSet<String>();
 			for (PlayerObject player : holder.players) {
 				StringBuilder players = new StringBuilder(10000);
 				players.append(Double.toString(player.values.worth));
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(Double.toString(player.values.count));
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.info.name);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.info.team);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.info.position);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.info.adp);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.info.contractStatus);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.info.age);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.stats);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.injuryStatus);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.values.ecr);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.risk);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.values.points);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.values.paa);
-				players.append("&&");
+				players.append(Constants.RANKINGS_DELIMITER);
 				players.append(player.values.rosRank);
 				playerData.add(players.toString());
 			}
-			editor.putStringSet("Player Values", playerData).apply();
+			editor.putStringSet(Constants.PLAYER_RANKINGS_KEY, playerData).apply();
 			return null;
 		}
 	}
@@ -238,7 +239,7 @@ public class StorageAsyncTask {
 			Context cont = (Context) data[1];
 			long start = (Long) data[2];
 			Set<String> checkExists = (Set<String>) data[3];
-			SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+			SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 			holder.players = new ArrayList<PlayerObject>();
 			holder.parsedPlayers = new HashSet<String>();
 			try {
@@ -272,7 +273,7 @@ public class StorageAsyncTask {
 
 			if (holder.maxProj() > 65) {
 				holder.isRegularSeason = false;
-				String set = prefs.getString("Draft Information",
+				String set = prefs.getString(Constants.DRAFT_STATUS_KEY,
 						"Doesn't matter");
 				String[] perSet = ManageInput.tokenize(set, '@', 1);
 				String[][] individual = new String[perSet.length][];

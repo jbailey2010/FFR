@@ -1,6 +1,7 @@
 package com.example.fantasyfootballrankings.ClassFiles.LittleStorage;
 
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 
 /**
  * Stores the roster numbers
@@ -39,28 +40,28 @@ public class Roster {
 	 * @return
 	 */
 	public boolean isRostered(PlayerObject player) {
-		if (player.info.position.equals("QB") && qbs == 0
+		if (player.info.position.equals(Constants.QB) && qbs == 0
 				&& (flex == null || flex.op == 0)) {
 			return false;
 		}
-		if (player.info.position.equals("RB")
+		if (player.info.position.equals(Constants.RB)
 				&& rbs == 0
 				&& (flex == null || flex.rbwr == 0 || flex.rbwrte == 0 || flex.op == 0)) {
 			return false;
 		}
-		if (player.info.position.equals("WR")
+		if (player.info.position.equals(Constants.WR)
 				&& wrs == 0
 				&& (flex == null || flex.rbwr == 0 || flex.rbwrte == 0 || flex.op == 0)) {
 			return false;
 		}
-		if (player.info.position.equals("TE") && tes == 0
+		if (player.info.position.equals(Constants.TE) && tes == 0
 				&& (flex == null || flex.op == 0 || flex.rbwrte == 0)) {
 			return false;
 		}
-		if (player.info.position.equals("D/ST") && def == 0) {
+		if (player.info.position.equals(Constants.DST) && def == 0) {
 			return false;
 		}
-		if (player.info.position.equals("K") && k == 0) {
+		if (player.info.position.equals(Constants.K) && k == 0) {
 			return false;
 		}
 		return true;

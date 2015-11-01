@@ -1,7 +1,6 @@
 package AsyncTasks;
 
 import java.io.IOException;
-
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +37,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseWF;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseYahoo;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.FantasyProsUtils;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
@@ -79,8 +79,8 @@ public class ParsingAsyncTask {
 		private int draftIter;
 
 		public ParseRanks(Activity activity, Storage holder) {
-			SharedPreferences prefs = activity.getSharedPreferences("FFR", 0);
-			draftIter = prefs.getInt("Parse Count", 0);
+			SharedPreferences prefs = activity.getSharedPreferences(Constants.SP_KEY, 0);
+			draftIter = prefs.getInt(Constants.RANKINGS_PARSE_COUNT_KEY, 0);
 			pdia = new ProgressDialog(activity);
 			pdia.setCancelable(false);
 			act = activity;
@@ -99,11 +99,12 @@ public class ParsingAsyncTask {
 			super.onPostExecute(result);
 			pdia.dismiss();
 			SharedPreferences.Editor editor = act
-					.getSharedPreferences("FFR", 0).edit();
+					.getSharedPreferences(Constants.SP_KEY, 0).edit();
 			if (draftIter >= 8) {
 				draftIter = -1;
 			}
-			editor.putInt("Parse Count", ++draftIter).apply();
+			editor.putInt(Constants.RANKINGS_PARSE_COUNT_KEY, ++draftIter)
+					.apply();
 			if (hold.players.size() > 1) {
 				((Rankings) act).intermediateHandleRankings(act);
 			}
@@ -215,10 +216,8 @@ public class ParsingAsyncTask {
 			}
 			if (holder.maxProj() < 70.0) {
 				holder.isRegularSeason = true;
-				System.out.println("Setting to true");
 			} else {
 				holder.isRegularSeason = false;
-				System.out.println("Setting to false, " + holder.maxProj());
 			}
 			publishProgress("Please wait, normalizing projections...");
 			MathUtils.getPAA(holder, cont);
@@ -371,43 +370,44 @@ public class ParsingAsyncTask {
 				HighLevel.parseECRWrapper(holder, cont);
 				MathUtils.getPAA(holder, cont);
 				SharedPreferences.Editor editor = cont.getSharedPreferences(
-						"FFR", 0).edit();
+						Constants.SP_KEY, 0).edit();
 				// Rankings work
 				Set<String> playerData = new HashSet<String>();
 				for (PlayerObject player : holder.players) {
 					StringBuilder players = new StringBuilder(10000);
 					players.append(Double.toString(player.values.worth));
-					players.append("&&");
+					players.append(Constants.RANKINGS_DELIMITER);
 					players.append(Double.toString(player.values.count));
-					players.append("&&");
+					players.append(Constants.RANKINGS_DELIMITER);
 					players.append(player.info.name);
-					players.append("&&");
+					players.append(Constants.RANKINGS_DELIMITER);
 					players.append(player.info.team);
-					players.append("&&");
+					players.append(Constants.RANKINGS_DELIMITER);
 					players.append(player.info.position);
-					players.append("&&");
+					players.append(Constants.RANKINGS_DELIMITER);
 					players.append(player.info.adp);
-					players.append("&&");
+					players.append(Constants.RANKINGS_DELIMITER);
 					players.append(player.info.contractStatus);
-					players.append("&&");
+					players.append(Constants.RANKINGS_DELIMITER);
 					players.append(player.info.age);
-					players.append("&&");
+					players.append(Constants.RANKINGS_DELIMITER);
 					players.append(player.stats);
-					players.append("&&");
+					players.append(Constants.RANKINGS_DELIMITER);
 					players.append(player.injuryStatus);
-					players.append("&&");
+					players.append(Constants.RANKINGS_DELIMITER);
 					players.append(player.values.ecr);
-					players.append("&&");
+					players.append(Constants.RANKINGS_DELIMITER);
 					players.append(player.risk);
-					players.append("&&");
+					players.append(Constants.RANKINGS_DELIMITER);
 					players.append(player.values.points);
-					players.append("&&");
+					players.append(Constants.RANKINGS_DELIMITER);
 					players.append(player.values.paa);
-					players.append("&&");
+					players.append(Constants.RANKINGS_DELIMITER);
 					players.append(player.values.rosRank);
 					playerData.add(players.toString());
 				}
-				editor.putStringSet("Player Values", playerData).apply();
+				editor.putStringSet(Constants.PLAYER_RANKINGS_KEY, playerData)
+						.apply();
 			} catch (IOException e) {
 				return null;
 			}
@@ -627,8 +627,8 @@ public class ParsingAsyncTask {
 					}
 					if (((isStart && !(name.equals(firstName) || name
 							.contains(firstName))) && !firstName
-							.contains("D/ST"))
-							|| (firstName.contains("D/ST") && !(name
+							.contains(Constants.DST))
+							|| (firstName.contains(Constants.DST) && !(name
 									.equals(team1) || name.contains(team1) || name
 										.contains(firstName.split(" D/ST")[0])))) {
 						List<String> newEcr = new ArrayList<String>();

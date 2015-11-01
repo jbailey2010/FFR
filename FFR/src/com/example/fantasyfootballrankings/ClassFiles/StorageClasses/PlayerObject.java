@@ -6,6 +6,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 
 /**
  * Handles the player objects. The specific info and subsequently relevant
@@ -55,13 +56,13 @@ public class PlayerObject {
 	 * Calculates the amount of points a player has scored so far
 	 */
 	public double pointsSoFar(Scoring s) {
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		double total = 0.0;
 		String stats = this.stats;
 		// Just Catches
 		if (stats.contains("Catch Rate: ")) {
 			int tgts = Integer
-					.valueOf(stats.split("Targets: ")[1].split("\n")[0]);
+					.valueOf(stats.split("Targets: ")[1].split(Constants.LINE_BREAK)[0]);
 			int catchRate = Integer.valueOf(stats.split("Catch Rate: ")[1]
 					.split("%\n")[0]);
 			double catchPercent = Integer.valueOf(catchRate).doubleValue() / 100.0;
@@ -71,67 +72,70 @@ public class PlayerObject {
 		// Just Fumbles
 		if (stats.contains("Fumbles: ")) {
 			total -= Integer
-					.valueOf(stats.split("Fumbles: ")[1].split("\n")[0])
+					.valueOf(stats.split("Fumbles: ")[1].split(Constants.LINE_BREAK)[0])
 					* s.fumble;
 		}
 		// QBs
 		if (stats.contains("Interceptions: ")) {
 			total -= Integer.valueOf(stats.split("Interceptions: ")[1]
-					.split("\n")[0]) * s.interception;
+					.split(Constants.LINE_BREAK)[0]) * s.interception;
 			total += Integer.valueOf(
-					stats.split("Yards: ")[1].split("\n")[0].replace(",", ""))
+					stats.split("Yards: ")[1].split(Constants.LINE_BREAK)[0]
+							.replace(",", ""))
 					.doubleValue()
 					/ s.passYards;
 			total += Integer
-					.valueOf(stats.split("Touchdowns: ")[1].split("\n")[0])
+					.valueOf(stats.split("Touchdowns: ")[1].split(Constants.LINE_BREAK)[0])
 					* s.passTD;
 			if (stats.contains("Rushing Yards")) {
 				total += Integer.valueOf(
-						stats.split("Rushing Yards: ")[1].split("\n")[0]
+						stats.split("Rushing Yards: ")[1].split(Constants.LINE_BREAK)[0]
 								.replace(",", "")).doubleValue()
 						/ s.rushYards;
 				total += Integer.valueOf(stats.split("Rushing Touchdowns: ")[1]
-						.split("\n")[0]) * s.rushTD;
+						.split(Constants.LINE_BREAK)[0]) * s.rushTD;
 			}
 		}
 		// RBs
 		else if (stats.contains("Carries: ")
 				&& (!stats.contains("Targets") || (stats.contains("Targets") && stats
 						.contains("Receiving Yards")))) {
-			total += Integer.valueOf(stats.split("Yards: ")[1].split("\n")[0]
-					.replace(",", "")) / s.rushYards;
+			total += Integer.valueOf(stats.split("Yards: ")[1].split(Constants.LINE_BREAK)[0]
+.replace(",", ""))
+					/ s.rushYards;
 			total += s.rushTD
 					* Integer.valueOf(stats.split("Touchdowns: ")[1]
-							.split("\n")[0]);
+							.split(Constants.LINE_BREAK)[0]);
 			if (stats.contains("Targets: ")) {
 				total += Integer.valueOf(
-						stats.split("Receiving Yards: ")[1].split("\n")[0]
+						stats.split("Receiving Yards: ")[1].split(Constants.LINE_BREAK)[0]
 								.replace(",", "")).doubleValue()
 						/ s.recYards;
 				total += s.recTD
 						* Integer
 								.valueOf(stats.split("Receiving Touchdowns: ")[1]
-										.split("\n")[0]);
+										.split(Constants.LINE_BREAK)[0]);
 			}
 		}
 		// WRs/TEs
 		else if (stats.contains("Targets: ")) {
 			total += Integer.valueOf(
-					stats.split("Yards: ")[1].split("\n")[0].replace(",", ""))
+					stats.split("Yards: ")[1].split(Constants.LINE_BREAK)[0]
+							.replace(",", ""))
 					.doubleValue()
 					/ s.recYards;
 			total += s.recTD
 					* Integer.valueOf(stats.split("Touchdowns: ")[1]
-							.split("\n")[0]);
+							.split(Constants.LINE_BREAK)[0]);
 			if (stats.contains("Rushes")) {
 				total += Integer.valueOf(
-						stats.split("Rushing Yards: ")[1].split("\n")[0])
+						stats.split("Rushing Yards: ")[1].split(Constants.LINE_BREAK)[0])
 						.doubleValue()
 						/ s.rushYards;
 				total += s.rushTD
 						* Integer
 								.valueOf(stats.split("Rushing Touchdowns: ")[1]
-										.split("\n")[0]);
+										.split(Constants.LINE_BREAK)[0]);
 			}
 		}
 		return Double.valueOf(df.format(total));

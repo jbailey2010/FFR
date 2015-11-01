@@ -322,7 +322,7 @@ public class TwitterWork {
 			List<Status> statuses = result.getTweets();
 			for (Status status : statuses) {
 				String header = status.getText();
-				String date = status.getUser().getName() + "\n"
+				String date = status.getUser().getName() + Constants.LINE_BREAK
 						+ status.getCreatedAt().toString();
 				StringBuilder replySet = new StringBuilder(1000);
 				int counter = 0;

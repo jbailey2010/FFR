@@ -47,6 +47,7 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTea
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.PlayerNewsActivity;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.TwitterWork;
@@ -258,7 +259,7 @@ public class PlayerInfo {
 				searchedPlayer = player;
 				break;
 			} else if (player.info.name.equals(playerName) && team.equals("")
-					&& pos.equals("") && player.info.position.equals("D/ST")) {
+					&& pos.equals("") && player.info.position.equals(Constants.DST)) {
 				searchedPlayer = player;
 				break;
 			}
@@ -285,7 +286,7 @@ public class PlayerInfo {
 									break;
 								}
 							}
-							DecimalFormat df = new DecimalFormat("#.##");
+							DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 							if (!notShown) {
 								Rankings.data.remove(index);
 								Rankings.adapter.notifyDataSetChanged();
@@ -356,9 +357,9 @@ public class PlayerInfo {
 					+ holder.bye.get(searchedPlayer.info.team));
 			Button centerPos = (Button) dialog
 					.findViewById(R.id.dummy_btn_center);
-			centerPos.setText(searchedPlayer.info.team + "\n"
+			centerPos.setText(searchedPlayer.info.team + Constants.LINE_BREAK
 					+ searchedPlayer.info.position);
-			if (searchedPlayer.info.position.equals("D/ST")
+			if (searchedPlayer.info.position.equals(Constants.DST)
 					|| searchedPlayer.info.age == null
 					|| searchedPlayer.info.age.length() <= 1) {
 				leftPos.setText("Age:\nN/A");
@@ -817,7 +818,7 @@ public class PlayerInfo {
 	 */
 	public void contentRankings(Context cont2) {
 		data.clear();
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		// Worth
 		if (!holder.isRegularSeason) {
 			Map<String, String> datumWorth = new HashMap<String, String>(2);
@@ -916,8 +917,8 @@ public class PlayerInfo {
 					datum.put("sub", "");
 					data.add(datum);
 				}
-			} else if (!searchedPlayer.info.adp.equals("Bye Week")) {
-				if (!searchedPlayer.info.position.equals("D/ST")) {
+			} else if (!searchedPlayer.info.adp.equals(Constants.BYE_WEEK)) {
+				if (!searchedPlayer.info.position.equals(Constants.DST)) {
 					datum.put("main", "Playing The " + searchedPlayer.info.adp);
 					if (holder.sos.get(searchedPlayer.info.adp + ","
 							+ searchedPlayer.info.position) != null) {
@@ -993,7 +994,7 @@ public class PlayerInfo {
 		}
 		// Risk
 		if (searchedPlayer.risk >= 0.0
-				&& !searchedPlayer.info.adp.equals("Bye Week")
+				&& !searchedPlayer.info.adp.equals(Constants.BYE_WEEK)
 				&& searchedPlayer.values.points > 0.0) {
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", searchedPlayer.risk + " Risk");
@@ -1020,7 +1021,7 @@ public class PlayerInfo {
 		String sub = "";
 		if (ManageInput.isInteger(searchedPlayer.info.age)
 				&& Integer.valueOf(searchedPlayer.info.age) > 0) {
-			sub += "Age: " + searchedPlayer.info.age + "\n";
+			sub += "Age: " + searchedPlayer.info.age + Constants.LINE_BREAK;
 		}
 		if (searchedPlayer.info.team.length() > 4) {
 			sub += "Bye: " + holder.bye.get(searchedPlayer.info.team);
@@ -1042,7 +1043,7 @@ public class PlayerInfo {
 			data.add(datum);
 		}
 		// Contract status
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		if (!holder.isRegularSeason
 				&& Draft.draftedMe(searchedPlayer.info.name, holder.draft)) {
 			Map<String, String> datum = new HashMap<String, String>(2);
@@ -1069,7 +1070,7 @@ public class PlayerInfo {
 			datum2.put("sub", "");
 			data.add(datum2);
 		}
-		if (!searchedPlayer.info.position.equals("D/ST")
+		if (!searchedPlayer.info.position.equals(Constants.DST)
 				&& !searchedPlayer.info.contractStatus
 						.contains("Under Contract")) {
 			Map<String, String> datum = new HashMap<String, String>(2);
@@ -1079,8 +1080,8 @@ public class PlayerInfo {
 		}
 		Scoring s = ReadFromFile.readScoring(a);
 		if (!holder.isRegularSeason
-				&& !searchedPlayer.info.position.equals("K")
-				&& !searchedPlayer.info.position.equals("D/ST")
+				&& !searchedPlayer.info.position.equals(Constants.K)
+				&& !searchedPlayer.info.position.equals(Constants.DST)
 				&& !(searchedPlayer.pointsSoFar(s) == 0.0)) {
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", searchedPlayer.pointsSoFar(s)
@@ -1088,8 +1089,8 @@ public class PlayerInfo {
 			datum.put("sub", "");
 			data.add(datum);
 		}
-		if (holder.isRegularSeason && !searchedPlayer.info.position.equals("K")
-				&& !searchedPlayer.info.position.equals("D/ST")
+		if (holder.isRegularSeason && !searchedPlayer.info.position.equals(Constants.K)
+				&& !searchedPlayer.info.position.equals(Constants.DST)
 				&& !(searchedPlayer.pointsSoFar(s) == 0.0)) {
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", searchedPlayer.pointsSoFar(s)
@@ -1098,8 +1099,8 @@ public class PlayerInfo {
 			data.add(datum);
 		}
 		// Injury status and stats
-		if (!searchedPlayer.info.position.equals("K")
-				&& !searchedPlayer.info.position.equals("D/ST")
+		if (!searchedPlayer.info.position.equals(Constants.K)
+				&& !searchedPlayer.info.position.equals(Constants.DST)
 				&& !searchedPlayer.stats.equals(" ")
 				&& searchedPlayer.stats.length() > 5) {
 			Map<String, String> datum = new HashMap<String, String>(2);
@@ -1108,14 +1109,14 @@ public class PlayerInfo {
 			if (searchedPlayer.stats.contains("Pass Attempts")
 					&& searchedPlayer.stats.contains("Interceptions")) {
 				String intsA = searchedPlayer.stats.split("Interceptions: ")[1]
-						.split("\n")[0];
+						.split(Constants.LINE_BREAK)[0];
 				int intA = Integer.parseInt(intsA);
 				String compA = searchedPlayer.stats
-						.split("Completion Percentage: ")[1].split("\n")[0]
-						.replace("%", "");
+						.split("Completion Percentage: ")[1].split(Constants.LINE_BREAK)[0]
+.replace("%", "");
 				double compPercent = Double.parseDouble(compA) / 100.0;
 				double attempts = Double.parseDouble(searchedPlayer.stats
-						.split("Pass Attempts: ")[1].split("\n")[0]);
+						.split("Pass Attempts: ")[1].split(Constants.LINE_BREAK)[0]);
 				double completions = attempts * compPercent;
 				double aDiff = (completions) / ((double) intA);
 				int rank = rankIntComp(holder, aDiff);
@@ -1154,8 +1155,8 @@ public class PlayerInfo {
 	public void contentTeam() {
 		data.clear();
 		// O line data
-		if (!searchedPlayer.info.position.equals("K")
-				&& !searchedPlayer.info.position.equals("D/ST")) {
+		if (!searchedPlayer.info.position.equals(Constants.K)
+				&& !searchedPlayer.info.position.equals(Constants.DST)) {
 			if (holder.oLineAdv.get(searchedPlayer.info.team) != null
 					&& holder.oLineAdv.get(searchedPlayer.info.team).length() > 3) {
 				Map<String, String> datum = new HashMap<String, String>(2);
@@ -1171,7 +1172,7 @@ public class PlayerInfo {
 		if (holder.draftClasses.get(searchedPlayer.info.team) != null
 				&& !holder.draftClasses.get(searchedPlayer.info.team).contains(
 						"null")
-				&& !searchedPlayer.info.position.equals("K")
+				&& !searchedPlayer.info.position.equals(Constants.K)
 				&& holder.draftClasses.get(searchedPlayer.info.team).length() > 4) {
 			Map<String, String> datum = new HashMap<String, String>(2);
 			String draft = holder.draftClasses.get(searchedPlayer.info.team)
@@ -1181,7 +1182,7 @@ public class PlayerInfo {
 							holder.draftClasses.get(searchedPlayer.info.team)
 									.length());
 			String gpa = holder.draftClasses.get(searchedPlayer.info.team)
-					.split("\n")[0];
+					.split(Constants.LINE_BREAK)[0];
 			datum.put("main", "Draft Recap:\n" + draft);
 			datum.put("sub", gpa);
 			data.add(datum);
@@ -1190,14 +1191,14 @@ public class PlayerInfo {
 		List<String> fa = holder.fa.get(searchedPlayer.info.team);
 		if (fa != null) {
 			if (fa.size() > 1) {
-				if (fa.get(0).contains("\n")) {
+				if (fa.get(0).contains(Constants.LINE_BREAK)) {
 					Map<String, String> datum = new HashMap<String, String>(2);
 					datum.put("main", "Signed Free Agents:\n\n"
 							+ fa.get(0).split(": ")[1]);
 					datum.put("sub", "");
 					data.add(datum);
 				}
-				if (fa.get(1).contains("\n")) {
+				if (fa.get(1).contains(Constants.LINE_BREAK)) {
 					Map<String, String> datum = new HashMap<String, String>(2);
 					datum.put("main", "Departing Free Agents:\n\n"
 							+ fa.get(1).split(": ")[1]);
@@ -1235,8 +1236,8 @@ public class PlayerInfo {
 					"Click to change note for this player\nClick and hold to clear the note");
 			data.add(datum);
 		}
-		if (!searchedPlayer.info.position.equals("K")
-				&& !searchedPlayer.info.position.equals("D/ST")) {
+		if (!searchedPlayer.info.position.equals(Constants.K)
+				&& !searchedPlayer.info.position.equals(Constants.DST)) {
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", "See tweets about this player");
 			datum.put("sub", "");
@@ -1367,18 +1368,18 @@ public class PlayerInfo {
 	public static int rankIntComp(Storage holder, double aDiff2) {
 		int rank = 1;
 		for (PlayerObject searchedPlayer : holder.players) {
-			if (searchedPlayer.info.position.equals("QB")
+			if (searchedPlayer.info.position.equals(Constants.QB)
 					&& searchedPlayer.stats.contains("Pass Attempts")
 					&& searchedPlayer.stats.contains("Interceptions")) {
 				String intsA = searchedPlayer.stats.split("Interceptions: ")[1]
-						.split("\n")[0];
+						.split(Constants.LINE_BREAK)[0];
 				int intA = Integer.parseInt(intsA);
 				String compA = searchedPlayer.stats
-						.split("Completion Percentage: ")[1].split("\n")[0]
-						.replace("%", "");
+						.split("Completion Percentage: ")[1].split(Constants.LINE_BREAK)[0]
+.replace("%", "");
 				double compPercent = Double.parseDouble(compA) / 100.0;
 				double attempts = Double.parseDouble(searchedPlayer.stats
-						.split("Pass Attempts: ")[1].split("\n")[0]);
+						.split("Pass Attempts: ")[1].split(Constants.LINE_BREAK)[0]);
 				double completions = attempts * compPercent;
 				double aDiff = (completions) / ((double) intA);
 				if (aDiff > aDiff2) {

@@ -25,6 +25,7 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTea
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.GraphingUtils;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.MathUtils;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
@@ -157,31 +158,31 @@ public class SortHandler {
 		Roster r = ReadFromFile.readRoster(cont);
 		positions.add("All Positions");
 		if (r.qbs != 0) {
-			positions.add("QB");
+			positions.add(Constants.QB);
 		}
 		if (r.rbs != 0) {
-			positions.add("RB");
+			positions.add(Constants.RB);
 		}
 		if (r.wrs != 0) {
-			positions.add("WR");
+			positions.add(Constants.WR);
 		}
 		if (r.rbs != 0 && r.wrs != 0) {
-			positions.add("RB/WR");
+			positions.add(Constants.RBWR);
 			if (r.tes != 0) {
-				positions.add("RB/WR/TE");
+				positions.add(Constants.RBWRTE);
 				if (r.qbs != 0) {
-					positions.add("QB/RB/WR/TE");
+					positions.add(Constants.QBRBWRTE);
 				}
 			}
 		}
 		if (r.tes != 0) {
-			positions.add("TE");
+			positions.add(Constants.TE);
 		}
 		if (r.def != 0) {
-			positions.add("D/ST");
+			positions.add(Constants.DST);
 		}
 		if (r.k != 0) {
-			positions.add("K");
+			positions.add(Constants.K);
 		}
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
 				context, android.R.layout.simple_spinner_dropdown_item, topics);
@@ -207,29 +208,29 @@ public class SortHandler {
 						position = (String) pos.getSelectedItem();
 						subject = (String) sort.getSelectedItem();
 						if ((subject.equals("Success Rate") && !(position
-								.equals("RB") || position
+								.equals(Constants.RB) || position
 								.equals("All Positions")))
 								|| (subject.equals("Yard Adjustment") && (position
-										.equals("D/ST") || position.equals("K")))
-								|| ((position.equals("RB")
-										|| position.equals("RB/WR")
-										|| position.equals("RB/WR/TE")
-										|| position.equals("WR")
-										|| position.equals("TE")
-										|| position.equals("K") || position
-											.equals("D/ST")) && subject
+										.equals(Constants.DST) || position.equals(Constants.K)))
+								|| ((position.equals(Constants.RB)
+										|| position.equals(Constants.RBWR)
+										|| position.equals(Constants.RBWRTE)
+										|| position.equals(Constants.WR)
+										|| position.equals(Constants.TE)
+										|| position.equals(Constants.K) || position
+											.equals(Constants.DST)) && subject
 										.equals("Completion to Int Ratio"))
 								|| ((subject.equals("Broken Tackles")) && (position
-										.equals("TE")
-										|| position.equals("D/ST") || position
-											.equals("K")))
+										.equals(Constants.TE)
+										|| position.equals(Constants.DST) || position
+											.equals(Constants.K)))
 								|| (subject
 										.equals("Rest of Season Positional Ranking") && position
-										.equals("D/ST"))
+										.equals(Constants.DST))
 								|| subject.equals("Targets")
-								&& (position.equals("QB")
-										|| position.equals("D/ST") || position
-											.equals("K"))) {
+								&& (position.equals(Constants.QB)
+										|| position.equals(Constants.DST) || position
+											.equals(Constants.K))) {
 							Toast.makeText(
 									context,
 									"That is not available for the selected position",
@@ -265,26 +266,26 @@ public class SortHandler {
 						position = (String) pos.getSelectedItem();
 						subject = (String) sort.getSelectedItem();
 						if ((subject.equals("Success Rate") && !(position
-								.equals("RB") || position
+								.equals(Constants.RB) || position
 								.equals("All Positions")))
 								|| (subject.equals("Yard Adjustment") && (position
-										.equals("D/ST") || position.equals("K")))
-								|| ((position.equals("RB")
-										|| position.equals("WR")
-										|| position.equals("RB/WR")
-										|| position.equals("RB/WR/TE")
-										|| position.equals("TE")
-										|| position.equals("K") || position
-											.equals("D/ST")) && subject
+										.equals(Constants.DST) || position.equals(Constants.K)))
+								|| ((position.equals(Constants.RB)
+										|| position.equals(Constants.WR)
+										|| position.equals(Constants.RBWR)
+										|| position.equals(Constants.RBWRTE)
+										|| position.equals(Constants.TE)
+										|| position.equals(Constants.K) || position
+											.equals(Constants.DST)) && subject
 										.equals("Completion to Int Ratio"))
 								|| ((subject.equals("Broken Tackles")) && (position
-										.equals("TE")
-										|| position.equals("D/ST") || position
-											.equals("K")))
+										.equals(Constants.TE)
+										|| position.equals(Constants.DST) || position
+											.equals(Constants.K)))
 								|| subject.equals("Targets")
-								&& (position.equals("QB")
-										|| position.equals("D/ST") || position
-											.equals("K"))) {
+								&& (position.equals(Constants.QB)
+										|| position.equals(Constants.DST) || position
+											.equals(Constants.K))) {
 							Toast.makeText(
 									context,
 									"That subject is not available for that position",
@@ -415,24 +416,24 @@ public class SortHandler {
 			int minimum, Context cont) {
 		HashSet<String> posList = new HashSet<String>();
 		if (position.equals("All Positions")) {
-			posList.add("QB");
-			posList.add("RB");
-			posList.add("WR");
-			posList.add("TE");
-			posList.add("D/ST");
-			posList.add("K");
-		} else if (position.equals("RB/WR")) {
-			posList.add("RB");
-			posList.add("WR");
-		} else if (position.equals("RB/WR/TE")) {
-			posList.add("RB");
-			posList.add("WR");
-			posList.add("TE");
-		} else if (position.equals("QB/RB/WR/TE")) {
-			posList.add("QB");
-			posList.add("RB");
-			posList.add("WR");
-			posList.add("TE");
+			posList.add(Constants.QB);
+			posList.add(Constants.RB);
+			posList.add(Constants.WR);
+			posList.add(Constants.TE);
+			posList.add(Constants.DST);
+			posList.add(Constants.K);
+		} else if (position.equals(Constants.RBWR)) {
+			posList.add(Constants.RB);
+			posList.add(Constants.WR);
+		} else if (position.equals(Constants.RBWRTE)) {
+			posList.add(Constants.RB);
+			posList.add(Constants.WR);
+			posList.add(Constants.TE);
+		} else if (position.equals(Constants.QBRBWRTE)) {
+			posList.add(Constants.QB);
+			posList.add(Constants.RB);
+			posList.add(Constants.WR);
+			posList.add(Constants.TE);
 		} else {
 			posList.add(position);
 		}
@@ -459,12 +460,12 @@ public class SortHandler {
 							int runRank = -1;
 							int passRank = -1;
 							if (oLine != null && !oLine.equals("")
-									&& oLine.contains("\n")) {
+									&& oLine.contains(Constants.LINE_BREAK)) {
 								runRank = Integer.parseInt(oLine.split(": ")[2]
-										.split("\n")[0]);
+										.split(Constants.LINE_BREAK)[0]);
 								passRank = Integer
 										.parseInt(oLine.split(": ")[1]
-												.split("\n")[0]);
+												.split(Constants.LINE_BREAK)[0]);
 							}
 							if (!run || (run && runRank > 0 && runRank < 17)) {
 								if (!pass
@@ -507,24 +508,24 @@ public class SortHandler {
 	public static void handleSortingBasic(Context cont) {
 		HashSet<String> posList = new HashSet<String>();
 		if (position.equals("All Positions")) {
-			posList.add("QB");
-			posList.add("RB");
-			posList.add("WR");
-			posList.add("TE");
-			posList.add("D/ST");
-			posList.add("K");
-		} else if (position.equals("RB/WR")) {
-			posList.add("RB");
-			posList.add("WR");
-		} else if (position.equals("RB/WR/TE")) {
-			posList.add("RB");
-			posList.add("WR");
-			posList.add("TE");
-		} else if (position.equals("QB/RB/WR/TE")) {
-			posList.add("QB");
-			posList.add("RB");
-			posList.add("WR");
-			posList.add("TE");
+			posList.add(Constants.QB);
+			posList.add(Constants.RB);
+			posList.add(Constants.WR);
+			posList.add(Constants.TE);
+			posList.add(Constants.DST);
+			posList.add(Constants.K);
+		} else if (position.equals(Constants.RBWR)) {
+			posList.add(Constants.RB);
+			posList.add(Constants.WR);
+		} else if (position.equals(Constants.RBWRTE)) {
+			posList.add(Constants.RB);
+			posList.add(Constants.WR);
+			posList.add(Constants.TE);
+		} else if (position.equals(Constants.QBRBWRTE)) {
+			posList.add(Constants.QB);
+			posList.add(Constants.RB);
+			posList.add(Constants.WR);
+			posList.add(Constants.TE);
 		} else {
 			posList.add(position);
 		}
@@ -683,9 +684,9 @@ public class SortHandler {
 					@Override
 					public int compare(PlayerObject a, PlayerObject b) {
 						int aVal = Integer.valueOf(a.stats.split("Targets: ")[1]
-								.split("\n")[0]);
+								.split(Constants.LINE_BREAK)[0]);
 						int bVal = Integer.valueOf(b.stats.split("Targets: ")[1]
-								.split("\n")[0]);
+								.split(Constants.LINE_BREAK)[0]);
 						if (aVal > bVal) {
 							return -1;
 						}
@@ -719,23 +720,25 @@ public class SortHandler {
 					@Override
 					public int compare(PlayerObject a, PlayerObject b) {
 						String intsA = a.stats.split("Interceptions: ")[1]
-								.split("\n")[0];
+								.split(Constants.LINE_BREAK)[0];
 						int intA = Integer.parseInt(intsA);
 						String compA = a.stats.split("Completion Percentage: ")[1]
-								.split("\n")[0].replace("%", "");
+								.split(Constants.LINE_BREAK)[0]
+								.replace("%", "");
 						double compPercent = Double.parseDouble(compA) / 100.0;
 						double attempts = Double.parseDouble(a.stats
-								.split("Pass Attempts: ")[1].split("\n")[0]);
+								.split("Pass Attempts: ")[1].split(Constants.LINE_BREAK)[0]);
 						double completions = attempts * compPercent;
 						double aDiff = (completions) / ((double) intA);
 						String intsB = b.stats.split("Interceptions: ")[1]
-								.split("\n")[0];
+								.split(Constants.LINE_BREAK)[0];
 						int intB = Integer.parseInt(intsB);
 						String compB = b.stats.split("Completion Percentage: ")[1]
-								.split("\n")[0].replace("%", "");
+								.split(Constants.LINE_BREAK)[0]
+								.replace("%", "");
 						double compPercentB = Double.parseDouble(compB) / 100.0;
 						double attemptsB = Double.parseDouble(b.stats
-								.split("Pass Attempts: ")[1].split("\n")[0]);
+								.split("Pass Attempts: ")[1].split(Constants.LINE_BREAK)[0]);
 						double completionsB = attemptsB * compPercentB;
 						double aDiff2 = (completionsB) / ((double) intB);
 						if (aDiff > aDiff2) {
@@ -765,21 +768,21 @@ public class SortHandler {
 					@Override
 					public int compare(PlayerObject a, PlayerObject b) {
 						String yardsStr = a.stats.split("Yards: ")[1]
-								.split("\n")[0];
+								.split(Constants.LINE_BREAK)[0];
 						int yards = Integer.parseInt(yardsStr.replaceAll(",",
 								""));
 						String adjStr = a.stats.split("Adjusted Yards: ")[1]
-								.split("\n")[0];
+								.split(Constants.LINE_BREAK)[0];
 						int adjYards = Integer.parseInt(adjStr.replaceAll(",",
 								""));
 						int aDiff = adjYards - yards;
 						String yardsStr2 = b.stats.split("Yards: ")[1]
-								.split("\n")[0];
+								.split(Constants.LINE_BREAK)[0];
 						int yards2 = Integer.parseInt(yardsStr2.replaceAll(",",
 								""));
 						int aDiff2 = -1000;
 						String adjStr2 = b.stats.split("Adjusted Yards: ")[1]
-								.split("\n")[0];
+								.split(Constants.LINE_BREAK)[0];
 						int adjYards2 = Integer.parseInt(adjStr2.replaceAll(
 								",", ""));
 						aDiff2 = adjYards2 - yards2;
@@ -798,9 +801,9 @@ public class SortHandler {
 					&& player.values.points >= minProj
 					&& player.stats.contains("Yards")
 					&& player.stats.contains("Adjusted Yards")
-					&& !player.stats.split("Adjusted Yards: ")[1].split("\n")[0]
+					&& !player.stats.split("Adjusted Yards: ")[1].split(Constants.LINE_BREAK)[0]
 							.contains("%")
-					&& !player.stats.split("Yards: ")[1].split("\n")[0]
+					&& !player.stats.split("Yards: ")[1].split(Constants.LINE_BREAK)[0]
 							.contains("%")) {
 				sorted.add(player);
 			}
@@ -1111,7 +1114,7 @@ public class SortHandler {
 	 */
 	public static void wrappingUp(PriorityQueue<PlayerObject> sorted,
 			final Context cont) {
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		ListView results = null;
 		if (isRankings) {
 			final Dialog dialog = new Dialog(context);
@@ -1267,14 +1270,14 @@ public class SortHandler {
 									+ df.format(ParseMath.avgPAAMap(holder, r,
 											elem)) + ": " + elem.info.name);
 					datum.put("sub", df.format(elem.values.paa) + " PAA, $"
-							+ df.format(elem.values.worth) + "\n" + baseECR
+							+ df.format(elem.values.worth) + Constants.LINE_BREAK + baseECR
 							+ elem.values.ecr);
 				} else if (subject.equals("Under Drafted")) {
 					double diff = Double.parseDouble(elem.info.adp)
 							- elem.values.ecr;
 					datum.put("main", output + df.format(diff) + ": "
 							+ elem.info.name);
-					datum.put("sub", "Projection: " + elem.values.points + "\n"
+					datum.put("sub", "Projection: " + elem.values.points + Constants.LINE_BREAK
 							+ "ADP: " + elem.info.adp + ", " + baseECR
 							+ elem.values.ecr);
 				} else if (subject.equals("PAA")) {
@@ -1289,7 +1292,7 @@ public class SortHandler {
 											/ elem.values.worth) + ": "
 									+ elem.info.name);
 					datum.put("sub", df.format(elem.values.paa) + " PAA, $"
-							+ df.format(elem.values.worth) + "\n" + baseECR
+							+ df.format(elem.values.worth) + Constants.LINE_BREAK + baseECR
 							+ elem.values.ecr);
 				} else if (subject.equals("Risk")) {
 					datum.put("main", output + df.format(elem.risk) + ": "
@@ -1305,7 +1308,7 @@ public class SortHandler {
 									+ ": " + elem.info.name);
 					datum.put(
 							"sub",
-							baseECR + elem.values.ecr + "\n" + "$"
+							baseECR + elem.values.ecr + Constants.LINE_BREAK + "$"
 									+ df.format(elem.values.worth) + ", "
 									+ df.format(elem.values.points)
 									+ " projection");
@@ -1337,10 +1340,10 @@ public class SortHandler {
 					datum.put("sub", baseECR + elem.values.ecr);
 				} else if (subject.equals("Yard Adjustment")) {
 					String yardsStr = elem.stats.split("Yards: ")[1]
-							.split("\n")[0];
+							.split(Constants.LINE_BREAK)[0];
 					int yards = Integer.parseInt(yardsStr.replaceAll(",", ""));
 					String adjStr = elem.stats.split("Adjusted Yards: ")[1]
-							.split("\n")[0];
+							.split(Constants.LINE_BREAK)[0];
 					int adjYards = Integer.parseInt(adjStr.replaceAll(",", ""));
 					int aDiff = adjYards - yards;
 					datum.put("main", output + aDiff + ": " + elem.info.name);
@@ -1348,13 +1351,13 @@ public class SortHandler {
 							+ adjYards + ", ECR: " + elem.values.ecr);
 				} else if (subject.equals("Completion to Int Ratio")) {
 					String intsA = elem.stats.split("Interceptions: ")[1]
-							.split("\n")[0];
+							.split(Constants.LINE_BREAK)[0];
 					int intA = Integer.parseInt(intsA);
 					String compA = elem.stats.split("Completion Percentage: ")[1]
-							.split("\n")[0].replace("%", "");
+							.split(Constants.LINE_BREAK)[0].replace("%", "");
 					double compPercent = Double.parseDouble(compA) / 100.0;
 					double attempts = Double.parseDouble(elem.stats
-							.split("Pass Attempts: ")[1].split("\n")[0]);
+							.split("Pass Attempts: ")[1].split(Constants.LINE_BREAK)[0]);
 					double completions = attempts * compPercent;
 					double aDiff = (completions) / ((double) intA);
 					datum.put("main", output + df.format(aDiff) + ": "
@@ -1363,7 +1366,7 @@ public class SortHandler {
 				} else if (subject.equals("Targets")) {
 					int targets = Integer
 							.valueOf(elem.stats.split("Targets: ")[1]
-									.split("\n")[0]);
+									.split(Constants.LINE_BREAK)[0]);
 					datum.put("main", output + targets + ": " + elem.info.name);
 					datum.put("sub", elem.values.rosRank
 							+ " ROS Positional Ranking");
@@ -1380,7 +1383,7 @@ public class SortHandler {
 							+ " Weekly Positional Ranking");
 				}
 				datum.put("sub", elem.info.position + " - " + elem.info.team
-						+ "\n" + datum.get("sub"));
+						+ Constants.LINE_BREAK + datum.get("sub"));
 				datum.put("hidden", hidden);
 				data.add(datum);
 			}
@@ -1408,7 +1411,7 @@ public class SortHandler {
 						.findViewById(R.id.text1)).getText().toString();
 				String tv2 = ((TextView) ((RelativeLayout) arg1)
 						.findViewById(R.id.text2)).getText().toString()
-						.split("\n")[0];
+						.split(Constants.LINE_BREAK)[0];
 				String selected = tv1.split(": ")[1];
 				PlayerInfo obj = new PlayerInfo();
 				obj.outputResults(selected + ", " + tv2, true,
@@ -1424,7 +1427,7 @@ public class SortHandler {
 							.findViewById(R.id.text1)).getText().toString();
 					String team = ((TextView) ((RelativeLayout) arg1)
 							.findViewById(R.id.text2)).getText().toString()
-							.split("\n")[0].split(" - ")[1];
+							.split(Constants.LINE_BREAK)[0].split(" - ")[1];
 					if (namePlayer.contains(":")) {
 						namePlayer = namePlayer.split(": ")[1];
 					}

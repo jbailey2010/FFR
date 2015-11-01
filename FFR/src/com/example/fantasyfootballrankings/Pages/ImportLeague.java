@@ -14,6 +14,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.MyLeagueSupport.CompareTeams;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LeagueList;
 import com.example.fantasyfootballrankings.MyLeagueSupport.LineupHelp;
@@ -115,7 +116,7 @@ public class ImportLeague extends Activity {
 		sideNavigationView.setMenuClickCallback(sideNavigationCallback);
 		// sideNavigationView.setMode(/*SideNavigationView.Mode*/);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		if (holder.players.size() < 10
 				|| prefs.getBoolean("Home Update Import", false)
 				|| prefs.getBoolean("Rankings Update Import", false)) {
@@ -128,10 +129,10 @@ public class ImportLeague extends Activity {
 					|| prefs.getBoolean("Home Update Import", false)
 					|| prefs.getBoolean("Rankings Update Import", false)) {
 				SharedPreferences.Editor editor = cont.getSharedPreferences(
-						"FFR", 0).edit();
+						Constants.SP_KEY, 0).edit();
 				editor.putBoolean("Home Update Import", false).apply();
 				editor.putBoolean("Rankings Update Import", false).apply();
-				Set<String> checkExists2 = prefs.getStringSet("Player Values",
+				Set<String> checkExists2 = prefs.getStringSet(Constants.PLAYER_RANKINGS_KEY,
 						null);
 				if (checkExists2 != null) {
 					ReadFromFile.fetchPlayers(checkExists2, holder, cont, 5);
@@ -279,8 +280,8 @@ public class ImportLeague extends Activity {
 	 * Clears all of the stored data
 	 */
 	public void clearImports() {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		editor.remove("ESPN Username");
 		editor.remove("ESPN Password");
@@ -458,7 +459,7 @@ public class ImportLeague extends Activity {
 			back.setVisible(false);
 			back.setEnabled(false);
 		}
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		ll.removeAllViews();
 		setActionBarTitle("My Leagues", null);
 		if (prefs.getInt("Number of Leagues Imported", 0) == 0) {
@@ -517,7 +518,7 @@ public class ImportLeague extends Activity {
 			back.setEnabled(false);
 		}
 		list.setAdapter(adapter);
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		String usedKeys = prefs.getString("Imported League Keys", "");
 		String[] keySet = ManageInput.tokenize(usedKeys, '~', 3);
 		for (String key : keySet) {
@@ -527,7 +528,7 @@ public class ImportLeague extends Activity {
 			String[] perTeam = ManageInput.tokenize(teamData, '@', 3);
 
 			datum.put("main", keySplit[1]);
-			datum.put("sub", "Hosted on " + keySplit[0] + "\n" + perTeam.length
+			datum.put("sub", "Hosted on " + keySplit[0] + Constants.LINE_BREAK + perTeam.length
 					+ " team league");
 			data.add(datum);
 			adapter.notifyDataSetChanged();
@@ -541,7 +542,7 @@ public class ImportLeague extends Activity {
 						.findViewById(R.id.text1)).getText().toString();
 				String keyPart2 = ((TextView) ((RelativeLayout) arg1)
 						.findViewById(R.id.text2)).getText().toString()
-						.split("Hosted on ")[1].split("\n")[0];
+						.split("Hosted on ")[1].split(Constants.LINE_BREAK)[0];
 				String key = keyPart2 + "@@@" + keyPart1;
 				handleLeaguePopulation(key);
 			}
@@ -575,7 +576,7 @@ public class ImportLeague extends Activity {
 		back = (MenuItem) menuObj.findItem(R.id.back_to_league_select);
 		back.setVisible(true);
 		back.setEnabled(true);
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		String leagueDataWhole = prefs.getString(key, "SHIT").split(
 				"LEAGUEURLSPLIT")[1];
 		String[] perTeam = ManageInput.tokenize(leagueDataWhole, '@', 3);
@@ -860,8 +861,8 @@ public class ImportLeague extends Activity {
 		String hostName = getActionBar().getSubtitle().toString()
 				.split("Hosted on ")[1];
 		String leagueName = getActionBar().getTitle().toString();
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		int numImported = prefs.getInt("Number of Leagues Imported", 1);
 		editor.putInt("Number of Leagues Imported", numImported - 1);
@@ -899,8 +900,8 @@ public class ImportLeague extends Activity {
 		String hostName = getActionBar().getSubtitle().toString()
 				.split("Hosted on ")[1];
 		String leagueName = getActionBar().getTitle().toString();
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
-		SharedPreferences.Editor editor = cont.getSharedPreferences("FFR", 0)
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
+		SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY, 0)
 				.edit();
 		int numImported = prefs.getInt("Number of Leagues Imported", 1);
 		editor.putInt("Number of Leagues Imported", numImported - 1);

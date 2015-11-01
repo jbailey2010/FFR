@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 
 public class ImportedTeam {
 	public List<TeamAnalysis> teams = new ArrayList<TeamAnalysis>();
@@ -20,34 +21,34 @@ public class ImportedTeam {
 	}
 
 	public boolean doesLeagueAllowPosition(String position) {
-		if ("RB/WR".equals(position)) {
-			return doesLeagueAllowPosition("RB")
-					&& doesLeagueAllowPosition("WR");
+		if (Constants.RBWR.equals(position)) {
+			return doesLeagueAllowPosition(Constants.RB)
+					&& doesLeagueAllowPosition(Constants.WR);
 		}
-		if ("RB/WR/TE".equals(position)) {
-			return doesLeagueAllowPosition("RB")
-					&& doesLeagueAllowPosition("WR")
-					&& doesLeagueAllowPosition("TE");
+		if (Constants.RBWRTE.equals(position)) {
+			return doesLeagueAllowPosition(Constants.RB)
+					&& doesLeagueAllowPosition(Constants.WR)
+					&& doesLeagueAllowPosition(Constants.TE);
 		}
-		if ("QB/RB/WR/TE".equals(position)) {
-			return doesLeagueAllowPosition("RB")
-					&& doesLeagueAllowPosition("WR")
-					&& doesLeagueAllowPosition("TE")
-					&& doesLeagueAllowPosition("QB");
+		if (Constants.QBRBWRTE.equals(position)) {
+			return doesLeagueAllowPosition(Constants.RB)
+					&& doesLeagueAllowPosition(Constants.WR)
+					&& doesLeagueAllowPosition(Constants.TE)
+					&& doesLeagueAllowPosition(Constants.QB);
 		}
-		if ("QB".equals(position)) {
+		if (Constants.QB.equals(position)) {
 			return (roster.qbs > 0 || (roster.flex != null && roster.flex.op > 0));
-		} else if ("RB".equals(position)) {
+		} else if (Constants.RB.equals(position)) {
 			return (roster.rbs > 0 || (roster.flex != null && (roster.flex.rbwr > 0
 					|| roster.flex.rbwrte > 0 || roster.flex.op > 0)));
-		} else if ("WR".equals(position)) {
+		} else if (Constants.WR.equals(position)) {
 			return (roster.wrs > 0 || (roster.flex != null && (roster.flex.rbwr > 0
 					|| roster.flex.rbwrte > 0 || roster.flex.op > 0)));
-		} else if ("TE".equals(position)) {
+		} else if (Constants.TE.equals(position)) {
 			return (roster.tes > 0 || (roster.flex != null && (roster.flex.rbwrte > 0 || roster.flex.op > 0)));
-		} else if ("D/ST".equals(position)) {
+		} else if (Constants.DST.equals(position)) {
 			return roster.def > 0;
-		} else if ("K".equals(position)) {
+		} else if (Constants.K.equals(position)) {
 			return roster.k > 0;
 		}
 		return false;

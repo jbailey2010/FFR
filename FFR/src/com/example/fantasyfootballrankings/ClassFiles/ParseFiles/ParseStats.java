@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
@@ -35,33 +36,35 @@ public class ParseStats {
 				name = name.split(" ")[0] + " " + name.split(" ")[2];
 			}
 			if (player[0].equals("Player")
-					|| (!qbPlayers.containsKey(name.toLowerCase() + "/" + team) && player.length < 17)) {
+					|| (!qbPlayers.containsKey(name.toLowerCase() + Constants.HASH_DELIMITER + team) && player.length < 17)) {
 				continue;
 			}
-			if (qbPlayers.containsKey(name.toLowerCase() + "/" + team)) {
+			if (qbPlayers.containsKey(name.toLowerCase() + Constants.HASH_DELIMITER + team)) {
 				String yards = player[player.length - 4];
 				String effectiveYards = player[player.length - 3];
 				String tds = player[player.length - 2];
-				String normal = qbPlayers.get(name.toLowerCase() + "/" + team);
-				normal += "\nRushing Yards: " + yards + "\n";
-				normal += "Adjusted Rushing Yards: " + effectiveYards + "\n";
+				String normal = qbPlayers.get(name.toLowerCase() + Constants.HASH_DELIMITER + team);
+				normal += "\nRushing Yards: " + yards + Constants.LINE_BREAK;
+				normal += "Adjusted Rushing Yards: " + effectiveYards + Constants.LINE_BREAK;
 				normal += "Rushing Touchdowns: " + tds;
-				qbPlayers.put(name.toLowerCase() + "/" + team, normal);
+				qbPlayers.put(name.toLowerCase() + Constants.HASH_DELIMITER + team, normal);
 				continue;
 			} else {
 				data.append("Pass Attempts: " + player[player.length - 9]
-						+ "\n");
+						+ Constants.LINE_BREAK);
 				data.append("Yards: "
-						+ player[player.length - 8].replace(",", "") + "\n");
+						+ player[player.length - 8].replace(",", "")
+						+ Constants.LINE_BREAK);
 				data.append("Adjusted Yards: "
-						+ player[player.length - 7].replace(",", "") + "\n");
-				data.append("Touchdowns: " + player[player.length - 6] + "\n");
+						+ player[player.length - 7].replace(",", "")
+						+ Constants.LINE_BREAK);
+				data.append("Touchdowns: " + player[player.length - 6] + Constants.LINE_BREAK);
 				data.append("Completion Percentage: "
-						+ player[player.length - 2] + "\n");
+						+ player[player.length - 2] + Constants.LINE_BREAK);
 				data.append("Interceptions: " + player[player.length - 3]
-						+ "\n");
+						+ Constants.LINE_BREAK);
 				data.append("Fumbles Lost: " + player[player.length - 4]);
-				qbPlayers.put(name.toLowerCase() + "/" + team, data.toString());
+				qbPlayers.put(name.toLowerCase() + Constants.HASH_DELIMITER + team, data.toString());
 			}
 		}
 		return qbPlayers;
@@ -90,21 +93,21 @@ public class ParseStats {
 			if (name.split(" ").length == 3) {
 				name = name.split(" ")[0] + " " + name.split(" ")[2];
 			}
-			if (rbPlayers.containsKey(name.toLowerCase() + "/" + team)) {
+			if (rbPlayers.containsKey(name.toLowerCase() + Constants.HASH_DELIMITER + team)) {
 				String catches = player[player.length - 6];
 				String yards = player[player.length - 5];
 				String effectiveYards = player[player.length - 4];
 				String tds = player[player.length - 3];
 				String catchRate = player[player.length - 2];
 				StringBuilder normal = new StringBuilder(rbPlayers.get(name
-						.toLowerCase() + "/" + team));
-				normal.append("\nTargets: " + catches + "\n");
-				normal.append("Catch Rate: " + catchRate + "\n");
-				normal.append("Receiving Yards: " + yards + "\n");
+						.toLowerCase() + Constants.HASH_DELIMITER + team));
+				normal.append("\nTargets: " + catches + Constants.LINE_BREAK);
+				normal.append("Catch Rate: " + catchRate + Constants.LINE_BREAK);
+				normal.append("Receiving Yards: " + yards + Constants.LINE_BREAK);
 				normal.append("Adjusted Receiving Yards: " + effectiveYards
-						+ "\n");
+						+ Constants.LINE_BREAK);
 				normal.append("Receiving Touchdowns: " + tds);
-				rbPlayers.put(name.toLowerCase() + "/" + team,
+				rbPlayers.put(name.toLowerCase() + Constants.HASH_DELIMITER + team,
 						normal.toString());
 				continue;
 			} else {
@@ -113,17 +116,17 @@ public class ParseStats {
 					incr = -1;
 				}
 				data.append("Carries: " + player[player.length - 6 + incr]
-						+ "\n");
+						+ Constants.LINE_BREAK);
 				data.append("Yards: "
 						+ player[player.length - 5 + incr].replace(",", "")
-						+ "\n");
+						+ Constants.LINE_BREAK);
 				data.append("Adjusted Yards: "
 						+ player[player.length - 4 + incr].replace(",", "")
-						+ "\n");
+						+ Constants.LINE_BREAK);
 				data.append("Touchdowns: " + player[player.length - 3 + incr]
-						+ "\n");
+						+ Constants.LINE_BREAK);
 				data.append("Fumbles: " + player[player.length - 2 + incr]);
-				rbPlayers.put(name.toLowerCase() + "/" + team, data.toString());
+				rbPlayers.put(name.toLowerCase() + Constants.HASH_DELIMITER + team, data.toString());
 			}
 		}
 		return rbPlayers;
@@ -152,30 +155,31 @@ public class ParseStats {
 			if (name.split(" ").length == 3) {
 				name = name.split(" ")[0] + " " + name.split(" ")[2];
 			}
-			if (!wrPlayers.containsKey(name.toLowerCase() + "/" + team)
+			if (!wrPlayers.containsKey(name.toLowerCase() + Constants.HASH_DELIMITER + team)
 					&& player[6].contains("%") && player[8].contains("%")
 					&& player.length < 15) {
 				continue;
 			}
-			if (wrPlayers.containsKey(name.toLowerCase() + "/" + team)) {
+			if (wrPlayers.containsKey(name.toLowerCase() + Constants.HASH_DELIMITER + team)) {
 				String rushes = player[player.length - 4];
 				String yards = player[player.length - 3];
 				String tds = player[player.length - 2];
-				String normal = wrPlayers.get(name.toLowerCase() + "/" + team);
-				normal += "\nRushes: " + rushes + "\n";
-				normal += "Rushing Yards: " + yards + "\n";
+				String normal = wrPlayers.get(name.toLowerCase() + Constants.HASH_DELIMITER + team);
+				normal += "\nRushes: " + rushes + Constants.LINE_BREAK;
+				normal += "Rushing Yards: " + yards + Constants.LINE_BREAK;
 				normal += "Rushing Touchdowns: " + tds;
-				wrPlayers.put(name.toLowerCase() + "/" + team, normal);
+				wrPlayers.put(name.toLowerCase() + Constants.HASH_DELIMITER + team, normal);
 				continue;
 			} else {
-				data.append("Targets: " + player[player.length - 7] + "\n");
-				data.append("Yards: " + player[player.length - 6] + "\n");
+				data.append("Targets: " + player[player.length - 7] + Constants.LINE_BREAK);
+				data.append("Yards: " + player[player.length - 6] + Constants.LINE_BREAK);
 				data.append("Adjusted Yards: "
-						+ player[player.length - 5].replace(",", "") + "\n");
-				data.append("Touchdowns: " + player[player.length - 4] + "\n");
-				data.append("Catch Rate: " + player[player.length - 3] + "\n");
+						+ player[player.length - 5].replace(",", "")
+						+ Constants.LINE_BREAK);
+				data.append("Touchdowns: " + player[player.length - 4] + Constants.LINE_BREAK);
+				data.append("Catch Rate: " + player[player.length - 3] + Constants.LINE_BREAK);
 				data.append("Fumbles: " + player[player.length - 2]);
-				wrPlayers.put(name.toLowerCase() + "/" + team, data.toString());
+				wrPlayers.put(name.toLowerCase() + Constants.HASH_DELIMITER + team, data.toString());
 			}
 		}
 		return wrPlayers;
@@ -204,19 +208,20 @@ public class ParseStats {
 			if (name.split(" ").length == 3) {
 				name = name.split(" ")[0] + " " + name.split(" ")[2];
 			}
-			if (!tePlayers.containsKey(name.toLowerCase() + "/" + team)
+			if (!tePlayers.containsKey(name.toLowerCase() + Constants.HASH_DELIMITER + team)
 					&& player[6].contains("%") && player[8].contains("%")
 					&& player.length < 15) {
 				continue;
 			}
-			data.append("Targets: " + player[player.length - 7] + "\n");
-			data.append("Yards: " + player[player.length - 6] + "\n");
+			data.append("Targets: " + player[player.length - 7] + Constants.LINE_BREAK);
+			data.append("Yards: " + player[player.length - 6] + Constants.LINE_BREAK);
 			data.append("Adjusted Yards: "
-					+ player[player.length - 5].replace(",", "") + "\n");
-			data.append("Touchdowns: " + player[player.length - 4] + "\n");
-			data.append("Catch Rate: " + player[player.length - 3] + "\n");
+					+ player[player.length - 5].replace(",", "")
+					+ Constants.LINE_BREAK);
+			data.append("Touchdowns: " + player[player.length - 4] + Constants.LINE_BREAK);
+			data.append("Catch Rate: " + player[player.length - 3] + Constants.LINE_BREAK);
 			data.append("Fumbles: " + player[player.length - 2]);
-			tePlayers.put(name.toLowerCase() + "/" + team, data.toString());
+			tePlayers.put(name.toLowerCase() + Constants.HASH_DELIMITER + team, data.toString());
 		}
 		return tePlayers;
 	}

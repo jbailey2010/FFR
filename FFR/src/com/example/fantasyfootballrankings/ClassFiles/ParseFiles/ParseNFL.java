@@ -23,6 +23,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
@@ -93,9 +94,9 @@ public class ParseNFL {
 					filter = j;
 					break;
 				}
-				if (nameSet[j].equals("QB") || nameSet[j].equals("RB")
-						|| nameSet[j].equals("WR") || nameSet[j].equals("TE")
-						|| nameSet[j].equals("K")) {
+				if (nameSet[j].equals(Constants.QB) || nameSet[j].equals(Constants.RB)
+						|| nameSet[j].equals(Constants.WR) || nameSet[j].equals(Constants.TE)
+						|| nameSet[j].equals(Constants.K)) {
 					filter = j;
 					break;
 				}

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.GraphingUtils;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
@@ -139,8 +140,8 @@ public class CompareTeams {
 				.generateGraphView(ImportLeague.cont);
 
 		int max = ImportLeague.newImport.teams.size() + 1;
-		String[] horizLabels = { "Starters", "QB", "RB", "WR", "TE", "D/ST",
-				"K" };
+		String[] horizLabels = { "Starters", Constants.QB, Constants.RB, Constants.WR, Constants.TE, Constants.DST,
+				Constants.K };
 		horizLabels = GraphingUtils.filterHorizontalAxis(horizLabels,
 				ImportLeague.newImport);
 		String[] vertLabels = new String[max - 1];
@@ -174,27 +175,27 @@ public class CompareTeams {
 		int counter = 0;
 		dataSet[counter++] = new GraphViewData(counter, max
 				- TeamList.rankPAAStart(ImportLeague.newImport, t));
-		if (ImportLeague.newImport.doesLeagueAllowPosition("QB")) {
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.QB)) {
 			dataSet[counter++] = new GraphViewData(counter, max
 					- TeamList.rankQBStart(ImportLeague.newImport, t));
 		}
-		if (ImportLeague.newImport.doesLeagueAllowPosition("RB")) {
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.RB)) {
 			dataSet[counter++] = new GraphViewData(counter, max
 					- TeamList.rankRBStart(ImportLeague.newImport, t));
 		}
-		if (ImportLeague.newImport.doesLeagueAllowPosition("WR")) {
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.WR)) {
 			dataSet[counter++] = new GraphViewData(counter, max
 					- TeamList.rankWRStart(ImportLeague.newImport, t));
 		}
-		if (ImportLeague.newImport.doesLeagueAllowPosition("TE")) {
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.TE)) {
 			dataSet[counter++] = new GraphViewData(counter, max
 					- TeamList.rankTEStart(ImportLeague.newImport, t));
 		}
-		if (ImportLeague.newImport.doesLeagueAllowPosition("D/ST")) {
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.DST)) {
 			dataSet[counter++] = new GraphViewData(counter, max
 					- TeamList.rankDStart(ImportLeague.newImport, t));
 		}
-		if (ImportLeague.newImport.doesLeagueAllowPosition("K")) {
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.K)) {
 			dataSet[counter++] = new GraphViewData(counter, max
 					- TeamList.rankKStart(ImportLeague.newImport, t));
 		}

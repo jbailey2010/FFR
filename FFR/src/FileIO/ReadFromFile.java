@@ -18,6 +18,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.Pages.Home;
 
 /**
@@ -36,9 +37,9 @@ public class ReadFromFile {
 	 * @param cont
 	 */
 	public static void readDraft(Storage holder, Context cont) {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		String[] perSet = prefs
-				.getString("Draft Information", "Doesn't matter").split("@");
+				.getString(Constants.DRAFT_STATUS_KEY, "Doesn't matter").split("@");
 		String[][] individual = new String[perSet.length][];
 		for (int j = 0; j < perSet.length; j++) {
 			individual[j] = perSet[j].split("~");
@@ -90,7 +91,7 @@ public class ReadFromFile {
 	 */
 	public static void fetchNames(Storage holder, Context cont)
 			throws IOException {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		holder.playerNames = (HashSet<String>) prefs.getStringSet(
 				"Player Names", null);
 	}
@@ -138,7 +139,7 @@ public class ReadFromFile {
 	 * @return the size
 	 */
 	public static int readFilterQuantitySize(Context cont, String flag) {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		if (flag.equals("Rankings")) {
 			return prefs.getInt("Filter Quantity Size Rankings", 50);
 		}
@@ -152,7 +153,7 @@ public class ReadFromFile {
 	 * @return
 	 */
 	public static List<String> readWatchList(Context cont) {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		List<String> watchList = new ArrayList<String>();
 		String watch = prefs.getString("Watch List", "");
 		String[] watchSet = ManageInput.tokenize(watch, '-', 4);
@@ -169,7 +170,7 @@ public class ReadFromFile {
 	 */
 	public static Scoring readScoring(Context cont) {
 		Scoring scoring = new Scoring();
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		scoring.passYards = prefs.getInt("Pass Yards", 25);
 		scoring.passTD = prefs.getInt("Pass Touchdowns", 4);
 		scoring.rushYards = prefs.getInt("Rush Yards", 10);
@@ -187,7 +188,7 @@ public class ReadFromFile {
 	 */
 	public static Scoring readScoring(Context cont, String key) {
 		Scoring scoring = new Scoring();
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		scoring.passYards = prefs.getInt("Pass Yards" + key, 25);
 		scoring.passTD = prefs.getInt("Pass Touchdowns" + key, 4);
 		scoring.rushYards = prefs.getInt("Rush Yards" + key, 10);
@@ -205,7 +206,7 @@ public class ReadFromFile {
 	 */
 	public static Roster readRoster(Context cont) {
 		Roster roster = new Roster();
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		roster.teams = prefs.getInt("Number of teams", 10);
 		roster.qbs = prefs.getInt("Starting QBs", 1);
 		roster.rbs = prefs.getInt("Starting RBs", 2);
@@ -223,7 +224,7 @@ public class ReadFromFile {
 	 */
 	public static Roster readRoster(Context cont, String key) {
 		Roster roster = new Roster();
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		roster.teams = prefs.getInt("Number of teams" + key, 10);
 		roster.qbs = prefs.getInt("Starting QBs" + key, 1);
 		roster.rbs = prefs.getInt("Starting RBs" + key, 2);
@@ -242,7 +243,7 @@ public class ReadFromFile {
 	 * @return
 	 */
 	private static Flex readFlex(Context cont) {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		int rbwr = prefs.getInt("Starting RB/WRs", 0);
 		int rbwrte = prefs.getInt("Starting RB/WR/TEs", 0);
 		int op = prefs.getInt("Starting OPs", 0);
@@ -259,7 +260,7 @@ public class ReadFromFile {
 	 * @return
 	 */
 	private static Flex readFlex(Context cont, String key) {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		int rbwr = prefs.getInt("Starting RB/WRs" + key, 0);
 		int rbwrte = prefs.getInt("Starting RB/WR/TEs" + key, 0);
 		int op = prefs.getInt("Starting OPs" + key, 0);
@@ -273,7 +274,7 @@ public class ReadFromFile {
 	 * Reads if it's the first usage of the app, defaulting to true
 	 */
 	public static boolean readFirstOpen(Context cont) {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		return prefs.getBoolean("First Open", true);
 	}
 
@@ -281,7 +282,7 @@ public class ReadFromFile {
 	 * Reads from file to see if it is an auction draft
 	 */
 	public static boolean readIsAuction(Context cont) {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		return prefs.getBoolean("Is Auction", true);
 	}
 
@@ -289,7 +290,7 @@ public class ReadFromFile {
 	 * Reads the use id from file
 	 */
 	public static long readUseID(Context cont) {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		return prefs.getLong("Use ID", -1);
 	}
 
@@ -297,7 +298,7 @@ public class ReadFromFile {
 	 * Reads the token from file
 	 */
 	public static String readToken(Context cont) {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		return prefs.getString("Token", "Not set");
 	}
 
@@ -305,7 +306,7 @@ public class ReadFromFile {
 	 * Reads the token secret from file
 	 */
 	public static String readTokenSecret(Context cont) {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		return prefs.getString("Token Secret", "Not set");
 	}
 
@@ -321,7 +322,7 @@ public class ReadFromFile {
 		holder.sos.clear();
 		holder.bye.clear();
 		holder.fa.clear();
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		String oLineStr = prefs.getString("Team By Team Data", "Not##Set");
 		String[] totalSet = oLineStr.split("@#@#");
 		try {
@@ -354,7 +355,7 @@ public class ReadFromFile {
 			// FA
 			perLevel = totalSet[4].split("%%%");
 			for (String team : perLevel) {
-				String[] fa = team.split("##")[1].split("&&");
+				String[] fa = team.split("##")[1].split(Constants.RANKINGS_DELIMITER);
 				List<String> faList = new ArrayList<String>();
 				faList.add(fa[0]);
 				faList.add(fa[1]);
@@ -391,7 +392,7 @@ public class ReadFromFile {
 			// FA
 			perLevel = totalSet[4].split("%%%");
 			for (String team : perLevel) {
-				String[] fa = team.split("##")[1].split("&&");
+				String[] fa = team.split("##")[1].split(Constants.RANKINGS_DELIMITER);
 				List<String> faList = new ArrayList<String>();
 				faList.add(fa[0]);
 				faList.add(fa[1]);
@@ -408,7 +409,7 @@ public class ReadFromFile {
 	 * @return
 	 */
 	static int readCurrDraft(Context cont) {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		return prefs.getInt("Current Draft", 0);
 	}
 
@@ -419,12 +420,12 @@ public class ReadFromFile {
 	 * @return
 	 */
 	public static double readAucFactor(Context cont) {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		return (double) prefs.getFloat("Auction Factor", (float) 1.0);
 	}
 
 	public static boolean firstIsRegularSeason(Context cont) {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
 		boolean needsRefresh = prefs.getBoolean("Is regular season new "
 				+ Home.yearKey, true);
 		if (needsRefresh) {

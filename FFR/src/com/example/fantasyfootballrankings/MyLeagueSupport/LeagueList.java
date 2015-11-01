@@ -28,6 +28,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.GraphingUtils;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
@@ -53,7 +54,7 @@ public class LeagueList {
 	 * @param res
 	 */
 	public static void setLeagueInfoList(View res) {
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		// Handles the statistic part of the layout
 		PriorityQueue<TeamAnalysis> totalPAA = new PriorityQueue<TeamAnalysis>(
 				300, new Comparator<TeamAnalysis>() {
@@ -213,24 +214,24 @@ public class LeagueList {
 			counter++;
 			TeamAnalysis iter = totalPAA.poll();
 			paaTotal.append(counter + ") " + iter.teamName + ": "
-					+ df.format(iter.totalProj) + "\n");
+					+ df.format(iter.totalProj) + Constants.LINE_BREAK);
 		}
 		counter = 0;
 		while (!startPAA.isEmpty()) {
 			counter++;
 			TeamAnalysis iter = startPAA.poll();
 			paaStart.append(counter + ") " + iter.teamName + ": "
-					+ df.format(iter.getStarterProj()) + "\n");
+					+ df.format(iter.getStarterProj()) + Constants.LINE_BREAK);
 		}
 		counter = 0;
 		while (!benchPAA.isEmpty()) {
 			counter++;
 			TeamAnalysis iter = benchPAA.poll();
 			paaBench.append(counter + ") " + iter.teamName + ": "
-					+ df.format(iter.totalProj - iter.getStarterProj()) + "\n");
+					+ df.format(iter.totalProj - iter.getStarterProj()) + Constants.LINE_BREAK);
 		}
 		counter = 0;
-		if (ImportLeague.newImport.doesLeagueAllowPosition("QB")) {
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.QB)) {
 			while (!qbProj.isEmpty()) {
 				counter++;
 				TeamAnalysis iter = qbProj.poll();
@@ -240,7 +241,7 @@ public class LeagueList {
 			}
 		}
 		counter = 0;
-		if (ImportLeague.newImport.doesLeagueAllowPosition("RB")) {
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.RB)) {
 			while (!rbProj.isEmpty()) {
 				counter++;
 				TeamAnalysis iter = rbProj.poll();
@@ -250,7 +251,7 @@ public class LeagueList {
 			}
 		}
 		counter = 0;
-		if (ImportLeague.newImport.doesLeagueAllowPosition("WR")) {
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.WR)) {
 			while (!wrProj.isEmpty()) {
 				counter++;
 				TeamAnalysis iter = wrProj.poll();
@@ -260,7 +261,7 @@ public class LeagueList {
 			}
 		}
 		counter = 0;
-		if (ImportLeague.newImport.doesLeagueAllowPosition("TE")) {
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.TE)) {
 			while (!teProj.isEmpty()) {
 				counter++;
 				TeamAnalysis iter = teProj.poll();
@@ -270,7 +271,7 @@ public class LeagueList {
 			}
 		}
 		counter = 0;
-		if (ImportLeague.newImport.doesLeagueAllowPosition("D/ST")) {
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.DST)) {
 			while (!dProj.isEmpty()) {
 				counter++;
 				TeamAnalysis iter = dProj.poll();
@@ -280,7 +281,7 @@ public class LeagueList {
 			}
 		}
 		counter = 0;
-		if (ImportLeague.newImport.doesLeagueAllowPosition("K")) {
+		if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.K)) {
 			while (!kProj.isEmpty()) {
 				counter++;
 				TeamAnalysis iter = kProj.poll();
@@ -394,7 +395,7 @@ public class LeagueList {
 		String header = headerText.getText().toString();
 		TextView content = (TextView) base.findViewById(R.id.text2);
 		String text = content.getText().toString();
-		String[] teamSet = text.split("\n");
+		String[] teamSet = text.split(Constants.LINE_BREAK);
 		String[] teams = new String[newImport.teams.size()];
 		String[] valSet = new String[newImport.teams.size()];
 		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[newImport.teams

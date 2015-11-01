@@ -22,7 +22,7 @@ public class MathUtils {
 	 */
 	public static double getLeverage(PlayerObject player, Storage holder,
 			Context cont) {
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		double maxWorth = 0.0;
 		double maxProj = 0.0;
 		for (PlayerObject iter : holder.players) {
@@ -269,17 +269,17 @@ public class MathUtils {
 					}
 				});
 		for (PlayerObject player : holder.players) {
-			if (player.info.position.equals("QB")) {
+			if (player.info.position.equals(Constants.QB)) {
 				qb.add(player);
-			} else if (player.info.position.equals("RB")) {
+			} else if (player.info.position.equals(Constants.RB)) {
 				rb.add(player);
-			} else if (player.info.position.equals("WR")) {
+			} else if (player.info.position.equals(Constants.WR)) {
 				wr.add(player);
-			} else if (player.info.position.equals("TE")) {
+			} else if (player.info.position.equals(Constants.TE)) {
 				te.add(player);
-			} else if (player.info.position.equals("D/ST")) {
+			} else if (player.info.position.equals(Constants.DST)) {
 				def.add(player);
-			} else if (player.info.position.equals("K")) {
+			} else if (player.info.position.equals(Constants.K)) {
 				k.add(player);
 			}
 		}
@@ -308,23 +308,23 @@ public class MathUtils {
 		dTotal /= dCounter;
 		kTotal /= kCounter;
 		for (PlayerObject player : holder.players) {
-			if ((player.info.position.equals("QB")
-					|| player.info.position.equals("RB")
-					|| player.info.position.equals("WR")
-					|| player.info.position.equals("TE")
-					|| player.info.position.equals("K") || player.info.position
-						.equals("D/ST")) && player.values.points != 0.0) {
-				if (player.info.position.equals("QB")) {
+			if ((player.info.position.equals(Constants.QB)
+					|| player.info.position.equals(Constants.RB)
+					|| player.info.position.equals(Constants.WR)
+					|| player.info.position.equals(Constants.TE)
+					|| player.info.position.equals(Constants.K) || player.info.position
+						.equals(Constants.DST)) && player.values.points != 0.0) {
+				if (player.info.position.equals(Constants.QB)) {
 					player.values.paa = player.values.points - qbTotal;
-				} else if (player.info.position.equals("RB")) {
+				} else if (player.info.position.equals(Constants.RB)) {
 					player.values.paa = player.values.points - rbTotal;
-				} else if (player.info.position.equals("WR")) {
+				} else if (player.info.position.equals(Constants.WR)) {
 					player.values.paa = player.values.points - wrTotal;
-				} else if (player.info.position.equals("TE")) {
+				} else if (player.info.position.equals(Constants.TE)) {
 					player.values.paa = player.values.points - teTotal;
-				} else if (player.info.position.equals("D/ST")) {
+				} else if (player.info.position.equals(Constants.DST)) {
 					player.values.paa = player.values.points - dTotal;
-				} else if (player.info.position.equals("K")) {
+				} else if (player.info.position.equals(Constants.K)) {
 					player.values.paa = player.values.points - kTotal;
 				}
 			}

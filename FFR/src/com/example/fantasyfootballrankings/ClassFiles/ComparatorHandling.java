@@ -9,6 +9,7 @@ import com.ffr.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 
 import AsyncTasks.ParsingAsyncTask;
@@ -100,7 +101,7 @@ public class ComparatorHandling {
 		for (PlayerObject player : holder.players) {
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", player.info.name);
-			if (!player.info.name.contains("D/ST")
+			if (!player.info.name.contains(Constants.DST)
 					&& player.info.position.length() >= 1
 					&& player.info.team.length() > 2) {
 				datum.put("sub", player.info.position + " - "
@@ -135,8 +136,7 @@ public class ComparatorHandling {
 						&& holder.parsedPlayers.contains(player2.getText()
 								.toString().split(", ")[0])) {
 					startBackEnd(dialog, cont, holder);
-				}
- else if (player2.getText().toString().length() > 0) {
+				} else if (player2.getText().toString().length() > 0) {
 					Toast.makeText(
 							cont,
 							"Please enter two valid player names, using the dropdown to help",
@@ -159,8 +159,7 @@ public class ComparatorHandling {
 						&& holder.parsedPlayers.contains(player1.getText()
 								.toString().split(", ")[0])) {
 					startBackEnd(dialog, cont, holder);
-				}
- else if (player1.getText().toString().length() > 0) {
+				} else if (player1.getText().toString().length() > 0) {
 					Toast.makeText(
 							cont,
 							"Please enter two valid player names, using the dropdown to help",
@@ -234,13 +233,13 @@ public class ComparatorHandling {
 			if (rank1 != rank2) {
 				if (rank1 < rank2) {
 					if (rank2 - rank1 > 10) {
-						p1.append("-Positionally much higher ranked" + "\n");
+						p1.append("-Positionally much higher ranked" + Constants.LINE_BREAK);
 					} else {
 						p1.append("-Positionally higher ranked\n");
 					}
 				} else {
 					if (rank1 - rank2 > 10) {
-						p2.append("-Positionally much higher ranked" + "\n");
+						p2.append("-Positionally much higher ranked" + Constants.LINE_BREAK);
 					} else {
 						p2.append("-Positionally higher ranked\n");
 					}
@@ -254,13 +253,13 @@ public class ComparatorHandling {
 			if (worth1 - worth2 > 10.0 / aucFactor) {
 				p2.append("-Costs much less\n");
 			} else {
-				p2.append("-Costs less" + "\n");
+				p2.append("-Costs less" + Constants.LINE_BREAK);
 			}
 		} else {
 			if (worth2 - worth1 > 10.0 / aucFactor) {
 				p1.append("-Costs much less\n");
 			} else {
-				p1.append("-Costs less" + "\n");
+				p1.append("-Costs less" + Constants.LINE_BREAK);
 			}
 		}
 		double paa1 = player1.values.paa;
@@ -289,13 +288,13 @@ public class ComparatorHandling {
 					if (age1 - age2 > 5) {
 						p2.append("-Much younger\n");
 					} else {
-						p2.append("-Younger" + "\n");
+						p2.append("-Younger" + Constants.LINE_BREAK);
 					}
 				} else {
 					if (age2 - age1 > 5) {
 						p1.append("-Much younger\n");
 					} else {
-						p1.append("-Younger" + "\n");
+						p1.append("-Younger" + Constants.LINE_BREAK);
 					}
 				}
 			}
@@ -306,13 +305,13 @@ public class ComparatorHandling {
 		int depth2 = teamDepth(player2, secTeam);
 		if (depth1 != depth2) {
 			if (depth1 < depth2) {
-				p1.append("-Higher on his team's depth chart" + "\n");
+				p1.append("-Higher on his team's depth chart" + Constants.LINE_BREAK);
 			} else {
-				p2.append("-Higher on his team's depth chart" + "\n");
+				p2.append("-Higher on his team's depth chart" + Constants.LINE_BREAK);
 			}
 		}
-		if (!(player1.info.position.equals("D/ST") || player2.info.position
-				.equals("D/ST"))) {
+		if (!(player1.info.position.equals(Constants.DST) || player2.info.position
+				.equals(Constants.DST))) {
 			double cast1 = teamWorth(firstTeam);
 			double cast2 = teamWorth(secTeam);
 			if (cast1 > cast2) {
@@ -481,8 +480,8 @@ public class ComparatorHandling {
 		if (sameBye2) {
 			p2.append("-Same bye as a player you've drafted of the same position\n");
 		}
-		p1.append("\n");
-		p2.append("\n");
+		p1.append(Constants.LINE_BREAK);
+		p2.append(Constants.LINE_BREAK);
 		fixOutput(new Dialog(cont, R.style.RoundCornersFull), cont, holder,
 				player1, player2, p1, p2);
 	}
@@ -610,7 +609,7 @@ public class ComparatorHandling {
 		if (player.info.team == null || "".equals(player.info.team)) {
 			return 33;
 		}
-		String[] split = holder.draftClasses.get(player.info.team).split("\n");
+		String[] split = holder.draftClasses.get(player.info.team).split(Constants.LINE_BREAK);
 		String average = split[0];
 		String rank = average.split("\\(")[1].substring(0,
 				average.split("\\(")[1].length() - 1);
@@ -633,15 +632,15 @@ public class ComparatorHandling {
 	 */
 	public static boolean teamBye(Storage holder, PlayerObject player) {
 		List<PlayerObject> draft = new ArrayList<PlayerObject>();
-		if (player.info.position.equals("QB")) {
+		if (player.info.position.equals(Constants.QB)) {
 			draft = holder.draft.qb;
-		} else if (player.info.position.equals("RB")) {
+		} else if (player.info.position.equals(Constants.RB)) {
 			draft = holder.draft.rb;
-		} else if (player.info.position.equals("WR")) {
+		} else if (player.info.position.equals(Constants.WR)) {
 			draft = holder.draft.wr;
-		} else if (player.info.position.equals("TE")) {
+		} else if (player.info.position.equals(Constants.TE)) {
 			draft = holder.draft.te;
-		} else if (player.info.position.equals("D/ST")) {
+		} else if (player.info.position.equals(Constants.DST)) {
 			draft = holder.draft.def;
 		} else {
 			draft = holder.draft.k;

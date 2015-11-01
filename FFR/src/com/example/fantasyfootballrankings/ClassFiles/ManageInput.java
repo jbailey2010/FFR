@@ -18,6 +18,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.Pages.Home;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 
@@ -103,7 +104,7 @@ public class ManageInput {
 		for (PlayerObject player : players) {
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", player.info.name);
-			if (!player.info.name.contains("D/ST")
+			if (!player.info.name.contains(Constants.DST)
 					&& player.info.position.length() >= 1
 					&& player.info.team.length() > 2) {
 				datum.put("sub", player.info.position + " - "
@@ -345,7 +346,7 @@ public class ManageInput {
 									(Activity) cont, ((Home) cont).holder);
 							task.execute(holder, cont);
 							SharedPreferences.Editor editor = cont
-									.getSharedPreferences("FFR", 0).edit();
+									.getSharedPreferences(Constants.SP_KEY, 0).edit();
 							editor.putBoolean("Home Update", true).apply();
 							editor.putBoolean("Home Update Draft", true)
 									.apply();
@@ -483,7 +484,7 @@ public class ManageInput {
 					WriteNewPAA task2 = obj.new WriteNewPAA(cont, true, false);
 					task2.execute(holder, cont);
 					SharedPreferences.Editor editor = cont
-							.getSharedPreferences("FFR", 0).edit();
+							.getSharedPreferences(Constants.SP_KEY, 0).edit();
 					editor.putBoolean("Home Update", true).apply();
 					editor.putBoolean("Home Update Draft", true).apply();
 					editor.putBoolean("Home Update Trending", true).apply();
@@ -596,7 +597,7 @@ public class ManageInput {
 						|| (ManageInput.isInteger(input) && a.isChecked() && Integer
 								.parseInt(input) > 0)) {
 					SharedPreferences.Editor editor = cont
-							.getSharedPreferences("FFR", 0).edit();
+							.getSharedPreferences(Constants.SP_KEY, 0).edit();
 					editor.putBoolean("Home Update", true).apply();
 					if ((!isAuction && a.isChecked())
 							|| (isAuction && s.isChecked())) {

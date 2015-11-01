@@ -14,6 +14,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 import com.example.fantasyfootballrankings.Pages.Home;
 
@@ -73,7 +74,7 @@ public class ParseFFTB {
 			String team = "";
 			String pos = "";
 			if (brokenUp.get(i + 2).equals("Def")) {
-				pos = "D/ST";
+				pos = Constants.DST;
 				name = ParseRankings.fixDefenses(ParseRankings
 						.fixTeams(brokenUp.get(i + 1)));
 				team = ParseRankings.fixTeams(brokenUp.get(i + 1));
@@ -149,23 +150,23 @@ public class ParseFFTB {
 		parseSOSWorker(
 "http://www.fftoolbox.com/football/" + Home.yearKey
 				+ "/points-allowed.cfm?pos=QB",
-				sos, "QB");
+				sos, Constants.QB);
 		parseSOSWorker(
 "http://www.fftoolbox.com/football/" + Home.yearKey
 				+ "/points-allowed.cfm?pos=RB",
-				sos, "RB");
+				sos, Constants.RB);
 		parseSOSWorker(
 "http://www.fftoolbox.com/football/" + Home.yearKey
 				+ "/points-allowed.cfm?pos=WR",
-				sos, "WR");
+				sos, Constants.WR);
 		parseSOSWorker(
 "http://www.fftoolbox.com/football/" + Home.yearKey
 				+ "/points-allowed.cfm?pos=TE",
-				sos, "TE");
+				sos, Constants.TE);
 		parseSOSWorker(
 "http://www.fftoolbox.com/football/" + Home.yearKey
 				+ "/points-allowed.cfm?pos=K",
-				sos, "K");
+				sos, Constants.K);
 		holder.sos = sos;
 	}
 

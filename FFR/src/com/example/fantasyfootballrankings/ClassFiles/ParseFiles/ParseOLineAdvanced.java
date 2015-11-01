@@ -11,6 +11,7 @@ import java.util.Set;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
@@ -41,7 +42,7 @@ public class ParseOLineAdvanced {
 
 			String team2 = ParseRankings.fixTeams(td.get(i + 12));
 			String sack = td.get(i + 15);
-			data.put(team2 + "/" + "pass", sack + " adjusted team sack rate ("
+			data.put(team2 + Constants.HASH_DELIMITER + "pass", sack + " adjusted team sack rate ("
 					+ td.get(i + 13) + ")\n");
 			data.put(team2 + "/passranks",
 					"Pass Block Ranking: " + td.get(i + 13));
@@ -68,13 +69,13 @@ public class ParseOLineAdvanced {
 					+ secLevelRank + ")\n");
 			runData.append(openField + " YPC earned 10+ yards past LOS ("
 					+ openFieldRank + ")");
-			data.put(team1 + "/" + "run", runData.toString());
+			data.put(team1 + Constants.HASH_DELIMITER + "run", runData.toString());
 			data.put(team1 + "/runranks", "Run Block Ranking: " + adjYPCRank);
 		}
 		List<String> teams = new ArrayList<String>();
 		Set<String> keys = data.keySet();
 		for (String key : keys) {
-			String team = key.split("/")[0];
+			String team = key.split(Constants.HASH_DELIMITER)[0];
 			if (!teams.contains(team)) {
 				teams.add(team);
 			}
@@ -118,8 +119,8 @@ public class ParseOLineAdvanced {
 			holder.oLineAdv.put(
 					team,
 					data.get(team + "/pass") + data.get(team + "/run") + "~~~~"
-							+ data.get(team + "/passranks") + "\n"
-							+ data.get(team + "/runranks") + "\n"
+							+ data.get(team + "/passranks") + Constants.LINE_BREAK
+							+ data.get(team + "/runranks") + Constants.LINE_BREAK
 							+ "Overall Ranking: "
 							+ data.get(team + "/overallranks"));
 		}

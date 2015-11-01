@@ -255,11 +255,11 @@ public class SideNavigationView extends LinearLayout {
                                 "http://schemas.android.com/apk/res/android",
                                 "id");
                         SideNavigationItem item = new SideNavigationItem();
-                        item.setId(Integer.valueOf(resId.replace("@", "")));
+                        item.setId(Integer.valueOf(resId.replace("@" + ", ")));
                         item.setText(resourceIdToString(textId));
                         if (iconId != null) {
                             try {
-                                item.setIcon(Integer.valueOf(iconId.replace("@", "")));
+                                item.setIcon(Integer.valueOf(iconId.replace("@" + ", ")));
                             } catch (NumberFormatException e) {
                                 Log.d(LOG_TAG, "Item " + item.getId() + " not have icon");
                             }
@@ -284,7 +284,7 @@ public class SideNavigationView extends LinearLayout {
         if (!resId.contains("@")) {
             return resId;
         } else {
-            String id = resId.replace("@", "");
+            String id = resId.replace("@" + ", ");
             return getResources().getString(Integer.valueOf(id));
         }
     }

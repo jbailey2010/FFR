@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
@@ -35,10 +36,10 @@ public class ParseInjuries {
 				injuryType = "Suspended";
 			}
 			String returnDate = perRow.get(++i);
-			String output = "Injury Status: " + status + "\n"
-					+ "Type of Injury: " + injuryType + "\n"
-					+ "Expected Return: " + returnDate + "\n";
-			injuries.put(name + "/" + pos, output);
+			String output = "Injury Status: " + status + Constants.LINE_BREAK
+					+ "Type of Injury: " + injuryType + Constants.LINE_BREAK
+					+ "Expected Return: " + returnDate + Constants.LINE_BREAK;
+			injuries.put(name + Constants.HASH_DELIMITER + pos, output);
 		}
 		return injuries;
 	}

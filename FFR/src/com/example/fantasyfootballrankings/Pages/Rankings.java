@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.Pages;
 
 import java.io.IOException;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -30,7 +29,9 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMath;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.*;
+
 import FileIO.ReadFromFile;
 import FileIO.WriteToFile;
 import android.os.Bundle;
@@ -297,22 +298,22 @@ public class Rankings extends Activity {
 		if (posList.size() != 7) {
 			posList.add("All Positions");
 			if (r.qbs != 0) {
-				posList.add("QB");
+				posList.add(Constants.QB);
 			}
 			if (r.rbs != 0) {
-				posList.add("RB");
+				posList.add(Constants.RB);
 			}
 			if (r.wrs != 0) {
-				posList.add("WR");
+				posList.add(Constants.WR);
 			}
 			if (r.tes != 0) {
-				posList.add("TE");
+				posList.add(Constants.TE);
 			}
 			if (r.def != 0) {
-				posList.add("D/ST");
+				posList.add(Constants.DST);
 			}
 			if (r.k != 0) {
-				posList.add("K");
+				posList.add(Constants.K);
 			}
 		}
 		if (teamList.size() != 33) {
@@ -380,22 +381,22 @@ public class Rankings extends Activity {
 		if (posList.size() != 7) {
 			posList.add("All Positions");
 			if (r.qbs != 0) {
-				posList.add("QB");
+				posList.add(Constants.QB);
 			}
 			if (r.rbs != 0) {
-				posList.add("RB");
+				posList.add(Constants.RB);
 			}
 			if (r.wrs != 0) {
-				posList.add("WR");
+				posList.add(Constants.WR);
 			}
 			if (r.tes != 0) {
-				posList.add("TE");
+				posList.add(Constants.TE);
 			}
 			if (r.def != 0) {
-				posList.add("D/ST");
+				posList.add(Constants.DST);
 			}
 			if (r.k != 0) {
-				posList.add("K");
+				posList.add(Constants.K);
 			}
 		}
 		teamList.clear();
@@ -435,7 +436,7 @@ public class Rankings extends Activity {
 		if (teamFilter.length() < 3) {
 			teamFilter = "All Teams";
 		}
-		if (posFilter.length() < 2 && !posFilter.equals("K")) {
+		if (posFilter.length() < 2 && !posFilter.equals(Constants.K)) {
 			posFilter = "All Teams";
 		}
 		final Spinner pos = (Spinner) dialog
@@ -505,15 +506,15 @@ public class Rankings extends Activity {
 	 */
 	public void handleRefresh() {
 
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
-		boolean exists = prefs.contains("Player Values");
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
+		boolean exists = prefs.contains(Constants.PLAYER_RANKINGS_KEY);
 		if ((exists && holder.players.size() == 0)
 				|| prefs.getBoolean("Home Update", false)) {
 			if (Home.holder.players != null && Home.holder.players.size() > 5) {
 				holder = Home.holder;
 				intermediateHandleRankings((Activity) cont);
 			} else {
-				Set<String> checkExists = prefs.getStringSet("Player Values",
+				Set<String> checkExists = prefs.getStringSet(Constants.PLAYER_RANKINGS_KEY,
 						null);
 				ReadFromFile.fetchPlayers(checkExists, holder, cont, 0);
 				SharedPreferences.Editor editor = prefs.edit();
@@ -622,7 +623,7 @@ public class Rankings extends Activity {
 		for (PlayerObject player : holder.players) {
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", player.info.name);
-			if (!player.info.name.contains("D/ST")
+			if (!player.info.name.contains(Constants.DST)
 					&& player.info.position.length() >= 1
 					&& player.info.team.length() > 2) {
 				datum.put("sub", player.info.position + " - "
@@ -686,7 +687,7 @@ public class Rankings extends Activity {
 	 * @param dialog
 	 */
 	public void moreInfo(final Dialog dialog) {
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.value_salary);
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -790,10 +791,10 @@ public class Rankings extends Activity {
 				break;
 			}
 			if (counter == 4) {
-				result += df.format(paaLeft) + "/";
+				result += df.format(paaLeft) + Constants.HASH_DELIMITER;
 			}
 			if (counter == 6) {
-				result += df.format(paaLeft) + "/";
+				result += df.format(paaLeft) + Constants.HASH_DELIMITER;
 			}
 		}
 		return result;
@@ -814,22 +815,22 @@ public class Rankings extends Activity {
 		TextView teLeft = (TextView) dialog.findViewById(R.id.te_paa_left);
 		Roster r = ReadFromFile.readRoster(context);
 		if (r.qbs != 0) {
-			qbLeft.setText("QB: " + paaDiff("QB", holder).split(": ")[1]);
+			qbLeft.setText("QB: " + paaDiff(Constants.QB, holder).split(": ")[1]);
 		} else {
 			qbLeft.setVisibility(View.GONE);
 		}
 		if (r.rbs != 0) {
-			rbLeft.setText("RB: " + paaDiff("RB", holder).split(": ")[1]);
+			rbLeft.setText("RB: " + paaDiff(Constants.RB, holder).split(": ")[1]);
 		} else {
 			rbLeft.setVisibility(View.GONE);
 		}
 		if (r.wrs != 0) {
-			wrLeft.setText("WR: " + paaDiff("WR", holder).split(": ")[1]);
+			wrLeft.setText("WR: " + paaDiff(Constants.WR, holder).split(": ")[1]);
 		} else {
 			wrLeft.setVisibility(View.GONE);
 		}
 		if (r.teams != 0) {
-			teLeft.setText("TE: " + paaDiff("TE", holder).split(": ")[1]);
+			teLeft.setText("TE: " + paaDiff(Constants.TE, holder).split(": ")[1]);
 		} else {
 			teLeft.setVisibility(View.GONE);
 		}
@@ -874,29 +875,29 @@ public class Rankings extends Activity {
 		TextView te = (TextView) dialog.findViewById(R.id.te_header);
 		TextView d = (TextView) dialog.findViewById(R.id.d_header);
 		TextView k = (TextView) dialog.findViewById(R.id.k_header);
-		qb.setText("Quarterbacks: " + qbs);
-		rb.setText("Running Backs: " + rbs);
-		wr.setText("Wide Receivers: " + wrs);
-		te.setText("Tight Ends: " + tes);
-		d.setText("D/ST: " + ds);
-		k.setText("Kickers: " + ks);
+		qb.setText(Constants.ML_QB_HEADER + qbs);
+		rb.setText(Constants.ML_RB_HEADER + rbs);
+		wr.setText(Constants.ML_WR_HEADER + wrs);
+		te.setText(Constants.ML_TE_HEADER + tes);
+		d.setText(Constants.ML_DEF_HEADER + ds);
+		k.setText(Constants.ML_K_HEADER + ks);
 		Roster r = ReadFromFile.readRoster(cont);
-		if (qb.getText().toString().contains("None selected") && r.qbs == 0) {
+		if (qb.getText().toString().contains(Constants.ML_NONE_SELECTED) && r.qbs == 0) {
 			qb.setVisibility(View.GONE);
 		}
-		if (rb.getText().toString().contains("None selected") && r.rbs == 0) {
+		if (rb.getText().toString().contains(Constants.ML_NONE_SELECTED) && r.rbs == 0) {
 			rb.setVisibility(View.GONE);
 		}
-		if (wr.getText().toString().contains("None selected") && r.wrs == 0) {
+		if (wr.getText().toString().contains(Constants.ML_NONE_SELECTED) && r.wrs == 0) {
 			wr.setVisibility(View.GONE);
 		}
-		if (te.getText().toString().contains("None selected") && r.tes == 0) {
+		if (te.getText().toString().contains(Constants.ML_NONE_SELECTED) && r.tes == 0) {
 			te.setVisibility(View.GONE);
 		}
-		if (d.getText().toString().contains("None selected") && r.def == 0) {
+		if (d.getText().toString().contains(Constants.ML_NONE_SELECTED) && r.def == 0) {
 			d.setVisibility(View.GONE);
 		}
-		if (k.getText().toString().contains("None selected") && r.k == 0) {
+		if (k.getText().toString().contains(Constants.ML_NONE_SELECTED) && r.k == 0) {
 			k.setVisibility(View.GONE);
 		}
 		dialog.show();
@@ -1068,7 +1069,7 @@ public class Rankings extends Activity {
 			Activity cont, double newSize) {
 		if (refreshed) {
 			WriteToFile.storeRankingsAsync(holder, (Context) cont);
-			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR",
+			SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY,
 					0).edit();
 			editor.putBoolean("Rankings Update Home", true).apply();
 			editor.putBoolean("Rankings Update Trending", true).apply();
@@ -1094,7 +1095,7 @@ public class Rankings extends Activity {
 		while (removedCt < newSize && !playerList.isEmpty()) {
 			removedCt++;
 			PlayerObject elem = playerList.poll();
-			DecimalFormat df = new DecimalFormat("#.##");
+			DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 			Map<String, String> datum = new HashMap<String, String>(2);
 			if (!holder.isRegularSeason) {
 				if (isAuction) {
@@ -1149,10 +1150,10 @@ public class Rankings extends Activity {
 		}
 		if (holder.isRegularSeason) {
 			if (!elem.info.adp.equals("Not set")
-					&& !(elem.info.adp.equals("Bye Week") || elem.values.points == 0.0)) {
+					&& !(elem.info.adp.equals(Constants.BYE_WEEK) || elem.values.points == 0.0)) {
 				sub.append("\nOpponent: " + elem.info.adp);
-				if (!elem.info.position.equals("D/ST")
-						&& !elem.info.adp.equals("Bye Week")
+				if (!elem.info.position.equals(Constants.DST)
+						&& !elem.info.adp.equals(Constants.BYE_WEEK)
 						&& holder.sos.get(elem.info.adp + ","
 								+ elem.info.position) != null) {
 					sub.append(" (SOS: "

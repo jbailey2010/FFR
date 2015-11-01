@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles;
 
 import java.io.IOException;
-
 import java.util.HashMap;
 
 import org.htmlcleaner.XPatherException;
@@ -10,6 +9,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseRanks;
@@ -322,7 +322,7 @@ public class ParseRankings {
 	public static String fixNames(String playerName) {
 		if (fixes.containsKey(playerName)) {
 			playerName = fixes.get(playerName);
-		} else if (playerName.contains("D/ST")) {
+		} else if (playerName.contains(Constants.DST)) {
 			playerName = fixDefenses(playerName);
 		} else if (playerName.contains("Beanie")) {
 			playerName = "Beanie Wells";

@@ -8,6 +8,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 public class ParseDraftWizardRanks {
@@ -56,7 +57,7 @@ public class ParseDraftWizardRanks {
 			String pos = teamPos.split(" - ")[1];
 			pos = pos.substring(0, pos.length() - 1);
 			if (pos.equals("DST")) {
-				pos = "D/ST";
+				pos = Constants.DST;
 			}
 			for (int j = 0; j < quantity; j++) {
 				ParseRankings.finalStretch(holder, playerName, aucVal, team,

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
@@ -57,7 +58,7 @@ public class ParseDraft {
 				round = "7";
 			}
 			String pick = round + " (" + pickStr + "): " + name + ", "
-					+ position + "\n";
+					+ position + Constants.LINE_BREAK;
 			if (picks.containsKey(team)) {
 				picks.put(team, picks.get(team) + pick);
 			} else {

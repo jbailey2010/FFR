@@ -19,7 +19,9 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleExport;
+
 import AsyncTasks.ParsingAsyncTask;
 import AsyncTasks.ParsingAsyncTask.ParseNames;
 import AsyncTasks.StorageAsyncTask;
@@ -124,8 +126,8 @@ public class Home extends Activity {
 		// crash on load
 		else if (ReadFromFile.firstIsRegularSeason(cont)) {
 			holder.players = new ArrayList<PlayerObject>();
-			SharedPreferences prefs = getSharedPreferences("FFR", 0);
-			prefs.edit().remove("Player Values").apply();
+			SharedPreferences prefs = getSharedPreferences(Constants.SP_KEY, 0);
+			prefs.edit().remove(Constants.PLAYER_RANKINGS_KEY).apply();
 			Intent intent = new Intent(this, Rankings.class);
 			startActivity(intent);
 		}
@@ -251,13 +253,13 @@ public class Home extends Activity {
 	 * haven't been fetched (initial opening of the app)
 	 */
 	public void handleInitialRefresh() {
-		SharedPreferences prefs = cont.getSharedPreferences("FFR", 0);
-		Set<String> checkExists = prefs.getStringSet("Player Values", null);
+		SharedPreferences prefs = cont.getSharedPreferences(Constants.SP_KEY, 0);
+		Set<String> checkExists = prefs.getStringSet(Constants.PLAYER_RANKINGS_KEY, null);
 		if (checkExists != null
 				&& (prefs.getBoolean("Rankings Update Home", false) || holder.players
 						.size() < 5)) {
 			ReadFromFile.fetchPlayers(checkExists, holder, cont, 1);
-			SharedPreferences.Editor editor = cont.getSharedPreferences("FFR",
+			SharedPreferences.Editor editor = cont.getSharedPreferences(Constants.SP_KEY,
 					0).edit();
 			editor.putBoolean("Rankings Update Home", false).apply();
 		}

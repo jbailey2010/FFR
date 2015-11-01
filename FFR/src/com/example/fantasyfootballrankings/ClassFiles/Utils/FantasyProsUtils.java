@@ -11,7 +11,7 @@ public class FantasyProsUtils {
 	}
 
 	public String playerNameUrl(String playerName, String teamName) {
-		if (!playerName.contains("D/ST")) {
+		if (!playerName.contains(Constants.DST)) {
 			String[] nameSet = playerName.toLowerCase().replaceAll("\\.", "")
 					.replaceAll("\\'", "").split(" ");
 			StringBuilder nameBuilder = new StringBuilder(100);

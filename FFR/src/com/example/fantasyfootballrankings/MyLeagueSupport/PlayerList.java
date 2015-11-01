@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.MyLeagueSupport;
 
 import java.io.IOException;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -35,6 +34,7 @@ import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTea
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.NDSpinner;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
@@ -77,32 +77,32 @@ public class PlayerList {
 		sortSp.clearFocus();
 		List<String> positions = new ArrayList<String>();
 		positions.add("All Positions");
-		if (newImport.doesLeagueAllowPosition("QB")) {
-			positions.add("QB");
+		if (newImport.doesLeagueAllowPosition(Constants.QB)) {
+			positions.add(Constants.QB);
 		}
-		if (newImport.doesLeagueAllowPosition("RB")) {
-			positions.add("RB");
+		if (newImport.doesLeagueAllowPosition(Constants.RB)) {
+			positions.add(Constants.RB);
 		}
-		if (newImport.doesLeagueAllowPosition("WR")) {
-			positions.add("WR");
+		if (newImport.doesLeagueAllowPosition(Constants.WR)) {
+			positions.add(Constants.WR);
 		}
-		if (newImport.doesLeagueAllowPosition("RB/WR")) {
-			positions.add("RB/WR");
+		if (newImport.doesLeagueAllowPosition(Constants.RBWR)) {
+			positions.add(Constants.RBWR);
 		}
-		if (newImport.doesLeagueAllowPosition("TE")) {
-			positions.add("TE");
+		if (newImport.doesLeagueAllowPosition(Constants.TE)) {
+			positions.add(Constants.TE);
 		}
-		if (newImport.doesLeagueAllowPosition("RB/WR/TE")) {
-			positions.add("RB/WR/TE");
+		if (newImport.doesLeagueAllowPosition(Constants.RBWRTE)) {
+			positions.add(Constants.RBWRTE);
 		}
-		if (newImport.doesLeagueAllowPosition("QB/RB/WR/TE")) {
-			positions.add("QB/RB/WR/TE");
+		if (newImport.doesLeagueAllowPosition(Constants.QBRBWRTE)) {
+			positions.add(Constants.QBRBWRTE);
 		}
-		if (newImport.doesLeagueAllowPosition("D/ST")) {
-			positions.add("D/ST");
+		if (newImport.doesLeagueAllowPosition(Constants.DST)) {
+			positions.add(Constants.DST);
 		}
-		if (newImport.doesLeagueAllowPosition("K")) {
-			positions.add("K");
+		if (newImport.doesLeagueAllowPosition(Constants.K)) {
+			positions.add(Constants.K);
 		}
 		List<String> playerStatus = new ArrayList<String>();
 		playerStatus.add("All Players");
@@ -239,7 +239,7 @@ public class PlayerList {
 						.split(":  ")[1];
 				String posTeam = ((TextView) ((RelativeLayout) arg1)
 						.findViewById(R.id.text2)).getText().toString()
-						.split("\n")[1];
+						.split(Constants.LINE_BREAK)[1];
 				PlayerInfo obj = new PlayerInfo();
 				obj.isImport = true;
 				obj.newImport = newImport;
@@ -255,28 +255,28 @@ public class PlayerList {
 	 */
 	public static void populatePlayerList(ListView list, String pos,
 			String status, String sortFactor) {
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		PriorityQueue<PlayerObject> players = null;
 		List<String> posList = new ArrayList<String>();
 		if (pos.equals("All Positions")) {
-			posList.add("QB");
-			posList.add("RB");
-			posList.add("WR");
-			posList.add("TE");
-			posList.add("D/ST");
-			posList.add("K");
-		} else if (pos.equals("RB/WR")) {
-			posList.add("RB");
-			posList.add("WR");
-		} else if (pos.equals("RB/WR/TE")) {
-			posList.add("RB");
-			posList.add("WR");
-			posList.add("TE");
-		} else if (pos.equals("QB/RB/WR/TE")) {
-			posList.add("RB");
-			posList.add("WR");
-			posList.add("TE");
-			posList.add("QB");
+			posList.add(Constants.QB);
+			posList.add(Constants.RB);
+			posList.add(Constants.WR);
+			posList.add(Constants.TE);
+			posList.add(Constants.DST);
+			posList.add(Constants.K);
+		} else if (pos.equals(Constants.RBWR)) {
+			posList.add(Constants.RB);
+			posList.add(Constants.WR);
+		} else if (pos.equals(Constants.RBWRTE)) {
+			posList.add(Constants.RB);
+			posList.add(Constants.WR);
+			posList.add(Constants.TE);
+		} else if (pos.equals(Constants.QBRBWRTE)) {
+			posList.add(Constants.RB);
+			posList.add(Constants.WR);
+			posList.add(Constants.TE);
+			posList.add(Constants.QB);
 		} else {
 			posList.add(pos);
 		}
@@ -416,11 +416,11 @@ public class PlayerList {
 				StringBuilder subInfo = new StringBuilder(100);
 				for (TeamAnalysis team : newImport.teams) {
 					if (team.team.contains(iter.info.name)) {
-						subInfo.append(team.teamName + "\n");
+						subInfo.append(team.teamName + Constants.LINE_BREAK);
 						break;
 					}
 				}
-				if (!subInfo.toString().contains("\n")) {
+				if (!subInfo.toString().contains(Constants.LINE_BREAK)) {
 					subInfo.append("Free Agent \n");
 				}
 				if (status.equals("Free Agents")
@@ -432,28 +432,28 @@ public class PlayerList {
 					continue;
 				}
 				subInfo.append(iter.info.position + " - " + iter.info.team
-						+ "\n");
+						+ Constants.LINE_BREAK);
 				if (ImportLeague.holder.isRegularSeason
 						&& (iter.values.points > 0.0 || iter.info.adp
-								.equals("Bye Week"))) {
+								.equals(Constants.BYE_WEEK))) {
 					if (iter.values.rosRank > 0) {
 						subInfo.append("ROS Positional Rank: "
-								+ iter.values.rosRank + "\n");
+								+ iter.values.rosRank + Constants.LINE_BREAK);
 					}
 					if (iter.values.ecr.intValue() != -1) {
 						subInfo.append("Weekly Positional Rank: "
-								+ iter.values.ecr.intValue() + "\n");
+								+ iter.values.ecr.intValue() + Constants.LINE_BREAK);
 					}
 				} else {
 					subInfo.append("Preseason Expert Rank: "
-							+ iter.values.ecr.intValue() + "\n");
+							+ iter.values.ecr.intValue() + Constants.LINE_BREAK);
 				}
 				if (iter.values.points > 0.0) {
 					if (!iter.info.adp.contains("Not set")) {
 						if (ImportLeague.holder.isRegularSeason) {
 							subInfo.append("Opponent: " + iter.info.adp);
 						}
-						if (!iter.info.adp.equals("Bye Week")
+						if (!iter.info.adp.equals(Constants.BYE_WEEK)
 								&& ((!ImportLeague.holder.isRegularSeason && ImportLeague.holder.sos
 										.keySet().contains(
 												iter.info.team + ","
@@ -476,7 +476,7 @@ public class PlayerList {
 							}
 						}
 					} else {
-						subInfo.append("Bye Week");
+						subInfo.append(Constants.BYE_WEEK);
 					}
 				}
 				datum.put("sub", subInfo.toString());

@@ -26,6 +26,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
 
@@ -175,17 +176,17 @@ public class RosterTips {
 				base.setVisibility(View.VISIBLE);
 				output.setVisibility(View.VISIBLE);
 				String faTypeKey = arg2 == 0 ? "ROS" : "weekly";
-				parseFAData(faMoves(team, "QB", arg2), outputS, "QB",
+				parseFAData(faMoves(team, Constants.QB, arg2), outputS, Constants.QB,
 						faTypeKey, arg2);
-				parseFAData(faMoves(team, "RB", arg2), outputS, "RB",
+				parseFAData(faMoves(team, Constants.RB, arg2), outputS, Constants.RB,
 						faTypeKey, arg2);
-				parseFAData(faMoves(team, "WR", arg2), outputS, "WR",
+				parseFAData(faMoves(team, Constants.WR, arg2), outputS, Constants.WR,
 						faTypeKey, arg2);
-				parseFAData(faMoves(team, "TE", arg2), outputS, "TE",
+				parseFAData(faMoves(team, Constants.TE, arg2), outputS, Constants.TE,
 						faTypeKey, arg2);
-				parseFAData(faMoves(team, "D/ST", arg2), outputS, "D/ST",
+				parseFAData(faMoves(team, Constants.DST, arg2), outputS, Constants.DST,
 						faTypeKey, arg2);
-				parseFAData(faMoves(team, "K", arg2), outputS, "K", faTypeKey,
+				parseFAData(faMoves(team, Constants.K, arg2), outputS, Constants.K, faTypeKey,
 						arg2);
 				output.setText(outputS.toString());
 			}
@@ -283,7 +284,7 @@ public class RosterTips {
 			iter = team.players;
 		}
 		if (flag == 1) {
-			String[] middle = team.stringifyLineup().toString().split("\n");
+			String[] middle = team.stringifyLineup().toString().split(Constants.LINE_BREAK);
 			for (String posIter : middle) {
 				String[] players = posIter.split(": ")[1].split(", ");
 				for (String name : players) {

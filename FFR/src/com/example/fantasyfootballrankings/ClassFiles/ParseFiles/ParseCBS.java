@@ -7,6 +7,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
@@ -35,16 +36,16 @@ public class ParseCBS {
 				"table.multiColumn td");
 		int min = 0;
 		for (int i = 0; i < td.size(); i++) {
-			if (td.get(i).equals("Quarterbacks")) {
+			if (td.get(i).equals(Constants.ML_QB)) {
 				min = i + 1;
 				break;
 			}
 		}
 		for (int i = min; i < td.size(); i += 2) {
-			if (td.get(i).equals("Running Backs")
-					|| td.get(i).equals("Wide Receivers")
-					|| td.get(i).equals("Tight Ends")
-					|| td.get(i).equals("Kickers")
+			if (td.get(i).equals(Constants.ML_RB)
+					|| td.get(i).equals(Constants.ML_WR)
+					|| td.get(i).equals(Constants.ML_TE)
+					|| td.get(i).equals(Constants.ML_K)
 					|| td.get(i).equals("Defensive Special Teams")) {
 				i++;
 			}

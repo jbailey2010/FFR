@@ -1,7 +1,6 @@
 package com.example.fantasyfootballrankings.ClassFiles.ParseFiles;
 
 import java.io.IOException;
-
 import java.util.List;
 
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
@@ -9,6 +8,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Scoring;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 
 /**
@@ -60,7 +60,7 @@ public class ParseWF {
 				pos = all[i][1];
 			} else {
 				playerName += " D/ST";
-				pos = "D/ST";
+				pos = Constants.DST;
 			}
 			val = Integer
 					.parseInt(perPlayer.get(i).split("\\$")[1].split(" ")[0]);

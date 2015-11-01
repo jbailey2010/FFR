@@ -65,12 +65,12 @@ public class GraphingUtils {
 	public static String[] filterHorizontalAxis(String[] input,
 			ImportedTeam team) {
 		List<String> axis = new LinkedList<String>(Arrays.asList(input));
-		filterPositionFromAxis(axis, "QB", team);
-		filterPositionFromAxis(axis, "RB", team);
-		filterPositionFromAxis(axis, "WR", team);
-		filterPositionFromAxis(axis, "TE", team);
-		filterPositionFromAxis(axis, "D/ST", team);
-		filterPositionFromAxis(axis, "K", team);
+		filterPositionFromAxis(axis, Constants.QB, team);
+		filterPositionFromAxis(axis, Constants.RB, team);
+		filterPositionFromAxis(axis, Constants.WR, team);
+		filterPositionFromAxis(axis, Constants.TE, team);
+		filterPositionFromAxis(axis, Constants.DST, team);
+		filterPositionFromAxis(axis, Constants.K, team);
 		return axis.toArray(new String[axis.size()]);
 	}
 

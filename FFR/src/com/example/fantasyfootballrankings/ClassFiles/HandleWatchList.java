@@ -12,6 +12,7 @@ import com.ffr.fantasyfootballrankings.R;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Draft;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.InterfaceAugmentations.SwipeDismissListViewTouchListener;
 import com.example.fantasyfootballrankings.Pages.Rankings;
 
@@ -185,7 +186,7 @@ public class HandleWatchList {
 		while (!totalList.isEmpty()) {
 			Map<String, String> datum = new HashMap<String, String>(2);
 			PlayerObject iter = totalList.poll();
-			DecimalFormat df = new DecimalFormat("#.##");
+			DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 			String val = "";
 			if (!holder.isRegularSeason) {
 				if (isAuction) {
@@ -218,7 +219,7 @@ public class HandleWatchList {
 				datum.put(
 						"info",
 						datum.get("info")
-								+ "\n"
+								+ Constants.LINE_BREAK
 								+ holder.notes.get(iter.info.name
 										+ iter.info.position));
 			}
@@ -248,7 +249,7 @@ public class HandleWatchList {
 				String selected = nameText.split(": ")[1];
 				String posTeam = ((TextView) ((RelativeLayout) arg1)
 						.findViewById(R.id.text2)).getText().toString()
-						.split("\n")[0];
+						.split(Constants.LINE_BREAK)[0];
 				dialog.dismiss();
 				PlayerInfo obj = new PlayerInfo();
 				obj.outputResults(selected + ", " + posTeam, true,

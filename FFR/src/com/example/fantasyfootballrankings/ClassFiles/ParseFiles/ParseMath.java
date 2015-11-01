@@ -8,6 +8,7 @@ import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 
 /**
  * A library to build auction values mathematically
@@ -92,12 +93,12 @@ public class ParseMath {
 	 */
 	public static HashMap<String, Double> initPAA1Map(Storage holder) {
 		HashMap<String, Double> zMap = new HashMap<String, Double>();
-		zMap.put("QB", avgPAAPos(holder, "QB"));
-		zMap.put("RB", avgPAAPos(holder, "RB"));
-		zMap.put("WR", avgPAAPos(holder, "WR"));
-		zMap.put("TE", avgPAAPos(holder, "TE"));
-		zMap.put("D/ST", avgPAAPos(holder, "D/ST"));
-		zMap.put("K", avgPAAPos(holder, "K"));
+		zMap.put(Constants.QB, avgPAAPos(holder, Constants.QB));
+		zMap.put(Constants.RB, avgPAAPos(holder, Constants.RB));
+		zMap.put(Constants.WR, avgPAAPos(holder, Constants.WR));
+		zMap.put(Constants.TE, avgPAAPos(holder, Constants.TE));
+		zMap.put(Constants.DST, avgPAAPos(holder, Constants.DST));
+		zMap.put(Constants.K, avgPAAPos(holder, Constants.K));
 		return zMap;
 	}
 
@@ -110,17 +111,17 @@ public class ParseMath {
 			PlayerObject player, double discretCash, Roster r) {
 		double coeff = player.values.paa / map.get(player.info.position);
 		double possVal = discretCash * coeff + 1.0;
-		if (player.info.position.equals("RB")) {
+		if (player.info.position.equals(Constants.RB)) {
 			possVal *= 1.1;
 		}
-		if (player.info.position.equals("QB")
+		if (player.info.position.equals(Constants.QB)
 				&& (r.qbs > 1 || (r.flex != null && r.flex.op > 0))) {
 			possVal *= 1.05;
 		}
-		if (player.info.position.equals("D/ST")) {
+		if (player.info.position.equals(Constants.DST)) {
 			possVal /= 10;
 		}
-		if (player.info.position.equals("K")) {
+		if (player.info.position.equals(Constants.K)) {
 			possVal /= 20;
 		}
 		possVal *= 1.1;

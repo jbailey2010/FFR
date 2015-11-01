@@ -1,5 +1,7 @@
 package com.example.fantasyfootballrankings.ClassFiles.LittleStorage;
 
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
+
 /**
  * Stores little stuff, the most basic of the information this has a miniature
  * library of functions specific to BasicInfo stuff
@@ -48,20 +50,20 @@ public class BasicInfo {
 	public static String standardPos(String position, BasicInfo player2) {
 		String returnString = player2.position;
 		if (returnString.equals("PK")) {
-			returnString = "K";
-		} else if (position.equals("K")) {
-			position = "K";
+			returnString = Constants.K;
+		} else if (position.equals(Constants.K)) {
+			position = Constants.K;
 		}
 		if (returnString.equals("DEF")) {
-			returnString = "D/ST";
+			returnString = Constants.DST;
 		} else if (returnString.equals("DEF")) {
-			position = "D/ST";
+			position = Constants.DST;
 		}
 		if (returnString.equals("WR,RB")) {
-			returnString = "RB";
+			returnString = Constants.RB;
 		}
-		if ((position.equals("TE") && player2.position.equals("QB"))
-				|| (position.equals("QB") && player2.position.equals("TE"))) {
+		if ((position.equals(Constants.TE) && player2.position.equals(Constants.QB))
+				|| (position.equals(Constants.QB) && player2.position.equals(Constants.TE))) {
 			return returnString + "BAD";
 		}
 		if (position.length() >= player2.position.length()) {

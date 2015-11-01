@@ -30,6 +30,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.example.fantasyfootballrankings.ClassFiles.ManageInput;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.Pages.ImportLeague;
 import com.ffr.fantasyfootballrankings.R;
 
@@ -60,7 +61,7 @@ public class LineupHelp {
 		for (PlayerObject player : ImportLeague.holder.players) {
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("main", player.info.name);
-			if (!player.info.name.contains("D/ST")
+			if (!player.info.name.contains(Constants.DST)
 					&& player.info.position.length() >= 1
 					&& player.info.team.length() > 2) {
 				datum.put("sub", player.info.team);
@@ -140,7 +141,7 @@ public class LineupHelp {
 						team2 = p2Data[1];
 					}
 					if (player.info.name.equals(p1Data[0])
-							&& player.info.position.equals("D/ST")) {
+							&& player.info.position.equals(Constants.DST)) {
 						isFound1 = true;
 						pl1 = player;
 					} else if (player.info.name.equals(p1Data[0])
@@ -149,7 +150,7 @@ public class LineupHelp {
 						pl1 = player;
 					}
 					if (player.info.name.equals(p2Data[0])
-							&& player.info.position.equals("D/ST")) {
+							&& player.info.position.equals(Constants.DST)) {
 						isFound2 = true;
 						pl2 = player;
 					} else if (player.info.name.equals(p2Data[0])
@@ -192,7 +193,7 @@ public class LineupHelp {
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(p1.getWindowToken(), 0);
 		imm.hideSoftInputFromWindow(p2.getWindowToken(), 0);
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		t = table;
 		RelativeLayout ecr1 = (RelativeLayout) table
 				.findViewById(R.id.player1_fp_base);

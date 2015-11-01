@@ -18,6 +18,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseInjuries;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseStats;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.Storage;
+import com.example.fantasyfootballrankings.ClassFiles.Utils.Constants;
 import com.example.fantasyfootballrankings.ClassFiles.Utils.HandleBasicQueries;
 import com.example.fantasyfootballrankings.Pages.Home;
 
@@ -49,20 +50,20 @@ public class HighLevel {
 		for (int i = 20; i < td.size(); i += 5) {
 			String pos = td.get(i);
 			if (pos.equals("FB")) {
-				pos = "RB";
+				pos = Constants.RB;
 			} else if (pos.equals("PK")) {
-				pos = "K";
+				pos = Constants.K;
 			}
 			String name = td.get(i + 1);
 			String status = td.get(i + 2);
 			if (!name.equals("Player") && !status.contains("Signed")
 					&& !status.contains("signed")) {
-				cs.put(pos + "/" + name, "In a contract year");
+				cs.put(pos + Constants.HASH_DELIMITER + name, "In a contract year");
 			}
 		}
 		for (PlayerObject player : holder.players) {
-			if (cs.containsKey(player.info.position + "/" + player.info.name)) {
-				player.info.contractStatus = cs.get(player.info.position + "/"
+			if (cs.containsKey(player.info.position + Constants.HASH_DELIMITER + player.info.name)) {
+				player.info.contractStatus = cs.get(player.info.position + Constants.HASH_DELIMITER
 						+ player.info.name);
 			}
 		}
@@ -84,12 +85,12 @@ public class HighLevel {
 		for (int i = 0; i < allArr.size(); i++) {
 			team[i] = ManageInput.tokenize(allArr.get(i), ' ', 1);
 			String keyBase = ParseRankings.fixTeams(team[i][0]) + ",";
-			sos.put(keyBase + "QB", Integer.parseInt(cleanRanking(team[i][1])));
-			sos.put(keyBase + "RB", Integer.parseInt(cleanRanking(team[i][2])));
-			sos.put(keyBase + "WR", Integer.parseInt(cleanRanking(team[i][3])));
-			sos.put(keyBase + "TE", Integer.parseInt(cleanRanking(team[i][4])));
-			sos.put(keyBase + "K", Integer.parseInt(cleanRanking(team[i][5])));
-			sos.put(keyBase + "D/ST",
+			sos.put(keyBase + Constants.QB, Integer.parseInt(cleanRanking(team[i][1])));
+			sos.put(keyBase + Constants.RB, Integer.parseInt(cleanRanking(team[i][2])));
+			sos.put(keyBase + Constants.WR, Integer.parseInt(cleanRanking(team[i][3])));
+			sos.put(keyBase + Constants.TE, Integer.parseInt(cleanRanking(team[i][4])));
+			sos.put(keyBase + Constants.K, Integer.parseInt(cleanRanking(team[i][5])));
+			sos.put(keyBase + Constants.DST,
 					Integer.parseInt(cleanRanking(team[i][6])));
 		}
 		holder.sos = sos;
@@ -133,11 +134,11 @@ public class HighLevel {
 		HashMap<String, String> byes = ParseFFTB.parseByeWeeks();
 		holder.bye = byes;
 		for (PlayerObject player : holder.players) {
-			if (!player.info.position.equals("K")
-					&& !player.info.position.equals("D/ST")) {
-				if (injuries.containsKey(player.info.name + "/"
+			if (!player.info.position.equals(Constants.K)
+					&& !player.info.position.equals(Constants.DST)) {
+				if (injuries.containsKey(player.info.name + Constants.HASH_DELIMITER
 						+ player.info.position)) {
-					player.injuryStatus = injuries.get(player.info.name + "/"
+					player.injuryStatus = injuries.get(player.info.name + Constants.HASH_DELIMITER
 							+ player.info.position);
 				}
 			}
@@ -164,15 +165,15 @@ public class HighLevel {
 			Map<String, String> tes = ParseStats.parseTEStats();
 			Set<String> teKeys = tes.keySet();
 			for (PlayerObject player : holder.players) {
-				if (!player.info.position.equals("K")
-						&& !player.info.position.equals("D/ST")) {
+				if (!player.info.position.equals(Constants.K)
+						&& !player.info.position.equals(Constants.DST)) {
 					// else if testname in keyset
 					String[] name = player.info.name.split(" ");
 					String testName = name[0].charAt(0) + " " + name[1];
 					testName = testName.toLowerCase();
-					if (player.info.position.equals("QB")) {
-						if (qbs.containsKey(testName + "/" + player.info.team)) {
-							player.stats = qbs.get(testName + "/"
+					if (player.info.position.equals(Constants.QB)) {
+						if (qbs.containsKey(testName + Constants.HASH_DELIMITER + player.info.team)) {
+							player.stats = qbs.get(testName + Constants.HASH_DELIMITER
 									+ player.info.team);
 						} else if (player.info.team.length() < 2) {
 							for (String key : qbKeys) {
@@ -194,9 +195,9 @@ public class HighLevel {
 								player.stats = statHolder;
 							}
 						}
-					} else if (player.info.position.equals("RB")) {
-						if (rbs.containsKey(testName + "/" + player.info.team)) {
-							player.stats = rbs.get(testName + "/"
+					} else if (player.info.position.equals(Constants.RB)) {
+						if (rbs.containsKey(testName + Constants.HASH_DELIMITER + player.info.team)) {
+							player.stats = rbs.get(testName + Constants.HASH_DELIMITER
 									+ player.info.team);
 						} else if (player.info.team.length() < 2) {
 							for (String key : rbKeys) {
@@ -218,9 +219,9 @@ public class HighLevel {
 								player.stats = statHolder;
 							}
 						}
-					} else if (player.info.position.equals("WR")) {
-						if (wrs.containsKey(testName + "/" + player.info.team)) {
-							player.stats = wrs.get(testName + "/"
+					} else if (player.info.position.equals(Constants.WR)) {
+						if (wrs.containsKey(testName + Constants.HASH_DELIMITER + player.info.team)) {
+							player.stats = wrs.get(testName + Constants.HASH_DELIMITER
 									+ player.info.team);
 						} else if (player.info.team.length() < 2) {
 							for (String key : wrKeys) {
@@ -242,9 +243,9 @@ public class HighLevel {
 								player.stats = statHolder;
 							}
 						}
-					} else if (player.info.position.equals("TE")) {
-						if (tes.containsKey(testName + "/" + player.info.team)) {
-							player.stats = tes.get(testName + "/"
+					} else if (player.info.position.equals(Constants.TE)) {
+						if (tes.containsKey(testName + Constants.HASH_DELIMITER + player.info.team)) {
+							player.stats = tes.get(testName + Constants.HASH_DELIMITER
 									+ player.info.team);
 						} else if (player.info.team.length() < 2) {
 							for (String key : teKeys) {
@@ -286,25 +287,25 @@ public class HighLevel {
 		Scoring scoring = ReadFromFile.readScoring(cont);
 		String suffix = "?year=" + Home.yearKey;
 		qbProj("http://www.fantasypros.com/nfl/projections/qb.php" + suffix,
-				points, scoring, "QB");
+				points, scoring, Constants.QB);
 		rbProj("http://www.fantasypros.com/nfl/projections/rb.php" + suffix,
-				points, scoring, "RB");
+				points, scoring, Constants.RB);
 		wrProj("http://www.fantasypros.com/nfl/projections/wr.php" + suffix,
-				points, scoring, "WR");
+				points, scoring, Constants.WR);
 		teProj("http://www.fantasypros.com/nfl/projections/te.php" + suffix,
-				points, scoring, "TE");
+				points, scoring, Constants.TE);
 		kProj("http://www.fantasypros.com/nfl/projections/k.php" + suffix,
-				points, "K");
+				points, Constants.K);
 		try {
-			defProjWeekly(points, "D/ST");
+			defProjWeekly(points, Constants.DST);
 		} catch (IOException e) {
 
 		}
 		for (PlayerObject player : holder.players) {
-			if (points.containsKey(player.info.name + "/" + player.info.team
-					+ "/" + player.info.position)) {
-				player.values.points = points.get(player.info.name + "/"
-						+ player.info.team + "/" + player.info.position);
+			if (points.containsKey(player.info.name + Constants.HASH_DELIMITER + player.info.team
+					+ Constants.HASH_DELIMITER + player.info.position)) {
+				player.values.points = points.get(player.info.name + Constants.HASH_DELIMITER
+						+ player.info.team + Constants.HASH_DELIMITER + player.info.position);
 			} else {
 				player.values.points = 0;
 			}
@@ -316,7 +317,7 @@ public class HighLevel {
 	 */
 	public static void qbProj(String url, HashMap<String, Double> points,
 			Scoring scoring, String pos) throws IOException {
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
 
 		int min = 0;
@@ -350,7 +351,7 @@ public class HighLevel {
 			proj += rushTD * scoring.rushTD;
 			proj -= fumbles * scoring.fumble;
 			proj = Double.parseDouble(df.format(proj));
-			points.put(name + "/" + team + "/" + pos, proj);
+			points.put(name + Constants.HASH_DELIMITER + team + Constants.HASH_DELIMITER + pos, proj);
 		}
 	}
 
@@ -359,7 +360,7 @@ public class HighLevel {
 	 */
 	public static void rbProj(String url, HashMap<String, Double> points,
 			Scoring scoring, String pos) throws IOException {
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		ParseRankings.handleHashes();
@@ -393,7 +394,7 @@ public class HighLevel {
 			proj += recTD * scoring.recTD;
 			proj -= fumbles * scoring.fumble;
 			proj = Double.parseDouble(df.format(proj));
-			points.put(name + "/" + team + "/" + pos, proj);
+			points.put(name + Constants.HASH_DELIMITER + team + Constants.HASH_DELIMITER + pos, proj);
 		}
 	}
 
@@ -402,7 +403,7 @@ public class HighLevel {
 	 */
 	public static void wrProj(String url, HashMap<String, Double> points,
 			Scoring scoring, String pos) throws IOException {
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		ParseRankings.handleHashes();
@@ -436,7 +437,7 @@ public class HighLevel {
 			proj += recTD * scoring.recTD;
 			proj -= fumbles * scoring.fumble;
 			proj = Double.parseDouble(df.format(proj));
-			points.put(name + "/" + team + "/" + pos, proj);
+			points.put(name + Constants.HASH_DELIMITER + team + Constants.HASH_DELIMITER + pos, proj);
 		}
 	}
 
@@ -445,7 +446,7 @@ public class HighLevel {
 	 */
 	public static void teProj(String url, HashMap<String, Double> points,
 			Scoring scoring, String pos) throws IOException {
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		ParseRankings.handleHashes();
@@ -475,7 +476,7 @@ public class HighLevel {
 			proj += recTD * scoring.recTD;
 			proj -= fumbles * scoring.fumble;
 			proj = Double.parseDouble(df.format(proj));
-			points.put(name + "/" + team + "/" + pos, proj);
+			points.put(name + Constants.HASH_DELIMITER + team + Constants.HASH_DELIMITER + pos, proj);
 		}
 	}
 
@@ -504,7 +505,7 @@ public class HighLevel {
 			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
 			String team = ParseRankings.fixTeams(nameSet[nameSet.length - 1]);
 			proj = Double.parseDouble(td.get(i + 4));
-			points.put(name + "/" + team + "/" + pos, proj);
+			points.put(name + Constants.HASH_DELIMITER + team + Constants.HASH_DELIMITER + pos, proj);
 		}
 	}
 
@@ -549,7 +550,7 @@ public class HighLevel {
 				String teamName = ParseRankings.fixDefenses(td.get(i + 1));
 				String team = ParseRankings.fixTeams(td.get(i + 2));
 				double proj = Double.valueOf(td.get(i + 4));
-				points.put(teamName + "/" + team + "/" + pos, proj);
+				points.put(teamName + Constants.HASH_DELIMITER + team + Constants.HASH_DELIMITER + pos, proj);
 			}
 		}
 	}
@@ -574,7 +575,7 @@ public class HighLevel {
 						.fixTeams(td.get(i + 2)));
 				String team = ParseRankings.fixTeams(td.get(i + 2));
 				double proj = Double.valueOf(td.get(i + 4));
-				points.put(teamName + "/" + team + "/" + pos, proj);
+				points.put(teamName + Constants.HASH_DELIMITER + team + Constants.HASH_DELIMITER + pos, proj);
 			}
 		} catch (NumberFormatException e) {
 			System.out.println("There was an error with defproj");
@@ -607,12 +608,12 @@ public class HighLevel {
 				urlBase.append("ppr-");
 			}
 			String urlRec = urlBase.toString();
-			parseECRWeekly(url + "qb.php", holder, ecr, risk, adp, "QB");
-			parseECRWeekly(urlRec + "rb.php", holder, ecr, risk, adp, "RB");
-			parseECRWeekly(urlRec + "wr.php", holder, ecr, risk, adp, "WR");
-			parseECRWeekly(urlRec + "te.php", holder, ecr, risk, adp, "TE");
-			parseECRWeekly(url + "dst.php", holder, ecr, risk, adp, "D/ST");
-			parseECRWeekly(url + "k.php", holder, ecr, risk, adp, "K");
+			parseECRWeekly(url + "qb.php", holder, ecr, risk, adp, Constants.QB);
+			parseECRWeekly(urlRec + "rb.php", holder, ecr, risk, adp, Constants.RB);
+			parseECRWeekly(urlRec + "wr.php", holder, ecr, risk, adp, Constants.WR);
+			parseECRWeekly(urlRec + "te.php", holder, ecr, risk, adp, Constants.TE);
+			parseECRWeekly(url + "dst.php", holder, ecr, risk, adp, Constants.DST);
+			parseECRWeekly(url + "k.php", holder, ecr, risk, adp, Constants.K);
 		}
 		for (PlayerObject player : holder.players) {
 			if (ecr.containsKey(player.info.name + player.info.position)) {
@@ -625,7 +626,7 @@ public class HighLevel {
 					player.info.adp = adp.get(player.info.team);
 				}
 			} else if (holder.isRegularSeason && player.values.points == 0) {
-				player.info.adp = "Bye Week";
+				player.info.adp = Constants.BYE_WEEK;
 				player.values.ecr = -1.0;
 			} else {
 				if (adp.containsKey(player.info.name + player.info.position)) {
@@ -662,7 +663,7 @@ public class HighLevel {
 			}
 			String name = "";
 			String team = "";
-			if (pos.equals("D/ST")) {
+			if (pos.equals(Constants.DST)) {
 				team = ParseRankings.fixTeams(td.get(i + 1).split(" \\(")[0]);
 				name = ParseRankings.fixDefenses(team);
 			} else {
@@ -686,7 +687,7 @@ public class HighLevel {
 			double riskVal = Double.parseDouble(td.get(i + 6));
 			if (!adp.containsKey(team) && !team.contains("FA")) {
 				String wholeSet = td.get(i + 2);
-				String opp = "Bye Week";
+				String opp = Constants.BYE_WEEK;
 				if (wholeSet.contains("vs")) {
 					opp = ParseRankings.fixTeams(wholeSet.split("vs. ")[1]);
 				} else {
@@ -717,9 +718,9 @@ public class HighLevel {
 		}
 		parseADPWorker(holder, adp, adpUrl, loopIterAdp);
 		for (int i = 0; i < td.size(); i++) {
-			if (td.get(i + 1).contains("QB") || td.get(i + 1).contains("RB")
-					|| td.get(i + 1).contains("WR")
-					|| td.get(i + 1).contains("TE")) {
+			if (td.get(i + 1).contains(Constants.QB) || td.get(i + 1).contains(Constants.RB)
+					|| td.get(i + 1).contains(Constants.WR)
+					|| td.get(i + 1).contains(Constants.TE)) {
 				min = i;
 				break;
 			}
@@ -730,7 +731,7 @@ public class HighLevel {
 			double ecrVal = Double.parseDouble(td.get(i + 4));
 			double riskVal = Double.parseDouble(td.get(i + 5));
 			String posInd = td.get(i + 1).replaceAll("(\\d+,\\d+)|\\d+", "")
-					.replaceAll("DST", "D/ST");
+					.replaceAll("DST", Constants.DST);
 			ecr.put(name + posInd, ecrVal);
 			risk.put(name + posInd, riskVal);
 		}
@@ -744,10 +745,10 @@ public class HighLevel {
 		try {
 			for (int i = 0; i < td.size(); i++) {
 
-				if (td.get(i + 1).contains("QB")
-						|| td.get(i + 1).contains("RB")
-						|| td.get(i + 1).contains("WR")
-						|| td.get(i + 1).contains("TE")) {
+				if (td.get(i + 1).contains(Constants.QB)
+						|| td.get(i + 1).contains(Constants.RB)
+						|| td.get(i + 1).contains(Constants.WR)
+						|| td.get(i + 1).contains(Constants.TE)) {
 					min = i;
 					break;
 				}
@@ -762,7 +763,7 @@ public class HighLevel {
 				String adpStr = td.get(i + 6);
 				String posInd = td.get(i + 1)
 						.replaceAll("(\\d+,\\d+)|\\d+", "")
-						.replaceAll("DST", "D/ST");
+						.replaceAll("DST", Constants.DST);
 				adp.put(name + posInd, adpStr);
 			}
 		} catch (ArrayIndexOutOfBoundsException notUp) {
@@ -778,35 +779,35 @@ public class HighLevel {
 			throws IOException {
 		HashMap<String, Integer> rankings = new HashMap<String, Integer>();
 		parseROSRankingsWorker(
-				"http://www.fantasypros.com/nfl/rankings/ros-qb.php", "QB",
+				"http://www.fantasypros.com/nfl/rankings/ros-qb.php", Constants.QB,
 				rankings);
 		Scoring s = ReadFromFile.readScoring(cont);
 		if (s.catches == 0) {
 			parseROSRankingsWorker(
-					"http://www.fantasypros.com/nfl/rankings/ros-rb.php", "RB",
+					"http://www.fantasypros.com/nfl/rankings/ros-rb.php", Constants.RB,
 					rankings);
 			parseROSRankingsWorker(
-					"http://www.fantasypros.com/nfl/rankings/ros-wr.php", "WR",
+					"http://www.fantasypros.com/nfl/rankings/ros-wr.php", Constants.WR,
 					rankings);
 			parseROSRankingsWorker(
-					"http://www.fantasypros.com/nfl/rankings/ros-te.php", "TE",
+					"http://www.fantasypros.com/nfl/rankings/ros-te.php", Constants.TE,
 					rankings);
 		} else {
 			parseROSRankingsWorker(
 					"http://www.fantasypros.com/nfl/rankings/ros-ppr-rb.php",
-					"RB", rankings);
+					Constants.RB, rankings);
 			parseROSRankingsWorker(
 					"http://www.fantasypros.com/nfl/rankings/ros-ppr-wr.php",
-					"WR", rankings);
+					Constants.WR, rankings);
 			parseROSRankingsWorker(
 					"http://www.fantasypros.com/nfl/rankings/ros-ppr-te.php",
-					"TE", rankings);
+					Constants.TE, rankings);
 		}
 		parseROSRankingsWorker(
-				"http://www.fantasypros.com/nfl/rankings/ros-dst.php", "D/ST",
+				"http://www.fantasypros.com/nfl/rankings/ros-dst.php", Constants.DST,
 				rankings);
 		parseROSRankingsWorker(
-				"http://www.fantasypros.com/nfl/rankings/ros-k.php", "K",
+				"http://www.fantasypros.com/nfl/rankings/ros-k.php", Constants.K,
 				rankings);
 		for (PlayerObject player : holder.players) {
 			if (rankings.containsKey(player.info.name + ","
@@ -842,7 +843,7 @@ public class HighLevel {
 			int ranking = Integer.parseInt(td.get(i));
 			String name = "";
 			String team = "";
-			if (pos.equals("D/ST")) {
+			if (pos.equals(Constants.DST)) {
 				team = ParseRankings.fixTeams(td.get(i + 1).split(" \\(")[0]);
 				name = ParseRankings.fixDefenses(team);
 			} else {
