@@ -136,10 +136,11 @@ public class Home extends Activity {
 		 * 
 		 * StrictMode.setThreadPolicy(policy); try {
 		 * System.out.println(holder.isRegularSeason); holder.isRegularSeason =
-		 * true; ParseRankings.handleHashes(); HighLevel.parseECRWrapper(holder,
-		 * cont); } catch (IOException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); }
+		 * true; ParseRankings.handleHashes();
+		 * HighLevel.getROSRankingsWrapper(holder, cont); } catch (IOException
+		 * e) { // TODO Auto-generated catch block e.printStackTrace(); }
 		 */
+
 	}
 
 	/**

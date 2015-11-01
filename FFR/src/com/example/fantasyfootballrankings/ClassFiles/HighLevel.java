@@ -813,8 +813,7 @@ public class HighLevel {
 					+ player.info.position)) {
 				player.values.rosRank = rankings.get(player.info.name + ","
 						+ player.info.position);
-			}
- else {
+			} else {
 				player.values.rosRank = 300;
 			}
 		}
@@ -829,7 +828,7 @@ public class HighLevel {
 		List<String> td = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		for (int i = 0; i < td.size(); i++) {
-			if (td.get(i + 1).split(" ").length > 2
+			if (td.get(i + 1).split(" ").length > 1
 					&& ManageInput.isInteger(td.get(i))) {
 				min = i;
 				break;
