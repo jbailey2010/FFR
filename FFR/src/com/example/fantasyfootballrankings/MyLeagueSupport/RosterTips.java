@@ -206,7 +206,7 @@ public class RosterTips {
 			Map<PlayerObject, PriorityQueue<PlayerObject>> improvementMappings,
 			StringBuilder outputS, String pos, String typeKey, int faType) {
 		if (ImportLeague.newImport.doesLeagueAllowPosition(pos)) {
-			String leadStr = " has a " + typeKey + " of ";
+			String leadStr = " has a " + typeKey + " ranking of ";
 			outputS.append(pos + "s\n\n");
 			if (improvementMappings != null && improvementMappings.size() > 0) {
 				for (PlayerObject old : improvementMappings.keySet()) {
@@ -217,8 +217,7 @@ public class RosterTips {
 					} else if (faType == 0) {
 						outputStr.append(old.info.name + leadStr
 								+ old.values.rosRank + ", but ");
-					}
- else if (faType == 1) {
+					} else {
 						outputStr.append(old.info.name + leadStr
 								+ old.values.ecr + ", but ");
 					}

@@ -281,9 +281,6 @@ public class SortHandler {
 										.equals("TE")
 										|| position.equals("D/ST") || position
 											.equals("K")))
-								|| (subject
-										.equals("Rest of Season Positional Ranking") && position
-										.equals("D/ST"))
 								|| subject.equals("Targets")
 								&& (position.equals("QB")
 										|| position.equals("D/ST") || position
