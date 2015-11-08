@@ -22,7 +22,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.BasicInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Roster;
+import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.Values;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.ImportedTeam;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.PlayerObject;
 import com.example.fantasyfootballrankings.ClassFiles.StorageClasses.TeamAnalysis;
@@ -176,18 +178,35 @@ public class RosterTips {
 				base.setVisibility(View.VISIBLE);
 				output.setVisibility(View.VISIBLE);
 				String faTypeKey = arg2 == 0 ? "ROS" : "weekly";
-				parseFAData(faMoves(team, Constants.QB, arg2), outputS, Constants.QB,
-						faTypeKey, arg2);
-				parseFAData(faMoves(team, Constants.RB, arg2), outputS, Constants.RB,
-						faTypeKey, arg2);
-				parseFAData(faMoves(team, Constants.WR, arg2), outputS, Constants.WR,
-						faTypeKey, arg2);
-				parseFAData(faMoves(team, Constants.TE, arg2), outputS, Constants.TE,
-						faTypeKey, arg2);
-				parseFAData(faMoves(team, Constants.DST, arg2), outputS, Constants.DST,
-						faTypeKey, arg2);
-				parseFAData(faMoves(team, Constants.K, arg2), outputS, Constants.K, faTypeKey,
-						arg2);
+				if (ImportLeague.newImport
+						.doesLeagueAllowPosition(Constants.QB)) {
+					parseFAData(faMoves(team, Constants.QB, arg2), outputS,
+							Constants.QB, faTypeKey, arg2);
+				}
+				if (ImportLeague.newImport
+						.doesLeagueAllowPosition(Constants.RB)) {
+					parseFAData(faMoves(team, Constants.RB, arg2), outputS,
+							Constants.RB, faTypeKey, arg2);
+				}
+				if (ImportLeague.newImport
+						.doesLeagueAllowPosition(Constants.WR)) {
+					parseFAData(faMoves(team, Constants.WR, arg2), outputS,
+							Constants.WR, faTypeKey, arg2);
+				}
+				if (ImportLeague.newImport
+						.doesLeagueAllowPosition(Constants.TE)) {
+					parseFAData(faMoves(team, Constants.TE, arg2), outputS,
+							Constants.TE, faTypeKey, arg2);
+				}
+				if (ImportLeague.newImport
+						.doesLeagueAllowPosition(Constants.DST)) {
+					parseFAData(faMoves(team, Constants.DST, arg2), outputS,
+							Constants.DST, faTypeKey, arg2);
+				}
+				if (ImportLeague.newImport.doesLeagueAllowPosition(Constants.K)) {
+					parseFAData(faMoves(team, Constants.K, arg2), outputS,
+							Constants.K, faTypeKey, arg2);
+				}
 				output.setText(outputS.toString());
 			}
 
@@ -306,10 +325,10 @@ public class RosterTips {
 		// a dummy player with crappy rankings is used to get all FAs.
 		if (iter.size() == 0) {
 			PlayerObject noneOwned = new PlayerObject();
-			noneOwned.info.name = "None";
+			noneOwned.info = new BasicInfo("None", "", pos);
+			noneOwned.values = new Values();
 			noneOwned.values.rosRank = 300;
 			noneOwned.values.ecr = 300.0;
-			noneOwned.info.position = pos;
 			iter.add(noneOwned);
 		}
 		for (PlayerObject player : iter) {
