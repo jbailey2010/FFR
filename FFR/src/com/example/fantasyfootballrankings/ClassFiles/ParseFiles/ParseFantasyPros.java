@@ -31,9 +31,9 @@ public class ParseFantasyPros {
 		// parseFantasyProsWorker(holder,
 		// "http://www.fantasypros.com/nfl/auction-values/overall.php?teams=12&year="
 		// + Home.yearKey, 4);
-		parseFantasyProsWorker(holder,
-				"http://www.fantasypros.com/nfl/auction-values/overall.php?teams=10&year="
-						+ Home.yearKey, 2);
+		//parseFantasyProsWorker(holder,
+		//		"http://www.fantasypros.com/nfl/auction-values/overall.php?teams=10&year="
+		//				+ Home.yearKey, 2);
 	}
 
 	/**

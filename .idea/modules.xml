@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FFR/FFR.iml" filepath="$PROJECT_DIR$/FFR/FFR.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SideNavigation-master/sample.net/Properties/Properties.iml" filepath="$PROJECT_DIR$/SideNavigation-master/sample.net/Properties/Properties.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SideNavigation-master/library/library.iml" filepath="$PROJECT_DIR$/SideNavigation-master/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SideNavigation-master/sample/sample.iml" filepath="$PROJECT_DIR$/SideNavigation-master/sample/sample.iml" />
     </modules>
   </component>
 </project>
-

@@ -301,6 +301,7 @@ public class HighLevel {
 		} catch (IOException e) {
 
 		}
+
 		for (PlayerObject player : holder.players) {
 			if (points.containsKey(player.info.name + Constants.HASH_DELIMITER + player.info.team
 					+ Constants.HASH_DELIMITER + player.info.position)) {
@@ -318,14 +319,15 @@ public class HighLevel {
 	public static void qbProj(String url, HashMap<String, Double> points,
 			Scoring scoring, String pos) throws IOException {
 		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
-		List<String> td = HandleBasicQueries.handleLists(url, "td");
+		List<String> td = HandleBasicQueries.handleLists(url, "tbody td");
 
 		int min = 0;
 		ParseRankings.handleHashes();
 
 		for (int i = 0; i < td.size(); i++) {
-			if (td.get(i).contains("MISC")) {
-				min = i + 1;
+            System.out.println(i + ": " + td.get(i));
+			if (td.get(i).split(" ").length >= 3) {
+				min = i;
 				break;
 			}
 		}
@@ -333,6 +335,9 @@ public class HighLevel {
 			double proj = 0;
 			String name = "";
 			String[] nameSet = td.get(i).split(" ");
+            if (nameSet.length == 1) {
+                 break;
+            }
 			for (int j = 0; j < nameSet.length - 1; j++) {
 				name += nameSet[j] + " ";
 			}
@@ -361,12 +366,14 @@ public class HighLevel {
 	public static void rbProj(String url, HashMap<String, Double> points,
 			Scoring scoring, String pos) throws IOException {
 		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
-		List<String> td = HandleBasicQueries.handleLists(url, "td");
+		List<String> td = HandleBasicQueries.handleLists(url, "tbody td");
+
 		int min = 0;
 		ParseRankings.handleHashes();
+
 		for (int i = 0; i < td.size(); i++) {
-			if (td.get(i).contains("MISC")) {
-				min = i + 1;
+			if (td.get(i).split(" ").length >= 3) {
+				min = i;
 				break;
 			}
 		}
@@ -374,6 +381,9 @@ public class HighLevel {
 			double proj = 0;
 			String name = "";
 			String[] nameSet = td.get(i).split(" ");
+            if (nameSet.length == 1) {
+                break;
+            }
 			for (int j = 0; j < nameSet.length - 1; j++) {
 				name += nameSet[j] + " ";
 			}
@@ -404,12 +414,14 @@ public class HighLevel {
 	public static void wrProj(String url, HashMap<String, Double> points,
 			Scoring scoring, String pos) throws IOException {
 		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
-		List<String> td = HandleBasicQueries.handleLists(url, "td");
+		List<String> td = HandleBasicQueries.handleLists(url, "tbody td");
+
 		int min = 0;
 		ParseRankings.handleHashes();
+
 		for (int i = 0; i < td.size(); i++) {
-			if (td.get(i).contains("MISC")) {
-				min = i + 1;
+			if (td.get(i).split(" ").length >= 3) {
+				min = i;
 				break;
 			}
 		}
@@ -417,6 +429,9 @@ public class HighLevel {
 			double proj = 0;
 			String name = "";
 			String[] nameSet = td.get(i).split(" ");
+            if (nameSet.length == 1) {
+                break;
+            }
 			for (int j = 0; j < nameSet.length - 1; j++) {
 				name += nameSet[j] + " ";
 			}
@@ -447,13 +462,14 @@ public class HighLevel {
 	public static void teProj(String url, HashMap<String, Double> points,
 			Scoring scoring, String pos) throws IOException {
 		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
-		List<String> td = HandleBasicQueries.handleLists(url, "td");
+		List<String> td = HandleBasicQueries.handleLists(url, "tbody td");
+
 		int min = 0;
 		ParseRankings.handleHashes();
 
 		for (int i = 0; i < td.size(); i++) {
-			if (td.get(i).contains("MISC")) {
-				min = i + 1;
+			if (td.get(i).split(" ").length >= 3) {
+				min = i;
 				break;
 			}
 		}
@@ -461,6 +477,9 @@ public class HighLevel {
 			double proj = 0;
 			String name = "";
 			String[] nameSet = td.get(i).split(" ");
+            if (nameSet.length == 1) {
+                break;
+            }
 			for (int j = 0; j < nameSet.length - 1; j++) {
 				name += nameSet[j] + " ";
 			}
@@ -485,12 +504,14 @@ public class HighLevel {
 	 */
 	public static void kProj(String url, HashMap<String, Double> points,
 			String pos) throws IOException {
-		List<String> td = HandleBasicQueries.handleLists(url, "td");
+		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
+		List<String> td = HandleBasicQueries.handleLists(url, "tbody td");
+
 		int min = 0;
 		ParseRankings.handleHashes();
 
 		for (int i = 0; i < td.size(); i++) {
-			if (ManageInput.isDouble(td.get(i + 1))) {
+			if (td.get(i).split(" ").length >= 3) {
 				min = i;
 				break;
 			}
@@ -499,6 +520,9 @@ public class HighLevel {
 			double proj = 0;
 			String name = "";
 			String[] nameSet = td.get(i).split(" ");
+            if (nameSet.length == 1) {
+                break;
+            }
 			for (int j = 0; j < nameSet.length - 1; j++) {
 				name += nameSet[j] + " ";
 			}
@@ -594,10 +618,10 @@ public class HighLevel {
 		HashMap<String, String> adp = new HashMap<String, String>();
 		if (!holder.isRegularSeason) {
 			String url = "http://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php";
-			int limit = 9;
+			int limit = 10;
 			if (ReadFromFile.readScoring(cont).catches == 1) {
 				url = "http://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php";
-				limit = 9;
+				limit = 10;
 			}
 			parseECRWorker(url, holder, ecr, risk, adp, limit);
 		} else {
@@ -714,22 +738,26 @@ public class HighLevel {
 		int loopIterAdp = 10;
 		if (url.contains("ppr")) {
 			adpUrl = "http://www.fantasypros.com/nfl/adp/ppr-overall.php";
-			loopIterAdp = 8;
+			loopIterAdp = 9;
 		}
 		parseADPWorker(holder, adp, adpUrl, loopIterAdp);
 		for (int i = 0; i < td.size(); i++) {
-			if (td.get(i + 1).contains(Constants.QB) || td.get(i + 1).contains(Constants.RB)
-					|| td.get(i + 1).contains(Constants.WR)
-					|| td.get(i + 1).contains(Constants.TE)) {
-				min = i;
+			if (ManageInput.isInteger(td.get(i))) {
+				min = i + 1;
 				break;
 			}
 		}
 		for (int i = min; i < td.size(); i += loopIter) {
-			String name = ParseRankings.fixNames(ParseRankings.fixDefenses(td
-					.get(i).split(" \\(")[0].split(", ")[0]));
-			double ecrVal = Double.parseDouble(td.get(i + 4));
-			double riskVal = Double.parseDouble(td.get(i + 5));
+            if (td.get(i).split(" ").length == 1) {
+                break;
+            }
+            String filteredName = td.get(i).split(
+                    " \\(")[0].split(", ")[0];
+            String withoutTeam = filteredName.substring(0, filteredName.lastIndexOf(" "));
+            String name = ParseRankings
+                    .fixNames(ParseRankings.fixDefenses(withoutTeam));
+			double ecrVal = Double.parseDouble(td.get(i + 5));
+			double riskVal = Double.parseDouble(td.get(i + 6));
 			String posInd = td.get(i + 1).replaceAll("(\\d+,\\d+)|\\d+", "")
 					.replaceAll("DST", Constants.DST);
 			ecr.put(name + posInd, ecrVal);
@@ -754,13 +782,18 @@ public class HighLevel {
 				}
 			}
 			for (int i = min; i < td.size(); i += loopIterAdp) {
+                if (td.get(i).split(" ").length == 1) {
+                    break;
+                }
+                String filteredName = td.get(i).split(
+                        " \\(")[0].split(", ")[0];
+                String withoutTeam = filteredName.substring(0, filteredName.lastIndexOf(" "));
 				String name = ParseRankings
-						.fixNames(ParseRankings.fixDefenses(td.get(i).split(
-								" \\(")[0].split(", ")[0]));
+						.fixNames(ParseRankings.fixDefenses(withoutTeam));
 				if (i + 6 >= td.size()) {
 					break;
 				}
-				String adpStr = td.get(i + 6);
+				String adpStr = td.get(i + 7);
 				String posInd = td.get(i + 1)
 						.replaceAll("(\\d+,\\d+)|\\d+", "")
 						.replaceAll("DST", Constants.DST);

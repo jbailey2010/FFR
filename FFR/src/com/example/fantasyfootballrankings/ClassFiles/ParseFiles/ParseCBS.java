@@ -26,78 +26,42 @@ public class ParseCBS {
 	 */
 	public static void cbsRankings(Storage holder, Scoring s)
 			throws IOException {
-		String type = "/standard";
-		if (s.catches > 0) {
-			type = "/ppr";
-		}
-		String url = "http://fantasynews.cbssports.com/fantasyfootball/rankings/yearly"
-				+ type;
-		List<String> td = HandleBasicQueries.handleListsNoUA(url,
-				"table.multiColumn td");
-		int min = 0;
+        String type = "standard/";
+        if (s.catches > 0) {
+            type = "ppr/";
+        }
+        String url = "http://www.cbssports.com/fantasy/football/rankings/";
+        cbsWorker(holder, s, url + type + "QB/yearly/");
+        cbsWorker(holder, s, url + type + "RB/yearly/");
+        cbsWorker(holder, s, url + type + "WR/yearly/");
+        cbsWorker(holder, s, url + type + "TE/yearly/");
+        cbsWorker(holder, s, url + type + "DST/yearly/");
+        cbsWorker(holder, s, url + type + "K/yearly/");
+
+    }
+
+    public static void cbsWorker(Storage holder, Scoring s, String url) throws IOException {
+		List<String> td = HandleBasicQueries.handleLists(url,
+				"tbody.rankings-body tr.ranking-tbl-data-inner-tr td");
+        int min = 0;
 		for (int i = 0; i < td.size(); i++) {
-			if (td.get(i).equals(Constants.ML_QB)) {
-				min = i + 1;
-				break;
-			}
-		}
-		for (int i = min; i < td.size(); i += 2) {
-			if (td.get(i).equals(Constants.ML_RB)
-					|| td.get(i).equals(Constants.ML_WR)
-					|| td.get(i).equals(Constants.ML_TE)
-					|| td.get(i).equals(Constants.ML_K)
-					|| td.get(i).equals("Defensive Special Teams")) {
-				i++;
-			}
-			if (td.get(i).split(" ").length > 8
-					|| td.get(i + 1).split(" ").length > 8) {
-				i += 3;
-			}
-			String nameSet = td.get(i + 1);
-			String name = "";
-			String[] valSet = td.get(i + 1).split(" ");
-			int limit = 0;
-			int index = Integer.parseInt(td.get(i));
-			if (!td.get(i + 1).contains("$")) {
-				if (nameSet.contains("(")) {
-					limit = nameSet.split(" \\(")[0].split(" ").length - 1;
-				} else if (nameSet.split(" ")[nameSet.split(" ").length - 1]
-						.length() > 1) {
-					limit = nameSet.split(" ").length - 1;
-				} else {
-					limit = nameSet.split(" ").length - 2;
-				}
-			} else {
-				for (int j = 0; j < valSet.length; j++) {
-					if (valSet[j].contains("$")) {
-						limit = j - 1;
-					}
-				}
-			}
-			for (int j = 0; j < limit; j++) {
-				name += valSet[j] + " ";
-			}
-			name = name.substring(0, name.length() - 1);
-			String nameCopy = ParseRankings.fixTeams(name);
-			if (name.split(" ").length == 1 && !nameCopy.equals(name)) {
-				name += " D/ST";
-			}
-			name = ParseRankings.fixNames(name);
-			int val = 0;
-			if (td.get(i + 1).contains("$")) {
-				int valIndex = 0;
-				for (int j = 0; j < td.get(i + 1).length(); j++) {
-					if (td.get(i + 1).split(" ")[j].contains("$")) {
-						valIndex = j;
-						break;
-					}
-				}
-				String valStr = td.get(i + 1).split(" ")[valIndex];
-				val = Integer.parseInt(valStr.substring(1, valStr.length())) * 2;
-			}
-			if (!(val == 0 && index <= 15)) {
-				ParseRankings.finalStretch(holder, name, val, "", "");
-			}
-		}
+            if (!ManageInput.isInteger(td.get(i))) {
+                min = i;
+                break;
+            }
+        }
+
+        for (int i = min; i < td.size(); i+=2) {
+            String[] playerData = td.get(i).split(" ");
+            String value = playerData[playerData.length - 1];
+            int aucValue = Integer.parseInt(value.replace("$", "")) * 2;
+            String nameAndTeam = td.get(i).substring(0, td.get(i).lastIndexOf(" "));
+            String name = nameAndTeam.substring(0, nameAndTeam.lastIndexOf(" "));
+            if (name.split(" ").length == 1) {
+                name += " D/ST";
+            }
+            String finalName = ParseRankings.fixNames(name);
+            ParseRankings.finalStretch(holder, finalName, aucValue, "", "");
+        }
 	}
 }

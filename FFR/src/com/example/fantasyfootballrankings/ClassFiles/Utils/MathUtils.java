@@ -283,8 +283,32 @@ public class MathUtils {
 				k.add(player);
 			}
 		}
+        if (qbLimit > qb.size()) {
+            System.out.println("Updating qbLimit from " + qbLimit + " to " + qb.size());
+            qbLimit = qb.size();
+        }
+        if (rbLimit > rb.size()) {
+            System.out.println("Updating rbLimit from " + rbLimit + " to " + rb.size());
+            rbLimit = rb.size();
+        }
+        if (wrLimit > wr.size()) {
+            System.out.println("Updating wrLimit from " + wrLimit + " to " + wr.size());
+            wrLimit = wr.size();
+        }
+        if (teLimit > te.size()) {
+            System.out.println("Updating teLimit from " + teLimit + " to " + te.size());
+            teLimit = te.size();
+        }
+        if (dLimit > def.size()) {
+            System.out.println("Updating dLimit from " + dLimit + " to " + def.size());
+            dLimit = def.size();
+        }
+        if (kLimit > k.size()) {
+            System.out.println("Updating kLimit from " + kLimit + " to " + k.size());
+            kLimit = k.size();
+        }
 		for (qbCounter = 0; qbCounter < qbLimit; qbCounter++) {
-			qbTotal += qb.poll().values.points;
+ 			qbTotal += qb.poll().values.points;
 		}
 		for (rbCounter = 0; rbCounter < rbLimit; rbCounter++) {
 			rbTotal += rb.poll().values.points;

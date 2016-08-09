@@ -144,7 +144,6 @@ public class ParsingAsyncTask {
 				} catch (HttpStatusException e2) {
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e14) {
-
 				}
 				System.out.println("Before ESPN ADV");
 				publishProgress("Please wait, fetching the rankings...(3/30)");
@@ -219,6 +218,8 @@ public class ParsingAsyncTask {
 			} else {
 				holder.isRegularSeason = false;
 			}
+            System.out.println("Is regular season: " + holder.isRegularSeason);
+
 			publishProgress("Please wait, normalizing projections...");
 			MathUtils.getPAA(holder, cont);
 			publishProgress("Please wait, calculating relative risk...");

@@ -107,7 +107,7 @@ public class ParseNFL {
 			name = ParseRankings.fixDefenses(ParseRankings.fixNames(name
 					.substring(0, name.length() - 1)));
 			String worth = td.get(i + 3);
-			int val = Integer.parseInt(worth);
+			int val = Integer.parseInt(worth) * 2;
 			ParseRankings.finalStretch(holder, name, val, "", "");
 		}
 	}

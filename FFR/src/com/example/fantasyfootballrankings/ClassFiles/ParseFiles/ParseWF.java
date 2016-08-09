@@ -28,13 +28,13 @@ public class ParseWF {
 			throws IOException {
 		if (r.qbs > 1 || (r.flex != null && r.flex.op == 1)) {
 			wfRankingsHelper(holder,
-					"http://walterfootball.com/fantasycheatsheet/2015/twoqb");
+					"http://walterfootball.com/fantasycheatsheet/2016/twoqb");
 		} else if (s.catches > 0) {
 			wfRankingsHelper(holder,
-					"http://walterfootball.com/fantasycheatsheet/2015/ppr");
+					"http://walterfootball.com/fantasycheatsheet/2016/ppr");
 		} else {
 			wfRankingsHelper(holder,
-					"http://walterfootball.com/fantasycheatsheet/2015/traditional");
+					"http://walterfootball.com/fantasycheatsheet/2016/traditional");
 		}
 	}
 

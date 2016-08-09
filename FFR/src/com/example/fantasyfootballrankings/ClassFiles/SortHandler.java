@@ -1542,7 +1542,7 @@ public class SortHandler {
 		popUp.show();
 
 		GraphView graphView = GraphingUtils
-				.generateGraphView(ImportLeague.cont);
+				.generateGraphView(cont);
 
 		GraphViewDataInterface[] dataSet = new GraphViewDataInterface[a
 				.getCount()];

@@ -238,11 +238,14 @@ public class ParseRankings {
 		teams.put("san francisco", "San Francisco 49ers");
 		teams.put("ers", "San Francisco 49ers");
 		teams.put("49ers", "San Francisco 49ers");
-		teams.put("stl", "St. Louis Rams");
-		teams.put("st. louis", "St. Louis Rams");
-		teams.put("st louis", "St. Louis Rams");
-		teams.put("rams", "St. Louis Rams");
-		teams.put("sl", "St. Louis Rams");
+		teams.put("stl", "Los Angeles Rams");
+		teams.put("st. louis", "Los Angeles Rams");
+		teams.put("st louis", "Los Angeles Rams");
+		teams.put("rams", "Los Angeles Rams");
+		teams.put("sl", "Los Angeles Rams");
+		teams.put("la", "Los Angeles Rams");
+        teams.put("los angeles", "Los Angeles Rams");
+        teams.put("lar", "Los Angeles Rams");
 		teams.put("ari", "Arizona Cardinals");
 		teams.put("arz", "Arizona Cardinals");
 		teams.put("arizona", "Arizona Cardinals");
@@ -403,7 +406,7 @@ public class ParseRankings {
 			uName = "Buccaneers D/ST";
 		} else if (name.contains("san fran") || name.contains("san francisco")) {
 			uName = "49ers D/ST";
-		} else if (name.contains("st. louis") || name.contains("st louis")) {
+		} else if (name.contains("st. louis") || name.contains("st louis") || name.contains("los angeles") || name.equals("la")) {
 			uName = "Rams D/ST";
 		} else if (name.contains("arizona")) {
 			uName = "Cardinals D/ST";
