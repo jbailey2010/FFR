@@ -31,16 +31,16 @@ public class ParseCBS {
             type = "ppr/";
         }
         String url = "http://www.cbssports.com/fantasy/football/rankings/";
-        cbsWorker(holder, s, url + type + "QB/yearly/");
-        cbsWorker(holder, s, url + type + "RB/yearly/");
-        cbsWorker(holder, s, url + type + "WR/yearly/");
-        cbsWorker(holder, s, url + type + "TE/yearly/");
-        cbsWorker(holder, s, url + type + "DST/yearly/");
-        cbsWorker(holder, s, url + type + "K/yearly/");
+        cbsWorker(holder, s, url + type + "QB/yearly/", Constants.QB);
+        cbsWorker(holder, s, url + type + "RB/yearly/", Constants.RB);
+        cbsWorker(holder, s, url + type + "WR/yearly/", Constants.WR);
+        cbsWorker(holder, s, url + type + "TE/yearly/", Constants.TE);
+        cbsWorker(holder, s, url + type + "DST/yearly/", Constants.DST);
+        cbsWorker(holder, s, url + type + "K/yearly/", Constants.K);
 
     }
 
-    public static void cbsWorker(Storage holder, Scoring s, String url) throws IOException {
+    public static void cbsWorker(Storage holder, Scoring s, String url, String pos) throws IOException {
 		List<String> td = HandleBasicQueries.handleLists(url,
 				"tbody.rankings-body tr.ranking-tbl-data-inner-tr td");
         int min = 0;
@@ -57,11 +57,12 @@ public class ParseCBS {
             int aucValue = Integer.parseInt(value.replace("$", "")) * 2;
             String nameAndTeam = td.get(i).substring(0, td.get(i).lastIndexOf(" "));
             String name = nameAndTeam.substring(0, nameAndTeam.lastIndexOf(" "));
+            String team = ParseRankings.fixTeams(nameAndTeam.substring(nameAndTeam.lastIndexOf(" ")));
             if (name.split(" ").length == 1) {
                 name += " D/ST";
             }
             String finalName = ParseRankings.fixNames(name);
-            ParseRankings.finalStretch(holder, finalName, aucValue, "", "");
+            ParseRankings.finalStretch(holder, finalName, aucValue, team, pos);
         }
 	}
 }

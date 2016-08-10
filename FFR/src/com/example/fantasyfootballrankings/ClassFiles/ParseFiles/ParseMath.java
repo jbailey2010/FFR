@@ -82,8 +82,8 @@ public class ParseMath {
 	 */
 	public static double convertRanking(double ranking) {
 		double possVal = 78.6341 - 15.893 * Math.log(ranking);
-		if (possVal < 0.0) {
-			possVal = 0.0;
+		if (possVal < 1.0) {
+			possVal = 1.0;
 		}
 		return possVal;
 	}
@@ -116,7 +116,7 @@ public class ParseMath {
 		}
 		if (player.info.position.equals(Constants.QB)
 				&& (r.qbs > 1 || (r.flex != null && r.flex.op > 0))) {
-			possVal *= 1.05;
+			possVal *= 1.10;
 		}
 		if (player.info.position.equals(Constants.DST)) {
 			possVal /= 10;
@@ -125,8 +125,8 @@ public class ParseMath {
 			possVal /= 20;
 		}
 		possVal *= 1.1;
-		if (possVal < 0.0) {
-			possVal = 0.0;
+		if (possVal < 1.0) {
+			possVal = 1.0;
 		}
 		return possVal;
 	}

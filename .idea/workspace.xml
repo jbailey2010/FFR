@@ -10,187 +10,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b10cadcc-f091-4d97-9eb3-29a6ab982205" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/dexedLibs.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/dropbox_sync_sdk_android.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FFR/gen/com/devspark/sidenavigation/R.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseNames.class" afterPath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseNames.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseProjections.class" afterPath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseProjections.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseRanks.class" afterPath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseRanks.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseTwitterSearch.class" afterPath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseTwitterSearch.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask.class" afterPath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/StorageAsyncTask$ReadDraft.class" afterPath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/StorageAsyncTask$ReadDraft.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/StorageAsyncTask$WriteDraft.class" afterPath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/StorageAsyncTask$WriteDraft.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/StorageAsyncTask$WriteNewPAA.class" afterPath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/StorageAsyncTask$WriteNewPAA.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/StorageAsyncTask.class" afterPath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/StorageAsyncTask.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/FFR.apk" afterPath="$PROJECT_DIR$/out/production/FFR/FFR.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/FFR.unaligned.apk" afterPath="$PROJECT_DIR$/out/production/FFR/FFR.unaligned.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/FileIO/ReadFromFile.class" afterPath="$PROJECT_DIR$/out/production/FFR/FileIO/ReadFromFile.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/FileIO/WriteToFile.class" afterPath="$PROJECT_DIR$/out/production/FFR/FileIO/WriteToFile.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$1.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$2.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$3.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$4.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$5.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$6.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$7.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$8.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HandleWatchList$1.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HandleWatchList$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HandleWatchList$2.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HandleWatchList$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HandleWatchList$3.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HandleWatchList$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HandleWatchList$4.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HandleWatchList$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HandleWatchList$5.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HandleWatchList$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HandleWatchList$6.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HandleWatchList$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HandleWatchList.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HandleWatchList.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HighLevel.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/HighLevel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/BasicInfo.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/BasicInfo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$1.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$2.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$3.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$4.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$5.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$6.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$7.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$8.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Draft.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/NewsObjects.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/NewsObjects.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Roster.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Roster.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Scoring.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Scoring.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Values.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/LittleStorage/Values.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$1.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$10.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$10.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$11.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$11.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$12.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$12.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$2.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$3.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$4.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$5.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$6.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$7.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$8.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$9.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput$9.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ManageInput.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseCBS.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseCBS.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseDraft.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseDraft.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseESPNadv.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseESPNadv.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFFTB.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFFTB.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasyPros.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasyPros.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFreeAgents.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFreeAgents.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseInjuries.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseInjuries.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseNews.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseNews.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseOLineAdvanced.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseOLineAdvanced.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParsePlayerNames.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParsePlayerNames.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseStats.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseStats.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseWF.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseWF.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseYahoo.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseYahoo.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$1.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$10.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$10.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$11.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$11.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$12.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$12.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$13.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$13.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$2.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$3.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$4.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$5.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$6.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$7.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$8.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$9.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo$9.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$1.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$10.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$10.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$11.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$11.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$12.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$12.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$13.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$13.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$14.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$14.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$15.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$15.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$16.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$16.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$17.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$17.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$18.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$18.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$19.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$19.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$2.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$20.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$20.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$21.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$21.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$22.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$22.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$23.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$23.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$24.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$24.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$25.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$25.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$3.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$4.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$5.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$6.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$7.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$8.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$9.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler$9.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/SortHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/InterfaceAugmentations/SwipeDismissListViewTouchListener$1.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/InterfaceAugmentations/SwipeDismissListViewTouchListener$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/InterfaceAugmentations/SwipeDismissListViewTouchListener$2.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/InterfaceAugmentations/SwipeDismissListViewTouchListener$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/InterfaceAugmentations/SwipeDismissListViewTouchListener$3.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/InterfaceAugmentations/SwipeDismissListViewTouchListener$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/InterfaceAugmentations/SwipeDismissListViewTouchListener$4.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/InterfaceAugmentations/SwipeDismissListViewTouchListener$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/InterfaceAugmentations/SwipeDismissListViewTouchListener$OnDismissCallback.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/InterfaceAugmentations/SwipeDismissListViewTouchListener$OnDismissCallback.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/InterfaceAugmentations/SwipeDismissListViewTouchListener$PendingDismissData.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/InterfaceAugmentations/SwipeDismissListViewTouchListener$PendingDismissData.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/InterfaceAugmentations/SwipeDismissListViewTouchListener.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/InterfaceAugmentations/SwipeDismissListViewTouchListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$1.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$2.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$3.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$4.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$5.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$1.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$10.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$10.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$11.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$11.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$12.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$12.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$13.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$13.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$14.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$14.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$15.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$15.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$16.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$16.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$17.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$17.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$18.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$18.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$19.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$19.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$2.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$20.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$20.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$21.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$21.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$22.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$22.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$23.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$23.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$24.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$24.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$25.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$25.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$26.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$26.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$27.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$27.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$3.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$4.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$5.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$6.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$7.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$8.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$9.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings$9.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Rankings.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/libs.xml" afterPath="$PROJECT_DIR$/.idea/libraries/libs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/AndroidManifest.xml" afterPath="$PROJECT_DIR$/FFR/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/FFR.iml" afterPath="$PROJECT_DIR$/FFR/FFR.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/gen/com/ffr/fantasyfootballrankings/BuildConfig.java" afterPath="$PROJECT_DIR$/FFR/gen/com/ffr/fantasyfootballrankings/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/AsyncTasks/ParsingAsyncTask.java" afterPath="$PROJECT_DIR$/FFR/src/AsyncTasks/ParsingAsyncTask.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/HighLevel.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/HighLevel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseCBS.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseCBS.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFFTB.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFFTB.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasyPros.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasyPros.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseNFL.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseNFL.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseWF.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseWF.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseMath.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseMath.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/SortHandler.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/SortHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/HandleBasicQueries.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/HandleBasicQueries.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/MathUtils.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/MathUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/Pages/Home.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/Pages/Home.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SideNavigation-master/library/src/com/devspark/sidenavigation/SideNavigationView.java" afterPath="$PROJECT_DIR$/SideNavigation-master/library/src/com/devspark/sidenavigation/SideNavigationView.java" />
     </list>
     <ignored path="FFR.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -212,27 +44,92 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="HighLevel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/HighLevel.java">
+      <file leaf-file-name="ParseRankings.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.7777777">
-              <caret line="133" column="54" selection-start-line="133" selection-start-column="54" selection-end-line="133" selection-end-column="54" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="293" column="23" selection-start-line="293" selection-start-column="23" selection-end-line="293" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ParseFFTB.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ParseFFTB.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFFTB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.45126355">
-              <caret line="125" column="63" selection-start-line="125" selection-start-column="17" selection-end-line="125" selection-end-column="63" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Storage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/StorageClasses/Storage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="61" column="31" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParsingAsyncTask.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FFR/src/AsyncTasks/ParsingAsyncTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="142" column="36" selection-start-line="142" selection-start-column="36" selection-end-line="142" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParseCBS.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseCBS.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="63" column="59" selection-start-line="63" selection-start-column="59" selection-end-line="63" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParseWF.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseWF.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="26" column="23" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParseMath.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseMath.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="85" column="23" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MathUtils.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/MathUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3670588">
+              <caret line="168" column="37" selection-start-line="168" selection-start-column="37" selection-end-line="168" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="C:\Users\jeffbail\Documents\GitHub\FFR\jeff.keystore" />
+    <option name="KEY_ALIAS" value="herbert" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -253,14 +150,15 @@
         <option value="$PROJECT_DIR$/FFR/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseESPNadv.java" />
         <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/HandleBasicQueries.java" />
-        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseCBS.java" />
-        <option value="$PROJECT_DIR$/FFR/src/AsyncTasks/ParsingAsyncTask.java" />
-        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/HighLevel.java" />
         <option value="$PROJECT_DIR$/SideNavigation-master/library/src/com/devspark/sidenavigation/SideNavigationView.java" />
-        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFFTB.java" />
-        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.java" />
-        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/MathUtils.java" />
         <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/SortHandler.java" />
+        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.java" />
+        <option value="$PROJECT_DIR$/FFR/src/AsyncTasks/ParsingAsyncTask.java" />
+        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseMath.java" />
+        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/HighLevel.java" />
+        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseCBS.java" />
+        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFFTB.java" />
+        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/MathUtils.java" />
       </list>
     </option>
   </component>
@@ -497,6 +395,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FFR" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FFR" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fantasyfootballrankings" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ClassFiles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="ParseFiles" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -525,10 +449,13 @@
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="device.picker.selection" value="Nexus_6P_API_23" />
-    <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/GitHub/PortableGit_cf76fc1621ac41ad4fe86c420ab5ff403f1808b9/cmd/git.exe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/jeff.keystore" />
+    <property name="ExportedModule" value="FFR" />
+    <property name="ExportedApkPath" value="C:\Users\jeffbail\Dropbox\FFR.apk" />
+    <property name="AndroidRunProguardForReleaseBuild" value="false" />
   </component>
   <component name="RunManager" selected="Android Tests.Unnamed">
     <configuration default="false" name="All in FFR" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
@@ -880,34 +807,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unnamed - 2016.08.06 at 12h 56m 40s.xml">
+    <history-entry file="Unnamed - 2016.08.09 at 00h 49m 43s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.06 at 13h 07m 13s.xml">
+    <history-entry file="Unnamed - 2016.08.09 at 00h 53m 39s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.07 at 21h 15m 31s.xml">
+    <history-entry file="Unnamed - 2016.08.09 at 00h 59m 21s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.07 at 21h 18m 22s.xml">
+    <history-entry file="Unnamed - 2016.08.09 at 22h 46m 35s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.07 at 21h 31m 22s.xml">
+    <history-entry file="Unnamed - 2016.08.09 at 23h 10m 50s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.07 at 21h 41m 35s.xml">
+    <history-entry file="Unnamed - 2016.08.09 at 23h 19m 11s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.08 at 18h 54m 03s.xml">
+    <history-entry file="Unnamed - 2016.08.09 at 23h 26m 14s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.08 at 18h 58m 06s.xml">
+    <history-entry file="Unnamed - 2016.08.09 at 23h 31m 02s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.08 at 19h 06m 18s.xml">
+    <history-entry file="Unnamed - 2016.08.09 at 23h 37m 15s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.08 at 19h 17m 19s.xml">
+    <history-entry file="Unnamed - 2016.08.09 at 23h 40m 35s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
   </component>
@@ -921,9 +848,9 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45308924" sideWeight="0.5107181" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40114287" sideWeight="0.4892819" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.47657144" sideWeight="0.4892819" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32914287" sideWeight="0.48713827" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32914287" sideWeight="0.48713827" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -999,41 +926,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/StorageClasses/Storage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasyPros.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5714286">
           <caret line="34" column="10" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseNFL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="109" column="49" selection-start-line="109" selection-start-column="49" selection-end-line="109" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseYahoo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="98" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseWF.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="69" selection-start-line="36" selection-start-column="69" selection-end-line="36" selection-end-column="69" />
           <folding />
         </state>
       </provider>
@@ -1058,22 +954,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="40" column="68" selection-start-line="40" selection-start-column="68" selection-end-line="40" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseCBS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9013453">
-          <caret line="63" column="74" selection-start-line="63" selection-start-column="74" selection-end-line="63" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/AsyncTasks/ParsingAsyncTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="220" column="23" selection-start-line="220" selection-start-column="0" selection-end-line="221" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1110,14 +990,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-91.583336">
-          <caret line="408" column="125" selection-start-line="408" selection-start-column="125" selection-end-line="408" selection-end-column="125" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FFR/src/AsyncTasks/StorageAsyncTask.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1138,14 +1010,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7352342">
           <caret line="31" column="55" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/MathUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="307" column="18" selection-start-line="307" selection-start-column="18" selection-end-line="307" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -1190,18 +1054,117 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseNFL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="109" column="49" selection-start-line="109" selection-start-column="49" selection-end-line="109" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseYahoo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="98" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33257404">
+          <caret line="840" column="52" selection-start-line="840" selection-start-column="49" selection-end-line="840" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/HighLevel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.7777777">
-          <caret line="133" column="54" selection-start-line="133" selection-start-column="54" selection-end-line="133" selection-end-column="54" />
+        <state vertical-scroll-proportion="0.33161953">
+          <caret line="628" column="22" selection-start-line="628" selection-start-column="12" selection-end-line="628" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseWF.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="23" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/StorageClasses/Storage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="61" column="31" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="293" column="23" selection-start-line="293" selection-start-column="23" selection-end-line="293" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/AsyncTasks/ParsingAsyncTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="142" column="36" selection-start-line="142" selection-start-column="36" selection-end-line="142" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseCBS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="63" column="59" selection-start-line="63" selection-start-column="59" selection-end-line="63" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20705882">
+          <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFFTB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45126355">
-          <caret line="125" column="63" selection-start-line="125" selection-start-column="17" selection-end-line="125" selection-end-column="63" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/sdk/sources/android-23/java/lang/Math.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33161953">
+          <caret line="585" column="22" selection-start-line="585" selection-start-column="22" selection-end-line="585" selection-end-column="22" />
+          <folding>
+            <element signature="e#20016#20017#0" expanded="true" />
+            <element signature="e#20056#20057#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseMath.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="85" column="23" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/MathUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3670588">
+          <caret line="168" column="37" selection-start-line="168" selection-start-column="37" selection-end-line="168" selection-end-column="37" />
           <folding />
         </state>
       </provider>

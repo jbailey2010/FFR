@@ -74,11 +74,13 @@ public class ParseRankings {
 		fixes.put("BJGE", "BenJarvus Green-Ellis");
 		fixes.put("Joseph Morgan", "Joe Morgan");
 		fixes.put("E.j. Manuel", "EJ Manuel");
+        fixes.put("Devante Parker", "DeVante Parker");
 		fixes.put("TY Hilton", "T.Y. Hilton");
 		fixes.put("Ty Hilton", "T.Y. Hilton");
 		fixes.put("Reuben Randle", "Rueben Randle");
 		fixes.put("E.J. Manuel", "EJ Manuel");
 		fixes.put("Steve L Smith", "Steve Smith");
+        fixes.put("Steve Smith Sr.", "Steve Smith");
 		fixes.put("Michael Crabtree*", "Michael Crabtree");
 		fixes.put("Malcolm Floyd", "Malcom Floyd");
 		fixes.put("Wesley Welker", "Wes Welker");

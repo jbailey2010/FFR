@@ -166,9 +166,8 @@ public class MathUtils {
 				}
 			}
 			if (roster.flex.op == 1) {
-				qbLimit = (6 * x - 31);
+				qbLimit = (6 * x - 32);
 				teLimit += 6.0 / x;
-				rbLimit += x / 12.0;
 				if (scoring.catches == 1) {
 					rbLimit += x / 12.0;
 					wrLimit += x / 11.0;
@@ -283,46 +282,28 @@ public class MathUtils {
 				k.add(player);
 			}
 		}
-        if (qbLimit > qb.size()) {
-            System.out.println("Updating qbLimit from " + qbLimit + " to " + qb.size());
-            qbLimit = qb.size();
-        }
-        if (rbLimit > rb.size()) {
-            System.out.println("Updating rbLimit from " + rbLimit + " to " + rb.size());
-            rbLimit = rb.size();
-        }
-        if (wrLimit > wr.size()) {
-            System.out.println("Updating wrLimit from " + wrLimit + " to " + wr.size());
-            wrLimit = wr.size();
-        }
-        if (teLimit > te.size()) {
-            System.out.println("Updating teLimit from " + teLimit + " to " + te.size());
-            teLimit = te.size();
-        }
-        if (dLimit > def.size()) {
-            System.out.println("Updating dLimit from " + dLimit + " to " + def.size());
-            dLimit = def.size();
-        }
-        if (kLimit > k.size()) {
-            System.out.println("Updating kLimit from " + kLimit + " to " + k.size());
-            kLimit = k.size();
-        }
-		for (qbCounter = 0; qbCounter < qbLimit; qbCounter++) {
+        int qbCap = Math.min((int) qbLimit, qb.size());
+		for (qbCounter = 0; qbCounter < qbCap; qbCounter++) {
  			qbTotal += qb.poll().values.points;
 		}
-		for (rbCounter = 0; rbCounter < rbLimit; rbCounter++) {
+        int rbCap = Math.min((int) rbLimit, rb.size());
+		for (rbCounter = 0; rbCounter < rbCap; rbCounter++) {
 			rbTotal += rb.poll().values.points;
 		}
+        int wrCap = Math.min((int) wrLimit, wr.size());
 		for (wrCounter = 0; wrCounter < wrLimit; wrCounter++) {
 			wrTotal += wr.poll().values.points;
 		}
-		for (teCounter = 0; teCounter < teLimit; teCounter++) {
+        int teCap = Math.min((int) teLimit, te.size());
+		for (teCounter = 0; teCounter < teCap; teCounter++) {
 			teTotal += te.poll().values.points;
 		}
-		for (dCounter = 0; dCounter < dLimit; dCounter++) {
+        int dCap = Math.min((int) dLimit, def.size());
+		for (dCounter = 0; dCounter < dCap; dCounter++) {
 			dTotal += def.poll().values.points;
 		}
-		for (kCounter = 0; kCounter < kLimit; kCounter++) {
+        int kCap = Math.min((int) kLimit, k.size());
+		for (kCounter = 0; kCounter < kCap; kCounter++) {
 			kTotal += k.poll().values.points;
 		}
 		qbTotal /= qbCounter;

@@ -37,22 +37,22 @@ public class ParseFFTB {
 			throws MalformedURLException, IOException, XPatherException {
 		parseFFTBPage(
 				holder,
-				"http://www.fftoolbox.com/football/" + Home.yearKey + "/auction-values.cfm?pos=QB&teams=12&budget=200");
+				"http://www.fftoolbox.com/football/" + Home.yearKey + "/auction-values.cfm?pos=QB&teams=12&budget=200", Constants.QB);
 		parseFFTBPage(
 				holder,
-				"http://www.fftoolbox.com/football/" + Home.yearKey + "/auction-values.cfm?pos=RB&teams=12&budget=200");
+				"http://www.fftoolbox.com/football/" + Home.yearKey + "/auction-values.cfm?pos=RB&teams=12&budget=200", Constants.RB);
 		parseFFTBPage(
 				holder,
-				"http://www.fftoolbox.com/football/" + Home.yearKey + "/auction-values.cfm?pos=WR&teams=12&budget=200");
+				"http://www.fftoolbox.com/football/" + Home.yearKey + "/auction-values.cfm?pos=WR&teams=12&budget=200", Constants.WR);
 		parseFFTBPage(
 				holder,
-				"http://www.fftoolbox.com/football/" + Home.yearKey + "/auction-values.cfm?pos=TE&teams=12&budget=200");
+				"http://www.fftoolbox.com/football/" + Home.yearKey + "/auction-values.cfm?pos=TE&teams=12&budget=200", Constants.TE);
 		parseFFTBPage(
 				holder,
-				"http://www.fftoolbox.com/football/" + Home.yearKey + "/auction-values.cfm?pos=PK&teams=12&budget=200");
+				"http://www.fftoolbox.com/football/" + Home.yearKey + "/auction-values.cfm?pos=PK&teams=12&budget=200", Constants.DST);
 		parseFFTBPage(
 				holder,
-				"http://www.fftoolbox.com/football/" + Home.yearKey + "/auction-values.cfm?pos=Def&teams=12&budget=200");
+				"http://www.fftoolbox.com/football/" + Home.yearKey + "/auction-values.cfm?pos=Def&teams=12&budget=200", Constants.K);
 	}
 
 	/**
@@ -66,15 +66,12 @@ public class ParseFFTB {
 	 * @throws IOException
 	 * @throws MalformedURLException
 	 */
-	public static void parseFFTBPage(Storage holder, String url)
+	public static void parseFFTBPage(Storage holder, String url, String pos)
 			throws MalformedURLException, IOException, XPatherException {
 		List<String> brokenUp = HandleBasicQueries.handleLists(url, "td");
 		int min = 0;
 		for (int i = 0; i < brokenUp.size(); i++) {
 			if (ManageInput.isInteger(brokenUp.get(i))) {
-                for (int j = i; j < i+10; j++) {
-                    System.out.println(j + ": " + brokenUp.get(j));
-                }
                 min = i + 1;
                 break;
             }
@@ -82,13 +79,10 @@ public class ParseFFTB {
 		for (int i = min; i < brokenUp.size(); i += 8) {
 			String name = "";
 			String team = "";
-			String pos = "";
 			if (brokenUp.get(i + 2).equals("Def")) {
-				pos = Constants.DST;
                 team = ParseRankings.fixTeams(brokenUp.get(i + 1));
                 name = ParseRankings.fixDefenses(team);
 			} else {
-				pos = brokenUp.get(i + 2);
 				team = ParseRankings.fixTeams(brokenUp.get(i + 1));
 				name = ParseRankings.fixNames(brokenUp.get(i));
 			}
@@ -108,7 +102,6 @@ public class ParseFFTB {
 					match.info.age = age;
 				}
 				newPlayer.info.age = age;
-				System.out.println(name + ": " + age + ": " + team + ": " + pos);
 				ParseRankings.handlePlayer(holder, newPlayer, match);
 			}
 		}

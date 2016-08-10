@@ -319,13 +319,12 @@ public class HighLevel {
 	public static void qbProj(String url, HashMap<String, Double> points,
 			Scoring scoring, String pos) throws IOException {
 		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
-		List<String> td = HandleBasicQueries.handleLists(url, "tbody td");
+		List<String> td = HandleBasicQueries.handleLists(url, "table.table-bordered tbody tr td");
 
 		int min = 0;
 		ParseRankings.handleHashes();
 
 		for (int i = 0; i < td.size(); i++) {
-            System.out.println(i + ": " + td.get(i));
 			if (td.get(i).split(" ").length >= 3) {
 				min = i;
 				break;
@@ -336,9 +335,14 @@ public class HighLevel {
 			String name = "";
 			String[] nameSet = td.get(i).split(" ");
             if (nameSet.length == 1) {
-                 break;
+                if (td.get(i+1).contains("Site Projections")) {
+                    break;
+                }
+                nameSet = td.get(++i).split(" ");
             }
-			for (int j = 0; j < nameSet.length - 1; j++) {
+            int nameLimit = (nameSet.length == 2)  ? nameSet.length : nameSet.length - 1;
+
+			for (int j = 0; j < nameLimit; j++) {
 				name += nameSet[j] + " ";
 			}
 			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
@@ -366,7 +370,7 @@ public class HighLevel {
 	public static void rbProj(String url, HashMap<String, Double> points,
 			Scoring scoring, String pos) throws IOException {
 		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
-		List<String> td = HandleBasicQueries.handleLists(url, "tbody td");
+        List<String> td = HandleBasicQueries.handleLists(url, "table.table-bordered tbody tr td");
 
 		int min = 0;
 		ParseRankings.handleHashes();
@@ -382,11 +386,16 @@ public class HighLevel {
 			String name = "";
 			String[] nameSet = td.get(i).split(" ");
             if (nameSet.length == 1) {
-                break;
+                if (td.get(i+1).contains("Site Projections")) {
+                    break;
+                }
+                nameSet = td.get(++i).split(" ");
             }
-			for (int j = 0; j < nameSet.length - 1; j++) {
-				name += nameSet[j] + " ";
-			}
+            int nameLimit = (nameSet.length == 2)  ? nameSet.length : nameSet.length - 1;
+
+            for (int j = 0; j < nameLimit; j++) {
+                name += nameSet[j] + " ";
+            }
 			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
 			String team = ParseRankings.fixTeams(nameSet[nameSet.length - 1]);
 			double rushYards = Double.parseDouble(td.get(i + 2)
@@ -414,7 +423,7 @@ public class HighLevel {
 	public static void wrProj(String url, HashMap<String, Double> points,
 			Scoring scoring, String pos) throws IOException {
 		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
-		List<String> td = HandleBasicQueries.handleLists(url, "tbody td");
+        List<String> td = HandleBasicQueries.handleLists(url, "table.table-bordered tbody tr td");
 
 		int min = 0;
 		ParseRankings.handleHashes();
@@ -430,11 +439,16 @@ public class HighLevel {
 			String name = "";
 			String[] nameSet = td.get(i).split(" ");
             if (nameSet.length == 1) {
-                break;
+                if (td.get(i+1).contains("Site Projections")) {
+                    break;
+                }
+                nameSet = td.get(++i).split(" ");
             }
-			for (int j = 0; j < nameSet.length - 1; j++) {
-				name += nameSet[j] + " ";
-			}
+            int nameLimit = (nameSet.length == 2)  ? nameSet.length : nameSet.length - 1;
+
+            for (int j = 0; j < nameLimit; j++) {
+                name += nameSet[j] + " ";
+            }
 			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
 			String team = ParseRankings.fixTeams(nameSet[nameSet.length - 1]);
 			double rushYards = Double.parseDouble(td.get(i + 2)
@@ -462,7 +476,7 @@ public class HighLevel {
 	public static void teProj(String url, HashMap<String, Double> points,
 			Scoring scoring, String pos) throws IOException {
 		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
-		List<String> td = HandleBasicQueries.handleLists(url, "tbody td");
+        List<String> td = HandleBasicQueries.handleLists(url, "table.table-bordered tbody tr td");
 
 		int min = 0;
 		ParseRankings.handleHashes();
@@ -478,11 +492,16 @@ public class HighLevel {
 			String name = "";
 			String[] nameSet = td.get(i).split(" ");
             if (nameSet.length == 1) {
-                break;
+                if (td.get(i+1).contains("Site Projections")) {
+                    break;
+                }
+                nameSet = td.get(++i).split(" ");
             }
-			for (int j = 0; j < nameSet.length - 1; j++) {
-				name += nameSet[j] + " ";
-			}
+            int nameLimit = (nameSet.length == 2)  ? nameSet.length : nameSet.length - 1;
+
+            for (int j = 0; j < nameLimit; j++) {
+                name += nameSet[j] + " ";
+            }
 			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
 			String team = ParseRankings.fixTeams(nameSet[nameSet.length - 1]);
 			double catches = Double.parseDouble(td.get(i + 1).replace(",", ""));
@@ -505,7 +524,7 @@ public class HighLevel {
 	public static void kProj(String url, HashMap<String, Double> points,
 			String pos) throws IOException {
 		DecimalFormat df = new DecimalFormat(Constants.NUMBER_FORMAT);
-		List<String> td = HandleBasicQueries.handleLists(url, "tbody td");
+        List<String> td = HandleBasicQueries.handleLists(url, "table.table-bordered tbody tr td");
 
 		int min = 0;
 		ParseRankings.handleHashes();
@@ -521,11 +540,16 @@ public class HighLevel {
 			String name = "";
 			String[] nameSet = td.get(i).split(" ");
             if (nameSet.length == 1) {
-                break;
+                if (td.get(i+1).contains("Site Projections")) {
+                    break;
+                }
+                nameSet = td.get(++i).split(" ");
             }
-			for (int j = 0; j < nameSet.length - 1; j++) {
-				name += nameSet[j] + " ";
-			}
+            int nameLimit = (nameSet.length == 2)  ? nameSet.length : nameSet.length - 1;
+
+            for (int j = 0; j < nameLimit; j++) {
+                name += nameSet[j] + " ";
+            }
 			name = ParseRankings.fixNames(name.substring(0, name.length() - 1));
 			String team = ParseRankings.fixTeams(nameSet[nameSet.length - 1]);
 			proj = Double.parseDouble(td.get(i + 4));
@@ -621,7 +645,6 @@ public class HighLevel {
 			int limit = 10;
 			if (ReadFromFile.readScoring(cont).catches == 1) {
 				url = "http://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php";
-				limit = 10;
 			}
 			parseECRWorker(url, holder, ecr, risk, adp, limit);
 		} else {
@@ -732,7 +755,7 @@ public class HighLevel {
 	public static void parseECRWorker(String url, Storage holder,
 			HashMap<String, Double> ecr, HashMap<String, Double> risk,
 			HashMap<String, String> adp, int loopIter) throws IOException {
-		List<String> td = HandleBasicQueries.handleLists(url, "td");
+		List<String> td = HandleBasicQueries.handleLists(url, "table.player-table tbody tr td");
 		int min = 0;
 		String adpUrl = "http://www.fantasypros.com/nfl/adp/overall.php";
 		int loopIterAdp = 10;
@@ -749,7 +772,10 @@ public class HighLevel {
 		}
 		for (int i = min; i < td.size(); i += loopIter) {
             if (td.get(i).split(" ").length == 1) {
-                break;
+                i++;
+                if (i > td.size()) {
+                    break;
+                }
             }
             String filteredName = td.get(i).split(
                     " \\(")[0].split(", ")[0];
@@ -768,8 +794,8 @@ public class HighLevel {
 	public static void parseADPWorker(Storage holder,
 			HashMap<String, String> adp, String adpUrl, int loopIterAdp)
 			throws IOException {
-		List<String> td = HandleBasicQueries.handleLists(adpUrl, "td");
-		int min = 0;
+        List<String> td = HandleBasicQueries.handleLists(adpUrl, "table.player-table tbody tr td");
+        int min = 0;
 		try {
 			for (int i = 0; i < td.size(); i++) {
 
@@ -783,7 +809,10 @@ public class HighLevel {
 			}
 			for (int i = min; i < td.size(); i += loopIterAdp) {
                 if (td.get(i).split(" ").length == 1) {
-                    break;
+                    i++;
+                    if (i > td.size()) {
+                        break;
+                    }
                 }
                 String filteredName = td.get(i).split(
                         " \\(")[0].split(", ")[0];
