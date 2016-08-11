@@ -579,7 +579,7 @@ public class ParsingAsyncTask {
 			try {
 				Document doc = Jsoup.connect(baseURL).get();
 				List<String> percentages = HandleBasicQueries.handleListsMulti(
-						doc, baseURL, "div div.fpcol-5 span");
+						doc, baseURL, "div.wsis-summary div.five span");
 				for (String percent : percentages) {
 					if (percent.contains("%")
 							&& (percent.contains("50") || !ecrList
@@ -591,7 +591,7 @@ public class ParsingAsyncTask {
 				if (percentages.size() < 2) {
 					return null;
 				}
-				Elements elems = doc.select("div.fpcol-2");
+				Elements elems = doc.select("div.two");
 				Element p = null;
 				for (Element elem : elems) {
 					if (isStart
@@ -602,8 +602,7 @@ public class ParsingAsyncTask {
 						break;
 					} else if (!isStart && elem.text().contains("ECR")) {
 						p = elem;
-						Element megaParent = p.parent().parent().parent()
-								.parent();// .child(2).child(1).child(1).child(0).text();
+						Element megaParent = p.parent().parent().parent().parent();
 						ecrList.add(megaParent.child(2).child(0).child(1)
 								.child(0).text());
 						ecrList.add(megaParent.child(2).child(2).child(1)
@@ -621,8 +620,6 @@ public class ParsingAsyncTask {
 					} else {
 						Element megaParent = p.parent().parent().parent()
 								.parent();
-						megaParent.child(1);
-						megaParent.child(0);
 						name = megaParent.child(2).child(0).child(1).child(0)
 								.text();
 					}
