@@ -149,7 +149,7 @@
 	            android:textSize="13sp"
 	            android:textStyle="bold"
 	            android:layout_alignParentBottom="true"
-	            android:text="San Francisco 49ers\nRB" />
+	            android:text="Team Unknown" />
 	        <Button 
 	            android:id="@+id/dummy_btn_left"
 	            android:layout_width="wrap_content"
@@ -160,7 +160,7 @@
 	            android:background="@drawable/player_info_left"
 	            android:textSize="13sp"
 	            android:textStyle="bold"
-	            android:text="Age: 30" />
+	            android:text="Age:\n?" />
 	        <Button 
 	            android:id="@+id/dummy_btn_right"
 	            android:layout_width="wrap_content"
@@ -171,6 +171,6 @@
 	            android:background="@drawable/player_info_right"
 	            android:textSize="13sp"
 	            android:textStyle="bold"
-	            android:text="Bye: Week 5" />
+	            android:text="Bye:\n?" />
 
 </RelativeLayout>

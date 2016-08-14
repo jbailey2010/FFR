@@ -362,14 +362,14 @@ public class PlayerInfo {
 			if (searchedPlayer.info.position.equals(Constants.DST)
 					|| searchedPlayer.info.age == null
 					|| searchedPlayer.info.age.length() <= 1) {
-				leftPos.setText("Age:\nN/A");
+				leftPos.setText("Age:\n?");
 			}
 			if (searchedPlayer.info.team.equals("None")
 					|| searchedPlayer.info.team.equals("---")
 					|| searchedPlayer.info.team.equals("FA")) {
 				if (searchedPlayer.info.position.length() >= 1) {
 					centerPos.setText(searchedPlayer.info.position);
-					rightPos.setText("Bye:\nN/A");
+					rightPos.setText("Bye:\n?");
 				} else {
 					base.setVisibility(View.GONE);
 				}

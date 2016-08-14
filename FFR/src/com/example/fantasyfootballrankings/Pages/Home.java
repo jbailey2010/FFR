@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFantasySharks;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMFL;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseRazzball;
 import com.ffr.fantasyfootballrankings.R;
 import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
@@ -132,16 +135,17 @@ public class Home extends Activity {
 			startActivity(intent);
 		}
 
-		/*
-		 * StrictMode.ThreadPolicy policy = new
-		 * StrictMode.ThreadPolicy.Builder() .permitAll().build();
-		 * 
-		 * StrictMode.setThreadPolicy(policy); try {
-		 * System.out.println(holder.isRegularSeason); holder.isRegularSeason =
-		 * true; ParseRankings.handleHashes();
-		 * HighLevel.getROSRankingsWrapper(holder, cont); } catch (IOException
-		 * e) { // TODO Auto-generated catch block e.printStackTrace(); }
-		 */
+        /*
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
+		try {
+            holder.isRegularSeason = true;
+            ParseRankings.handleHashes();
+			ParseRazzball.getRazzballRankings(holder, ReadFromFile.readRoster(this), ReadFromFile.readScoring(this));
+		} catch (IOException e) {
+			e.printStackTrace(System.out);
+        }
+        */
 
 	}
 

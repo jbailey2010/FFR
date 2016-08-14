@@ -6,15 +6,36 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b10cadcc-f091-4d97-9eb3-29a6ab982205" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseMFL.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseRazzball.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasyPros.class" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasyPros.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasySharks.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseNames.class" afterPath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseNames.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseProjections.class" afterPath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseProjections.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseRanks.class" afterPath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseRanks.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseTwitterSearch.class" afterPath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask$ParseTwitterSearch.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask.class" afterPath="$PROJECT_DIR$/out/production/FFR/AsyncTasks/ParsingAsyncTask.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/FFR.apk" afterPath="$PROJECT_DIR$/out/production/FFR/FFR.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/FFR.unaligned.apk" afterPath="$PROJECT_DIR$/out/production/FFR/FFR.unaligned.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasySharks.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasySharks.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$1.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$2.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$3.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$4.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$5.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home.class" afterPath="$PROJECT_DIR$/out/production/FFR/com/example/fantasyfootballrankings/Pages/Home.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/res/layout/search_output.xml" afterPath="$PROJECT_DIR$/FFR/res/layout/search_output.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/AsyncTasks/ParsingAsyncTask.java" afterPath="$PROJECT_DIR$/FFR/src/AsyncTasks/ParsingAsyncTask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/Pages/Home.java" afterPath="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/Pages/Home.java" />
     </list>
     <ignored path="FFR.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,27 +57,80 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="ComparatorHandling.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling.java">
+      <file leaf-file-name="ParsingAsyncTask.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/FFR/src/AsyncTasks/ParsingAsyncTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.67509025">
+              <caret line="216" column="38" selection-start-line="216" selection-start-column="38" selection-end-line="216" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParseFantasySharks.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasySharks.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="552" column="32" selection-start-line="552" selection-start-column="32" selection-end-line="552" selection-end-column="32" />
+              <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="33" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParseRazzball.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseRazzball.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="49" column="69" selection-start-line="49" selection-start-column="69" selection-end-line="49" selection-end-column="69" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParseRankings.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="276" column="23" selection-start-line="276" selection-start-column="23" selection-end-line="276" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ParsingAsyncTask.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/FFR/src/AsyncTasks/ParsingAsyncTask.java">
+      <file leaf-file-name="HandleBasicQueries.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/HandleBasicQueries.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.599278">
-              <caret line="632" column="39" selection-start-line="632" selection-start-column="39" selection-end-line="632" selection-end-column="39" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Home.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/Pages/Home.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="147" column="10" selection-start-line="147" selection-start-column="10" selection-end-line="147" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="GenerateSignedApkSettings">
     <option name="KEY_STORE_PATH" value="C:\Users\jeffbail\Documents\GitHub\FFR\jeff.keystore" />
@@ -78,18 +152,24 @@
         <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseNFL.java" />
         <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasyPros.java" />
         <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseWF.java" />
-        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/Pages/Home.java" />
         <option value="$PROJECT_DIR$/FFR/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseESPNadv.java" />
         <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/HandleBasicQueries.java" />
         <option value="$PROJECT_DIR$/SideNavigation-master/library/src/com/devspark/sidenavigation/SideNavigationView.java" />
         <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/SortHandler.java" />
-        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.java" />
         <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseMath.java" />
         <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/HighLevel.java" />
         <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseCBS.java" />
         <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFFTB.java" />
         <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/MathUtils.java" />
+        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo.java" />
+        <option value="$PROJECT_DIR$/FFR/res/layout/search_output.xml" />
+        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.java" />
+        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseDraftWizardRanks.java" />
+        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasySharks.java" />
+        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseMFL.java" />
+        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseRazzball.java" />
+        <option value="$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/Pages/Home.java" />
         <option value="$PROJECT_DIR$/FFR/src/AsyncTasks/ParsingAsyncTask.java" />
       </list>
     </option>
@@ -180,7 +260,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -198,18 +278,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FFR" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -374,9 +444,51 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FFR" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FFR" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FFR" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FFR" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FFR" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -739,39 +851,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unnamed - 2016.08.09 at 00h 59m 21s.xml">
+    <history-entry file="Unnamed - 2016.08.13 at 00h 04m 58s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.09 at 22h 46m 35s.xml">
+    <history-entry file="Unnamed - 2016.08.13 at 22h 20m 16s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.09 at 23h 10m 50s.xml">
+    <history-entry file="Unnamed - 2016.08.13 at 22h 22m 42s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.09 at 23h 19m 11s.xml">
+    <history-entry file="Unnamed - 2016.08.13 at 22h 23m 55s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.09 at 23h 26m 14s.xml">
+    <history-entry file="Unnamed - 2016.08.13 at 22h 25m 52s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.09 at 23h 31m 02s.xml">
+    <history-entry file="Unnamed - 2016.08.13 at 22h 28m 21s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.09 at 23h 37m 15s.xml">
+    <history-entry file="Unnamed - 2016.08.13 at 22h 31m 30s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.09 at 23h 40m 35s.xml">
+    <history-entry file="Unnamed - 2016.08.13 at 22h 34m 11s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.11 at 00h 18m 30s.xml">
+    <history-entry file="Unnamed - 2016.08.13 at 22h 36m 14s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="Unnamed - 2016.08.11 at 00h 22m 26s.xml">
+    <history-entry file="Unnamed - 2016.08.13 at 22h 40m 50s.xml">
       <configuration name="Unnamed" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1064" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1064" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -779,7 +891,7 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45308924" sideWeight="0.5107181" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45257142" sideWeight="0.5107181" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47657144" sideWeight="0.4892819" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32914287" sideWeight="0.48713827" order="2" side_tool="false" content_ui="tabs" />
@@ -798,6 +910,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329582" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -814,11 +927,81 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseRazzball.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/HandleBasicQueries.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/Pages/Home.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="145" column="40" selection-start-line="145" selection-start-column="40" selection-end-line="145" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/AsyncTasks/ParsingAsyncTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasySharks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="66" selection-start-line="33" selection-start-column="66" selection-end-line="33" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/Pages/Home.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="141" column="67" selection-start-line="141" selection-start-column="67" selection-end-line="141" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseESPNadv.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="53" selection-start-line="31" selection-start-column="8" selection-end-line="33" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseDraftWizardRanks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="40" column="32" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ComparatorHandling.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -831,7 +1014,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -874,14 +1059,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasyPros.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5714286">
-          <caret line="34" column="10" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FFR/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -890,26 +1067,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/HandleBasicQueries.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.21524663">
-          <caret line="33" column="65" selection-start-line="33" selection-start-column="65" selection-end-line="33" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseESPNadv.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="40" column="68" selection-start-line="40" selection-start-column="68" selection-end-line="40" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SideNavigation-master/library/src/com/devspark/sidenavigation/SideNavigationView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.5">
           <caret line="291" column="61" selection-start-line="291" selection-start-column="61" selection-end-line="291" selection-end-column="61" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -917,22 +1079,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7169043">
           <caret line="23" column="7" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFreeAgents.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.044806518">
-          <caret line="30" column="111" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="111" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseDraftWizardRanks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.07535642">
-          <caret line="21" column="114" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="114" />
           <folding />
         </state>
       </provider>
@@ -992,38 +1138,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/Pages/Home.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29422382">
-          <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseNFL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="109" column="49" selection-start-line="109" selection-start-column="49" selection-end-line="109" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseYahoo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="98" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33257404">
-          <caret line="840" column="52" selection-start-line="840" selection-start-column="49" selection-end-line="840" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/HighLevel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33161953">
@@ -1040,50 +1154,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="293" column="23" selection-start-line="293" selection-start-column="23" selection-end-line="293" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20705882">
-          <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFFTB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Android/sdk/sources/android-23/java/lang/Math.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33161953">
           <caret line="585" column="22" selection-start-line="585" selection-start-column="22" selection-end-line="585" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseCBS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64">
-          <caret line="63" column="59" selection-start-line="63" selection-start-column="59" selection-end-line="63" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseWF.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06117647">
-          <caret line="26" column="23" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1111,11 +1185,174 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/PlayerInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6293436">
+          <caret line="371" column="45" selection-start-line="371" selection-start-column="45" selection-end-line="371" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseCBS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6407942">
+          <caret line="63" column="59" selection-start-line="63" selection-start-column="59" selection-end-line="63" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseWF.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.68231046">
+          <caret line="26" column="23" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFFTB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1696751">
+          <caret line="39" column="117" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="117" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseNFL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5631769">
+          <caret line="109" column="49" selection-start-line="109" selection-start-column="49" selection-end-line="109" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseYahoo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6480144">
+          <caret line="88" column="20" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ManageInput.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.6750903">
+          <caret line="375" column="23" selection-start-line="375" selection-start-column="23" selection-end-line="375" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/res/layout/search_output.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5153374">
+          <caret line="156" column="48" selection-start-line="156" selection-start-column="48" selection-end-line="156" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFreeAgents.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.045126352">
+          <caret line="30" column="40" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="111" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/sdk/sources/android-23/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.5435294">
+          <caret line="1164" column="18" selection-start-line="1164" selection-start-column="18" selection-end-line="1164" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseDraftWizardRanks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.051764704">
+          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseESPNadv.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32235295">
+          <caret line="33" column="53" selection-start-line="31" selection-start-column="8" selection-end-line="33" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseMFL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.1227437">
+          <caret line="43" column="69" selection-start-line="43" selection-start-column="69" selection-end-line="43" selection-end-column="69" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseFantasySharks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="33" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/HandleBasicQueries.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/Utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3317647">
+          <caret line="11" column="31" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseRankings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="276" column="23" selection-start-line="276" selection-start-column="23" selection-end-line="276" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/Pages/Home.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="147" column="10" selection-start-line="147" selection-start-column="10" selection-end-line="147" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FFR/src/com/example/fantasyfootballrankings/ClassFiles/ParseFiles/ParseRazzball.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="49" column="69" selection-start-line="49" selection-start-column="69" selection-end-line="49" selection-end-column="69" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/FFR/src/AsyncTasks/ParsingAsyncTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.599278">
-          <caret line="632" column="39" selection-start-line="632" selection-start-column="39" selection-end-line="632" selection-end-column="39" />
-          <folding />
+        <state vertical-scroll-proportion="0.67509025">
+          <caret line="216" column="38" selection-start-line="216" selection-start-column="38" selection-end-line="216" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

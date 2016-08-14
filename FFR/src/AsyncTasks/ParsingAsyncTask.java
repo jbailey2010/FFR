@@ -18,6 +18,9 @@ import org.jsoup.select.Elements;
 
 import com.example.fantasyfootballrankings.ClassFiles.HighLevel;
 import com.example.fantasyfootballrankings.ClassFiles.ComparatorHandling;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFantasySharks;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMFL;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseRazzball;
 import com.example.fantasyfootballrankings.ClassFiles.ParseRankings;
 import com.example.fantasyfootballrankings.ClassFiles.PlayerInfo;
 import com.example.fantasyfootballrankings.ClassFiles.LittleStorage.NewsObjects;
@@ -28,7 +31,7 @@ import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseCBS;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseDraftWizardRanks;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseESPNadv;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFFTB;
-import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFantasyPros;
+import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseFantasySharks;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseMath;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseNFL;
 import com.example.fantasyfootballrankings.ClassFiles.ParseFiles.ParseOLineAdvanced;
@@ -180,9 +183,25 @@ public class ParsingAsyncTask {
 				} catch (IOException e9) {
 				}
 				publishProgress("Please wait, fetching the rankings...(8/30)");
-				System.out.println("Before Fantasy Pros");
+				System.out.println("Before Fantasy Sharks");
 				try {
-					ParseFantasyPros.parseFantasyProsAgg(holder);
+                    ParseFantasySharks.getFantasySharksAuctionValues(holder);
+                } catch (HttpStatusException e2) {
+					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+				} catch (IOException e8) {
+				}
+
+                System.out.println("Before MFL");
+				try {
+                    ParseMFL.getMFLAAVs(holder);
+                } catch (HttpStatusException e2) {
+                    System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
+                } catch (IOException e8) {
+                }
+
+                System.out.println("Before Razzball");
+				try {
+                    ParseRazzball.getRazzballRankings(holder, r, s);
 				} catch (HttpStatusException e2) {
 					System.out.println(e2.getStatusCode() + ", " + e2.getUrl());
 				} catch (IOException e8) {
@@ -197,6 +216,7 @@ public class ParsingAsyncTask {
 				}
 				System.out.println("Before Draft Wizard Rankings");
 				try {
+					ParseDraftWizardRanks.parseRanksWrapper(holder, s, r);
 					ParseDraftWizardRanks.parseRanksWrapper(holder, s, r);
 					publishProgress("Please wait, fetching the rankings...(23/30)");
 				} catch (IOException e) {
@@ -237,7 +257,6 @@ public class ParsingAsyncTask {
 				ParseMath.convertECR(holder);
 				ParseMath.convertECR(holder);
 				publishProgress("Please wait, fetching the rankings...(28/30)");
-				ParseMath.convertADP(holder);
 				ParseMath.convertADP(holder);
 				publishProgress("Please wait, fetching the rankings...(30/30)");
 			}

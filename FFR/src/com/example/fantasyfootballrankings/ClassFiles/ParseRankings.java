@@ -81,6 +81,7 @@ public class ParseRankings {
 		fixes.put("E.J. Manuel", "EJ Manuel");
 		fixes.put("Steve L Smith", "Steve Smith");
         fixes.put("Steve Smith Sr.", "Steve Smith");
+        fixes.put("Dori Green-Beckham", "Dorial Green-Beckham");
 		fixes.put("Michael Crabtree*", "Michael Crabtree");
 		fixes.put("Malcolm Floyd", "Malcom Floyd");
 		fixes.put("Wesley Welker", "Wes Welker");
@@ -107,6 +108,8 @@ public class ParseRankings {
 		fixes.put("Steven Gostkowski", "Stephen Gostkowski");
 		fixes.put("Cecil Shorts III", "Cecil Shorts");
 		fixes.put("T Y Hilton", "T.Y. Hilton");
+        fixes.put("Marvin Jones Jr.", "Marvin Jones");
+        fixes.put("A Seferian-Jenkins", "Austin Seferian-Jenkins");
 		fixes.put("Joshua Cribbs", "Josh Cribbs");
 		fixes.put("Devier Posey", "DeVier Posey");
 		fixes.put("Darren Mcfadden", "Darren McFadden");
@@ -243,6 +246,7 @@ public class ParseRankings {
 		teams.put("stl", "Los Angeles Rams");
 		teams.put("st. louis", "Los Angeles Rams");
 		teams.put("st louis", "Los Angeles Rams");
+		teams.put("ram", "Los Angeles Rams");
 		teams.put("rams", "Los Angeles Rams");
 		teams.put("sl", "Los Angeles Rams");
 		teams.put("la", "Los Angeles Rams");
@@ -269,7 +273,6 @@ public class ParseRankings {
 	 *            the team parsed
 	 * @param pos
 	 *            the postition parsed
-	 * @param counter
 	 */
 	public static void finalStretch(Storage holder, String playerName, int val,
 			String team, String pos) {
@@ -457,6 +460,8 @@ public class ParseRankings {
 			return "Tampa Bay Buccaneers";
 		} else if (low.contains("mia")) {
 			return "Miami Dolphins";
+		} else if (low.contains("nyg")) {
+			return "New York Giants";
 		}
 		return team;
 	}
